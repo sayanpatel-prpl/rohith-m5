@@ -162,13 +162,82 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| (populated during roadmap creation) | | |
+| FOUND-01 | Phase 1: Foundation and Architecture | Pending |
+| FOUND-02 | Phase 1: Foundation and Architecture | Pending |
+| FOUND-03 | Phase 1: Foundation and Architecture | Pending |
+| FOUND-04 | Phase 1: Foundation and Architecture | Pending |
+| FOUND-05 | Phase 1: Foundation and Architecture | Pending |
+| FOUND-06 | Phase 1: Foundation and Architecture | Pending |
+| FOUND-07 | Phase 1: Foundation and Architecture | Pending |
+| FOUND-08 | Phase 1: Foundation and Architecture | Pending |
+| FOUND-09 | Phase 2: Report Shell and Data Layer | Pending |
+| FOUND-10 | Phase 2: Report Shell and Data Layer | Pending |
+| FOUND-11 | Phase 2: Report Shell and Data Layer | Pending |
+| FOUND-12 | Phase 2: Report Shell and Data Layer | Pending |
+| FOUND-13 | Phase 2: Report Shell and Data Layer | Pending |
+| FOUND-14 | Phase 2: Report Shell and Data Layer | Pending |
+| EXEC-01 | Phase 3: Core Financial Intelligence | Pending |
+| EXEC-02 | Phase 3: Core Financial Intelligence | Pending |
+| EXEC-03 | Phase 3: Core Financial Intelligence | Pending |
+| EXEC-04 | Phase 3: Core Financial Intelligence | Pending |
+| MRKT-01 | Phase 5: Market Context and Operations | Pending |
+| MRKT-02 | Phase 5: Market Context and Operations | Pending |
+| MRKT-03 | Phase 5: Market Context and Operations | Pending |
+| MRKT-04 | Phase 5: Market Context and Operations | Pending |
+| FINP-01 | Phase 3: Core Financial Intelligence | Pending |
+| FINP-02 | Phase 3: Core Financial Intelligence | Pending |
+| FINP-03 | Phase 3: Core Financial Intelligence | Pending |
+| FINP-04 | Phase 3: Core Financial Intelligence | Pending |
+| FINP-05 | Phase 3: Core Financial Intelligence | Pending |
+| FINP-06 | Phase 3: Core Financial Intelligence | Pending |
+| FINP-07 | Phase 3: Core Financial Intelligence | Pending |
+| DEAL-01 | Phase 4: Deal Flow and Leadership Signals | Pending |
+| DEAL-02 | Phase 4: Deal Flow and Leadership Signals | Pending |
+| DEAL-03 | Phase 4: Deal Flow and Leadership Signals | Pending |
+| DEAL-04 | Phase 4: Deal Flow and Leadership Signals | Pending |
+| DEAL-05 | Phase 4: Deal Flow and Leadership Signals | Pending |
+| DEAL-06 | Phase 4: Deal Flow and Leadership Signals | Pending |
+| OPER-01 | Phase 5: Market Context and Operations | Pending |
+| OPER-02 | Phase 5: Market Context and Operations | Pending |
+| OPER-03 | Phase 5: Market Context and Operations | Pending |
+| OPER-04 | Phase 5: Market Context and Operations | Pending |
+| LEAD-01 | Phase 4: Deal Flow and Leadership Signals | Pending |
+| LEAD-02 | Phase 4: Deal Flow and Leadership Signals | Pending |
+| LEAD-03 | Phase 4: Deal Flow and Leadership Signals | Pending |
+| LEAD-04 | Phase 4: Deal Flow and Leadership Signals | Pending |
+| LEAD-05 | Phase 4: Deal Flow and Leadership Signals | Pending |
+| COMP-01 | Phase 6: Competitive Landscape and Sub-Sector Analysis | Pending |
+| COMP-02 | Phase 6: Competitive Landscape and Sub-Sector Analysis | Pending |
+| COMP-03 | Phase 6: Competitive Landscape and Sub-Sector Analysis | Pending |
+| COMP-04 | Phase 6: Competitive Landscape and Sub-Sector Analysis | Pending |
+| SSDD-01 | Phase 6: Competitive Landscape and Sub-Sector Analysis | Pending |
+| SSDD-02 | Phase 6: Competitive Landscape and Sub-Sector Analysis | Pending |
+| SSDD-03 | Phase 6: Competitive Landscape and Sub-Sector Analysis | Pending |
+| SSDD-04 | Phase 6: Competitive Landscape and Sub-Sector Analysis | Pending |
+| ACTN-01 | Phase 7: AI-Powered Intelligence | Pending |
+| ACTN-02 | Phase 7: AI-Powered Intelligence | Pending |
+| ACTN-03 | Phase 7: AI-Powered Intelligence | Pending |
+| WTCH-01 | Phase 8: Forward-Looking Signals | Pending |
+| WTCH-02 | Phase 8: Forward-Looking Signals | Pending |
+| WTCH-03 | Phase 8: Forward-Looking Signals | Pending |
+| WTCH-04 | Phase 8: Forward-Looking Signals | Pending |
+| AINL-01 | Phase 7: AI-Powered Intelligence | Pending |
+| AINL-02 | Phase 7: AI-Powered Intelligence | Pending |
+| AINL-03 | Phase 7: AI-Powered Intelligence | Pending |
+| EXPT-01 | Phase 9: Export and Meeting Prep | Pending |
+| EXPT-02 | Phase 9: Export and Meeting Prep | Pending |
+| EXPT-03 | Phase 9: Export and Meeting Prep | Pending |
+| EXPT-04 | Phase 9: Export and Meeting Prep | Pending |
+| BRND-01 | Phase 1: Foundation and Architecture | Pending |
+| BRND-02 | Phase 1: Foundation and Architecture | Pending |
+| BRND-03 | Phase 1: Foundation and Architecture | Pending |
+| BRND-04 | Phase 1: Foundation and Architecture | Pending |
 
 **Coverage:**
-- v1 requirements: 58 total
-- Mapped to phases: 0
-- Unmapped: 58
+- v1 requirements: 70 total
+- Mapped to phases: 70
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-02-15*
-*Last updated: 2026-02-15 after initial definition*
+*Last updated: 2026-02-15 after roadmap creation*
