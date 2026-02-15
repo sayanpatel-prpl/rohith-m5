@@ -34,11 +34,11 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. Shared UI primitives (StatCard, TrendIndicator, PerformanceTag) render with brand tokens and display formatted Indian financial numbers (INR Cr/Lakh, percentages, basis points)
   4. Chart wrappers (TrendLineChart, BarComparisonChart) render using the active tenant's brand colors from CSS custom properties
   5. An error in one section displays a section-level error boundary message without crashing the rest of the application
-**Plans**: TBD
+**Plans:** 2 plans
 
 Plans:
-- [ ] 01-01: Project scaffold, routing, and multi-tenant BrandProvider
-- [ ] 01-02: TypeScript data contracts, formatters, shared UI primitives, and chart wrappers
+- [ ] 01-01-PLAN.md -- Project scaffold, Vite + React 19 + Tailwind v4 setup, multi-tenant BrandProvider with URL-based tenant resolution, React Router app shell, dark mode, error boundaries
+- [ ] 01-02-PLAN.md -- TypeScript data contracts for all 10 sections, Indian financial formatters with tests, shared UI primitives (StatCard, TrendIndicator, PerformanceTag, skeletons), chart wrappers (TrendLineChart, BarComparisonChart)
 
 ### Phase 2: Report Shell and Data Layer
 **Goal**: The report container is operational with section navigation, data fetching, client-side filtering, and lazy-loaded section rendering -- so that content modules can plug in and receive typed, filtered data
@@ -167,7 +167,7 @@ Note: Phases 3, 4, and 5 depend only on Phase 2 (not on each other) and could th
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation and Architecture | 0/2 | Not started | - |
+| 1. Foundation and Architecture | 0/2 | Planning complete | - |
 | 2. Report Shell and Data Layer | 0/2 | Not started | - |
 | 3. Core Financial Intelligence | 0/2 | Not started | - |
 | 4. Deal Flow and Leadership Signals | 0/2 | Not started | - |
