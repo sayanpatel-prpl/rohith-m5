@@ -12,7 +12,7 @@ This roadmap delivers an AI-driven interactive industry intelligence report for 
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Foundation and Architecture** - Multi-tenant scaffold with branding, types, formatters, and shared UI primitives
+- [x] **Phase 1: Foundation and Architecture** - Multi-tenant scaffold with branding, types, formatters, and shared UI primitives
 - [ ] **Phase 2: Report Shell and Data Layer** - Navigation, API client, filter store, and section rendering infrastructure
 - [ ] **Phase 3: Core Financial Intelligence** - Executive Snapshot landing page and Financial Performance Tracker
 - [ ] **Phase 4: Deal Flow and Leadership Signals** - Deals & Transactions tracker and Leadership & Governance watch
@@ -37,8 +37,8 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans:** 2 plans
 
 Plans:
-- [ ] 01-01-PLAN.md -- Project scaffold, Vite + React 19 + Tailwind v4 setup, multi-tenant BrandProvider with URL-based tenant resolution, React Router app shell, dark mode, error boundaries
-- [ ] 01-02-PLAN.md -- TypeScript data contracts for all 10 sections, Indian financial formatters with tests, shared UI primitives (StatCard, TrendIndicator, PerformanceTag, skeletons), chart wrappers (TrendLineChart, BarComparisonChart)
+- [x] 01-01-PLAN.md -- Project scaffold, Vite + React 19 + Tailwind v4 setup, multi-tenant BrandProvider with URL-based tenant resolution, React Router app shell, dark mode, error boundaries
+- [x] 01-02-PLAN.md -- TypeScript data contracts for all 10 sections, Indian financial formatters with tests, shared UI primitives (StatCard, TrendIndicator, PerformanceTag, skeletons), chart wrappers (TrendLineChart, BarComparisonChart)
 
 ### Phase 2: Report Shell and Data Layer
 **Goal**: The report container is operational with section navigation, data fetching, client-side filtering, and lazy-loaded section rendering -- so that content modules can plug in and receive typed, filtered data
@@ -167,7 +167,7 @@ Note: Phases 3, 4, and 5 depend only on Phase 2 (not on each other) and could th
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation and Architecture | 0/2 | Planning complete | - |
+| 1. Foundation and Architecture | 2/2 | Complete | 2026-02-15 |
 | 2. Report Shell and Data Layer | 0/2 | Not started | - |
 | 3. Core Financial Intelligence | 0/2 | Not started | - |
 | 4. Deal Flow and Leadership Signals | 0/2 | Not started | - |
@@ -179,4 +179,4 @@ Note: Phases 3, 4, and 5 depend only on Phase 2 (not on each other) and could th
 
 ---
 *Roadmap created: 2026-02-15*
-*Last updated: 2026-02-15*
+*Last updated: 2026-02-16*
