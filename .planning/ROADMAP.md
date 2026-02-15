@@ -49,11 +49,11 @@ Plans:
   2. Clicking a section in the sidebar lazy-loads only that section's code (visible in network tab: no upfront bundle for inactive sections)
   3. FilterBar lets user select companies (multi-select), sub-category, performance tier, and time period -- and filter changes update visible data without triggering new API requests
   4. API client fetches typed JSON from the backend with TanStack Query caching (repeat navigation to a section does not re-fetch)
-**Plans**: TBD
+**Plans:** 2 plans
 
 Plans:
-- [ ] 02-01: API client, TanStack Query integration, and Zustand filter store
-- [ ] 02-02: Report shell layout, section navigation sidebar, SectionRenderer with lazy loading, and FilterBar UI
+- [ ] 02-01-PLAN.md -- API client with TanStack Query caching, Zustand filter store with URL sync, mock data fixtures for all 10 sections with 16 real Indian Consumer Durables companies
+- [ ] 02-02-PLAN.md -- FilterBar UI (CompanyPicker multi-select, SelectFilter dropdowns), 10 lazy-loaded placeholder sections proving fetch->cache->filter pipeline, updated App.tsx and AppShell
 
 ### Phase 3: Core Financial Intelligence
 **Goal**: Users land on an AI-generated executive briefing and can drill into standardized financial performance data for 15-20 Consumer Durables companies -- the intelligence foundation that all other modules build upon
@@ -168,7 +168,7 @@ Note: Phases 3, 4, and 5 depend only on Phase 2 (not on each other) and could th
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation and Architecture | 2/2 | Complete | 2026-02-15 |
-| 2. Report Shell and Data Layer | 0/2 | Not started | - |
+| 2. Report Shell and Data Layer | 0/2 | Planned | - |
 | 3. Core Financial Intelligence | 0/2 | Not started | - |
 | 4. Deal Flow and Leadership Signals | 0/2 | Not started | - |
 | 5. Market Context and Operations | 0/2 | Not started | - |
@@ -179,4 +179,4 @@ Note: Phases 3, 4, and 5 depend only on Phase 2 (not on each other) and could th
 
 ---
 *Roadmap created: 2026-02-15*
-*Last updated: 2026-02-16*
+*Last updated: 2026-02-15*
