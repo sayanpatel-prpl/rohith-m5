@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useBrand } from "../brand/useBrand";
+import { EditionBadge } from "../ui/EditionBadge";
 import {
   getStoredTheme,
   applyTheme,
@@ -44,9 +45,7 @@ export function TopBar() {
 
       {/* Center-right: Edition badge */}
       <div className="flex items-center gap-md">
-        <span className="bg-brand-accent/10 text-brand-accent text-xs font-medium px-sm py-xs rounded">
-          February 2026 Edition
-        </span>
+        <EditionBadge edition="February 2026" />
 
         {/* Right: Dark mode toggle */}
         <button
