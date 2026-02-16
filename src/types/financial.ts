@@ -39,3 +39,19 @@ export interface FinancialMetrics {
   /** Debt-to-equity ratio */
   debtEquity: number;
 }
+
+/** Historical quarterly data point for trend charts */
+export interface QuarterlySnapshot {
+  /** Quarter label, e.g. "Q2 FY24" */
+  period: string;
+  /** Revenue growth year-over-year as decimal (0.125 = 12.5%) */
+  revenueGrowthYoY: number;
+  /** EBITDA margin as decimal (0.18 = 18%) */
+  ebitdaMargin: number;
+  /** Working capital cycle in days */
+  workingCapitalDays: number;
+  /** Return on capital employed as decimal */
+  roce: number;
+  /** Debt-to-equity ratio */
+  debtEquity: number;
+}

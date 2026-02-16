@@ -3,7 +3,7 @@ import type {
   PerformanceLevel,
   TrendDirection,
 } from "./common";
-import type { FinancialMetrics } from "./financial";
+import type { FinancialMetrics, QuarterlySnapshot } from "./financial";
 
 // ---------------------------------------------------------------------------
 // Base
@@ -54,6 +54,8 @@ export interface FinancialPerformanceData extends SectionDataBase {
     performance: PerformanceLevel;
     varianceAnalysis: string;
     source: string;
+    /** Last 6 quarters of historical data for trend charts */
+    history: QuarterlySnapshot[];
   }>;
 }
 
