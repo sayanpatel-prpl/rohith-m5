@@ -274,18 +274,21 @@ export interface SubSectorDeepDiveData extends SectionDataBase {
 
 export interface ActionLensData extends SectionDataBase {
   section: "action-lens";
-  persona: "PE/Investors" | "Founders" | "COOs/CFOs" | "Procurement Heads";
-  takeaways: Array<{
-    insight: string;
-    actionableStep: string;
-    urgency: ConfidenceLevel;
-    relatedSignals: string[];
+  personas: Array<{
+    persona: "PE/Investors" | "Founders" | "COOs/CFOs" | "Procurement Heads";
+    takeaways: Array<{
+      insight: string;
+      actionableStep: string;
+      urgency: ConfidenceLevel;
+      relatedSignals: string[];
+    }>;
   }>;
   signalScores: Array<{
     signal: string;
     score: number;
     trend: TrendDirection;
     context: string;
+    serviceLine: "Turnaround" | "Growth Strategy" | "Cost Optimization" | "M&A Advisory";
   }>;
 }
 
