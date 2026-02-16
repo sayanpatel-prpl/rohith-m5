@@ -1,28 +1,53 @@
+import { useState, useMemo } from "react";
 import { useFilteredData } from "../../hooks/use-filtered-data";
 import { DataRecencyTag } from "../../components/ui/DataRecencyTag";
 import { SectionSkeleton } from "../../components/ui/SectionSkeleton";
+import { MetricsTable } from "./MetricsTable";
+import { ComparisonView } from "./ComparisonView";
 import type { FinancialPerformanceData } from "../../types/sections";
 
+const MAX_COMPARISON = 5;
+
 /**
- * Financial Performance placeholder section.
- * Proves the full fetch -> cache -> filter -> render pipeline.
- * Full module will be built in Phase 3.
+ * Financial Performance section.
+ * Sortable, filterable metrics table for 16 Consumer Durables companies
+ * with expandable variance analysis and side-by-side comparison charts.
  */
 export default function FinancialPerformance() {
-  const { data, rawData, isPending, error, filters } =
+  const { data, rawData, isPending, error } =
     useFilteredData<FinancialPerformanceData>("financial");
+
+  const [selectedForComparison, setSelectedForComparison] = useState<string[]>(
+    [],
+  );
+
+  // Toggle comparison selection with max 5 clamp
+  function toggleComparison(companyId: string) {
+    setSelectedForComparison((prev) => {
+      if (prev.includes(companyId)) {
+        return prev.filter((id) => id !== companyId);
+      }
+      if (prev.length >= MAX_COMPARISON) return prev;
+      return [...prev, companyId];
+    });
+  }
+
+  // CRITICAL: Derive comparison companies from rawData (unfiltered) to prevent
+  // chart re-render/flicker when the user sorts the table (RESEARCH.md pitfall 5)
+  const comparisonCompanies = useMemo(() => {
+    if (!rawData || selectedForComparison.length < 2) return [];
+    return rawData.companies.filter((c) =>
+      selectedForComparison.includes(c.id),
+    );
+  }, [rawData, selectedForComparison]);
 
   if (isPending) return <SectionSkeleton variant="table" />;
   if (error) throw error;
   if (!data || !rawData) return null;
 
-  const companyCount = data.companies.length;
-  const rawCompanyCount = rawData.companies.length;
-
-  const activeFilters = getActiveFilterSummary(filters);
-
   return (
     <div className="p-md space-y-md">
+      {/* Header */}
       <div className="flex items-center justify-between">
         <h2 className="text-sm font-semibold font-display text-text-primary">
           Financial Performance
@@ -30,44 +55,18 @@ export default function FinancialPerformance() {
         <DataRecencyTag dataAsOf={data.dataAsOf} />
       </div>
 
-      <div className="bg-surface-raised border border-surface-overlay rounded p-md space-y-sm">
-        <div className="text-xs text-text-secondary">
-          <span className="font-medium text-text-primary">
-            {companyCount} companies
-          </span>
-          {companyCount !== rawCompanyCount && (
-            <span className="text-text-muted">
-              {" "}
-              (of {rawCompanyCount} total)
-            </span>
-          )}
-        </div>
+      {/* Metrics table */}
+      <MetricsTable
+        companies={data.companies}
+        selectedIds={selectedForComparison}
+        onToggleSelect={toggleComparison}
+        maxSelected={MAX_COMPARISON}
+      />
 
-        {activeFilters && (
-          <div className="text-xs text-text-muted">
-            Active filters: {activeFilters}
-          </div>
-        )}
-
-        <p className="text-xs text-text-muted italic">
-          Full module will be built in Phase 3
-        </p>
-      </div>
+      {/* Comparison view (shown when 2+ companies selected) */}
+      {comparisonCompanies.length >= 2 && (
+        <ComparisonView companies={comparisonCompanies} />
+      )}
     </div>
   );
-}
-
-function getActiveFilterSummary(filters: {
-  companies: string[];
-  subCategory: string;
-  performanceTier: string;
-  timePeriod: string;
-}): string | null {
-  const parts: string[] = [];
-  if (filters.companies.length > 0)
-    parts.push(`${filters.companies.length} companies`);
-  if (filters.subCategory !== "all") parts.push(filters.subCategory);
-  if (filters.performanceTier !== "all") parts.push(filters.performanceTier);
-  if (filters.timePeriod !== "YoY") parts.push(filters.timePeriod);
-  return parts.length > 0 ? parts.join(", ") : null;
 }
