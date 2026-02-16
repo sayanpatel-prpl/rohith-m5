@@ -5,7 +5,7 @@ export function Sidebar() {
   const { tenantSlug } = useParams<{ tenantSlug: string }>();
 
   return (
-    <nav className="w-50 bg-surface border-r border-surface-overlay shrink-0 overflow-y-auto">
+    <nav data-print-hide className="w-50 bg-surface border-r border-surface-overlay shrink-0 overflow-y-auto">
       <div className="py-sm">
         {SECTION_ROUTES.map((section) => (
           <NavLink

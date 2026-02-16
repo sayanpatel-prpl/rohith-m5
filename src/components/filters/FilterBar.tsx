@@ -35,7 +35,7 @@ export function FilterBar() {
     timePeriod !== DEFAULT_FILTERS.timePeriod;
 
   return (
-    <div className="flex items-center gap-md px-md h-9 bg-surface border-b border-surface-overlay shrink-0">
+    <div data-print-hide className="flex items-center gap-md px-md h-9 bg-surface border-b border-surface-overlay shrink-0">
       <span className="text-xs text-text-muted font-medium">Filters</span>
 
       <div className="flex items-center gap-md flex-1 min-w-0">

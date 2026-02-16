@@ -94,3 +94,38 @@
   from { height: var(--radix-accordion-content-height); opacity: 1; }
   to { height: 0; opacity: 0; }
 }
+
+/* Print styles -- hide non-essential UI, full-width layout */
+@media print {
+  /* Hide elements marked for print exclusion */
+  [data-print-hide] {
+    display: none !important;
+  }
+
+  /* Full width layout on white background */
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  /* Remove fixed heights so content flows naturally */
+  .h-screen {
+    height: auto !important;
+  }
+
+  /* Ensure main content fills the page */
+  main {
+    overflow: visible !important;
+    padding: 0.5rem !important;
+  }
+
+  /* Preserve brand typography */
+  .font-display {
+    font-family: var(--font-display) !important;
+  }
+
+  /* Avoid page breaks inside cards and tables */
+  [class*="bg-surface-raised"] {
+    break-inside: avoid;
+  }
+}
