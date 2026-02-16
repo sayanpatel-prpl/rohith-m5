@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-15)
 
 **Core value:** Every section answers "where's the BD opportunity?" -- signals that help consulting partners identify which companies need help, what kind, and when to reach out.
-**Current focus:** Phase 4 -- Deal Flow and Leadership Signals (COMPLETE)
+**Current focus:** Phase 5 -- Market Context and Operations (COMPLETE)
 
 ## Current Position
 
-Phase: 4 of 9 (Deal Flow and Leadership Signals) COMPLETE
-Plan: 2 of 2 in current phase (04-02 COMPLETE)
-Status: Phase 4 complete -- ready for Phase 5, 6, or any independent phase
-Last activity: 2026-02-16 -- Completed 04-02 Leadership & Governance plan (2 tasks, 2 min)
+Phase: 5 of 9 (Market Context and Operations) COMPLETE
+Plan: 2 of 2 in current phase (05-02 COMPLETE)
+Status: Phase 5 complete -- ready for Phase 6, 7, or any independent phase
+Last activity: 2026-02-16 -- Completed 05-02 Operational Intelligence plan (2 tasks, 3 min)
 
-Progress: [##########..........] 50%
+Progress: [############........] 62%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 8
-- Average duration: 13 min
-- Total execution time: 1.72 hours
+- Total plans completed: 10
+- Average duration: 11 min
+- Total execution time: 1.84 hours
 
 **By Phase:**
 
@@ -31,10 +31,11 @@ Progress: [##########..........] 50%
 | 2. Report Shell | 2/2 | 79 min | 40 min |
 | 3. Core Financial Intelligence | 2/2 | 8 min | 4 min |
 | 4. Deal Flow and Leadership Signals | 2/2 | 4 min | 2 min |
+| 5. Market Context & Operations | 2/2 | 7 min | 3.5 min |
 
 **Recent Trend:**
-- Last 5 plans: 03-01 (3 min), 03-02 (5 min), 04-01 (2 min), 04-02 (2 min)
-- Trend: Plans accelerating further as component composition on established primitives and patterns becomes routine
+- Last 5 plans: 04-01 (2 min), 04-02 (2 min), 05-01 (4 min), 05-02 (3 min)
+- Trend: Consistent fast execution composing established Radix/chart/filtering patterns
 
 *Updated after each plan completion*
 
@@ -82,6 +83,14 @@ Recent decisions affecting current work:
 - [04-02]: AI risk flags positioned immediately after summary stats for consulting partner attention priority
 - [04-02]: Reuse Radix Collapsible expandable row pattern in PromoterStakes for context display
 - [04-02]: DirectionLabel as inline helper function in CxoChangesTable (not separate component) -- single-use rendering logic
+- [05-01]: Manual ChartLegend rendering below charts instead of Recharts Legend content prop to avoid v3 typing issues
+- [05-01]: Sector-wide pattern: Market Pulse data has no company fields, so useFilteredData company filter is a no-op
+- [05-01]: Dashboard grid layout: StatCard row, 2-col chart grid, full-width narrative
+- [05-01]: ChartLegend as reusable component for any Recharts chart needing custom legend styling
+- [05-02]: Procurement shifts fan-out: each shift appears under every affected company's accordion group
+- [05-02]: Procurement shifts use neutral impact (type is string, not typed union) -- no sentiment inference
+- [05-02]: Company groups sorted by totalSignals descending so high-activity companies appear first
+- [05-02]: Action badge config-record pattern for ManufacturingCapacity and RetailFootprint (matching PerformanceTag)
 
 ### Pending Todos
 
@@ -94,6 +103,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-16
-Stopped at: Completed 04-02-PLAN.md (Leadership & Governance) -- Phase 4 fully complete (2/2 plans)
-Resume file: .planning/phases/04-deal-flow-and-leadership-signals/04-02-SUMMARY.md
-Next action: Execute Phase 5 (Market Context & Operations), Phase 6 (Competitive Landscape), or any other independent phase
+Stopped at: Completed 05-02-PLAN.md (Operational Intelligence) -- Phase 5 fully complete (2/2 plans)
+Resume file: .planning/phases/05-market-context-and-operations/05-02-SUMMARY.md
+Next action: Execute Phase 6 (Competitive Landscape), Phase 7 (AI Intelligence), or any other independent phase
