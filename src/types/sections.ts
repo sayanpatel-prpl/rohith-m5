@@ -79,6 +79,11 @@ export interface MarketPulseData extends SectionDataBase {
     qoqChange: number;
     yoyChange: number;
   }>;
+  /** Indexed quarterly time series for multi-line input cost chart (base 100) */
+  inputCostHistory?: Array<{
+    period: string;
+    [commodity: string]: string | number; // period is string, commodity columns are number
+  }>;
   /** AI-generated margin outlook narrative */
   marginOutlook: string;
   /** Channel mix shift data */

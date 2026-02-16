@@ -60,6 +60,15 @@ const data: MarketPulseData = {
       yoyChange: 0.095,
     },
   ],
+  inputCostHistory: [
+    { period: "Q1 FY24", steel: 100, copper: 100, plastics: 100, aluminium: 100 },
+    { period: "Q2 FY24", steel: 102, copper: 105, plastics: 101, aluminium: 103 },
+    { period: "Q3 FY24", steel: 99,  copper: 108, plastics: 98,  aluminium: 106 },
+    { period: "Q4 FY24", steel: 104, copper: 110, plastics: 96,  aluminium: 108 },
+    { period: "Q1 FY25", steel: 106, copper: 112, plastics: 97,  aluminium: 111 },
+    { period: "Q2 FY25", steel: 104, copper: 106, plastics: 99,  aluminium: 107 },
+    { period: "Q3 FY25", steel: 108, copper: 113, plastics: 97,  aluminium: 110 },
+  ],
   marginOutlook:
     "Copper and aluminium cost escalation creates 150-200 bps headwind for AC and cable manufacturers in Q4. Steel softening partially offsets for appliance chassis. Companies with forward contracts (Havells 6-month copper hedge, Amber 3-month aluminium) have 1-quarter buffer. Net margin compression of 80-120 bps likely across sector unless offset by premium mix shift or price increases. PLI disbursements provide partial cushion for Dixon, Amber, and select Havells segments.",
   channelMix: [
