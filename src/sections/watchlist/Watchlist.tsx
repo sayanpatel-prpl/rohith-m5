@@ -1,37 +1,60 @@
+import { Tabs } from "radix-ui";
 import { useFilteredData } from "../../hooks/use-filtered-data";
 import { DataRecencyTag } from "../../components/ui/DataRecencyTag";
 import { SectionSkeleton } from "../../components/ui/SectionSkeleton";
+import { WatchlistSummaryStats } from "./WatchlistSummaryStats";
+import { FundraiseSignals } from "./FundraiseSignals";
+import { MarginInflection } from "./MarginInflection";
+import { ConsolidationTargets } from "./ConsolidationTargets";
+import { StressIndicators } from "./StressIndicators";
 import type { WatchlistData } from "../../types/sections";
 
+// ---------------------------------------------------------------------------
+// Tab trigger helper
+// ---------------------------------------------------------------------------
+
+function TabTrigger({
+  value,
+  label,
+  count,
+}: {
+  value: string;
+  label: string;
+  count?: number;
+}) {
+  return (
+    <Tabs.Trigger
+      value={value}
+      className="text-xs px-sm py-xs font-medium text-text-muted data-[state=active]:text-brand-primary data-[state=active]:border-b-2 data-[state=active]:border-brand-primary transition-colors"
+    >
+      {label}
+      {count != null && (
+        <span className="ml-1 text-[10px] text-text-muted">({count})</span>
+      )}
+    </Tabs.Trigger>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Main section
+// ---------------------------------------------------------------------------
+
 /**
- * Watchlist & Forward Indicators placeholder section.
- * Proves the full fetch -> cache -> filter -> render pipeline.
- * Full module will be built in Phase 8.
+ * Watchlist & Forward Indicators section.
+ * 90-day predictive intelligence showing likely fundraises, margin inflection
+ * candidates, consolidation targets, and stress indicators.
  */
 export default function Watchlist() {
-  const { data, rawData, isPending, error, filters } =
+  const { data, isPending, error } =
     useFilteredData<WatchlistData>("watchlist");
 
   if (isPending) return <SectionSkeleton variant="mixed" />;
   if (error) throw error;
-  if (!data || !rawData) return null;
-
-  const totalRecords =
-    data.fundraiseSignals.length +
-    data.marginInflectionCandidates.length +
-    data.consolidationTargets.length +
-    data.stressIndicators.length;
-
-  const rawTotalRecords =
-    rawData.fundraiseSignals.length +
-    rawData.marginInflectionCandidates.length +
-    rawData.consolidationTargets.length +
-    rawData.stressIndicators.length;
-
-  const activeFilters = getActiveFilterSummary(filters);
+  if (!data) return null;
 
   return (
     <div className="p-md space-y-md">
+      {/* Header */}
       <div className="flex items-center justify-between">
         <h2 className="text-sm font-semibold font-display text-text-primary">
           Watchlist & Forward Indicators
@@ -39,51 +62,60 @@ export default function Watchlist() {
         <DataRecencyTag dataAsOf={data.dataAsOf} />
       </div>
 
-      <div className="bg-surface-raised border border-surface-overlay rounded p-md space-y-sm">
-        <div className="text-xs text-text-secondary">
-          <span className="font-medium text-text-primary">
-            {totalRecords} signals
-          </span>
-          {totalRecords !== rawTotalRecords && (
-            <span className="text-text-muted">
-              {" "}
-              (of {rawTotalRecords} total)
-            </span>
-          )}
-          <span className="text-text-muted">
-            {" "}
-            ({data.fundraiseSignals.length} fundraise,{" "}
-            {data.marginInflectionCandidates.length} inflection,{" "}
-            {data.consolidationTargets.length} consolidation,{" "}
-            {data.stressIndicators.length} stress)
-          </span>
-        </div>
+      {/* Summary Stats */}
+      <WatchlistSummaryStats data={data} />
 
-        {activeFilters && (
-          <div className="text-xs text-text-muted">
-            Active filters: {activeFilters}
+      {/* Tabbed signal navigation */}
+      <Tabs.Root defaultValue="all">
+        <Tabs.List className="flex gap-xs border-b border-surface-overlay mb-md">
+          <TabTrigger value="all" label="All Signals" />
+          <TabTrigger
+            value="fundraise"
+            label="Fundraise"
+            count={data.fundraiseSignals.length}
+          />
+          <TabTrigger
+            value="inflection"
+            label="Margin Inflection"
+            count={data.marginInflectionCandidates.length}
+          />
+          <TabTrigger
+            value="consolidation"
+            label="Consolidation"
+            count={data.consolidationTargets.length}
+          />
+          <TabTrigger
+            value="stress"
+            label="Stress"
+            count={data.stressIndicators.length}
+          />
+        </Tabs.List>
+
+        <Tabs.Content value="all">
+          <div className="space-y-md">
+            <FundraiseSignals signals={data.fundraiseSignals} />
+            <MarginInflection candidates={data.marginInflectionCandidates} />
+            <ConsolidationTargets targets={data.consolidationTargets} />
+            <StressIndicators indicators={data.stressIndicators} />
           </div>
-        )}
+        </Tabs.Content>
 
-        <p className="text-xs text-text-muted italic">
-          Full module will be built in Phase 8
-        </p>
-      </div>
+        <Tabs.Content value="fundraise">
+          <FundraiseSignals signals={data.fundraiseSignals} />
+        </Tabs.Content>
+
+        <Tabs.Content value="inflection">
+          <MarginInflection candidates={data.marginInflectionCandidates} />
+        </Tabs.Content>
+
+        <Tabs.Content value="consolidation">
+          <ConsolidationTargets targets={data.consolidationTargets} />
+        </Tabs.Content>
+
+        <Tabs.Content value="stress">
+          <StressIndicators indicators={data.stressIndicators} />
+        </Tabs.Content>
+      </Tabs.Root>
     </div>
   );
-}
-
-function getActiveFilterSummary(filters: {
-  companies: string[];
-  subCategory: string;
-  performanceTier: string;
-  timePeriod: string;
-}): string | null {
-  const parts: string[] = [];
-  if (filters.companies.length > 0)
-    parts.push(`${filters.companies.length} companies`);
-  if (filters.subCategory !== "all") parts.push(filters.subCategory);
-  if (filters.performanceTier !== "all") parts.push(filters.performanceTier);
-  if (filters.timePeriod !== "YoY") parts.push(filters.timePeriod);
-  return parts.length > 0 ? parts.join(", ") : null;
 }
