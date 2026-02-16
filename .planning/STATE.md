@@ -5,34 +5,34 @@
 See: .planning/PROJECT.md (updated 2026-02-15)
 
 **Core value:** Every section answers "where's the BD opportunity?" -- signals that help consulting partners identify which companies need help, what kind, and when to reach out.
-**Current focus:** Phase 2 -- Report Shell and Data Layer (IN PROGRESS)
+**Current focus:** Phase 2 -- Report Shell and Data Layer (COMPLETE)
 
 ## Current Position
 
 Phase: 2 of 9 (Report Shell and Data Layer)
-Plan: 1 of 2 in current phase
-Status: In Progress
-Last activity: 2026-02-15 -- Completed 02-01 API Client and Filter Store plan (2 tasks, 54 min)
+Plan: 2 of 2 in current phase (COMPLETE)
+Status: Phase Complete
+Last activity: 2026-02-16 -- Completed 02-02 FilterBar and Lazy-Loaded Sections plan (2 tasks, 25 min)
 
-Progress: [###.................] 17%
+Progress: [#####...............] 27%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 3
-- Average duration: 22 min
-- Total execution time: 1.10 hours
+- Total plans completed: 4
+- Average duration: 24 min
+- Total execution time: 1.52 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 1. Foundation | 2/2 | 12 min | 6 min |
-| 2. Report Shell | 1/2 | 54 min | 54 min |
+| 2. Report Shell | 2/2 | 79 min | 40 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (7 min), 01-02 (5 min), 02-01 (54 min)
-- Trend: larger scope plans take more time (10 mock fixtures + data layer)
+- Last 5 plans: 01-01 (7 min), 01-02 (5 min), 02-01 (54 min), 02-02 (25 min)
+- Trend: Phase 2 plans are larger scope (data layer + UI shell); still under 1 hour each
 
 *Updated after each plan completion*
 
@@ -60,6 +60,11 @@ Recent decisions affecting current work:
 - [02-01]: URL params use short keys (subcat, tier, period) and omit defaults for clean shareable URLs
 - [02-01]: Ref-based guards prevent bidirectional URL sync infinite loops
 - [02-01]: Mock data uses real Indian Consumer Durables companies with plausible Q3 FY25 metrics
+- [02-02]: QueryClientProvider at app root above BrowserRouter -- prevents "No QueryClient set" errors on navigation
+- [02-02]: export default function for all section components -- React.lazy requires default exports
+- [02-02]: Radix Popover + Checkbox for CompanyPicker multi-select -- Radix Select does not support multiple selection
+- [02-02]: FilterBar always visible (not collapsible) -- compact single row preserving Bloomberg terminal density
+- [02-02]: Section-specific record counting in placeholders proves full filtering pipeline works
 
 ### Pending Todos
 
@@ -71,7 +76,7 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-02-15
-Stopped at: Completed 02-01-PLAN.md (API Client and Filter Store) -- Phase 2 plan 1/2
-Resume file: .planning/phases/02-report-shell-and-data-layer/02-01-SUMMARY.md
-Next action: Execute 02-02-PLAN.md (Report Shell UI, FilterBar, lazy loading)
+Last session: 2026-02-16
+Stopped at: Completed 02-02-PLAN.md (FilterBar and Lazy-Loaded Sections) -- Phase 2 complete (2/2 plans)
+Resume file: .planning/phases/02-report-shell-and-data-layer/02-02-SUMMARY.md
+Next action: Plan and execute Phase 3 (Core Financial Intelligence)
