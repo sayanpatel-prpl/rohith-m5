@@ -28,6 +28,8 @@ export interface ExecutiveSnapshotData extends SectionDataBase {
     text: string;
     theme: string;
     significance: ConfidenceLevel;
+    /** AI-generated BD relevance explanation */
+    narrative: string;
   }>;
   /** Red flags / watchlist items with AI confidence */
   redFlags: Array<{
