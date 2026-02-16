@@ -93,11 +93,11 @@ Plans:
   1. Market Pulse displays demand signals with trend direction, input cost trends (steel, copper, plastics) with QoQ/YoY movement, margin outlook with visual trend indicators, and channel mix shifts with percentage breakdown
   2. Operational Intelligence displays supply chain signals, manufacturing capacity changes (expansions, closures, utilization), procurement shifts, and retail expansion/rationalization data
   3. Both modules respond to the global company and time period filters from Phase 2
-**Plans**: TBD
+**Plans:** 2 plans
 
 Plans:
-- [ ] 05-01: Market Pulse module (demand signals, input costs, margin outlook, channel mix)
-- [ ] 05-02: Operational Intelligence module (supply chain, manufacturing, procurement, retail footprint)
+- [ ] 05-01-PLAN.md -- Market Pulse dashboard grid with demand signal StatCards, multi-line input cost TrendLineChart, margin outlook narrative, channel mix BarComparisonChart
+- [ ] 05-02-PLAN.md -- Operational Intelligence with company-grouped Radix Accordion, supply chain/manufacturing/procurement/retail signal cards, mock data company ID fix
 
 ### Phase 6: Competitive Landscape and Sub-Sector Analysis
 **Goal**: Users see competitive strategic moves across the sector and can deep-dive into rotating monthly sub-segment analysis with cost structure benchmarks -- the analytical layer that reveals competitive positioning and margin drivers
@@ -171,7 +171,7 @@ Note: Phases 3, 4, and 5 depend only on Phase 2 (not on each other) and could th
 | 2. Report Shell and Data Layer | 2/2 | Complete | 2026-02-16 |
 | 3. Core Financial Intelligence | 0/2 | Planned | - |
 | 4. Deal Flow and Leadership Signals | 0/2 | Planned | - |
-| 5. Market Context and Operations | 0/2 | Not started | - |
+| 5. Market Context and Operations | 0/2 | Planned | - |
 | 6. Competitive Landscape and Sub-Sector Analysis | 0/2 | Not started | - |
 | 7. AI-Powered Intelligence | 0/2 | Not started | - |
 | 8. Forward-Looking Signals | 0/1 | Not started | - |
