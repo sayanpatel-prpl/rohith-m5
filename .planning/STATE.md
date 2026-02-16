@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-15)
 
 **Core value:** Every section answers "where's the BD opportunity?" -- signals that help consulting partners identify which companies need help, what kind, and when to reach out.
-**Current focus:** Phase 3 -- Core Financial Intelligence (IN PROGRESS)
+**Current focus:** Phase 3 -- Core Financial Intelligence (COMPLETE)
 
 ## Current Position
 
-Phase: 3 of 9 (Core Financial Intelligence)
-Plan: 1 of 2 in current phase (03-01 COMPLETE)
-Status: In Progress
-Last activity: 2026-02-16 -- Completed 03-01 Executive Snapshot plan (2 tasks, 3 min)
+Phase: 3 of 9 (Core Financial Intelligence) -- COMPLETE
+Plan: 2 of 2 in current phase (03-02 COMPLETE)
+Status: Phase Complete -- ready for Phase 4, 5, or 6 (all independent, depend only on Phase 2)
+Last activity: 2026-02-16 -- Completed 03-02 Financial Performance Tracker plan (2 tasks, 5 min)
 
-Progress: [######..............] 33%
+Progress: [########............] 40%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 5
-- Average duration: 19 min
-- Total execution time: 1.57 hours
+- Total plans completed: 6
+- Average duration: 17 min
+- Total execution time: 1.65 hours
 
 **By Phase:**
 
@@ -29,11 +29,11 @@ Progress: [######..............] 33%
 |-------|-------|-------|----------|
 | 1. Foundation | 2/2 | 12 min | 6 min |
 | 2. Report Shell | 2/2 | 79 min | 40 min |
-| 3. Core Financial Intelligence | 1/2 | 3 min | 3 min |
+| 3. Core Financial Intelligence | 2/2 | 8 min | 4 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-02 (5 min), 02-01 (54 min), 02-02 (25 min), 03-01 (3 min)
-- Trend: Executive Snapshot plan fast due to well-defined component composition on existing primitives
+- Last 5 plans: 02-01 (54 min), 02-02 (25 min), 03-01 (3 min), 03-02 (5 min)
+- Trend: Phase 3 plans fast due to well-defined component composition on existing primitives and patterns
 
 *Updated after each plan completion*
 
@@ -69,6 +69,11 @@ Recent decisions affecting current work:
 - [03-01]: rawData.bullets (unfiltered) for theme-level data; data.redFlags (filtered) for company-level data
 - [03-01]: CSS Grid table layout for RedFlagsTable -- avoids Radix Collapsible + HTML table DOM nesting issues
 - [03-01]: Confidence/significance badge pattern: high=negative, medium=brand-accent, low=neutral colors
+- [03-02]: CSS Grid layout for metrics table to enable Radix Collapsible expandable rows without DOM nesting violations
+- [03-02]: Comparison data derived from rawData (unfiltered) not sorted data to prevent chart flicker on sort
+- [03-02]: Metrics default to descending sort (highest-first); name defaults to ascending
+- [03-02]: Single expanded row at a time (accordion-style) for table readability
+- [03-02]: QoQ tab shows relative change ratios for percentage metrics, absolute change for working capital days
 
 ### Pending Todos
 
@@ -81,6 +86,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-16
-Stopped at: Completed 03-01-PLAN.md (Executive Snapshot) -- Phase 3 in progress (1/2 plans)
-Resume file: .planning/phases/03-core-financial-intelligence/03-01-SUMMARY.md
-Next action: Execute 03-02 (Financial Performance Tracker)
+Stopped at: Completed 03-02-PLAN.md (Financial Performance Tracker) -- Phase 3 COMPLETE (2/2 plans)
+Resume file: .planning/phases/03-core-financial-intelligence/03-02-SUMMARY.md
+Next action: Execute Phase 4 (Deal Flow and Leadership Signals), Phase 5 (Market Context and Operations), or Phase 6 -- all three are independent and depend only on Phase 2
