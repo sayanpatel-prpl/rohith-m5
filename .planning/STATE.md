@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-15)
 
 **Core value:** Every section answers "where's the BD opportunity?" -- signals that help consulting partners identify which companies need help, what kind, and when to reach out.
-**Current focus:** Phase 2 -- Report Shell and Data Layer (COMPLETE)
+**Current focus:** Phase 3 -- Core Financial Intelligence (IN PROGRESS)
 
 ## Current Position
 
-Phase: 2 of 9 (Report Shell and Data Layer)
-Plan: 2 of 2 in current phase (COMPLETE)
-Status: Phase Complete
-Last activity: 2026-02-16 -- Completed 02-02 FilterBar and Lazy-Loaded Sections plan (2 tasks, 25 min)
+Phase: 3 of 9 (Core Financial Intelligence)
+Plan: 1 of 2 in current phase (03-01 COMPLETE)
+Status: In Progress
+Last activity: 2026-02-16 -- Completed 03-01 Executive Snapshot plan (2 tasks, 3 min)
 
-Progress: [#####...............] 27%
+Progress: [######..............] 33%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 4
-- Average duration: 24 min
-- Total execution time: 1.52 hours
+- Total plans completed: 5
+- Average duration: 19 min
+- Total execution time: 1.57 hours
 
 **By Phase:**
 
@@ -29,10 +29,11 @@ Progress: [#####...............] 27%
 |-------|-------|-------|----------|
 | 1. Foundation | 2/2 | 12 min | 6 min |
 | 2. Report Shell | 2/2 | 79 min | 40 min |
+| 3. Core Financial Intelligence | 1/2 | 3 min | 3 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (7 min), 01-02 (5 min), 02-01 (54 min), 02-02 (25 min)
-- Trend: Phase 2 plans are larger scope (data layer + UI shell); still under 1 hour each
+- Last 5 plans: 01-02 (5 min), 02-01 (54 min), 02-02 (25 min), 03-01 (3 min)
+- Trend: Executive Snapshot plan fast due to well-defined component composition on existing primitives
 
 *Updated after each plan completion*
 
@@ -65,6 +66,9 @@ Recent decisions affecting current work:
 - [02-02]: Radix Popover + Checkbox for CompanyPicker multi-select -- Radix Select does not support multiple selection
 - [02-02]: FilterBar always visible (not collapsible) -- compact single row preserving Bloomberg terminal density
 - [02-02]: Section-specific record counting in placeholders proves full filtering pipeline works
+- [03-01]: rawData.bullets (unfiltered) for theme-level data; data.redFlags (filtered) for company-level data
+- [03-01]: CSS Grid table layout for RedFlagsTable -- avoids Radix Collapsible + HTML table DOM nesting issues
+- [03-01]: Confidence/significance badge pattern: high=negative, medium=brand-accent, low=neutral colors
 
 ### Pending Todos
 
@@ -77,6 +81,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-16
-Stopped at: Completed 02-02-PLAN.md (FilterBar and Lazy-Loaded Sections) -- Phase 2 complete (2/2 plans)
-Resume file: .planning/phases/02-report-shell-and-data-layer/02-02-SUMMARY.md
-Next action: Plan and execute Phase 3 (Core Financial Intelligence)
+Stopped at: Completed 03-01-PLAN.md (Executive Snapshot) -- Phase 3 in progress (1/2 plans)
+Resume file: .planning/phases/03-core-financial-intelligence/03-01-SUMMARY.md
+Next action: Execute 03-02 (Financial Performance Tracker)
