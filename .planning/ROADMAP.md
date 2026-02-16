@@ -79,11 +79,11 @@ Plans:
   2. AI pattern recognition highlights deal clusters and recurring investor themes across the displayed transactions
   3. Leadership section displays CXO changes, board reshuffles, promoter stake changes (with trend direction), and auditor resignation flags
   4. AI risk flags appear on governance events that signal company stress or BD opportunity
-**Plans**: TBD
+**Plans:** 2 plans
 
 Plans:
-- [ ] 04-01: Deals & Transactions module (M&A, PE/VC, IPO, distressed assets, timeline, AI patterns)
-- [ ] 04-02: Leadership & Governance module (CXO changes, board, promoter stakes, auditor flags, AI risk flags)
+- [ ] 04-01-PLAN.md -- Shared UI components (ConfidenceBadge, InsightCard, DealTypeBadge), date formatters, Deals & Transactions section with vertical timeline, Radix Tabs, and AI pattern cards
+- [ ] 04-02-PLAN.md -- Leadership & Governance section with CXO changes (Radix Collapsible), board reshuffles, promoter stakes (TrendIndicator), auditor flags, and AI risk flag cards
 
 ### Phase 5: Market Context and Operations
 **Goal**: Users see both the macro industry context (demand, costs, margins, channels) and micro operational signals (supply chain, capacity, procurement, retail footprint) -- framing what is happening in the sector and inside individual companies
@@ -170,7 +170,7 @@ Note: Phases 3, 4, and 5 depend only on Phase 2 (not on each other) and could th
 | 1. Foundation and Architecture | 2/2 | Complete | 2026-02-15 |
 | 2. Report Shell and Data Layer | 2/2 | Complete | 2026-02-16 |
 | 3. Core Financial Intelligence | 0/2 | Planned | - |
-| 4. Deal Flow and Leadership Signals | 0/2 | Not started | - |
+| 4. Deal Flow and Leadership Signals | 0/2 | Planned | - |
 | 5. Market Context and Operations | 0/2 | Not started | - |
 | 6. Competitive Landscape and Sub-Sector Analysis | 0/2 | Not started | - |
 | 7. AI-Powered Intelligence | 0/2 | Not started | - |
