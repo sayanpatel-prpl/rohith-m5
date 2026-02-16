@@ -16,7 +16,8 @@ import type { SectionData } from "../types/sections";
  */
 export function useFilteredData<T extends SectionData>(sectionId: SectionId) {
   const queryFactory = sectionQueries[sectionId];
-  const { data, isPending, error } = useQuery(queryFactory());
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Union of query option types is too wide for useQuery overloads; each factory is individually type-safe
+  const { data, isPending, error } = useQuery(queryFactory() as any);
 
   // Individual primitive selectors prevent Zustand v5 re-render loops
   const companies = useFilterStore((s) => s.companies);

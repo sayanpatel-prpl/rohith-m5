@@ -13,7 +13,7 @@ export function SectionErrorFallback({
         Unable to load this section
       </p>
       <p className="text-text-muted text-xs mb-md font-mono">
-        {error.message}
+        {error instanceof Error ? error.message : "An unknown error occurred"}
       </p>
       <button
         onClick={resetErrorBoundary}

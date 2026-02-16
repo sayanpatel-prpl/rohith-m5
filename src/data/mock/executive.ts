@@ -55,7 +55,7 @@ const data: ExecutiveSnapshotData = {
     },
     {
       company: "Symphony",
-      signal: "International subsidiary (?"Climate Technologies) reporting persistent losses; consolidated debt-equity at 0.45 vs standalone 0.08",
+      signal: 'International subsidiary ("Climate Technologies") reporting persistent losses; consolidated debt-equity at 0.45 vs standalone 0.08',
       confidence: "medium",
       explanation:
         "Domestic air cooler business remains strong but international diversification dragging consolidated performance. Potential for subsidiary write-down or divestiture.",
