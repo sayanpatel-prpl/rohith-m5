@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-15)
 
 **Core value:** Every section answers "where's the BD opportunity?" -- signals that help consulting partners identify which companies need help, what kind, and when to reach out.
-**Current focus:** Phase 3 -- Core Financial Intelligence (COMPLETE)
+**Current focus:** Phase 4 -- Deal Flow and Leadership Signals (IN PROGRESS)
 
 ## Current Position
 
-Phase: 3 of 9 (Core Financial Intelligence) -- COMPLETE
-Plan: 2 of 2 in current phase (03-02 COMPLETE)
-Status: Phase Complete -- ready for Phase 4, 5, or 6 (all independent, depend only on Phase 2)
-Last activity: 2026-02-16 -- Completed 03-02 Financial Performance Tracker plan (2 tasks, 5 min)
+Phase: 4 of 9 (Deal Flow and Leadership Signals)
+Plan: 1 of 2 in current phase (04-01 COMPLETE)
+Status: Executing Phase 4 -- 04-01 complete, 04-02 next
+Last activity: 2026-02-16 -- Completed 04-01 Deals & Transactions plan (2 tasks, 2 min)
 
-Progress: [########............] 40%
+Progress: [#########...........] 45%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 6
-- Average duration: 17 min
-- Total execution time: 1.65 hours
+- Total plans completed: 7
+- Average duration: 15 min
+- Total execution time: 1.68 hours
 
 **By Phase:**
 
@@ -30,10 +30,11 @@ Progress: [########............] 40%
 | 1. Foundation | 2/2 | 12 min | 6 min |
 | 2. Report Shell | 2/2 | 79 min | 40 min |
 | 3. Core Financial Intelligence | 2/2 | 8 min | 4 min |
+| 4. Deal Flow and Leadership Signals | 1/2 | 2 min | 2 min |
 
 **Recent Trend:**
-- Last 5 plans: 02-01 (54 min), 02-02 (25 min), 03-01 (3 min), 03-02 (5 min)
-- Trend: Phase 3 plans fast due to well-defined component composition on existing primitives and patterns
+- Last 5 plans: 02-02 (25 min), 03-01 (3 min), 03-02 (5 min), 04-01 (2 min)
+- Trend: Plans accelerating further as component composition on established primitives and patterns becomes routine
 
 *Updated after each plan completion*
 
@@ -74,6 +75,10 @@ Recent decisions affecting current work:
 - [03-02]: Metrics default to descending sort (highest-first); name defaults to ascending
 - [03-02]: Single expanded row at a time (accordion-style) for table readability
 - [03-02]: QoQ tab shows relative change ratios for percentage metrics, absolute change for working capital days
+- [04-01]: CSS vertical timeline with Tailwind (no external library) -- absolute line + dot markers with pl-8 offset
+- [04-01]: Uncontrolled Radix Tabs with defaultValue for deal type filtering -- no state management needed
+- [04-01]: Config-record badge pattern for ConfidenceBadge and DealTypeBadge matching PerformanceTag
+- [04-01]: Module-scope Intl.DateTimeFormat for formatDate/formatMonthYear matching existing formatter pattern
 
 ### Pending Todos
 
@@ -86,6 +91,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-16
-Stopped at: Completed 03-02-PLAN.md (Financial Performance Tracker) -- Phase 3 COMPLETE (2/2 plans)
-Resume file: .planning/phases/03-core-financial-intelligence/03-02-SUMMARY.md
-Next action: Execute Phase 4 (Deal Flow and Leadership Signals), Phase 5 (Market Context and Operations), or Phase 6 -- all three are independent and depend only on Phase 2
+Stopped at: Completed 04-01-PLAN.md (Deals & Transactions) -- Phase 4 plan 1/2 done
+Resume file: .planning/phases/04-deal-flow-and-leadership-signals/04-01-SUMMARY.md
+Next action: Execute 04-02 (Leadership & Governance) to complete Phase 4, or Phase 5 / Phase 6 (all independent)
