@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-15)
 
 **Core value:** Every section answers "where's the BD opportunity?" -- signals that help consulting partners identify which companies need help, what kind, and when to reach out.
-**Current focus:** Phase 8 -- Forward-Looking Signals (COMPLETE)
+**Current focus:** Phases 7 and 8 COMPLETE -- ready for Phase 9 (Export)
 
 ## Current Position
 
-Phase: 8 of 9 (Forward-Looking Signals) COMPLETE
-Plan: 1 of 1 in current phase (08-01 COMPLETE)
-Status: Phase 8 complete -- ready for Phase 7, 9, or any remaining independent phase
-Last activity: 2026-02-16 -- Completed 08-01 Watchlist & Forward Indicators plan (1 task, 2 min)
+Phase: 8 of 9 (Phases 7 and 8 both COMPLETE)
+Plan: All plans complete through Phase 8
+Status: Phases 7 and 8 complete -- ready for Phase 9 (Export)
+Last activity: 2026-02-16 -- Completed 07-01 Action Lens plan (1 task, 5 min) and 08-01 Watchlist plan (1 task, 2 min)
 
-Progress: [################....] 81%
+Progress: [##################..] 88%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 13
+- Total plans completed: 14
 - Average duration: 9 min
-- Total execution time: 1.97 hours
+- Total execution time: 2.05 hours
 
 **By Phase:**
 
@@ -33,10 +33,11 @@ Progress: [################....] 81%
 | 4. Deal Flow and Leadership Signals | 2/2 | 4 min | 2 min |
 | 5. Market Context & Operations | 2/2 | 7 min | 3.5 min |
 | 6. Competitive Landscape | 2/2 | 6 min | 3 min |
+| 7. AI-Powered Intelligence | 1/1 | 5 min | 5 min |
 | 8. Forward-Looking Signals | 1/1 | 2 min | 2 min |
 
 **Recent Trend:**
-- Last 5 plans: 05-02 (3 min), 06-01 (3 min), 06-02 (3 min), 08-01 (2 min)
+- Last 5 plans: 06-01 (3 min), 06-02 (3 min), 07-01 (5 min), 08-01 (2 min)
 - Trend: Consistent fast execution composing established Radix/chart/filtering patterns
 
 *Updated after each plan completion*
@@ -101,6 +102,10 @@ Recent decisions affecting current work:
 - [06-02]: Module-scope Intl.NumberFormat for cost table percentage display matching established formatter pattern
 - [06-02]: Range dot visualization for quartile comparison -- positioned colored dots on track for top/median/bottom
 - [06-02]: Sector-wide deep dive pattern: costsBreakdown has no company fields, filter is no-op (matching Market Pulse)
+- [07-01]: ActionLensData restructured: persona+takeaways -> personas array of 4 persona objects for multi-persona support
+- [07-01]: serviceLine added to signalScores for Engagement Opportunity Classification (Turnaround/Growth Strategy/Cost Optimization/M&A Advisory)
+- [07-01]: Service line badge config-record pattern with semantic color mapping (Turnaround=negative, Growth Strategy=positive, Cost Optimization=brand-accent, M&A Advisory=chart-2)
+- [07-01]: Signal scores remain persona-independent at top level; persona tabs only control takeaway display
 - [08-01]: Severity badge config-record pattern for StressIndicators (critical=negative, warning=brand-accent, watch=neutral)
 - [08-01]: Display company names (not IDs) for forward signals -- AI-generated predictions not company-filterable
 - [08-01]: TabTrigger helper with count badges following CompetitiveMoves pattern (brand-primary active state)
@@ -116,6 +121,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-16
-Stopped at: Completed 08-01-PLAN.md (Watchlist & Forward Indicators) -- Phase 8 fully complete (1/1 plans)
-Resume file: .planning/phases/08-forward-looking-signals/08-01-SUMMARY.md
-Next action: Execute Phase 7 (AI-Powered Intelligence), Phase 9 (Export), or any remaining independent phase
+Stopped at: Completed 07-01-PLAN.md (Action Lens) -- Phase 7 fully complete (1/1 plans)
+Resume file: .planning/phases/07-ai-powered-intelligence/07-01-SUMMARY.md
+Next action: Execute Phase 9 (Export and Meeting Prep) -- only remaining phase
