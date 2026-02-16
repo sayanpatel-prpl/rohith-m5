@@ -128,4 +128,15 @@
   [class*="bg-surface-raised"] {
     break-inside: avoid;
   }
+
+  /* Print-ready content: ensure clean layout for meeting prep briefs */
+  [data-print-content] {
+    color: black !important;
+    background: white !important;
+    font-size: 11px !important;
+  }
+
+  [data-print-content] section {
+    break-inside: avoid;
+  }
 }

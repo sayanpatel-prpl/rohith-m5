@@ -3,6 +3,7 @@ import { useLocation } from "react-router";
 import { useBrand } from "../brand/useBrand";
 import { EditionBadge } from "../ui/EditionBadge";
 import { ExportToolbar } from "../export/ExportToolbar";
+import MeetingPrepBrief from "../export/MeetingPrepBrief";
 import type { SectionId } from "../../types/common";
 import {
   getStoredTheme,
@@ -66,6 +67,10 @@ export function TopBar() {
 
         <div data-print-hide>
           <ExportToolbar activeSection={activeSection} />
+        </div>
+
+        <div data-print-hide>
+          <MeetingPrepBrief />
         </div>
 
         {/* Dark mode toggle */}
