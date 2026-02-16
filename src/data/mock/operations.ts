@@ -6,7 +6,7 @@ const data: OperationalIntelligenceData = {
   lastUpdated: "2025-01-15T00:00:00Z",
   supplyChainSignals: [
     {
-      company: "Amber Enterprises",
+      company: "amber",
       signal:
         "Secured 3-year compressor supply agreement with GMCC (Midea group); reduces China import dependency from 65% to 40%",
       impact: "positive",
@@ -14,7 +14,7 @@ const data: OperationalIntelligenceData = {
         "Strategic shift toward dual-sourcing compressors (China + domestic). PLI incentive makes domestic assembly 8-12% more cost-competitive than full imports. Production line commissioning in Q4 FY25.",
     },
     {
-      company: "Dixon Technologies",
+      company: "dixon",
       signal:
         "Component shortage for PCB assemblies delaying washing machine ODM line by 6 weeks; chip allocation prioritized to mobile division",
       impact: "negative",
@@ -22,7 +22,7 @@ const data: OperationalIntelligenceData = {
         "White goods OEM ramp-up delayed. Samsung contract delivery timeline pushed to Q1 FY26. Revenue recognition of ~INR 180 Cr shifts to next quarter.",
     },
     {
-      company: "Havells India",
+      company: "havells",
       signal:
         "6-month copper forward contracts locked at INR 745/kg vs current spot INR 812/kg; margin protection through Q4",
       impact: "positive",
@@ -30,7 +30,7 @@ const data: OperationalIntelligenceData = {
         "Proactive hedging strategy gives Havells 1-quarter cost advantage over peers. Cable and wire segment margins expected to hold despite 12.5% YoY copper price increase.",
     },
     {
-      company: "Voltas",
+      company: "voltas",
       signal:
         "Shifting AC compressor sourcing from single-vendor (Highly) to three-vendor model; quality variability concerns in trial production",
       impact: "neutral",
@@ -40,28 +40,28 @@ const data: OperationalIntelligenceData = {
   ],
   manufacturingCapacity: [
     {
-      company: "Dixon Technologies",
+      company: "dixon",
       facility: "Noida EMS Plant - Phase 3",
       action: "expansion",
       investmentCr: 450,
       timeline: "Commissioning Q1 FY26",
     },
     {
-      company: "Amber Enterprises",
+      company: "amber",
       facility: "Rajasthan AC Component Hub",
       action: "greenfield",
       investmentCr: 320,
       timeline: "Land acquired, construction H1 FY26",
     },
     {
-      company: "Daikin India",
+      company: "daikin",
       facility: "Neemrana Plant - Line 4",
       action: "expansion",
       investmentCr: 280,
       timeline: "Trial production Q4 FY25",
     },
     {
-      company: "Crompton Greaves",
+      company: "crompton",
       facility: "Goa Fans Plant",
       action: "rationalization",
       investmentCr: null,
@@ -73,7 +73,7 @@ const data: OperationalIntelligenceData = {
       category: "Compressors",
       shift:
         "China+1 sourcing strategy gaining traction; Turkey and Thailand emerging as alternative hubs",
-      affectedCompanies: ["Voltas", "Blue Star", "Amber Enterprises"],
+      affectedCompanies: ["voltas", "bluestar", "amber"],
       impact:
         "5-8% cost increase in short-term during supplier qualification, but supply chain resilience improves. PLI incentives offset most of the cost premium for domestic assembly.",
     },
@@ -81,7 +81,7 @@ const data: OperationalIntelligenceData = {
       category: "Copper Wire & Rods",
       shift:
         "Shift to recycled copper (secondary market) for non-critical components; Havells and V-Guard piloting",
-      affectedCompanies: ["Havells", "V-Guard"],
+      affectedCompanies: ["havells", "vguard"],
       impact:
         "15-20% cost savings on secondary copper vs LME-grade. Quality suitable for non-winding applications. Sustainability reporting benefit as ESG becomes procurement criterion.",
     },
@@ -89,14 +89,14 @@ const data: OperationalIntelligenceData = {
       category: "Smart Controllers & IoT Modules",
       shift:
         "In-house development replacing imported Wi-Fi/Bluetooth modules; Symphony and Crompton building embedded teams",
-      affectedCompanies: ["Symphony", "Crompton Greaves"],
+      affectedCompanies: ["symphony", "crompton"],
       impact:
         "30-40% cost reduction on smart controller BOM once at scale. IP ownership enables faster feature iteration. Current investment of INR 15-25 Cr per company in R&D teams.",
     },
   ],
   retailFootprint: [
     {
-      company: "Havells",
+      company: "havells",
       action: "expansion",
       storeCount: 85,
       geography: "Tier 2-3 cities (UP, MP, Rajasthan)",
@@ -104,7 +104,7 @@ const data: OperationalIntelligenceData = {
         "Havells Galaxy store format expansion targeting semi-urban markets; average store size 800 sqft with full product display. INR 35-40 Lakh investment per store.",
     },
     {
-      company: "Blue Star",
+      company: "bluestar",
       action: "expansion",
       storeCount: 42,
       geography: "South and West metro suburbs",
@@ -112,7 +112,7 @@ const data: OperationalIntelligenceData = {
         "Blue Star exclusive experience centers for VRF and commercial AC solutions; targeting architects and interior designers as channel partners.",
     },
     {
-      company: "Orient Electric",
+      company: "orient",
       action: "rationalization",
       storeCount: 28,
       geography: "East India (Bihar, Jharkhand, Odisha)",
@@ -120,7 +120,7 @@ const data: OperationalIntelligenceData = {
         "Closing underperforming exclusive brand outlets in East India; shifting to multi-brand retail partnerships to reduce fixed costs. Part of working capital improvement program.",
     },
     {
-      company: "Crompton Greaves",
+      company: "crompton",
       action: "reformat",
       storeCount: 120,
       geography: "Pan-India",
