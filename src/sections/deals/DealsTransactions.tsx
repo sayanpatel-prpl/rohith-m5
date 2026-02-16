@@ -1,28 +1,35 @@
+import { Tabs } from "radix-ui";
 import { useFilteredData } from "../../hooks/use-filtered-data";
 import { DataRecencyTag } from "../../components/ui/DataRecencyTag";
 import { SectionSkeleton } from "../../components/ui/SectionSkeleton";
+import { DealSummaryStats } from "./DealSummaryStats";
+import { DealTimeline } from "./DealTimeline";
+import { DealPatterns } from "./DealPatterns";
 import type { DealsTransactionsData } from "../../types/sections";
 
+const DEAL_TYPES = [
+  { value: "all", label: "All Deals" },
+  { value: "M&A", label: "M&A" },
+  { value: "PE/VC", label: "PE/VC" },
+  { value: "IPO", label: "IPO" },
+  { value: "distressed", label: "Distressed" },
+] as const;
+
 /**
- * Deals & Transactions placeholder section.
- * Proves the full fetch -> cache -> filter -> render pipeline.
- * Full module will be built in Phase 4.
+ * Deals & Transactions section.
+ * Displays deal timeline with type filtering, summary stats, and AI pattern cards.
  */
 export default function DealsTransactions() {
-  const { data, rawData, isPending, error, filters } =
+  const { data, isPending, error } =
     useFilteredData<DealsTransactionsData>("deals");
 
   if (isPending) return <SectionSkeleton variant="mixed" />;
   if (error) throw error;
-  if (!data || !rawData) return null;
-
-  const dealCount = data.deals.length;
-  const rawDealCount = rawData.deals.length;
-
-  const activeFilters = getActiveFilterSummary(filters);
+  if (!data) return null;
 
   return (
     <div className="p-md space-y-md">
+      {/* Header */}
       <div className="flex items-center justify-between">
         <h2 className="text-sm font-semibold font-display text-text-primary">
           Deals & Transactions
@@ -30,44 +37,41 @@ export default function DealsTransactions() {
         <DataRecencyTag dataAsOf={data.dataAsOf} />
       </div>
 
-      <div className="bg-surface-raised border border-surface-overlay rounded p-md space-y-sm">
-        <div className="text-xs text-text-secondary">
-          <span className="font-medium text-text-primary">
-            {dealCount} deals
-          </span>
-          {dealCount !== rawDealCount && (
-            <span className="text-text-muted">
-              {" "}
-              (of {rawDealCount} total)
-            </span>
-          )}
-        </div>
+      {/* Summary Stats */}
+      <DealSummaryStats
+        deals={data.deals}
+        patternCount={data.aiPatterns.length}
+      />
 
-        {activeFilters && (
-          <div className="text-xs text-text-muted">
-            Active filters: {activeFilters}
-          </div>
-        )}
+      {/* Tabbed Timeline */}
+      <Tabs.Root defaultValue="all">
+        <Tabs.List className="flex gap-xs mb-md border-b border-surface-overlay">
+          {DEAL_TYPES.map((tab) => (
+            <Tabs.Trigger
+              key={tab.value}
+              value={tab.value}
+              className="px-md py-xs text-xs text-text-muted data-[state=active]:text-brand-accent data-[state=active]:border-b-2 data-[state=active]:border-brand-accent transition-colors"
+            >
+              {tab.label}
+            </Tabs.Trigger>
+          ))}
+        </Tabs.List>
 
-        <p className="text-xs text-text-muted italic">
-          Full module will be built in Phase 4
-        </p>
-      </div>
+        <Tabs.Content value="all">
+          <DealTimeline deals={data.deals} />
+        </Tabs.Content>
+
+        {DEAL_TYPES.filter((t) => t.value !== "all").map((tab) => (
+          <Tabs.Content key={tab.value} value={tab.value}>
+            <DealTimeline
+              deals={data.deals.filter((d) => d.type === tab.value)}
+            />
+          </Tabs.Content>
+        ))}
+      </Tabs.Root>
+
+      {/* AI Pattern Recognition */}
+      <DealPatterns patterns={data.aiPatterns} />
     </div>
   );
-}
-
-function getActiveFilterSummary(filters: {
-  companies: string[];
-  subCategory: string;
-  performanceTier: string;
-  timePeriod: string;
-}): string | null {
-  const parts: string[] = [];
-  if (filters.companies.length > 0)
-    parts.push(`${filters.companies.length} companies`);
-  if (filters.subCategory !== "all") parts.push(filters.subCategory);
-  if (filters.performanceTier !== "all") parts.push(filters.performanceTier);
-  if (filters.timePeriod !== "YoY") parts.push(filters.timePeriod);
-  return parts.length > 0 ? parts.join(", ") : null;
 }
