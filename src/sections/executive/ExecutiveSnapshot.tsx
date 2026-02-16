@@ -2,29 +2,25 @@ import { useFilteredData } from "../../hooks/use-filtered-data";
 import { DataRecencyTag } from "../../components/ui/DataRecencyTag";
 import { SectionSkeleton } from "../../components/ui/SectionSkeleton";
 import type { ExecutiveSnapshotData } from "../../types/sections";
+import BulletSummary from "./BulletSummary";
+import RedFlagsTable from "./RedFlagsTable";
 
 /**
- * Executive Snapshot placeholder section.
- * Proves the full fetch -> cache -> filter -> render pipeline.
- * Full module will be built in Phase 3.
+ * Executive Snapshot -- the landing page users see first.
+ * Bloomberg-dense briefing with 5 monthly summary bullets,
+ * AI narratives, and a red flags table with confidence badges.
  */
 export default function ExecutiveSnapshot() {
-  const { data, rawData, isPending, error, filters } =
+  const { data, rawData, isPending, error } =
     useFilteredData<ExecutiveSnapshotData>("executive");
 
   if (isPending) return <SectionSkeleton variant="mixed" />;
   if (error) throw error;
   if (!data || !rawData) return null;
 
-  const bulletCount = data.bullets.length;
-  const redFlagCount = data.redFlags.length;
-  const rawBulletCount = rawData.bullets.length;
-  const rawRedFlagCount = rawData.redFlags.length;
-
-  const activeFilters = getActiveFilterSummary(filters);
-
   return (
     <div className="p-md space-y-md">
+      {/* Header: title + data recency */}
       <div className="flex items-center justify-between">
         <h2 className="text-sm font-semibold font-display text-text-primary">
           Executive Snapshot
@@ -32,48 +28,21 @@ export default function ExecutiveSnapshot() {
         <DataRecencyTag dataAsOf={data.dataAsOf} />
       </div>
 
-      <div className="bg-surface-raised border border-surface-overlay rounded p-md space-y-sm">
-        <div className="text-xs text-text-secondary">
-          <span className="font-medium text-text-primary">
-            {bulletCount} bullets
+      {/* Bullet summary -- always shows all bullets (theme-level, not company-filtered) */}
+      <BulletSummary bullets={rawData.bullets} />
+
+      {/* Red Flags section */}
+      <div className="space-y-xs">
+        <div className="flex items-center gap-sm">
+          <h3 className="text-xs font-semibold text-text-primary uppercase tracking-wide">
+            Red Flags
+          </h3>
+          <span className="text-[10px] font-medium px-sm py-xs rounded bg-negative/10 text-negative border border-negative/20">
+            {data.redFlags.length}
           </span>
-          {" | "}
-          <span className="font-medium text-text-primary">
-            {redFlagCount} red flags
-          </span>
-          {bulletCount !== rawBulletCount || redFlagCount !== rawRedFlagCount ? (
-            <span className="text-text-muted">
-              {" "}
-              (of {rawBulletCount} bullets, {rawRedFlagCount} red flags total)
-            </span>
-          ) : null}
         </div>
-
-        {activeFilters && (
-          <div className="text-xs text-text-muted">
-            Active filters: {activeFilters}
-          </div>
-        )}
-
-        <p className="text-xs text-text-muted italic">
-          Full module will be built in Phase 3
-        </p>
+        <RedFlagsTable redFlags={data.redFlags} />
       </div>
     </div>
   );
-}
-
-function getActiveFilterSummary(filters: {
-  companies: string[];
-  subCategory: string;
-  performanceTier: string;
-  timePeriod: string;
-}): string | null {
-  const parts: string[] = [];
-  if (filters.companies.length > 0)
-    parts.push(`${filters.companies.length} companies`);
-  if (filters.subCategory !== "all") parts.push(filters.subCategory);
-  if (filters.performanceTier !== "all") parts.push(filters.performanceTier);
-  if (filters.timePeriod !== "YoY") parts.push(filters.timePeriod);
-  return parts.length > 0 ? parts.join(", ") : null;
 }
