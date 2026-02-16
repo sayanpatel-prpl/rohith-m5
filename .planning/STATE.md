@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-15)
 
 **Core value:** Every section answers "where's the BD opportunity?" -- signals that help consulting partners identify which companies need help, what kind, and when to reach out.
-**Current focus:** Phase 5 -- Market Context and Operations (COMPLETE)
+**Current focus:** Phase 6 -- Competitive Landscape and Sub-Sector Analysis (IN PROGRESS)
 
 ## Current Position
 
-Phase: 5 of 9 (Market Context and Operations) COMPLETE
-Plan: 2 of 2 in current phase (05-02 COMPLETE)
-Status: Phase 5 complete -- ready for Phase 6, 7, or any independent phase
-Last activity: 2026-02-16 -- Completed 05-02 Operational Intelligence plan (2 tasks, 3 min)
+Phase: 6 of 9 (Competitive Landscape and Sub-Sector Analysis)
+Plan: 1 of 2 in current phase (06-01 COMPLETE)
+Status: 06-01 Competitive Moves complete -- ready for 06-02
+Last activity: 2026-02-16 -- Completed 06-01 Competitive Moves plan (1 task, 3 min)
 
-Progress: [############........] 62%
+Progress: [#############.......] 69%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 10
-- Average duration: 11 min
-- Total execution time: 1.84 hours
+- Total plans completed: 11
+- Average duration: 10 min
+- Total execution time: 1.89 hours
 
 **By Phase:**
 
@@ -32,9 +32,10 @@ Progress: [############........] 62%
 | 3. Core Financial Intelligence | 2/2 | 8 min | 4 min |
 | 4. Deal Flow and Leadership Signals | 2/2 | 4 min | 2 min |
 | 5. Market Context & Operations | 2/2 | 7 min | 3.5 min |
+| 6. Competitive Landscape | 1/2 | 3 min | 3 min |
 
 **Recent Trend:**
-- Last 5 plans: 04-01 (2 min), 04-02 (2 min), 05-01 (4 min), 05-02 (3 min)
+- Last 5 plans: 04-02 (2 min), 05-01 (4 min), 05-02 (3 min), 06-01 (3 min)
 - Trend: Consistent fast execution composing established Radix/chart/filtering patterns
 
 *Updated after each plan completion*
@@ -91,6 +92,10 @@ Recent decisions affecting current work:
 - [05-02]: Procurement shifts use neutral impact (type is string, not typed union) -- no sentiment inference
 - [05-02]: Company groups sorted by totalSignals descending so high-activity companies appear first
 - [05-02]: Action badge config-record pattern for ManufacturingCapacity and RetailFootprint (matching PerformanceTag)
+- [06-01]: Display names (not company IDs) for competitive moves -- sector-wide observations not company-filterable
+- [06-01]: TabTrigger helper with optional count badge for compact Radix Tabs labels
+- [06-01]: ClusterAnalysis always visible below tabs -- strategic context relevant across all move types
+- [06-01]: Category badges use chart-N color tokens for visual variety across product categories
 
 ### Pending Todos
 
@@ -103,6 +108,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-16
-Stopped at: Completed 05-02-PLAN.md (Operational Intelligence) -- Phase 5 fully complete (2/2 plans)
-Resume file: .planning/phases/05-market-context-and-operations/05-02-SUMMARY.md
-Next action: Execute Phase 6 (Competitive Landscape), Phase 7 (AI Intelligence), or any other independent phase
+Stopped at: Completed 06-01-PLAN.md (Competitive Moves) -- Phase 6 plan 1 of 2 complete
+Resume file: .planning/phases/06-competitive-landscape-and-sub-sector-analysis/06-01-SUMMARY.md
+Next action: Execute 06-02 (Sub-Sector Deep Dive) to complete Phase 6
