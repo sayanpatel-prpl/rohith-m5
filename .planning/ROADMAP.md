@@ -64,11 +64,11 @@ Plans:
   2. Financial Performance Tracker shows a sortable, filterable metrics table for 15-20 companies with revenue growth, EBITDA margin, working capital days, ROCE, and debt/equity -- each tagged as outperform/inline/underperform
   3. User can select 2-5 companies for side-by-side metric comparison with time-series QoQ and YoY trend charts
   4. Every financial metric displays source attribution (e.g., "BSE filing Q3 FY25") and AI variance analysis narrative explaining what changed and why
-**Plans**: TBD
+**Plans:** 2 plans
 
 Plans:
-- [ ] 03-01: Executive Snapshot module (monthly summary, red flags, AI narratives)
-- [ ] 03-02: Financial Performance Tracker (metrics table, comparison view, trend charts, variance analysis)
+- [ ] 03-01-PLAN.md -- Executive Snapshot module: 5-bullet monthly summary with significance badges, red flags table with AI confidence badges and expandable explanations, AI narrative per theme for BD relevance
+- [ ] 03-02-PLAN.md -- Financial Performance Tracker: sortable metrics table for 16 companies, inline checkbox comparison selection (2-5 companies), trend charts with QoQ/YoY toggle, expandable variance analysis, source attribution tooltips
 
 ### Phase 4: Deal Flow and Leadership Signals
 **Goal**: Users can track money movements (M&A, PE/VC, IPOs, distressed assets) and leadership changes (CXO, board, promoter stakes, auditor flags) -- the event-based signals that directly trigger BD outreach
@@ -169,7 +169,7 @@ Note: Phases 3, 4, and 5 depend only on Phase 2 (not on each other) and could th
 |-------|----------------|--------|-----------|
 | 1. Foundation and Architecture | 2/2 | Complete | 2026-02-15 |
 | 2. Report Shell and Data Layer | 2/2 | Complete | 2026-02-16 |
-| 3. Core Financial Intelligence | 0/2 | Not started | - |
+| 3. Core Financial Intelligence | 0/2 | Planned | - |
 | 4. Deal Flow and Leadership Signals | 0/2 | Not started | - |
 | 5. Market Context and Operations | 0/2 | Not started | - |
 | 6. Competitive Landscape and Sub-Sector Analysis | 0/2 | Not started | - |
@@ -179,4 +179,4 @@ Note: Phases 3, 4, and 5 depend only on Phase 2 (not on each other) and could th
 
 ---
 *Roadmap created: 2026-02-15*
-*Last updated: 2026-02-15*
+*Last updated: 2026-02-16*
