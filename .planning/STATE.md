@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-15)
 
 **Core value:** Every section answers "where's the BD opportunity?" -- signals that help consulting partners identify which companies need help, what kind, and when to reach out.
-**Current focus:** Phases 7 and 8 COMPLETE -- ready for Phase 9 (Export)
+**Current focus:** Phase 9 in progress -- 09-01 Export Toolbar COMPLETE, 09-02 remaining
 
 ## Current Position
 
-Phase: 8 of 9 (Phases 7 and 8 both COMPLETE)
-Plan: All plans complete through Phase 8
-Status: Phases 7 and 8 complete -- ready for Phase 9 (Export)
-Last activity: 2026-02-16 -- Completed 07-01 Action Lens plan (1 task, 5 min) and 08-01 Watchlist plan (1 task, 2 min)
+Phase: 9 of 9 (09-01 Export Toolbar complete)
+Plan: 1 of 2 complete in Phase 9
+Status: 09-01 complete -- ready for 09-02 (Meeting Prep)
+Last activity: 2026-02-16 -- Completed 09-01 Export Toolbar plan (1 task, 6 min)
 
-Progress: [##################..] 88%
+Progress: [###################.] 94%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 14
+- Total plans completed: 15
 - Average duration: 9 min
-- Total execution time: 2.05 hours
+- Total execution time: 2.15 hours
 
 **By Phase:**
 
@@ -35,9 +35,10 @@ Progress: [##################..] 88%
 | 6. Competitive Landscape | 2/2 | 6 min | 3 min |
 | 7. AI-Powered Intelligence | 1/1 | 5 min | 5 min |
 | 8. Forward-Looking Signals | 1/1 | 2 min | 2 min |
+| 9. Export and Meeting Prep | 1/2 | 6 min | 6 min |
 
 **Recent Trend:**
-- Last 5 plans: 06-01 (3 min), 06-02 (3 min), 07-01 (5 min), 08-01 (2 min)
+- Last 5 plans: 06-02 (3 min), 07-01 (5 min), 08-01 (2 min), 09-01 (6 min)
 - Trend: Consistent fast execution composing established Radix/chart/filtering patterns
 
 *Updated after each plan completion*
@@ -109,6 +110,11 @@ Recent decisions affecting current work:
 - [08-01]: Severity badge config-record pattern for StressIndicators (critical=negative, warning=brand-accent, watch=neutral)
 - [08-01]: Display company names (not IDs) for forward signals -- AI-generated predictions not company-filterable
 - [08-01]: TabTrigger helper with count badges following CompetitiveMoves pattern (brand-primary active state)
+- [09-01]: window.print() for PDF -- no external PDF library, browser handles Save as PDF
+- [09-01]: Dynamic imports for CSV data modules -- code-split per section, only loaded on export
+- [09-01]: Section headers in multi-table CSVs for competitive, watchlist, leadership
+- [09-01]: activeSection derived from URL path via useLocation -- no prop drilling from AppShell
+- [09-01]: data-print-hide attribute pattern for selective print hiding on Sidebar, FilterBar, TopBar controls
 
 ### Pending Todos
 
@@ -121,6 +127,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-16
-Stopped at: Completed 07-01-PLAN.md (Action Lens) -- Phase 7 fully complete (1/1 plans)
-Resume file: .planning/phases/07-ai-powered-intelligence/07-01-SUMMARY.md
-Next action: Execute Phase 9 (Export and Meeting Prep) -- only remaining phase
+Stopped at: Completed 09-01-PLAN.md (Export Toolbar) -- Phase 9 plan 1/2 complete
+Resume file: .planning/phases/09-export-and-meeting-prep/09-01-SUMMARY.md
+Next action: Execute 09-02-PLAN.md (Meeting Prep) -- last remaining plan
