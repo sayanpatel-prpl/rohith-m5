@@ -99,3 +99,34 @@ export function formatGrowthRate(
 export function formatIndianNumber(value: number): string {
   return indianNumberFormatter.format(value);
 }
+
+// ---------------------------------------------------------------------------
+// Date Formatters
+// ---------------------------------------------------------------------------
+
+const dateFormatter = new Intl.DateTimeFormat("en-IN", {
+  day: "numeric",
+  month: "short",
+  year: "numeric",
+});
+
+const monthYearFormatter = new Intl.DateTimeFormat("en-IN", {
+  month: "short",
+  year: "numeric",
+});
+
+/**
+ * Format ISO date string to human-readable date.
+ * @example formatDate("2024-11-15") => "15 Nov 2024"
+ */
+export function formatDate(isoDate: string): string {
+  return dateFormatter.format(new Date(isoDate));
+}
+
+/**
+ * Format ISO date string to month and year only.
+ * @example formatMonthYear("2024-11-15") => "Nov 2024"
+ */
+export function formatMonthYear(isoDate: string): string {
+  return monthYearFormatter.format(new Date(isoDate));
+}
