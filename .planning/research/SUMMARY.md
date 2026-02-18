@@ -17,18 +17,18 @@ Critical risks include: (1) treating this as a dashboard instead of a briefing d
 
 ### Recommended Stack
 
-The stack is heavily constrained by project requirements (React 19, TypeScript 5, Vite 7, Tailwind CSS v4) and informed by the existing Stratist codebase. The core shift from Stratist is eliminating Ant Design in favor of headless UI primitives (Radix UI) to enable proper multi-tenant white-labeling.
+The stack is heavily constrained by project requirements (React 19, TypeScript 5, Vite 7, Tailwind CSS v4) and informed by the existing Kompete codebase. The core shift from Kompete is eliminating Ant Design in favor of headless UI primitives (Radix UI) to enable proper multi-tenant white-labeling.
 
 **Core technologies:**
 - **React 19 + Vite 7** — constrained by project. React 19's use() hook and improved Suspense are useful for async data loading. Vite 7 provides fast HMR essential for iterating on 10+ dashboard modules.
 - **Tailwind CSS v4** — constrained. v4's @theme directive with CSS custom properties is the foundation for multi-tenant white-labeling. Each tenant gets a CSS file overriding theme variables; no JS-based theming.
-- **Recharts 3.7** — proven in Stratist. Declarative React components for financial charts (line, bar, area, pie, treemap). SVG-based means CSS-styleable for white-labeling. Supports React 19 explicitly.
+- **Recharts 3.7** — proven in Kompete. Declarative React components for financial charts (line, bar, area, pie, treemap). SVG-based means CSS-styleable for white-labeling. Supports React 19 explicitly.
 - **Radix UI primitives** — headless accessible components (dialog, popover, tooltip, select). Fully styled via Tailwind. Replaces Ant Design to avoid CSS-in-JS conflicts.
 - **TanStack Query** — server state management. Handles caching, stale-while-revalidate, background refetch for JSON data from Express/Supabase. Eliminates useEffect fetch patterns.
 - **Zustand** — lightweight client state (filters, UI toggles). For data that stays client-side only. Simpler than Redux, more performant than Context for shared state.
 
 **What NOT to use:**
-- Ant Design (used in Stratist) — CSS-in-JS conflicts with Tailwind v4's CSS-first theming. Bundle bloat. Fights white-label requirements.
+- Ant Design (used in Kompete) — CSS-in-JS conflicts with Tailwind v4's CSS-first theming. Bundle bloat. Fights white-label requirements.
 - Redux Toolkit — ceremony overhead for simple client state. Server state belongs in TanStack Query.
 - Next.js/Remix — this is a SPA dashboard for authenticated users, not an SEO site. SSR adds complexity without benefit.
 
@@ -341,9 +341,9 @@ Foundation (types, theme, formatters)
 
 | Area | Confidence | Notes |
 |------|------------|-------|
-| Stack | **HIGH** | Core technologies verified via npm registry, peer dependencies checked. React 19 + Vite 7 + Tailwind v4 combination proven in Stratist. Recharts, TanStack libraries have explicit React 19 support. |
+| Stack | **HIGH** | Core technologies verified via npm registry, peer dependencies checked. React 19 + Vite 7 + Tailwind v4 combination proven in Kompete. Recharts, TanStack libraries have explicit React 19 support. |
 | Features | **MEDIUM** | Feature categories based on training data knowledge of CB Insights, PitchBook, AlphaSense, consulting industry practices. No web verification available. Core feature patterns (company profiles, financial data, deal tracking) are stable. AI-powered features (BD scoring, variance analysis) are novel and need validation. |
-| Architecture | **HIGH** | Direct code examination of Stratist frontend and consumer-durables-intelligence prototype. Section-module pattern proven in prototype. BrandProvider with CSS custom properties verified against Tailwind v4 docs. React patterns (lazy, Suspense, memo) are official APIs. |
+| Architecture | **HIGH** | Direct code examination of Kompete frontend and consumer-durables-intelligence prototype. Section-module pattern proven in prototype. BrandProvider with CSS custom properties verified against Tailwind v4 docs. React patterns (lazy, Suspense, memo) are official APIs. |
 | Pitfalls | **MEDIUM-HIGH** | React rendering pitfalls verified against official React docs (HIGH). Multi-tenant theming verified against Tailwind v4 docs (HIGH). Dashboard UX and consulting-specific pitfalls based on domain knowledge and NNGroup research (MEDIUM). Indian financial formatting pitfalls based on established domain knowledge (HIGH). |
 
 **Overall confidence:** MEDIUM-HIGH
@@ -380,7 +380,7 @@ Research is solid on technical stack (verified), architecture patterns (proven i
 ## Sources
 
 ### Primary (HIGH confidence)
-- **Stratist frontend codebase** (`/frontend/src/`) — App.jsx, Report.jsx, MarketOverview.jsx, ComparisonMatrix.jsx, QuarterlyTrendChart.jsx, StatBox.jsx, api.js. Direct code examination. Validates React patterns, chart library usage, component structure, API integration approach.
+- **Kompete frontend codebase** (`/frontend/src/`) — App.jsx, Report.jsx, MarketOverview.jsx, ComparisonMatrix.jsx, QuarterlyTrendChart.jsx, StatBox.jsx, api.js. Direct code examination. Validates React patterns, chart library usage, component structure, API integration approach.
 - **Consumer Durables Intelligence prototype** (`/consumer-durables-intelligence/`) — app.js, data.js, charts.js, filters.js. Direct code examination. Proves section-module pattern, data shapes, filter interactions.
 - **React 19 official documentation** (react.dev) — use() hook, Suspense, useMemo, useEffect best practices. Verified for Pitfall 1 (derived state), Pitfall 4 (re-rendering).
 - **Tailwind CSS v4 official documentation** (tailwindcss.com) — @theme directive, CSS custom properties. Verified for Pitfall 2 (white-labeling architecture).

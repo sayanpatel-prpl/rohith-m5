@@ -1,4 +1,4 @@
-# Industry Landscape Intelligence
+# Kompete - Industry Intel
 
 ## What This Is
 
@@ -39,7 +39,7 @@ Every section answers "where's the BD opportunity?" — not just industry data, 
 
 ## Context
 
-Pricio is building AI-powered intelligence products for professional services firms. Stratist (the first product) targets B2B SaaS companies with competitive intelligence. This is the second product — targeting consulting firms with industry landscape intelligence.
+Kompete is building AI-powered intelligence products for professional services firms. Kompete (the first product) targets B2B SaaS companies with competitive intelligence. This is the second product — targeting consulting firms with industry landscape intelligence.
 
 The Consumer Durables category includes ~15-20 Indian entities in the ₹1,000-10,000 Cr revenue range. Data sources include public filings (BSE/NSE), earnings transcripts, news feeds, industry reports, and management commentary.
 
@@ -49,11 +49,11 @@ The buyer persona is an MD or Partner at a consulting firm who needs to:
 3. Track deal flow and capital movements for M&A advisory opportunities
 4. Understand competitive dynamics to advise clients
 
-Architecture can reuse patterns from Stratist (React 19 + Vite + TypeScript + Tailwind v4 + Recharts) but the data contract and module structure will differ significantly.
+Architecture can reuse patterns from Kompete (React 19 + Vite + TypeScript + Tailwind v4 + Recharts) but the data contract and module structure will differ significantly.
 
 ## Constraints
 
-- **Tech stack**: React 19 + Vite + TypeScript 5 + Tailwind CSS v4 (consistent with Stratist for shared learnings)
+- **Tech stack**: React 19 + Vite + TypeScript 5 + Tailwind CSS v4 (consistent with Kompete for shared learnings)
 - **Category scope**: Consumer Durables only for v1 (not all 6 sub-sectors from the brief)
 - **Data format**: JSON data contracts compatible with Express/Supabase backend
 - **Cadence**: Monthly report generation (not real-time)
@@ -66,7 +66,7 @@ Architecture can reuse patterns from Stratist (React 19 + Vite + TypeScript + Ta
 | Interactive web report over static PDF | Consulting partners expect interactivity; drill-down into company data is core UX | -- Pending |
 | Consumer Durables first, other categories later | Prove the model with one focused category before expanding | -- Pending |
 | Multi-tenant from day one | Each consulting firm is a separate customer needing branded experience | -- Pending |
-| Reuse Stratist frontend architecture | Proven stack, shared component patterns, faster development | -- Pending |
+| Reuse Kompete frontend architecture | Proven stack, shared component patterns, faster development | -- Pending |
 
 ---
 *Last updated: 2026-02-15 after project initialization*

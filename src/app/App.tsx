@@ -50,9 +50,9 @@ export function App() {
           </Route>
 
           {/* Default redirect */}
-          <Route path="/" element={<Navigate to="/pricio/report" replace />} />
+          <Route path="/" element={<Navigate to="/kompete/report" replace />} />
           {/* Catch-all redirect */}
-          <Route path="*" element={<Navigate to="/pricio/report" replace />} />
+          <Route path="*" element={<Navigate to="/kompete/report" replace />} />
         </Routes>
       </BrowserRouter>
       <ReactQueryDevtools initialIsOpen={false} />

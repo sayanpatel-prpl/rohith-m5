@@ -103,7 +103,7 @@ The following items cannot be verified programmatically and require human testin
 #### 1. Visual Filter Interaction Flow
 
 **Test:** 
-1. Navigate to `/pricio/report/executive` in browser
+1. Navigate to `/kompete/report/executive` in browser
 2. Open CompanyPicker, select "Voltas" and "Blue Star"
 3. Verify URL updates to `?companies=voltas,bluestar`
 4. Navigate to Financial Performance section
@@ -124,7 +124,7 @@ The following items cannot be verified programmatically and require human testin
 
 **Test:**
 1. Open browser DevTools Network tab
-2. Navigate to `/pricio/report/executive`
+2. Navigate to `/kompete/report/executive`
 3. Note which chunks load
 4. Click "Financial Performance" in sidebar
 5. Observe new chunk loads in Network tab (FinancialPerformance-*.js and financial-*.js)
@@ -142,7 +142,7 @@ The following items cannot be verified programmatically and require human testin
 #### 3. Multi-Tenant Branding Persistence
 
 **Test:**
-1. Navigate to `/pricio/report/financial` with CompanyPicker filter active
+1. Navigate to `/kompete/report/financial` with CompanyPicker filter active
 2. Change URL to `/bcg/report/financial`
 3. Verify branding changes (logo, colors) but filter state persists
 

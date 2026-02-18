@@ -29,7 +29,7 @@ Features that MDs/Partners at consulting firms will expect from any paid industr
 
 ### Differentiators (Competitive Advantage)
 
-Features that existing platforms either do not offer or do poorly. These are where Pricio wins the consulting BD use case.
+Features that existing platforms either do not offer or do poorly. These are where Kompete wins the consulting BD use case.
 
 | Feature | Value Proposition | Complexity | Notes |
 |---------|-------------------|------------|-------|

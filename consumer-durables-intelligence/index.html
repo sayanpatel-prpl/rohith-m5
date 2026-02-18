@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Consumer Durables Intelligence | Kompete by Kompete</title>
+  <link rel="stylesheet" href="assets/css/main.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head>
+<body>
+<div class="app-container">
+
+  <!-- ============================================================
+       SIDEBAR NAVIGATION
+       ============================================================ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">
+        <div class="sidebar-logo-icon">CD</div>
+        <div>
+          <div class="sidebar-logo-title">Consumer Durables</div>
+          <div class="sidebar-logo-text">Intelligence Dashboard</div>
+        </div>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Overview</div>
+      <div class="nav-item active" data-section="executive">
+        <span class="nav-item-icon">&#9679;</span> Executive Snapshot
+      </div>
+      <div class="nav-item" data-section="market">
+        <span class="nav-item-icon">&#9650;</span> Market Pulse
+      </div>
+
+      <div class="nav-section-label">Analysis</div>
+      <div class="nav-item" data-section="financial">
+        <span class="nav-item-icon">&#9632;</span> Financial Tracker
+      </div>
+      <div class="nav-item" data-section="deals">
+        <span class="nav-item-icon">&#9670;</span> Deals & Transactions
+      </div>
+      <div class="nav-item" data-section="operational">
+        <span class="nav-item-icon">&#9881;</span> Operational Intelligence
+      </div>
+
+      <div class="nav-section-label">Intelligence</div>
+      <div class="nav-item" data-section="leadership">
+        <span class="nav-item-icon">&#9733;</span> Leadership & Governance
+        <span class="nav-item-badge" id="leadershipBadge">6</span>
+      </div>
+      <div class="nav-item" data-section="competitive">
+        <span class="nav-item-icon">&#9755;</span> Competitive Moves
+      </div>
+      <div class="nav-item" data-section="subsector">
+        <span class="nav-item-icon">&#8981;</span> Sub-Sector Deep Dive
+      </div>
+
+      <div class="nav-section-label">Insights</div>
+      <div class="nav-item" data-section="stakeholder">
+        <span class="nav-item-icon">&#9998;</span> What This Means For...
+      </div>
+      <div class="nav-item" data-section="watchlist">
+        <span class="nav-item-icon">&#9888;</span> Watchlist & Signals
+        <span class="nav-item-badge">2</span>
+      </div>
+
+      <div class="nav-section-label">Advisory</div>
+      <div class="nav-item" data-section="amvalue">
+        <span class="nav-item-icon">&#10038;</span> A&M Value-Add
+      </div>
+    </nav>
+  </aside>
+
+  <!-- ============================================================
+       MAIN CONTENT
+       ============================================================ -->
+  <main class="main-content">
+    <!-- Top Bar -->
+    <div class="top-bar">
+      <div class="top-bar-left">
+        <button class="hamburger" id="hamburgerBtn">&#9776;</button>
+        <div class="breadcrumb">
+          <span>Kompete</span>
+          <span>/</span>
+          <span class="breadcrumb-current" id="breadcrumbCurrent">Executive Snapshot</span>
+        </div>
+      </div>
+      <div class="top-bar-right">
+        <button class="top-bar-btn" id="exportPdfBtn">Export PDF</button>
+        <button class="top-bar-btn" id="exportExcelBtn">Export Excel</button>
+        <button class="top-bar-btn primary" id="periodLabel">Feb 2026</button>
+      </div>
+    </div>
+
+    <div class="page-content">
+
+      <!-- ============================================================
+           FILTERS BAR
+           ============================================================ -->
+      <div class="filters-bar" id="filtersBar">
+        <div class="filter-group">
+          <span class="filter-label">Companies</span>
+          <div class="multi-select-wrapper" id="companyFilter">
+            <div class="multi-select-trigger" id="companyFilterTrigger">
+              <span>All Companies (15)</span>
+              <span>&#9662;</span>
+            </div>
+            <div class="multi-select-dropdown" id="companyFilterDropdown"></div>
+          </div>
+        </div>
+        <div class="filter-group">
+          <span class="filter-label">Sub-Category</span>
+          <select class="filter-select" id="subCategoryFilter">
+            <option value="all">All Categories</option>
+            <option value="White Goods">White Goods</option>
+            <option value="Consumer Electronics">Consumer Electronics</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <span class="filter-label">Performance</span>
+          <select class="filter-select" id="performanceFilter">
+            <option value="all">All Ratings</option>
+            <option value="Outperform">Outperform</option>
+            <option value="Inline">Inline</option>
+            <option value="Underperform">Underperform</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <span class="filter-label">Time Period</span>
+          <select class="filter-select" id="timePeriodFilter">
+            <option value="latest">Latest Quarter (Q3 FY26)</option>
+            <option value="fy2025">FY 2025</option>
+            <option value="fy2024">FY 2024</option>
+            <option value="fy2023">FY 2023</option>
+            <option value="all">All Periods</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <span class="filter-label">Revenue Range</span>
+          <select class="filter-select" id="revenueFilter">
+            <option value="all">All Ranges</option>
+            <option value="5000+">Above ₹5,000 Cr</option>
+            <option value="2000-5000">₹2,000 - 5,000 Cr</option>
+            <option value="0-2000">Below ₹2,000 Cr</option>
+          </select>
+        </div>
+        <button class="btn btn-secondary btn-sm" id="resetFilters">Reset All</button>
+      </div>
+
+      <!-- ============================================================
+           SECTION 1: EXECUTIVE SNAPSHOT
+           ============================================================ -->
+      <div class="section-panel active" id="section-executive">
+        <div class="section-header">
+          <h2><span class="section-icon">&#9679;</span> Executive Snapshot</h2>
+          <p>Monthly intelligence brief — Consumer Durables sector</p>
+        </div>
+
+        <!-- Key Insights Summary (Pitch-Ready) -->
+        <div class="card mb-6" style="border-left: 4px solid var(--intelligence-blue);">
+          <div class="card-body">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+              <h3 style="margin:0;">Key Insights — February 2026</h3>
+              <div class="confidence-meter" style="flex:1;max-width:240px;">
+                <div class="confidence-bar"><div class="confidence-fill" id="confidenceFill" style="width:78%;background:linear-gradient(90deg,var(--intelligence-blue),var(--teal));"></div></div>
+                <span class="confidence-label" id="confidenceScore">78</span>
+              </div>
+              <span class="text-xs text-slate">Confidence</span>
+            </div>
+            <ul class="snapshot-bullets" id="snapshotBullets"></ul>
+          </div>
+        </div>
+
+        <div class="grid-2 mb-6">
+          <!-- Big Themes -->
+          <div class="card">
+            <div class="card-header"><span class="card-title">Big Themes Emerging</span></div>
+            <div class="card-body">
+              <div class="themes-grid" id="themesGrid"></div>
+            </div>
+          </div>
+          <!-- Red Flags -->
+          <div class="card">
+            <div class="card-header"><span class="card-title">Red Flags / Watchlist</span></div>
+            <div class="card-body" id="redFlagsContainer"></div>
+          </div>
+        </div>
+
+        <!-- Quick Stats Row -->
+        <div class="grid-5 mb-6" id="quickStatsRow"></div>
+      </div>
+
+      <!-- ============================================================
+           SECTION 2: MARKET PULSE
+           ============================================================ -->
+      <div class="section-panel" id="section-market">
+        <div class="section-header">
+          <h2><span class="section-icon">&#9650;</span> Market Pulse — Consumer Durables</h2>
+          <p>Demand signals, input costs, margin outlook, and channel dynamics</p>
+        </div>
+
+        <div class="grid-2 mb-6">
+          <div class="card">
+            <div class="card-header"><span class="card-title">Demand Signals: Volume vs Price Growth (%)</span></div>
+            <div class="card-body"><div class="chart-container"><canvas id="chartDemand"></canvas></div></div>
+          </div>
+          <div class="card">
+            <div class="card-header"><span class="card-title">Input Cost Trends (Index, Q1 FY23 = 100)</span></div>
+            <div class="card-body"><div class="chart-container"><canvas id="chartInputCosts"></canvas></div></div>
+          </div>
+        </div>
+
+        <div class="grid-2 mb-6">
+          <div class="card">
+            <div class="card-header"><span class="card-title">Sector EBITDA Margin Bands (%)</span></div>
+            <div class="card-body"><div class="chart-container"><canvas id="chartMarginBands"></canvas></div></div>
+          </div>
+          <div class="card">
+            <div class="card-header"><span class="card-title">Channel Mix — Latest Quarter (%)</span></div>
+            <div class="card-body"><div class="chart-container"><canvas id="chartChannelMix"></canvas></div></div>
+          </div>
+        </div>
+
+        <div class="card mb-6">
+          <div class="card-header"><span class="card-title">Seasonal Demand Patterns (Monthly Index, 100 = Average)</span></div>
+          <div class="card-body"><div class="chart-container"><canvas id="chartSeasonal"></canvas></div></div>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           SECTION 3: FINANCIAL PERFORMANCE TRACKER
+           ============================================================ -->
+      <div class="section-panel" id="section-financial">
+        <div class="section-header">
+          <h2><span class="section-icon">&#9632;</span> Financial Performance Tracker</h2>
+          <p>Comprehensive financial metrics for tracked companies — click any row for detail</p>
+        </div>
+
+        <div class="card mb-6">
+          <div class="card-body" style="overflow-x:auto;">
+            <table class="data-table" id="financialTable">
+              <thead>
+                <tr>
+                  <th>Company</th>
+                  <th>Sub-Category</th>
+                  <th class="text-right">Revenue (₹Cr)</th>
+                  <th class="text-right">YoY Growth</th>
+                  <th class="text-right">EBITDA %</th>
+                  <th class="text-right">WC Days</th>
+                  <th class="text-right">Inv. Days</th>
+                  <th class="text-right">Net Debt/EBITDA</th>
+                  <th class="text-right">ROCE %</th>
+                  <th class="text-right">Capex %</th>
+                  <th>Rating</th>
+                  <th>Trend</th>
+                </tr>
+              </thead>
+              <tbody id="financialTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Comparative Charts -->
+        <div class="grid-2 mb-6">
+          <div class="card">
+            <div class="card-header"><span class="card-title">Revenue Trend — All Companies (₹ Cr)</span></div>
+            <div class="card-body"><div class="chart-container"><canvas id="chartRevenueTrend"></canvas></div></div>
+          </div>
+          <div class="card">
+            <div class="card-header"><span class="card-title">EBITDA Margin Trend (%)</span></div>
+            <div class="card-body"><div class="chart-container"><canvas id="chartEbitdaTrend"></canvas></div></div>
+          </div>
+        </div>
+
+        <div class="grid-2 mb-6">
+          <div class="card">
+            <div class="card-header"><span class="card-title">ROCE Comparison (%)</span></div>
+            <div class="card-body"><div class="chart-container"><canvas id="chartRoce"></canvas></div></div>
+          </div>
+          <div class="card">
+            <div class="card-header"><span class="card-title">Working Capital vs Inventory Days — Heatmap</span></div>
+            <div class="card-body" style="overflow-x:auto;" id="heatmapContainer"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           SECTION 4: DEALS & TRANSACTIONS
+           ============================================================ -->
+      <div class="section-panel" id="section-deals">
+        <div class="section-header">
+          <h2><span class="section-icon">&#9670;</span> Deals, Transactions & Capital Movements</h2>
+          <p>M&A, PE/VC investments, strategic stakes, and fundraises</p>
+        </div>
+
+        <!-- Summary Stats (dynamically populated) -->
+        <div class="grid-4 mb-6" id="dealsSummaryStats"></div>
+
+        <div class="grid-2" id="dealsGrid"></div>
+      </div>
+
+      <!-- ============================================================
+           SECTION 5: OPERATIONAL INTELLIGENCE
+           ============================================================ -->
+      <div class="section-panel" id="section-operational">
+        <div class="section-header">
+          <h2><span class="section-icon">&#9881;</span> Operational Intelligence & Efficiency Signals</h2>
+          <p>Supply chain, manufacturing, procurement, and retail operations</p>
+        </div>
+
+        <div class="card mb-6">
+          <div class="card-header"><span class="card-title">Operational Metrics Comparison</span></div>
+          <div class="card-body" style="overflow-x:auto;">
+            <table class="data-table" id="operationalTable">
+              <thead>
+                <tr>
+                  <th>Company</th>
+                  <th class="text-right">Capacity Util. %</th>
+                  <th class="text-right">Localization %</th>
+                  <th class="text-right">Contract Mfg %</th>
+                  <th class="text-right">After-Sales Cost %</th>
+                  <th class="text-right">Import Dep. %</th>
+                  <th class="text-right">Vendor Consol. Index</th>
+                  <th class="text-right">Warranty %</th>
+                  <th class="text-right">Dealer Prod. (₹Cr)</th>
+                </tr>
+              </thead>
+              <tbody id="operationalTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="grid-2 mb-6">
+          <div class="card">
+            <div class="card-header"><span class="card-title">Capacity Utilization vs Localization</span></div>
+            <div class="card-body"><div class="chart-container"><canvas id="chartCapacity"></canvas></div></div>
+          </div>
+          <div class="card">
+            <div class="card-header"><span class="card-title">Product Mix: Premium / Mass / Economy (%)</span></div>
+            <div class="card-body"><div class="chart-container"><canvas id="chartProductMix"></canvas></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           SECTION 6: LEADERSHIP & GOVERNANCE
+           ============================================================ -->
+      <div class="section-panel" id="section-leadership">
+        <div class="section-header">
+          <h2><span class="section-icon">&#9733;</span> Leadership, Org & Governance Watch</h2>
+          <p>CEO/CXO changes, board reshuffles, promoter movements, and governance flags</p>
+        </div>
+
+        <div class="card mb-6">
+          <div class="card-body">
+            <div class="timeline" id="leadershipTimeline"></div>
+          </div>
+        </div>
+
+        <div class="grid-2 mb-6">
+          <div class="card">
+            <div class="card-header"><span class="card-title">Promoter Holding (%)</span></div>
+            <div class="card-body"><div class="chart-container"><canvas id="chartPromoter"></canvas></div></div>
+          </div>
+          <div class="card">
+            <div class="card-header"><span class="card-title">Sentiment Analysis (0-100)</span></div>
+            <div class="card-body"><div class="chart-container"><canvas id="chartSentiment"></canvas></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           SECTION 7: COMPETITIVE MOVES
+           ============================================================ -->
+      <div class="section-panel" id="section-competitive">
+        <div class="section-header">
+          <h2><span class="section-icon">&#9755;</span> Competitive Moves & Strategic Bets</h2>
+          <p>Product launches, pricing strategies, D2C initiatives, partnerships, and plant expansions</p>
+        </div>
+
+        <div class="grid-2" id="competitiveGrid"></div>
+      </div>
+
+      <!-- ============================================================
+           SECTION 8: SUB-SECTOR DEEP DIVE
+           ============================================================ -->
+      <div class="section-panel" id="section-subsector">
+        <div class="section-header">
+          <h2><span class="section-icon">&#8981;</span> Sub-Sector Deep Dive: Home Appliances</h2>
+          <p>Market sizing, cost benchmarks, margin levers, and scale vs profitability analysis</p>
+        </div>
+
+        <div class="grid-4 mb-6">
+          <div class="stat-card">
+            <div class="stat-card-label">Market Size</div>
+            <div class="stat-card-value">₹45K Cr</div>
+            <span class="stat-card-change positive">+12.5% YoY</span>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-label">Largest Segment</div>
+            <div class="stat-card-value">ACs</div>
+            <span class="stat-card-change positive">₹22K Cr, +15%</span>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-label">Fastest Growing</div>
+            <div class="stat-card-value">Coolers</div>
+            <span class="stat-card-change positive">+18% YoY</span>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-label">Segments Tracked</div>
+            <div class="stat-card-value">4</div>
+            <span class="stat-card-change neutral">ACs, Fridges, WMs, Coolers</span>
+          </div>
+        </div>
+
+        <div class="grid-2 mb-6">
+          <div class="card">
+            <div class="card-header"><span class="card-title">Segment Size & Growth</span></div>
+            <div class="card-body"><div class="chart-container"><canvas id="chartSegments"></canvas></div></div>
+          </div>
+          <div class="card">
+            <div class="card-header"><span class="card-title">Cost Structure Benchmarks (% of Revenue)</span></div>
+            <div class="card-body"><div class="chart-container"><canvas id="chartCostBenchmark"></canvas></div></div>
+          </div>
+        </div>
+
+        <div class="card mb-6">
+          <div class="card-header"><span class="card-title">Margin Levers Analysis</span></div>
+          <div class="card-body" style="overflow-x:auto;">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Lever</th>
+                  <th>Potential Impact</th>
+                  <th>Difficulty</th>
+                  <th>Timeframe</th>
+                </tr>
+              </thead>
+              <tbody id="marginLeversBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card mb-6">
+          <div class="card-header"><span class="card-title">Scale vs Profitability (Revenue ₹Cr vs EBITDA %)</span></div>
+          <div class="card-body"><div class="chart-container"><canvas id="chartScaleProfit"></canvas></div></div>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           SECTION 9: WHAT THIS MEANS FOR...
+           ============================================================ -->
+      <div class="section-panel" id="section-stakeholder">
+        <div class="section-header">
+          <h2><span class="section-icon">&#9998;</span> "What This Means For..."</h2>
+          <p>Tailored insights for different stakeholder groups</p>
+        </div>
+
+        <div class="card mb-6">
+          <div class="tabs" id="stakeholderTabs">
+            <div class="tab active" data-tab="pe">PE / Investors</div>
+            <div class="tab" data-tab="founders">Founders / Promoters</div>
+            <div class="tab" data-tab="coos">COOs / CFOs</div>
+            <div class="tab" data-tab="supply">Supply Chain Heads</div>
+          </div>
+          <div class="card-body">
+            <div class="tab-content active" id="tabcontent-pe">
+              <ul class="insight-list" id="insightsPe"></ul>
+            </div>
+            <div class="tab-content" id="tabcontent-founders">
+              <ul class="insight-list" id="insightsFounders"></ul>
+            </div>
+            <div class="tab-content" id="tabcontent-coos">
+              <ul class="insight-list" id="insightsCoos"></ul>
+            </div>
+            <div class="tab-content" id="tabcontent-supply">
+              <ul class="insight-list" id="insightsSupply"></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           SECTION 10: WATCHLIST & FORWARD INDICATORS
+           ============================================================ -->
+      <div class="section-panel" id="section-watchlist">
+        <div class="section-header">
+          <h2><span class="section-icon">&#9888;</span> Watchlist & Forward Indicators</h2>
+          <p>Likely fundraises, margin inflection candidates, consolidation targets, and stress signals</p>
+        </div>
+
+        <div class="grid-2 mb-6">
+          <!-- Likely Fundraises -->
+          <div class="card">
+            <div class="card-header"><span class="card-title">Likely Fundraises (Next 90 Days)</span></div>
+            <div class="card-body" id="fundraisesList"></div>
+          </div>
+          <!-- Margin Inflection -->
+          <div class="card">
+            <div class="card-header"><span class="card-title">Margin Inflection Candidates</span></div>
+            <div class="card-body" id="inflectionList"></div>
+          </div>
+        </div>
+
+        <div class="grid-2 mb-6">
+          <!-- Consolidation Targets -->
+          <div class="card">
+            <div class="card-header"><span class="card-title">Potential Consolidation Targets</span></div>
+            <div class="card-body" id="consolidationList"></div>
+          </div>
+          <!-- Stress Indicators -->
+          <div class="card">
+            <div class="card-header"><span class="card-title">Stress Indicators</span></div>
+            <div class="card-body" id="stressList"></div>
+          </div>
+        </div>
+
+        <div class="card mb-6">
+          <div class="card-header"><span class="card-title">Company Sentiment Radar</span></div>
+          <div class="card-body"><div class="chart-container"><canvas id="chartSentimentRadar"></canvas></div></div>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           SECTION 11: A&M VALUE-ADD
+           ============================================================ -->
+      <div class="section-panel" id="section-amvalue">
+        <div class="section-header">
+          <h2><span class="section-icon">&#10038;</span> A&M Value-Add Opportunities</h2>
+          <p>Actionable advisory opportunities identified from intelligence analysis</p>
+        </div>
+
+        <div class="grid-3 mb-6" id="amSummaryStats"></div>
+
+        <div id="amOpportunitiesList"></div>
+      </div>
+
+    </div><!-- /page-content -->
+  </main>
+</div><!-- /app-container -->
+
+<!-- Company Detail Modal -->
+<div class="modal-overlay" id="companyModal">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title" id="modalCompanyName"></span>
+      <button class="modal-close" id="modalClose">&times;</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<!-- Scripts -->
+<script src="assets/js/data.js"></script>
+<script src="assets/js/charts.js"></script>
+<script src="assets/js/filters.js"></script>
+<script src="assets/js/export.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>

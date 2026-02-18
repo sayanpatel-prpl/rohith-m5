@@ -2,9 +2,9 @@
 
 /* Design tokens as CSS custom properties via @theme */
 @theme {
-  --color-brand-primary: oklch(0.55 0.15 250);
-  --color-brand-secondary: oklch(0.65 0.10 250);
-  --color-brand-accent: oklch(0.70 0.12 45);
+  --color-brand-primary: oklch(0.29 0.05 226);
+  --color-brand-secondary: oklch(0.59 0.06 224);
+  --color-brand-accent: oklch(0.74 0.10 49);
 
   --color-surface: oklch(0.99 0 0);
   --color-surface-raised: oklch(0.97 0 0);
@@ -14,36 +14,40 @@
   --color-text-secondary: oklch(0.40 0 0);
   --color-text-muted: oklch(0.55 0 0);
 
-  /* Fixed professional chart palette (blue-teal-gray) -- same across all tenants */
-  --color-chart-1: oklch(0.55 0.15 250);
-  --color-chart-2: oklch(0.60 0.12 190);
-  --color-chart-3: oklch(0.50 0.08 160);
-  --color-chart-4: oklch(0.65 0.10 280);
-  --color-chart-5: oklch(0.58 0.06 230);
+  /* Kompete chart palette -- warm gold, sage, steel blue, amber, violet, rose, teal, bronze */
+  --color-chart-1: oklch(0.74 0.10 49);
+  --color-chart-2: oklch(0.63 0.04 126);
+  --color-chart-3: oklch(0.59 0.06 224);
+  --color-chart-4: oklch(0.68 0.12 39);
+  --color-chart-5: oklch(0.59 0.05 289);
 
   /* Semantic colors */
-  --color-positive: oklch(0.55 0.15 155);
-  --color-negative: oklch(0.55 0.18 25);
-  --color-neutral: oklch(0.55 0.02 250);
+  --color-positive: oklch(0.63 0.04 126);
+  --color-negative: oklch(0.60 0.14 16);
+  --color-neutral: oklch(0.59 0.06 224);
 
   /* Typography */
   --font-body: "Inter", system-ui, sans-serif;
   --font-display: "Inter", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
-  /* HIGH DENSITY text scale */
-  --text-xs: 0.6875rem;    /* 11px */
-  --text-sm: 0.75rem;      /* 12px */
-  --text-base: 0.8125rem;  /* 13px */
-  --text-lg: 0.9375rem;    /* 15px */
-  --text-xl: 1.125rem;     /* 18px */
+  /* COMFORTABLE text scale - Modern, readable */
+  --text-xs: 0.75rem;      /* 12px */
+  --text-sm: 0.875rem;     /* 14px */
+  --text-base: 1rem;       /* 16px */
+  --text-lg: 1.125rem;     /* 18px */
+  --text-xl: 1.25rem;      /* 20px */
+  --text-2xl: 1.5rem;      /* 24px */
+  --text-3xl: 2rem;        /* 32px */
 
-  /* COMPACT spacing */
-  --spacing-xs: 0.125rem;  /* 2px */
-  --spacing-sm: 0.25rem;   /* 4px */
-  --spacing-md: 0.5rem;    /* 8px */
-  --spacing-lg: 0.75rem;   /* 12px */
-  --spacing-xl: 1rem;      /* 16px */
+  /* SPACIOUS spacing - Modern, breathable */
+  --spacing-xs: 0.5rem;    /* 8px */
+  --spacing-sm: 0.75rem;   /* 12px */
+  --spacing-md: 1rem;      /* 16px */
+  --spacing-lg: 1.5rem;    /* 24px */
+  --spacing-xl: 2rem;      /* 32px */
+  --spacing-2xl: 3rem;     /* 48px */
+  --spacing-3xl: 4rem;     /* 64px */
 
   /* Fade animation for section transitions */
   --animate-fade-in: fade-in 200ms ease-out;
@@ -55,17 +59,17 @@
 /* Dark mode overrides + tenant overrides */
 @layer base {
   .dark {
-    --color-surface: oklch(0.15 0.01 250);
-    --color-surface-raised: oklch(0.18 0.01 250);
-    --color-surface-overlay: oklch(0.22 0.01 250);
-    --color-text-primary: oklch(0.93 0 0);
-    --color-text-secondary: oklch(0.70 0 0);
-    --color-text-muted: oklch(0.55 0 0);
+    --color-surface: oklch(0.18 0.01 243);
+    --color-surface-raised: oklch(0.23 0.03 233);
+    --color-surface-overlay: oklch(0.29 0.05 226);
+    --color-text-primary: oklch(0.94 0.02 25);
+    --color-text-secondary: oklch(0.67 0.01 272);
+    --color-text-muted: oklch(0.52 0.02 242);
   }
 
   /* Tenant overrides -- only accent color and display font change per brand */
-  [data-tenant="pricio"] {
-    --color-brand-accent: oklch(0.60 0.15 260);  /* Pricio blue-purple */
+  [data-tenant="kompete"] {
+    --color-brand-accent: oklch(0.74 0.10 49);  /* Kompete warm gold */
   }
 
   [data-tenant="bcg"] {

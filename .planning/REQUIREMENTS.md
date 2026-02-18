@@ -1,4 +1,4 @@
-# Requirements: Industry Landscape Intelligence
+# Requirements: Kompete - Industry Intel
 
 **Defined:** 2026-02-15
 **Core Value:** Every section answers "where's the BD opportunity?" — signals that help consulting partners identify which companies need help, what kind, and when to reach out.

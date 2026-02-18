@@ -568,8 +568,8 @@ export function App() {
               );
             })}
           </Route>
-          <Route path="/" element={<Navigate to="/pricio/report" replace />} />
-          <Route path="*" element={<Navigate to="/pricio/report" replace />} />
+          <Route path="/" element={<Navigate to="/kompete/report" replace />} />
+          <Route path="*" element={<Navigate to="/kompete/report" replace />} />
         </Routes>
       </BrowserRouter>
       <ReactQueryDevtools initialIsOpen={false} />

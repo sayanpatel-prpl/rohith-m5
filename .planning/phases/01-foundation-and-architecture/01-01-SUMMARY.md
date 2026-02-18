@@ -11,13 +11,13 @@ requires:
 provides:
   - Vite 7 + React 19 + TypeScript 5 project scaffold
   - Tailwind v4 @theme design token system with CSS custom properties
-  - Multi-tenant brand theming via [data-tenant] CSS selectors (pricio, bcg, am)
+  - Multi-tenant brand theming via [data-tenant] CSS selectors (kompete, bcg, am)
   - BrandProvider with URL-slug tenant resolution and runtime switching
   - React Router v7 app shell with 10 section routes
   - Dark mode three-way toggle (light/dark/system) with localStorage persistence
   - SectionWrapper with error boundary isolation and fade-in transitions
   - AppShell layout (TopBar + Sidebar + content area)
-  - Brand config registry with Pricio fallback for unknown slugs
+  - Brand config registry with Kompete fallback for unknown slugs
 affects: [01-02, 02-report-shell, all-subsequent-phases]
 
 # Tech tracking
@@ -30,7 +30,7 @@ key-files:
     - src/theme/tokens.css
     - src/theme/dark-mode.ts
     - src/brands/types.ts
-    - src/brands/pricio.ts
+    - src/brands/kompete.ts
     - src/brands/bcg.ts
     - src/brands/am.ts
     - src/brands/index.ts
@@ -84,7 +84,7 @@ completed: 2026-02-15
 
 ## Accomplishments
 - Full Vite 7 + React 19 + TypeScript project with Tailwind CSS v4 @theme design tokens (high-density 11-13px text scale, compact 2-16px spacing, oklch color system)
-- Multi-tenant branding system: 3 brand configs (Pricio, BCG, A&M) with runtime switching via URL slug and CSS custom property cascade through [data-tenant] selectors
+- Multi-tenant branding system: 3 brand configs (Kompete, BCG, A&M) with runtime switching via URL slug and CSS custom property cascade through [data-tenant] selectors
 - App shell layout with slim TopBar (tenant logo, edition badge, dark mode toggle), left Sidebar (10 section NavLinks with active state), and routed content area
 - Dark mode from day one: three-way toggle (light/dark/system), localStorage persistence, blocking script prevents flash, @custom-variant dark for Tailwind
 - Error boundaries isolate each section via SectionWrapper with react-error-boundary, inline error card with retry button
@@ -106,10 +106,10 @@ Each task was committed atomically:
 - `src/theme/tokens.css` - Tailwind v4 @theme with all design tokens, dark mode overrides, tenant overrides, fade-in keyframes
 - `src/theme/dark-mode.ts` - Three-way toggle: getStoredTheme, applyTheme, initTheme with system preference listener
 - `src/brands/types.ts` - BrandConfig interface (slug, displayName, logoUrl, faviconUrl, accentColor, fontDisplay, fontBody)
-- `src/brands/pricio.ts` - Pricio Intelligence brand config (blue-purple accent, Inter font)
+- `src/brands/kompete.ts` - Kompete Intelligence brand config (blue-purple accent, Inter font)
 - `src/brands/bcg.ts` - BCG brand config (green accent, Georgia font)
 - `src/brands/am.ts` - Alvarez & Marsal brand config (red-orange accent, Helvetica Neue font)
-- `src/brands/index.ts` - Brand registry with getBrandConfig() and Pricio fallback
+- `src/brands/index.ts` - Brand registry with getBrandConfig() and Kompete fallback
 - `src/components/brand/BrandProvider.tsx` - Context provider: URL slug resolution, data-tenant attribute, favicon/title updates
 - `src/components/brand/useBrand.ts` - Custom hook using React 19 use() for brand context
 - `src/app/App.tsx` - BrowserRouter with tenant-aware routing, 10 section routes, redirects
@@ -119,8 +119,8 @@ Each task was committed atomically:
 - `src/components/layout/Sidebar.tsx` - NavLink list for 10 sections with active state styling
 - `src/components/layout/SectionWrapper.tsx` - ErrorBoundary + fade-in wrapper for each section
 - `src/components/errors/SectionErrorFallback.tsx` - Inline error card with retry button
-- `public/brands/pricio/logo.svg` - Placeholder Pricio logo
-- `public/brands/pricio/favicon.ico` - 16x16 blue-purple favicon
+- `public/brands/kompete/logo.svg` - Placeholder Kompete logo
+- `public/brands/kompete/favicon.ico` - 16x16 blue-purple favicon
 - `public/brands/bcg/logo.svg` - Placeholder BCG logo (green)
 - `public/brands/am/logo.svg` - Placeholder A&M logo (red-orange)
 

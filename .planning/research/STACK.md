@@ -14,13 +14,13 @@
 | TypeScript | ^5.9.3 | Type safety | Constrained. Critical for a data-heavy product: typed JSON data contracts prevent runtime errors when backend schema changes. Use strict mode. |
 | Vite | ^7.3.1 | Build tool | Constrained. Vite 7 is current stable. Use with `@vitejs/plugin-react` v5.1.4 and `@tailwindcss/vite` v4.1.18 (verified: supports Vite 5/6/7). Fast HMR essential for iterating on 10+ dashboard modules. |
 | Tailwind CSS | ^4.1.18 | Styling | Constrained. v4 uses CSS-first configuration (no tailwind.config.js). CSS custom properties (`@theme`) are the theming mechanism -- this is the foundation for multi-tenant white-labeling. |
-| React Router | ^7.13.0 | Routing | Stratist uses v7. Data router APIs (loaders, actions) useful for pre-fetching module data. Supports React 19 (peer dep: >=18). |
+| React Router | ^7.13.0 | Routing | Kompete uses v7. Data router APIs (loaders, actions) useful for pre-fetching module data. Supports React 19 (peer dep: >=18). |
 
 ### Data Visualization
 
 | Library | Version | Purpose | Why Recommended |
 |---------|---------|---------|-----------------|
-| Recharts | ^3.7.0 | Charts (line, bar, area, pie, radar, scatter, treemap) | Proven in Stratist. Declarative React components, built on D3. Supports React 19 explicitly (`^19.0.0` in peer deps). Best developer experience for the chart types this product needs: financial trend lines, margin comparisons, market share pie charts, revenue bar charts. Composable -- custom tooltips, reference lines, and brush zoom are straightforward. |
+| Recharts | ^3.7.0 | Charts (line, bar, area, pie, radar, scatter, treemap) | Proven in Kompete. Declarative React components, built on D3. Supports React 19 explicitly (`^19.0.0` in peer deps). Best developer experience for the chart types this product needs: financial trend lines, margin comparisons, market share pie charts, revenue bar charts. Composable -- custom tooltips, reference lines, and brush zoom are straightforward. |
 
 **Why Recharts over alternatives:**
 
@@ -40,7 +40,7 @@
 | @tanstack/react-table | ^8.21.3 | Headless data tables | Financial Performance Tracker needs sortable, filterable tables for 15-20 companies with 10+ metrics each. Headless = full Tailwind styling control. Supports sorting, filtering, pagination, column pinning, row expansion. React >=16.8 peer dep. Bring your own UI -- pairs perfectly with white-label theming. |
 
 **Why headless over pre-styled:**
-Ant Design Tables (used in Stratist) come with built-in styles that fight Tailwind and make white-labeling harder. TanStack Table gives you the logic (sorting, filtering, column management) with zero UI opinions -- you build the `<table>` with Tailwind classes that respond to CSS custom properties per tenant.
+Ant Design Tables (used in Kompete) come with built-in styles that fight Tailwind and make white-labeling harder. TanStack Table gives you the logic (sorting, filtering, column management) with zero UI opinions -- you build the `<table>` with Tailwind classes that respond to CSS custom properties per tenant.
 
 ### State Management & Data Fetching
 
@@ -61,7 +61,7 @@ Ant Design Tables (used in Stratist) come with built-in styles that fight Tailwi
 
 **Why Radix over Headless UI:** Radix has broader component coverage (dialog, popover, tooltip, select, dropdown-menu, tabs, accordion, hover-card). Headless UI covers fewer primitives. Both are headless and Tailwind-compatible, but Radix gives you more components you will need across 10 dashboard modules.
 
-**Why NOT Ant Design (antd) for this project:** Stratist uses antd v6.3.0 but this project should NOT. Reasons:
+**Why NOT Ant Design (antd) for this project:** Kompete uses antd v6.3.0 but this project should NOT. Reasons:
 1. **White-label theming:** antd uses CSS-in-JS (cssinjs) with its own token system. Layering Tailwind + antd tokens + per-tenant CSS variables creates three competing style systems.
 2. **Bundle size:** antd imports pull in significant JS even with tree-shaking.
 3. **Design consistency:** antd has strong visual opinions. Consulting firm branding requires full visual control -- headless primitives + Tailwind give that.
@@ -70,7 +70,7 @@ Ant Design Tables (used in Stratist) come with built-in styles that fight Tailwi
 
 | Library | Version | Purpose | Why Recommended |
 |---------|---------|---------|-----------------|
-| Lucide React | ^0.564.0 | Icon library | Already used in Stratist. Tree-shakeable, consistent style, 1500+ icons covering business/financial domain well. Each icon is an individual ESM import -- no bundle bloat. |
+| Lucide React | ^0.564.0 | Icon library | Already used in Kompete. Tree-shakeable, consistent style, 1500+ icons covering business/financial domain well. Each icon is an individual ESM import -- no bundle bloat. |
 
 ### Animations
 
@@ -93,7 +93,7 @@ Ant Design Tables (used in Stratist) come with built-in styles that fight Tailwi
 
 | Library | Version | Purpose | When to Use |
 |---------|---------|---------|-------------|
-| react-to-print | ^3.2.0 | Print-friendly report export | Already in Stratist. Triggers browser print dialog for any React component tree. Use for "Download as PDF" via browser print-to-PDF. Supports React 19 (`~19` in peer deps). |
+| react-to-print | ^3.2.0 | Print-friendly report export | Already in Kompete. Triggers browser print dialog for any React component tree. Use for "Download as PDF" via browser print-to-PDF. Supports React 19 (`~19` in peer deps). |
 | html-to-image | ^1.11.13 | Screenshot individual charts/modules | "Export chart as PNG" feature. Better maintained than html2canvas. Uses modern APIs (foreignObject SVG rendering). |
 
 **Why not jsPDF + html2canvas:** react-to-print leverages native browser print, which produces higher quality PDFs with proper pagination. jsPDF + html2canvas renders to canvas then to PDF -- lower quality, font issues, and SVG chart rendering problems. Use native print path.
@@ -104,7 +104,7 @@ Ant Design Tables (used in Stratist) come with built-in styles that fight Tailwi
 |------|---------|---------|-------|
 | @vitejs/plugin-react | ^5.1.4 | Vite React integration | Fast Refresh, JSX transform |
 | @tailwindcss/vite | ^4.1.18 | Tailwind CSS Vite plugin | v4 uses this instead of PostCSS plugin. Verified: supports Vite 7. |
-| ESLint | ^9.39+ | Linting | Use flat config (eslint.config.js). Stratist already on ESLint 9. |
+| ESLint | ^9.39+ | Linting | Use flat config (eslint.config.js). Kompete already on ESLint 9. |
 | @eslint/js | ^9.39+ | ESLint core rules | Flat config base |
 | typescript-eslint | ^8.55.0 | TypeScript ESLint rules | Type-aware linting for strict TS |
 | Prettier | ^3.8.1 | Code formatting | Consistent formatting across team |
@@ -161,7 +161,7 @@ npm install -D eslint@^9.39.1 @eslint/js@^9.39.1 typescript-eslint@^8.55.0 prett
 
 | Avoid | Why | Use Instead |
 |-------|-----|-------------|
-| Ant Design (antd) | Three competing style systems (antd tokens + Tailwind + tenant CSS vars). Bundle bloat. Fights white-label theming. Stratist uses it but this project has different requirements. | Radix UI primitives + Tailwind CSS. Full visual control for branded instances. |
+| Ant Design (antd) | Three competing style systems (antd tokens + Tailwind + tenant CSS vars). Bundle bloat. Fights white-label theming. Kompete uses it but this project has different requirements. | Radix UI primitives + Tailwind CSS. Full visual control for branded instances. |
 | Redux Toolkit | Ceremony overhead (slices, dispatch, selectors) for simple client state. Server state belongs in TanStack Query, not Redux. | Zustand for client state, TanStack Query for server state. |
 | Styled Components / Emotion | CSS-in-JS adds runtime cost and conflicts with Tailwind v4's CSS-first approach. Cannot leverage Tailwind's `@theme` for white-labeling. | Tailwind CSS v4 with CSS custom properties for theming. |
 | Material UI (MUI) | Same problem as antd -- opinionated visual system that fights custom branding. Even heavier bundle. | Radix UI + Tailwind. |
@@ -200,7 +200,7 @@ npm install -D eslint@^9.39.1 @eslint/js@^9.39.1 typescript-eslint@^8.55.0 prett
 |-----------|-----------------|-------|
 | react@^19.2.4 | All recommended libraries | Verified: recharts, @tanstack/react-table, @tanstack/react-query, zustand, radix-ui, motion, react-to-print, sonner all list React 19 in peer deps. |
 | vite@^7.3.1 | @tailwindcss/vite@^4.1.18 | Verified: @tailwindcss/vite peer dep is `vite ^5.2.0 \|\| ^6 \|\| ^7`. |
-| vite@^7.3.1 | @vitejs/plugin-react@^5.1.4 | Stratist runs this combination successfully. |
+| vite@^7.3.1 | @vitejs/plugin-react@^5.1.4 | Kompete runs this combination successfully. |
 | tailwindcss@^4.1.18 | @tailwindcss/vite@^4.1.18 | Same version -- Tailwind v4 plugin is part of the tailwindcss package ecosystem. |
 | typescript@^5.9.3 | All recommended libraries | TS 5.x is universally supported. @types/react@^19.2.5 provides React 19 type definitions. |
 | eslint@^9.39.1 | typescript-eslint@^8.55.0 | Both use flat config. ESLint 9 + typescript-eslint 8 is the current standard combination. |
@@ -252,8 +252,8 @@ All versions verified via `npm view [package] version` and `npm view [package] p
 - Radix UI components -- peer dep: `react ^16.8 || ^17.0 || ^18.0 || ^19.0`
 - Motion 12.34.0 -- peer dep: `react ^18.0.0 || ^19.0.0`
 - react-to-print 3.2.0 -- peer dep: `react ~19`
-- Stratist frontend package.json -- confirms React 19 + Vite 7 + Lucide + react-router-dom 7 pattern works in production
+- Kompete frontend package.json -- confirms React 19 + Vite 7 + Lucide + react-router-dom 7 pattern works in production
 
 ---
-*Stack research for: Industry Landscape Intelligence Platform*
+*Stack research for: Kompete - Industry Intel Platform*
 *Researched: 2026-02-15*

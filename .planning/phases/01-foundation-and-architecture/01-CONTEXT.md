@@ -18,7 +18,7 @@ Requirements: FOUND-01 through FOUND-08, BRND-01 through BRND-04 (12 total).
 ### Branding & Theming
 - Full brand kit per tenant: logo, primary/secondary/accent colors, font family, custom favicon — each instance should feel like the consulting firm's own product
 - Dark mode support from day one — build the light/dark toggle into the theme system architecture
-- Pricio-branded default used for development and demo/preview tenant
+- Kompete-branded default used for development and demo/preview tenant
 - Brand config storage approach: Claude's discretion (JSON config files vs backend API — pick what's simplest to add new tenants)
 
 ### Report Visual Style

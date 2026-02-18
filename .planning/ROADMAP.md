@@ -1,4 +1,4 @@
-# Roadmap: Industry Landscape Intelligence
+# Roadmap: Kompete - Industry Intel
 
 ## Overview
 

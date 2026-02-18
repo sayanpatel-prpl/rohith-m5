@@ -7,7 +7,7 @@ export const BrandContext = createContext<BrandConfig | null>(null);
 
 export function BrandProvider({ children }: { children: ReactNode }) {
   const { tenantSlug } = useParams<{ tenantSlug: string }>();
-  const brand = getBrandConfig(tenantSlug ?? "pricio");
+  const brand = getBrandConfig(tenantSlug ?? "kompete");
 
   useEffect(() => {
     // Set data-tenant attribute on documentElement for CSS variable cascade
@@ -18,7 +18,7 @@ export function BrandProvider({ children }: { children: ReactNode }) {
     if (link) link.href = brand.faviconUrl;
 
     // Update document title
-    document.title = `${brand.displayName} | Industry Landscape`;
+    document.title = `${brand.displayName} | Industry Intel`;
   }, [brand]);
 
   return (

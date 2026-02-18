@@ -76,7 +76,7 @@ Each task was committed atomically:
 
 1. **Task 1: Extend mock data with all 4 persona datasets and build Action Lens section** - `4b883b8` (feat)
 
-**Plan metadata:** [pending] (docs: complete plan)
+**Plan metadata:** `4649fdb` (docs: complete plan)
 
 ## Files Created/Modified
 - `src/types/sections.ts` - ActionLensData restructured: persona+takeaways -> personas array, serviceLine added to signalScores

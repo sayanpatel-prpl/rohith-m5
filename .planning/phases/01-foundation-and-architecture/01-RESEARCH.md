@@ -18,7 +18,7 @@ Tailwind CSS v4 is purpose-built for this use case: its `@theme` directive gener
 ### Locked Decisions
 - Full brand kit per tenant: logo, primary/secondary/accent colors, font family, custom favicon -- each instance should feel like the consulting firm's own product
 - Dark mode support from day one -- build the light/dark toggle into the theme system architecture
-- Pricio-branded default used for development and demo/preview tenant
+- Kompete-branded default used for development and demo/preview tenant
 - Aesthetic: "Bloomberg terminal meets consulting" -- data-dense but polished, professional financial tool with consulting presentation quality
 - Information density: HIGH -- minimal padding, compact tables, smaller text. Partners scan fast and want maximum data on screen.
 - Section layout: Full-page sections -- each of the 10 modules gets a full page/view, sidebar nav switches between them (not long-scroll single page)
@@ -85,7 +85,7 @@ npm install -D @tailwindcss/vite tailwindcss
 src/
   brands/                    # Tenant brand configurations
     types.ts                 # BrandConfig TypeScript interface
-    pricio.ts                # Default/demo brand config
+    kompete.ts                # Default/demo brand config
     bcg.ts                   # Example tenant config
     index.ts                 # Brand registry (slug -> config map)
   theme/
@@ -199,8 +199,8 @@ src/
     --font-display: "Helvetica Neue", sans-serif;
   }
 
-  [data-tenant="pricio"] {
-    --color-brand-accent: oklch(0.60 0.15 260);  /* Pricio blue-purple */
+  [data-tenant="kompete"] {
+    --color-brand-accent: oklch(0.60 0.15 260);  /* Kompete blue-purple */
   }
 }
 ```
@@ -215,7 +215,7 @@ const BrandContext = createContext<BrandConfig | null>(null);
 
 export function BrandProvider({ children }: { children: ReactNode }) {
   const { tenantSlug } = useParams<{ tenantSlug: string }>();
-  const brand = getBrandConfig(tenantSlug ?? "pricio");
+  const brand = getBrandConfig(tenantSlug ?? "kompete");
 
   useEffect(() => {
     // Set data-tenant attribute for CSS variable cascade
@@ -276,14 +276,14 @@ export interface BrandConfig {
 ```
 
 ```typescript
-// src/brands/pricio.ts
+// src/brands/kompete.ts
 import type { BrandConfig } from "./types";
 
-export const pricioBrand: BrandConfig = {
-  slug: "pricio",
-  displayName: "Pricio Intelligence",
-  logoUrl: "/brands/pricio/logo.svg",
-  faviconUrl: "/brands/pricio/favicon.ico",
+export const kompeteBrand: BrandConfig = {
+  slug: "kompete",
+  displayName: "Kompete Intelligence",
+  logoUrl: "/brands/kompete/logo.svg",
+  faviconUrl: "/brands/kompete/favicon.ico",
   accentColor: "oklch(0.60 0.15 260)",
   fontDisplay: "Inter",
   fontBody: "Inter",
@@ -292,18 +292,18 @@ export const pricioBrand: BrandConfig = {
 
 ```typescript
 // src/brands/index.ts
-import { pricioBrand } from "./pricio";
+import { kompeteBrand } from "./kompete";
 import type { BrandConfig } from "./types";
 
 const brandRegistry: Record<string, BrandConfig> = {
-  pricio: pricioBrand,
+  kompete: kompeteBrand,
   // Add new tenants here:
   // bcg: bcgBrand,
   // am: amBrand,
 };
 
 export function getBrandConfig(slug: string): BrandConfig {
-  return brandRegistry[slug] ?? pricioBrand; // Fallback to Pricio
+  return brandRegistry[slug] ?? kompeteBrand; // Fallback to Kompete
 }
 
 export type { BrandConfig };
@@ -600,7 +600,7 @@ export function formatIndianNumber(value: number): string {
 ### Pitfall 6: React Router Tenant Slug Mismatch
 **What goes wrong:** User navigates to `/unknown-slug/report` and the app crashes because no brand config exists.
 **Why it happens:** No fallback in brand registry lookup.
-**How to avoid:** `getBrandConfig()` returns Pricio default for unknown slugs. Never throw on missing tenant.
+**How to avoid:** `getBrandConfig()` returns Kompete default for unknown slugs. Never throw on missing tenant.
 **Warning signs:** White screen on unknown URLs.
 
 ### Pitfall 7: Recharts ResponsiveContainer Height
@@ -659,8 +659,8 @@ export function App() {
           ))}
         </Route>
         {/* Default redirect */}
-        <Route path="/" element={<Navigate to="/pricio/report" replace />} />
-        <Route path="*" element={<Navigate to="/pricio/report" replace />} />
+        <Route path="/" element={<Navigate to="/kompete/report" replace />} />
+        <Route path="*" element={<Navigate to="/kompete/report" replace />} />
       </Routes>
     </BrowserRouter>
   );
@@ -908,7 +908,7 @@ export type SectionData =
 3. **Custom Fonts Loading Performance**
    - What we know: Each tenant may specify a different font family.
    - What's unclear: Optimal font loading strategy when fonts change on tenant switch.
-   - Recommendation: Use `font-display: swap` and preload Pricio's default font. Tenant-specific fonts load on-demand. This is acceptable because tenant switches are rare (users stay in one tenant's instance).
+   - Recommendation: Use `font-display: swap` and preload Kompete's default font. Tenant-specific fonts load on-demand. This is acceptable because tenant switches are rare (users stay in one tenant's instance).
 
 ## Sources
 

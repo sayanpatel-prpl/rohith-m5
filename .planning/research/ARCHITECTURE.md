@@ -4,7 +4,7 @@
 **Researched:** 2026-02-15
 **Confidence:** HIGH
 
-Architecture recommendations are grounded in direct examination of the existing Stratist codebase (`/frontend/src/`), the consumer-durables-intelligence prototype (`/consumer-durables-intelligence/`), the project brief, and established React frontend architecture patterns for data-heavy dashboards. The stack is constrained (React 19 + Vite + TypeScript 5 + Tailwind CSS v4) and the backend is out of scope (Express/Supabase delivers JSON).
+Architecture recommendations are grounded in direct examination of the existing Kompete codebase (`/frontend/src/`), the consumer-durables-intelligence prototype (`/consumer-durables-intelligence/`), the project brief, and established React frontend architecture patterns for data-heavy dashboards. The stack is constrained (React 19 + Vite + TypeScript 5 + Tailwind CSS v4) and the backend is out of scope (Express/Supabase delivers JSON).
 
 ---
 
@@ -57,9 +57,9 @@ Architecture recommendations are grounded in direct examination of the existing 
 | **Section Modules (x10)** | Each report section as a self-contained module receiving typed JSON data | One component per section: `ExecutiveSnapshot`, `MarketPulse`, `FinancialTracker`, etc. |
 | **Brand Theme Provider** | Tenant-specific colors, logo, fonts, accent tokens injected via CSS custom properties | React Context providing brand config; Tailwind v4 CSS variables for theming |
 | **Section Renderer** | Maps JSON data contract to section components; handles loading/error states | Generic wrapper that receives section ID + data, renders the matching module |
-| **Visualization Components** | Reusable chart/table/heatmap primitives consuming typed data props | Recharts for charts (consistent with Stratist), custom SVG where needed |
-| **UI Primitives** | Design system atoms: cards, badges, stat boxes, trend indicators, status tags | Tailwind-styled components; no Ant Design dependency (unlike Stratist) |
-| **API Client** | Typed fetch wrapper for all backend endpoints; error handling, auth headers | Single `api.ts` module with namespaced methods (pattern proven in Stratist `services/api.js`) |
+| **Visualization Components** | Reusable chart/table/heatmap primitives consuming typed data props | Recharts for charts (consistent with Kompete), custom SVG where needed |
+| **UI Primitives** | Design system atoms: cards, badges, stat boxes, trend indicators, status tags | Tailwind-styled components; no Ant Design dependency (unlike Kompete) |
+| **API Client** | Typed fetch wrapper for all backend endpoints; error handling, auth headers | Single `api.ts` module with namespaced methods (pattern proven in Kompete `services/api.js`) |
 | **Report Store** | Caches fetched report data; manages active section, filter state, company selection | Zustand store (lightweight, no boilerplate); or React Context for simpler v1 |
 | **Brand Config Store** | Holds tenant brand tokens resolved at app init from URL slug or API | React Context set once at mount; drives CSS custom properties |
 
@@ -206,7 +206,7 @@ src/
 
 - **`report/sections/`:** Each of the 10 report sections is a self-contained folder with its own types and sub-components. This enforces module boundaries -- a section's internal components are never imported by other sections. This is the single most important organizational decision. The prototype (`app.js`) already uses this pattern conceptually with `renderExecutiveSection()`, `renderFinancialTable()`, etc.
 
-- **`components/`:** Shared primitives used across multiple sections. These are the building blocks. A `StatCard` appears in Executive Snapshot, Financial Tracker, and Market Pulse -- so it lives here, not inside any section. Mirrors Stratist's `StatBox.jsx` pattern but expanded.
+- **`components/`:** Shared primitives used across multiple sections. These are the building blocks. A `StatCard` appears in Executive Snapshot, Financial Tracker, and Market Pulse -- so it lives here, not inside any section. Mirrors Kompete's `StatBox.jsx` pattern but expanded.
 
 - **`brand/`:** Isolated from everything else. The `BrandProvider` sets CSS custom properties at the root; all other components consume them via Tailwind classes. No component ever imports brand config directly -- they use CSS variables or the `useBrand()` hook.
 
@@ -401,7 +401,7 @@ interface FilterState {
 
 **When to use:** Every time a chart appears in any section. Never use raw Recharts components directly in section code.
 
-**Trade-offs:** Small overhead per chart type, but massive consistency gain. When a brand changes its accent color, every chart updates automatically. The prototype uses Chart.js; switching to Recharts aligns with Stratist and gives a React-native API.
+**Trade-offs:** Small overhead per chart type, but massive consistency gain. When a brand changes its accent color, every chart updates automatically. The prototype uses Chart.js; switching to Recharts aligns with Kompete and gives a React-native API.
 
 **Example:**
 ```typescript
@@ -494,7 +494,7 @@ Charts + Tables update (no API call — client-side filtering)
 ### Brand Resolution Flow
 
 ```
-URL: https://app.pricio.com/am/report/jan-2026
+URL: https://app.kompete.com/am/report/jan-2026
                     │
                     ▼
 Route param :tenantSlug = "am"
@@ -520,7 +520,7 @@ All components render with A&M branding
 
 2. **Cross-Section Filtering:** User selects/deselects companies in FilterBar -> Zustand store updates -> all visible sections re-render with filtered company list. Data is not re-fetched; filtering is client-side against cached data.
 
-3. **Print/Export:** User clicks Print -> `PrintableReport.tsx` renders all 10 sections sequentially (not lazy-loaded) with print-optimized styles. `react-to-print` handles the browser print dialog. This matches the Stratist pattern (`useReactToPrint`).
+3. **Print/Export:** User clicks Print -> `PrintableReport.tsx` renders all 10 sections sequentially (not lazy-loaded) with print-optimized styles. `react-to-print` handles the browser print dialog. This matches the Kompete pattern (`useReactToPrint`).
 
 4. **Section Internal Drill-Down:** Some sections have expandable company cards or toggleable metrics. This state is local to the section component (useState), never stored globally. If the user navigates away and back, the section resets to default view but data is still cached.
 
@@ -531,7 +531,7 @@ All components render with A&M branding
 | Scale | Architecture Adjustments |
 |-------|--------------------------|
 | 1-5 tenants (current) | Static `brand-registry.ts` with hardcoded configs. Manual deployment per tenant. All report data in a single JSON payload per section. |
-| 5-50 tenants | Brand config moves to Supabase table, fetched at runtime. Tenant resolution via subdomain (`am.pricio.com`). Consider separate Vercel deployments per tenant or a single deployment with tenant routing. |
+| 5-50 tenants | Brand config moves to Supabase table, fetched at runtime. Tenant resolution via subdomain (`am.kompete.com`). Consider separate Vercel deployments per tenant or a single deployment with tenant routing. |
 | 50+ tenants | Brand config API with caching. Section data endpoints paginated. Consider ISR (Incremental Static Regeneration) for monthly reports that rarely change. Reports could be pre-rendered as static HTML per tenant per month. |
 
 ### Scaling Priorities
@@ -548,8 +548,8 @@ All components render with A&M branding
 
 ### Anti-Pattern 1: Fat Report Component
 
-**What people do:** Put all 10 sections in a single `Report.tsx` component with conditional rendering (`{activeSection === 'market-pulse' && <MarketPulse />}`). This is what Stratist's `Report.jsx` does with its Tabs approach.
-**Why it's wrong:** All section code loads upfront. No code splitting. For Stratist with 3 tabs this was fine. For 10 sections with heavy chart libraries, this kills initial load.
+**What people do:** Put all 10 sections in a single `Report.tsx` component with conditional rendering (`{activeSection === 'market-pulse' && <MarketPulse />}`). This is what Kompete's `Report.jsx` does with its Tabs approach.
+**Why it's wrong:** All section code loads upfront. No code splitting. For Kompete with 3 tabs this was fine. For 10 sections with heavy chart libraries, this kills initial load.
 **Do this instead:** Use `React.lazy()` + `Suspense` via the `SectionRenderer` pattern. Each section is a separate chunk loaded on demand.
 
 ### Anti-Pattern 2: Prop Drilling Brand Config
@@ -566,7 +566,7 @@ All components render with A&M branding
 
 ### Anti-Pattern 4: Direct Ant Design Import
 
-**What people do:** Import `antd` components (Table, Card, Tag, etc.) because Stratist uses them. Ant Design is 200KB+ gzipped.
+**What people do:** Import `antd` components (Table, Card, Tag, etc.) because Kompete uses them. Ant Design is 200KB+ gzipped.
 **Why it's wrong:** This project uses Tailwind CSS v4 as its design system. Ant Design's CSS-in-JS conflicts with Tailwind's utility-first approach. The prototype already uses vanilla HTML/CSS for everything.
 **Do this instead:** Build lightweight Tailwind-styled primitives (`StatCard`, `DataTable`, `PerformanceTag`). These will be smaller, faster, and fully brand-themed. Invest the upfront time in a small component library.
 
@@ -586,7 +586,7 @@ All components render with A&M branding
 |---------|---------------------|-------|
 | Express/Supabase Backend | REST API via `api-client.ts` | All data arrives as JSON. Frontend never talks to Supabase directly. Backend shapes data to match frontend type contracts. |
 | Recharts | React component library | Import chart components in `components/charts/` wrappers only. Never use raw Recharts in section code. |
-| react-to-print | Print/export | Used in `export/use-print.ts`. Wraps the full report for print layout. Proven pattern from Stratist. |
+| react-to-print | Print/export | Used in `export/use-print.ts`. Wraps the full report for print layout. Proven pattern from Kompete. |
 
 ### Internal Boundaries
 
@@ -661,7 +661,7 @@ Phase 6: Polish
 
 ## Sources
 
-- Direct code examination: Stratist frontend (`/frontend/src/`) -- App.jsx, Report.jsx, MarketOverview.jsx, ComparisonMatrix.jsx, QuarterlyTrendChart.jsx, StatBox.jsx, api.js (HIGH confidence -- first-party codebase)
+- Direct code examination: Kompete frontend (`/frontend/src/`) -- App.jsx, Report.jsx, MarketOverview.jsx, ComparisonMatrix.jsx, QuarterlyTrendChart.jsx, StatBox.jsx, api.js (HIGH confidence -- first-party codebase)
 - Direct code examination: Consumer Durables Intelligence prototype (`/consumer-durables-intelligence/`) -- app.js, data.js, charts.js, filters.js (HIGH confidence -- first-party prototype with validated data shapes)
 - Direct code examination: API integration plan (`/consumer-durables-intelligence/docs/api-integration-plan.md`) (HIGH confidence -- first-party architecture document)
 - React lazy/Suspense patterns: React 19 official documentation (HIGH confidence -- well-established API)
@@ -670,5 +670,5 @@ Phase 6: Polish
 - Recharts component API: Training data knowledge (MEDIUM confidence -- stable library, patterns unlikely to have changed)
 
 ---
-*Architecture research for: Industry Landscape Intelligence Dashboard*
+*Architecture research for: Kompete - Industry Intel Dashboard*
 *Researched: 2026-02-15*
