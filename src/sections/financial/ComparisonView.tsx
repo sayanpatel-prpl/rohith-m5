@@ -11,12 +11,12 @@ interface MetricDef {
   label: string;
 }
 
+// Only show metrics with real per-quarter data in trend charts.
+// workingCapitalDays, roce, debtEquity are annual-only from Screener.in
+// and are NOT available per quarter — omitted to avoid misleading charts.
 const METRICS: MetricDef[] = [
   { key: "revenueGrowthYoY", label: "Revenue Growth (%)" },
   { key: "ebitdaMargin", label: "EBITDA Margin (%)" },
-  { key: "workingCapitalDays", label: "Working Capital (Days)" },
-  { key: "roce", label: "ROCE (%)" },
-  { key: "debtEquity", label: "Debt/Equity Ratio" },
 ];
 
 interface ComparisonViewProps {
@@ -32,14 +32,13 @@ interface ComparisonViewProps {
  * Shows 5 trend charts, one per financial metric, for selected companies.
  */
 export function ComparisonView({ companies }: ComparisonViewProps) {
-  // Transform history data to QoQ deltas
+  // Transform history data to QoQ deltas (only for metrics with real quarterly data)
   const qoqCompanies = useMemo(() => {
     return companies.map((company) => ({
       ...company,
       history: company.history.map((snapshot, idx) => {
         if (idx === 0) {
-          // No previous quarter to compare
-          return { ...snapshot, revenueGrowthYoY: 0, ebitdaMargin: 0, workingCapitalDays: 0, roce: 0, debtEquity: 0 };
+          return { ...snapshot, revenueGrowthYoY: 0, ebitdaMargin: 0 };
         }
         const prev = company.history[idx - 1];
         return {
@@ -53,18 +52,6 @@ export function ComparisonView({ companies }: ComparisonViewProps) {
             prev.ebitdaMargin !== 0
               ? (snapshot.ebitdaMargin - prev.ebitdaMargin) /
                 Math.abs(prev.ebitdaMargin)
-              : 0,
-          // Working capital days: show absolute change (not ratio)
-          workingCapitalDays:
-            snapshot.workingCapitalDays - prev.workingCapitalDays,
-          roce:
-            prev.roce !== 0
-              ? (snapshot.roce - prev.roce) / Math.abs(prev.roce)
-              : 0,
-          debtEquity:
-            prev.debtEquity !== 0
-              ? (snapshot.debtEquity - prev.debtEquity) /
-                Math.abs(prev.debtEquity)
               : 0,
         };
       }),

@@ -19,12 +19,12 @@ export default function ExecutiveSnapshot() {
   if (!data || !rawData) return null;
 
   return (
-    <div className="p-md space-y-md">
+    <div className="space-y-xl">
       {/* Header: title + data recency */}
       <div className="flex items-center justify-between">
-        <h2 className="text-sm font-semibold font-display text-text-primary">
+        <h1 className="text-3xl font-bold font-display text-text-primary">
           Executive Snapshot
-        </h2>
+        </h1>
         <DataRecencyTag dataAsOf={data.dataAsOf} />
       </div>
 
@@ -32,12 +32,12 @@ export default function ExecutiveSnapshot() {
       <BulletSummary bullets={rawData.bullets} />
 
       {/* Red Flags section */}
-      <div className="space-y-xs">
-        <div className="flex items-center gap-sm">
-          <h3 className="text-xs font-semibold text-text-primary uppercase tracking-wide">
+      <div className="space-y-md">
+        <div className="flex items-center gap-md">
+          <h2 className="text-xl font-semibold text-text-primary">
             Red Flags
-          </h3>
-          <span className="text-[10px] font-medium px-sm py-xs rounded bg-negative/10 text-negative border border-negative/20">
+          </h2>
+          <span className="text-sm font-medium px-md py-xs rounded-full bg-negative/10 text-negative border border-negative/20">
             {data.redFlags.length}
           </span>
         </div>

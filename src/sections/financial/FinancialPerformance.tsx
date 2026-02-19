@@ -46,12 +46,12 @@ export default function FinancialPerformance() {
   if (!data || !rawData) return null;
 
   return (
-    <div className="p-md space-y-md">
+    <div className="space-y-xl">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <h2 className="text-sm font-semibold font-display text-text-primary">
+        <h1 className="text-3xl font-bold font-display text-text-primary">
           Financial Performance
-        </h2>
+        </h1>
         <DataRecencyTag dataAsOf={data.dataAsOf} />
       </div>
 

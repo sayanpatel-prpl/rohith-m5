@@ -1,0 +1,71 @@
+{
+  "companyId": "bajaj",
+  "companyName": "Bajaj Electricals Limited",
+  "nseSymbol": "BAJAJELEC",
+  "bseCode": "500031",
+  "sector": "Consumer Durables - Electrical Equipment",
+  "dataSource": "WebSearch aggregation (Trendlyne, KotakNeo, Screener, StockAnalysis, WhalesBook, MarketsMojo)",
+  "extractedDate": "2026-02-18",
+  "quarterlyResults": {
+    "Q1_FY2026": {
+      "period": "Apr-Jun 2025",
+      "totalIncome_cr": 1094.93,
+      "netProfit_cr": 0.91,
+      "ebitda_cr": null,
+      "ebitdaMargin_pct": null,
+      "notes": "Thin profitability in Q1"
+    },
+    "Q2_FY2026": {
+      "period": "Jul-Sep 2025",
+      "totalIncome_cr": 1114.96,
+      "netProfit_cr": 9.86,
+      "ebitda_cr": null,
+      "ebitdaMargin_pct": null,
+      "notes": "Modest recovery from Q1"
+    },
+    "Q3_FY2026": {
+      "period": "Oct-Dec 2025",
+      "revenue_cr": 1050.91,
+      "netProfit_cr": -34.10,
+      "ebitda_cr": null,
+      "ebitdaMargin_pct": null,
+      "notes": "Net loss of Rs 34.10 cr. Revenue declined 5.08% QoQ and 18.52% YoY. Steep losses as margins collapse."
+    }
+  },
+  "annualResults": {
+    "FY2025": {
+      "revenue_cr": 4815.91,
+      "ebit_cr": 239.53,
+      "notes": "Total revenue approximately Rs 4,815.91 cr. EBIT Rs 239.53 cr."
+    }
+  },
+  "keyRatios": {
+    "asOfDate": "2025-11-06",
+    "pe": 47.18,
+    "pe_trailing": 59.02,
+    "pe_forward": 40.86,
+    "pb": 3.76,
+    "evToEbitda": null,
+    "roe_pct": 3.53,
+    "roce_pct": 14.1,
+    "roce_3yrAvg_pct": 14.1,
+    "debtToEquity": null,
+    "dividendYield_pct": null,
+    "notes": "Low ROE of 3.53%. ROCE averaged 14.1% over 3 years."
+  },
+  "balanceSheetHighlights": {
+    "asOfDate": "FY2025",
+    "notes": "Company undergoing strategic restructuring. Significant margin pressure in FY2026. Q3 FY26 showed steep losses."
+  },
+  "earningsTranscriptSummary": {
+    "available": true,
+    "source": "BSE filings / MarketsMojo analysis",
+    "keyHighlights": [
+      "Strategic focus shift underway",
+      "Q3 FY26 steep losses with margins collapsing",
+      "Revenue declining YoY in Q3 FY26 (-18.52%)",
+      "Challenging operating environment for consumer electricals",
+      "Standalone profit surging despite consolidated losses"
+    ]
+  }
+}

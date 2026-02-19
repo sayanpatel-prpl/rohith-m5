@@ -1,0 +1,69 @@
+{
+  "companyId": "crompton",
+  "companyName": "Crompton Greaves Consumer Electricals Limited",
+  "nseSymbol": "CROMPTON",
+  "bseCode": "539876",
+  "sector": "Consumer Durables - Electricals",
+  "dataSource": "WebSearch aggregation (Trendlyne, MoneyControl, Screener, MarketsMojo, Multibagg)",
+  "extractedDate": "2026-02-18",
+  "quarterlyResults": {
+    "Q1_FY2026": {
+      "period": "Apr-Jun 2025",
+      "revenue_cr": 1998.38,
+      "netProfit_cr": 122.29,
+      "ebitda_cr": null,
+      "ebitdaMargin_pct": null,
+      "notes": "Net sales Rs 1,998.38 cr, consolidated net profit Rs 122.29 cr"
+    },
+    "Q2_FY2026": {
+      "period": "Jul-Sep 2025",
+      "revenue_cr": 1916.0,
+      "netProfit_cr": 75.42,
+      "adjustedPAT_cr": 91.0,
+      "ebitda_cr": 158.0,
+      "ebitdaMargin_pct": 8.3,
+      "exceptionalCharge_cr": 20.36,
+      "notes": "Revenue grew 1% YoY. Net profit fell 41% YoY (impacted by Rs 20.36 cr exceptional charge for Vadodara plant restructuring). Adjusted EBITDA Rs 158 cr at 8.3% margin."
+    }
+  },
+  "annualResults": {
+    "FY2025": {
+      "revenue_cr": null,
+      "netProfit_cr": null,
+      "netProfitMargin_pct": 7.2,
+      "notes": "Net profit margin improved from 6.0% in FY24 to 7.2% in FY25. ROE improved to 17.0% from 15.1%."
+    }
+  },
+  "keyRatios": {
+    "asOfDate": "2025-12-15",
+    "pe": 34.52,
+    "pe_forward": 34.2,
+    "pb": 3.9,
+    "evToEbitda": null,
+    "roe_pct": 17.0,
+    "roce_pct": 24.3,
+    "debtToEquity": 0.14,
+    "currentRatio": 1.27,
+    "dividendYield_pct": null,
+    "notes": "ROE improved from 15.1% (FY24) to 17.0% (FY25). ROCE improved from 20.2% (FY24) to 24.3% (FY25). Almost debt free."
+  },
+  "forwardProjections": {
+    "FY2026E": { "roe_pct": 11.4, "roce_pct": 12.2 },
+    "FY2027E": { "roe_pct": 12.3, "roce_pct": 13.0 },
+    "FY2028E": { "roe_pct": 14.0, "roce_pct": 14.6 }
+  },
+  "balanceSheetHighlights": {
+    "asOfDate": "Mar 2025",
+    "notes": "Almost debt free. D/E of 0.14. Current ratio 1.27. Margin pressure deepening in Q2 FY26."
+  },
+  "earningsTranscriptSummary": {
+    "available": true,
+    "source": "Yahoo Finance (CROMPTON.BO Q2 FY26 earnings call), AlphaSpread Q1 FY26",
+    "keyHighlights": [
+      "Margin pressure deepens in Q2 FY26 with profitability plunging 43%",
+      "Strategic shifts and solar ambitions discussed in Q2 call",
+      "Vadodara plant restructuring exceptional charge of Rs 20.36 cr",
+      "Strong revenue growth but profitability challenges"
+    ]
+  }
+}

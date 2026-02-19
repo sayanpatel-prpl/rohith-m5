@@ -1,0 +1,74 @@
+{
+  "companyId": "dixon",
+  "companyName": "Dixon Technologies (India) Limited",
+  "nseSymbol": "DIXON",
+  "bseCode": "540699",
+  "sector": "Electronics Manufacturing Services (EMS)",
+  "dataSource": "WebSearch aggregation (Trendlyne, MoneyControl, Screener, StockAnalysis, ICICI Direct, Tijori)",
+  "extractedDate": "2026-02-18",
+  "quarterlyResults": {
+    "Q1_FY2026": {
+      "period": "Apr-Jun 2025",
+      "revenue_cr": 15350.78,
+      "netProfit_cr": 744.55,
+      "ebitda_cr": null,
+      "ebitdaMargin_pct": null,
+      "notes": "Revenue Rs 14,855-15,351 cr marking 28.8-33% YoY growth. Mobile segment Rs 13,361 cr (+41%). Telecom surged +148%."
+    },
+    "Q2_FY2026": {
+      "period": "Jul-Sep 2025",
+      "revenue_cr": 15351.93,
+      "netProfit_cr": 670.0,
+      "ebitda_cr": 1057.0,
+      "ebitdaMargin_pct": 7.1,
+      "notes": "Revenue jumped 30.76% YoY. Net profit jumped 71.86% YoY. EBITDA Rs 1,057 cr at 7.1% margin."
+    },
+    "Q3_FY2026": {
+      "period": "Oct-Dec 2025",
+      "revenue_cr": 10672.0,
+      "netProfit_cr": 287.0,
+      "ebitda_cr": null,
+      "ebitdaMargin_pct": null,
+      "notes": "Revenue Rs 10,364-10,678 cr (+2% YoY). Mobiles/EMS Rs 9,750 cr. Consumer electronics Rs 567 cr. Home appliances Rs 355 cr. Revenue growth flattened due to intensifying competition in mobile assembly."
+    }
+  },
+  "annualResults": {
+    "FY2024": {
+      "revenue_cr": 6411.40,
+      "operatingProfit_cr": 697.63,
+      "eps": 62.84,
+      "notes": "Revenue Rs 6,411.40 cr. Operating profit grew to Rs 697.63 cr."
+    },
+    "FY2025_TTM": {
+      "revenue_cr": 48655.0,
+      "netProfit_cr": 1811.0,
+      "notes": "TTM revenue Rs 48,655 cr, profit Rs 1,811 cr (massive growth from FY2024)"
+    }
+  },
+  "keyRatios": {
+    "asOfDate": "2026-01-23",
+    "pe": 37.70,
+    "pb": 17.0,
+    "evToEbitda": null,
+    "roe_pct": 32.8,
+    "roce_pct": 40.0,
+    "debtToEquity": 0.07,
+    "dividendYield_pct": null,
+    "notes": "Very high ROE (32.8%) and ROCE (40%). Low leverage (D/E 0.07). Premium PB of 17x reflects high-growth EMS business model."
+  },
+  "balanceSheetHighlights": {
+    "asOfDate": "FY2025",
+    "notes": "Low debt (D/E 0.07-0.17). Capital-light EMS model. Leading electronics manufacturer in India across consumer electronics, mobile phones, wearables, home appliances, and telecom hardware."
+  },
+  "earningsTranscriptSummary": {
+    "available": true,
+    "source": "NSE Archives / ICICI Direct Q2 FY26 report",
+    "keyHighlights": [
+      "Massive revenue growth driven by mobile phone assembly and telecom",
+      "Q3 FY26 saw revenue flattening due to competition in mobile assembly",
+      "Stock down 37% in 4 months from peak as of Feb 2026",
+      "Key segments: Mobiles/EMS, Consumer Electronics, Home Appliances, Telecom/IT",
+      "India's largest EMS player with diversified manufacturing base"
+    ]
+  }
+}

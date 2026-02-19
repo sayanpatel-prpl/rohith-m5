@@ -1,0 +1,74 @@
+{
+  "companyId": "vguard",
+  "companyName": "V-Guard Industries Limited",
+  "nseSymbol": "VGUARD",
+  "bseCode": "532953",
+  "sector": "Consumer Durables - Electricals",
+  "dataSource": "WebSearch aggregation (Trendlyne, MoneyControl, Screener, StockAnalysis, WhalesBook, Prysm)",
+  "extractedDate": "2026-02-18",
+  "quarterlyResults": {
+    "Q2_FY2026": {
+      "period": "Jul-Sep 2025",
+      "revenue_cr": 1341.0,
+      "netProfit_cr": 65.0,
+      "ebitda_cr": 109.0,
+      "ebitdaMargin_pct": 8.2,
+      "notes": "Revenue grew 3.6% YoY. Net profit up 4% YoY. EBITDA dipped 1% from Rs 110 cr. Profit margin slightly decreased to 8.2% from 8.5%."
+    },
+    "Q3_FY2026": {
+      "period": "Oct-Dec 2025",
+      "revenue_cr": 1403.51,
+      "netProfit_cr": 57.06,
+      "ebitda_cr": null,
+      "ebitdaMargin_pct": null,
+      "notes": "Revenue grew 10.6% YoY from Rs 1,268.65 cr. PAT decreased 5.2% from Rs 60.22 cr (impacted by one-time charge of Rs 22.11 cr for New Labour Codes). Underlying PAT grew 22.3%. Results approved Jan 28, 2026."
+    }
+  },
+  "halfYearFY2026": {
+    "revenue_cr": 2807.0,
+    "pat_cr": 139.1,
+    "revenueGrowth_pct": 1.3,
+    "patDecline_pct": -14.3,
+    "notes": "H1 FY2026 revenue growth muted at 1.3% YoY. PAT declined 14.3%."
+  },
+  "annualResults": {
+    "FY2025": {
+      "revenueGrowth_pct": 14.0,
+      "notes": "Annual revenue growth of 14% is good"
+    }
+  },
+  "keyRatios": {
+    "asOfDate": "2025-12-12",
+    "pe": 49.67,
+    "pb": 6.59,
+    "evToEbitda": null,
+    "roe_pct": 14.0,
+    "roce_pct": 15.65,
+    "debtToEquity": 0.0,
+    "dividendYield_pct": null,
+    "marketCap_cr": 14430.0,
+    "notes": "PE at 86% premium to peers median of 26.71x. PB at 43% premium to peers median of 4.62x. Company is debt free."
+  },
+  "balanceSheetHighlights": {
+    "asOfDate": "Mar 2025",
+    "notes": "Debt-free balance sheet. Strong position enabling stable earnings growth across cycles. Trading at premium to peers."
+  },
+  "segmentPerformance": {
+    "Q3_FY2026": {
+      "electricals": { "growth_pct": 26.0, "notes": "Surged 26% YoY driven by volume expansion and higher copper prices" },
+      "electronics": { "revenue_cr": 286.0, "growth": "Flat", "notes": "Stabilizers, UPS, Inverters" },
+      "consumerDurables": { "growth_pct": 4.6, "notes": "Fans, Water Heaters, Kitchen Appliances, Air Coolers" }
+    }
+  },
+  "earningsTranscriptSummary": {
+    "available": true,
+    "source": "Prysm / InvestyWise / V-Guard investor relations",
+    "keyHighlights": [
+      "Q3 FY26 revenue surged 10.6% but margins squeezed on input costs",
+      "One-time charge of Rs 22.11 cr for New Labour Codes impacted PAT",
+      "Underlying PAT growth of 22.3% when excluding exceptional items",
+      "Electricals segment strongest at 26% growth",
+      "Consumer sentiment subdued due to higher rainfall and GST disruptions"
+    ]
+  }
+}

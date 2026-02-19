@@ -1,0 +1,78 @@
+{
+  "companyId": "ifb",
+  "companyName": "IFB Industries Limited",
+  "nseSymbol": "IFBIND",
+  "bseCode": "505726",
+  "sector": "Consumer Durables - Home Appliances (Washing Machines, Dishwashers)",
+  "dataSource": "WebSearch aggregation (Trendlyne, MoneyControl, Screener, StockAnalysis, MarketsMojo, BusinessStandard)",
+  "extractedDate": "2026-02-18",
+  "quarterlyResults": {
+    "Q1_FY2026": {
+      "period": "Apr-Jun 2025",
+      "revenue_cr": 1338.31,
+      "netProfit_cr": 26.16,
+      "ebitda_cr": null,
+      "ebitdaMargin_pct": null,
+      "notes": "Net sales increased 5.45% YoY. Net profit fell 30.31% YoY."
+    },
+    "Q2_FY2026": {
+      "period": "Jul-Sep 2025",
+      "revenue_cr": 1370.43,
+      "netProfit_cr": 50.79,
+      "ebitda_cr": null,
+      "ebitdaMargin_pct": null,
+      "notes": "Net profit surged 61.70% YoY. Strong profit recovery."
+    },
+    "Q3_FY2026": {
+      "period": "Oct-Dec 2025",
+      "revenue_cr": 1382.0,
+      "netProfit_cr": 24.5,
+      "exceptionalLoss_cr": 13.38,
+      "ebitda_cr": null,
+      "ebitdaMargin_pct": null,
+      "notes": "Revenue Rs 1,382 cr, +12% YoY from Rs 1,232 cr. Net profit declined 22.6% YoY from Rs 34.4 cr (impacted by exceptional loss of Rs 13.38 cr for New Labour Code). Shares plunged 17% post results."
+    }
+  },
+  "nineMonthFY2026": {
+    "revenue_cr": 4020.0,
+    "pat_cr": 99.62,
+    "revenueGrowth_pct": 12.0,
+    "notes": "Nine months Apr-Dec 2025. Revenue grew 12% YoY."
+  },
+  "annualResults": {
+    "FY2025_TTM": {
+      "revenue_cr": 5297.0,
+      "netProfit_cr": 122.0,
+      "marketCap_cr": 4973.0,
+      "notes": "TTM revenue Rs 5,297 cr, profit Rs 122 cr"
+    }
+  },
+  "keyRatios": {
+    "asOfDate": "2025-11-10",
+    "pe": 58.96,
+    "pb": 8.11,
+    "evToEbitda": null,
+    "roe_pct": 15.25,
+    "roic_pct": 9.62,
+    "roce_pct": null,
+    "debtToEquity": 0.30,
+    "currentRatio": 1.22,
+    "dividendYield_pct": null,
+    "notes": "PE at 14% premium to peers median of 51.54x. PB at 27% premium to peers median of 6.40x. Moderate leverage."
+  },
+  "balanceSheetHighlights": {
+    "asOfDate": "FY2025",
+    "notes": "D/E of 0.30 - moderate leverage. Market cap Rs 4,973 cr. Conservative debt levels. Manufacturing facilities for washing machines, dishwashers, kitchen appliances."
+  },
+  "earningsTranscriptSummary": {
+    "available": true,
+    "source": "InvestyWise / MarketsMojo / BSE filings",
+    "keyHighlights": [
+      "Q3 FY26 margin pressure dampens strong revenue growth",
+      "Exceptional loss of Rs 13.38 cr for New Labour Code",
+      "Revenue growing consistently at 12% in 9M FY26",
+      "Q2 FY26 strong profit surge masks underlying margin pressures",
+      "Shares plunged 17% post Q3 results announcement"
+    ]
+  }
+}

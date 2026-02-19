@@ -32,12 +32,12 @@ export interface FinancialMetrics {
   revenueGrowthYoY: number;
   /** EBITDA margin as decimal (0.18 = 18%) */
   ebitdaMargin: number;
-  /** Working capital cycle in days */
-  workingCapitalDays: number;
-  /** Return on capital employed as decimal */
-  roce: number;
-  /** Debt-to-equity ratio */
-  debtEquity: number;
+  /** Working capital cycle in days (annual — not available per quarter) */
+  workingCapitalDays: number | null;
+  /** Return on capital employed as decimal (annual — not available per quarter) */
+  roce: number | null;
+  /** Debt-to-equity ratio (annual — not available per quarter) */
+  debtEquity: number | null;
 }
 
 /** Historical quarterly data point for trend charts */
@@ -48,10 +48,10 @@ export interface QuarterlySnapshot {
   revenueGrowthYoY: number;
   /** EBITDA margin as decimal (0.18 = 18%) */
   ebitdaMargin: number;
-  /** Working capital cycle in days */
-  workingCapitalDays: number;
-  /** Return on capital employed as decimal */
-  roce: number;
-  /** Debt-to-equity ratio */
-  debtEquity: number;
+  /** Working capital cycle in days (only available annually, not per quarter) */
+  workingCapitalDays?: number;
+  /** Return on capital employed as decimal (only available annually, not per quarter) */
+  roce?: number;
+  /** Debt-to-equity ratio (only available annually, not per quarter) */
+  debtEquity?: number;
 }

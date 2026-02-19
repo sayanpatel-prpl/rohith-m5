@@ -27,31 +27,31 @@ const CONFIDENCE_STYLES: Record<ConfidenceLevel, string> = {
 export default function RedFlagsTable({ redFlags }: RedFlagsTableProps) {
   if (redFlags.length === 0) {
     return (
-      <p className="text-xs text-text-muted italic py-sm">
+      <p className="text-sm text-text-muted italic py-md">
         No red flags match current filters.
       </p>
     );
   }
 
   return (
-    <div className="space-y-0">
+    <div className="bg-surface-raised border border-surface-overlay rounded-lg overflow-hidden">
       {/* Header row */}
       <div
-        className="grid gap-md px-sm py-xs border-b border-surface-overlay"
+        className="grid gap-lg px-lg py-md border-b border-surface-overlay bg-surface"
         style={{
-          gridTemplateColumns: "minmax(100px, 1fr) 2fr auto auto",
+          gridTemplateColumns: "minmax(120px, 1fr) 2fr auto auto",
         }}
       >
-        <span className="text-xs text-text-muted font-medium uppercase tracking-wide">
+        <span className="text-xs text-text-muted font-semibold uppercase tracking-wide">
           Company
         </span>
-        <span className="text-xs text-text-muted font-medium uppercase tracking-wide">
+        <span className="text-xs text-text-muted font-semibold uppercase tracking-wide">
           Signal
         </span>
-        <span className="text-xs text-text-muted font-medium uppercase tracking-wide">
+        <span className="text-xs text-text-muted font-semibold uppercase tracking-wide">
           Confidence
         </span>
-        <span className="text-xs text-text-muted font-medium uppercase tracking-wide">
+        <span className="text-xs text-text-muted font-semibold uppercase tracking-wide">
           {/* Expand column header - intentionally empty */}
         </span>
       </div>
@@ -71,24 +71,24 @@ function RedFlagRow({ flag }: { flag: RedFlag }) {
     <Collapsible.Root open={open} onOpenChange={setOpen}>
       {/* Main row */}
       <div
-        className="grid gap-md items-center px-sm py-xs border-b border-surface-overlay hover:bg-surface-raised/50 transition-colors"
+        className="grid gap-lg items-center px-lg py-md border-b border-surface-overlay last:border-b-0 hover:bg-surface/50 transition-colors"
         style={{
-          gridTemplateColumns: "minmax(100px, 1fr) 2fr auto auto",
+          gridTemplateColumns: "minmax(120px, 1fr) 2fr auto auto",
         }}
       >
-        <span className="text-xs text-text-primary font-medium">
+        <span className="text-sm text-text-primary font-medium">
           {flag.company}
         </span>
-        <span className="text-xs text-text-secondary line-clamp-2">
+        <span className="text-sm text-text-secondary line-clamp-2">
           {flag.signal}
         </span>
         <span
           className={clsx(
-            "inline-flex items-center px-sm py-xs rounded border text-[10px] font-medium uppercase tracking-wide whitespace-nowrap",
+            "inline-flex items-center px-md py-xs rounded-full border text-xs font-medium uppercase tracking-wide whitespace-nowrap",
             CONFIDENCE_STYLES[flag.confidence],
           )}
         >
-          {flag.confidence.toUpperCase()}
+          {flag.confidence}
         </span>
         <Collapsible.Trigger
           className="text-text-muted hover:text-text-primary cursor-pointer transition-colors p-xs"
@@ -96,7 +96,7 @@ function RedFlagRow({ flag }: { flag: RedFlag }) {
         >
           <span
             className={clsx(
-              "text-[10px] inline-block transition-transform duration-150",
+              "text-xs inline-block transition-transform duration-150",
               open && "rotate-90",
             )}
           >
@@ -107,8 +107,8 @@ function RedFlagRow({ flag }: { flag: RedFlag }) {
 
       {/* Expandable explanation row */}
       <Collapsible.Content>
-        <div className="bg-surface-raised/30 px-sm py-sm">
-          <p className="text-xs text-text-secondary italic leading-relaxed">
+        <div className="bg-surface/50 px-lg py-md border-b border-surface-overlay last:border-b-0">
+          <p className="text-sm text-text-secondary italic leading-relaxed">
             {flag.explanation}
           </p>
         </div>

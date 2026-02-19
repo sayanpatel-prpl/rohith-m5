@@ -1,0 +1,71 @@
+{
+  "companyId": "havells",
+  "companyName": "Havells India Limited",
+  "nseSymbol": "HAVELLS",
+  "bseCode": "517354",
+  "sector": "Consumer Durables - Electricals",
+  "dataSource": "WebSearch aggregation (Trendlyne, MoneyControl, Screener, StockAnalysis, BusinessUpturn)",
+  "extractedDate": "2026-02-18",
+  "quarterlyResults": {
+    "Q1_FY2026": {
+      "period": "Apr-Jun 2025",
+      "revenue_cr": 4865.59,
+      "netProfit_cr": 313.46,
+      "ebitda_cr": null,
+      "ebitdaMargin_pct": null,
+      "notes": "Q1 FY2026 results"
+    },
+    "Q2_FY2026": {
+      "period": "Jul-Sep 2025",
+      "revenue_cr": 4766.0,
+      "netProfit_cr": 317.0,
+      "ebitda_cr": 441.0,
+      "ebitdaMargin_pct": 9.2,
+      "notes": "Revenue grew 5.2% YoY from Rs 4,533 cr. Net profit up 16.5% from Rs 272 cr. EBITDA jumped 16.1% from Rs 380 cr. EBITDA margin expanded from 8.4%."
+    },
+    "Q3_FY2026": {
+      "period": "Oct-Dec 2025",
+      "revenue_cr": 5587.89,
+      "netProfit_cr": 300.05,
+      "ebitda_cr": 524.0,
+      "ebitdaMargin_pct": 9.4,
+      "notes": "Revenue grew 14.3% YoY. Net profit increased 7.9%. Standalone EBITDA Rs 524 cr."
+    }
+  },
+  "annualResults": {
+    "FY2025": {
+      "revenue_cr": null,
+      "netProfit_cr": null,
+      "revenueGrowth_pct": 17.15,
+      "epsGrowth_pct": 15.78,
+      "notes": "Revenue growth 17.15% YoY, EPS growth 15.78%"
+    }
+  },
+  "keyRatios": {
+    "asOfDate": "2025-12-04",
+    "pe": 60.94,
+    "pb": 10.28,
+    "evToEbitda": null,
+    "roe_pct": null,
+    "roce_pct": 23.7,
+    "roce_3yrAvg_pct": 22.7,
+    "debtToEquity": 0.04,
+    "currentRatio": 1.78,
+    "coreEbitdaMargin_pct": 9.86,
+    "dividendYield_pct": null
+  },
+  "balanceSheetHighlights": {
+    "asOfDate": "Mar 2025",
+    "notes": "Very strong balance sheet with minimal debt (D/E 0.04). High ROCE of 23.7%. Conservative capital structure."
+  },
+  "earningsTranscriptSummary": {
+    "available": true,
+    "source": "Havells investor relations / Quartr.com",
+    "keyHighlights": [
+      "Consistent revenue growth across product segments",
+      "EBITDA margin expansion in Q2 and Q3 FY2026",
+      "Strong demand in electrical consumer products",
+      "Minimal debt and strong balance sheet"
+    ]
+  }
+}

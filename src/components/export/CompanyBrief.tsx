@@ -185,15 +185,15 @@ export default function CompanyBrief({ companyId }: CompanyBriefProps) {
             />
             <MetricCard
               label="Working Capital"
-              value={`${financialCompany.metrics.workingCapitalDays} days`}
+              value={financialCompany.metrics.workingCapitalDays != null ? `${financialCompany.metrics.workingCapitalDays} days` : "—"}
             />
             <MetricCard
               label="ROCE"
-              value={formatPercent(financialCompany.metrics.roce * 100)}
+              value={financialCompany.metrics.roce != null ? formatPercent(financialCompany.metrics.roce * 100) : "—"}
             />
             <MetricCard
               label="Debt/Equity"
-              value={`${financialCompany.metrics.debtEquity.toFixed(2)}x`}
+              value={financialCompany.metrics.debtEquity != null ? `${financialCompany.metrics.debtEquity.toFixed(2)}x` : "—"}
             />
           </div>
         ) : (

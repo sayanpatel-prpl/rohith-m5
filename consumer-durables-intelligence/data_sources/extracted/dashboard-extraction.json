@@ -1,0 +1,2581 @@
+{
+  "companies": {
+    "whirlpool": {
+      "companyId": "whirlpool",
+      "folder": "whirlpool",
+      "inventoryDays": [
+        null,
+        null,
+        120,
+        120,
+        99,
+        99,
+        99,
+        99,
+        93,
+        93,
+        93,
+        93,
+        93,
+        93,
+        93
+      ],
+      "inventoryDays_annual": {
+        "Mar 2023": 120,
+        "Mar 2024": 99,
+        "Mar 2025": 93
+      },
+      "workingCapDays": [
+        null,
+        null,
+        16,
+        16,
+        1,
+        1,
+        1,
+        1,
+        -5,
+        -5,
+        -5,
+        -5,
+        -5,
+        -5,
+        -5
+      ],
+      "workingCapDays_annual": {
+        "Mar 2023": 16,
+        "Mar 2024": 1,
+        "Mar 2025": -5
+      },
+      "roce": [
+        null,
+        null,
+        8,
+        8,
+        9,
+        9,
+        9,
+        9,
+        13,
+        13,
+        13,
+        13,
+        13,
+        13,
+        13
+      ],
+      "roce_annual": {
+        "Mar 2023": 8,
+        "Mar 2024": 9,
+        "Mar 2025": 13
+      },
+      "debtorDays_annual": {
+        "Mar 2023": 24,
+        "Mar 2024": 18,
+        "Mar 2025": 24
+      },
+      "daysPayable_annual": {
+        "Mar 2023": 131,
+        "Mar 2024": 110,
+        "Mar 2025": 119
+      },
+      "cashConversionCycle_annual": {
+        "Mar 2023": 13,
+        "Mar 2024": 8,
+        "Mar 2025": -3
+      },
+      "borrowings_annual": {
+        "Mar 2023": 112,
+        "Mar 2024": 231,
+        "Mar 2025": 284
+      },
+      "totalAssets_annual": {
+        "Mar 2023": 5900,
+        "Mar 2024": 6084,
+        "Mar 2025": 6723
+      },
+      "cashFromInvesting_annual": {
+        "Mar 2023": -101,
+        "Mar 2024": 62,
+        "Mar 2025": 61
+      },
+      "cashFromOperating_annual": {
+        "Mar 2023": 270,
+        "Mar 2024": 610,
+        "Mar 2025": 571
+      },
+      "annualSales": {
+        "Mar 2023": 6668,
+        "Mar 2024": 6830,
+        "Mar 2025": 7919
+      },
+      "annualExpenses": {
+        "Mar 2023": 6297,
+        "Mar 2024": 6427,
+        "Mar 2025": 7369
+      },
+      "annualOpProfit": {
+        "Mar 2023": 371,
+        "Mar 2024": 403,
+        "Mar 2025": 550
+      },
+      "annualOPM": {
+        "Mar 2023": 6,
+        "Mar 2024": 6,
+        "Mar 2025": 7
+      },
+      "annualInterest": {
+        "Mar 2023": 15,
+        "Mar 2024": 30,
+        "Mar 2025": 45
+      },
+      "annualDepreciation": {
+        "Mar 2023": 185,
+        "Mar 2024": 210,
+        "Mar 2025": 213
+      },
+      "annualNetProfit": {
+        "Mar 2023": 224,
+        "Mar 2024": 224,
+        "Mar 2025": 363
+      },
+      "netDebtEbitda": [
+        null,
+        null,
+        0.2,
+        0.2,
+        0.38,
+        0.38,
+        0.38,
+        0.38,
+        0.37,
+        0.37,
+        0.37,
+        0.37,
+        0.37,
+        0.37,
+        0.37
+      ],
+      "netDebtEbitda_annual": {
+        "Mar 2023": 0.2,
+        "Mar 2024": 0.38,
+        "Mar 2025": 0.37
+      },
+      "capexIntensity": [
+        null,
+        null,
+        1.5,
+        1.5,
+        0.9,
+        0.9,
+        0.9,
+        0.9,
+        0.8,
+        0.8,
+        0.8,
+        0.8,
+        0.8,
+        0.8,
+        0.8
+      ],
+      "capexIntensity_annual": {
+        "Mar 2023": 1.5,
+        "Mar 2024": 0.9,
+        "Mar 2025": 0.8
+      }
+    },
+    "voltas": {
+      "companyId": "voltas",
+      "folder": "voltas",
+      "inventoryDays": [
+        null,
+        null,
+        79,
+        79,
+        79,
+        79,
+        79,
+        79,
+        83,
+        83,
+        83,
+        83,
+        83,
+        83,
+        83
+      ],
+      "inventoryDays_annual": {
+        "Mar 2023": 79,
+        "Mar 2024": 79,
+        "Mar 2025": 83
+      },
+      "workingCapDays": [
+        null,
+        null,
+        31,
+        31,
+        18,
+        18,
+        18,
+        18,
+        43,
+        43,
+        43,
+        43,
+        43,
+        43,
+        43
+      ],
+      "workingCapDays_annual": {
+        "Mar 2023": 31,
+        "Mar 2024": 18,
+        "Mar 2025": 43
+      },
+      "roce": [
+        null,
+        null,
+        10,
+        10,
+        9,
+        9,
+        9,
+        9,
+        18,
+        18,
+        18,
+        18,
+        18,
+        18,
+        18
+      ],
+      "roce_annual": {
+        "Mar 2023": 10,
+        "Mar 2024": 9,
+        "Mar 2025": 18
+      },
+      "debtorDays_annual": {
+        "Mar 2023": 84,
+        "Mar 2024": 70,
+        "Mar 2025": 59
+      },
+      "daysPayable_annual": {
+        "Mar 2023": 149,
+        "Mar 2024": 140,
+        "Mar 2025": 119
+      },
+      "cashConversionCycle_annual": {
+        "Mar 2023": 14,
+        "Mar 2024": 9,
+        "Mar 2025": 24
+      },
+      "borrowings_annual": {
+        "Mar 2023": 651,
+        "Mar 2024": 744,
+        "Mar 2025": 892
+      },
+      "totalAssets_annual": {
+        "Mar 2023": 10274,
+        "Mar 2024": 11994,
+        "Mar 2025": 13108
+      },
+      "cashFromInvesting_annual": {
+        "Mar 2023": -82,
+        "Mar 2024": -522,
+        "Mar 2025": 158
+      },
+      "cashFromOperating_annual": {
+        "Mar 2023": 159,
+        "Mar 2024": 762,
+        "Mar 2025": -224
+      },
+      "annualSales": {
+        "Mar 2023": 9499,
+        "Mar 2024": 12481,
+        "Mar 2025": 15413
+      },
+      "annualExpenses": {
+        "Mar 2023": 9045,
+        "Mar 2024": 12145,
+        "Mar 2025": 14423
+      },
+      "annualOpProfit": {
+        "Mar 2023": 454,
+        "Mar 2024": 336,
+        "Mar 2025": 990
+      },
+      "annualOPM": {
+        "Mar 2023": 5,
+        "Mar 2024": 3,
+        "Mar 2025": 6
+      },
+      "annualInterest": {
+        "Mar 2023": 30,
+        "Mar 2024": 56,
+        "Mar 2025": 62
+      },
+      "annualDepreciation": {
+        "Mar 2023": 40,
+        "Mar 2024": 48,
+        "Mar 2025": 62
+      },
+      "annualNetProfit": {
+        "Mar 2023": 136,
+        "Mar 2024": 248,
+        "Mar 2025": 834
+      },
+      "netDebtEbitda": [
+        null,
+        null,
+        1.32,
+        1.32,
+        1.94,
+        1.94,
+        1.94,
+        1.94,
+        0.85,
+        0.85,
+        0.85,
+        0.85,
+        0.85,
+        0.85,
+        0.85
+      ],
+      "netDebtEbitda_annual": {
+        "Mar 2023": 1.32,
+        "Mar 2024": 1.94,
+        "Mar 2025": 0.85
+      },
+      "capexIntensity": [
+        null,
+        null,
+        0.9,
+        0.9,
+        4.2,
+        4.2,
+        4.2,
+        4.2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "capexIntensity_annual": {
+        "Mar 2023": 0.9,
+        "Mar 2024": 4.2,
+        "Mar 2025": 1
+      }
+    },
+    "bluestar": {
+      "companyId": "bluestar",
+      "folder": "bluestar",
+      "inventoryDays": [
+        null,
+        null,
+        127,
+        127,
+        106,
+        106,
+        106,
+        106,
+        131,
+        131,
+        131,
+        131,
+        131,
+        131,
+        131
+      ],
+      "inventoryDays_annual": {
+        "Mar 2023": 127,
+        "Mar 2024": 106,
+        "Mar 2025": 131
+      },
+      "workingCapDays": [
+        null,
+        null,
+        2,
+        2,
+        20,
+        20,
+        20,
+        20,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16
+      ],
+      "workingCapDays_annual": {
+        "Mar 2023": 2,
+        "Mar 2024": 20,
+        "Mar 2025": 16
+      },
+      "roce": [
+        null,
+        null,
+        25,
+        25,
+        26,
+        26,
+        26,
+        26,
+        26,
+        26,
+        26,
+        26,
+        26,
+        26,
+        26
+      ],
+      "roce_annual": {
+        "Mar 2023": 25,
+        "Mar 2024": 26,
+        "Mar 2025": 26
+      },
+      "debtorDays_annual": {
+        "Mar 2023": 71,
+        "Mar 2024": 74,
+        "Mar 2025": 60
+      },
+      "daysPayable_annual": {
+        "Mar 2023": 223,
+        "Mar 2024": 198,
+        "Mar 2025": 209
+      },
+      "cashConversionCycle_annual": {
+        "Mar 2023": -25,
+        "Mar 2024": -18,
+        "Mar 2025": -18
+      },
+      "borrowings_annual": {
+        "Mar 2023": 662,
+        "Mar 2024": 243,
+        "Mar 2025": 381
+      },
+      "totalAssets_annual": {
+        "Mar 2023": 5447,
+        "Mar 2024": 6611,
+        "Mar 2025": 8249
+      },
+      "cashFromInvesting_annual": {
+        "Mar 2023": -178,
+        "Mar 2024": -524,
+        "Mar 2025": -463
+      },
+      "cashFromOperating_annual": {
+        "Mar 2023": 243,
+        "Mar 2024": 289,
+        "Mar 2025": 688
+      },
+      "annualSales": {
+        "Mar 2023": 7977,
+        "Mar 2024": 9685,
+        "Mar 2025": 11968
+      },
+      "annualExpenses": {
+        "Mar 2023": 7478,
+        "Mar 2024": 9017,
+        "Mar 2025": 11089
+      },
+      "annualOpProfit": {
+        "Mar 2023": 500,
+        "Mar 2024": 669,
+        "Mar 2025": 879
+      },
+      "annualOPM": {
+        "Mar 2023": 6,
+        "Mar 2024": 7,
+        "Mar 2025": 7
+      },
+      "annualInterest": {
+        "Mar 2023": 55,
+        "Mar 2024": 58,
+        "Mar 2025": 49
+      },
+      "annualDepreciation": {
+        "Mar 2023": 85,
+        "Mar 2024": 98,
+        "Mar 2025": 128
+      },
+      "annualNetProfit": {
+        "Mar 2023": 401,
+        "Mar 2024": 414,
+        "Mar 2025": 591
+      },
+      "netDebtEbitda": [
+        null,
+        null,
+        1.13,
+        1.13,
+        0.32,
+        0.32,
+        0.32,
+        0.32,
+        0.38,
+        0.38,
+        0.38,
+        0.38,
+        0.38,
+        0.38,
+        0.38
+      ],
+      "netDebtEbitda_annual": {
+        "Mar 2023": 1.13,
+        "Mar 2024": 0.32,
+        "Mar 2025": 0.38
+      },
+      "capexIntensity": [
+        null,
+        null,
+        2.2,
+        2.2,
+        5.4,
+        5.4,
+        5.4,
+        5.4,
+        3.9,
+        3.9,
+        3.9,
+        3.9,
+        3.9,
+        3.9,
+        3.9
+      ],
+      "capexIntensity_annual": {
+        "Mar 2023": 2.2,
+        "Mar 2024": 5.4,
+        "Mar 2025": 3.9
+      }
+    },
+    "crompton": {
+      "companyId": "crompton",
+      "folder": "crompton",
+      "inventoryDays": [
+        null,
+        null,
+        58,
+        58,
+        61,
+        61,
+        61,
+        61,
+        61,
+        61,
+        61,
+        61,
+        61,
+        61,
+        61
+      ],
+      "inventoryDays_annual": {
+        "Mar 2023": 58,
+        "Mar 2024": 61,
+        "Mar 2025": 61
+      },
+      "workingCapDays": [
+        null,
+        null,
+        -7,
+        -7,
+        -15,
+        -15,
+        -15,
+        -15,
+        -16,
+        -16,
+        -16,
+        -16,
+        -16,
+        -16,
+        -16
+      ],
+      "workingCapDays_annual": {
+        "Mar 2023": -7,
+        "Mar 2024": -15,
+        "Mar 2025": -16
+      },
+      "roce": [
+        null,
+        null,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        19,
+        19,
+        19,
+        19,
+        19,
+        19,
+        19
+      ],
+      "roce_annual": {
+        "Mar 2023": 16,
+        "Mar 2024": 16,
+        "Mar 2025": 19
+      },
+      "debtorDays_annual": {
+        "Mar 2023": 36,
+        "Mar 2024": 36,
+        "Mar 2025": 32
+      },
+      "daysPayable_annual": {
+        "Mar 2023": 81,
+        "Mar 2024": 96,
+        "Mar 2025": 97
+      },
+      "cashConversionCycle_annual": {
+        "Mar 2023": 13,
+        "Mar 2024": 1,
+        "Mar 2025": -3
+      },
+      "borrowings_annual": {
+        "Mar 2023": 1005,
+        "Mar 2024": 683,
+        "Mar 2025": 479
+      },
+      "totalAssets_annual": {
+        "Mar 2023": 5654,
+        "Mar 2024": 6082,
+        "Mar 2025": 6330
+      },
+      "cashFromInvesting_annual": {
+        "Mar 2023": 263,
+        "Mar 2024": -207,
+        "Mar 2025": -131
+      },
+      "cashFromOperating_annual": {
+        "Mar 2023": 553,
+        "Mar 2024": 843,
+        "Mar 2025": 737
+      },
+      "annualSales": {
+        "Mar 2023": 6870,
+        "Mar 2024": 7313,
+        "Mar 2025": 7864
+      },
+      "annualExpenses": {
+        "Mar 2023": 6099,
+        "Mar 2024": 6599,
+        "Mar 2025": 6975
+      },
+      "annualOpProfit": {
+        "Mar 2023": 770,
+        "Mar 2024": 714,
+        "Mar 2025": 888
+      },
+      "annualOPM": {
+        "Mar 2023": 11,
+        "Mar 2024": 10,
+        "Mar 2025": 11
+      },
+      "annualInterest": {
+        "Mar 2023": 109,
+        "Mar 2024": 79,
+        "Mar 2025": 48
+      },
+      "annualDepreciation": {
+        "Mar 2023": 116,
+        "Mar 2024": 129,
+        "Mar 2025": 153
+      },
+      "annualNetProfit": {
+        "Mar 2023": 476,
+        "Mar 2024": 442,
+        "Mar 2025": 564
+      },
+      "netDebtEbitda": [
+        null,
+        null,
+        1.13,
+        1.13,
+        0.81,
+        0.81,
+        0.81,
+        0.81,
+        0.46,
+        0.46,
+        0.46,
+        0.46,
+        0.46,
+        0.46,
+        0.46
+      ],
+      "netDebtEbitda_annual": {
+        "Mar 2023": 1.13,
+        "Mar 2024": 0.81,
+        "Mar 2025": 0.46
+      },
+      "capexIntensity": [
+        null,
+        null,
+        3.8,
+        3.8,
+        2.8,
+        2.8,
+        2.8,
+        2.8,
+        1.7,
+        1.7,
+        1.7,
+        1.7,
+        1.7,
+        1.7,
+        1.7
+      ],
+      "capexIntensity_annual": {
+        "Mar 2023": 3.8,
+        "Mar 2024": 2.8,
+        "Mar 2025": 1.7
+      }
+    },
+    "bajaj_elec": {
+      "companyId": "bajaj_elec",
+      "folder": "bajaj",
+      "inventoryDays": [
+        null,
+        null,
+        106,
+        106,
+        85,
+        85,
+        85,
+        85,
+        79,
+        79,
+        79,
+        79,
+        79,
+        79,
+        79
+      ],
+      "inventoryDays_annual": {
+        "Mar 2023": 106,
+        "Mar 2024": 85,
+        "Mar 2025": 79
+      },
+      "workingCapDays": [
+        null,
+        null,
+        39,
+        39,
+        12,
+        12,
+        12,
+        12,
+        35,
+        35,
+        35,
+        35,
+        35,
+        35,
+        35
+      ],
+      "workingCapDays_annual": {
+        "Mar 2023": 39,
+        "Mar 2024": 12,
+        "Mar 2025": 35
+      },
+      "roce": [
+        null,
+        null,
+        18,
+        18,
+        13,
+        13,
+        13,
+        13,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12
+      ],
+      "roce_annual": {
+        "Mar 2023": 18,
+        "Mar 2024": 13,
+        "Mar 2025": 12
+      },
+      "debtorDays_annual": {
+        "Mar 2023": 83,
+        "Mar 2024": 92,
+        "Mar 2025": 97
+      },
+      "daysPayable_annual": {
+        "Mar 2023": 195,
+        "Mar 2024": 206,
+        "Mar 2025": 212
+      },
+      "cashConversionCycle_annual": {
+        "Mar 2023": -6,
+        "Mar 2024": -30,
+        "Mar 2025": -35
+      },
+      "borrowings_annual": {
+        "Mar 2023": 101,
+        "Mar 2024": 215,
+        "Mar 2025": 243
+      },
+      "totalAssets_annual": {
+        "Mar 2023": 4993,
+        "Mar 2024": 3833,
+        "Mar 2025": 4219
+      },
+      "cashFromInvesting_annual": {
+        "Mar 2023": -88,
+        "Mar 2024": -449,
+        "Mar 2025": -195
+      },
+      "cashFromOperating_annual": {
+        "Mar 2023": 449,
+        "Mar 2024": 354,
+        "Mar 2025": 347
+      },
+      "annualSales": {
+        "Mar 2023": 4889,
+        "Mar 2024": 4639,
+        "Mar 2025": 4826
+      },
+      "annualExpenses": {
+        "Mar 2023": 4515,
+        "Mar 2024": 4379,
+        "Mar 2025": 4519
+      },
+      "annualOpProfit": {
+        "Mar 2023": 375,
+        "Mar 2024": 260,
+        "Mar 2025": 307
+      },
+      "annualOPM": {
+        "Mar 2023": 8,
+        "Mar 2024": 6,
+        "Mar 2025": 6
+      },
+      "annualInterest": {
+        "Mar 2023": 44,
+        "Mar 2024": 63,
+        "Mar 2025": 70
+      },
+      "annualDepreciation": {
+        "Mar 2023": 74,
+        "Mar 2024": 110,
+        "Mar 2025": 144
+      },
+      "annualNetProfit": {
+        "Mar 2023": 216,
+        "Mar 2024": 131,
+        "Mar 2025": 133
+      },
+      "netDebtEbitda": [
+        null,
+        null,
+        0.22,
+        0.22,
+        0.58,
+        0.58,
+        0.58,
+        0.58,
+        0.54,
+        0.54,
+        0.54,
+        0.54,
+        0.54,
+        0.54,
+        0.54
+      ],
+      "netDebtEbitda_annual": {
+        "Mar 2023": 0.22,
+        "Mar 2024": 0.58,
+        "Mar 2025": 0.54
+      },
+      "capexIntensity": [
+        null,
+        null,
+        1.8,
+        1.8,
+        9.7,
+        9.7,
+        9.7,
+        9.7,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "capexIntensity_annual": {
+        "Mar 2023": 1.8,
+        "Mar 2024": 9.7,
+        "Mar 2025": 4
+      }
+    },
+    "vguard": {
+      "companyId": "vguard",
+      "folder": "vguard",
+      "inventoryDays": [
+        null,
+        null,
+        97,
+        97,
+        92,
+        92,
+        92,
+        92,
+        102,
+        102,
+        102,
+        102,
+        102,
+        102,
+        102
+      ],
+      "inventoryDays_annual": {
+        "Mar 2023": 97,
+        "Mar 2024": 92,
+        "Mar 2025": 102
+      },
+      "workingCapDays": [
+        null,
+        null,
+        55,
+        55,
+        41,
+        41,
+        41,
+        41,
+        43,
+        43,
+        43,
+        43,
+        43,
+        43,
+        43
+      ],
+      "workingCapDays_annual": {
+        "Mar 2023": 55,
+        "Mar 2024": 41,
+        "Mar 2025": 43
+      },
+      "roce": [
+        null,
+        null,
+        15,
+        15,
+        18,
+        18,
+        18,
+        18,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20
+      ],
+      "roce_annual": {
+        "Mar 2023": 15,
+        "Mar 2024": 18,
+        "Mar 2025": 20
+      },
+      "debtorDays_annual": {
+        "Mar 2023": 49,
+        "Mar 2024": 45,
+        "Mar 2025": 35
+      },
+      "daysPayable_annual": {
+        "Mar 2023": 62,
+        "Mar 2024": 62,
+        "Mar 2025": 67
+      },
+      "cashConversionCycle_annual": {
+        "Mar 2023": 85,
+        "Mar 2024": 75,
+        "Mar 2025": 70
+      },
+      "borrowings_annual": {
+        "Mar 2023": 503,
+        "Mar 2024": 401,
+        "Mar 2025": 134
+      },
+      "totalAssets_annual": {
+        "Mar 2023": 2899,
+        "Mar 2024": 3152,
+        "Mar 2025": 3329
+      },
+      "cashFromInvesting_annual": {
+        "Mar 2023": -771,
+        "Mar 2024": -153,
+        "Mar 2025": -97
+      },
+      "cashFromOperating_annual": {
+        "Mar 2023": 424,
+        "Mar 2024": 393,
+        "Mar 2025": 477
+      },
+      "annualSales": {
+        "Mar 2023": 4127,
+        "Mar 2024": 4857,
+        "Mar 2025": 5578
+      },
+      "annualExpenses": {
+        "Mar 2023": 3807,
+        "Mar 2024": 4429,
+        "Mar 2025": 5064
+      },
+      "annualOpProfit": {
+        "Mar 2023": 320,
+        "Mar 2024": 428,
+        "Mar 2025": 514
+      },
+      "annualOPM": {
+        "Mar 2023": 8,
+        "Mar 2024": 9,
+        "Mar 2025": 9
+      },
+      "annualInterest": {
+        "Mar 2023": 16,
+        "Mar 2024": 40,
+        "Mar 2025": 25
+      },
+      "annualDepreciation": {
+        "Mar 2023": 64,
+        "Mar 2024": 81,
+        "Mar 2025": 96
+      },
+      "annualNetProfit": {
+        "Mar 2023": 189,
+        "Mar 2024": 258,
+        "Mar 2025": 314
+      },
+      "netDebtEbitda": [
+        null,
+        null,
+        1.31,
+        1.31,
+        0.79,
+        0.79,
+        0.79,
+        0.79,
+        0.22,
+        0.22,
+        0.22,
+        0.22,
+        0.22,
+        0.22,
+        0.22
+      ],
+      "netDebtEbitda_annual": {
+        "Mar 2023": 1.31,
+        "Mar 2024": 0.79,
+        "Mar 2025": 0.22
+      },
+      "capexIntensity": [
+        null,
+        null,
+        18.7,
+        18.7,
+        3.2,
+        3.2,
+        3.2,
+        3.2,
+        1.7,
+        1.7,
+        1.7,
+        1.7,
+        1.7,
+        1.7,
+        1.7
+      ],
+      "capexIntensity_annual": {
+        "Mar 2023": 18.7,
+        "Mar 2024": 3.2,
+        "Mar 2025": 1.7
+      }
+    },
+    "ifb": {
+      "companyId": "ifb",
+      "folder": "ifb",
+      "inventoryDays": [
+        null,
+        null,
+        82,
+        82,
+        75,
+        75,
+        75,
+        75,
+        79,
+        79,
+        79,
+        79,
+        79,
+        79,
+        79
+      ],
+      "inventoryDays_annual": {
+        "Mar 2023": 82,
+        "Mar 2024": 75,
+        "Mar 2025": 79
+      },
+      "workingCapDays": [
+        null,
+        null,
+        -7,
+        -7,
+        -11,
+        -11,
+        -11,
+        -11,
+        -2,
+        -2,
+        -2,
+        -2,
+        -2,
+        -2,
+        -2
+      ],
+      "workingCapDays_annual": {
+        "Mar 2023": -7,
+        "Mar 2024": -11,
+        "Mar 2025": -2
+      },
+      "roce": [
+        null,
+        null,
+        6,
+        6,
+        10,
+        10,
+        10,
+        10,
+        17,
+        17,
+        17,
+        17,
+        17,
+        17,
+        17
+      ],
+      "roce_annual": {
+        "Mar 2023": 6,
+        "Mar 2024": 10,
+        "Mar 2025": 17
+      },
+      "debtorDays_annual": {
+        "Mar 2023": 36,
+        "Mar 2024": 38,
+        "Mar 2025": 31
+      },
+      "daysPayable_annual": {
+        "Mar 2023": 118,
+        "Mar 2024": 135,
+        "Mar 2025": 111
+      },
+      "cashConversionCycle_annual": {
+        "Mar 2023": -1,
+        "Mar 2024": -22,
+        "Mar 2025": -1
+      },
+      "borrowings_annual": {
+        "Mar 2023": 353,
+        "Mar 2024": 164,
+        "Mar 2025": 250
+      },
+      "totalAssets_annual": {
+        "Mar 2023": 2107,
+        "Mar 2024": 2180,
+        "Mar 2025": 2358
+      },
+      "cashFromInvesting_annual": {
+        "Mar 2023": -6,
+        "Mar 2024": -137,
+        "Mar 2025": -90
+      },
+      "cashFromOperating_annual": {
+        "Mar 2023": 106,
+        "Mar 2024": 351,
+        "Mar 2025": 118
+      },
+      "annualSales": {
+        "Mar 2023": 4195,
+        "Mar 2024": 4438,
+        "Mar 2025": 5092
+      },
+      "annualExpenses": {
+        "Mar 2023": 4031,
+        "Mar 2024": 4242,
+        "Mar 2025": 4805
+      },
+      "annualOpProfit": {
+        "Mar 2023": 164,
+        "Mar 2024": 196,
+        "Mar 2025": 287
+      },
+      "annualOPM": {
+        "Mar 2023": 4,
+        "Mar 2024": 4,
+        "Mar 2025": 6
+      },
+      "annualInterest": {
+        "Mar 2023": 33,
+        "Mar 2024": 31,
+        "Mar 2025": 27
+      },
+      "annualDepreciation": {
+        "Mar 2023": 122,
+        "Mar 2024": 124,
+        "Mar 2025": 132
+      },
+      "annualNetProfit": {
+        "Mar 2023": 15,
+        "Mar 2024": 50,
+        "Mar 2025": 119
+      },
+      "netDebtEbitda": [
+        null,
+        null,
+        1.23,
+        1.23,
+        0.51,
+        0.51,
+        0.51,
+        0.51,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "netDebtEbitda_annual": {
+        "Mar 2023": 1.23,
+        "Mar 2024": 0.51,
+        "Mar 2025": 0.6
+      },
+      "capexIntensity": [
+        null,
+        null,
+        0.1,
+        0.1,
+        3.1,
+        3.1,
+        3.1,
+        3.1,
+        1.8,
+        1.8,
+        1.8,
+        1.8,
+        1.8,
+        1.8,
+        1.8
+      ],
+      "capexIntensity_annual": {
+        "Mar 2023": 0.1,
+        "Mar 2024": 3.1,
+        "Mar 2025": 1.8
+      }
+    },
+    "havells": {
+      "companyId": "havells",
+      "folder": "havells",
+      "inventoryDays": [
+        null,
+        null,
+        119,
+        119,
+        102,
+        102,
+        102,
+        102,
+        104,
+        104,
+        104,
+        104,
+        104,
+        104,
+        104
+      ],
+      "inventoryDays_annual": {
+        "Mar 2023": 119,
+        "Mar 2024": 102,
+        "Mar 2025": 104
+      },
+      "workingCapDays": [
+        null,
+        null,
+        25,
+        25,
+        11,
+        11,
+        11,
+        11,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12
+      ],
+      "workingCapDays_annual": {
+        "Mar 2023": 25,
+        "Mar 2024": 11,
+        "Mar 2025": 12
+      },
+      "roce": [
+        null,
+        null,
+        22,
+        22,
+        24,
+        24,
+        24,
+        24,
+        25,
+        25,
+        25,
+        25,
+        25,
+        25,
+        25
+      ],
+      "roce_annual": {
+        "Mar 2023": 22,
+        "Mar 2024": 24,
+        "Mar 2025": 25
+      },
+      "debtorDays_annual": {
+        "Mar 2023": 21,
+        "Mar 2024": 23,
+        "Mar 2025": 21
+      },
+      "daysPayable_annual": {
+        "Mar 2023": 85,
+        "Mar 2024": 81,
+        "Mar 2025": 78
+      },
+      "cashConversionCycle_annual": {
+        "Mar 2023": 55,
+        "Mar 2024": 44,
+        "Mar 2025": 47
+      },
+      "borrowings_annual": {
+        "Mar 2023": 223,
+        "Mar 2024": 303,
+        "Mar 2025": 319
+      },
+      "totalAssets_annual": {
+        "Mar 2023": 11157,
+        "Mar 2024": 12433,
+        "Mar 2025": 13809
+      },
+      "cashFromInvesting_annual": {
+        "Mar 2023": 31,
+        "Mar 2024": -1618,
+        "Mar 2025": -305
+      },
+      "cashFromOperating_annual": {
+        "Mar 2023": 565,
+        "Mar 2024": 1953,
+        "Mar 2025": 1515
+      },
+      "annualSales": {
+        "Mar 2023": 16911,
+        "Mar 2024": 18590,
+        "Mar 2025": 21778
+      },
+      "annualExpenses": {
+        "Mar 2023": 15290,
+        "Mar 2024": 16709,
+        "Mar 2025": 19603
+      },
+      "annualOpProfit": {
+        "Mar 2023": 1621,
+        "Mar 2024": 1881,
+        "Mar 2025": 2175
+      },
+      "annualOPM": {
+        "Mar 2023": 10,
+        "Mar 2024": 10,
+        "Mar 2025": 10
+      },
+      "annualInterest": {
+        "Mar 2023": 55,
+        "Mar 2024": 84,
+        "Mar 2025": 72
+      },
+      "annualDepreciation": {
+        "Mar 2023": 296,
+        "Mar 2024": 338,
+        "Mar 2025": 400
+      },
+      "annualNetProfit": {
+        "Mar 2023": 1072,
+        "Mar 2024": 1271,
+        "Mar 2025": 1470
+      },
+      "netDebtEbitda": [
+        null,
+        null,
+        0.12,
+        0.12,
+        0.14,
+        0.14,
+        0.14,
+        0.14,
+        0.12,
+        0.12,
+        0.12,
+        0.12,
+        0.12,
+        0.12,
+        0.12
+      ],
+      "netDebtEbitda_annual": {
+        "Mar 2023": 0.12,
+        "Mar 2024": 0.14,
+        "Mar 2025": 0.12
+      },
+      "capexIntensity": [
+        null,
+        null,
+        0.2,
+        0.2,
+        8.7,
+        8.7,
+        8.7,
+        8.7,
+        1.4,
+        1.4,
+        1.4,
+        1.4,
+        1.4,
+        1.4,
+        1.4
+      ],
+      "capexIntensity_annual": {
+        "Mar 2023": 0.2,
+        "Mar 2024": 8.7,
+        "Mar 2025": 1.4
+      }
+    },
+    "symphony": {
+      "companyId": "symphony",
+      "folder": "symphony",
+      "inventoryDays": [
+        null,
+        null,
+        137,
+        137,
+        140,
+        140,
+        140,
+        140,
+        129,
+        129,
+        129,
+        129,
+        129,
+        129,
+        129
+      ],
+      "inventoryDays_annual": {
+        "Mar 2023": 137,
+        "Mar 2024": 140,
+        "Mar 2025": 129
+      },
+      "workingCapDays": [
+        null,
+        null,
+        15,
+        15,
+        17,
+        17,
+        17,
+        17,
+        -14,
+        -14,
+        -14,
+        -14,
+        -14,
+        -14,
+        -14
+      ],
+      "workingCapDays_annual": {
+        "Mar 2023": 15,
+        "Mar 2024": 17,
+        "Mar 2025": -14
+      },
+      "roce": [
+        null,
+        null,
+        15,
+        15,
+        19,
+        19,
+        19,
+        19,
+        37,
+        37,
+        37,
+        37,
+        37,
+        37,
+        37
+      ],
+      "roce_annual": {
+        "Mar 2023": 15,
+        "Mar 2024": 19,
+        "Mar 2025": 37
+      },
+      "debtorDays_annual": {
+        "Mar 2023": 35,
+        "Mar 2024": 53,
+        "Mar 2025": 33
+      },
+      "daysPayable_annual": {
+        "Mar 2023": 91,
+        "Mar 2024": 81,
+        "Mar 2025": 82
+      },
+      "cashConversionCycle_annual": {
+        "Mar 2023": 81,
+        "Mar 2024": 112,
+        "Mar 2025": 81
+      },
+      "borrowings_annual": {
+        "Mar 2023": 232,
+        "Mar 2024": 170,
+        "Mar 2025": 142
+      },
+      "totalAssets_annual": {
+        "Mar 2023": 1394,
+        "Mar 2024": 1210,
+        "Mar 2025": 1322
+      },
+      "cashFromInvesting_annual": {
+        "Mar 2023": -12,
+        "Mar 2024": 193,
+        "Mar 2025": -41
+      },
+      "cashFromOperating_annual": {
+        "Mar 2023": 125,
+        "Mar 2024": 162,
+        "Mar 2025": 259
+      },
+      "annualSales": {
+        "Mar 2023": 1188,
+        "Mar 2024": 1156,
+        "Mar 2025": 1576
+      },
+      "annualExpenses": {
+        "Mar 2023": 1048,
+        "Mar 2024": 985,
+        "Mar 2025": 1264
+      },
+      "annualOpProfit": {
+        "Mar 2023": 140,
+        "Mar 2024": 171,
+        "Mar 2025": 312
+      },
+      "annualOPM": {
+        "Mar 2023": 12,
+        "Mar 2024": 15,
+        "Mar 2025": 20
+      },
+      "annualInterest": {
+        "Mar 2023": 12,
+        "Mar 2024": 12,
+        "Mar 2025": 11
+      },
+      "annualDepreciation": {
+        "Mar 2023": 26,
+        "Mar 2024": 26,
+        "Mar 2025": 22
+      },
+      "annualNetProfit": {
+        "Mar 2023": 116,
+        "Mar 2024": 148,
+        "Mar 2025": 212
+      },
+      "netDebtEbitda": [
+        null,
+        null,
+        1.4,
+        1.4,
+        0.86,
+        0.86,
+        0.86,
+        0.86,
+        0.43,
+        0.43,
+        0.43,
+        0.43,
+        0.43,
+        0.43,
+        0.43
+      ],
+      "netDebtEbitda_annual": {
+        "Mar 2023": 1.4,
+        "Mar 2024": 0.86,
+        "Mar 2025": 0.43
+      },
+      "capexIntensity": [
+        null,
+        null,
+        1,
+        1,
+        16.7,
+        16.7,
+        16.7,
+        16.7,
+        2.6,
+        2.6,
+        2.6,
+        2.6,
+        2.6,
+        2.6,
+        2.6
+      ],
+      "capexIntensity_annual": {
+        "Mar 2023": 1,
+        "Mar 2024": 16.7,
+        "Mar 2025": 2.6
+      }
+    },
+    "orient": {
+      "companyId": "orient",
+      "folder": "orient",
+      "inventoryDays": [
+        null,
+        null,
+        57,
+        57,
+        59,
+        59,
+        59,
+        59,
+        75,
+        75,
+        75,
+        75,
+        75,
+        75,
+        75
+      ],
+      "inventoryDays_annual": {
+        "Mar 2023": 57,
+        "Mar 2024": 59,
+        "Mar 2025": 75
+      },
+      "workingCapDays": [
+        null,
+        null,
+        15,
+        15,
+        13,
+        13,
+        13,
+        13,
+        23,
+        23,
+        23,
+        23,
+        23,
+        23,
+        23
+      ],
+      "workingCapDays_annual": {
+        "Mar 2023": 15,
+        "Mar 2024": 13,
+        "Mar 2025": 23
+      },
+      "roce": [
+        null,
+        null,
+        19,
+        19,
+        14,
+        14,
+        14,
+        14,
+        18,
+        18,
+        18,
+        18,
+        18,
+        18,
+        18
+      ],
+      "roce_annual": {
+        "Mar 2023": 19,
+        "Mar 2024": 14,
+        "Mar 2025": 18
+      },
+      "debtorDays_annual": {
+        "Mar 2023": 51,
+        "Mar 2024": 60,
+        "Mar 2025": 60
+      },
+      "daysPayable_annual": {
+        "Mar 2023": 91,
+        "Mar 2024": 97,
+        "Mar 2025": 104
+      },
+      "cashConversionCycle_annual": {
+        "Mar 2023": 18,
+        "Mar 2024": 22,
+        "Mar 2025": 31
+      },
+      "borrowings_annual": {
+        "Mar 2023": 97,
+        "Mar 2024": 112,
+        "Mar 2025": 86
+      },
+      "totalAssets_annual": {
+        "Mar 2023": 1265,
+        "Mar 2024": 1451,
+        "Mar 2025": 1555
+      },
+      "cashFromInvesting_annual": {
+        "Mar 2023": -110,
+        "Mar 2024": -171,
+        "Mar 2025": -29
+      },
+      "cashFromOperating_annual": {
+        "Mar 2023": 190,
+        "Mar 2024": 118,
+        "Mar 2025": 88
+      },
+      "annualSales": {
+        "Mar 2023": 2529,
+        "Mar 2024": 2812,
+        "Mar 2025": 3094
+      },
+      "annualExpenses": {
+        "Mar 2023": 2378,
+        "Mar 2024": 2667,
+        "Mar 2025": 2889
+      },
+      "annualOpProfit": {
+        "Mar 2023": 151,
+        "Mar 2024": 145,
+        "Mar 2025": 204
+      },
+      "annualOPM": {
+        "Mar 2023": 6,
+        "Mar 2024": 5,
+        "Mar 2025": 7
+      },
+      "annualInterest": {
+        "Mar 2023": 22,
+        "Mar 2024": 23,
+        "Mar 2025": 24
+      },
+      "annualDepreciation": {
+        "Mar 2023": 54,
+        "Mar 2024": 59,
+        "Mar 2025": 79
+      },
+      "annualNetProfit": {
+        "Mar 2023": 76,
+        "Mar 2024": 75,
+        "Mar 2025": 83
+      },
+      "netDebtEbitda": [
+        null,
+        null,
+        0.47,
+        0.47,
+        0.55,
+        0.55,
+        0.55,
+        0.55,
+        0.3,
+        0.3,
+        0.3,
+        0.3,
+        0.3,
+        0.3,
+        0.3
+      ],
+      "netDebtEbitda_annual": {
+        "Mar 2023": 0.47,
+        "Mar 2024": 0.55,
+        "Mar 2025": 0.3
+      },
+      "capexIntensity": [
+        null,
+        null,
+        4.3,
+        4.3,
+        6.1,
+        6.1,
+        6.1,
+        6.1,
+        0.9,
+        0.9,
+        0.9,
+        0.9,
+        0.9,
+        0.9,
+        0.9
+      ],
+      "capexIntensity_annual": {
+        "Mar 2023": 4.3,
+        "Mar 2024": 6.1,
+        "Mar 2025": 0.9
+      }
+    },
+    "dixon": {
+      "companyId": "dixon",
+      "folder": "dixon",
+      "inventoryDays": [
+        null,
+        null,
+        32,
+        32,
+        39,
+        39,
+        39,
+        39,
+        41,
+        41,
+        41,
+        41,
+        41,
+        41,
+        41
+      ],
+      "inventoryDays_annual": {
+        "Mar 2023": 32,
+        "Mar 2024": 39,
+        "Mar 2025": 41
+      },
+      "workingCapDays": [
+        null,
+        null,
+        -2,
+        -2,
+        -2,
+        -2,
+        -2,
+        -2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "workingCapDays_annual": {
+        "Mar 2023": -2,
+        "Mar 2024": -2,
+        "Mar 2025": 2
+      },
+      "roce": [
+        null,
+        null,
+        24,
+        24,
+        29,
+        29,
+        29,
+        29,
+        40,
+        40,
+        40,
+        40,
+        40,
+        40,
+        40
+      ],
+      "roce_annual": {
+        "Mar 2023": 24,
+        "Mar 2024": 29,
+        "Mar 2025": 40
+      },
+      "debtorDays_annual": {
+        "Mar 2023": 51,
+        "Mar 2024": 48,
+        "Mar 2025": 65
+      },
+      "daysPayable_annual": {
+        "Mar 2023": 81,
+        "Mar 2024": 92,
+        "Mar 2025": 111
+      },
+      "cashConversionCycle_annual": {
+        "Mar 2023": 2,
+        "Mar 2024": -6,
+        "Mar 2025": -5
+      },
+      "borrowings_annual": {
+        "Mar 2023": 453,
+        "Mar 2024": 489,
+        "Mar 2025": 671
+      },
+      "totalAssets_annual": {
+        "Mar 2023": 4679,
+        "Mar 2024": 6990,
+        "Mar 2025": 16758
+      },
+      "cashFromInvesting_annual": {
+        "Mar 2023": -356,
+        "Mar 2024": -531,
+        "Mar 2025": -1093
+      },
+      "cashFromOperating_annual": {
+        "Mar 2023": 726,
+        "Mar 2024": 584,
+        "Mar 2025": 1150
+      },
+      "annualSales": {
+        "Mar 2023": 12192,
+        "Mar 2024": 17691,
+        "Mar 2025": 38860
+      },
+      "annualExpenses": {
+        "Mar 2023": 11673,
+        "Mar 2024": 16986,
+        "Mar 2025": 37345
+      },
+      "annualOpProfit": {
+        "Mar 2023": 519,
+        "Mar 2024": 705,
+        "Mar 2025": 1515
+      },
+      "annualOPM": {
+        "Mar 2023": 4,
+        "Mar 2024": 4,
+        "Mar 2025": 4
+      },
+      "annualInterest": {
+        "Mar 2023": 64,
+        "Mar 2024": 81,
+        "Mar 2025": 162
+      },
+      "annualDepreciation": {
+        "Mar 2023": 115,
+        "Mar 2024": 162,
+        "Mar 2025": 281
+      },
+      "annualNetProfit": {
+        "Mar 2023": 255,
+        "Mar 2024": 375,
+        "Mar 2025": 1233
+      },
+      "netDebtEbitda": [
+        null,
+        null,
+        0.71,
+        0.71,
+        0.56,
+        0.56,
+        0.56,
+        0.56,
+        0.37,
+        0.37,
+        0.37,
+        0.37,
+        0.37,
+        0.37,
+        0.37
+      ],
+      "netDebtEbitda_annual": {
+        "Mar 2023": 0.71,
+        "Mar 2024": 0.56,
+        "Mar 2025": 0.37
+      },
+      "capexIntensity": [
+        null,
+        null,
+        2.9,
+        2.9,
+        3,
+        3,
+        3,
+        3,
+        2.8,
+        2.8,
+        2.8,
+        2.8,
+        2.8,
+        2.8,
+        2.8
+      ],
+      "capexIntensity_annual": {
+        "Mar 2023": 2.9,
+        "Mar 2024": 3,
+        "Mar 2025": 2.8
+      }
+    },
+    "amber": {
+      "companyId": "amber",
+      "folder": "amber",
+      "inventoryDays": [
+        null,
+        null,
+        68,
+        68,
+        56,
+        56,
+        56,
+        56,
+        74,
+        74,
+        74,
+        74,
+        74,
+        74,
+        74
+      ],
+      "inventoryDays_annual": {
+        "Mar 2023": 68,
+        "Mar 2024": 56,
+        "Mar 2025": 74
+      },
+      "workingCapDays": [
+        null,
+        null,
+        -19,
+        -19,
+        -39,
+        -39,
+        -39,
+        -39,
+        -28,
+        -28,
+        -28,
+        -28,
+        -28,
+        -28,
+        -28
+      ],
+      "workingCapDays_annual": {
+        "Mar 2023": -19,
+        "Mar 2024": -39,
+        "Mar 2025": -28
+      },
+      "roce": [
+        null,
+        null,
+        11,
+        11,
+        10,
+        10,
+        10,
+        10,
+        14,
+        14,
+        14,
+        14,
+        14,
+        14,
+        14
+      ],
+      "roce_annual": {
+        "Mar 2023": 11,
+        "Mar 2024": 10,
+        "Mar 2025": 14
+      },
+      "debtorDays_annual": {
+        "Mar 2023": 93,
+        "Mar 2024": 85,
+        "Mar 2025": 64
+      },
+      "daysPayable_annual": {
+        "Mar 2023": 143,
+        "Mar 2024": 144,
+        "Mar 2025": 141
+      },
+      "cashConversionCycle_annual": {
+        "Mar 2023": 17,
+        "Mar 2024": -3,
+        "Mar 2025": -4
+      },
+      "borrowings_annual": {
+        "Mar 2023": 1455,
+        "Mar 2024": 1539,
+        "Mar 2025": 2059
+      },
+      "totalAssets_annual": {
+        "Mar 2023": 6240,
+        "Mar 2024": 6590,
+        "Mar 2025": 8426
+      },
+      "cashFromInvesting_annual": {
+        "Mar 2023": -489,
+        "Mar 2024": -1035,
+        "Mar 2025": -953
+      },
+      "cashFromOperating_annual": {
+        "Mar 2023": 321,
+        "Mar 2024": 965,
+        "Mar 2025": 711
+      },
+      "annualSales": {
+        "Mar 2023": 6927,
+        "Mar 2024": 6729,
+        "Mar 2025": 9973
+      },
+      "annualExpenses": {
+        "Mar 2023": 6505,
+        "Mar 2024": 6238,
+        "Mar 2025": 9237
+      },
+      "annualOpProfit": {
+        "Mar 2023": 422,
+        "Mar 2024": 491,
+        "Mar 2025": 736
+      },
+      "annualOPM": {
+        "Mar 2023": 6,
+        "Mar 2024": 7,
+        "Mar 2025": 7
+      },
+      "annualInterest": {
+        "Mar 2023": 112,
+        "Mar 2024": 167,
+        "Mar 2025": 209
+      },
+      "annualDepreciation": {
+        "Mar 2023": 139,
+        "Mar 2024": 187,
+        "Mar 2025": 228
+      },
+      "annualNetProfit": {
+        "Mar 2023": 164,
+        "Mar 2024": 139,
+        "Mar 2025": 251
+      },
+      "netDebtEbitda": [
+        null,
+        null,
+        2.59,
+        2.59,
+        2.27,
+        2.27,
+        2.27,
+        2.27,
+        2.14,
+        2.14,
+        2.14,
+        2.14,
+        2.14,
+        2.14,
+        2.14
+      ],
+      "netDebtEbitda_annual": {
+        "Mar 2023": 2.59,
+        "Mar 2024": 2.27,
+        "Mar 2025": 2.14
+      },
+      "capexIntensity": [
+        null,
+        null,
+        7.1,
+        7.1,
+        15.4,
+        15.4,
+        15.4,
+        15.4,
+        9.6,
+        9.6,
+        9.6,
+        9.6,
+        9.6,
+        9.6,
+        9.6
+      ],
+      "capexIntensity_annual": {
+        "Mar 2023": 7.1,
+        "Mar 2024": 15.4,
+        "Mar 2025": 9.6
+      }
+    },
+    "ttk_prestige": {
+      "companyId": "ttk_prestige",
+      "folder": "ttk",
+      "inventoryDays": [
+        null,
+        null,
+        130,
+        130,
+        128,
+        128,
+        128,
+        128,
+        142,
+        142,
+        142,
+        142,
+        142,
+        142,
+        142
+      ],
+      "inventoryDays_annual": {
+        "Mar 2023": 130,
+        "Mar 2024": 128,
+        "Mar 2025": 142
+      },
+      "workingCapDays": [
+        null,
+        null,
+        69,
+        69,
+        58,
+        58,
+        58,
+        58,
+        69,
+        69,
+        69,
+        69,
+        69,
+        69,
+        69
+      ],
+      "workingCapDays_annual": {
+        "Mar 2023": 69,
+        "Mar 2024": 58,
+        "Mar 2025": 69
+      },
+      "roce": [
+        null,
+        null,
+        18,
+        18,
+        14,
+        14,
+        14,
+        14,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12
+      ],
+      "roce_annual": {
+        "Mar 2023": 18,
+        "Mar 2024": 14,
+        "Mar 2025": 12
+      },
+      "debtorDays_annual": {
+        "Mar 2023": 44,
+        "Mar 2024": 40,
+        "Mar 2025": 39
+      },
+      "daysPayable_annual": {
+        "Mar 2023": 60,
+        "Mar 2024": 56,
+        "Mar 2025": 55
+      },
+      "cashConversionCycle_annual": {
+        "Mar 2023": 114,
+        "Mar 2024": 113,
+        "Mar 2025": 125
+      },
+      "borrowings_annual": {
+        "Mar 2023": 131,
+        "Mar 2024": 180,
+        "Mar 2025": 180
+      },
+      "totalAssets_annual": {
+        "Mar 2023": 2587,
+        "Mar 2024": 2737,
+        "Mar 2025": 2526
+      },
+      "cashFromInvesting_annual": {
+        "Mar 2023": -157,
+        "Mar 2024": -185,
+        "Mar 2025": 204
+      },
+      "cashFromOperating_annual": {
+        "Mar 2023": 199,
+        "Mar 2024": 289,
+        "Mar 2025": 157
+      },
+      "annualSales": {
+        "Mar 2023": 2777,
+        "Mar 2024": 2678,
+        "Mar 2025": 2715
+      },
+      "annualExpenses": {
+        "Mar 2023": 2416,
+        "Mar 2024": 2373,
+        "Mar 2025": 2456
+      },
+      "annualOpProfit": {
+        "Mar 2023": 361,
+        "Mar 2024": 305,
+        "Mar 2025": 259
+      },
+      "annualOPM": {
+        "Mar 2023": 13,
+        "Mar 2024": 11,
+        "Mar 2025": 10
+      },
+      "annualInterest": {
+        "Mar 2023": 10,
+        "Mar 2024": 14,
+        "Mar 2025": 17
+      },
+      "annualDepreciation": {
+        "Mar 2023": 53,
+        "Mar 2024": 64,
+        "Mar 2025": 71
+      },
+      "annualNetProfit": {
+        "Mar 2023": 253,
+        "Mar 2024": 225,
+        "Mar 2025": 108
+      },
+      "netDebtEbitda": [
+        null,
+        null,
+        0.32,
+        0.32,
+        0.49,
+        0.49,
+        0.49,
+        0.49,
+        0.55,
+        0.55,
+        0.55,
+        0.55,
+        0.55,
+        0.55,
+        0.55
+      ],
+      "netDebtEbitda_annual": {
+        "Mar 2023": 0.32,
+        "Mar 2024": 0.49,
+        "Mar 2025": 0.55
+      },
+      "capexIntensity": [
+        null,
+        null,
+        5.7,
+        5.7,
+        6.9,
+        6.9,
+        6.9,
+        6.9,
+        7.5,
+        7.5,
+        7.5,
+        7.5,
+        7.5,
+        7.5,
+        7.5
+      ],
+      "capexIntensity_annual": {
+        "Mar 2023": 5.7,
+        "Mar 2024": 6.9,
+        "Mar 2025": 7.5
+      }
+    },
+    "butterfly": {
+      "companyId": "butterfly",
+      "folder": "butterfly",
+      "inventoryDays": [
+        null,
+        null,
+        68,
+        68,
+        82,
+        82,
+        82,
+        82,
+        74,
+        74,
+        74,
+        74,
+        74,
+        74,
+        74
+      ],
+      "inventoryDays_annual": {
+        "Mar 2023": 68,
+        "Mar 2024": 82,
+        "Mar 2025": 74
+      },
+      "workingCapDays": [
+        null,
+        null,
+        23,
+        23,
+        22,
+        22,
+        22,
+        22,
+        30,
+        30,
+        30,
+        30,
+        30,
+        30,
+        30
+      ],
+      "workingCapDays_annual": {
+        "Mar 2023": 23,
+        "Mar 2024": 22,
+        "Mar 2025": 30
+      },
+      "roce": [
+        null,
+        null,
+        30,
+        30,
+        5,
+        5,
+        5,
+        5,
+        15,
+        15,
+        15,
+        15,
+        15,
+        15,
+        15
+      ],
+      "roce_annual": {
+        "Mar 2023": 30,
+        "Mar 2024": 5,
+        "Mar 2025": 15
+      },
+      "debtorDays_annual": {
+        "Mar 2023": 43,
+        "Mar 2024": 34,
+        "Mar 2025": 34
+      },
+      "daysPayable_annual": {
+        "Mar 2023": 68,
+        "Mar 2024": 76,
+        "Mar 2025": 44
+      },
+      "cashConversionCycle_annual": {
+        "Mar 2023": 43,
+        "Mar 2024": 40,
+        "Mar 2025": 65
+      },
+      "borrowings_annual": {
+        "Mar 2023": 5,
+        "Mar 2024": 4,
+        "Mar 2025": 12
+      },
+      "totalAssets_annual": {
+        "Mar 2023": 503,
+        "Mar 2024": 491,
+        "Mar 2025": 470
+      },
+      "cashFromInvesting_annual": {
+        "Mar 2023": -29,
+        "Mar 2024": -21,
+        "Mar 2025": -55
+      },
+      "cashFromOperating_annual": {
+        "Mar 2023": 122,
+        "Mar 2024": 37,
+        "Mar 2025": 34
+      },
+      "annualSales": {
+        "Mar 2023": 1057,
+        "Mar 2024": 931,
+        "Mar 2025": 864
+      },
+      "annualExpenses": {
+        "Mar 2023": 959,
+        "Mar 2024": 903,
+        "Mar 2025": 799
+      },
+      "annualOpProfit": {
+        "Mar 2023": 97,
+        "Mar 2024": 28,
+        "Mar 2025": 66
+      },
+      "annualOPM": {
+        "Mar 2023": 9,
+        "Mar 2024": 3,
+        "Mar 2025": 8
+      },
+      "annualInterest": {
+        "Mar 2023": 7,
+        "Mar 2024": 7,
+        "Mar 2025": 6
+      },
+      "annualDepreciation": {
+        "Mar 2023": 16,
+        "Mar 2024": 18,
+        "Mar 2025": 23
+      },
+      "annualNetProfit": {
+        "Mar 2023": 52,
+        "Mar 2024": 7,
+        "Mar 2025": 33
+      },
+      "netDebtEbitda": [
+        null,
+        null,
+        0.04,
+        0.04,
+        0.09,
+        0.09,
+        0.09,
+        0.09,
+        0.13,
+        0.13,
+        0.13,
+        0.13,
+        0.13,
+        0.13,
+        0.13
+      ],
+      "netDebtEbitda_annual": {
+        "Mar 2023": 0.04,
+        "Mar 2024": 0.09,
+        "Mar 2025": 0.13
+      },
+      "capexIntensity": [
+        null,
+        null,
+        2.7,
+        2.7,
+        2.3,
+        2.3,
+        2.3,
+        2.3,
+        6.4,
+        6.4,
+        6.4,
+        6.4,
+        6.4,
+        6.4,
+        6.4
+      ],
+      "capexIntensity_annual": {
+        "Mar 2023": 2.7,
+        "Mar 2024": 2.3,
+        "Mar 2025": 6.4
+      }
+    }
+  },
+  "timestamp": "2026-02-19T11:02:52.873Z"
+}

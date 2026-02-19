@@ -27,7 +27,7 @@ const SIGNIFICANCE_STYLES: Record<ConfidenceLevel, string> = {
  */
 export default function BulletSummary({ bullets }: BulletSummaryProps) {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-md">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-lg">
       {bullets.map((bullet) => (
         <BulletCard key={bullet.theme} bullet={bullet} />
       ))}
@@ -40,33 +40,33 @@ function BulletCard({ bullet }: { bullet: Bullet }) {
 
   return (
     <Collapsible.Root open={open} onOpenChange={setOpen}>
-      <div className="bg-surface-raised border border-surface-overlay rounded p-md space-y-xs">
+      <div className="bg-surface-raised border border-surface-overlay rounded-lg p-lg space-y-md hover:shadow-sm transition-shadow">
         {/* Header: theme name + significance badge */}
         <div className="flex items-center justify-between">
-          <span className="text-xs font-semibold text-text-primary">
+          <span className="text-sm font-semibold text-text-primary">
             {bullet.theme}
           </span>
           <span
             className={clsx(
-              "text-[10px] font-medium px-sm py-xs rounded border uppercase tracking-wide",
+              "text-xs font-medium px-md py-xs rounded-full border uppercase tracking-wide",
               SIGNIFICANCE_STYLES[bullet.significance],
             )}
           >
-            {bullet.significance.toUpperCase()}
+            {bullet.significance}
           </span>
         </div>
 
         {/* Bullet text */}
-        <p className="text-xs text-text-secondary leading-relaxed">
+        <p className="text-sm text-text-secondary leading-relaxed">
           {bullet.text}
         </p>
 
         {/* Expandable narrative trigger */}
-        <Collapsible.Trigger className="inline-flex items-center gap-xs text-[10px] text-brand-accent hover:text-brand-primary cursor-pointer transition-colors font-medium">
-          <span>BD Insight</span>
+        <Collapsible.Trigger className="inline-flex items-center gap-xs text-xs text-brand-accent hover:text-brand-primary cursor-pointer transition-colors font-medium">
+          <span>View BD Insight</span>
           <span
             className={clsx(
-              "text-[8px] transition-transform duration-150",
+              "text-[10px] transition-transform duration-150",
               open && "rotate-90",
             )}
           >

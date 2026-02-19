@@ -1,0 +1,97 @@
+{
+  "companyId": "voltas",
+  "companyName": "Voltas Limited",
+  "nseSymbol": "VOLTAS",
+  "bseCode": "500575",
+  "sector": "Consumer Durables - Air Conditioning",
+  "dataSource": "WebSearch aggregation (Trendlyne, MoneyControl, Screener, StockAnalysis, BusinessStandard)",
+  "extractedDate": "2026-02-18",
+  "quarterlyResults": {
+    "Q4_FY2025": {
+      "period": "Jan-Mar 2025",
+      "revenue_cr": 4807.73,
+      "netProfit_cr": 267.66,
+      "ebitda_cr": null,
+      "ebitdaMargin_pct": null,
+      "notes": "Strong quarter with highest ever revenue"
+    },
+    "Q1_FY2026": {
+      "period": "Apr-Jun 2025",
+      "revenue_cr": null,
+      "netProfit_cr": 140.46,
+      "eps": 4.25,
+      "ebitda_cr": null,
+      "ebitdaMargin_pct": null,
+      "notes": "EPS at 4.25"
+    },
+    "Q2_FY2026": {
+      "period": "Jul-Sep 2025",
+      "revenue_cr": 2347.0,
+      "netProfit_cr": 31.0,
+      "ebitda_cr": null,
+      "ebitdaMargin_pct": null,
+      "notes": "Revenue declined 10% YoY, net profit dropped 75% YoY"
+    },
+    "Q3_FY2026": {
+      "period": "Oct-Dec 2025",
+      "revenue_cr": 3130.0,
+      "netProfit_cr": 84.0,
+      "pbt_cr": 116.0,
+      "ebitda_cr": null,
+      "ebitdaMargin_pct": null,
+      "notes": "Total income Rs 3,164 cr; 9M income Rs 9,552 cr"
+    }
+  },
+  "annualResults": {
+    "FY2025": {
+      "revenue_cr": 11295.0,
+      "netProfit_cr": 841.0,
+      "notes": "Full year FY2025 revenues approx 11,295 cr, net profit 841 cr"
+    }
+  },
+  "keyRatios": {
+    "asOfDate": "2025-12-14",
+    "pe": 86.94,
+    "pb": 7.48,
+    "evToEbitda": 60.77,
+    "evToEbitda_3yrAvg": 56.08,
+    "roe_pct": 9.13,
+    "roic_pct": 7.2,
+    "roce_pct": null,
+    "debtToEquity": 0.14,
+    "currentRatio": 1.46,
+    "dividendYield_pct": null
+  },
+  "balanceSheetHighlights": {
+    "asOfDate": "Sep 2025",
+    "marketCap_cr": 48259.54,
+    "netDebt_cr": 1229.0,
+    "ttmProfit_cr": 665.0,
+    "notes": "Low leverage, debt-to-equity of 0.14. Net debt increased to 1,229 cr as of Sep-25."
+  },
+  "segmentPerformance": {
+    "unitaryCoolingProducts": {
+      "revenueGrowth_Q3_pct": 20.0,
+      "revenueGrowth_9M_pct": 42.0
+    },
+    "electroMechanicalProjects": {
+      "revenue_Q3_cr": 1190.0,
+      "revenue_Q3_prev_cr": 982.0
+    },
+    "voltasBeko": {
+      "volumeGrowth_Q3_pct": 59.0,
+      "volumeGrowth_9M_pct": 56.0
+    }
+  },
+  "earningsTranscriptSummary": {
+    "available": true,
+    "source": "Yahoo Finance / BSE filings",
+    "keyHighlights": [
+      "Record profit surge in Q3 FY2025 earnings call",
+      "Voltas Beko volume growth of 59% in Q3",
+      "Market leadership in unitary cooling products",
+      "Nine-month income of Rs 10,890 cr - highest ever",
+      "28% increase in consolidated total income for nine months"
+    ]
+  }
+}

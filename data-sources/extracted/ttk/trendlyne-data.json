@@ -1,0 +1,75 @@
+{
+  "companyId": "ttk",
+  "companyName": "TTK Prestige Limited",
+  "nseSymbol": "TTKPRESTIG",
+  "bseCode": "517506",
+  "sector": "Consumer Durables - Kitchen Appliances",
+  "dataSource": "WebSearch aggregation (Trendlyne, MoneyControl, Screener, StockAnalysis, KotakSecurities, MarketsMojo)",
+  "extractedDate": "2026-02-18",
+  "quarterlyResults": {
+    "Q1_FY2026": {
+      "period": "Apr-Jun 2025",
+      "revenue_cr": 626.68,
+      "netProfit_cr": 25.62,
+      "ebitda_cr": null,
+      "ebitdaMargin_pct": null,
+      "notes": "Weak quarter with low profitability"
+    },
+    "Q2_FY2026": {
+      "period": "Jul-Sep 2025",
+      "revenue_cr": 833.70,
+      "netProfit_cr": 64.24,
+      "ebitda_cr": null,
+      "ebitdaMargin_pct": null,
+      "notes": "Highest-ever quarterly revenue. Net profit surged 141.23% QoQ and 21.51% YoY from Rs 52.87 cr. Revenue jumped 36.83% sequentially. Festive season demand driven."
+    },
+    "Q3_FY2026": {
+      "period": "Oct-Dec 2025",
+      "revenue_cr": 801.0,
+      "netProfit_cr": 33.0,
+      "ebitda_cr": 72.0,
+      "ebitdaMargin_pct": null,
+      "notes": "Revenue grew 10.2% YoY. Net profit fell 43.7% YoY. EBITDA declined 9.4% YoY. Mixed performance with revenue growth but profitability decline."
+    }
+  },
+  "annualResults": {
+    "FY2025": {
+      "ttmRevenue_bn": 27.36,
+      "notes": "Trailing 12-month revenue of INR 27.36 billion"
+    }
+  },
+  "keyRatios": {
+    "asOfDate": "2025-07-28",
+    "pe": 52.50,
+    "pe_trailing": 88.72,
+    "pe_forward": 44.98,
+    "pb": 4.6,
+    "evToEbitda": null,
+    "roe_pct": 9.47,
+    "roce_pct": 14.53,
+    "debtToEquity": 0.0,
+    "bookValue": 137.0,
+    "eps": 16.3,
+    "dividendYield_pct": null,
+    "notes": "Debt-free. Net cash position of Rs 865.90 million (cash Rs 2.66 bn, debt Rs 1.80 bn)."
+  },
+  "balanceSheetHighlights": {
+    "asOfDate": "FY2025",
+    "cash_bn": 2.66,
+    "debt_bn": 1.80,
+    "netCash_mn": 865.90,
+    "netCashPerShare": 6.32,
+    "notes": "Very conservative capital structure with virtually no net debt. Analysts have recently downgraded to Sell on valuation and growth concerns."
+  },
+  "earningsTranscriptSummary": {
+    "available": true,
+    "source": "Quartr.com / HDFC Securities research note",
+    "keyHighlights": [
+      "Q2 FY26 strong festive quarter but masks underlying margin pressures",
+      "Highest-ever quarterly revenue of Rs 833.70 cr in Q2 FY26",
+      "Persistent margin concerns despite revenue growth",
+      "Weak half-yearly performance overall",
+      "HDFC Securities company update published Sep 2025"
+    ]
+  }
+}

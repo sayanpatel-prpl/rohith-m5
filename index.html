@@ -1,28 +1,583 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" href="/brands/kompete/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kompete - Industry Intel</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
-      rel="stylesheet"
-    />
-    <script>
-      // Prevent dark mode flash: run before React renders
-      (function() {
-        var pref = localStorage.getItem('theme-preference');
-        var isDark = pref === 'dark' ||
-          (pref !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches);
-        if (isDark) document.documentElement.classList.add('dark');
-      })();
-    </script>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kompete - Industry Intel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <script>
+    (function(){
+      var pref = localStorage.getItem('theme-preference');
+      var isDark = pref === 'dark' || (pref !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      if (isDark) document.documentElement.classList.add('dark');
+    })();
+  </script>
+  <style>
+    /* === Design Tokens === */
+    :root {
+      --brand-primary: #1a3a4a;
+      --brand-secondary: #5a7a8a;
+      --brand-accent: #c4924a;
+      --surface: #fcfcfc;
+      --surface-raised: #f5f5f5;
+      --surface-overlay: #ebebeb;
+      --text-primary: #1a1a1a;
+      --text-secondary: #555;
+      --text-muted: #888;
+      --positive: #4a8a5a;
+      --negative: #c44a3a;
+      --neutral: #5a7a8a;
+      --font-body: 'Inter', system-ui, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+    }
+    .dark {
+      --surface: #1e2a33;
+      --surface-raised: #263540;
+      --surface-overlay: #34495e;
+      --text-primary: #f0e8df;
+      --text-secondary: #a0a8b4;
+      --text-muted: #6a7888;
+      --positive: #5aaa6a;
+      --negative: #e05a4a;
+      --neutral: #6a9aaa;
+    }
+
+    /* === Reset & Base === */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-body);
+      background: var(--surface);
+      color: var(--text-primary);
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+    }
+
+    /* === Sidebar === */
+    .sidebar {
+      width: 260px;
+      min-height: 100vh;
+      background: var(--surface-raised);
+      border-right: 1px solid var(--surface-overlay);
+      padding: 24px 0;
+      flex-shrink: 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      overflow-y: auto;
+    }
+    .sidebar-brand {
+      padding: 0 20px 24px;
+      border-bottom: 1px solid var(--surface-overlay);
+      margin-bottom: 16px;
+    }
+    .sidebar-brand h1 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--brand-accent);
+      letter-spacing: -0.02em;
+    }
+    .sidebar-brand p {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+    .nav-item {
+      display: block;
+      padding: 10px 20px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      cursor: pointer;
+      border-left: 3px solid transparent;
+      transition: all 0.15s;
+    }
+    .nav-item:hover { background: var(--surface-overlay); color: var(--text-primary); }
+    .nav-item.active {
+      color: var(--brand-accent);
+      border-left-color: var(--brand-accent);
+      background: var(--surface-overlay);
+      font-weight: 600;
+    }
+    .nav-item.disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    /* === Main Content === */
+    .main {
+      margin-left: 260px;
+      flex: 1;
+      padding: 32px 40px;
+      max-width: 1200px;
+    }
+
+    /* === Header === */
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 32px;
+    }
+    .section-header h2 {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .data-tag {
+      font-size: 11px;
+      color: var(--text-muted);
+      background: var(--surface-raised);
+      border: 1px solid var(--surface-overlay);
+      padding: 4px 10px;
+      border-radius: 4px;
+    }
+
+    /* === Theme Toggle === */
+    .theme-toggle {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      background: var(--surface-raised);
+      border: 1px solid var(--surface-overlay);
+      color: var(--text-secondary);
+      padding: 6px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      z-index: 100;
+    }
+    .theme-toggle:hover { color: var(--text-primary); }
+
+    /* === Table === */
+    .metrics-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .metrics-table th {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 8px 12px;
+      border-bottom: 2px solid var(--surface-overlay);
+      cursor: pointer;
+      user-select: none;
+      white-space: nowrap;
+      transition: color 0.15s;
+    }
+    .metrics-table th:hover { color: var(--text-primary); }
+    .metrics-table th.active { color: var(--brand-accent); }
+    .metrics-table th.right { text-align: right; }
+    .sort-arrow { font-size: 9px; margin-left: 4px; }
+
+    .metrics-table td {
+      font-size: 13px;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--surface-overlay);
+      vertical-align: middle;
+    }
+    .metrics-table tr:hover td { background: var(--surface-raised); }
+    .metrics-table td.right { text-align: right; }
+    .metrics-table td.mono {
+      font-family: var(--font-mono);
+      font-size: 12px;
+    }
+
+    /* === Performance Tags === */
+    .perf-tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+    .perf-tag.outperform { background: rgba(74,138,90,0.12); color: var(--positive); }
+    .perf-tag.inline { background: rgba(90,122,138,0.12); color: var(--neutral); }
+    .perf-tag.underperform { background: rgba(196,74,58,0.12); color: var(--negative); }
+
+    /* === Value Colors === */
+    .val-positive { color: var(--positive); }
+    .val-negative { color: var(--negative); }
+
+    /* === Expandable Row === */
+    .variance-row { display: none; }
+    .variance-row.open { display: table-row; }
+    .variance-cell {
+      padding: 12px 16px;
+      background: var(--surface-raised);
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    .source-tag {
+      display: inline-block;
+      font-size: 10px;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    /* === Expand Button === */
+    .expand-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 10px;
+      padding: 4px;
+      transition: color 0.15s;
+    }
+    .expand-btn:hover { color: var(--text-primary); }
+    .expand-btn.open { transform: rotate(90deg); }
+
+    /* === Section Placeholder === */
+    .placeholder {
+      display: none;
+      text-align: center;
+      padding: 80px 40px;
+      color: var(--text-muted);
+      font-size: 15px;
+    }
+    .placeholder.active { display: block; }
+
+    /* === Responsive === */
+    @media (max-width: 900px) {
+      .sidebar { width: 200px; }
+      .main { margin-left: 200px; padding: 24px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar Navigation -->
+  <nav class="sidebar">
+    <div class="sidebar-brand">
+      <h1>Kompete</h1>
+      <p>Industry Intel - Consumer Durables</p>
+    </div>
+    <a class="nav-item disabled" data-section="executive">Executive Snapshot</a>
+    <a class="nav-item disabled" data-section="market-pulse">Market Pulse</a>
+    <a class="nav-item active" data-section="financial">Financial Performance</a>
+    <a class="nav-item disabled" data-section="deals">Deals &amp; Transactions</a>
+    <a class="nav-item disabled" data-section="operations">Operational Intelligence</a>
+    <a class="nav-item disabled" data-section="leadership">Leadership &amp; Governance</a>
+    <a class="nav-item disabled" data-section="competitive">Competitive Moves</a>
+    <a class="nav-item disabled" data-section="deep-dive">Sub-Sector Deep Dive</a>
+    <a class="nav-item disabled" data-section="action-lens">Action Lens</a>
+    <a class="nav-item disabled" data-section="watchlist">Watchlist &amp; Forward Indicators</a>
+  </nav>
+
+  <!-- Theme Toggle -->
+  <button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark/light mode">
+    <span id="theme-icon">&#9790;</span>
+  </button>
+
+  <!-- Main Content -->
+  <div class="main">
+
+    <!-- Financial Performance Section -->
+    <div id="section-financial">
+      <div class="section-header">
+        <h2>Financial Performance</h2>
+        <span class="data-tag">Data as of Q3 FY2026 &middot; Source: Screener.in</span>
+      </div>
+
+      <table class="metrics-table" id="financialTable">
+        <thead>
+          <tr>
+            <th data-sort="name" class="active">Company <span class="sort-arrow">&#9650;</span></th>
+            <th data-sort="revGrowth" class="right">Rev. Growth YoY <span class="sort-arrow">&#9670;</span></th>
+            <th data-sort="ebitdaMargin" class="right">EBITDA Margin <span class="sort-arrow">&#9670;</span></th>
+            <th data-sort="wcDays" class="right">WC Days <span class="sort-arrow">&#9670;</span></th>
+            <th data-sort="roce" class="right">ROCE <span class="sort-arrow">&#9670;</span></th>
+            <th data-sort="de" class="right">D/E <span class="sort-arrow">&#9670;</span></th>
+            <th style="width:32px"></th>
+          </tr>
+        </thead>
+        <tbody id="tableBody">
+          <!-- Populated by JS from real data below -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Placeholder sections for other tabs -->
+    <div id="section-executive" class="placeholder">Data not yet populated</div>
+    <div id="section-market-pulse" class="placeholder">Data not yet populated</div>
+    <div id="section-deals" class="placeholder">Data not yet populated</div>
+    <div id="section-operations" class="placeholder">Data not yet populated</div>
+    <div id="section-leadership" class="placeholder">Data not yet populated</div>
+    <div id="section-competitive" class="placeholder">Data not yet populated</div>
+    <div id="section-deep-dive" class="placeholder">Data not yet populated</div>
+    <div id="section-action-lens" class="placeholder">Data not yet populated</div>
+    <div id="section-watchlist" class="placeholder">Data not yet populated</div>
+  </div>
+
+  <script>
+    // ========== REAL FINANCIAL DATA (Source: Screener.in, scraped 2026-02-18) ==========
+    // revGrowth & ebitdaMargin: latest quarter (Q3 FY2026) from quarterlyResults[].salesGrowthYoY / ebitdaMarginPct
+    // wcDays: from ratios[].Working Capital Days (Mar 2025 — latest annual)
+    // roce: from overview.roce (Screener.in company page)
+    // de: computed as balanceSheet[].Borrowings / (Equity Capital + Reserves) — Sep 2025 (latest half-year)
+    var COMPANIES = [
+      {
+        id: "amber", name: "Amber Enterprises India", ticker: "AMBER",
+        revGrowth: 37.9, ebitdaMargin: 11.17, wcDays: -28, roce: 14.5, de: 0.77,
+        perf: "outperform",
+        latestQ: "Q3 FY2026", qSales: 2943, qNetProfit: -9,
+        variance: "Revenue surged 37.9% YoY to INR 2,943 Cr in Q3 FY2026. EBITDA margin at 11.2%. Net loss of INR 9 Cr due to seasonal factors in RAC OEM segment.",
+        source: "Screener.in (AMBER/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025"
+      },
+      {
+        id: "bajaj", name: "Bajaj Electricals", ticker: "BAJAJELEC",
+        revGrowth: -18.5, ebitdaMargin: 4.09, wcDays: 35, roce: 11.6, de: 0.13,
+        perf: "underperform",
+        latestQ: "Q3 FY2026", qSales: 1051, qNetProfit: -34,
+        variance: "Revenue declined 18.5% YoY to INR 1,051 Cr in Q3 FY2026. EBITDA margin compressed to 4.1%. Net loss of INR 34 Cr.",
+        source: "Screener.in (BAJAJELEC/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025"
+      },
+      {
+        id: "bluestar", name: "Blue Star", ticker: "BLUESTARCO",
+        revGrowth: 4.2, ebitdaMargin: 9.09, wcDays: 16, roce: 26.2, de: 0.33,
+        perf: "inline",
+        latestQ: "Q3 FY2026", qSales: 2925, qNetProfit: 81,
+        variance: "Revenue grew 4.2% YoY to INR 2,925 Cr in Q3 FY2026. EBITDA margin at 9.1%. Net profit: INR 81 Cr. Strong ROCE of 26.2%.",
+        source: "Screener.in (BLUESTARCO/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025"
+      },
+      {
+        id: "butterfly", name: "Butterfly Gandhimathi", ticker: "BUTTERFLY",
+        revGrowth: 2.9, ebitdaMargin: 10.61, wcDays: 30, roce: 15.0, de: 0.03,
+        perf: "inline",
+        latestQ: "Q3 FY2026", qSales: 245, qNetProfit: 11,
+        variance: "Revenue grew 2.9% YoY to INR 245 Cr in Q3 FY2026. EBITDA margin at 10.6%. Net profit: INR 11 Cr. Near debt-free with D/E of 0.03x.",
+        source: "Screener.in (BUTTERFLY/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025"
+      },
+      {
+        id: "crompton", name: "Crompton Greaves Consumer", ticker: "CROMPTON",
+        revGrowth: 7.3, ebitdaMargin: 12.59, wcDays: -16, roce: 19.0, de: 0.05,
+        perf: "inline",
+        latestQ: "Q3 FY2026", qSales: 1898, qNetProfit: 101,
+        variance: "Revenue grew 7.3% YoY to INR 1,898 Cr in Q3 FY2026. EBITDA margin at 12.6%. Net profit: INR 101 Cr. Negative WC days indicate strong cash cycle.",
+        source: "Screener.in (CROMPTON/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025"
+      },
+      {
+        id: "dixon", name: "Dixon Technologies", ticker: "DIXON",
+        revGrowth: 2.1, ebitdaMargin: 4.81, wcDays: 2, roce: 40.0, de: 0.34,
+        perf: "inline",
+        latestQ: "Q3 FY2026", qSales: 10673, qNetProfit: 321,
+        variance: "Revenue grew 2.1% YoY to INR 10,673 Cr in Q3 FY2026. EBITDA margin at 4.8% (typical for EMS model). Net profit: INR 321 Cr. Exceptional ROCE of 40%.",
+        source: "Screener.in (DIXON/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025"
+      },
+      {
+        id: "havells", name: "Havells India", ticker: "HAVELLS",
+        revGrowth: 14.3, ebitdaMargin: 11.18, wcDays: 12, roce: 25.3, de: 0.03,
+        perf: "inline",
+        latestQ: "Q3 FY2026", qSales: 5588, qNetProfit: 300,
+        variance: "Revenue grew 14.3% YoY to INR 5,588 Cr in Q3 FY2026. EBITDA margin at 11.2%. Net profit: INR 300 Cr. Near debt-free. Strong ROCE of 25.3%.",
+        source: "Screener.in (HAVELLS/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025"
+      },
+      {
+        id: "ifb", name: "IFB Industries", ticker: "IFBIND",
+        revGrowth: 11.3, ebitdaMargin: 7.43, wcDays: -2, roce: 17.4, de: 0.18,
+        perf: "inline",
+        latestQ: "Q3 FY2026", qSales: 1413, qNetProfit: 24,
+        variance: "Revenue grew 11.3% YoY to INR 1,413 Cr in Q3 FY2026. EBITDA margin at 7.4%. Net profit: INR 24 Cr. Negative WC days reflect efficient working capital management.",
+        source: "Screener.in (IFBIND/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025"
+      },
+      {
+        id: "orient", name: "Orient Electric", ticker: "ORIENTELEC",
+        revGrowth: 10.9, ebitdaMargin: 9.60, wcDays: 23, roce: 17.9, de: 0.17,
+        perf: "inline",
+        latestQ: "Q3 FY2026", qSales: 906, qNetProfit: 26,
+        variance: "Revenue grew 10.9% YoY to INR 906 Cr in Q3 FY2026. EBITDA margin at 9.6%. Net profit: INR 26 Cr.",
+        source: "Screener.in (ORIENTELEC/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025"
+      },
+      {
+        id: "symphony", name: "Symphony", ticker: "SYMPHONY",
+        revGrowth: -26.0, ebitdaMargin: 17.32, wcDays: -14, roce: 36.8, de: 0.01,
+        perf: "underperform",
+        latestQ: "Q3 FY2026", qSales: 179, qNetProfit: 20,
+        variance: "Revenue declined 26% YoY to INR 179 Cr in Q3 FY2026. Despite top-line decline, EBITDA margin remains best-in-class at 17.3%. ROCE of 36.8% is sector-leading.",
+        source: "Screener.in (SYMPHONY/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025"
+      },
+      {
+        id: "ttk", name: "TTK Prestige", ticker: "TTKPRESTIG",
+        revGrowth: 10.2, ebitdaMargin: 11.49, wcDays: 69, roce: 11.6, de: 0.10,
+        perf: "inline",
+        latestQ: "Q3 FY2026", qSales: 801, qNetProfit: 32,
+        variance: "Revenue grew 10.2% YoY to INR 801 Cr in Q3 FY2026. EBITDA margin at 11.5%. Net profit: INR 32 Cr. Elevated WC days of 69 reflect inventory build-up.",
+        source: "Screener.in (TTKPRESTIG/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025"
+      },
+      {
+        id: "vguard", name: "V-Guard Industries", ticker: "VGUARD",
+        revGrowth: 10.6, ebitdaMargin: 10.68, wcDays: 43, roce: 19.5, de: 0.07,
+        perf: "inline",
+        latestQ: "Q3 FY2026", qSales: 1404, qNetProfit: 57,
+        variance: "Revenue grew 10.6% YoY to INR 1,404 Cr in Q3 FY2026. EBITDA margin at 10.7%. Net profit: INR 57 Cr. Near debt-free with D/E of 0.07x.",
+        source: "Screener.in (VGUARD/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025"
+      },
+      {
+        id: "voltas", name: "Voltas", ticker: "VOLTAS",
+        revGrowth: -1.1, ebitdaMargin: 5.41, wcDays: 43, roce: 17.6, de: 0.28,
+        perf: "underperform",
+        latestQ: "Q3 FY2026", qSales: 3071, qNetProfit: 84,
+        variance: "Revenue declined 1.1% YoY to INR 3,071 Cr in Q3 FY2026. EBITDA margin at 5.4%. Net profit: INR 84 Cr.",
+        source: "Screener.in (VOLTAS/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025"
+      },
+      {
+        id: "whirlpool", name: "Whirlpool of India", ticker: "WHIRLPOOL",
+        revGrowth: 4.0, ebitdaMargin: 8.00, wcDays: -5, roce: 12.6, de: 0.02,
+        perf: "inline",
+        latestQ: "Q3 FY2026", qSales: 1774, qNetProfit: 27,
+        variance: "Revenue grew 4% YoY to INR 1,774 Cr in Q3 FY2026. EBITDA margin at 8%. Net profit: INR 27 Cr. Negative WC days reflect tight inventory management.",
+        source: "Screener.in (WHIRLPOOL/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025"
+      }
+    ];
+
+    // ========== SORTING STATE ==========
+    var currentSort = { field: 'name', dir: 'asc' };
+
+    function sortData(field) {
+      if (currentSort.field === field) {
+        currentSort.dir = currentSort.dir === 'asc' ? 'desc' : 'asc';
+      } else {
+        currentSort.field = field;
+        currentSort.dir = field === 'name' ? 'asc' : 'desc';
+      }
+      renderTable();
+      updateHeaders();
+    }
+
+    function updateHeaders() {
+      var ths = document.querySelectorAll('#financialTable th[data-sort]');
+      ths.forEach(function(th) {
+        var f = th.getAttribute('data-sort');
+        var arrow = th.querySelector('.sort-arrow');
+        th.classList.toggle('active', f === currentSort.field);
+        if (f === currentSort.field) {
+          arrow.innerHTML = currentSort.dir === 'asc' ? '&#9650;' : '&#9660;';
+        } else {
+          arrow.innerHTML = '&#9670;';
+        }
+      });
+    }
+
+    function renderTable() {
+      var sorted = COMPANIES.slice().sort(function(a, b) {
+        var av = a[currentSort.field];
+        var bv = b[currentSort.field];
+        if (typeof av === 'string') {
+          var cmp = av.localeCompare(bv);
+          return currentSort.dir === 'asc' ? cmp : -cmp;
+        }
+        if (av == null) av = -Infinity;
+        if (bv == null) bv = -Infinity;
+        return currentSort.dir === 'asc' ? av - bv : bv - av;
+      });
+
+      var tbody = document.getElementById('tableBody');
+      tbody.innerHTML = '';
+
+      sorted.forEach(function(c) {
+        // Data row
+        var tr = document.createElement('tr');
+        var growthClass = c.revGrowth >= 0 ? 'val-positive' : 'val-negative';
+        var growthSign = c.revGrowth >= 0 ? '+' : '';
+        var perfLabel = c.perf === 'outperform' ? 'Outperform' : c.perf === 'underperform' ? 'Underperform' : 'Inline';
+
+        tr.innerHTML =
+          '<td>' + esc(c.name) + ' <span class="perf-tag ' + c.perf + '">' + perfLabel + '</span></td>' +
+          '<td class="right mono ' + growthClass + '">' + growthSign + c.revGrowth.toFixed(1) + '%</td>' +
+          '<td class="right mono">' + c.ebitdaMargin.toFixed(1) + '%</td>' +
+          '<td class="right mono">' + (c.wcDays != null ? c.wcDays + ' days' : 'NA') + '</td>' +
+          '<td class="right mono">' + (c.roce != null ? c.roce.toFixed(1) + '%' : 'NA') + '</td>' +
+          '<td class="right mono">' + (c.de != null ? c.de.toFixed(2) + 'x' : 'NA') + '</td>' +
+          '<td><button class="expand-btn" onclick="toggleExpand(this, \'' + c.id + '\')" title="Show details">&#9654;</button></td>';
+        tbody.appendChild(tr);
+
+        // Variance row (hidden by default)
+        var vr = document.createElement('tr');
+        vr.className = 'variance-row';
+        vr.id = 'var-' + c.id;
+        vr.innerHTML =
+          '<td colspan="7" class="variance-cell">' +
+            '<strong>' + esc(c.name) + '</strong> (' + c.ticker + ') &mdash; ' + c.latestQ +
+            '<br>Revenue: INR ' + c.qSales.toLocaleString('en-IN') + ' Cr | Net Profit: INR ' + c.qNetProfit.toLocaleString('en-IN') + ' Cr' +
+            '<br><br>' + esc(c.variance) +
+            '<br><span class="source-tag">Source: ' + esc(c.source) + ', scraped 2026-02-18</span>' +
+          '</td>';
+        tbody.appendChild(vr);
+      });
+    }
+
+    function toggleExpand(btn, id) {
+      var row = document.getElementById('var-' + id);
+      var isOpen = row.classList.contains('open');
+      // Close all
+      document.querySelectorAll('.variance-row').forEach(function(r){ r.classList.remove('open'); });
+      document.querySelectorAll('.expand-btn').forEach(function(b){ b.classList.remove('open'); });
+      // Open this one if it was closed
+      if (!isOpen) {
+        row.classList.add('open');
+        btn.classList.add('open');
+      }
+    }
+
+    function esc(s) {
+      var d = document.createElement('div');
+      d.textContent = s;
+      return d.innerHTML;
+    }
+
+    // ========== THEME TOGGLE ==========
+    function toggleTheme() {
+      var html = document.documentElement;
+      var isDark = html.classList.contains('dark');
+      html.classList.toggle('dark');
+      localStorage.setItem('theme-preference', isDark ? 'light' : 'dark');
+      document.getElementById('theme-icon').innerHTML = isDark ? '&#9790;' : '&#9788;';
+    }
+    // Set initial icon
+    if (document.documentElement.classList.contains('dark')) {
+      document.getElementById('theme-icon').innerHTML = '&#9788;';
+    }
+
+    // ========== NAV ==========
+    document.querySelectorAll('.nav-item').forEach(function(item) {
+      item.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (this.classList.contains('disabled')) return;
+        document.querySelectorAll('.nav-item').forEach(function(n){ n.classList.remove('active'); });
+        this.classList.add('active');
+        var section = this.getAttribute('data-section');
+        // Hide all sections
+        document.getElementById('section-financial').style.display = 'none';
+        document.querySelectorAll('.placeholder').forEach(function(p){ p.classList.remove('active'); });
+        // Show selected
+        if (section === 'financial') {
+          document.getElementById('section-financial').style.display = 'block';
+        } else {
+          document.getElementById('section-' + section).classList.add('active');
+        }
+      });
+    });
+
+    // Column header click -> sort
+    document.querySelectorAll('#financialTable th[data-sort]').forEach(function(th) {
+      th.addEventListener('click', function() {
+        sortData(this.getAttribute('data-sort'));
+      });
+    });
+
+    // Initial render
+    renderTable();
+  </script>
+</body>
 </html>

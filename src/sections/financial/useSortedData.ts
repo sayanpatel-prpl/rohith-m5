@@ -42,8 +42,8 @@ export function useSortedData(
         return sortConfig.direction === "asc" ? cmp : -cmp;
       }
 
-      aVal = a.metrics[sortConfig.field];
-      bVal = b.metrics[sortConfig.field];
+      aVal = a.metrics[sortConfig.field] ?? -Infinity;
+      bVal = b.metrics[sortConfig.field] ?? -Infinity;
 
       if (aVal < bVal) return sortConfig.direction === "asc" ? -1 : 1;
       if (aVal > bVal) return sortConfig.direction === "asc" ? 1 : -1;

@@ -25,7 +25,7 @@ const DATA = {
       plants: 3,
       keyProducts: ['Refrigerators', 'Washing Machines', 'ACs', 'Microwaves'],
       parentCompany: 'Whirlpool Corporation (USA)',
-      promoterHolding: 51.0,
+      promoterHolding: 39.76, // Source: screener-financials.json shareholding Dec 2025
       exportRevenuePct: 8.2,
     },
     {
@@ -41,7 +41,7 @@ const DATA = {
       plants: 4,
       keyProducts: ['ACs', 'Refrigerators', 'Washing Machines', 'Air Coolers'],
       parentCompany: 'Tata Group',
-      promoterHolding: 30.3,
+      promoterHolding: 30.30, // Source: screener-financials.json shareholding Dec 2025
       exportRevenuePct: 5.1,
     },
     {
@@ -57,7 +57,7 @@ const DATA = {
       plants: 5,
       keyProducts: ['ACs', 'Commercial Refrigeration', 'Water Purifiers', 'Air Purifiers'],
       parentCompany: 'Independent',
-      promoterHolding: 38.6,
+      promoterHolding: 36.48, // Source: screener-financials.json shareholding Dec 2025
       exportRevenuePct: 12.5,
     },
     {
@@ -73,7 +73,7 @@ const DATA = {
       plants: 6,
       keyProducts: ['Fans', 'Lighting', 'Pumps', 'Kitchen Appliances'],
       parentCompany: 'Independent (Demerged)',
-      promoterHolding: 0.0,
+      promoterHolding: 0.0, // Source: screener-financials.json — no Promoters row (widely held)
       exportRevenuePct: 3.8,
     },
     {
@@ -89,7 +89,7 @@ const DATA = {
       plants: 4,
       keyProducts: ['Lighting', 'Fans', 'Kitchen Appliances', 'Morphy Richards'],
       parentCompany: 'Bajaj Group',
-      promoterHolding: 63.1,
+      promoterHolding: 62.70, // Source: screener-financials.json shareholding Dec 2025
       exportRevenuePct: 2.1,
     },
     {
@@ -105,7 +105,7 @@ const DATA = {
       plants: 7,
       keyProducts: ['Stabilizers', 'Water Heaters', 'Pumps', 'Wires & Cables', 'Fans'],
       parentCompany: 'Independent',
-      promoterHolding: 55.2,
+      promoterHolding: 53.28, // Source: screener-financials.json shareholding Dec 2025
       exportRevenuePct: 1.5,
     },
     {
@@ -121,7 +121,7 @@ const DATA = {
       plants: 3,
       keyProducts: ['Washing Machines', 'Dishwashers', 'Microwaves', 'ACs'],
       parentCompany: 'Independent',
-      promoterHolding: 48.3,
+      promoterHolding: 74.96, // Source: screener-financials.json shareholding Dec 2025
       exportRevenuePct: 6.7,
     },
     {
@@ -137,7 +137,7 @@ const DATA = {
       plants: 14,
       keyProducts: ['Switchgears', 'Cables', 'Lighting', 'Fans', 'Lloyd (ACs/TVs)'],
       parentCompany: 'Independent',
-      promoterHolding: 59.5,
+      promoterHolding: 59.38, // Source: screener-financials.json shareholding Dec 2025
       exportRevenuePct: 4.3,
     },
     {
@@ -153,7 +153,7 @@ const DATA = {
       plants: 2,
       keyProducts: ['Air Coolers', 'Industrial Coolers'],
       parentCompany: 'Independent',
-      promoterHolding: 73.5,
+      promoterHolding: 73.42, // Source: screener-financials.json shareholding Dec 2025
       exportRevenuePct: 22.8,
     },
     {
@@ -169,7 +169,7 @@ const DATA = {
       plants: 5,
       keyProducts: ['Fans', 'Lighting', 'Home Appliances', 'Switchgears'],
       parentCompany: 'CK Birla Group',
-      promoterHolding: 37.5,
+      promoterHolding: 38.30, // Source: screener-financials.json shareholding Dec 2025
       exportRevenuePct: 5.6,
     },
     // === NEW COMPANIES (Phase 1 — 15-company expansion) ===
@@ -186,7 +186,7 @@ const DATA = {
       plants: 18,
       keyProducts: ['LED TVs', 'Washing Machines', 'Smartphones', 'Lighting', 'Security Systems'],
       parentCompany: 'Independent',
-      promoterHolding: 33.6,
+      promoterHolding: 28.83, // Source: screener-financials.json shareholding Dec 2025
       exportRevenuePct: 5.0,
     },
     {
@@ -202,7 +202,7 @@ const DATA = {
       plants: 30,
       keyProducts: ['RAC Components', 'Commercial AC', 'PCBs', 'Railway Subsystems'],
       parentCompany: 'Independent',
-      promoterHolding: 39.2,
+      promoterHolding: 38.19, // Source: screener-financials.json shareholding Dec 2025
       exportRevenuePct: 3.0,
     },
     {
@@ -218,7 +218,7 @@ const DATA = {
       plants: 5,
       keyProducts: ['Pressure Cookers', 'Kitchen Appliances', 'Gas Stoves', 'Cookware'],
       parentCompany: 'TTK Group',
-      promoterHolding: 71.2,
+      promoterHolding: 70.52, // Source: screener-financials.json shareholding Dec 2025
       exportRevenuePct: 4.0,
     },
     {
@@ -234,7 +234,7 @@ const DATA = {
       plants: 3,
       keyProducts: ['Mixer Grinders', 'Gas Stoves', 'Kitchen Appliances', 'Pressure Cookers'],
       parentCompany: 'Crompton Greaves Consumer (subsidiary)',
-      promoterHolding: 55.0,
+      promoterHolding: 75.00, // Source: screener-financials.json shareholding Dec 2025
       exportRevenuePct: 2.0,
     },
     {
@@ -250,7 +250,7 @@ const DATA = {
       plants: 2,
       keyProducts: ['ACs', 'VRF Systems', 'Chillers', 'Commercial HVAC'],
       parentCompany: 'Johnson Controls (USA) / Hitachi (Japan)',
-      promoterHolding: 74.3,
+      promoterHolding: null, // No source file available for bosch_jch
       exportRevenuePct: 8.0,
     },
   ],
@@ -259,282 +259,260 @@ const DATA = {
   // QUARTERLY FINANCIAL DATA (Q1 FY23 to Q3 FY26, Indian fiscal year)
   // Indices: 0=Q1FY23, 1=Q2FY23, 2=Q3FY23, 3=Q4FY23, 4=Q1FY24, 5=Q2FY24, 6=Q3FY24, 7=Q4FY24,
   //          8=Q1FY25, 9=Q2FY25, 10=Q3FY25, 11=Q4FY25, 12=Q1FY26, 13=Q2FY26, 14=Q3FY26
-  // Real data from MD files: indices 11-14 (Q4 FY25 through Q3 FY26)
-  // YoY backdated real data: indices 7-10 (Q4 FY24 through Q3 FY25) where available
-  // Backfill (simulated): indices 0-6 (Q1 FY23 through Q3 FY24)
+  // Sources: Screener.in consolidated.json (revenue, EBITDA%, PAT margin calculated)
+  //          financial-api-data.json (working capital days, ROCE — annual, held constant from Q2 FY25)
+  // Indices 0-1: null (no source data before Q3 FY23)
+  // Indices 2-14: verified from consolidated.json quarterly data
   // ============================================================
   quarters: ['Q1 FY23','Q2 FY23','Q3 FY23','Q4 FY23','Q1 FY24','Q2 FY24','Q3 FY24','Q4 FY24','Q1 FY25','Q2 FY25','Q3 FY25','Q4 FY25','Q1 FY26','Q2 FY26','Q3 FY26'],
 
   financials: {
     // ================================================================
-    // REAL DATA INDICES: 7=Q4FY24, 8=Q1FY25, 9=Q2FY25, 10=Q3FY25 (YoY backdated from MD comparisons)
-    //                    11=Q4FY25, 12=Q1FY26, 13=Q2FY26, 14=Q3FY26 (directly from MD RESULT SUMMARY)
-    // Indices 0-6 (Q1FY23 through Q3FY24): backfill — populated in Phase 4
-    // Non-financial metrics (workingCapDays, inventoryDays, etc.): null — not in quarterly MD reports
+    // DATA SOURCES:
+    //   revenue       = salesCr from consolidated.json (Amber rounded to integer)
+    //   ebitdaMargin  = ebitdaMarginPct from consolidated.json
+    //   patMargin     = round(netProfitCr / salesCr * 100, 2) — calculated from source
+    //   workingCapDays = screener-financials.json ratios (annual, mapped to quarters)
+    //   roce          = screener-financials.json ratios (annual %, mapped to quarters)
+    //   inventoryDays = screener-financials.json ratios (annual, mapped to quarters)
+    //   netDebtEbitda = calculated: Borrowings / (OpProfit + Depreciation) from screener P&L + BS
+    //   capexIntensity= calculated: abs(Cash from Investing) / Revenue * 100 from screener
+    //   asp, warrantyPct, importDependency, dealerProductivity = null (no source data)
+    // Indices 0-1 = null for ALL companies (no source data before Q3 FY23)
     // ================================================================
 
-    // WHIRLPOOL — 4 real + 4 YoY backdated quarters
-    // Dec '25 NP impacted by one-time wage code provision of Rs 39 Cr
+    // WHIRLPOOL
     whirlpool: {
-      revenue:       [2141,1469,1462,1606, 2312,1586,1579,1734, 2497,1713,1705,2005, 2432,1647,1774],
-      ebitdaMargin:  [ 8.1, 3.8, 4.2, 8.4,  8.4, 4.1, 4.5, 8.3,  8.5, 5.1, 4.0, 9.1,  8.7, 3.5, 5.1],
-      patMargin:     [ 5.6, 2.5, 1.8, 5.0,  5.8, 2.8, 2.0, 4.6,  5.8, 3.2, 2.6, 5.9,  6.0, 2.5, 1.5],
-      workingCapDays:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      inventoryDays: [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      netDebtEbitda: [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      capexIntensity:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      roce:          [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      asp:           [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      warrantyPct:   [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      importDependency:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      dealerProductivity:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
+      revenue:       [null,null,1302,1673,2039,1522,1536,1734,2497,1713,1705,2005,2432,1647,1774],
+      ebitdaMargin:  [null,null,6.84,9.44,8.58,8.02,7.16,11.88,10.69,8.11,7.04,11.82,10.9,6.68,8],
+      patMargin:     [null,null,2.07,3.83,3.78,2.50,1.95,4.56,5.81,3.15,2.64,5.94,6.00,2.55,1.52],
+      workingCapDays:[null,null,16,16,1,1,1,1,-5,-5,-5,-5,-5,-5,-5],
+      inventoryDays: [null,null,120,120,99,99,99,99,93,93,93,93,93,93,93],
+      netDebtEbitda: [null,null,0.2,0.2,0.38,0.38,0.38,0.38,0.37,0.37,0.37,0.37,0.37,0.37,0.37],
+      capexIntensity:[null,null,1.5,1.5,0.9,0.9,0.9,0.9,0.8,0.8,0.8,0.8,0.8,0.8,0.8],
+      roce:          [null,null,8,8,9,9,9,9,13,13,13,13,13,13,13],
+      asp:           [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      warrantyPct:   [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      importDependency:[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      dealerProductivity:[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
     },
-    // VOLTAS — 4 real + 3 YoY backdated; Dec '25 from news feed (total income 3120, PBT 116 Cr)
-    // Dec '24 (idx 10) not available in any source
+    // VOLTAS
     voltas: {
-      revenue:       [3923,2088,2221,3753, 4394,2338,2487,4203, 4921,2619,null,4768, 3939,2347,3120],
-      ebitdaMargin:  [ 5.4, 2.8, 3.3, 4.7,  5.7, 3.1, 3.6, 3.6,  8.0, 5.0,null, 6.3,  3.9, 1.4, 3.7],
-      patMargin:     [ 4.9, 3.0, 2.5, 3.5,  5.0, 3.1, 2.8, 2.6,  6.8, 5.1,null, 4.9,  3.6, 1.4, 2.8],
-      workingCapDays:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      inventoryDays: [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      netDebtEbitda: [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      capexIntensity:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      roce:          [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      asp:           [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      warrantyPct:   [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      importDependency:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      dealerProductivity:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
+      revenue:       [null,null,2006,2957,3360,2293,2626,4203,4921,2619,3105,4768,3939,2347,3071],
+      ebitdaMargin:  [null,null,2.74,6.76,4.91,2.14,0.19,3.9,8.27,5.57,5.89,6.61,4.34,2.47,5.41],
+      patMargin:     [null,null,-5.48,4.84,3.84,1.57,-1.07,2.64,6.81,5.08,4.22,4.95,3.58,1.36,2.74],
+      workingCapDays:[null,null,31,31,18,18,18,18,43,43,43,43,43,43,43],
+      inventoryDays: [null,null,79,79,79,79,79,79,83,83,83,83,83,83,83],
+      netDebtEbitda: [null,null,1.32,1.32,1.94,1.94,1.94,1.94,0.85,0.85,0.85,0.85,0.85,0.85,0.85],
+      capexIntensity:[null,null,0.9,0.9,4.2,4.2,4.2,4.2,1,1,1,1,1,1,1],
+      roce:          [null,null,10,10,9,9,9,9,18,18,18,18,18,18,18],
+      asp:           [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      warrantyPct:   [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      importDependency:[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      dealerProductivity:[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
     },
-    // BLUE STAR — 4 real + 4 YoY backdated
-    // Dec '25 NP impacted by one-time Gratuity & Leave Encashment
+    // BLUE STAR
     bluestar: {
-      revenue:       [2166,1721,2122,2894, 2491,1979,2441,3328, 2865,2276,2807,4019, 2982,2422,2925],
-      ebitdaMargin:  [ 7.0, 6.5, 7.1, 6.8,  7.3, 6.8, 7.4, 7.3,  8.3, 6.5, 7.4, 6.9,  6.7, 7.5, 7.5],
-      patMargin:     [ 4.7, 3.9, 3.5, 4.6,  4.8, 4.1, 3.7, 4.8,  5.9, 4.2, 4.7, 4.8,  4.1, 4.1, 2.8],
-      workingCapDays:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      inventoryDays: [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      netDebtEbitda: [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      capexIntensity:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      roce:          [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      asp:           [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      warrantyPct:   [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      importDependency:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      dealerProductivity:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
+      revenue:       [null,null,1794,2624,2226,1890,2241,3328,2865,2276,2807,4019,2982,2422,2925],
+      ebitdaMargin:  [null,null,6.69,7.7,7.55,7.72,7.94,8.11,9.28,7.86,8.69,7.81,8.05,9.29,9.09],
+      patMargin:     [null,null,3.23,8.57,3.73,3.76,4.46,4.81,5.90,4.22,4.70,4.83,4.06,4.09,2.77],
+      workingCapDays:[null,null,2,2,20,20,20,20,16,16,16,16,16,16,16],
+      inventoryDays: [null,null,127,127,106,106,106,106,131,131,131,131,131,131,131],
+      netDebtEbitda: [null,null,1.13,1.13,0.32,0.32,0.32,0.32,0.38,0.38,0.38,0.38,0.38,0.38,0.38],
+      capexIntensity:[null,null,2.2,2.2,5.4,5.4,5.4,5.4,3.9,3.9,3.9,3.9,3.9,3.9,3.9],
+      roce:          [null,null,25,25,26,26,26,26,26,26,26,26,26,26,26],
+      asp:           [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      warrantyPct:   [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      importDependency:[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      dealerProductivity:[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
     },
-    // CROMPTON — 4 real + 4 YoY backdated
-    // Dec '25 NP impacted by employee benefit reassessment + Vadodara restructuring
+    // CROMPTON
     crompton: {
-      revenue:       [1833,1626,1517,1816, 1980,1756,1638,1961, 2138,1896,1769,2061, 1998,1916,1898],
-      ebitdaMargin:  [ 9.7, 9.1,10.1,11.3, 10.0, 9.3,10.4,10.4, 10.9,10.8,10.6,12.8,  9.6, 8.2,10.3],
-      patMargin:     [ 6.3, 5.0, 5.5, 7.4,  6.5, 5.3, 5.8, 6.8,  7.1, 6.8, 6.3, 8.3,  6.2, 3.9, 5.3],
-      workingCapDays:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      inventoryDays: [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      netDebtEbitda: [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      capexIntensity:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      roce:          [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      asp:           [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      warrantyPct:   [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      importDependency:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      dealerProductivity:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
+      revenue:       [null,null,1516,1791,1877,1782,1693,1961,2138,1896,1769,2061,1998,1916,1898],
+      ebitdaMargin:  [null,null,12.01,13.46,11.45,11.62,10.75,12.19,12.58,12.76,12.78,14.75,11.61,10.54,12.59],
+      patMargin:     [null,null,5.80,7.37,6.50,5.67,5.02,6.78,7.11,6.75,6.33,8.35,6.21,3.91,5.32],
+      workingCapDays:[null,null,-7,-7,-15,-15,-15,-15,-16,-16,-16,-16,-16,-16,-16],
+      inventoryDays: [null,null,58,58,61,61,61,61,61,61,61,61,61,61,61],
+      netDebtEbitda: [null,null,1.13,1.13,0.81,0.81,0.81,0.81,0.46,0.46,0.46,0.46,0.46,0.46,0.46],
+      capexIntensity:[null,null,3.8,3.8,2.8,2.8,2.8,2.8,1.7,1.7,1.7,1.7,1.7,1.7,1.7],
+      roce:          [null,null,16,16,16,16,16,16,19,19,19,19,19,19,19],
+      asp:           [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      warrantyPct:   [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      importDependency:[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      dealerProductivity:[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
     },
-    // BAJAJ ELECTRICALS — 3 real + 3 YoY backdated; Dec '25 (idx 14) missing — pending news feed extraction
-    bajaj_elec: {
-      revenue:       [1028, 995,1105,1121, 1090,1055,1171,1188, 1155,1118,null,1265, 1065,1107,null],
-      ebitdaMargin:  [ 4.3, 4.5, 4.8, 5.5,  4.6, 4.8, 5.1, 4.2,  6.5, 4.7,null, 7.4,  3.1, 5.1,null],
-      patMargin:     [ 0.9, 0.8, 1.7, 3.3,  1.1, 1.0, 1.9, 2.4,  2.4, 1.2,null, 4.7,  0.1, 0.9,null],
-      workingCapDays:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      inventoryDays: [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      netDebtEbitda: [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      capexIntensity:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      roce:          [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      asp:           [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      warrantyPct:   [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      importDependency:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      dealerProductivity:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-    },
-    // V-GUARD — 4 real + 3 YoY backdated; Dec '25 derived from news feed (+10.6% rev, -5.2% PAT vs Q3 FY25)
-    // Q3 FY25 actuals: Rev 1269, EBITDA 104, PAT 60. One-time Rs 22 Cr labour code charge in Q3 FY26.
-    vguard: {
-      revenue:       [1221,1069,1049,1221, 1343,1176,1154,1343, 1477,1294,1269,1538, 1466,1341,1403],
-      ebitdaMargin:  [ 9.0, 7.9, 8.0, 9.1,  9.3, 8.2, 8.3, 9.5, 10.6, 8.5, 8.2, 9.3,  8.5, 8.1, 8.5],
-      patMargin:     [ 5.5, 4.5, 4.2, 5.6,  5.7, 4.8, 4.4, 5.7,  6.7, 4.9, 4.7, 5.9,  5.0, 4.8, 4.1],
-      workingCapDays:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      inventoryDays: [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      netDebtEbitda: [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      capexIntensity:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      roce:          [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      asp:           [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      warrantyPct:   [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      importDependency:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      dealerProductivity:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-    },
-    // IFB — 4 real + 4 YoY backdated
-    // Dec '25 referenced exceptional items affecting profitability
-    ifb: {
-      revenue:       [1022,1007,1015, 959, 1125,1108,1116,1055, 1237,1219,1228,1300, 1301,1370,1375],
-      ebitdaMargin:  [ 5.0, 5.9, 5.8, 4.0,  5.3, 6.2, 6.1, 4.1,  6.4, 5.4, 7.0, 4.5,  4.6, 7.2, 5.4],
-      patMargin:     [ 2.2, 2.8, 2.0, 1.3,  2.4, 3.0, 2.3, 1.3,  3.2, 2.5, 2.8, 1.7,  1.9, 3.7, 1.8],
-      workingCapDays:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      inventoryDays: [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      netDebtEbitda: [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      capexIntensity:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      roce:          [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      asp:           [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      warrantyPct:   [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      importDependency:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      dealerProductivity:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-    },
-    // HAVELLS — 4 real + 4 YoY backdated
-    // Nov '25: One-time settlement of Rs 129.60 Cr to HPL Group
+    // HAVELLS
     havells: {
-      revenue:       [4629,3618,3897,4859, 5184,4053,4365,5442, 5806,4539,4889,6544, 5455,4779,5588],
-      ebitdaMargin:  [ 9.2, 8.3, 8.6,11.3,  9.5, 8.6, 8.9,11.7,  9.9, 8.3, 8.7,11.6,  9.5, 9.2, 9.2],
-      patMargin:     [ 6.4, 6.0, 5.3, 7.9,  6.5, 6.2, 5.5, 8.2,  7.0, 5.9, 5.7, 7.9,  6.4, 6.7, 5.4],
-      workingCapDays:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      inventoryDays: [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      netDebtEbitda: [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      capexIntensity:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      roce:          [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      asp:           [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      warrantyPct:   [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      importDependency:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      dealerProductivity:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
+      revenue:       [null,null,4128,4859,4834,3900,4414,5442,5806,4539,4889,6544,5455,4779,5588],
+      ebitdaMargin:  [null,null,12.09,12.43,9.89,11.64,11.8,13.38,11.44,10.35,10.84,13.25,11.4,11.38,11.18],
+      patMargin:     [null,null,6.88,7.37,5.94,6.38,6.52,8.21,7.03,5.90,5.69,7.90,6.38,6.65,5.37],
+      workingCapDays:[null,null,25,25,11,11,11,11,12,12,12,12,12,12,12],
+      inventoryDays: [null,null,119,119,102,102,102,102,104,104,104,104,104,104,104],
+      netDebtEbitda: [null,null,0.12,0.12,0.14,0.14,0.14,0.14,0.12,0.12,0.12,0.12,0.12,0.12,0.12],
+      capexIntensity:[null,null,0.2,0.2,8.7,8.7,8.7,8.7,1.4,1.4,1.4,1.4,1.4,1.4,1.4],
+      roce:          [null,null,22,22,24,24,24,24,25,25,25,25,25,25,25],
+      asp:           [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      warrantyPct:   [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      importDependency:[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      dealerProductivity:[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
     },
-    // SYMPHONY — 3 real + 3 YoY backdated; Dec '25 (idx 14) missing — pending news feed extraction
-    // Highly seasonal — Q4 FY25 (Mar) is peak season
+    // BAJAJ ELECTRICALS
+    bajaj_elec: {
+      revenue:       [null,null,1309,1292,1112,1113,1228,1188,1155,1118,1290,1265,1065,1107,1051],
+      ebitdaMargin:  [null,null,9.4,9.06,8.18,9.16,7.17,6.73,9.26,7.78,9.53,10.59,6.57,8.49,4.09],
+      patMargin:     [null,null,4.66,4.02,3.33,2.43,3.01,2.44,2.42,1.16,2.56,4.66,0.09,0.90,-3.24],
+      workingCapDays:[null,null,39,39,12,12,12,12,35,35,35,35,35,35,35],
+      inventoryDays: [null,null,106,106,85,85,85,85,79,79,79,79,79,79,79],
+      netDebtEbitda: [null,null,0.22,0.22,0.58,0.58,0.58,0.58,0.54,0.54,0.54,0.54,0.54,0.54,0.54],
+      capexIntensity:[null,null,1.8,1.8,9.7,9.7,9.7,9.7,4,4,4,4,4,4,4],
+      roce:          [null,null,18,18,13,13,13,13,12,12,12,12,12,12,12],
+      asp:           [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      warrantyPct:   [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      importDependency:[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      dealerProductivity:[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+    },
+    // V-GUARD
+    vguard: {
+      revenue:       [null,null,982,1139,1215,1134,1165,1343,1477,1294,1269,1538,1466,1341,1404],
+      ebitdaMargin:  [null,null,8.55,10.18,10.29,9.88,10.39,11.17,12.05,10.2,10.17,11.05,10.23,10.14,10.68],
+      patMargin:     [null,null,3.97,4.65,5.27,5.20,4.98,5.66,6.70,4.87,4.73,5.92,5.05,4.85,4.06],
+      workingCapDays:[null,null,55,55,41,41,41,41,43,43,43,43,43,43,43],
+      inventoryDays: [null,null,97,97,92,92,92,92,102,102,102,102,102,102,102],
+      netDebtEbitda: [null,null,1.31,1.31,0.79,0.79,0.79,0.79,0.22,0.22,0.22,0.22,0.22,0.22,0.22],
+      capexIntensity:[null,null,18.7,18.7,3.2,3.2,3.2,3.2,1.7,1.7,1.7,1.7,1.7,1.7,1.7],
+      roce:          [null,null,15,15,18,18,18,18,20,20,20,20,20,20,20],
+      asp:           [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      warrantyPct:   [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      importDependency:[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      dealerProductivity:[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+    },
+    // IFB
+    ifb: {
+      revenue:       [null,null,999,1010,1086,1101,1161,1090,1269,1219,1270,1334,1338,1370,1413],
+      ebitdaMargin:  [null,null,6.01,5.94,5.52,8.45,7.75,6.79,8.59,7.96,9.53,6.75,6.95,9.34,7.43],
+      patMargin:     [null,null,-0.10,-0.99,-0.09,2.00,1.46,1.10,2.99,2.54,2.44,1.42,1.94,3.72,1.70],
+      workingCapDays:[null,null,-7,-7,-11,-11,-11,-11,-2,-2,-2,-2,-2,-2,-2],
+      inventoryDays: [null,null,82,82,75,75,75,75,79,79,79,79,79,79,79],
+      netDebtEbitda: [null,null,1.23,1.23,0.51,0.51,0.51,0.51,0.6,0.6,0.6,0.6,0.6,0.6,0.6],
+      capexIntensity:[null,null,0.1,0.1,3.1,3.1,3.1,3.1,1.8,1.8,1.8,1.8,1.8,1.8,1.8],
+      roce:          [null,null,6,6,10,10,10,10,17,17,17,17,17,17,17],
+      asp:           [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      warrantyPct:   [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      importDependency:[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      dealerProductivity:[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+    },
+    // SYMPHONY
     symphony: {
-      revenue:       [ 337, 270, 301, 307,  364, 292, 326, 332,  393, 315,null, 488,  251, 163,null],
-      ebitdaMargin:  [15.7,17.1,17.4,19.2, 16.0,17.4,17.7,17.2, 22.1,20.3,null,21.9, 10.4,14.7,null],
-      patMargin:     [19.2,14.4,16.3,15.2, 19.4,14.7,16.5,14.5, 22.4,17.8,null,16.2, 16.7,11.7,null],
-      workingCapDays:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      inventoryDays: [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      netDebtEbitda: [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      capexIntensity:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      roce:          [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      asp:           [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      warrantyPct:   [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      importDependency:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      dealerProductivity:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
+      revenue:       [null,null,277,308,302,275,247,332,393,289,242,381,251,163,179],
+      ebitdaMargin:  [null,null,18.41,9.74,10.93,17.45,20.24,18.98,22.65,27.34,14.46,26.51,11.16,16.56,17.32],
+      patMargin:     [null,null,14.08,5.19,7.95,12.73,16.60,14.46,22.39,19.38,-4.13,20.74,16.73,11.66,11.17],
+      workingCapDays:[null,null,15,15,17,17,17,17,-14,-14,-14,-14,-14,-14,-14],
+      inventoryDays: [null,null,137,137,140,140,140,140,129,129,129,129,129,129,129],
+      netDebtEbitda: [null,null,1.4,1.4,0.86,0.86,0.86,0.86,0.43,0.43,0.43,0.43,0.43,0.43,0.43],
+      capexIntensity:[null,null,1,1,16.7,16.7,16.7,16.7,2.6,2.6,2.6,2.6,2.6,2.6,2.6],
+      roce:          [null,null,15,15,19,19,19,19,37,37,37,37,37,37,37],
+      asp:           [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      warrantyPct:   [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      importDependency:[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      dealerProductivity:[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
     },
-    // ORIENT ELECTRIC — 4 real + 4 YoY backdated
+    // ORIENT ELECTRIC
     orient: {
-      revenue:       [ 624, 545, 675, 716,  686, 600, 743, 788,  755, 660, 817, 862,  769, 703, 906],
-      ebitdaMargin:  [ 5.1, 5.0, 7.1, 5.5,  5.4, 5.3, 7.4, 3.9,  5.3, 5.5, 7.5, 7.8,  6.0, 5.4, 7.5],
-      patMargin:     [ 1.7, 1.3, 2.8, 2.4,  1.9, 1.5, 3.0, 1.6,  1.9, 1.5, 3.3, 3.6,  2.3, 1.7, 2.9],
-      workingCapDays:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      inventoryDays: [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      netDebtEbitda: [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      capexIntensity:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      roce:          [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      asp:           [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      warrantyPct:   [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      importDependency:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      dealerProductivity:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
+      revenue:       [null,null,739,658,706,567,752,788,755,660,817,862,769,703,906],
+      ebitdaMargin:  [null,null,9.34,9.12,8.22,6.17,8.51,5.84,7.68,8.48,9.91,10.32,8.45,8.11,9.6],
+      patMargin:     [null,null,4.47,3.80,2.83,3.17,3.19,1.65,1.85,1.52,3.30,3.60,2.34,1.71,2.87],
+      workingCapDays:[null,null,15,15,13,13,13,13,23,23,23,23,23,23,23],
+      inventoryDays: [null,null,57,57,59,59,59,59,75,75,75,75,75,75,75],
+      netDebtEbitda: [null,null,0.47,0.47,0.55,0.55,0.55,0.55,0.3,0.3,0.3,0.3,0.3,0.3,0.3],
+      capexIntensity:[null,null,4.3,4.3,6.1,6.1,6.1,6.1,0.9,0.9,0.9,0.9,0.9,0.9,0.9],
+      roce:          [null,null,19,19,14,14,14,14,18,18,18,18,18,18,18],
+      asp:           [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      warrantyPct:   [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      importDependency:[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      dealerProductivity:[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
     },
-
-    // === NEW COMPANIES ===
-
-    // DIXON — 4 real + 4 YoY backdated. High-growth EMS company.
+    // DIXON
     dixon: {
-      revenue:       [3357,5885,5334,3327, 4700,8239,7467,4658, 6580,11534,10454,10293, 12836,14855,10672],
-      ebitdaMargin:  [ 3.3, 3.3, 3.4, 3.8,  3.6, 3.6, 3.7, 3.9,  3.8, 3.7, 3.7, 4.3,  3.8, 3.8, 3.9],
-      patMargin:     [ 1.8, 4.0, 2.3, 3.1,  2.0, 4.2, 2.5, 2.1,  2.1, 3.6, 2.1, 4.5,  2.2, 5.0, 3.0],
-      workingCapDays:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      inventoryDays: [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      netDebtEbitda: [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      capexIntensity:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      roce:          [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      asp:           [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      warrantyPct:   [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      importDependency:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      dealerProductivity:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
+      revenue:       [null,null,2405,3065,3272,4943,4818,4658,6580,11534,10454,10293,12836,14855,10672],
+      ebitdaMargin:  [null,null,5.82,6.13,5.07,4.75,4.67,5.0,4.6,4.27,4.46,5.14,4.48,4.42,4.81],
+      patMargin:     [null,null,2.16,2.64,2.05,2.29,2.01,2.08,2.13,3.57,2.07,4.52,2.18,5.02,3.01],
+      workingCapDays:[null,null,-2,-2,-2,-2,-2,-2,2,2,2,2,2,2,2],
+      inventoryDays: [null,null,32,32,39,39,39,39,41,41,41,41,41,41,41],
+      netDebtEbitda: [null,null,0.71,0.71,0.56,0.56,0.56,0.56,0.37,0.37,0.37,0.37,0.37,0.37,0.37],
+      capexIntensity:[null,null,2.9,2.9,3,3,3,3,2.8,2.8,2.8,2.8,2.8,2.8,2.8],
+      roce:          [null,null,24,24,29,29,29,29,40,40,40,40,40,40,40],
+      asp:           [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      warrantyPct:   [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      importDependency:[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      dealerProductivity:[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
     },
-    // AMBER ENTERPRISES — 4 real + 4 YoY backdated (analyst note format)
-    // OP absolute not available — EBITDA margin: Dec '25 = 8% (explicit from MD), others estimated from NP+sector norms
-    // Dec '25 NP flagged "adjust for Exceptional"
+    // AMBER ENTERPRISES
     amber: {
-      revenue:       [1667,1170,1481,2338, 2001,1404,1778,2805, 2401,1685,2133,3754, 3449,1647,2943],
-      ebitdaMargin:  [ 7.0, 2.8, 7.1, 7.2,  7.3, 3.1, 7.4, 7.5,  7.5, 4.5, 7.0, 7.5,  7.5, 2.0, 8.0],
-      patMargin:     [ 2.8,-0.7, 1.6, 3.1,  3.0,-0.4, 1.8, 3.5,  3.1, 1.2, 1.7, 3.1,  3.1,-1.9, 2.1],
-      workingCapDays:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      inventoryDays: [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      netDebtEbitda: [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      capexIntensity:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      roce:          [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      asp:           [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      warrantyPct:   [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      importDependency:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      dealerProductivity:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
+      revenue:       [null,null,1348,3003,1702,927,1295,2805,2401,1685,2133,3754,3449,1647,2943],
+      ebitdaMargin:  [null,null,8.52,8.07,10.29,11.3,9.66,9.66,10.22,9.95,9.77,9.06,9.03,9.35,11.17],
+      patMargin:     [null,null,1.12,3.60,2.74,-0.61,-0.04,3.53,3.11,1.24,1.74,3.15,3.07,-1.95,-0.32],
+      workingCapDays:[null,null,-19,-19,-39,-39,-39,-39,-28,-28,-28,-28,-28,-28,-28],
+      inventoryDays: [null,null,68,68,56,56,56,56,74,74,74,74,74,74,74],
+      netDebtEbitda: [null,null,2.59,2.59,2.27,2.27,2.27,2.27,2.14,2.14,2.14,2.14,2.14,2.14,2.14],
+      capexIntensity:[null,null,7.1,7.1,15.4,15.4,15.4,15.4,9.6,9.6,9.6,9.6,9.6,9.6,9.6],
+      roce:          [null,null,11,11,10,10,10,10,14,14,14,14,14,14,14],
+      asp:           [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      warrantyPct:   [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      importDependency:[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      dealerProductivity:[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
     },
-    // TTK PRESTIGE — 3 real + 3 YoY backdated; Mar '25 (idx 11) not in MD file
+    // TTK PRESTIGE
     ttk_prestige: {
-      revenue:       [ 504, 643, 623, 534,  544, 694, 673,null,  588, 750, 727,null,  609, 834, 801],
-      ebitdaMargin:  [ 7.4,10.1, 9.6, 9.2,  7.7,10.4, 9.9,null,  9.2, 9.6,10.9,null,  6.6,11.5, 9.0],
-      patMargin:     [ 5.3, 7.0, 5.7, 6.1,  5.5, 7.2, 5.9,null,  7.0, 6.9, 7.8,null,  4.3, 7.6, 4.0],
-      workingCapDays:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      inventoryDays: [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      netDebtEbitda: [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      capexIntensity:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      roce:          [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      asp:           [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      warrantyPct:   [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      importDependency:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      dealerProductivity:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
+      revenue:       [null,null,695,611,588,729,738,623,588,750,727,650,609,834,801],
+      ebitdaMargin:  [null,null,13.38,15.71,12.93,13.31,13.82,15.09,12.07,11.87,13.2,10.77,9.69,13.79,11.49],
+      patMargin:     [null,null,8.35,9.49,7.99,8.09,8.40,9.15,6.97,6.93,7.84,-6.46,4.27,7.55,4.00],
+      workingCapDays:[null,null,69,69,58,58,58,58,69,69,69,69,69,69,69],
+      inventoryDays: [null,null,130,130,128,128,128,128,142,142,142,142,142,142,142],
+      netDebtEbitda: [null,null,0.32,0.32,0.49,0.49,0.49,0.49,0.55,0.55,0.55,0.55,0.55,0.55,0.55],
+      capexIntensity:[null,null,5.7,5.7,6.9,6.9,6.9,6.9,7.5,7.5,7.5,7.5,7.5,7.5,7.5],
+      roce:          [null,null,18,18,14,14,14,14,12,12,12,12,12,12,12],
+      asp:           [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      warrantyPct:   [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      importDependency:[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      dealerProductivity:[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
     },
-    // BUTTERFLY GANDHIMATHI — Very sparse data (non-standard format, Crompton subsidiary)
-    // Only Dec '25 has partial data: Revenue=245, EBITDA margin=8.2%; 9M FY26 revenue=725 Cr
+    // BUTTERFLY GANDHIMATHI
     butterfly: {
-      revenue:       [ 206, 209, 212, 213,  216, 219, 222, 225,  228, 231, 234, 237,  240, 242, 245],
-      ebitdaMargin:  [ 7.7, 7.7, 7.8, 7.9,  8.0, 8.0, 8.1, 8.1,  8.1, 8.1, 8.2, 8.2,  8.2, 8.2, 8.2],
-      patMargin:     [ 3.6, 3.7, 3.8, 3.8,  3.9, 3.9, 4.0, 4.0,  4.0, 4.1, 4.1, 4.1,  4.1, 4.1, 4.2],
-      workingCapDays:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      inventoryDays: [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      netDebtEbitda: [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      capexIntensity:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      roce:          [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      asp:           [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      warrantyPct:   [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      importDependency:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      dealerProductivity:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
+      revenue:       [null,null,248,187,219,308,238,166,182,258,238,187,187,293,245],
+      ebitdaMargin:  [null,null,10.48,6.42,10.96,9.74,2.94,-9.04,8.24,11.24,9.66,11.23,9.63,11.6,10.61],
+      patMargin:     [null,null,4.84,1.07,6.85,4.87,-0.84,-12.05,1.65,5.04,3.36,4.81,3.21,5.80,4.49],
+      workingCapDays:[null,null,23,23,22,22,22,22,30,30,30,30,30,30,30],
+      inventoryDays: [null,null,68,68,82,82,82,82,74,74,74,74,74,74,74],
+      netDebtEbitda: [null,null,0.04,0.04,0.09,0.09,0.09,0.09,0.13,0.13,0.13,0.13,0.13,0.13,0.13],
+      capexIntensity:[null,null,2.7,2.7,2.3,2.3,2.3,2.3,6.4,6.4,6.4,6.4,6.4,6.4,6.4],
+      roce:          [null,null,30,30,5,5,5,5,15,15,15,15,15,15,15],
+      asp:           [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      warrantyPct:   [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      importDependency:[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      dealerProductivity:[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
     },
-    // BOSCH HOME COMFORT (JCH) — 4 real + 4 YoY backdated
-    // Highly seasonal AC business — Sep/Dec quarters show operating losses
+    // BOSCH HOME COMFORT (JCH) — no source data file exists
     bosch_jch: {
-      revenue:       [ 823, 327, 357, 702,  905, 360, 393, 772,  996, 396, 432, 933,  853, 405, 476],
-      ebitdaMargin:  [ 4.4,-8.3, 0.7, 9.9,  4.7,-8.0, 1.0,10.5,  5.7,-6.8, 2.3, 9.9,  4.2,-8.8,-0.2],
-      patMargin:     [ 2.4,-9.1,-2.6, 6.0,  2.6,-8.8,-2.4, 6.3,  3.6,-7.6,-0.7, 6.0,  1.8,-9.9,-4.0],
-      workingCapDays:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      inventoryDays: [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      netDebtEbitda: [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      capexIntensity:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      roce:          [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      asp:           [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      warrantyPct:   [null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      importDependency:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
-      dealerProductivity:[null,null,null,null, null,null,null,null, null,null,null,null, null,null,null],
+      revenue:       [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      ebitdaMargin:  [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      patMargin:     [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      workingCapDays:[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      inventoryDays: [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      netDebtEbitda: [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      capexIntensity:[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      roce:          [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      asp:           [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      warrantyPct:   [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      importDependency:[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+      dealerProductivity:[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
     },
   },
 
   // ============================================================
   // PERFORMANCE RATINGS (Latest Quarter)
   // ============================================================
-  performanceRatings: {
-    whirlpool:  { rating: 'Inline',       reason: 'Steady recovery but margins lag peers; parent restructuring adds uncertainty' },
-    voltas:     { rating: 'Outperform',   reason: 'AC market leadership intact; JV with Beko gaining traction in non-AC segments' },
-    bluestar:   { rating: 'Outperform',   reason: 'Strong B2B+B2C mix; premium positioning paying off; capex cycle beneficiary' },
-    crompton:   { rating: 'Inline',       reason: 'Fan market share stable; Butterfly integration slower than expected' },
-    bajaj_elec: { rating: 'Underperform', reason: 'Declining margins; high working capital; strategic direction unclear post-EPC exit' },
-    vguard:     { rating: 'Outperform',   reason: 'Sunflame integration progressing well; strong South India moat expanding nationally' },
-    ifb:        { rating: 'Underperform', reason: 'Consistent margin erosion; high import dependency; needs operational turnaround' },
-    havells:    { rating: 'Outperform',   reason: 'Best-in-class ROCE; Lloyd premiumization working; cash generation machine' },
-    symphony:   { rating: 'Inline',       reason: 'Niche leader but high seasonality; international expansion offsetting domestic slowdown' },
-    orient:     { rating: 'Inline',       reason: 'Steady improvement on all metrics; fans premiumization underway; watch for breakout' },
-    dixon:      { rating: 'Outperform',   reason: 'Explosive EMS growth; 95%+ revenue CAGR; PLI beneficiary; expanding from TVs to smartphones and appliances' },
-    amber:      { rating: 'Outperform',   reason: 'B2B AC component leader with 55% market share; diversification into PCBs and railway subsystems de-risks seasonality' },
-    ttk_prestige:{ rating: 'Inline',      reason: 'Kitchen appliances leader; premium brand positioning strong but growth moderating; margin expansion from product mix' },
-    butterfly:  { rating: 'Underperform', reason: 'Post-acquisition integration with Crompton dragging; limited standalone data visibility; South India concentrated' },
-    bosch_jch:  { rating: 'Inline',       reason: 'Strong VRF/commercial HVAC positioning; highly seasonal with Q2-Q3 losses; premium brand but limited consumer penetration' },
-  },
+  // Computed dynamically after DataUtils loads — see bottom of file
+  performanceRatings: {},
 
   // ============================================================
   // CHANNEL MIX DATA (Latest Quarter %)
@@ -559,122 +537,182 @@ const DATA = {
 
   // ============================================================
   // PRODUCT MIX (Premium / Mass / Economy %)
+  // Source: operational-intelligence-data.md Chart 3
+  // Note: "Premiumization is a curve, not a line" — episodic, not linear (A&M Feb 2026)
   // ============================================================
   productMix: {
-    whirlpool:  { premium: 35, mass: 45, economy: 20 },
-    voltas:     { premium: 30, mass: 50, economy: 20 },
-    bluestar:   { premium: 45, mass: 40, economy: 15 },
-    crompton:   { premium: 20, mass: 55, economy: 25 },
-    bajaj_elec: { premium: 15, mass: 45, economy: 40 },
-    vguard:     { premium: 25, mass: 50, economy: 25 },
-    ifb:        { premium: 50, mass: 35, economy: 15 },
-    havells:    { premium: 40, mass: 45, economy: 15 },
-    symphony:   { premium: 30, mass: 50, economy: 20 },
-    orient:     { premium: 25, mass: 50, economy: 25 },
-    dixon:      { premium: 15, mass: 60, economy: 25 },
-    amber:      { premium: 20, mass: 55, economy: 25 },
-    ttk_prestige:{ premium: 45, mass: 40, economy: 15 },
-    butterfly:  { premium: 15, mass: 55, economy: 30 },
-    bosch_jch:  { premium: 60, mass: 30, economy: 10 },
+    whirlpool:  { premium: 30, mass: 50, economy: 20 },  // Mid-premium fridge/washer focus
+    voltas:     { premium: 25, mass: 55, economy: 20 },  // Mainstream AC leader; Voltas Beko for premium
+    bluestar:   { premium: 35, mass: 50, economy: 15 },  // Strong commercial/industrial premium
+    crompton:   { premium: 25, mass: 50, economy: 25 },  // Premium fans ~25% of fan category (up from 12-15%)
+    bajaj_elec: { premium: 15, mass: 50, economy: 35 },  // Mass market; Morphy Richards for premium push
+    vguard:     { premium: 20, mass: 55, economy: 25 },  // Mid-market BLDC fans, premium water heaters
+    ifb:        { premium: 40, mass: 45, economy: 15 },  // Premium washer positioning, COCO stores
+    havells:    { premium: 35, mass: 50, economy: 15 },  // Lloyd Luxuria, SmartHub stores; Q3 premiumization standout
+    symphony:   { premium: 20, mass: 55, economy: 25 },  // Coolers span all; Air Force range for premium
+    orient:     { premium: 30, mass: 50, economy: 20 },  // "Premium mix crossing 30%", BLDC 45% target
+    dixon:      { premium: 10, mass: 60, economy: 30 },  // EMS/ODM; client-driven mix (low control)
+    amber:      { premium: 15, mass: 60, economy: 25 },  // OEM/ODM; client orders drive mix
+    ttk_prestige:{ premium: 40, mass: 45, economy: 15 }, // Triply cookware premium; integrated Hosur facility
+    butterfly:  { premium: 20, mass: 55, economy: 25 },  // Elektra premium; material margin +300bps
+    bosch_jch:  { premium: 45, mass: 45, economy: 10 },  // Bosch/Hitachi = premium positioning, low volumes
   },
 
   // ============================================================
   // MARKET PULSE DATA
+  // Sources: EBITDA bands computed from real company EBITDA margins (14 companies)
+  //          Revenue growth computed from real company revenue (aggregate YoY %)
+  //          Input costs: ESTIMATED indices from commodity research (Deep Dive Feb 2026)
+  //          Volume/Price split: ESTIMATED based on industry analysis (Deep Dive: "top-line resilience
+  //            artificially supported by price hikes and premium mix, not genuine volume expansion")
   // ============================================================
   marketPulse: {
     demandSignals: {
-      volumeGrowth: [8.2, 6.5, 10.1, 12.5, 5.8, 7.2, 11.0, 14.0, 7.5, 9.0, 12.5, 15.0, 8.0, 9.5, 11.0],
-      priceGrowth:  [3.5, 4.0, 3.2, 2.8, 4.5, 3.8, 2.5, 2.0, 3.0, 2.5, 2.0, 1.5, 2.5, 2.0, 1.8],
+      // Sector aggregate revenue YoY growth % (real, computed from all 14 companies)
+      sectorRevenueGrowthYoY: [null,null,null,null,null,null,22.3,17.8,34.6,41.7,35.5,33.7,17.4,11.2,6.6],
+      // ESTIMATED split — Deep Dive Feb 2026: rural volume weak, growth is price-hike + mix driven
+      // Quarters: Q3 FY24 to Q3 FY26 (indices 6-14); null before that
+      volumeGrowth: [null,null,null,null,null,null,14,10,24,28,22,20,7,3,-1],
+      priceGrowth:  [null,null,null,null,null,null,8,8,10,14,14,14,10,8,8],
     },
     inputCosts: {
-      copper:    [100, 105, 98, 95, 102, 108, 103, 97, 105, 110, 108, 102, 107, 112, 110],
-      steel:     [100, 95, 88, 85, 90, 92, 88, 82, 85, 88, 85, 80, 83, 86, 84],
-      plastic:   [100, 102, 98, 95, 97, 100, 96, 92, 95, 98, 94, 90, 93, 95, 92],
-      logistics: [100, 105, 110, 108, 106, 108, 112, 110, 108, 105, 102, 100, 103, 105, 104],
+      // ESTIMATED index (Q1 FY23 = 100) from commodity research + Deep Dive
+      // Copper: $8,500→$11,200/ton trajectory. JPMorgan targets $12,500 by Q2 2026
+      copper:   [100, 91, 95, 104, 99, 96, 100, 104, 115, 108, 105, 112, 120, 127, 132],
+      // Steel HRC India: ~Rs 55K base. Safeguard duty Rs 3,500-4,000/ton hikes Dec25-Jan26
+      steel:    [100, 95, 96, 100, 102, 98, 100, 96, 95, 91, 87, 91, 95, 98, 104],
+      // Aluminum: ~$2,500 base. China 45M ton cap + AI data center power squeeze
+      aluminum: [100, 94, 96, 101, 98, 95, 97, 100, 106, 104, 101, 103, 108, 112, 115],
+      // Polymer/Plastics: relatively stable, slight upward from crude oil base
+      polymer:  [100, 98, 97, 99, 101, 99, 100, 102, 103, 101, 100, 102, 104, 106, 108],
     },
     marginOutlook: {
-      sectorAvgEbitda: [9.2, 9.5, 10.0, 10.2, 9.0, 9.3, 9.8, 10.0, 9.3, 9.6, 10.1, 10.4, 9.5, 9.8, 10.2],
-      topQuartile:     [13.0,13.5,14.0,14.2, 13.2,13.8,14.2,14.5, 13.5,14.0,14.5,14.8, 13.8, 14.2, 14.6],
-      bottomQuartile:  [5.5, 5.8, 6.0, 6.2,  4.8, 5.0, 5.5, 5.8,  4.5, 4.8, 5.2, 5.5,  4.8, 5.0, 5.3],
+      // Computed from real EBITDA margins of 14 tracked companies per quarter
+      sectorAvgEbitda: [null,null,9.3,9.3,8.9,9.4,8.8,8.5,10.5,10.3,9.7,11.1,8.7,9.4,9.5],
+      topQuartile:     [null,null,11.6,10.1,10.8,11.5,10.7,12.1,11.9,11,10.7,11.7,10.7,11.2,11.2],
+      bottomQuartile:  [null,null,6.7,7,7.7,7.8,7.2,6.1,8.3,7.9,8.9,8.1,7.2,8.2,7.6],
+    },
+    // NEW: Q3 FY26 Earnings Scorecard (from Deep Dive Feb 2026, Sources 16-21)
+    q3Earnings: [
+      { company: 'Havells', revenue: 5588, yoyGrowth: 14.3, ebitdaMargin: 9.2, ebitdaGrowth: 21, netProfit: 301, signal: 'positive', note: 'Standout. Premiumization + housing demand. Rs 4 dividend.' },
+      { company: 'Voltas', revenue: 3060, yoyGrowth: 0, ebitdaMargin: 3.8, ebitdaGrowth: null, netProfit: null, signal: 'mixed', note: '17.9% YTD RAC share. UCP EBIT 3.8% beat (vs 2% expected). Inventory liquidation.' },
+      { company: 'Blue Star', revenue: 2925, yoyGrowth: 4.2, ebitdaMargin: 7.5, ebitdaGrowth: 0, netProfit: null, signal: 'negative', note: '"Subdued quarter". Draconian cost-control. BEE channel stuffing.' },
+      { company: 'Crompton', revenue: 1898, yoyGrowth: 7, ebitdaMargin: 10.3, ebitdaGrowth: null, netProfit: null, signal: 'neutral', note: 'ECD +8%, lighting +7%. Butterfly +100 bps. 2 price hike rounds planned.' },
+    ],
+    // NEW: Commodity outlook (from Deep Dive Feb 2026, Sources 3, 25, 26, 28)
+    commodityOutlook: [
+      { commodity: 'Copper', forecast: '$12,500/ton', source: 'JPMorgan Q2 2026', impact: 'CRITICAL', detail: '150K ton global shortfall. AI data centers consuming 1.1M tonnes by 2030.' },
+      { commodity: 'Aluminum', forecast: 'Tightening', source: 'Deutsche Bank', impact: 'HIGH', detail: 'China 45M ton cap. Hindalco/Novelis EBITDA erosion from US data center electricity.' },
+      { commodity: 'Steel', forecast: '+Rs 3,500-4,000/ton', source: 'ANI News', impact: 'MEDIUM', detail: '3-year safeguard duty. Domestic mills hiking. Washing machines, fridges hit.' },
+      { commodity: 'INR/USD', forecast: 'Depreciating', source: 'East Asia Forum', impact: 'HIGH', detail: 'Post US 50% tariff threat. Amplifies all imported raw material costs.' },
+    ],
+    // NEW: Policy impact tracker (from Deep Dive Feb 2026, Source 2)
+    policyImpact: [
+      { policy: 'PLI Rs 1,004 Cr (FY26-27)', target: 'ACs & LED', impact: 'positive', detail: 'Sustains localization. Advantage to backward-integrated players.' },
+      { policy: 'Rs 40,000 Cr Electronics Scheme', target: 'Smart Appliances', impact: 'positive', detail: 'De-risks supply chain. Accelerates smart tech integration.' },
+      { policy: 'BCD Microwave Parts Exemption', target: 'Kitchen Appliances', impact: 'positive', detail: 'Reduces BoM cost. Encourages global component JVs.' },
+      { policy: 'BEE Norms (Jan 1, 2026)', target: 'ACs & Fridges', impact: 'negative', detail: 'AC +5-10%, Fridge +3-5% price hikes. Channel stuffing. Margin compression.' },
+      { policy: 'Steel Safeguard Duty (3-yr)', target: 'White Goods', impact: 'negative', detail: 'Rs 3,500-4,000/ton cumulative hikes. Washing machines, fridges hit.' },
+      { policy: 'BESS Duty Exemptions', target: 'Inverters & Solar', impact: 'positive', detail: 'Lowers capex for sustainable tech. V-Guard, Havells benefit.' },
+    ],
+    // NEW: Urban vs Rural demand dynamics (from Deep Dive Feb 2026, Sources 9, 10)
+    urbanRuralDynamics: {
+      urbanPremiumGrowth: 'Double-digit',  // Frost-free, multi-door, inverter split ACs
+      ruralVolumeRecovery: 'Fits and starts', // Weather, farm income, inflation dependent
+      growthDriver: 'Price hikes + premium mix, NOT genuine volume expansion',
+      homeImprovementBoom: { size: '₹3 lakh crore', cagr: '9-10%', target2030: '₹4 lakh crore' },
+      smartHomeDemand: '+40% YoY customized interiors + smart home',
+      modularSolutions: '+30% demand for modular home solutions',
+      renovationCycle: 'Collapsed from generational to 10-12 years',
     },
   },
 
   // ============================================================
   // DEALS & TRANSACTIONS
   // ============================================================
+  // Source: Open web research — each deal verified with source URL
+  // Dates: YYYY-MM-DD (15th used when only month known; latest date for ranges)
+  // dealSize: INR Cr (null if undisclosed or only foreign currency)
+  // FY convention: Indian FY (Apr-Mar) — FY2025 = Apr 2024 – Mar 2025
   deals: [
-    {
-      id: 1,
-      date: '2024-11-15',
-      type: 'M&A',
-      company: 'V-Guard Industries',
-      target: 'Sunflame Enterprises',
-      dealSize: 660,
-      valuationMultiple: '2.1x Revenue',
-      buyer: 'V-Guard Industries',
-      rationale: 'Enter kitchen appliances segment; leverage South India distribution for national expansion',
-      status: 'Completed',
-    },
-    {
-      id: 2,
-      date: '2024-08-20',
-      type: 'M&A',
-      company: 'Crompton Greaves',
-      target: 'Butterfly Gandhimathi Appliances',
-      dealSize: 1490,
-      valuationMultiple: '3.5x Revenue',
-      buyer: 'Crompton Greaves Consumer',
-      rationale: 'Kitchen appliances entry; strong South India brand; cross-selling opportunities',
-      status: 'Integration Phase',
-    },
-    {
-      id: 3,
-      date: '2025-01-10',
-      type: 'PE Investment',
-      company: 'Atomberg Technologies',
-      target: 'Atomberg Technologies',
-      dealSize: 300,
-      valuationMultiple: '8.0x Revenue',
-      buyer: 'Temasek + Existing Investors',
-      rationale: 'BLDC fan disruptor; D2C-first model; expanding into water heaters and mixer grinders',
-      status: 'Completed',
-    },
-    {
-      id: 4,
-      date: '2024-06-05',
-      type: 'Strategic Stake',
-      company: 'Voltas',
-      target: 'Voltas Beko JV',
-      dealSize: 450,
-      valuationMultiple: 'N/A',
-      buyer: 'Arcelik (increased stake)',
-      rationale: 'Strengthening Voltas Beko JV for refrigerators and washing machines',
-      status: 'Completed',
-    },
-    {
-      id: 5,
-      date: '2024-03-22',
-      type: 'IPO',
-      company: 'Ather Energy',
-      target: 'Ather Energy',
-      dealSize: 3100,
-      valuationMultiple: '12.0x Revenue',
-      buyer: 'Public Market',
-      rationale: 'Adjacent EV two-wheeler segment; Hero MotoCorp backed; premium electric scooter leader',
-      status: 'Listed',
-    },
-    {
-      id: 6,
-      date: '2023-09-18',
-      type: 'M&A',
-      company: 'Havells India',
-      target: 'Premium Lighting Co. (hypothetical)',
-      dealSize: 280,
-      valuationMultiple: '2.8x Revenue',
-      buyer: 'Havells India',
-      rationale: 'Strengthen premium lighting portfolio; architect/designer segment entry',
-      status: 'Completed',
-    },
+    // ── WHIRLPOOL OF INDIA ──────────────────────────────────────
+    { id: 1, date: '2024-02-20', type: 'Stake Sale', company: 'Whirlpool of India', target: 'Whirlpool India (24% stake)', dealSize: 3800, valuationMultiple: '₹1,230/share', buyer: 'SBI MF / Aditya Birla Sunlife MF / Societe Generale', rationale: 'Whirlpool Corp sold 24% stake in Indian unit via block deal, reducing holding from 75% to 51%. Goldman Sachs advised.', status: 'Completed', sourceUrl: 'https://www.businesstoday.in/latest/corporate/story/whirlpool-to-offload-24-india-stake-via-block-deal-report-418113-2024-02-19', sourceName: 'BusinessToday' },
+    { id: 2, date: '2025-07-23', type: 'Stake Sale', company: 'Whirlpool of India', target: 'Whirlpool India (31% controlling stake)', dealSize: null, valuationMultiple: '$550-600M target', buyer: 'Reliance Retail / Havells / EQT / Bain Capital (bidders)', rationale: 'Multiple bidders entered race for 31% controlling stake. Havells, EQT, Bain all subsequently withdrew over valuation.', status: 'Bidders Withdrew', sourceUrl: 'https://www.business-standard.com/companies/news/reliance-havells-whirlpool-india-majority-stake-sale-us-parent-company-125062000225_1.html', sourceName: 'Business Standard' },
+    { id: 3, date: '2025-12-06', type: 'Stake Sale', company: 'Whirlpool of India', target: 'Whirlpool India (57% stake to Advent)', dealSize: 8500, valuationMultiple: '~$1B', buyer: 'Advent International', rationale: 'Advent entered exclusive talks to buy 57% controlling stake (31% direct + 26% open offer). Deal collapsed Dec 2025 over pricing disagreements.', status: 'Failed', sourceUrl: 'https://www.business-standard.com/companies/news/advent-s-1-bn-deal-talks-for-whirlpool-india-collapse-due-to-disagreements-125120600442_1.html', sourceName: 'Business Standard' },
+    { id: 4, date: '2025-11-27', type: 'Stake Sale', company: 'Whirlpool of India', target: 'Whirlpool India (11.23% stake)', dealSize: 1490, valuationMultiple: '₹1,045/share', buyer: 'HDFC MF / Kotak MF / Franklin Templeton / ICICI Pru Life / Societe Generale / East Bridge Capital', rationale: 'Whirlpool Mauritius sold 1.42 Cr shares (11.23% stake) via bulk deal at ₹1,045/share.', status: 'Completed', sourceUrl: 'https://www.outlookbusiness.com/news/whirlpool-india-promoter-entity-sells-1123-stake-for-1489-cr', sourceName: 'Outlook Business' },
+
+    // ── VOLTAS ───────────────────────────────────────────────────
+    { id: 5, date: '2025-02-28', type: 'Divestiture', company: 'Voltas', target: 'Saudi Ensas Company (92% stake)', dealSize: 62, valuationMultiple: 'N/A', buyer: 'Universal MEP Projects Singapore', rationale: 'Voltas completed transfer of 92% direct investment in Saudi Ensas Company for Engineering Services to Universal MEP Projects.', status: 'Completed', sourceUrl: 'https://www.voltas.in/file-uploads/financial-snapshot/Annual-reports/VoltasAnnualReport2024-2025.pdf', sourceName: 'Voltas Annual Report' },
+    { id: 6, date: '2024-10-14', type: 'Govt Incentive', company: 'Voltas', target: 'PLI White Goods Scheme (Round 3)', dealSize: null, valuationMultiple: 'N/A', buyer: 'Govt of India (DPIIT)', rationale: 'Voltas among 38 applicants in 3rd round of PLI scheme for white goods (ACs & LED lights) with proposed investment commitments.', status: 'Applied', sourceUrl: 'https://www.business-standard.com/industry/news/voltas-among-38-applicants-in-pli-scheme-s-3rd-round-for-white-goods-124101400733_1.html', sourceName: 'Business Standard' },
+
+    // ── BLUE STAR ────────────────────────────────────────────────
+    { id: 7, date: '2024-10-14', type: 'Govt Incentive', company: 'Blue Star', target: 'PLI White Goods Scheme (Round 3)', dealSize: null, valuationMultiple: 'N/A', buyer: 'Govt of India (DPIIT)', rationale: 'Blue Star among 38 applicants in 3rd round of PLI scheme for white goods with committed investment proposals for AC manufacturing.', status: 'Applied', sourceUrl: 'https://www.business-standard.com/industry/news/voltas-among-38-applicants-in-pli-scheme-s-3rd-round-for-white-goods-124101400733_1.html', sourceName: 'Business Standard' },
+
+    // ── CROMPTON GREAVES CONSUMER ────────────────────────────────
+    { id: 8, date: '2023-10-31', type: 'M&A', company: 'Crompton Greaves Consumer', target: 'Butterfly Gandhimathi (Merger)', dealSize: null, valuationMultiple: '22:5 swap ratio', buyer: 'Crompton Greaves Consumer Electricals', rationale: 'Proposed merger of Crompton and Butterfly (swap ratio: 22 Crompton shares for 5 Butterfly). Public shareholders voted 72.61% against; 97% of non-institutional investors opposed. Merger rejected.', status: 'Rejected', sourceUrl: 'https://www.businesstoday.in/markets/company-stock/story/shareholders-reject-butterfly-gandhimathi-appliances-crompton-greaves-merger-404049-2023-11-01', sourceName: 'BusinessToday' },
+    { id: 9, date: '2025-07-23', type: 'Fund Raise', company: 'Crompton Greaves Consumer', target: 'NCD Debt Retirement', dealSize: 2125, valuationMultiple: 'N/A', buyer: 'NCD Holders / Lenders', rationale: 'Crompton fully repaid ₹2,125 Cr NCD debt (5 tranches) originally issued to fund 2022 Butterfly acquisition. Crompton becomes zero-debt, net cash positive.', status: 'Completed', sourceUrl: 'https://www.business-standard.com/markets/capital-market-news/crompton-greaves-consumer-transitions-to-zero-debt-and-net-cash-positive-status-125072300467_1.html', sourceName: 'Business Standard' },
+
+    // ── BAJAJ ELECTRICALS ────────────────────────────────────────
+    { id: 10, date: '2023-09-14', type: 'Demerger', company: 'Bajaj Electricals', target: 'Bajel Projects Ltd (Power T&D business)', dealSize: 1260, valuationMultiple: 'N/A', buyer: 'Bajel Projects Ltd (Resulting Company)', rationale: 'Bajaj Electricals demerged power T&D business into Bajel Projects Limited, valued at ₹1,260 Cr. 1 Bajel share for every 1 Bajaj Electricals share.', status: 'Completed', sourceUrl: 'https://www.bajajelectricals.com/scheme-of-arrangements/', sourceName: 'Bajaj Electricals IR' },
+    { id: 11, date: '2026-02-15', type: 'M&A', company: 'Bajaj Electricals', target: 'Hind Lamps Ltd (Distressed Asset Revival)', dealSize: null, valuationMultiple: 'N/A', buyer: 'Bajaj Electricals (60% stake holder)', rationale: 'Bajaj pursuing revival of manufacturing business of Hind Lamps Ltd (sick company since 2002 under BIFR). Scheme of arrangement requires NCLT approval.', status: 'In Progress', sourceUrl: 'https://mnacritique.mergersindia.com/bajaj-electricals-hind-lamps-revival-demerger/', sourceName: 'M&A Critique' },
+
+    // ── V-GUARD INDUSTRIES ───────────────────────────────────────
+    { id: 12, date: '2023-01-12', type: 'M&A', company: 'V-Guard Industries', target: 'Sunflame Enterprises Pvt Ltd (100%)', dealSize: 660, valuationMultiple: 'N/A', buyer: 'V-Guard Industries', rationale: 'V-Guard completed 100% acquisition of Sunflame Enterprises (kitchen appliances) for all-cash ₹660 Cr. Sunflame became wholly-owned subsidiary.', status: 'Completed', sourceUrl: 'https://www.business-standard.com/article/companies/v-guard-industries-to-acquire-sunflame-enterprises-for-rs-660-crore-122120900893_1.html', sourceName: 'Business Standard' },
+    { id: 13, date: '2023-11-15', type: 'Strategic Investment', company: 'V-Guard Industries', target: 'Gegadyne Energy Labs (24.32% stake)', dealSize: 20, valuationMultiple: 'N/A', buyer: 'V-Guard Industries', rationale: 'Additional ₹20 Cr investment in battery startup Gegadyne Energy Labs, increasing stake to 24.32% (fully diluted). Gegadyne became associate company.', status: 'Completed', sourceUrl: 'https://www.moneyworks4me.com/company/news/index/id/605717', sourceName: 'MoneyWorks4Me' },
+
+    // ── IFB INDUSTRIES ───────────────────────────────────────────
+    { id: 14, date: '2023-05-15', type: 'Strategic Investment', company: 'IFB Industries', target: 'IFB Refrigeration Ltd (~41.4% stake)', dealSize: 97, valuationMultiple: 'N/A', buyer: 'IFB Industries', rationale: 'IFB invested up to ₹97 Cr in equity of IFB Refrigeration Limited (group company). IRL operates refrigerator facility at Ranjangaon, Pune. Commercial production commenced May 2023.', status: 'Completed', sourceUrl: 'https://www.equitybulls.com/category.php?id=324061', sourceName: 'EquityBulls' },
+    { id: 15, date: '2024-11-15', type: 'JV', company: 'IFB Industries', target: 'Schmid Automotive & Appliances GmbH (Switzerland)', dealSize: null, valuationMultiple: 'N/A', buyer: 'GAAL Singapore (IFB subsidiary)', rationale: 'IFB\'s wholly-owned subsidiary GAAL established Schmid Automotive & Appliances GmbH in Switzerland for European design and tooling facility.', status: 'Completed', sourceUrl: 'https://scanx.trade/stock-market-news/stocks/ifb-industries-subsidiary-gaal-establishes-new-swiss-unit-schmid-automotive-appliances-gmbh/27096089', sourceName: 'ScanX Trade' },
+
+    // ── HAVELLS INDIA ────────────────────────────────────────────
+    { id: 16, date: '2024-07-15', type: 'Capex', company: 'Havells India', target: 'Alwar Cable Plant Expansion', dealSize: 715, valuationMultiple: 'N/A', buyer: 'Internal (Self-funded)', rationale: 'Cable capacity expansion at Alwar, Rajasthan. Initial ₹375 Cr (Jul 2024) + additional ₹340 Cr (May 2025). Capacity from 32.9 to 41.45 lakh km.', status: 'In Progress', sourceUrl: 'https://www.wirecable.in/havells-india-announces-additional/', sourceName: 'Wire & Cable India' },
+    { id: 17, date: '2024-09-15', type: 'Capex', company: 'Havells India', target: 'Tumakuru Greenfield Cable Plant', dealSize: 450, valuationMultiple: 'N/A', buyer: 'Internal (Self-funded)', rationale: 'Havells greenfield cable plant at Tumakuru, Karnataka commissioned Sep 2024. Additional ₹450 Cr for expansion of higher-sized cable capacity.', status: 'Completed', sourceUrl: 'https://www.business-standard.com/markets/capital-market-news/havells-commences-cable-production-at-new-unit-in-karnataka-124090400462_1.html', sourceName: 'Business Standard' },
+    { id: 18, date: '2025-04-25', type: 'Govt Incentive', company: 'Havells India', target: 'YEIDA Electronics Manufacturing Cluster', dealSize: 800, valuationMultiple: 'N/A', buyer: 'YEIDA / MeitY', rationale: 'Havells received LOI for 50-acre land from YEIDA as anchor investor in 200-acre EMC. JV with 5 other companies. Phase-1 ₹800 Cr. MeitY approved Apr 2025.', status: 'Approved', sourceUrl: 'https://cablecommunity.com/havells-receives-50-acre-land-in-yeidas-electronics-manufacturing-cluster/', sourceName: 'CableCommunity' },
+    { id: 19, date: '2024-11-15', type: 'Capex', company: 'Havells India', target: 'Ghiloth Refrigerator Plant', dealSize: 480, valuationMultiple: 'N/A', buyer: 'Internal (Self-funded)', rationale: 'Approved new refrigerator manufacturing plant at Ghiloth, Rajasthan. 14 lakh unit capacity. Expected operational by Q2 FY27.', status: 'In Progress', sourceUrl: 'https://www.indiainfoline.com/news/business/havells-india-to-invest-480-crore-in-rajasthan-refrigerator-plant', sourceName: 'India Infoline' },
+    { id: 20, date: '2025-04-14', type: 'Strategic Investment', company: 'Havells India', target: 'Goldi Solar (8.9-9.24% stake)', dealSize: 600, valuationMultiple: '~20x EV/EBITDA', buyer: 'Havells India', rationale: 'Binding term sheet to invest ₹600 Cr in solar PV module manufacturer Goldi Solar as part of ₹1,300 Cr fundraise. Goldi preparing for IPO.', status: 'Completed', sourceUrl: 'https://www.pv-magazine-india.com/2025/04/15/havells-invests-inr-600-crore-in-goldi-solar/', sourceName: 'PV Magazine India' },
+    { id: 21, date: '2025-10-29', type: 'Strategic Investment', company: 'Havells India', target: 'Goldi Solar (Growth Round)', dealSize: 600, valuationMultiple: 'N/A', buyer: 'Havells India (lead) + Nikhil Kamath + others', rationale: 'Havells led ₹1,422 Cr growth round in Goldi Solar (Havells share: ₹600 Cr). Other investors: Nikhil Kamath ~₹140 Cr, Ambit, Shahi Exports, SRF.', status: 'Completed', sourceUrl: 'https://www.business-standard.com/companies/news/goldi-solar-raises-1-422-crore-from-investors-to-boost-capacity-expansion-125102900885_1.html', sourceName: 'Business Standard' },
+    { id: 22, date: '2025-11-28', type: 'Strategic Investment', company: 'Havells India', target: 'Kundan Solar (Pali) Pvt Ltd (26% stake)', dealSize: 6, valuationMultiple: 'N/A', buyer: 'Havells India', rationale: 'Acquired 26% stake in Kundan Solar SPV for 15 MWac captive solar plant in Rajasthan. ₹5.63 Cr in phases. 25-year PPA.', status: 'Completed', sourceUrl: 'https://solarquarter.com/2025/11/28/havells-india-acquires-26-stake-in-kundan-solar-spv-for-15-mwac-captive-plant/', sourceName: 'SolarQuarter' },
+    { id: 23, date: '2025-11-15', type: 'M&A', company: 'Havells India', target: 'HPL Group (Trademark Settlement)', dealSize: 130, valuationMultiple: 'N/A', buyer: 'HPL Group', rationale: 'Havells settled trademark dispute with HPL Group, paying ₹129.60 Cr. HPL acknowledged Havells\' absolute rights to the \'HAVELLS\' trademark since 1971.', status: 'Completed', sourceUrl: 'https://tracxn.com/d/legal-entities/india/havells-india-limited/__Y9UgIgjdhfOYVvTqYwZEWwErm4M30HOOj6QH0_7eiqw', sourceName: 'Tracxn' },
+    { id: 24, date: '2025-06-20', type: 'Stake Sale', company: 'Havells India', target: 'Whirlpool India (Bid Withdrew)', dealSize: null, valuationMultiple: '~$600M', buyer: 'Whirlpool Corporation (seller)', rationale: 'Havells entered race to acquire 31% controlling stake in Whirlpool India. Withdrew due to valuation concerns and strategic focus on existing business.', status: 'Withdrew', sourceUrl: 'https://www.business-standard.com/companies/news/whirlpool-india-stake-sale-eqt-bain-capital-reliance-havells-125072300297_1.html', sourceName: 'Business Standard' },
+    { id: 25, date: '2026-01-22', type: 'PE Investment', company: 'Havells India', target: 'Dhun Wellness', dealSize: 34, valuationMultiple: 'N/A', buyer: 'Havells India + SRF Ltd', rationale: 'Co-led $4M (~₹34 Cr) funding round in wellness startup Dhun Wellness (Mira Kapoor). Proceeds for expansion to Pune, Hyderabad, Bengaluru.', status: 'Completed', sourceUrl: 'https://startupnews.fyi/2026/01/24/dhun-wellness-raises-4-mn-led-by-srf-and-havells-india/', sourceName: 'StartupNews.fyi' },
+    { id: 26, date: '2026-02-15', type: 'Govt Incentive', company: 'Havells India', target: 'PLI White Goods Scheme', dealSize: null, valuationMultiple: 'N/A', buyer: 'Govt of India (DPIIT)', rationale: 'Havells among approved beneficiaries of PLI White Goods scheme for AC and LED manufacturing. Incentives of 4-6% on incremental sales.', status: 'Active', sourceUrl: 'https://www.pib.gov.in/PressReleasePage.aspx?PRID=2064740', sourceName: 'PIB' },
+
+    // ── SYMPHONY ─────────────────────────────────────────────────
+    { id: 27, date: '2023-05-17', type: 'Buyback', company: 'Symphony', target: 'Symphony (10 lakh shares)', dealSize: 200, valuationMultiple: '₹2,000/share', buyer: 'Existing Shareholders', rationale: 'Buyback of 10,00,000 equity shares at ₹2,000/share via tender offer. Acceptance ratio ~9% for retail. Promoters participated.', status: 'Completed', sourceUrl: 'https://www.business-standard.com/article/news-cm/board-of-symphony-approves-buyback-of-shares-up-to-rs-200-cr-123020800915_1.html', sourceName: 'Business Standard' },
+    { id: 28, date: '2024-09-02', type: 'Buyback', company: 'Symphony', target: 'Symphony (2.856 lakh shares)', dealSize: 71, valuationMultiple: '₹2,500/share', buyer: 'Existing Shareholders', rationale: 'Buyback of 2,85,600 shares at ₹2,500/share via tender offer. Acceptance ratio ~10% for retail. Return surplus cash to shareholders.', status: 'Completed', sourceUrl: 'https://www.chittorgarh.com/buyback/symphony-limited-buyback-2024/182/', sourceName: 'Chittorgarh.com' },
+    { id: 29, date: '2025-04-12', type: 'Divestiture', company: 'Symphony', target: 'Climate Technologies Australia + IMPCO Mexico', dealSize: null, valuationMultiple: 'N/A', buyer: 'Multiple potential buyers', rationale: 'Board approved divestment of Australian subsidiary (Climate Technologies, revenue ₹185 Cr, negative EBITDA) and Mexican subsidiary (IMPCO, revenue ₹178 Cr). Later shelved — no buyer met valuation expectations.', status: 'Shelved', sourceUrl: 'https://www.tipranks.com/news/company-announcements/symphony-limited-to-divest-stakes-in-australian-and-mexican-subsidiaries', sourceName: 'TipRanks' },
+    { id: 30, date: '2025-04-12', type: 'Divestiture', company: 'Symphony', target: 'GSK China → IMPCO Mexico (9 IPRs)', dealSize: 44, valuationMultiple: 'N/A', buyer: 'IMPCO S de R.I. de C.V. (intra-group)', rationale: 'Symphony\'s Chinese subsidiary GSK sold technology know-how and 9 IPRs to IMPCO Mexico for $5.1M (~₹44 Cr). GSK to become debt-free.', status: 'Completed', sourceUrl: 'https://www.tipranks.com/news/company-announcements/symphony-limiteds-subsidiary-sells-technology-to-impco-aiming-for-debt-free-status', sourceName: 'TipRanks' },
+
+    // ── ORIENT ELECTRIC ──────────────────────────────────────────
+    { id: 31, date: '2024-10-22', type: 'Stake Sale', company: 'Orient Electric', target: 'Orient Cement (CK Birla Group reallocation)', dealSize: 8100, valuationMultiple: 'N/A', buyer: 'Ambuja Cements (Adani Group)', rationale: 'CK Birla Group sold 46.8% stake in Orient Cement to Ambuja Cements for ₹8,100 Cr. Capital being reallocated to consumer-centric businesses incl. Orient Electric.', status: 'Completed', sourceUrl: 'https://www.business-standard.com/companies/news/adani-backed-ambuja-to-acquire-46-8-stake-in-orient-cement-for-rs-8-100-cr-124102200224_1.html', sourceName: 'Business Standard' },
+
+    // ── DIXON TECHNOLOGIES ───────────────────────────────────────
+    { id: 32, date: '2024-08-13', type: 'M&A', company: 'Dixon Technologies', target: 'Ismartu India Pvt Ltd (50.1% stake)', dealSize: 275, valuationMultiple: 'N/A', buyer: 'Dixon Technologies', rationale: 'Dixon acquired 50.1% stake in Ismartu India (Transsion brands: Itel, Infinix, Tecno). CCI approved Jul 18. Tranche 2 (1.7-5.9%) to be acquired in 2026-27.', status: 'Completed', sourceUrl: 'https://in.marketscreener.com/quote/stock/DIXON-TECHNOLOGIES-INDIA--111615221/news/Dixon-Technologies-Limited-acquired-50-1-stake-in-Ismartu-India-Private-Limited-from-Ismartu-In-Pte-47639436/', sourceName: 'MarketScreener' },
+    { id: 33, date: '2024-12-15', type: 'JV', company: 'Dixon Technologies', target: 'Dixon-Vivo JV (51:49)', dealSize: null, valuationMultiple: 'N/A', buyer: 'Dixon Technologies (51%) + Vivo India (49%)', rationale: 'Binding term sheet for JV for OEM manufacturing of smartphones and electronic devices. Dixon holds 51% stake.', status: 'Pending Approval', sourceUrl: 'https://www.business-standard.com/markets/news/dixon-vivo-form-jv-to-make-smartphones-in-india-shares-scale-record-high-124121600169_1.html', sourceName: 'Business Standard' },
+    { id: 34, date: '2025-04-15', type: 'JV', company: 'Dixon Technologies', target: 'Dixon-Signify JV (Lighting OEM)', dealSize: null, valuationMultiple: 'N/A', buyer: 'Dixon + Signify Innovations (Philips Lighting)', rationale: 'Binding term sheet for JV focused on OEM business of lighting products and accessories in India.', status: 'Announced', sourceUrl: 'https://www.digitimes.com/news/a20250331VL200/dixon-ems-lighting-joint-venture-manufacturing.html', sourceName: 'Digitimes' },
+    { id: 35, date: '2025-07-16', type: 'M&A', company: 'Dixon Technologies', target: 'Q Tech India (51% stake)', dealSize: null, valuationMultiple: 'N/A', buyer: 'Dixon Technologies', rationale: 'Binding term sheet to acquire 51% stake in Q Tech India for manufacturing camera modules and fingerprint modules for mobile, IoT, automotive.', status: 'Pending Approval', sourceUrl: 'https://www.business-standard.com/markets/capital-market-news/dixon-tech-climbs-on-signing-two-strategic-deals-to-boost-electronics-manufacturing-125071600799_1.html', sourceName: 'Business Standard' },
+    { id: 36, date: '2026-02-15', type: 'Govt Incentive', company: 'Dixon Technologies', target: 'PLI Mobile & IT Hardware', dealSize: 1527, valuationMultiple: 'N/A', buyer: 'Govt of India (MeitY)', rationale: 'Dixon major PLI beneficiary for mobile phones and IT hardware. Allocation reduced to ₹1,527 Cr from ₹9,000 Cr. Uncertainty about extension post FY26.', status: 'Active', sourceUrl: 'https://scanx.trade/stock-market-news/stocks/dixon-technologies-pli-allocation-reduced-to-rs-1-527-crore-from-rs-9-000-crore-for-mobile-and-it-hardware/31476038', sourceName: 'ScanX Trade' },
+    { id: 37, date: '2026-02-15', type: 'Capex', company: 'Dixon Technologies', target: 'Display Fabrication Facility (8.6G)', dealSize: 25000, valuationMultiple: 'N/A', buyer: 'Dixon + HKC (China) / India Semiconductor Mission', rationale: 'Planned $2.7-3 billion display fab in Noida. 60,000 substrates/month. Fuelled by India Semiconductor Mission incentives. Production target late Q1/early Q2 FY26.', status: 'Planned', sourceUrl: 'https://techovedas.com/3-billion-investment-dixon-technologies-plans-display-fabrication-facility-in-india/', sourceName: 'Techovedas' },
+
+    // ── AMBER ENTERPRISES ────────────────────────────────────────
+    { id: 38, date: '2026-01-19', type: 'Land Allotment', company: 'Amber Enterprises', target: 'YEIDA Jewar Manufacturing Facility', dealSize: 6785, valuationMultiple: 'N/A', buyer: 'Amber + Ascent-K Circuit (subsidiary)', rationale: '100 acres for new manufacturing facility near Jewar Airport + 16 acres for Ascent-K PCB unit; 3,000+ direct jobs.', status: 'Allotted', sourceUrl: 'https://scanx.trade/stock-market-news/corporate-actions/amber-enterprises-india-reports-q2-net-loss-of-329m-rupees-amid-revenue-decline/23978722', sourceName: 'ScanX Trade' },
+    { id: 39, date: '2025-09-22', type: 'QIP', company: 'Amber Enterprises', target: 'Amber Enterprises (QIP Round 1)', dealSize: 1000, valuationMultiple: '₹7,950/share', buyer: 'Qualified Institutional Buyers', rationale: 'Raised ~₹1,000 Cr via QIP. Allocated 12,57,861 equity shares at ₹7,950/share to qualified institutional buyers.', status: 'Completed', sourceUrl: 'https://law.asia/amber-enterprises-qip-deal/', sourceName: 'Law.asia' },
+    { id: 40, date: '2025-09-15', type: 'QIP', company: 'Amber Enterprises', target: 'Amber Enterprises (QIP Round 2)', dealSize: 2500, valuationMultiple: '₹7,791/share floor', buyer: 'Qualified Institutional Buyers', rationale: 'Board approved second QIP to raise up to ₹2,500 Cr with floor price of ₹7,790.88/share.', status: 'Announced', sourceUrl: 'https://www.icicidirect.com/research/equity/trending-news/amber-enterprises-opens-2-500-cr-qip-for-equity-shares', sourceName: 'ICICI Direct' },
+    { id: 41, date: '2025-09-07', type: 'PE Investment', company: 'Amber Enterprises (IL JIN)', target: 'ILJIN Electronics (India)', dealSize: 1200, valuationMultiple: 'N/A', buyer: 'ChrysCapital (₹1,100 Cr) + InCred Growth Partners + Raptor + Two Infinity', rationale: '₹1,200 Cr from PE investors for ILJIN Electronics via equity shares and CCPS. Funds for Hosur expansion and PCB capabilities.', status: 'Completed', sourceUrl: 'https://www.business-standard.com/markets/news/amber-enterprises-raises-1200-crore-iljin-electronics-125090700515_1.html', sourceName: 'Business Standard' },
+    { id: 42, date: '2025-08-05', type: 'M&A', company: 'Amber Enterprises (IL JIN)', target: 'Power-One Micro Systems (60% stake)', dealSize: 262, valuationMultiple: 'N/A', buyer: 'IL JIN Electronics India Pvt Ltd', rationale: 'ILJIN acquired 60% stake in Power-One Micro Systems (BESS, solar inverters, EV chargers, UPS solutions).', status: 'Completed', sourceUrl: 'https://www.angelone.in/news/market-updates/amber-enterprises-subsidiary-il-jin-acquires-60-stake-in-power-one-for-262-crore', sourceName: 'Angel One' },
+    { id: 43, date: '2025-07-27', type: 'M&A', company: 'Amber Enterprises (IL JIN)', target: 'Unitronics (Israel) (~40.24% controlling stake)', dealSize: 404, valuationMultiple: 'NIS 27.75/share', buyer: 'IL JIN Electronics via ILJIN Holding', rationale: 'ILJIN acquired ~40.24% controlling stake in Israel-listed Unitronics (1989). 56.24 lakh shares at NIS 27.75/share (₹404 Cr). Expanding Industry 4.0 solutions.', status: 'Completed', sourceUrl: 'https://www.business-standard.com/markets/capital-market-news/amber-enterprises-gains-as-arm-il-jin-acquires-controlling-stake-in-israel-s-unitronics-125072800206_1.html', sourceName: 'Business Standard' },
+    { id: 44, date: '2025-11-14', type: 'M&A', company: 'Amber Enterprises (IL JIN)', target: 'Shogini Technoarts Pvt Ltd (PCB)', dealSize: null, valuationMultiple: 'N/A', buyer: 'IL JIN Electronics (India) Pvt Ltd', rationale: 'Majority stake in Shogini Technoarts — Pune-based PCB manufacturer (est. 1982). Top-5 Indian PCB maker. Revenue ₹391 Cr in FY25. Reducing reliance on external PCB suppliers.', status: 'Announced', sourceUrl: 'https://www.businesstoday.in/markets/stocks/story/amber-group-to-acquire-majority-stake-in-shogini-technoarts-key-details-502327-2025-11-15', sourceName: 'BusinessToday' },
+    { id: 45, date: '2026-02-15', type: 'M&A', company: 'Amber Enterprises (IL JIN)', target: 'Stelltek (JV → Subsidiary)', dealSize: null, valuationMultiple: 'N/A', buyer: 'IL JIN Electronics', rationale: 'ILJIN gained control of Stelltek; the joint venture became a subsidiary with Stelltek becoming an ILJIN/Amber step-down subsidiary.', status: 'Completed', sourceUrl: 'https://tracxn.com/d/companies/amber-enterprises-india/__WbeR63g9q9NpMMz3xZQy2OEj46liHpiGyEJnCuOLLPQ', sourceName: 'Tracxn' },
+
+    // ── TTK PRESTIGE ─────────────────────────────────────────────
+    { id: 46, date: '2024-08-27', type: 'Buyback', company: 'TTK Prestige', target: 'TTK Prestige (16.67 lakh shares)', dealSize: 200, valuationMultiple: '₹1,200/share', buyer: 'Public Shareholders', rationale: 'Buyback of 16,66,666 equity shares (1.2% equity) at ₹1,200/share via tender offer. 25% premium over market. Acceptance ratio ~11% for retail.', status: 'Completed', sourceUrl: 'https://www.chittorgarh.com/buyback/ttk-prestige-buyback-2024/178/', sourceName: 'Chittorgarh.com' },
+    { id: 47, date: '2024-06-12', type: 'Strategic Investment', company: 'TTK Prestige', target: 'GramyaHaat Rural Tech Pvt Ltd (>5% stake)', dealSize: 15, valuationMultiple: 'N/A', buyer: 'TTK Prestige', rationale: 'Investment via CCDs in rural distribution startup. Initial ₹5 Cr with total commitment up to ₹15 Cr. >5% equity on conversion.', status: 'Completed', sourceUrl: 'https://www.business-standard.com/markets/capital-market-news/ttk-prestige-to-invest-up-to-rs-15-cr-in-gramyahaat-124061200622_1.html', sourceName: 'Business Standard' },
+    { id: 48, date: '2025-02-19', type: 'Capex', company: 'TTK Prestige', target: 'Manufacturing Modernization (3-year plan)', dealSize: 500, valuationMultiple: 'N/A', buyer: 'Internal (Self-funded)', rationale: 'Board approved ₹500 Cr over 3 FYs: ₹300 Cr capex (stainless steel tri-ply, appliances, plant automation) + ₹200 Cr opex (innovation, design, go-to-market).', status: 'Announced', sourceUrl: 'https://www.business-standard.com/markets/capital-market-news/ttk-prestige-gains-after-board-oks-rs-500-cr-capex-plan-125021900232_1.html', sourceName: 'Business Standard' },
+
+    // ── JOHNSON CONTROLS-HITACHI / BOSCH HOME COMFORT ────────────
+    { id: 49, date: '2025-07-31', type: 'M&A', company: 'JCHAC (now Bosch Home Comfort India)', target: 'JCHAC India (74.25% indirect acquisition)', dealSize: null, valuationMultiple: '$8.1B global', buyer: 'Robert Bosch GmbH', rationale: 'As part of global $8.1B transaction, Bosch acquired Johnson Controls\' residential HVAC business incl. 100% of JCH JV (JCI 60% + Hitachi 40%). Indirect control of 74.25% of JCHAC India.', status: 'Completed', sourceUrl: 'https://www.sullcrom.com/About/News-and-Events/Highlights/2025/August/Bosch-Completes-8-Billion-Acquisition-Residential-Light-Commercial-HVAC-Business-Johnson-Controls-Hitachi', sourceName: 'Sullivan & Cromwell' },
+    { id: 50, date: '2025-12-09', type: 'M&A', company: 'JCHAC (now Bosch Home Comfort India)', target: 'JCHAC India (25.75% open offer)', dealSize: 382, valuationMultiple: '₹1,762.54/share', buyer: 'Robert Bosch GmbH / Bosch Global Software Technologies', rationale: 'SEBI mandatory open offer for 25.75% minority stake (70 lakh shares). Tendering Nov 13-26, 2025. 21.67 lakh shares tendered (31% acceptance). Bosch post-offer holding: ~82.22%.', status: 'Completed', sourceUrl: 'https://www.sebi.gov.in/sebi_data/commondocs/jul-2024/Johnson%20Controls-Hitachi%20Air%20Conditioning%20India%20Limited_PA_p.pdf', sourceName: 'SEBI Filing' },
+    { id: 51, date: '2026-02-15', type: 'Govt Incentive', company: 'JCHAC (now Bosch Home Comfort India)', target: 'PLI White Goods Scheme (AC category)', dealSize: null, valuationMultiple: 'N/A', buyer: 'Govt of India (DPIIT)', rationale: 'JCHAC selected as PLI beneficiary for White Goods (AC category) in Round 1. Incentives of 4-6% on incremental domestic manufacturing sales.', status: 'Active', sourceUrl: 'https://pib.gov.in/PressReleasePage.aspx?PRID=1769229', sourceName: 'PIB' },
   ],
 
   // ============================================================
@@ -803,54 +841,86 @@ const DATA = {
 
   // ============================================================
   // OPERATIONAL INTELLIGENCE
+  // Source: operational-intelligence-data.md (compiled Feb 20, 2026)
+  // + Indian Consumer Durables Deep Dive.md (42 sources, Feb 19, 2026)
+  // Confidence tags: VERIFIED / DERIVED / ESTIMATED (see operational-intelligence-data.md)
   // ============================================================
   operationalMetrics: {
+    // Voltas 90% VERIFIED (Q3FY26 earnings call), Havells 87 (Q3 14.3% growth), Dixon 88 (near-capacity ops)
     capacityUtilization: {
-      whirlpool: 72, voltas: 82, bluestar: 78, crompton: 75,
-      bajaj_elec: 65, vguard: 80, ifb: 58, havells: 85, symphony: 70, orient: 73,
-      dixon: 88, amber: 82, ttk_prestige: 75, butterfly: 68, bosch_jch: 65,
+      whirlpool: 78, voltas: 90, bluestar: 78, crompton: 76,
+      bajaj_elec: 68, vguard: 80, ifb: 62, havells: 87, symphony: 70, orient: 73,
+      dixon: 88, amber: 85, ttk_prestige: 75, butterfly: 73, bosch_jch: 55,
     },
+    // Voltas 74 (deep local mfg efficiencies), Havells 88 (12 plants), Symphony 55 (100% outsourced!)
     localizationPct: {
-      whirlpool: 64, voltas: 70, bluestar: 75, crompton: 80,
-      bajaj_elec: 66, vguard: 85, ifb: 58, havells: 87, symphony: 88, orient: 77,
-      dixon: 55, amber: 72, ttk_prestige: 82, butterfly: 78, bosch_jch: 60,
+      whirlpool: 75, voltas: 74, bluestar: 78, crompton: 82,
+      bajaj_elec: 65, vguard: 85, ifb: 65, havells: 88, symphony: 55, orient: 78,
+      dixon: 58, amber: 72, ttk_prestige: 82, butterfly: 80, bosch_jch: 55,
     },
+    // Symphony 100% VERIFIED (outsourced to 9 OEM partners), Dixon/Amber 0 (they ARE the mfg)
     contractManufacturingPct: {
-      whirlpool: 15, voltas: 25, bluestar: 10, crompton: 30,
-      bajaj_elec: 40, vguard: 20, ifb: 5, havells: 8, symphony: 45, orient: 22,
-      dixon: 0, amber: 0, ttk_prestige: 15, butterfly: 25, bosch_jch: 5,
+      whirlpool: 5, voltas: 15, bluestar: 8, crompton: 18,
+      bajaj_elec: 35, vguard: 15, ifb: 5, havells: 8, symphony: 100, orient: 20,
+      dixon: 0, amber: 0, ttk_prestige: 10, butterfly: 20, bosch_jch: 10,
     },
     afterSalesCostPct: {
-      whirlpool: 3.5, voltas: 2.8, bluestar: 2.2, crompton: 2.0,
-      bajaj_elec: 3.8, vguard: 2.5, ifb: 4.2, havells: 1.8, symphony: 1.5, orient: 2.3,
-      dixon: 1.0, amber: 1.2, ttk_prestige: 2.0, butterfly: 2.5, bosch_jch: 2.8,
+      whirlpool: 3.2, voltas: 2.5, bluestar: 2.0, crompton: 1.8,
+      bajaj_elec: 3.5, vguard: 2.2, ifb: 4.0, havells: 1.5, symphony: 1.2, orient: 2.0,
+      dixon: 0.8, amber: 1.0, ttk_prestige: 1.8, butterfly: 2.2, bosch_jch: 2.5,
+    },
+    // DERIVED: 100% - localizationPct. Critical given AI-driven commodity shock (copper $12,500/ton)
+    importDependency: {
+      whirlpool: 25, voltas: 28, bluestar: 22, crompton: 18,
+      bajaj_elec: 35, vguard: 15, ifb: 35, havells: 12, symphony: 45, orient: 22,
+      dixon: 42, amber: 28, ttk_prestige: 18, butterfly: 20, bosch_jch: 45,
     },
     vendorConsolidationIndex: {
-      whirlpool: 65, voltas: 70, bluestar: 75, crompton: 60,
-      bajaj_elec: 45, vguard: 72, ifb: 50, havells: 80, symphony: 82, orient: 68,
-      dixon: 78, amber: 74, ttk_prestige: 70, butterfly: 55, bosch_jch: 72,
+      whirlpool: 70, voltas: 72, bluestar: 75, crompton: 65,
+      bajaj_elec: 48, vguard: 74, ifb: 55, havells: 82, symphony: 78, orient: 68,
+      dixon: 80, amber: 78, ttk_prestige: 72, butterfly: 58, bosch_jch: 68,
+    },
+    // ESTIMATED from category benchmarks (white goods 2-3.5%, electronics 1-2%, B2B OEM 0.5-1%)
+    warrantyPct: {
+      whirlpool: 2.8, voltas: 2.0, bluestar: 1.8, crompton: 1.5,
+      bajaj_elec: 2.5, vguard: 2.0, ifb: 3.5, havells: 1.2, symphony: 1.0, orient: 1.5,
+      dixon: 0.5, amber: 0.8, ttk_prestige: 1.5, butterfly: 2.0, bosch_jch: 2.5,
+    },
+    // DERIVED: Rs Cr per distributor (where disclosed). null = dealer count not public.
+    dealerProductivity: {
+      whirlpool: null, voltas: 0.64, bluestar: 4.0, crompton: 2.81,
+      bajaj_elec: 4.83, vguard: null, ifb: 10.61, havells: 1.21, symphony: null, orient: 0.02,
+      dixon: null, amber: null, ttk_prestige: null, butterfly: null, bosch_jch: null,
     },
   },
 
   // ============================================================
   // SUB-SECTOR DEEP DIVE: HOME APPLIANCES
   // ============================================================
+  // Sources: Segment sizes computed from real Q3 FY26 company revenue (annualized)
+  //          Growth rates computed from real Q3 FY26 vs Q3 FY25 revenue
+  //          Cost structure from real OPM% quartiles across 14 companies (FY25 annual P&L)
+  //          Margin levers: editorial/advisory (no structured source data)
   subSectorDeepDive: {
-    title: 'Home Appliances',
-    marketSize: 45000, // ₹ Cr
-    growthRate: 12.5,
+    title: 'Consumer Durables',
+    marketSize: 139480, // ₹ Cr (annualized from Q3 FY26 aggregate: 34,870 × 4)
+    growthRate: 6.6, // Real: Q3 FY26 vs Q3 FY25 aggregate YoY %
     segments: [
-      { name: 'Air Conditioners', size: 22000, growth: 15.0, leaders: ['Voltas', 'Blue Star', 'Havells (Lloyd)'] },
-      { name: 'Refrigerators', size: 12000, growth: 8.0, leaders: ['Whirlpool', 'Voltas Beko', 'Havells (Lloyd)'] },
-      { name: 'Washing Machines', size: 8000, growth: 10.0, leaders: ['IFB', 'Whirlpool', 'Voltas Beko'] },
-      { name: 'Air Coolers', size: 3000, growth: 18.0, leaders: ['Symphony', 'Crompton', 'Orient'] },
+      // Real: aggregated from tracked companies by subCategory
+      { name: 'White Goods', size: 49220, growth: 9.3, leaders: ['Voltas', 'Blue Star', 'Whirlpool'], note: 'Whirlpool, Voltas, Blue Star, IFB, Symphony, Amber' },
+      { name: 'Consumer Electronics', size: 90260, growth: 5.2, leaders: ['Havells', 'Dixon', 'Crompton'], note: 'Havells, Dixon, Crompton, V-Guard, Orient, Bajaj, TTK, Butterfly' },
     ],
     costStructureBenchmark: {
-      rawMaterials: { topQuartile: 52, median: 58, bottomQuartile: 65 },
-      labor: { topQuartile: 5, median: 8, bottomQuartile: 12 },
-      logistics: { topQuartile: 3, median: 5, bottomQuartile: 8 },
-      marketing: { topQuartile: 6, median: 8, bottomQuartile: 12 },
-      overhead: { topQuartile: 8, median: 12, bottomQuartile: 18 },
+      // Computed from real FY25 OPM% across 14 companies (Expenses as % of Revenue)
+      // Total cost = 100 - OPM%. Top quartile = lowest cost = highest OPM
+      totalExpenses: { topQuartile: 90.3, median: 93.0, bottomQuartile: 93.8 },
+      // Individual cost breakdowns NOT available from P&L (only total expenses reported)
+      // Setting to null — no source data for raw materials/labor/logistics/marketing/overhead split
+      rawMaterials: null,
+      labor: null,
+      logistics: null,
+      marketing: null,
+      overhead: null,
     },
     marginLevers: [
       { lever: 'Product Mix Premiumization', potentialImpact: '150-300 bps', difficulty: 'Medium', timeframe: '12-18 months' },
@@ -1002,22 +1072,25 @@ const DATA = {
   // ============================================================
   // SENTIMENT ANALYSIS (Score 0-100)
   // ============================================================
+  // Sentiment scores derived from Sovrenn quarterly result tags (EXCELLENT/GOOD/AVERAGE/POOR/WEAK)
+  // Methodology: Recency-weighted avg on 20-100 scale (EXCELLENT=100, GOOD=80, AVERAGE=60, POOR=40, WEAK=20)
+  // news/analyst/social breakdowns NOT available from source — only overall earnings quality score
   sentimentScores: {
-    whirlpool: { news: 52, analyst: 55, social: 48, overall: 52 },
-    voltas:    { news: 72, analyst: 78, social: 70, overall: 73 },
-    bluestar:  { news: 75, analyst: 80, social: 68, overall: 74 },
-    crompton:  { news: 58, analyst: 60, social: 55, overall: 58 },
-    bajaj_elec:{ news: 35, analyst: 38, social: 42, overall: 38 },
-    vguard:    { news: 68, analyst: 72, social: 65, overall: 68 },
-    ifb:       { news: 30, analyst: 28, social: 35, overall: 31 },
-    havells:   { news: 82, analyst: 85, social: 78, overall: 82 },
-    symphony:  { news: 55, analyst: 58, social: 52, overall: 55 },
-    orient:    { news: 60, analyst: 62, social: 58, overall: 60 },
-    dixon:     { news: 85, analyst: 88, social: 80, overall: 84 },
-    amber:     { news: 72, analyst: 75, social: 65, overall: 71 },
-    ttk_prestige:{ news: 60, analyst: 62, social: 58, overall: 60 },
-    butterfly: { news: 40, analyst: 38, social: 42, overall: 40 },
-    bosch_jch: { news: 50, analyst: 52, social: 45, overall: 49 },
+    whirlpool: { news: null, analyst: null, social: null, overall: 50 },  // 4 Qs: AVG, WEAK, AVG, GOOD
+    voltas:    { news: null, analyst: null, social: null, overall: 20 },  // 2 Qs: WEAK, WEAK
+    bluestar:  { news: null, analyst: null, social: null, overall: 62 },  // 4 Qs: AVG, AVG, AVG, GOOD
+    crompton:  { news: null, analyst: null, social: null, overall: 40 },  // 4 Qs: AVG, WEAK, WEAK, AVG
+    bajaj_elec:{ news: null, analyst: null, social: null, overall: 47 },  // 2 Qs: AVG, WEAK
+    vguard:    { news: null, analyst: null, social: null, overall: 50 },  // 3 Qs: AVG, WEAK, GOOD
+    ifb:       { news: null, analyst: null, social: null, overall: 68 },  // 4 Qs: AVG, GOOD, AVG, GOOD
+    havells:   { news: null, analyst: null, social: null, overall: 62 },  // 4 Qs: GOOD, AVG, WEAK, GOOD
+    symphony:  { news: null, analyst: null, social: null, overall: 50 },  // 3 Qs: POOR, POOR, EXCELLENT
+    orient:    { news: null, analyst: null, social: null, overall: 70 },  // 3 Qs: GOOD, AVG, AVG
+    dixon:     { news: null, analyst: null, social: null, overall: 73 },  // 2 Qs: AVG, EXCELLENT
+    amber:     { news: null, analyst: null, social: null, overall: 87 },  // 2 Qs: GOOD, EXCELLENT
+    ttk_prestige:{ news: null, analyst: null, social: null, overall: 60 },// 3 Qs: AVG, GOOD, WEAK
+    butterfly: { news: null, analyst: null, social: null, overall: null }, // No Sovrenn data
+    bosch_jch: { news: null, analyst: null, social: null, overall: 33 },  // 2 Qs: WEAK, AVG
   },
 };
 
@@ -1029,6 +1102,35 @@ const DataUtils = {
 
   getLatestQuarterIndex() {
     return DATA.quarters.length - 1;
+  },
+
+  // Map time period filter value → quarter index (last quarter of that period)
+  getQuarterIndexForPeriod(period) {
+    const map = { latest: 14, fy2025: 11, fy2024: 7, fy2023: 3, all: 14 };
+    return map[period] ?? 14;
+  },
+
+  // Map time period → [startIdx, endIdx] inclusive (for chart slicing)
+  getQuarterRangeForPeriod(period) {
+    const ranges = { latest: [0, 14], fy2025: [8, 11], fy2024: [4, 7], fy2023: [0, 3], all: [0, 14] };
+    return ranges[period] || [0, 14];
+  },
+
+  // Get value at a specific quarter index
+  getValueAt(companyId, metric, quarterIdx) {
+    const d = DATA.financials[companyId]?.[metric];
+    if (!d || quarterIdx < 0 || quarterIdx >= d.length) return null;
+    return d[quarterIdx];
+  },
+
+  // YoY growth at a specific quarter index (compares same quarter previous year)
+  getYoYGrowthAt(companyId, metric, quarterIdx) {
+    const d = DATA.financials[companyId]?.[metric];
+    if (!d) return 'N/A';
+    const current = d[quarterIdx];
+    const prior = quarterIdx >= 4 ? d[quarterIdx - 4] : null;
+    if (current === null || prior === null || prior === 0) return 'N/A';
+    return ((current - prior) / prior * 100).toFixed(1);
   },
 
   getYoYGrowth(companyId, metric) {
@@ -1107,3 +1209,103 @@ const DataUtils = {
     return [...new Set(DATA.companies.map(c => c.subCategory))];
   },
 };
+
+// ============================================================
+// AUTO-COMPUTE PERFORMANCE RATINGS (Peer-Relative Scoring)
+// Each company is ranked against the peer group on 5 metrics.
+// Percentile rank: 100 = best in group, 0 = worst.
+// Composite = weighted average of percentiles.
+// Weights: RevGrowth 25%, EBITDA 25%, MarginTrend 15%, ROCE 20%, PAT 15%
+// Thresholds: >=60 Outperform, >=38 Inline, <38 Underperform
+// Cap: revenue decline >15% YoY → max Inline
+// ============================================================
+(function() {
+  const ids = DATA.companies.map(c => c.id);
+  const L = DATA.quarters.length - 1;   // 14 = Q3 FY26
+  const Y = L - 4;                       // 10 = Q3 FY25 (same quarter last year)
+
+  // 1. Compute raw metrics per company
+  const raw = {};
+  ids.forEach(id => {
+    const f = DATA.financials[id];
+    if (!f || f.revenue[L] === null) { raw[id] = null; return; }
+    const revNow = f.revenue[L], revYoY = f.revenue[Y];
+    let roce = null;
+    for (let i = f.roce.length - 1; i >= 0; i--) { if (f.roce[i] !== null) { roce = f.roce[i]; break; } }
+    raw[id] = {
+      revGrowth:   revYoY && revYoY !== 0 ? (revNow - revYoY) / revYoY * 100 : null,
+      ebitda:      f.ebitdaMargin[L],
+      ebitdaTrend: f.ebitdaMargin[L] !== null && f.ebitdaMargin[Y] !== null
+                     ? f.ebitdaMargin[L] - f.ebitdaMargin[Y] : null,
+      roce:        roce,
+      pat:         f.patMargin[L],
+    };
+  });
+
+  // 2. Percentile rank (handles ties by averaging)
+  function pctRank(arr) {
+    const valid = arr.filter(v => v.val !== null).sort((a, b) => b.val - a.val);
+    const n = valid.length;
+    if (n === 0) return {};
+    const out = {};
+    let i = 0;
+    while (i < n) {
+      let j = i;
+      while (j < n - 1 && valid[j + 1].val === valid[j].val) j++;
+      const avgRank = (i + j) / 2;
+      const pct = n > 1 ? (n - 1 - avgRank) / (n - 1) * 100 : 50;
+      for (let k = i; k <= j; k++) out[valid[k].id] = pct;
+      i = j + 1;
+    }
+    return out;
+  }
+
+  // 3. Rank each metric
+  const validIds = ids.filter(id => raw[id] !== null);
+  const ranks = {
+    revGrowth:   pctRank(validIds.map(id => ({ id, val: raw[id].revGrowth }))),
+    ebitda:      pctRank(validIds.map(id => ({ id, val: raw[id].ebitda }))),
+    ebitdaTrend: pctRank(validIds.map(id => ({ id, val: raw[id].ebitdaTrend }))),
+    roce:        pctRank(validIds.map(id => ({ id, val: raw[id].roce }))),
+    pat:         pctRank(validIds.map(id => ({ id, val: raw[id].pat }))),
+  };
+
+  // 4. Weighted composite
+  const W = { revGrowth: 0.25, ebitda: 0.25, ebitdaTrend: 0.15, roce: 0.20, pat: 0.15 };
+  validIds.forEach(id => {
+    const m = raw[id];
+    let score = 0, totalW = 0;
+    for (const [key, w] of Object.entries(W)) {
+      if (m[key] !== null && ranks[key][id] !== undefined) {
+        score += ranks[key][id] * w;
+        totalW += w;
+      }
+    }
+    if (totalW > 0) score /= totalW;
+
+    // Cap: severe revenue decline (>15%) → max Inline
+    const cappedByDecline = m.revGrowth !== null && m.revGrowth < -15;
+    let rating;
+    if (cappedByDecline)        rating = score >= 38 ? 'Inline' : 'Underperform';
+    else if (score >= 60)       rating = 'Outperform';
+    else if (score >= 38)       rating = 'Inline';
+    else                        rating = 'Underperform';
+
+    // Build reason from actual metrics
+    const parts = [];
+    if (m.revGrowth !== null) parts.push('Rev ' + (m.revGrowth >= 0 ? '+' : '') + m.revGrowth.toFixed(1) + '% YoY');
+    if (m.ebitda !== null) parts.push('EBITDA ' + m.ebitda + '%');
+    if (m.ebitdaTrend !== null) parts.push('margin ' + (m.ebitdaTrend >= 0 ? '+' : '') + m.ebitdaTrend.toFixed(1) + 'pp');
+    if (m.roce !== null) parts.push('ROCE ' + m.roce + '%');
+    if (cappedByDecline) parts.push('(capped: revenue decline)');
+
+    DATA.performanceRatings[id] = { rating, reason: parts.join('; '), score: Math.round(score) };
+  });
+
+  // Handle companies with no data
+  ids.forEach(id => {
+    if (!DATA.performanceRatings[id]) {
+      DATA.performanceRatings[id] = { rating: 'N/A', reason: 'No financial data available', score: null };
+    }
+  });
+})();

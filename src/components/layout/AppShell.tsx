@@ -14,8 +14,10 @@ export function AppShell() {
       <FilterBar />
       <div className="flex flex-1 min-h-0">
         <Sidebar />
-        <main className="flex-1 overflow-auto p-md">
-          <Outlet />
+        <main className="flex-1 overflow-auto">
+          <div className="max-w-[1600px] mx-auto px-xl py-2xl">
+            <Outlet />
+          </div>
         </main>
       </div>
     </div>

@@ -1,0 +1,1309 @@
+{
+  "section": "financial-performance",
+  "dataAsOf": "Q3 FY26",
+  "lastUpdated": "2026-02-18T14:44:30.210Z",
+  "companies": [
+    {
+      "id": "voltas",
+      "name": "Voltas Limited",
+      "ticker": "VOLTAS",
+      "metrics": {
+        "revenueGrowth": -1.1,
+        "ebitdaMargin": 5.41,
+        "workingCapitalDays": 18,
+        "roce": 17.6,
+        "debtEquity": 0.14
+      },
+      "performance": "underperform",
+      "varianceAnalysis": "Revenue declined 1.1% YoY. EBITDA margin at 5.41%. ROCE: 17.6%.",
+      "source": "Screener.in + Trendlyne",
+      "overview": {
+        "marketCapCr": 50968,
+        "currentPrice": 1542,
+        "peRatio": 98.3,
+        "bookValue": 192,
+        "dividendYield": 0.45,
+        "roce": 17.6,
+        "roe": 13.5,
+        "faceValue": 1
+      },
+      "history": [
+        {
+          "period": "Q2 FY2025",
+          "revenue": 2619,
+          "revenueGrowth": 14.2,
+          "ebitdaMargin": 5.57,
+          "netProfit": 133,
+          "profitGrowth": 269.4,
+          "workingCapitalDays": 18,
+          "roce": 17.6,
+          "debtEquity": 0.14
+        },
+        {
+          "period": "Q3 FY2025",
+          "revenue": 3105,
+          "revenueGrowth": 18.2,
+          "ebitdaMargin": 5.89,
+          "netProfit": 131,
+          "profitGrowth": 567.9,
+          "workingCapitalDays": 18,
+          "roce": 17.6,
+          "debtEquity": 0.14
+        },
+        {
+          "period": "Q4 FY2025",
+          "revenue": 4768,
+          "revenueGrowth": 13.4,
+          "ebitdaMargin": 6.61,
+          "netProfit": 236,
+          "profitGrowth": 112.6,
+          "workingCapitalDays": 43,
+          "roce": 17.6,
+          "debtEquity": 0.14
+        },
+        {
+          "period": "Q1 FY2026",
+          "revenue": 3939,
+          "revenueGrowth": -20,
+          "ebitdaMargin": 4.34,
+          "netProfit": 141,
+          "profitGrowth": -57.9,
+          "workingCapitalDays": 43,
+          "roce": 17.6,
+          "debtEquity": 0.14
+        },
+        {
+          "period": "Q2 FY2026",
+          "revenue": 2347,
+          "revenueGrowth": -10.4,
+          "ebitdaMargin": 2.47,
+          "netProfit": 32,
+          "profitGrowth": -75.9,
+          "workingCapitalDays": 43,
+          "roce": 17.6,
+          "debtEquity": 0.14
+        },
+        {
+          "period": "Q3 FY2026",
+          "revenue": 3071,
+          "revenueGrowth": -1.1,
+          "ebitdaMargin": 5.41,
+          "netProfit": 84,
+          "profitGrowth": -35.9,
+          "workingCapitalDays": 43,
+          "roce": 17.6,
+          "debtEquity": 0.14
+        }
+      ]
+    },
+    {
+      "id": "bluestar",
+      "name": "Blue Star Limited",
+      "ticker": "BLUESTARCO",
+      "metrics": {
+        "revenueGrowth": 4.2,
+        "ebitdaMargin": 9.09,
+        "workingCapitalDays": 20,
+        "roce": 26.2,
+        "debtEquity": 0.12
+      },
+      "performance": "inline",
+      "varianceAnalysis": "Revenue grew 4.2% YoY. EBITDA margin at 9.09%. ROCE: 26.2%.",
+      "source": "Screener.in + Trendlyne",
+      "overview": {
+        "marketCapCr": 41550,
+        "currentPrice": 2020,
+        "peRatio": 77.8,
+        "bookValue": 151,
+        "dividendYield": 0.45,
+        "roce": 26.2,
+        "roe": 20.6,
+        "faceValue": 2
+      },
+      "history": [
+        {
+          "period": "Q2 FY2025",
+          "revenue": 2276,
+          "revenueGrowth": 20.4,
+          "ebitdaMargin": 7.86,
+          "netProfit": 96,
+          "profitGrowth": 35.2,
+          "workingCapitalDays": 20,
+          "roce": 26.2,
+          "debtEquity": 0.12
+        },
+        {
+          "period": "Q3 FY2025",
+          "revenue": 2807,
+          "revenueGrowth": 25.3,
+          "ebitdaMargin": 8.69,
+          "netProfit": 132,
+          "profitGrowth": 32,
+          "workingCapitalDays": 20,
+          "roce": 26.2,
+          "debtEquity": 0.12
+        },
+        {
+          "period": "Q4 FY2025",
+          "revenue": 4019,
+          "revenueGrowth": 20.8,
+          "ebitdaMargin": 7.81,
+          "netProfit": 194,
+          "profitGrowth": 21.3,
+          "workingCapitalDays": 16,
+          "roce": 26.2,
+          "debtEquity": 0.12
+        },
+        {
+          "period": "Q1 FY2026",
+          "revenue": 2982,
+          "revenueGrowth": 4.1,
+          "ebitdaMargin": 8.05,
+          "netProfit": 121,
+          "profitGrowth": -28.4,
+          "workingCapitalDays": 16,
+          "roce": 26.2,
+          "debtEquity": 0.12
+        },
+        {
+          "period": "Q2 FY2026",
+          "revenue": 2422,
+          "revenueGrowth": 6.4,
+          "ebitdaMargin": 9.29,
+          "netProfit": 99,
+          "profitGrowth": 3.1,
+          "workingCapitalDays": 16,
+          "roce": 26.2,
+          "debtEquity": 0.12
+        },
+        {
+          "period": "Q3 FY2026",
+          "revenue": 2925,
+          "revenueGrowth": 4.2,
+          "ebitdaMargin": 9.09,
+          "netProfit": 81,
+          "profitGrowth": -38.6,
+          "workingCapitalDays": 16,
+          "roce": 26.2,
+          "debtEquity": 0.12
+        }
+      ]
+    },
+    {
+      "id": "havells",
+      "name": "Havells India Limited",
+      "ticker": "HAVELLS",
+      "metrics": {
+        "revenueGrowth": 14.3,
+        "ebitdaMargin": 11.18,
+        "workingCapitalDays": 11,
+        "roce": 25.3,
+        "debtEquity": 0.04
+      },
+      "performance": "inline",
+      "varianceAnalysis": "Revenue grew 14.3% YoY. EBITDA margin at 11.18%. ROCE: 25.3%.",
+      "source": "Screener.in + Trendlyne",
+      "overview": {
+        "marketCapCr": 89942,
+        "currentPrice": 1434,
+        "peRatio": 59.2,
+        "bookValue": 138,
+        "dividendYield": 0.7,
+        "roce": 25.3,
+        "roe": 18.8,
+        "faceValue": 1
+      },
+      "history": [
+        {
+          "period": "Q2 FY2025",
+          "revenue": 4539,
+          "revenueGrowth": 16.4,
+          "ebitdaMargin": 10.35,
+          "netProfit": 268,
+          "profitGrowth": 7.6,
+          "workingCapitalDays": 11,
+          "roce": 25.3,
+          "debtEquity": 0.04
+        },
+        {
+          "period": "Q3 FY2025",
+          "revenue": 4889,
+          "revenueGrowth": 10.8,
+          "ebitdaMargin": 10.84,
+          "netProfit": 278,
+          "profitGrowth": -3.5,
+          "workingCapitalDays": 11,
+          "roce": 25.3,
+          "debtEquity": 0.04
+        },
+        {
+          "period": "Q4 FY2025",
+          "revenue": 6544,
+          "revenueGrowth": 20.2,
+          "ebitdaMargin": 13.25,
+          "netProfit": 517,
+          "profitGrowth": 15.7,
+          "workingCapitalDays": 12,
+          "roce": 25.3,
+          "debtEquity": 0.04
+        },
+        {
+          "period": "Q1 FY2026",
+          "revenue": 5455,
+          "revenueGrowth": -6,
+          "ebitdaMargin": 11.4,
+          "netProfit": 348,
+          "profitGrowth": -14.7,
+          "workingCapitalDays": 12,
+          "roce": 25.3,
+          "debtEquity": 0.04
+        },
+        {
+          "period": "Q2 FY2026",
+          "revenue": 4779,
+          "revenueGrowth": 5.3,
+          "ebitdaMargin": 11.38,
+          "netProfit": 318,
+          "profitGrowth": 18.7,
+          "workingCapitalDays": 12,
+          "roce": 25.3,
+          "debtEquity": 0.04
+        },
+        {
+          "period": "Q3 FY2026",
+          "revenue": 5588,
+          "revenueGrowth": 14.3,
+          "ebitdaMargin": 11.18,
+          "netProfit": 300,
+          "profitGrowth": 7.9,
+          "workingCapitalDays": 12,
+          "roce": 25.3,
+          "debtEquity": 0.04
+        }
+      ]
+    },
+    {
+      "id": "crompton",
+      "name": "Crompton Greaves Consumer Electricals",
+      "ticker": "CROMPTON",
+      "metrics": {
+        "revenueGrowth": 7.3,
+        "ebitdaMargin": 12.59,
+        "workingCapitalDays": -15,
+        "roce": 19,
+        "debtEquity": 0.14
+      },
+      "performance": "inline",
+      "varianceAnalysis": "Revenue grew 7.3% YoY. EBITDA margin at 12.59%. ROCE: 19%.",
+      "source": "Screener.in + Trendlyne",
+      "overview": {
+        "marketCapCr": 17544,
+        "currentPrice": 272,
+        "peRatio": 35.8,
+        "bookValue": 52.8,
+        "dividendYield": 1.1,
+        "roce": 19,
+        "roe": 17.4,
+        "faceValue": 2
+      },
+      "history": [
+        {
+          "period": "Q2 FY2025",
+          "revenue": 1896,
+          "revenueGrowth": 6.4,
+          "ebitdaMargin": 12.76,
+          "netProfit": 128,
+          "profitGrowth": 26.7,
+          "workingCapitalDays": -15,
+          "roce": 19,
+          "debtEquity": 0.14
+        },
+        {
+          "period": "Q3 FY2025",
+          "revenue": 1769,
+          "revenueGrowth": 4.5,
+          "ebitdaMargin": 12.78,
+          "netProfit": 112,
+          "profitGrowth": 31.8,
+          "workingCapitalDays": -15,
+          "roce": 19,
+          "debtEquity": 0.14
+        },
+        {
+          "period": "Q4 FY2025",
+          "revenue": 2061,
+          "revenueGrowth": 5.1,
+          "ebitdaMargin": 14.75,
+          "netProfit": 172,
+          "profitGrowth": 29.3,
+          "workingCapitalDays": -16,
+          "roce": 19,
+          "debtEquity": 0.14
+        },
+        {
+          "period": "Q1 FY2026",
+          "revenue": 1998,
+          "revenueGrowth": -6.5,
+          "ebitdaMargin": 11.61,
+          "netProfit": 124,
+          "profitGrowth": -18.4,
+          "workingCapitalDays": -16,
+          "roce": 19,
+          "debtEquity": 0.14
+        },
+        {
+          "period": "Q2 FY2026",
+          "revenue": 1916,
+          "revenueGrowth": 1.1,
+          "ebitdaMargin": 10.54,
+          "netProfit": 75,
+          "profitGrowth": -41.4,
+          "workingCapitalDays": -16,
+          "roce": 19,
+          "debtEquity": 0.14
+        },
+        {
+          "period": "Q3 FY2026",
+          "revenue": 1898,
+          "revenueGrowth": 7.3,
+          "ebitdaMargin": 12.59,
+          "netProfit": 101,
+          "profitGrowth": -9.8,
+          "workingCapitalDays": -16,
+          "roce": 19,
+          "debtEquity": 0.14
+        }
+      ]
+    },
+    {
+      "id": "whirlpool",
+      "name": "Whirlpool of India Limited",
+      "ticker": "WHIRLPOOL",
+      "metrics": {
+        "revenueGrowth": 4,
+        "ebitdaMargin": 8,
+        "workingCapitalDays": 1,
+        "roce": 12.6,
+        "debtEquity": 0.07
+      },
+      "performance": "inline",
+      "varianceAnalysis": "Revenue grew 4.0% YoY. EBITDA margin at 8%. ROCE: 12.6%.",
+      "source": "Screener.in + Trendlyne",
+      "overview": {
+        "marketCapCr": 11855,
+        "currentPrice": 934,
+        "peRatio": 33.9,
+        "bookValue": 321,
+        "dividendYield": 0.54,
+        "roce": 12.6,
+        "roe": 9.26,
+        "faceValue": 10
+      },
+      "history": [
+        {
+          "period": "Q2 FY2025",
+          "revenue": 1713,
+          "revenueGrowth": 12.5,
+          "ebitdaMargin": 8.11,
+          "netProfit": 54,
+          "profitGrowth": 42.1,
+          "workingCapitalDays": 1,
+          "roce": 12.6,
+          "debtEquity": 0.07
+        },
+        {
+          "period": "Q3 FY2025",
+          "revenue": 1705,
+          "revenueGrowth": 11,
+          "ebitdaMargin": 7.04,
+          "netProfit": 45,
+          "profitGrowth": 50,
+          "workingCapitalDays": 1,
+          "roce": 12.6,
+          "debtEquity": 0.07
+        },
+        {
+          "period": "Q4 FY2025",
+          "revenue": 2005,
+          "revenueGrowth": 15.6,
+          "ebitdaMargin": 11.82,
+          "netProfit": 119,
+          "profitGrowth": 50.6,
+          "workingCapitalDays": -5,
+          "roce": 12.6,
+          "debtEquity": 0.07
+        },
+        {
+          "period": "Q1 FY2026",
+          "revenue": 2432,
+          "revenueGrowth": -2.6,
+          "ebitdaMargin": 10.9,
+          "netProfit": 146,
+          "profitGrowth": 0.7,
+          "workingCapitalDays": -5,
+          "roce": 12.6,
+          "debtEquity": 0.07
+        },
+        {
+          "period": "Q2 FY2026",
+          "revenue": 1647,
+          "revenueGrowth": -3.9,
+          "ebitdaMargin": 6.68,
+          "netProfit": 42,
+          "profitGrowth": -22.2,
+          "workingCapitalDays": -5,
+          "roce": 12.6,
+          "debtEquity": 0.07
+        },
+        {
+          "period": "Q3 FY2026",
+          "revenue": 1774,
+          "revenueGrowth": 4,
+          "ebitdaMargin": 8,
+          "netProfit": 27,
+          "profitGrowth": -40,
+          "workingCapitalDays": -5,
+          "roce": 12.6,
+          "debtEquity": 0.07
+        }
+      ]
+    },
+    {
+      "id": "symphony",
+      "name": "Symphony Limited",
+      "ticker": "SYMPHONY",
+      "metrics": {
+        "revenueGrowth": -26,
+        "ebitdaMargin": 17.32,
+        "workingCapitalDays": 17,
+        "roce": 36.8,
+        "debtEquity": 0.19
+      },
+      "performance": "underperform",
+      "varianceAnalysis": "Revenue declined 26.0% YoY. EBITDA margin at 17.32%. ROCE: 36.8%.",
+      "source": "Screener.in + Trendlyne",
+      "overview": {
+        "marketCapCr": 5853,
+        "currentPrice": 852,
+        "peRatio": 35.8,
+        "bookValue": 114,
+        "dividendYield": 1.53,
+        "roce": 36.8,
+        "roe": 32.4,
+        "faceValue": 2
+      },
+      "history": [
+        {
+          "period": "Q2 FY2025",
+          "revenue": 289,
+          "revenueGrowth": 5.1,
+          "ebitdaMargin": 27.34,
+          "netProfit": 56,
+          "profitGrowth": 60,
+          "workingCapitalDays": 17,
+          "roce": 36.8,
+          "debtEquity": 0.19
+        },
+        {
+          "period": "Q3 FY2025",
+          "revenue": 242,
+          "revenueGrowth": -2,
+          "ebitdaMargin": 14.46,
+          "netProfit": -10,
+          "profitGrowth": -124.4,
+          "workingCapitalDays": 17,
+          "roce": 36.8,
+          "debtEquity": 0.19
+        },
+        {
+          "period": "Q4 FY2025",
+          "revenue": 381,
+          "revenueGrowth": 14.8,
+          "ebitdaMargin": 26.51,
+          "netProfit": 79,
+          "profitGrowth": 64.6,
+          "workingCapitalDays": -14,
+          "roce": 36.8,
+          "debtEquity": 0.19
+        },
+        {
+          "period": "Q1 FY2026",
+          "revenue": 251,
+          "revenueGrowth": -36.1,
+          "ebitdaMargin": 11.16,
+          "netProfit": 42,
+          "profitGrowth": -52.3,
+          "workingCapitalDays": -14,
+          "roce": 36.8,
+          "debtEquity": 0.19
+        },
+        {
+          "period": "Q2 FY2026",
+          "revenue": 163,
+          "revenueGrowth": -43.6,
+          "ebitdaMargin": 16.56,
+          "netProfit": 19,
+          "profitGrowth": -66.1,
+          "workingCapitalDays": -14,
+          "roce": 36.8,
+          "debtEquity": 0.19
+        },
+        {
+          "period": "Q3 FY2026",
+          "revenue": 179,
+          "revenueGrowth": -26,
+          "ebitdaMargin": 17.32,
+          "netProfit": 20,
+          "profitGrowth": 300,
+          "workingCapitalDays": -14,
+          "roce": 36.8,
+          "debtEquity": 0.19
+        }
+      ]
+    },
+    {
+      "id": "orient",
+      "name": "Orient Electric Limited",
+      "ticker": "ORIENTELEC",
+      "metrics": {
+        "revenueGrowth": 10.9,
+        "ebitdaMargin": 9.6,
+        "workingCapitalDays": 13,
+        "roce": 17.9,
+        "debtEquity": 0.12
+      },
+      "performance": "inline",
+      "varianceAnalysis": "Revenue grew 10.9% YoY. EBITDA margin at 9.6%. ROCE: 17.9%.",
+      "source": "Screener.in + Trendlyne",
+      "overview": {
+        "marketCapCr": 3747,
+        "currentPrice": 176,
+        "peRatio": 40.5,
+        "bookValue": 33.2,
+        "dividendYield": 0.85,
+        "roce": 17.9,
+        "roe": 12.5,
+        "faceValue": 1
+      },
+      "history": [
+        {
+          "period": "Q2 FY2025",
+          "revenue": 660,
+          "revenueGrowth": 16.4,
+          "ebitdaMargin": 8.48,
+          "netProfit": 10,
+          "profitGrowth": -44.4,
+          "workingCapitalDays": 13,
+          "roce": 17.9,
+          "debtEquity": 0.12
+        },
+        {
+          "period": "Q3 FY2025",
+          "revenue": 817,
+          "revenueGrowth": 8.6,
+          "ebitdaMargin": 9.91,
+          "netProfit": 27,
+          "profitGrowth": 12.5,
+          "workingCapitalDays": 13,
+          "roce": 17.9,
+          "debtEquity": 0.12
+        },
+        {
+          "period": "Q4 FY2025",
+          "revenue": 862,
+          "revenueGrowth": 9.4,
+          "ebitdaMargin": 10.32,
+          "netProfit": 31,
+          "profitGrowth": 138.5,
+          "workingCapitalDays": 23,
+          "roce": 17.9,
+          "debtEquity": 0.12
+        },
+        {
+          "period": "Q1 FY2026",
+          "revenue": 769,
+          "revenueGrowth": 1.9,
+          "ebitdaMargin": 8.45,
+          "netProfit": 18,
+          "profitGrowth": 28.6,
+          "workingCapitalDays": 23,
+          "roce": 17.9,
+          "debtEquity": 0.12
+        },
+        {
+          "period": "Q2 FY2026",
+          "revenue": 703,
+          "revenueGrowth": 6.5,
+          "ebitdaMargin": 8.11,
+          "netProfit": 12,
+          "profitGrowth": 20,
+          "workingCapitalDays": 23,
+          "roce": 17.9,
+          "debtEquity": 0.12
+        },
+        {
+          "period": "Q3 FY2026",
+          "revenue": 906,
+          "revenueGrowth": 10.9,
+          "ebitdaMargin": 9.6,
+          "netProfit": 26,
+          "profitGrowth": -3.7,
+          "workingCapitalDays": 23,
+          "roce": 17.9,
+          "debtEquity": 0.12
+        }
+      ]
+    },
+    {
+      "id": "bajaj",
+      "name": "Bajaj Electricals Limited",
+      "ticker": "BAJAJELEC",
+      "metrics": {
+        "revenueGrowth": -18.5,
+        "ebitdaMargin": 4.09,
+        "workingCapitalDays": 12,
+        "roce": 11.6,
+        "debtEquity": 0.14
+      },
+      "performance": "underperform",
+      "varianceAnalysis": "Revenue declined 18.5% YoY. EBITDA margin at 4.09%. ROCE: 11.6%.",
+      "source": "Screener.in + Trendlyne",
+      "overview": {
+        "marketCapCr": 4445,
+        "currentPrice": 385,
+        "peRatio": 118,
+        "bookValue": 148,
+        "dividendYield": 0.78,
+        "roce": 11.6,
+        "roe": 7.12,
+        "faceValue": 2
+      },
+      "history": [
+        {
+          "period": "Q2 FY2025",
+          "revenue": 1118,
+          "revenueGrowth": 0.4,
+          "ebitdaMargin": 7.78,
+          "netProfit": 13,
+          "profitGrowth": -51.9,
+          "workingCapitalDays": 12,
+          "roce": 11.6,
+          "debtEquity": 0.14
+        },
+        {
+          "period": "Q3 FY2025",
+          "revenue": 1290,
+          "revenueGrowth": 5,
+          "ebitdaMargin": 9.53,
+          "netProfit": 33,
+          "profitGrowth": -10.8,
+          "workingCapitalDays": 12,
+          "roce": 11.6,
+          "debtEquity": 0.14
+        },
+        {
+          "period": "Q4 FY2025",
+          "revenue": 1265,
+          "revenueGrowth": 6.5,
+          "ebitdaMargin": 10.59,
+          "netProfit": 59,
+          "profitGrowth": 103.4,
+          "workingCapitalDays": 35,
+          "roce": 11.6,
+          "debtEquity": 0.14
+        },
+        {
+          "period": "Q1 FY2026",
+          "revenue": 1065,
+          "revenueGrowth": -7.8,
+          "ebitdaMargin": 6.57,
+          "netProfit": 1,
+          "profitGrowth": -96.4,
+          "workingCapitalDays": 35,
+          "roce": 11.6,
+          "debtEquity": 0.14
+        },
+        {
+          "period": "Q2 FY2026",
+          "revenue": 1107,
+          "revenueGrowth": -1,
+          "ebitdaMargin": 8.49,
+          "netProfit": 10,
+          "profitGrowth": -23.1,
+          "workingCapitalDays": 35,
+          "roce": 11.6,
+          "debtEquity": 0.14
+        },
+        {
+          "period": "Q3 FY2026",
+          "revenue": 1051,
+          "revenueGrowth": -18.5,
+          "ebitdaMargin": 4.09,
+          "netProfit": -34,
+          "profitGrowth": -203,
+          "workingCapitalDays": 35,
+          "roce": 11.6,
+          "debtEquity": 0.14
+        }
+      ]
+    },
+    {
+      "id": "vguard",
+      "name": "V-Guard Industries Limited",
+      "ticker": "VGUARD",
+      "metrics": {
+        "revenueGrowth": 10.6,
+        "ebitdaMargin": 10.68,
+        "workingCapitalDays": 41,
+        "roce": 19.5,
+        "debtEquity": 0.06
+      },
+      "performance": "inline",
+      "varianceAnalysis": "Revenue grew 10.6% YoY. EBITDA margin at 10.68%. ROCE: 19.5%.",
+      "source": "Screener.in + Trendlyne",
+      "overview": {
+        "marketCapCr": 14360,
+        "currentPrice": 329,
+        "peRatio": 47.4,
+        "bookValue": 50.2,
+        "dividendYield": 0.46,
+        "roce": 19.5,
+        "roe": 15.8,
+        "faceValue": 1
+      },
+      "history": [
+        {
+          "period": "Q2 FY2025",
+          "revenue": 1294,
+          "revenueGrowth": 14.1,
+          "ebitdaMargin": 10.2,
+          "netProfit": 63,
+          "profitGrowth": 6.8,
+          "workingCapitalDays": 41,
+          "roce": 19.5,
+          "debtEquity": 0.06
+        },
+        {
+          "period": "Q3 FY2025",
+          "revenue": 1269,
+          "revenueGrowth": 8.9,
+          "ebitdaMargin": 10.17,
+          "netProfit": 60,
+          "profitGrowth": 3.4,
+          "workingCapitalDays": 41,
+          "roce": 19.5,
+          "debtEquity": 0.06
+        },
+        {
+          "period": "Q4 FY2025",
+          "revenue": 1538,
+          "revenueGrowth": 14.5,
+          "ebitdaMargin": 11.05,
+          "netProfit": 91,
+          "profitGrowth": 19.7,
+          "workingCapitalDays": 43,
+          "roce": 19.5,
+          "debtEquity": 0.06
+        },
+        {
+          "period": "Q1 FY2026",
+          "revenue": 1466,
+          "revenueGrowth": -0.7,
+          "ebitdaMargin": 10.23,
+          "netProfit": 74,
+          "profitGrowth": -25.3,
+          "workingCapitalDays": 43,
+          "roce": 19.5,
+          "debtEquity": 0.06
+        },
+        {
+          "period": "Q2 FY2026",
+          "revenue": 1341,
+          "revenueGrowth": 3.6,
+          "ebitdaMargin": 10.14,
+          "netProfit": 65,
+          "profitGrowth": 3.2,
+          "workingCapitalDays": 43,
+          "roce": 19.5,
+          "debtEquity": 0.06
+        },
+        {
+          "period": "Q3 FY2026",
+          "revenue": 1404,
+          "revenueGrowth": 10.6,
+          "ebitdaMargin": 10.68,
+          "netProfit": 57,
+          "profitGrowth": -5,
+          "workingCapitalDays": 43,
+          "roce": 19.5,
+          "debtEquity": 0.06
+        }
+      ]
+    },
+    {
+      "id": "ttk",
+      "name": "TTK Prestige Limited",
+      "ticker": "TTKPRESTIG",
+      "metrics": {
+        "revenueGrowth": 10.2,
+        "ebitdaMargin": 11.49,
+        "workingCapitalDays": 58,
+        "roce": 11.6,
+        "debtEquity": 0.1
+      },
+      "performance": "inline",
+      "varianceAnalysis": "Revenue grew 10.2% YoY. EBITDA margin at 11.49%. ROCE: 11.6%.",
+      "source": "Screener.in + Trendlyne",
+      "overview": {
+        "marketCapCr": 7551,
+        "currentPrice": 551,
+        "peRatio": 49.2,
+        "bookValue": 139,
+        "dividendYield": 1.09,
+        "roce": 11.6,
+        "roe": 7.42,
+        "faceValue": 1
+      },
+      "history": [
+        {
+          "period": "Q2 FY2025",
+          "revenue": 750,
+          "revenueGrowth": 2.9,
+          "ebitdaMargin": 11.87,
+          "netProfit": 52,
+          "profitGrowth": -11.9,
+          "workingCapitalDays": 58,
+          "roce": 11.6,
+          "debtEquity": 0.1
+        },
+        {
+          "period": "Q3 FY2025",
+          "revenue": 727,
+          "revenueGrowth": -1.5,
+          "ebitdaMargin": 13.2,
+          "netProfit": 57,
+          "profitGrowth": -8.1,
+          "workingCapitalDays": 58,
+          "roce": 11.6,
+          "debtEquity": 0.1
+        },
+        {
+          "period": "Q4 FY2025",
+          "revenue": 650,
+          "revenueGrowth": 4.3,
+          "ebitdaMargin": 10.77,
+          "netProfit": -42,
+          "profitGrowth": -173.7,
+          "workingCapitalDays": 69,
+          "roce": 11.6,
+          "debtEquity": 0.1
+        },
+        {
+          "period": "Q1 FY2026",
+          "revenue": 609,
+          "revenueGrowth": 3.6,
+          "ebitdaMargin": 9.69,
+          "netProfit": 26,
+          "profitGrowth": -36.6,
+          "workingCapitalDays": 69,
+          "roce": 11.6,
+          "debtEquity": 0.1
+        },
+        {
+          "period": "Q2 FY2026",
+          "revenue": 834,
+          "revenueGrowth": 11.2,
+          "ebitdaMargin": 13.79,
+          "netProfit": 63,
+          "profitGrowth": 21.2,
+          "workingCapitalDays": 69,
+          "roce": 11.6,
+          "debtEquity": 0.1
+        },
+        {
+          "period": "Q3 FY2026",
+          "revenue": 801,
+          "revenueGrowth": 10.2,
+          "ebitdaMargin": 11.49,
+          "netProfit": 32,
+          "profitGrowth": -43.9,
+          "workingCapitalDays": 69,
+          "roce": 11.6,
+          "debtEquity": 0.1
+        }
+      ]
+    },
+    {
+      "id": "butterfly",
+      "name": "Butterfly Gandhimathi Appliances",
+      "ticker": "BUTTERFLY",
+      "metrics": {
+        "revenueGrowth": 2.9,
+        "ebitdaMargin": 10.61,
+        "workingCapitalDays": 22,
+        "roce": 15,
+        "debtEquity": 0.04
+      },
+      "performance": "inline",
+      "varianceAnalysis": "Revenue grew 2.9% YoY. EBITDA margin at 10.61%. ROCE: 15%.",
+      "source": "Screener.in + Trendlyne",
+      "overview": {
+        "marketCapCr": 1104,
+        "currentPrice": 622,
+        "peRatio": 24.9,
+        "bookValue": 195,
+        "dividendYield": 0,
+        "roce": 15,
+        "roe": 10,
+        "faceValue": 10
+      },
+      "history": [
+        {
+          "period": "Q2 FY2025",
+          "revenue": 258,
+          "revenueGrowth": -16.2,
+          "ebitdaMargin": 11.24,
+          "netProfit": 13,
+          "profitGrowth": -13.3,
+          "workingCapitalDays": 22,
+          "roce": 15,
+          "debtEquity": 0.04
+        },
+        {
+          "period": "Q3 FY2025",
+          "revenue": 238,
+          "revenueGrowth": 0,
+          "ebitdaMargin": 9.66,
+          "netProfit": 8,
+          "profitGrowth": 500,
+          "workingCapitalDays": 22,
+          "roce": 15,
+          "debtEquity": 0.04
+        },
+        {
+          "period": "Q4 FY2025",
+          "revenue": 187,
+          "revenueGrowth": 12.7,
+          "ebitdaMargin": 11.23,
+          "netProfit": 9,
+          "profitGrowth": 145,
+          "workingCapitalDays": 30,
+          "roce": 15,
+          "debtEquity": 0.04
+        },
+        {
+          "period": "Q1 FY2026",
+          "revenue": 187,
+          "revenueGrowth": 2.7,
+          "ebitdaMargin": 9.63,
+          "netProfit": 6,
+          "profitGrowth": 100,
+          "workingCapitalDays": 30,
+          "roce": 15,
+          "debtEquity": 0.04
+        },
+        {
+          "period": "Q2 FY2026",
+          "revenue": 293,
+          "revenueGrowth": 13.6,
+          "ebitdaMargin": 11.6,
+          "netProfit": 17,
+          "profitGrowth": 30.8,
+          "workingCapitalDays": 30,
+          "roce": 15,
+          "debtEquity": 0.04
+        },
+        {
+          "period": "Q3 FY2026",
+          "revenue": 245,
+          "revenueGrowth": 2.9,
+          "ebitdaMargin": 10.61,
+          "netProfit": 11,
+          "profitGrowth": 37.5,
+          "workingCapitalDays": 30,
+          "roce": 15,
+          "debtEquity": 0.04
+        }
+      ]
+    },
+    {
+      "id": "amber",
+      "name": "Amber Enterprises India Limited",
+      "ticker": "AMBER",
+      "metrics": {
+        "revenueGrowth": 37.9,
+        "ebitdaMargin": 11.17,
+        "workingCapitalDays": -39,
+        "roce": 14.5,
+        "debtEquity": 0.9
+      },
+      "performance": "outperform",
+      "varianceAnalysis": "Revenue grew 37.9% YoY. EBITDA margin at 11.17%. ROCE: 14.5%.",
+      "source": "Screener.in + Trendlyne",
+      "overview": {
+        "marketCapCr": 27766,
+        "currentPrice": 7892,
+        "peRatio": 119,
+        "bookValue": 1037,
+        "dividendYield": 0,
+        "roce": 14.5,
+        "roe": 11.3,
+        "faceValue": 10
+      },
+      "history": [
+        {
+          "period": "Q2 FY2025",
+          "revenue": 1684.7,
+          "revenueGrowth": 81.7,
+          "ebitdaMargin": 9.95,
+          "netProfit": 20.96,
+          "profitGrowth": 471,
+          "workingCapitalDays": -39,
+          "roce": 14.5,
+          "debtEquity": 0.9
+        },
+        {
+          "period": "Q3 FY2025",
+          "revenue": 2133.33,
+          "revenueGrowth": 64.8,
+          "ebitdaMargin": 9.77,
+          "netProfit": 37.05,
+          "profitGrowth": 7364.7,
+          "workingCapitalDays": -39,
+          "roce": 14.5,
+          "debtEquity": 0.9
+        },
+        {
+          "period": "Q4 FY2025",
+          "revenue": 3753.7,
+          "revenueGrowth": 33.8,
+          "ebitdaMargin": 9.06,
+          "netProfit": 118.42,
+          "profitGrowth": 19.6,
+          "workingCapitalDays": -28,
+          "roce": 14.5,
+          "debtEquity": 0.9
+        },
+        {
+          "period": "Q1 FY2026",
+          "revenue": 3449.13,
+          "revenueGrowth": 43.6,
+          "ebitdaMargin": 9.03,
+          "netProfit": 105.98,
+          "profitGrowth": 41.8,
+          "workingCapitalDays": -28,
+          "roce": 14.5,
+          "debtEquity": 0.9
+        },
+        {
+          "period": "Q2 FY2026",
+          "revenue": 1647.01,
+          "revenueGrowth": -2.2,
+          "ebitdaMargin": 9.35,
+          "netProfit": -32.15,
+          "profitGrowth": -253.4,
+          "workingCapitalDays": -28,
+          "roce": 14.5,
+          "debtEquity": 0.9
+        },
+        {
+          "period": "Q3 FY2026",
+          "revenue": 2942.82,
+          "revenueGrowth": 37.9,
+          "ebitdaMargin": 11.17,
+          "netProfit": -9.34,
+          "profitGrowth": -125.2,
+          "workingCapitalDays": -28,
+          "roce": 14.5,
+          "debtEquity": 0.9
+        }
+      ]
+    },
+    {
+      "id": "dixon",
+      "name": "Dixon Technologies (India) Limited",
+      "ticker": "DIXON",
+      "metrics": {
+        "revenueGrowth": 2.1,
+        "ebitdaMargin": 4.81,
+        "workingCapitalDays": -2,
+        "roce": 40,
+        "debtEquity": 0.22
+      },
+      "performance": "inline",
+      "varianceAnalysis": "Revenue grew 2.1% YoY. EBITDA margin at 4.81%. ROCE: 40%.",
+      "source": "Screener.in + Trendlyne",
+      "overview": {
+        "marketCapCr": 69969,
+        "currentPrice": 11530,
+        "peRatio": 49.7,
+        "bookValue": 670,
+        "dividendYield": 0.07,
+        "roce": 40,
+        "roe": 32.8,
+        "faceValue": 2
+      },
+      "history": [
+        {
+          "period": "Q2 FY2025",
+          "revenue": 11534,
+          "revenueGrowth": 133.3,
+          "ebitdaMargin": 4.27,
+          "netProfit": 412,
+          "profitGrowth": 264.6,
+          "workingCapitalDays": -2,
+          "roce": 40,
+          "debtEquity": 0.22
+        },
+        {
+          "period": "Q3 FY2025",
+          "revenue": 10454,
+          "revenueGrowth": 117,
+          "ebitdaMargin": 4.46,
+          "netProfit": 216,
+          "profitGrowth": 122.7,
+          "workingCapitalDays": -2,
+          "roce": 40,
+          "debtEquity": 0.22
+        },
+        {
+          "period": "Q4 FY2025",
+          "revenue": 10293,
+          "revenueGrowth": 121,
+          "ebitdaMargin": 5.14,
+          "netProfit": 465,
+          "profitGrowth": 379.4,
+          "workingCapitalDays": 2,
+          "roce": 40,
+          "debtEquity": 0.22
+        },
+        {
+          "period": "Q1 FY2026",
+          "revenue": 12836,
+          "revenueGrowth": 95.1,
+          "ebitdaMargin": 4.48,
+          "netProfit": 280,
+          "profitGrowth": 100,
+          "workingCapitalDays": 2,
+          "roce": 40,
+          "debtEquity": 0.22
+        },
+        {
+          "period": "Q2 FY2026",
+          "revenue": 14855,
+          "revenueGrowth": 28.8,
+          "ebitdaMargin": 4.42,
+          "netProfit": 746,
+          "profitGrowth": 81.1,
+          "workingCapitalDays": 2,
+          "roce": 40,
+          "debtEquity": 0.22
+        },
+        {
+          "period": "Q3 FY2026",
+          "revenue": 10672,
+          "revenueGrowth": 2.1,
+          "ebitdaMargin": 4.81,
+          "netProfit": 321,
+          "profitGrowth": 48.6,
+          "workingCapitalDays": 2,
+          "roce": 40,
+          "debtEquity": 0.22
+        }
+      ]
+    },
+    {
+      "id": "ifb",
+      "name": "IFB Industries Limited",
+      "ticker": "IFBIND",
+      "metrics": {
+        "revenueGrowth": 11.3,
+        "ebitdaMargin": 7.43,
+        "workingCapitalDays": -11,
+        "roce": 17.4,
+        "debtEquity": 0.3
+      },
+      "performance": "inline",
+      "varianceAnalysis": "Revenue grew 11.3% YoY. EBITDA margin at 7.43%. ROCE: 17.4%.",
+      "source": "Screener.in + Trendlyne",
+      "overview": {
+        "marketCapCr": 4841,
+        "currentPrice": 1196,
+        "peRatio": 37.4,
+        "bookValue": 228,
+        "dividendYield": 0,
+        "roce": 17.4,
+        "roe": 13.7,
+        "faceValue": 10
+      },
+      "history": [
+        {
+          "period": "Q2 FY2025",
+          "revenue": 1219,
+          "revenueGrowth": 10.7,
+          "ebitdaMargin": 7.96,
+          "netProfit": 31,
+          "profitGrowth": 40.9,
+          "workingCapitalDays": -11,
+          "roce": 17.4,
+          "debtEquity": 0.3
+        },
+        {
+          "period": "Q3 FY2025",
+          "revenue": 1270,
+          "revenueGrowth": 9.4,
+          "ebitdaMargin": 9.53,
+          "netProfit": 31,
+          "profitGrowth": 82.4,
+          "workingCapitalDays": -11,
+          "roce": 17.4,
+          "debtEquity": 0.3
+        },
+        {
+          "period": "Q4 FY2025",
+          "revenue": 1334,
+          "revenueGrowth": 22.4,
+          "ebitdaMargin": 6.75,
+          "netProfit": 19,
+          "profitGrowth": 58.3,
+          "workingCapitalDays": -2,
+          "roce": 17.4,
+          "debtEquity": 0.3
+        },
+        {
+          "period": "Q1 FY2026",
+          "revenue": 1338,
+          "revenueGrowth": 5.4,
+          "ebitdaMargin": 6.95,
+          "netProfit": 26,
+          "profitGrowth": -31.6,
+          "workingCapitalDays": -2,
+          "roce": 17.4,
+          "debtEquity": 0.3
+        },
+        {
+          "period": "Q2 FY2026",
+          "revenue": 1370,
+          "revenueGrowth": 12.4,
+          "ebitdaMargin": 9.34,
+          "netProfit": 51,
+          "profitGrowth": 64.5,
+          "workingCapitalDays": -2,
+          "roce": 17.4,
+          "debtEquity": 0.3
+        },
+        {
+          "period": "Q3 FY2026",
+          "revenue": 1413,
+          "revenueGrowth": 11.3,
+          "ebitdaMargin": 7.43,
+          "netProfit": 24,
+          "profitGrowth": -22.6,
+          "workingCapitalDays": -2,
+          "roce": 17.4,
+          "debtEquity": 0.3
+        }
+      ]
+    }
+  ]
+}

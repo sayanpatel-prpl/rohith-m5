@@ -846,6 +846,35 @@ a:hover { color: var(--deep-blue); }
   max-height: 320px;
 }
 
+.chart-container--roce canvas {
+  max-height: none;
+}
+
+/* Mock data indicator — yellow highlight for sections without real data */
+.mock-data {
+  position: relative;
+  background: rgba(250, 204, 21, 0.08) !important;
+  border: 1.5px solid rgba(250, 204, 21, 0.45) !important;
+}
+.mock-data::before {
+  content: 'MOCK DATA';
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #92400E;
+  background: rgba(250, 204, 21, 0.35);
+  padding: 2px 6px;
+  border-radius: 3px;
+  z-index: 5;
+  pointer-events: none;
+}
+.mock-data .card-header {
+  background: rgba(250, 204, 21, 0.06);
+}
+
 .chart-legend-custom {
   display: flex;
   flex-wrap: wrap;

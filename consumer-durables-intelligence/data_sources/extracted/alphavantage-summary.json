@@ -1,0 +1,19 @@
+{
+  "fetchedAt": "2026-02-18T11:30:09.408Z",
+  "dataCutoff": "2020-01-01",
+  "companies": [
+    {
+      "companyId": "voltas",
+      "symbol": "VOLTAS.BSE",
+      "companyName": "Voltas Limited",
+      "hasDailyPrices": false,
+      "hasWeeklyPrices": false,
+      "hasMonthlyPrices": false,
+      "hasOverview": false,
+      "hasIncomeStatement": false,
+      "hasBalanceSheet": false,
+      "hasCashFlow": false,
+      "hasEarnings": false
+    }
+  ]
+}

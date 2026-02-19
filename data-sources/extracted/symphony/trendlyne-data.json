@@ -1,0 +1,91 @@
+{
+  "companyId": "symphony",
+  "companyName": "Symphony Limited",
+  "nseSymbol": "SYMPHONY",
+  "bseCode": "517385",
+  "sector": "Consumer Durables - Air Coolers",
+  "dataSource": "WebSearch aggregation (Trendlyne, MoneyControl, Screener, StockAnalysis, MarketsMojo)",
+  "extractedDate": "2026-02-18",
+  "quarterlyResults": {
+    "Q4_FY2025": {
+      "period": "Jan-Mar 2025",
+      "revenue_cr": 499.0,
+      "netProfit_cr": 79.0,
+      "ebitda_cr": null,
+      "ebitdaMargin_pct": null,
+      "notes": "Net profit rose 64.58% in March 2025 quarter"
+    },
+    "Q1_FY2026": {
+      "period": "Apr-Jun 2025",
+      "revenue_cr": null,
+      "netProfit_cr": 42.0,
+      "ebitda_cr": null,
+      "ebitdaMargin_pct": null,
+      "notes": "Revenue declined 36% YoY. Net profit at Rs 42 cr."
+    },
+    "Q2_FY2026": {
+      "period": "Jul-Sep 2025",
+      "revenue_cr": 176.0,
+      "netProfit_cr": 19.0,
+      "ebitda_cr": null,
+      "ebitdaMargin_pct": null,
+      "notes": "Revenue fell 42.67% YoY. Net profit fell 66.07% YoY."
+    },
+    "Q3_FY2026": {
+      "period": "Oct-Dec 2025",
+      "revenue_consolidated_cr": 179.0,
+      "revenue_standalone_cr": 182.0,
+      "netProfit_consolidated_cr": 20.0,
+      "netProfit_standalone_cr": 34.0,
+      "ebitda_cr": null,
+      "ebitdaMargin_pct": null,
+      "notes": "Consolidated net sales fell 26.03% YoY but recovered 9.82% QoQ. Net profit improved 300% YoY from loss of Rs 10 cr. Standalone PAT of Rs 34 cr vs negative Rs 4 cr last year."
+    }
+  },
+  "annualResults": {
+    "FY2025": {
+      "revenue_cr": null,
+      "netProfit_cr": 213.0,
+      "netProfitGrowth_pct": 43.92,
+      "notes": "Full year net profit rose 43.92% to Rs 213 cr"
+    }
+  },
+  "nineMonthFY2026": {
+    "revenue_cr": 593.0,
+    "netProfit_cr": 81.0,
+    "patMargin_pct": 13.66,
+    "notes": "Nine months Apr-Dec 2025"
+  },
+  "keyRatios": {
+    "asOfDate": "2025-11-10",
+    "pe": 47.35,
+    "pb": 7.86,
+    "evToEbitda": null,
+    "roe_pct": 27.94,
+    "roic_pct": 18.41,
+    "roce_pct": 36.63,
+    "debtToEquity": 0.24,
+    "currentRatio": 1.22,
+    "dividendYield_pct": 1.44,
+    "notes": "Almost debt free. Net cash position of Rs 2.78 billion (cash Rs 4.50 bn, debt Rs 1.72 bn)."
+  },
+  "balanceSheetHighlights": {
+    "asOfDate": "FY2025",
+    "cash_bn": 4.5,
+    "debt_bn": 1.72,
+    "netCash_bn": 2.78,
+    "ttmRevenue_bn": 14.25,
+    "ttmProfit_bn": 2.33,
+    "notes": "Net cash position. Almost debt free."
+  },
+  "earningsTranscriptSummary": {
+    "available": true,
+    "source": "Investing.com / Symphony investor page",
+    "keyHighlights": [
+      "Persistent revenue decline due to air cooler demand weakness",
+      "Stable revenue amid strategic challenges in Q3 FY26",
+      "Profit recovery masks declining revenue trend",
+      "Strong brand in air coolers but faces cyclical headwinds"
+    ]
+  }
+}

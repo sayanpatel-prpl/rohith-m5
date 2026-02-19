@@ -1,0 +1,73 @@
+{
+  "companyId": "butterfly",
+  "companyName": "Butterfly Gandhimathi Appliances Limited",
+  "nseSymbol": "BUTTERFLY",
+  "bseCode": "517421",
+  "sector": "Consumer Durables - Kitchen Appliances",
+  "dataSource": "WebSearch aggregation (Trendlyne, MoneyControl, Screener, StockAnalysis, IndMoney, Prysm, WhalesBook)",
+  "extractedDate": "2026-02-18",
+  "quarterlyResults": {
+    "Q1_FY2026": {
+      "period": "Apr-Jun 2025",
+      "revenue_cr": 219.0,
+      "netProfit_cr": null,
+      "ebitda_cr": 20.0,
+      "ebitdaMargin_pct": 9.0,
+      "notes": "Revenue Rs 219 cr, declined 14% YoY. EBITDA margin at 9.0%."
+    },
+    "Q2_FY2026": {
+      "period": "Jul-Sep 2025",
+      "revenue_cr": 294.33,
+      "netProfit_cr": 17.0,
+      "ebitda_cr": 28.0,
+      "ebitdaMargin_pct": 9.5,
+      "notes": "Revenue jumped 13.5% YoY from Rs 259.33 cr (Q2 FY25). Net profit jumped 34.07% YoY from Rs 12.68 cr. EBITDA grew 21% YoY. EBITDA margin expanded 60bps to 9.5%. Revenue grew 55.47% QoQ."
+    },
+    "Q3_FY2026": {
+      "period": "Oct-Dec 2025",
+      "revenue_cr": 245.0,
+      "netProfit_cr": 11.0,
+      "ebitda_cr": 20.0,
+      "ebitdaMargin_pct": 8.2,
+      "notes": "Revenue up 3% YoY. EBITDA up 17% YoY. PAT up 30% YoY. Excluding Rs 1.6 cr exceptional item (New Labour Code), PAT grew 44% YoY. EBITDA margin 8.2%, up 100bps YoY."
+    }
+  },
+  "nineMonthFY2026": {
+    "revenue_cr": 725.0,
+    "notes": "Nine months revenue Apr-Dec 2025"
+  },
+  "annualResults": {
+    "FY2024": {
+      "revenue_cr": 864.50,
+      "notes": "Total revenue approximately Rs 864.50 cr in FY2024"
+    }
+  },
+  "keyRatios": {
+    "asOfDate": "2025-12-10",
+    "pe": 33.07,
+    "pb": 3.95,
+    "evToEbitda": null,
+    "roe_pct": 11.69,
+    "roce_pct": 16.4,
+    "roce_3yrAvg_pct": 16.4,
+    "debtToEquity": 0.04,
+    "marketCap_cr": 1075.66,
+    "dividendYield_pct": null,
+    "notes": "Virtually debt-free. ROCE averaged 16.4% from FY2023-2025."
+  },
+  "balanceSheetHighlights": {
+    "asOfDate": "FY2025",
+    "notes": "Virtually debt-free (D/E 0.04). Financially stable. Small-cap company with market cap ~Rs 1,076 cr. Subsidiary of Crompton Greaves Consumer (acquirer)."
+  },
+  "earningsTranscriptSummary": {
+    "available": true,
+    "source": "The Wire / Prysm / WhalesBook",
+    "keyHighlights": [
+      "Q2 FY26 results announced with strong margin expansion",
+      "Premiumization strategy driving margin improvement",
+      "Gross margin improvement and spend optimization",
+      "Q3 FY26 profit slumped 37% as festive season disappointed (per MarketsMojo)",
+      "Operational efficiencies offsetting volume challenges"
+    ]
+  }
+}

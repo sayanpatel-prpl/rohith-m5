@@ -6,6 +6,7 @@
   <title>Consumer Durables Intelligence | Kompete by Kompete</title>
   <link rel="stylesheet" href="assets/css/main.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
@@ -159,7 +160,7 @@
         </div>
 
         <!-- Key Insights Summary (Pitch-Ready) -->
-        <div class="card mb-6" style="border-left: 4px solid var(--intelligence-blue);">
+        <div class="card mb-6 mock-data" style="border-left: 4px solid var(--intelligence-blue);">
           <div class="card-body">
             <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
               <h3 style="margin:0;">Key Insights — February 2026</h3>
@@ -175,14 +176,14 @@
 
         <div class="grid-2 mb-6">
           <!-- Big Themes -->
-          <div class="card">
+          <div class="card mock-data">
             <div class="card-header"><span class="card-title">Big Themes Emerging</span></div>
             <div class="card-body">
               <div class="themes-grid" id="themesGrid"></div>
             </div>
           </div>
           <!-- Red Flags -->
-          <div class="card">
+          <div class="card mock-data">
             <div class="card-header"><span class="card-title">Red Flags / Watchlist</span></div>
             <div class="card-body" id="redFlagsContainer"></div>
           </div>
@@ -198,34 +199,115 @@
       <div class="section-panel" id="section-market">
         <div class="section-header">
           <h2><span class="section-icon">&#9650;</span> Market Pulse — Consumer Durables</h2>
-          <p>Demand signals, input costs, margin outlook, and channel dynamics</p>
+          <p>Demand signals, input costs, margin outlook, and channel dynamics &nbsp;|&nbsp; <span style="font-size:12px;color:var(--slate-400);">Sources: Screener.in (financials), Deep Dive Feb 2026 (macro/commodity), company earnings calls</span></p>
         </div>
 
+        <!-- Q3 FY26 Earnings Snapshot -->
+        <div class="card mb-6" style="border-left: 4px solid var(--intelligence-blue);">
+          <div class="card-header">
+            <span class="card-title">Q3 FY26 Earnings Snapshot (Oct-Dec 2025)</span>
+            <span style="font-size:11px;color:var(--slate-400);">Source: Company earnings calls, <a href="https://www.swastika.co.in/blog/q3-fy26-earnings-scorecard-it-under-pressure-manufacturing-shines" target="_blank" rel="noopener noreferrer" style="color:var(--intelligence-blue);text-decoration:none;">Swastika Investmart</a></span>
+          </div>
+          <div class="card-body">
+            <div class="grid-4" id="q3EarningsCards"></div>
+          </div>
+        </div>
+
+        <!-- Demand Signals + Input Cost Trends -->
         <div class="grid-2 mb-6">
           <div class="card">
-            <div class="card-header"><span class="card-title">Demand Signals: Volume vs Price Growth (%)</span></div>
+            <div class="card-header">
+              <span class="card-title">Demand Signals: Revenue, Volume & Price Growth (%)</span>
+              <span style="font-size:11px;color:var(--slate-400);">Revenue: <a href="https://www.screener.in/" target="_blank" rel="noopener noreferrer" style="color:var(--intelligence-blue);text-decoration:none;">Screener.in</a> | Vol/Price: ESTIMATED</span>
+            </div>
             <div class="card-body"><div class="chart-container"><canvas id="chartDemand"></canvas></div></div>
           </div>
           <div class="card">
-            <div class="card-header"><span class="card-title">Input Cost Trends (Index, Q1 FY23 = 100)</span></div>
+            <div class="card-header">
+              <span class="card-title">Input Cost Trends (Index, Q1 FY23 = 100)</span>
+              <span style="font-size:11px;color:var(--slate-400);">Source: ESTIMATED from <a href="https://www.meadmetals.com/blog/metal-industry-outlook-2026-procurement-guide" target="_blank" rel="noopener noreferrer" style="color:var(--intelligence-blue);text-decoration:none;">Mead Metals</a>, ANI News, Deutsche Bank</span>
+            </div>
             <div class="card-body"><div class="chart-container"><canvas id="chartInputCosts"></canvas></div></div>
           </div>
         </div>
 
+        <!-- Commodity & Cost Outlook -->
+        <div class="card mb-6" style="border-left: 4px solid #EF4444;">
+          <div class="card-header">
+            <span class="card-title">Commodity & Cost Outlook — AI-Driven Shock (Feb 2026)</span>
+            <span style="font-size:11px;color:var(--slate-400);">Source: <a href="https://www.meadmetals.com/blog/metal-industry-outlook-2026-procurement-guide" target="_blank" rel="noopener noreferrer" style="color:var(--intelligence-blue);text-decoration:none;">Mead Metals</a>, JPMorgan, Goldman Sachs, UBS, ANI News</span>
+          </div>
+          <div class="card-body" style="overflow-x:auto;">
+            <table class="data-table" id="commodityOutlookTable">
+              <thead>
+                <tr>
+                  <th>Commodity</th>
+                  <th>2026 Forecast</th>
+                  <th>Impact</th>
+                  <th>Detail</th>
+                  <th>Source</th>
+                </tr>
+              </thead>
+              <tbody id="commodityOutlookBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Margin Bands + Channel Mix -->
         <div class="grid-2 mb-6">
           <div class="card">
-            <div class="card-header"><span class="card-title">Sector EBITDA Margin Bands (%)</span></div>
+            <div class="card-header">
+              <span class="card-title">Sector EBITDA Margin Bands (%)</span>
+              <span style="font-size:11px;color:var(--slate-400);">Source: <a href="https://www.screener.in/" target="_blank" rel="noopener noreferrer" style="color:var(--intelligence-blue);text-decoration:none;">Screener.in</a> &mdash; P75/mean/P25 of 14 companies</span>
+            </div>
             <div class="card-body"><div class="chart-container"><canvas id="chartMarginBands"></canvas></div></div>
           </div>
           <div class="card">
-            <div class="card-header"><span class="card-title">Channel Mix — Latest Quarter (%)</span></div>
+            <div class="card-header">
+              <span class="card-title">Channel Mix — Latest Quarter (%)</span>
+              <span style="font-size:11px;color:var(--slate-400);">Source: ESTIMATED from company disclosures &amp; industry reports</span>
+            </div>
             <div class="card-body"><div class="chart-container"><canvas id="chartChannelMix"></canvas></div></div>
           </div>
         </div>
 
+        <!-- Policy Impact Tracker -->
         <div class="card mb-6">
-          <div class="card-header"><span class="card-title">Seasonal Demand Patterns (Monthly Index, 100 = Average)</span></div>
-          <div class="card-body"><div class="chart-container"><canvas id="chartSeasonal"></canvas></div></div>
+          <div class="card-header">
+            <span class="card-title">Policy Impact Tracker — Budget 2026 & BEE Norms</span>
+            <span style="font-size:11px;color:var(--slate-400);">Source: <a href="https://insights.dsij.in/dsijarticledetail/union-budget-2026-consumer-durables-get-policy-lift-id004-55023" target="_blank" rel="noopener noreferrer" style="color:var(--intelligence-blue);text-decoration:none;">DSIJ</a>, <a href="https://www.croma.com/unboxed/upgraded-bee-star-rating-system-in-india-2026" target="_blank" rel="noopener noreferrer" style="color:var(--intelligence-blue);text-decoration:none;">Croma</a></span>
+          </div>
+          <div class="card-body" style="overflow-x:auto;">
+            <table class="data-table" id="policyImpactTable">
+              <thead>
+                <tr>
+                  <th>Policy</th>
+                  <th>Target Segment</th>
+                  <th>Impact</th>
+                  <th>Detail</th>
+                </tr>
+              </thead>
+              <tbody id="policyImpactBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Urban vs Rural + Seasonal -->
+        <div class="grid-2 mb-6">
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">Urban vs Rural Demand Dynamics</span>
+              <span style="font-size:11px;color:var(--slate-400);">Source: <a href="https://www.alvarezandmarsal.com/thought-leadership/the-reality-check-india-s-consumer-economy-needed" target="_blank" rel="noopener noreferrer" style="color:var(--intelligence-blue);text-decoration:none;">A&amp;M</a>, IBEF, WhalesBook</span>
+            </div>
+            <div class="card-body" id="urbanRuralContainer"></div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">Seasonal Demand Patterns (Monthly Index)</span>
+              <span style="font-size:11px;color:var(--slate-400);">Source: Industry estimates</span>
+            </div>
+            <div class="card-body"><div class="chart-container"><canvas id="chartSeasonal"></canvas></div></div>
+          </div>
         </div>
       </div>
 
@@ -248,41 +330,86 @@
                   <th class="text-right">Revenue (₹Cr)</th>
                   <th class="text-right">YoY Growth</th>
                   <th class="text-right">EBITDA %</th>
-                  <th class="text-right">WC Days</th>
-                  <th class="text-right">Inv. Days</th>
-                  <th class="text-right">Net Debt/EBITDA</th>
-                  <th class="text-right">ROCE %</th>
-                  <th class="text-right">Capex %</th>
+                  <th class="text-right">WC Days <span class="text-xs text-slate" title="Annual figure from Screener">(Ann.)</span></th>
+                  <th class="text-right">Inv. Days <span class="text-xs text-slate" title="Annual figure from Screener">(Ann.)</span></th>
+                  <th class="text-right">Net Debt/EBITDA <span class="text-xs text-slate" title="Annual figure derived from Balance Sheet + P&L">(Ann.)</span></th>
+                  <th class="text-right">ROCE % <span class="text-xs text-slate" title="Annual figure from Screener">(Ann.)</span></th>
+                  <th class="text-right">Capex % <span class="text-xs text-slate" title="Annual figure derived from Cash Flow / Revenue">(Ann.)</span></th>
                   <th>Rating</th>
                   <th>Trend</th>
                 </tr>
               </thead>
               <tbody id="financialTableBody"></tbody>
             </table>
+            <div style="margin-top:10px;padding-top:8px;border-top:1px solid var(--slate-100);font-size:11px;color:var(--slate-400);line-height:1.8;">
+              <strong style="color:var(--slate-500);">Sources:</strong>
+              Revenue, EBITDA %, PAT % &rarr; <a href="https://www.screener.in/" target="_blank" rel="noopener noreferrer" style="color:var(--intelligence-blue);text-decoration:none;">Screener.in</a> Quarterly Results |
+              WC Days, Inv. Days, ROCE % &rarr; <a href="https://www.screener.in/" target="_blank" rel="noopener noreferrer" style="color:var(--intelligence-blue);text-decoration:none;">Screener.in</a> Ratios (Annual) |
+              Net Debt/EBITDA &rarr; <a href="https://www.screener.in/" target="_blank" rel="noopener noreferrer" style="color:var(--intelligence-blue);text-decoration:none;">Screener.in</a> Balance Sheet &divide; P&amp;L (derived) |
+              Capex % &rarr; <a href="https://www.screener.in/" target="_blank" rel="noopener noreferrer" style="color:var(--intelligence-blue);text-decoration:none;">Screener.in</a> Cash Flow &divide; Revenue (derived) |
+              Rating &rarr; Auto-computed (peer-relative model) |
+              Cross-validation: <a href="https://trendlyne.com/fundamentals/stock-screener/" target="_blank" rel="noopener noreferrer" style="color:var(--intelligence-blue);text-decoration:none;">Trendlyne</a>
+            </div>
           </div>
         </div>
 
         <!-- Comparative Charts -->
-        <div class="grid-2 mb-6">
+        <div class="mb-6">
           <div class="card">
-            <div class="card-header"><span class="card-title">Revenue Trend — All Companies (₹ Cr)</span></div>
+            <div class="card-header">
+              <span class="card-title">Revenue Trend — All Companies (₹ Cr)</span>
+              <span style="font-size:11px;color:var(--slate-400);">Source: <a href="https://www.screener.in/" target="_blank" rel="noopener noreferrer" style="color:var(--intelligence-blue);text-decoration:none;">Screener.in</a> Quarterly Results</span>
+            </div>
             <div class="card-body"><div class="chart-container"><canvas id="chartRevenueTrend"></canvas></div></div>
           </div>
+        </div>
+        <div class="mb-6">
           <div class="card">
-            <div class="card-header"><span class="card-title">EBITDA Margin Trend (%)</span></div>
+            <div class="card-header">
+              <span class="card-title">EBITDA Margin Trend (%)</span>
+              <span style="font-size:11px;color:var(--slate-400);">Source: <a href="https://www.screener.in/" target="_blank" rel="noopener noreferrer" style="color:var(--intelligence-blue);text-decoration:none;">Screener.in</a> Quarterly Results</span>
+            </div>
             <div class="card-body"><div class="chart-container"><canvas id="chartEbitdaTrend"></canvas></div></div>
           </div>
         </div>
 
-        <div class="grid-2 mb-6">
+        <div class="mb-6">
           <div class="card">
-            <div class="card-header"><span class="card-title">ROCE Comparison (%)</span></div>
-            <div class="card-body"><div class="chart-container"><canvas id="chartRoce"></canvas></div></div>
+            <div class="card-header">
+              <span class="card-title">ROCE Comparison (%)</span>
+              <span style="font-size:11px;color:var(--slate-400);">Source: <a href="https://www.screener.in/" target="_blank" rel="noopener noreferrer" style="color:var(--intelligence-blue);text-decoration:none;">Screener.in</a> Ratios (Annual)</span>
+            </div>
+            <div class="card-body"><div class="chart-container chart-container--roce"><canvas id="chartRoce"></canvas></div></div>
           </div>
+        </div>
+        <div class="mb-6">
           <div class="card">
-            <div class="card-header"><span class="card-title">Working Capital vs Inventory Days — Heatmap</span></div>
+            <div class="card-header">
+              <span class="card-title">Working Capital vs Inventory Days — Heatmap</span>
+              <span style="font-size:11px;color:var(--slate-400);">Source: <a href="https://www.screener.in/" target="_blank" rel="noopener noreferrer" style="color:var(--intelligence-blue);text-decoration:none;">Screener.in</a> Ratios (Annual)</span>
+            </div>
             <div class="card-body" style="overflow-x:auto;" id="heatmapContainer"></div>
           </div>
+        </div>
+
+        <!-- Per-Company Source Links -->
+        <div style="padding:12px 4px;font-size:11px;color:var(--slate-400);line-height:1.8;">
+          <strong style="color:var(--slate-500);">Company Source Pages:</strong>
+          <a href="https://www.screener.in/company/WHIRLPOOL/consolidated/" target="_blank" rel="noopener noreferrer" style="color:var(--intelligence-blue);text-decoration:none;">Whirlpool</a> &bull;
+          <a href="https://www.screener.in/company/VOLTAS/consolidated/" target="_blank" rel="noopener noreferrer" style="color:var(--intelligence-blue);text-decoration:none;">Voltas</a> &bull;
+          <a href="https://www.screener.in/company/BLUESTARCO/consolidated/" target="_blank" rel="noopener noreferrer" style="color:var(--intelligence-blue);text-decoration:none;">Blue Star</a> &bull;
+          <a href="https://www.screener.in/company/CROMPTON/consolidated/" target="_blank" rel="noopener noreferrer" style="color:var(--intelligence-blue);text-decoration:none;">Crompton</a> &bull;
+          <a href="https://www.screener.in/company/BAJAJELEC/consolidated/" target="_blank" rel="noopener noreferrer" style="color:var(--intelligence-blue);text-decoration:none;">Bajaj Electricals</a> &bull;
+          <a href="https://www.screener.in/company/VGUARD/consolidated/" target="_blank" rel="noopener noreferrer" style="color:var(--intelligence-blue);text-decoration:none;">V-Guard</a> &bull;
+          <a href="https://www.screener.in/company/IFBIND/consolidated/" target="_blank" rel="noopener noreferrer" style="color:var(--intelligence-blue);text-decoration:none;">IFB Industries</a> &bull;
+          <a href="https://www.screener.in/company/HAVELLS/consolidated/" target="_blank" rel="noopener noreferrer" style="color:var(--intelligence-blue);text-decoration:none;">Havells</a> &bull;
+          <a href="https://www.screener.in/company/SYMPHONY/consolidated/" target="_blank" rel="noopener noreferrer" style="color:var(--intelligence-blue);text-decoration:none;">Symphony</a> &bull;
+          <a href="https://www.screener.in/company/ORIENTELEC/consolidated/" target="_blank" rel="noopener noreferrer" style="color:var(--intelligence-blue);text-decoration:none;">Orient Electric</a> &bull;
+          <a href="https://www.screener.in/company/DIXON/consolidated/" target="_blank" rel="noopener noreferrer" style="color:var(--intelligence-blue);text-decoration:none;">Dixon Technologies</a> &bull;
+          <a href="https://www.screener.in/company/AMBER/consolidated/" target="_blank" rel="noopener noreferrer" style="color:var(--intelligence-blue);text-decoration:none;">Amber Enterprises</a> &bull;
+          <a href="https://www.screener.in/company/TTKPRESTIG/consolidated/" target="_blank" rel="noopener noreferrer" style="color:var(--intelligence-blue);text-decoration:none;">TTK Prestige</a> &bull;
+          <a href="https://www.screener.in/company/BUTTERFLY/consolidated/" target="_blank" rel="noopener noreferrer" style="color:var(--intelligence-blue);text-decoration:none;">Butterfly</a>
+          &nbsp;| Data scraped 18 Feb 2026 | Bosch/JCHAC: no data
         </div>
       </div>
 
@@ -292,7 +419,19 @@
       <div class="section-panel" id="section-deals">
         <div class="section-header">
           <h2><span class="section-icon">&#9670;</span> Deals, Transactions & Capital Movements</h2>
-          <p>M&A, PE/VC investments, strategic stakes, and fundraises</p>
+          <p>M&A, PE/VC investments, strategic stakes, and fundraises &nbsp;|&nbsp; <span style="font-size:12px;color:var(--slate-400);">Sources: Company filings, BSE/NSE disclosures, news publications &nbsp;| FY2023 &ndash; FY2026</span></p>
+        </div>
+
+        <!-- Deal FY Filter -->
+        <div style="margin-bottom:16px;display:flex;align-items:center;gap:12px;">
+          <label for="dealFyFilter" style="font-size:13px;font-weight:600;color:var(--slate-300);">Financial Year:</label>
+          <select id="dealFyFilter" style="background:var(--card-bg);color:var(--slate-200);border:1px solid var(--border);border-radius:6px;padding:6px 12px;font-size:13px;cursor:pointer;">
+            <option value="all">All Years</option>
+            <option value="2026" selected>FY 2026 (Apr 2025 &ndash; Mar 2026)</option>
+            <option value="2025">FY 2025 (Apr 2024 &ndash; Mar 2025)</option>
+            <option value="2024">FY 2024 (Apr 2023 &ndash; Mar 2024)</option>
+            <option value="2023">FY 2023 (Apr 2022 &ndash; Mar 2023)</option>
+          </select>
         </div>
 
         <!-- Summary Stats (dynamically populated) -->
@@ -307,11 +446,15 @@
       <div class="section-panel" id="section-operational">
         <div class="section-header">
           <h2><span class="section-icon">&#9881;</span> Operational Intelligence & Efficiency Signals</h2>
-          <p>Supply chain, manufacturing, procurement, and retail operations</p>
+          <p>Supply chain, manufacturing, procurement, and retail operations &nbsp;|&nbsp; <span style="font-size:12px;color:var(--slate-400);">Sources: Company reports, investor presentations, earnings calls, <a href="https://www.screener.in/" target="_blank" rel="noopener noreferrer" style="color:var(--intelligence-blue);text-decoration:none;">Screener.in</a></span></p>
         </div>
 
+        <!-- Operational Metrics Comparison Table -->
         <div class="card mb-6">
-          <div class="card-header"><span class="card-title">Operational Metrics Comparison</span></div>
+          <div class="card-header">
+            <span class="card-title">Operational Metrics Comparison</span>
+            <span style="font-size:11px;color:var(--slate-400);">Source: operational-intelligence-data.md &mdash; compiled from 15 company reports + Deep Dive Feb 2026</span>
+          </div>
           <div class="card-body" style="overflow-x:auto;">
             <table class="data-table" id="operationalTable">
               <thead>
@@ -329,17 +472,81 @@
               </thead>
               <tbody id="operationalTableBody"></tbody>
             </table>
+            <div style="margin-top:10px;padding-top:8px;border-top:1px solid var(--slate-100);font-size:11px;color:var(--slate-400);line-height:1.8;">
+              <strong style="color:var(--slate-500);">Confidence:</strong>
+              Voltas Capacity 90% (VERIFIED) | Amber BoM 70% (VERIFIED) | Symphony 100% outsourced (VERIFIED) |
+              Butterfly 80% in-house (VERIFIED) | Dixon 93% ODM (VERIFIED) |
+              Other metrics: DERIVED/ESTIMATED from company filings &amp; industry data
+            </div>
           </div>
         </div>
 
+        <!-- Capacity vs Localization Scatter + Product Mix -->
         <div class="grid-2 mb-6">
           <div class="card">
-            <div class="card-header"><span class="card-title">Capacity Utilization vs Localization</span></div>
+            <div class="card-header">
+              <span class="card-title">Capacity Utilization vs Localization</span>
+              <span style="font-size:11px;color:var(--slate-400);">Source: Company reports + Q3 FY26 earnings</span>
+            </div>
             <div class="card-body"><div class="chart-container"><canvas id="chartCapacity"></canvas></div></div>
           </div>
           <div class="card">
-            <div class="card-header"><span class="card-title">Product Mix: Premium / Mass / Economy (%)</span></div>
+            <div class="card-header">
+              <span class="card-title">Product Mix: Premium / Mass / Economy (%)</span>
+              <span style="font-size:11px;color:var(--slate-400);">Source: Investor presentations + market positioning analysis</span>
+            </div>
             <div class="card-body"><div class="chart-container"><canvas id="chartProductMix"></canvas></div></div>
+          </div>
+        </div>
+
+        <!-- Supply Chain: Import Dependency Risk -->
+        <div class="card mb-6" style="border-left: 4px solid #F59E0B;">
+          <div class="card-header">
+            <span class="card-title">Supply Chain Risk: Import Dependency vs Commodity Exposure</span>
+            <span style="font-size:11px;color:var(--slate-400);">Source: operational-intelligence-data.md | Commodity data: <a href="https://www.meadmetals.com/blog/metal-industry-outlook-2026-procurement-guide" target="_blank" rel="noopener noreferrer" style="color:var(--intelligence-blue);text-decoration:none;">Mead Metals</a></span>
+          </div>
+          <div class="card-body"><div class="chart-container"><canvas id="chartImportRisk"></canvas></div></div>
+        </div>
+
+        <!-- Manufacturing Capacity + Retail Footprint -->
+        <div class="grid-2 mb-6">
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">Manufacturing Footprint & Capacity</span>
+              <span style="font-size:11px;color:var(--slate-400);">Source: Company annual reports, investor presentations</span>
+            </div>
+            <div class="card-body" style="overflow-x:auto;">
+              <table class="data-table" id="mfgFootprintTable">
+                <thead>
+                  <tr>
+                    <th>Company</th>
+                    <th class="text-right">Plants</th>
+                    <th class="text-right">Capex (₹Cr)</th>
+                    <th>Key Expansion</th>
+                  </tr>
+                </thead>
+                <tbody id="mfgFootprintBody"></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">Retail & Distribution Footprint</span>
+              <span style="font-size:11px;color:var(--slate-400);">Source: Company disclosures, India Infoline, IBEF</span>
+            </div>
+            <div class="card-body" style="overflow-x:auto;">
+              <table class="data-table" id="retailFootprintTable">
+                <thead>
+                  <tr>
+                    <th>Company</th>
+                    <th class="text-right">Dealers/Touch Points</th>
+                    <th class="text-right">Productivity (₹Cr)</th>
+                    <th>Expansion Signal</th>
+                  </tr>
+                </thead>
+                <tbody id="retailFootprintBody"></tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
@@ -353,19 +560,22 @@
           <p>CEO/CXO changes, board reshuffles, promoter movements, and governance flags</p>
         </div>
 
-        <div class="card mb-6">
+        <div class="card mb-6 mock-data">
           <div class="card-body">
             <div class="timeline" id="leadershipTimeline"></div>
           </div>
         </div>
 
         <div class="grid-2 mb-6">
-          <div class="card">
+          <div class="card mock-data">
             <div class="card-header"><span class="card-title">Promoter Holding (%)</span></div>
             <div class="card-body"><div class="chart-container"><canvas id="chartPromoter"></canvas></div></div>
           </div>
           <div class="card">
-            <div class="card-header"><span class="card-title">Sentiment Analysis (0-100)</span></div>
+            <div class="card-header">
+              <span class="card-title">Earnings Quality — Sovrenn Tags (0-100)</span>
+              <span style="font-size:11px;color:var(--slate-400);">Source: <a href="https://www.sovrenn.com/" target="_blank" rel="noopener noreferrer" style="color:var(--intelligence-blue);text-decoration:none;">Sovrenn</a> Quarterly Result Tags</span>
+            </div>
             <div class="card-body"><div class="chart-container"><canvas id="chartSentiment"></canvas></div></div>
           </div>
         </div>
@@ -380,7 +590,7 @@
           <p>Product launches, pricing strategies, D2C initiatives, partnerships, and plant expansions</p>
         </div>
 
-        <div class="grid-2" id="competitiveGrid"></div>
+        <div class="grid-2 mock-data" style="border-radius:12px;padding:4px;" id="competitiveGrid"></div>
       </div>
 
       <!-- ============================================================
@@ -392,7 +602,7 @@
           <p>Market sizing, cost benchmarks, margin levers, and scale vs profitability analysis</p>
         </div>
 
-        <div class="grid-4 mb-6">
+        <div class="grid-4 mb-6 mock-data" style="border-radius:12px;padding:4px;">
           <div class="stat-card">
             <div class="stat-card-label">Market Size</div>
             <div class="stat-card-value">₹45K Cr</div>
@@ -417,16 +627,22 @@
 
         <div class="grid-2 mb-6">
           <div class="card">
-            <div class="card-header"><span class="card-title">Segment Size & Growth</span></div>
+            <div class="card-header">
+              <span class="card-title">Segment Size & Growth</span>
+              <span style="font-size:11px;color:var(--slate-400);">Source: <a href="https://www.screener.in/" target="_blank" rel="noopener noreferrer" style="color:var(--intelligence-blue);text-decoration:none;">Screener.in</a> &mdash; revenue by sub-category</span>
+            </div>
             <div class="card-body"><div class="chart-container"><canvas id="chartSegments"></canvas></div></div>
           </div>
           <div class="card">
-            <div class="card-header"><span class="card-title">Cost Structure Benchmarks (% of Revenue)</span></div>
+            <div class="card-header">
+              <span class="card-title">Cost Structure Benchmarks (% of Revenue)</span>
+              <span style="font-size:11px;color:var(--slate-400);">Source: <a href="https://www.screener.in/" target="_blank" rel="noopener noreferrer" style="color:var(--intelligence-blue);text-decoration:none;">Screener.in</a> &mdash; OPM% quartiles</span>
+            </div>
             <div class="card-body"><div class="chart-container"><canvas id="chartCostBenchmark"></canvas></div></div>
           </div>
         </div>
 
-        <div class="card mb-6">
+        <div class="card mb-6 mock-data">
           <div class="card-header"><span class="card-title">Margin Levers Analysis</span></div>
           <div class="card-body" style="overflow-x:auto;">
             <table class="data-table">
@@ -444,7 +660,10 @@
         </div>
 
         <div class="card mb-6">
-          <div class="card-header"><span class="card-title">Scale vs Profitability (Revenue ₹Cr vs EBITDA %)</span></div>
+          <div class="card-header">
+            <span class="card-title">Scale vs Profitability (Revenue ₹Cr vs EBITDA %)</span>
+            <span style="font-size:11px;color:var(--slate-400);">Source: <a href="https://www.screener.in/" target="_blank" rel="noopener noreferrer" style="color:var(--intelligence-blue);text-decoration:none;">Screener.in</a> &mdash; Revenue, EBITDA %, ROCE</span>
+          </div>
           <div class="card-body"><div class="chart-container"><canvas id="chartScaleProfit"></canvas></div></div>
         </div>
       </div>
@@ -458,7 +677,7 @@
           <p>Tailored insights for different stakeholder groups</p>
         </div>
 
-        <div class="card mb-6">
+        <div class="card mb-6 mock-data">
           <div class="tabs" id="stakeholderTabs">
             <div class="tab active" data-tab="pe">PE / Investors</div>
             <div class="tab" data-tab="founders">Founders / Promoters</div>
@@ -493,12 +712,12 @@
 
         <div class="grid-2 mb-6">
           <!-- Likely Fundraises -->
-          <div class="card">
+          <div class="card mock-data">
             <div class="card-header"><span class="card-title">Likely Fundraises (Next 90 Days)</span></div>
             <div class="card-body" id="fundraisesList"></div>
           </div>
           <!-- Margin Inflection -->
-          <div class="card">
+          <div class="card mock-data">
             <div class="card-header"><span class="card-title">Margin Inflection Candidates</span></div>
             <div class="card-body" id="inflectionList"></div>
           </div>
@@ -506,19 +725,22 @@
 
         <div class="grid-2 mb-6">
           <!-- Consolidation Targets -->
-          <div class="card">
+          <div class="card mock-data">
             <div class="card-header"><span class="card-title">Potential Consolidation Targets</span></div>
             <div class="card-body" id="consolidationList"></div>
           </div>
           <!-- Stress Indicators -->
-          <div class="card">
+          <div class="card mock-data">
             <div class="card-header"><span class="card-title">Stress Indicators</span></div>
             <div class="card-body" id="stressList"></div>
           </div>
         </div>
 
         <div class="card mb-6">
-          <div class="card-header"><span class="card-title">Company Sentiment Radar</span></div>
+          <div class="card-header">
+            <span class="card-title">Earnings Quality Ranking</span>
+            <span style="font-size:11px;color:var(--slate-400);">Source: <a href="https://www.sovrenn.com/" target="_blank" rel="noopener noreferrer" style="color:var(--intelligence-blue);text-decoration:none;">Sovrenn</a> Quarterly Result Tags</span>
+          </div>
           <div class="card-body"><div class="chart-container"><canvas id="chartSentimentRadar"></canvas></div></div>
         </div>
       </div>
@@ -532,9 +754,9 @@
           <p>Actionable advisory opportunities identified from intelligence analysis</p>
         </div>
 
-        <div class="grid-3 mb-6" id="amSummaryStats"></div>
+        <div class="grid-3 mb-6 mock-data" style="border-radius:12px;padding:4px;" id="amSummaryStats"></div>
 
-        <div id="amOpportunitiesList"></div>
+        <div class="mock-data" style="border-radius:12px;padding:4px;" id="amOpportunitiesList"></div>
       </div>
 
     </div><!-- /page-content -->

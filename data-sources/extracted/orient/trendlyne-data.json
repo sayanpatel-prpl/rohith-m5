@@ -1,0 +1,73 @@
+{
+  "companyId": "orient",
+  "companyName": "Orient Electric Limited",
+  "nseSymbol": "ORIENTELEC",
+  "bseCode": "541301",
+  "sector": "Consumer Durables - Fans & Electrical Appliances",
+  "dataSource": "WebSearch aggregation (Trendlyne, MoneyControl, Screener, StockAnalysis, HouseGyan, CableCommunity)",
+  "extractedDate": "2026-02-18",
+  "quarterlyResults": {
+    "Q1_FY2026": {
+      "period": "Apr-Jun 2025",
+      "revenue_cr": 769.08,
+      "netProfit_cr": 17.52,
+      "pbt_cr": 23.66,
+      "ebitda_cr": 46.0,
+      "ebitdaMargin_pct": null,
+      "notes": "Net profit up 22.17% YoY. EBITDA grew 15% YoY."
+    },
+    "Q2_FY2026": {
+      "period": "Jul-Sep 2025",
+      "revenue_cr": 702.61,
+      "netProfit_cr": 12.06,
+      "ebitda_cr": 37.9,
+      "ebitdaMargin_pct": null,
+      "notes": "Revenue up 6.43% YoY from Rs 660.15 cr. PAT up 15.52% YoY. Revenue slipped 8.64% QoQ. PAT dropped 31.16% QoQ. Electrical consumer durables +0.31%, Lighting & switchgear +18.60%."
+    },
+    "Q3_FY2026": {
+      "period": "Oct-Dec 2025",
+      "revenue_cr": 906.45,
+      "netProfit_cr": 25.98,
+      "ebitda_cr": null,
+      "ebitdaMargin_pct": null,
+      "notes": "Net profit surged 115.34% QoQ. Revenue grew 29.01% QoQ. Strong quarter driven by seasonal demand for fans and cooling."
+    }
+  },
+  "annualResults": {
+    "FY2025": {
+      "revenue_cr": 3093.68,
+      "operatingMargin_pct": 6.6,
+      "shareholderFunds_cr": 694.30,
+      "longTermDebt": 0,
+      "notes": "Operating margin declined from 10.8% (FY2021) to 6.6% (FY2025). Zero long-term debt."
+    }
+  },
+  "keyRatios": {
+    "asOfDate": "2025-12-15",
+    "pe": 53.64,
+    "pb": 6.0,
+    "evToEbitda": null,
+    "roe_pct": 12.6,
+    "roce_pct": 19.9,
+    "debtToEquity": 0.12,
+    "dividendYield_pct": null,
+    "notes": "PE at 18% discount to peers median of 60.06x. PB at 13% premium to peers median of 5.35x."
+  },
+  "balanceSheetHighlights": {
+    "asOfDate": "Mar 2025",
+    "shareholderFunds_cr": 694.30,
+    "longTermDebt_cr": 0,
+    "ttmRevenue_bn": 32.54,
+    "notes": "CK Birla Group company. Zero long-term debt. Working capital well controlled."
+  },
+  "earningsTranscriptSummary": {
+    "available": true,
+    "source": "MarketsMojo / BSE filings",
+    "keyHighlights": [
+      "Q3 FY26 strong quarter but masks deeper valuation and growth concerns",
+      "Persistent operating margin compression (10.8% in FY21 to 6.6% in FY25)",
+      "Seasonal demand for fans driving quarterly volatility",
+      "Focus on lighting & switchgear segment showing better growth"
+    ]
+  }
+}

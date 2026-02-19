@@ -1,0 +1,83 @@
+{
+  "companyId": "amber",
+  "companyName": "Amber Enterprises India Limited",
+  "nseSymbol": "AMBER",
+  "bseCode": "540902",
+  "sector": "Consumer Durables - AC Components & Manufacturing (OEM/ODM)",
+  "dataSource": "WebSearch aggregation (Trendlyne, MoneyControl, Screener, StockAnalysis, KotakSecurities, InvestyWise)",
+  "extractedDate": "2026-02-18",
+  "quarterlyResults": {
+    "Q1_FY2026": {
+      "period": "Apr-Jun 2025",
+      "revenue_cr": 3478.8,
+      "netProfit_cr": 112.86,
+      "ebitda_cr": null,
+      "ebitdaMargin_pct": null,
+      "notes": "Strong quarter driven by AC season demand"
+    },
+    "Q2_FY2026": {
+      "period": "Jul-Sep 2025",
+      "revenue_cr": 1662.64,
+      "netProfit_cr": -32.86,
+      "ebitda_cr": null,
+      "ebitdaMargin_pct": null,
+      "notes": "Revenue fell 2.34% YoY. Net loss of Rs 32.86 cr (profit fell 271.15%). Seasonal weakness post AC season."
+    },
+    "Q3_FY2026": {
+      "period": "Oct-Dec 2025",
+      "revenue_cr": 1883.08,
+      "netProfit_cr": -48.73,
+      "ebitda_cr": null,
+      "ebitdaMargin_pct": null,
+      "notes": "Revenue from operations Rs 1,88,307.99 lakhs (vs Rs 1,41,306.95 lakhs YoY, +33.3% growth). However, PAT resulted in loss of Rs 4,873.28 lakhs (vs profit of Rs 2,272.73 lakhs in Q3 FY25)."
+    }
+  },
+  "nineMonthFY2026": {
+    "totalIncome_cr": 5172.49,
+    "pat_cr": 55.72,
+    "notes": "Nine months Apr-Dec 2025. Total Income Rs 5,17,248.77 lakhs. PAT Rs 5,572.27 lakhs."
+  },
+  "annualResults": {
+    "FY2025": {
+      "revenueGrowth_pct": 37.94,
+      "netSales_cr": 2942.82,
+      "notes": "Revenue growth of 37.94% YoY. Q4 FY25 showed 48% revenue growth."
+    }
+  },
+  "keyRatios": {
+    "asOfDate": "2025-12-18",
+    "pe": 190.4,
+    "pb": 7.94,
+    "evToEbitda": null,
+    "roe_pct": 10.66,
+    "roce_pct": 15.73,
+    "roe_avg_pct": 7.52,
+    "roce_avg_pct": 10.04,
+    "debtToEquity": 0.87,
+    "netDebtToEquity_avg": 0.50,
+    "debtToEbitda_avg": 3.20,
+    "dividendYield_pct": null,
+    "notes": "High PE of 190x. Significant leverage compared to peers. Revenue growth strong but profitability constrained."
+  },
+  "balanceSheetHighlights": {
+    "asOfDate": "FY2025",
+    "cash_bn": 10.44,
+    "debt_bn": 20.59,
+    "netDebt_bn": 10.15,
+    "ttmRevenue_bn": 110.21,
+    "ttmProfit_bn": 2.75,
+    "notes": "Higher leverage than most peers (D/E 0.87). Net debt of Rs 10.15 bn. Significant capex investment for capacity expansion."
+  },
+  "earningsTranscriptSummary": {
+    "available": true,
+    "source": "InvestyWise / Yahoo Finance",
+    "keyHighlights": [
+      "Record revenue in Q4 FY25 with 48% growth",
+      "Q1 FY26 strong driven by AC season",
+      "Seasonal losses in Q2 and Q3 FY26",
+      "Major OEM/ODM supplier for AC industry",
+      "Significant capacity expansion underway",
+      "Q3 FY26 board approved unaudited results"
+    ]
+  }
+}

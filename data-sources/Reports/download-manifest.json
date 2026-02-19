@@ -1,0 +1,509 @@
+{
+  "downloadedAt": "2026-02-18T12:05:17.678Z",
+  "totalAttempted": 55,
+  "successful": 44,
+  "failed": 11,
+  "skipped": 0,
+  "downloads": {
+    "success": [
+      {
+        "company": "Voltas Limited",
+        "folderId": "voltas",
+        "category": "annual-reports",
+        "title": "Voltas Annual Report FY2024-25 - Visioneering Tomorrow",
+        "url": "https://www.voltas.in/file-uploads/financial-snapshot/Annual-reports/VoltasAnnualReport2024-2025.pdf",
+        "filename": "VoltasAnnualReport2024-2025.pdf",
+        "size": "13.39 MB"
+      },
+      {
+        "company": "Voltas Limited",
+        "folderId": "voltas",
+        "category": "annual-reports",
+        "title": "Voltas Subsidiary Annual Report FY2024-25",
+        "url": "https://www.voltas.in/file-uploads/financial-snapshot/subsidiary-reports/VoltasSubsidiaryAnnualReport2024-2025-13-06-2025.pdf",
+        "filename": "VoltasSubsidiaryAnnualReport2024-2025-13-06-2025.pdf",
+        "size": "4.28 MB"
+      },
+      {
+        "company": "Voltas Limited",
+        "folderId": "voltas",
+        "category": "quarterly-results",
+        "title": "Q4 FY2025 / Full Year FY2025 Financial Results (March 2025)",
+        "url": "https://www.voltas.in/images/schedule-announcements/Financial_Results_March_2025.pdf",
+        "filename": "Financial_Results_March_2025.pdf",
+        "size": "5.18 MB"
+      },
+      {
+        "company": "Voltas Limited",
+        "folderId": "voltas",
+        "category": "quarterly-results",
+        "title": "Q1 FY2026 Investor Presentation (June 2025)",
+        "url": "https://www.voltas.in/storage/press-releases/Voltas_Q1FY26_Investor_Spiel.pdf",
+        "filename": "Voltas_Q1FY26_Investor_Spiel.pdf",
+        "size": "0.68 MB"
+      },
+      {
+        "company": "Voltas Limited",
+        "folderId": "voltas",
+        "category": "investor-presentations",
+        "title": "Voltas Q1 FY2025 Investor Presentation",
+        "url": "https://www.voltas.in/images/Investor/schedule-announcements/download/Voltas_Q1_FY25_Investor_PPT.pdf",
+        "filename": "Voltas_Q1_FY25_Investor_PPT.pdf",
+        "size": "5.21 MB"
+      },
+      {
+        "company": "Voltas Limited",
+        "folderId": "voltas",
+        "category": "investor-presentations",
+        "title": "Voltas Q1 FY2026 Investor Presentation",
+        "url": "https://www.voltas.in/storage/press-releases/Voltas_Q1FY26_Investor_Spiel.pdf",
+        "filename": "Voltas_Q1FY26_Investor_Spiel.pdf",
+        "size": "0.68 MB"
+      },
+      {
+        "company": "Voltas Limited",
+        "folderId": "voltas",
+        "category": "earnings-transcripts",
+        "title": "Voltas Q1 FY2025 Earnings Conference Call Transcript",
+        "url": "https://www.voltas.in/images/Investor/schedule-announcements/download/Voltas_Q1_FY25-Transcript_22082024.pdf",
+        "filename": "Voltas_Q1_FY25-Transcript_22082024.pdf",
+        "size": "0.28 MB"
+      },
+      {
+        "company": "Voltas Limited",
+        "folderId": "voltas",
+        "category": "earnings-transcripts",
+        "title": "Voltas Q2 FY2025 Earnings Conference Call Transcript",
+        "url": "https://www.voltas.in/images/schedule-announcements/TranscriptQ2FY25ResultsConferenceCall.pdf",
+        "filename": "TranscriptQ2FY25ResultsConferenceCall.pdf",
+        "size": "0.21 MB"
+      },
+      {
+        "company": "Voltas Limited",
+        "folderId": "voltas",
+        "category": "earnings-transcripts",
+        "title": "Voltas Q3 FY2025 Earnings Conference Call Transcript",
+        "url": "https://www.voltas.in/images/Investor/schedule-announcements/download/Voltas_Q3_FY25_Earnings_Transcript.pdf",
+        "filename": "Voltas_Q3_FY25_Earnings_Transcript.pdf",
+        "size": "0.43 MB"
+      },
+      {
+        "company": "Blue Star Limited",
+        "folderId": "bluestar",
+        "category": "quarterly-results",
+        "title": "Blue Star Investor Update Q3 FY2025 & 9M FY2025",
+        "url": "https://www.bluestarindia.com/media/394623/investor-update-note_q3fy25.pdf",
+        "filename": "investor-update-note_q3fy25.pdf",
+        "size": "0.78 MB"
+      },
+      {
+        "company": "Blue Star Limited",
+        "folderId": "bluestar",
+        "category": "quarterly-results",
+        "title": "Blue Star Investor Update Q4 FY2025 & FY2025",
+        "url": "https://www.bluestarindia.com/media/404670/investor-update-q4fy25.pdf",
+        "filename": "investor-update-q4fy25.pdf",
+        "size": "0.40 MB"
+      },
+      {
+        "company": "Blue Star Limited",
+        "folderId": "bluestar",
+        "category": "quarterly-results",
+        "title": "Blue Star Q1 FY2026 Press Release",
+        "url": "https://www.bluestarindia.com/media/404742/press-release-q1fy26.pdf",
+        "filename": "press-release-q1fy26.pdf",
+        "size": "0.09 MB"
+      },
+      {
+        "company": "Blue Star Limited",
+        "folderId": "bluestar",
+        "category": "investor-presentations",
+        "title": "Blue Star Q1 FY2025 Investor Update",
+        "url": "https://www.bluestarindia.com/media/394504/blue-star-ltd_investor-update_q1fy25.pdf",
+        "filename": "blue-star-ltd_investor-update_q1fy25.pdf",
+        "size": "0.36 MB"
+      },
+      {
+        "company": "Blue Star Limited",
+        "folderId": "bluestar",
+        "category": "investor-presentations",
+        "title": "Blue Star Q4 FY2025 & FY2025 Investor Update",
+        "url": "https://www.bluestarindia.com/media/404670/investor-update-q4fy25.pdf",
+        "filename": "investor-update-q4fy25.pdf",
+        "size": "0.40 MB"
+      },
+      {
+        "company": "Blue Star Limited",
+        "folderId": "bluestar",
+        "category": "earnings-transcripts",
+        "title": "Blue Star Q4 FY2025 Earnings Call Transcript",
+        "url": "https://www.bluestarindia.com/media/404792/lettertoexchanges-q4fy25earningscalltranscript.pdf",
+        "filename": "lettertoexchanges-q4fy25earningscalltranscript.pdf",
+        "size": "0.41 MB"
+      },
+      {
+        "company": "Blue Star Limited",
+        "folderId": "bluestar",
+        "category": "earnings-transcripts",
+        "title": "Blue Star Q1 FY2026 Earnings Conference Call Transcript",
+        "url": "https://www.bluestarindia.com/media/404795/transcript-bluestar-aug07-2025-final.pdf",
+        "filename": "transcript-bluestar-aug07-2025-final.pdf",
+        "size": "0.23 MB"
+      },
+      {
+        "company": "Blue Star Limited",
+        "folderId": "bluestar",
+        "category": "earnings-transcripts",
+        "title": "Blue Star Q2 & H1 FY2026 Earnings Conference Call Transcript",
+        "url": "https://www.bluestarindia.com/media/404822/transcript-q2fy26.pdf",
+        "filename": "transcript-q2fy26.pdf",
+        "size": "0.53 MB"
+      },
+      {
+        "company": "Blue Star Limited",
+        "folderId": "bluestar",
+        "category": "earnings-transcripts",
+        "title": "Blue Star Q3 & 9M FY2026 Earnings Conference Call Transcript",
+        "url": "https://www.bluestarindia.com/media/404847/earnings-call-transcripts-q3-9mfy26.pdf",
+        "filename": "earnings-call-transcripts-q3-9mfy26.pdf",
+        "size": "0.57 MB"
+      },
+      {
+        "company": "Havells India Limited",
+        "folderId": "havells",
+        "category": "annual-reports",
+        "title": "Havells India Integrated Annual Report FY2024-25",
+        "url": "https://havells.com/media/wysiwyg/PDF/Financial/Annual-Reports/2024-2025/Integrated-Report.pdf",
+        "filename": "Integrated-Report.pdf",
+        "size": "50.54 MB"
+      },
+      {
+        "company": "Havells India Limited",
+        "folderId": "havells",
+        "category": "annual-reports",
+        "title": "Havells India Notice of 42nd AGM FY2024-25",
+        "url": "https://havells.com/media/wysiwyg/PDF/Financial/Annual-Reports/2024-2025/Notice_of_AGM.pdf",
+        "filename": "Notice_of_AGM.pdf",
+        "size": "0.13 MB"
+      },
+      {
+        "company": "Havells India Limited",
+        "folderId": "havells",
+        "category": "investor-presentations",
+        "title": "Havells India Limited Corporate Presentation (June 2024)",
+        "url": "https://havells.com/media/wysiwyg/PDF/Presentation/Havells_India_Limited_June_2024.pdf",
+        "filename": "Havells_India_Limited_June_2024.pdf",
+        "size": "2.75 MB"
+      },
+      {
+        "company": "Havells India Limited",
+        "folderId": "havells",
+        "category": "earnings-transcripts",
+        "title": "Havells Q4 FY2025 Earnings Call Transcript",
+        "url": "https://havells.com/media/wysiwyg/PDF/Corporate-announcements/2025/Transcript_of_Earnings_Call_25042025.pdf",
+        "filename": "Transcript_of_Earnings_Call_25042025.pdf",
+        "size": "0.92 MB"
+      },
+      {
+        "company": "Havells India Limited",
+        "folderId": "havells",
+        "category": "other-reports",
+        "title": "Havells Progress at a Glance - Last 10 Years",
+        "url": "https://havells.com/media/wysiwyg/PDF/Financial/Ten-Year/Progress_at_a_Glance_for_last_10_years.pdf",
+        "filename": "Progress_at_a_Glance_for_last_10_years.pdf",
+        "size": "0.04 MB"
+      },
+      {
+        "company": "Crompton Greaves Consumer Electricals Limited",
+        "folderId": "crompton",
+        "category": "annual-reports",
+        "title": "Crompton Integrated Annual Report FY2024-25",
+        "url": "https://reports.crompton.co.in/shopify/public/files/IvrMP89Bgk_Integrated%20Annual%20Report.pdf",
+        "filename": "IvrMP89Bgk_Integrated Annual Report.pdf",
+        "size": "15.78 MB"
+      },
+      {
+        "company": "Crompton Greaves Consumer Electricals Limited",
+        "folderId": "crompton",
+        "category": "annual-reports",
+        "title": "Crompton FY2024-25 Standalone Financial Statements",
+        "url": "https://reports.crompton.co.in/shopify/public/files/YOLAD5NWlC_Standalone%20Financial%20Statements.pdf",
+        "filename": "YOLAD5NWlC_Standalone Financial Statements.pdf",
+        "size": "0.80 MB"
+      },
+      {
+        "company": "Crompton Greaves Consumer Electricals Limited",
+        "folderId": "crompton",
+        "category": "quarterly-results",
+        "title": "Crompton Q3 FY2026 Press Release (February 2026)",
+        "url": "https://reports.crompton.co.in/shopify/public/files/CBKGuoc7Mr_PressRelease12022025.pdf",
+        "filename": "CBKGuoc7Mr_PressRelease12022025.pdf",
+        "size": "4.87 MB"
+      },
+      {
+        "company": "Crompton Greaves Consumer Electricals Limited",
+        "folderId": "crompton",
+        "category": "investor-presentations",
+        "title": "Crompton Q2 & H1 FY2026 Investor Presentation (November 2025)",
+        "url": "https://reports.crompton.co.in/shopify/public/files/bibz7NIvJ9_InvestorPresentation-nov.pdf",
+        "filename": "bibz7NIvJ9_InvestorPresentation-nov.pdf",
+        "size": "4.99 MB"
+      },
+      {
+        "company": "Symphony Limited",
+        "folderId": "symphony",
+        "category": "annual-reports",
+        "title": "Symphony Integrated Annual Report FY2024-25",
+        "url": "https://symphonylimited.com/wp-content/uploads/2025/07/Symphony__Annual_Report_FY_2024_25.pdf",
+        "filename": "Symphony__Annual_Report_FY_2024_25.pdf",
+        "size": "6.53 MB"
+      },
+      {
+        "company": "Symphony Limited",
+        "folderId": "symphony",
+        "category": "investor-presentations",
+        "title": "Symphony Corporate Presentation (November 2025)",
+        "url": "https://symphonylimited.com/wp-content/uploads/2025/11/Corporate-Presentation_v1.pdf",
+        "filename": "Corporate-Presentation_v1.pdf",
+        "size": "12.01 MB"
+      },
+      {
+        "company": "V-Guard Industries Limited",
+        "folderId": "vguard",
+        "category": "quarterly-results",
+        "title": "V-Guard Financial Results FY2025",
+        "url": "https://www.vguard.in/uploads/investor_relations/VGUARD-Financial-Results-2025.pdf",
+        "filename": "VGUARD-Financial-Results-2025.pdf",
+        "size": "6.07 MB"
+      },
+      {
+        "company": "Amber Enterprises India Limited",
+        "folderId": "amber",
+        "category": "quarterly-results",
+        "title": "Amber Enterprises Financial Disclosure (September 2025)",
+        "url": "https://www.ir.ambergroupindia.com/wp-content/uploads/2025/09/AmberEnterprisesIndiaLimitedPD_20250922225404.pdf",
+        "filename": "AmberEnterprisesIndiaLimitedPD_20250922225404.pdf",
+        "size": "63.63 MB"
+      },
+      {
+        "company": "Amber Enterprises India Limited",
+        "folderId": "amber",
+        "category": "earnings-transcripts",
+        "title": "Amber Enterprises Q2 & H1 FY2024 Earnings Call Transcript",
+        "url": "https://www.ir.ambergroupindia.com/wp-content/uploads/2025/03/Earnings-Call-Transcript-Q2-H1-of-FY-23-24.pdf",
+        "filename": "Earnings-Call-Transcript-Q2-H1-of-FY-23-24.pdf",
+        "size": "0.41 MB"
+      },
+      {
+        "company": "Dixon Technologies (India) Limited",
+        "folderId": "dixon",
+        "category": "annual-reports",
+        "title": "Dixon Technologies Annual Report FY2023-24",
+        "url": "https://www.dixoninfo.com/json/dixon/annual-reports/dixon-annual-report-2023-24.pdf",
+        "filename": "dixon-annual-report-2023-24.pdf",
+        "size": "0.02 MB"
+      },
+      {
+        "company": "Dixon Technologies (India) Limited",
+        "folderId": "dixon",
+        "category": "quarterly-results",
+        "title": "Dixon Technologies Q4 FY2025 Financial Results with Presentation (May 2025)",
+        "url": "https://nsearchives.nseindia.com/corporate/DIXON_20052025161223_FinancialwithPPT20052025.pdf",
+        "filename": "DIXON_20052025161223_FinancialwithPPT20052025.pdf",
+        "size": "6.25 MB"
+      },
+      {
+        "company": "Dixon Technologies (India) Limited",
+        "folderId": "dixon",
+        "category": "investor-presentations",
+        "title": "Dixon Technologies Q1 FY2025 Earnings Presentation",
+        "url": "https://www.dixoninfo.com/json/dixon/quaterly-investor-presentation/Earning%20Presentation-%20Q1,%20FY24-25.pdf",
+        "filename": "Earning Presentation- Q1, FY24-25.pdf",
+        "size": "0.02 MB"
+      },
+      {
+        "company": "Dixon Technologies (India) Limited",
+        "folderId": "dixon",
+        "category": "investor-presentations",
+        "title": "Dixon Technologies Q2 & H1 FY2025 Earnings Presentation",
+        "url": "https://www.dixoninfo.com/json/dixon/quaterly-investor-presentation/Earning%20Presentation-%20Q2%20&%20H1%20-FY24-25.pdf",
+        "filename": "Earning Presentation- Q2 & H1 -FY24-25.pdf",
+        "size": "0.02 MB"
+      },
+      {
+        "company": "Dixon Technologies (India) Limited",
+        "folderId": "dixon",
+        "category": "investor-presentations",
+        "title": "Dixon Technologies Corporate Presentation",
+        "url": "https://dixoninfo.com/json//dixon/corporate-presentation/Dixon-Corporate-Presentation.pdf",
+        "filename": "Dixon-Corporate-Presentation.pdf",
+        "size": "0.02 MB"
+      },
+      {
+        "company": "Johnson Controls-Hitachi Air Conditioning India Limited",
+        "folderId": "jch",
+        "category": "annual-reports",
+        "title": "JCHAC Annual Report FY2023-24",
+        "url": "https://buy.hitachiaircon.in/images/investor_relation_reports/annual_report_0.94175200%201724843022.pdf",
+        "filename": "annual_report_0.94175200 1724843022.pdf",
+        "size": "0.00 MB"
+      },
+      {
+        "company": "Johnson Controls-Hitachi Air Conditioning India Limited",
+        "folderId": "jch",
+        "category": "corporate-governance",
+        "title": "JCHAC Board of Directors Information",
+        "url": "https://buy.hitachiaircon.in/cms/materials/4cbe22175a.pdf",
+        "filename": "4cbe22175a.pdf",
+        "size": "0.00 MB"
+      },
+      {
+        "company": "IFB Industries Limited",
+        "folderId": "ifb",
+        "category": "annual-reports",
+        "title": "IFB Industries Annual Report FY2024-25",
+        "url": "https://www.ifbindustries.com/assets/IFB_AR_2024-25.pdf",
+        "filename": "IFB_AR_2024-25.pdf",
+        "size": "4.92 MB"
+      },
+      {
+        "company": "IFB Industries Limited",
+        "folderId": "ifb",
+        "category": "investor-presentations",
+        "title": "IFB Industries Investor Presentation Q4 FY2024",
+        "url": "https://www.ifbindustries.com/assets/InvestorsPresentationQ4.pdf",
+        "filename": "InvestorsPresentationQ4.pdf",
+        "size": "2.25 MB"
+      },
+      {
+        "company": "IFB Industries Limited",
+        "folderId": "ifb",
+        "category": "investor-presentations",
+        "title": "IFB Industries Investor Presentation (November 2024 via NSE)",
+        "url": "https://nsearchives.nseindia.com/corporate/IFBIND_02112024161832_InvestorPresentation.pdf",
+        "filename": "IFBIND_02112024161832_InvestorPresentation.pdf",
+        "size": "5.58 MB"
+      },
+      {
+        "company": "IFB Industries Limited",
+        "folderId": "ifb",
+        "category": "earnings-transcripts",
+        "title": "IFB Industries Q4 FY2024 Earnings Call Transcript",
+        "url": "https://www.ifbindustries.com/assets/Transcript_Q4_FY2024.pdf",
+        "filename": "Transcript_Q4_FY2024.pdf",
+        "size": "5.69 MB"
+      },
+      {
+        "company": "IFB Industries Limited",
+        "folderId": "ifb",
+        "category": "earnings-transcripts",
+        "title": "IFB Industries Q1 FY2026 Earnings Call Transcript",
+        "url": "https://www.ifbindustries.com/assets/Transcript_Q1_FY26.pdf",
+        "filename": "Transcript_Q1_FY26.pdf",
+        "size": "1.06 MB"
+      }
+    ],
+    "failed": [
+      {
+        "company": "Whirlpool of India Limited",
+        "folderId": "whirlpool",
+        "category": "annual-reports",
+        "title": "Whirlpool of India Annual Report FY2024-25",
+        "url": "https://corporate.whirlpool.in/wp-content/uploads/2025/08/Annual-Report-2024-25.pdf",
+        "filename": "Annual-Report-2024-25.pdf",
+        "error": "fetch failed"
+      },
+      {
+        "company": "Whirlpool of India Limited",
+        "folderId": "whirlpool",
+        "category": "earnings-transcripts",
+        "title": "Whirlpool of India Q1 FY2025 Earnings Conference Call",
+        "url": "https://corporate.whirlpool.in/wp-content/uploads/2024/08/Q1-FY25-Earnings-Call-1.pdf",
+        "filename": "Q1-FY25-Earnings-Call-1.pdf",
+        "error": "fetch failed"
+      },
+      {
+        "company": "Bajaj Electricals Limited",
+        "folderId": "bajaj",
+        "category": "quarterly-results",
+        "title": "Bajaj Electricals Q3 FY2025 Financial Results (December 31, 2024)",
+        "url": "https://www.bajajelectricals.com/media/7991/q3-2024-25-financial-results-december-31-2024.pdf",
+        "filename": "q3-2024-25-financial-results-december-31-2024.pdf",
+        "error": "HTTP 404 Not Found"
+      },
+      {
+        "company": "Bajaj Electricals Limited",
+        "folderId": "bajaj",
+        "category": "investor-presentations",
+        "title": "Bajaj Electricals Investor Presentation - Audited Financials FY23",
+        "url": "https://www.bajajelectricals.com/media/7595/presentation-on-the-audited-financials-for-the-fourth-quarter-and-fy-ended-march-31-2023.pdf",
+        "filename": "presentation-on-the-audited-financials-for-the-fourth-quarter-and-fy-ended-march-31-2023.pdf",
+        "error": "HTTP 404 Not Found"
+      },
+      {
+        "company": "TTK Prestige Limited",
+        "folderId": "ttk",
+        "category": "other-reports",
+        "title": "TTK British Holdings Limited Annual Report & Financial Statements",
+        "url": "https://ttkprestige.com/wp-content/uploads/2025/07/TTK-British-Holdings-Limited-final-accounts-Signed.pdf",
+        "filename": "TTK-British-Holdings-Limited-final-accounts-Signed.pdf",
+        "error": "fetch failed"
+      },
+      {
+        "company": "Butterfly Gandhimathi Appliances Limited",
+        "folderId": "butterfly",
+        "category": "annual-reports",
+        "title": "Butterfly Gandhimathi Appliances Annual Report FY2022-23",
+        "url": "https://www.butterflyindia.com/wp-content/uploads/2023/06/Butterfly-C2C-22-06-2023_Final.pdf",
+        "filename": "Butterfly-C2C-22-06-2023_Final.pdf",
+        "error": "fetch failed"
+      },
+      {
+        "company": "Butterfly Gandhimathi Appliances Limited",
+        "folderId": "butterfly",
+        "category": "investor-presentations",
+        "title": "Butterfly Q4 2021 Investor Presentation",
+        "url": "https://www.butterflyindia.com/wp-content/uploads/2021/12/Investor-Presentation-2021-Q4.pdf",
+        "filename": "Investor-Presentation-2021-Q4.pdf",
+        "error": "fetch failed"
+      },
+      {
+        "company": "Amber Enterprises India Limited",
+        "folderId": "amber",
+        "category": "annual-reports",
+        "title": "Amber Enterprises Annual Report FY2023-24",
+        "url": "https://www.ambergroupindia.com/wp-content/uploads/2024/07/Annual-Report-for-the-FY-2023-24.pdf",
+        "filename": "Annual-Report-for-the-FY-2023-24.pdf",
+        "error": "HTTP 404 Not Found"
+      },
+      {
+        "company": "Amber Enterprises India Limited",
+        "folderId": "amber",
+        "category": "investor-presentations",
+        "title": "Amber Enterprises Q4 FY2024 Investor Presentation",
+        "url": "https://www.ambergroupindia.com/wp-content/uploads/2024/05/Investor-Presentation-Q4-FY24.pdf",
+        "filename": "Investor-Presentation-Q4-FY24.pdf",
+        "error": "HTTP 404 Not Found"
+      },
+      {
+        "company": "Amber Enterprises India Limited",
+        "folderId": "amber",
+        "category": "investor-presentations",
+        "title": "Amber Enterprises Q3 & 9M FY2024 Investor Presentation",
+        "url": "https://www.ambergroupindia.com/wp-content/uploads/2024/02/Investor-Presentation-Q3-9MFY24.pdf",
+        "filename": "Investor-Presentation-Q3-9MFY24.pdf",
+        "error": "HTTP 404 Not Found"
+      },
+      {
+        "company": "IFB Industries Limited",
+        "folderId": "ifb",
+        "category": "other-reports",
+        "title": "IFB Industries BRSR Report FY2024-25",
+        "url": "https://www.ifbindustries.com/assets/BRSR_2024-25.pdf",
+        "filename": "BRSR_2024-25.pdf",
+        "error": "terminated"
+      }
+    ],
+    "skipped": []
+  }
+}

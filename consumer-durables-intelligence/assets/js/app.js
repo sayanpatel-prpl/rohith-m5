@@ -45,8 +45,20 @@ const App = {
     Filters.init();
     try { Filters.loadFromLocalStorage(); } catch(e) { console.warn('Filter load failed, resetting:', e); localStorage.removeItem('cdi_filters'); }
     ExportUtils.init();
+    this.bindDealFyFilter();
     try { this.renderAllSections(); } catch(e) { console.error('renderAllSections error:', e); }
     try { Charts.renderAll(Filters.getFilteredCompanyIds()); } catch(e) { console.error('Charts.renderAll error:', e); }
+  },
+
+  bindDealFyFilter() {
+    const fySelect = document.getElementById('dealFyFilter');
+    if (fySelect) {
+      fySelect.addEventListener('change', () => {
+        const filtered = Filters.getFilteredCompanyIds();
+        this.renderDealsSummaryStats(filtered);
+        this.renderDeals(filtered);
+      });
+    }
   },
 
   // ============================================================
@@ -133,9 +145,16 @@ const App = {
     const ch = DATA.channelMix[companyId];
     const pm = DATA.productMix[companyId];
     const sent = DATA.sentimentScores[companyId];
-    const latestIdx = DataUtils.getLatestQuarterIndex();
+    const qIdx = DataUtils.getQuarterIndexForPeriod(Filters.timePeriod);
 
-    const ratingBadge = `<span class="badge badge-${rating.rating.toLowerCase()}">${rating.rating}</span>`;
+    const ratingBadgeClass = rating.rating === 'Outperform' ? 'badge-outperform' : rating.rating === 'Inline' ? 'badge-inline' : rating.rating === 'N/A' ? 'badge-info' : 'badge-underperform';
+    const ratingBadge = `<span class="badge ${ratingBadgeClass}">${rating.rating}</span>`;
+
+    const revAt = DataUtils.getValueAt(companyId, 'revenue', qIdx);
+    const revYoY = DataUtils.getYoYGrowthAt(companyId, 'revenue', qIdx);
+    const ebitdaAt = DataUtils.getValueAt(companyId, 'ebitdaMargin', qIdx);
+    const ebitdaYoY = DataUtils.getYoYGrowthAt(companyId, 'ebitdaMargin', qIdx);
+    const roceAt = DataUtils.getValueAt(companyId, 'roce', qIdx);
 
     const html = `
       <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
@@ -144,24 +163,25 @@ const App = {
       </div>
       <p class="text-sm text-slate mb-4">${rating.reason}</p>
 
-      <h4 class="mb-2">Key Financials (${DATA.quarters[latestIdx]})</h4>
+      <h4 class="mb-2">Key Financials (${DATA.quarters[qIdx]})</h4>
       <div class="grid-3 mb-4" style="gap:12px;">
         <div class="stat-card" style="padding:12px;">
           <div class="stat-card-label">Revenue</div>
-          <div class="stat-card-value" style="font-size:1.3rem;">${DataUtils.getLatestValue(companyId,'revenue') !== null ? '₹' + DataUtils.getLatestValue(companyId,'revenue') + ' Cr' : 'N/A'}</div>
-          <span class="stat-card-change ${parseFloat(DataUtils.getYoYGrowth(companyId,'revenue'))>=0?'positive':'negative'}">${DataUtils.getYoYGrowth(companyId,'revenue')}${DataUtils.getYoYGrowth(companyId,'revenue') !== 'N/A' ? '% YoY' : ''}</span>
+          <div class="stat-card-value" style="font-size:1.3rem;">${revAt !== null ? '₹' + revAt + ' Cr' : 'N/A'}</div>
+          <span class="stat-card-change ${parseFloat(revYoY)>=0?'positive':'negative'}">${revYoY}${revYoY !== 'N/A' ? '% YoY' : ''}</span>
         </div>
         <div class="stat-card" style="padding:12px;">
           <div class="stat-card-label">EBITDA Margin</div>
-          <div class="stat-card-value" style="font-size:1.3rem;">${DataUtils.getLatestValue(companyId,'ebitdaMargin') !== null ? DataUtils.getLatestValue(companyId,'ebitdaMargin') + '%' : 'N/A'}</div>
-          <span class="stat-card-change ${parseFloat(DataUtils.getYoYGrowth(companyId,'ebitdaMargin'))>=0?'positive':'negative'}">${DataUtils.getYoYGrowth(companyId,'ebitdaMargin')}${DataUtils.getYoYGrowth(companyId,'ebitdaMargin') !== 'N/A' ? '% YoY' : ''}</span>
+          <div class="stat-card-value" style="font-size:1.3rem;">${ebitdaAt !== null ? ebitdaAt + '%' : 'N/A'}</div>
+          <span class="stat-card-change ${parseFloat(ebitdaYoY)>=0?'positive':'negative'}">${ebitdaYoY}${ebitdaYoY !== 'N/A' ? '% YoY' : ''}</span>
         </div>
         <div class="stat-card" style="padding:12px;">
           <div class="stat-card-label">ROCE</div>
-          <div class="stat-card-value" style="font-size:1.3rem;">${f.roce[latestIdx] !== null ? f.roce[latestIdx] + '%' : 'N/A'}</div>
+          <div class="stat-card-value" style="font-size:1.3rem;">${roceAt !== null ? roceAt + '%' : 'N/A'}</div>
         </div>
       </div>
 
+      <div class="mock-data" style="border-radius:8px;padding:12px;margin-bottom:16px;">
       <h4 class="mb-2">Company Profile</h4>
       <table class="data-table mb-4">
         <tbody>
@@ -177,7 +197,9 @@ const App = {
           <tr><td class="fw-600">Key Products</td><td>${c.keyProducts.join(', ')}</td></tr>
         </tbody>
       </table>
+      </div>
 
+      <div class="mock-data" style="border-radius:8px;padding:12px;margin-bottom:16px;">
       <h4 class="mb-2">Operational Metrics</h4>
       <table class="data-table mb-4">
         <tbody>
@@ -186,12 +208,14 @@ const App = {
           <tr><td class="fw-600">Contract Manufacturing</td><td class="mono">${ops.contractManufacturingPct[companyId]}%</td></tr>
           <tr><td class="fw-600">After-Sales Cost</td><td class="mono">${ops.afterSalesCostPct[companyId]}%</td></tr>
           <tr><td class="fw-600">Vendor Consolidation</td><td class="mono">${ops.vendorConsolidationIndex[companyId]}</td></tr>
-          <tr><td class="fw-600">Import Dependency</td><td class="mono">${f.importDependency[latestIdx] !== null ? f.importDependency[latestIdx] + '%' : '-'}</td></tr>
-          <tr><td class="fw-600">Warranty Cost</td><td class="mono">${f.warrantyPct[latestIdx] !== null ? f.warrantyPct[latestIdx] + '%' : '-'}</td></tr>
-          <tr><td class="fw-600">Avg. Selling Price</td><td class="mono">${f.asp[latestIdx] !== null ? '₹' + DataUtils.formatNumber(f.asp[latestIdx]) : '-'}</td></tr>
+          <tr><td class="fw-600">Import Dependency</td><td class="mono">${f.importDependency[qIdx] !== null ? f.importDependency[qIdx] + '%' : '-'}</td></tr>
+          <tr><td class="fw-600">Warranty Cost</td><td class="mono">${f.warrantyPct[qIdx] !== null ? f.warrantyPct[qIdx] + '%' : '-'}</td></tr>
+          <tr><td class="fw-600">Avg. Selling Price</td><td class="mono">${f.asp[qIdx] !== null ? '₹' + DataUtils.formatNumber(f.asp[qIdx]) : '-'}</td></tr>
         </tbody>
       </table>
+      </div>
 
+      <div class="mock-data" style="border-radius:8px;padding:12px;margin-bottom:16px;">
       <h4 class="mb-2">Channel Mix</h4>
       <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">
         <span class="badge badge-info">GT ${ch.gt}%</span>
@@ -199,20 +223,24 @@ const App = {
         <span class="badge" style="background:rgba(245,158,11,0.08);color:#F59E0B;border:1px solid rgba(245,158,11,0.2);">E-Com ${ch.ecommerce}%</span>
         <span class="badge badge-purple">D2C ${ch.d2c}%</span>
       </div>
+      </div>
 
+      <div class="mock-data" style="border-radius:8px;padding:12px;margin-bottom:16px;">
       <h4 class="mb-2">Product Mix</h4>
       <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">
         <span class="badge badge-info">Premium ${pm.premium}%</span>
         <span class="badge" style="background:rgba(245,158,11,0.08);color:#F59E0B;border:1px solid rgba(245,158,11,0.2);">Mass ${pm.mass}%</span>
         <span class="badge" style="background:rgba(100,116,139,0.08);color:#64748B;border:1px solid rgba(100,116,139,0.2);">Economy ${pm.economy}%</span>
       </div>
+      </div>
 
-      <h4 class="mb-2">Sentiment Scores</h4>
-      <div style="display:flex;gap:16px;">
-        <div style="text-align:center;"><div class="text-xs text-slate">News</div><div class="fw-600 text-mono" style="color:${sent.news>=60?'var(--green)':'var(--red)'};">${sent.news}</div></div>
-        <div style="text-align:center;"><div class="text-xs text-slate">Analyst</div><div class="fw-600 text-mono" style="color:${sent.analyst>=60?'var(--green)':'var(--red)'};">${sent.analyst}</div></div>
-        <div style="text-align:center;"><div class="text-xs text-slate">Social</div><div class="fw-600 text-mono" style="color:${sent.social>=60?'var(--green)':'var(--red)'};">${sent.social}</div></div>
-        <div style="text-align:center;"><div class="text-xs text-slate">Overall</div><div class="fw-600 text-mono" style="color:${sent.overall>=60?'var(--green)':'var(--red)'};">${sent.overall}</div></div>
+      <h4 class="mb-2">Earnings Quality Score</h4>
+      <div style="display:flex;gap:16px;align-items:center;">
+        <div style="text-align:center;">
+          <div class="text-xs text-slate">Overall</div>
+          <div class="fw-600 text-mono" style="font-size:1.3rem;color:${sent.overall !== null ? (sent.overall>=60?'var(--green)':sent.overall>=40?'var(--amber)':'var(--red)') : '#94A3B8'};">${sent.overall !== null ? sent.overall : 'N/A'}</div>
+        </div>
+        <div class="text-xs text-slate" style="max-width:200px;">Source: Sovrenn quarterly result tags (recency-weighted)</div>
       </div>
     `;
 
@@ -231,6 +259,8 @@ const App = {
     safe(() => this.renderFinancialTable(filtered), 'financialTable');
     safe(() => this.renderHeatmap(filtered), 'heatmap');
     safe(() => this.renderOperationalTable(filtered), 'operationalTable');
+    safe(() => this.renderMfgFootprint(filtered), 'mfgFootprint');
+    safe(() => this.renderRetailFootprint(filtered), 'retailFootprint');
     safe(() => this.renderDealsSummaryStats(filtered), 'dealsSummaryStats');
     safe(() => this.renderDeals(filtered), 'deals');
     safe(() => this.renderLeadership(filtered), 'leadership');
@@ -242,6 +272,11 @@ const App = {
     safe(() => this.renderAmSummaryStats(filtered), 'amSummaryStats');
     safe(() => this.renderAmOpportunities(filtered), 'amOpportunities');
     safe(() => this.renderQuickStats(filtered), 'quickStats');
+    // Market Pulse new sections
+    safe(() => this.renderQ3EarningsCards(), 'q3Earnings');
+    safe(() => this.renderCommodityOutlook(), 'commodityOutlook');
+    safe(() => this.renderPolicyImpact(), 'policyImpact');
+    safe(() => this.renderUrbanRural(), 'urbanRural');
   },
 
   // ============================================================
@@ -297,10 +332,11 @@ const App = {
     const kw = this._getFilterKeywords(ids);
     const filteredDeals = DATA.deals.filter(d => this._companyMatchesFilter(d.company + ' ' + (d.buyer || '') + ' ' + (d.target || ''), kw));
     const totalDeals = filteredDeals.length;
-    const roceVals = ids.map(id => DataUtils.getLatestValue(id, 'roce')).filter(v => v !== null);
-    const avgRoce = roceVals.length ? (roceVals.reduce((a, b) => a + b, 0) / roceVals.length).toFixed(1) : 'N/A';
-    const ebitdaVals = ids.map(id => DataUtils.getLatestValue(id, 'ebitdaMargin')).filter(v => v !== null);
-    const avgEbitda = ebitdaVals.length ? (ebitdaVals.reduce((a, b) => a + b, 0) / ebitdaVals.length).toFixed(1) : 'N/A';
+    const qIdx = DataUtils.getQuarterIndexForPeriod(Filters.timePeriod);
+    const roceVals = ids.map(id => DataUtils.getValueAt(id, 'roce', qIdx)).filter(v => v !== null);
+    const avgRoce = roceVals.length ? (roceVals.reduce((a, b) => a + b, 0) / roceVals.length).toFixed(1) : null;
+    const ebitdaVals = ids.map(id => DataUtils.getValueAt(id, 'ebitdaMargin', qIdx)).filter(v => v !== null);
+    const avgEbitda = ebitdaVals.length ? (ebitdaVals.reduce((a, b) => a + b, 0) / ebitdaVals.length).toFixed(1) : null;
 
     el.innerHTML = `
       <div class="stat-card">
@@ -320,13 +356,13 @@ const App = {
       </div>
       <div class="stat-card">
         <div class="stat-card-label">Avg ROCE</div>
-        <div class="stat-card-value">${avgRoce !== 'N/A' ? avgRoce + '%' : 'N/A'}</div>
-        <span class="stat-card-change ${avgRoce !== 'N/A' && parseFloat(avgRoce) >= 12 ? 'positive' : 'neutral'}">${avgRoce !== 'N/A' ? 'Filtered set' : 'No data'}</span>
+        <div class="stat-card-value">${avgRoce !== null ? avgRoce + '%' : '-'}</div>
+        <span class="stat-card-change ${avgRoce !== null && parseFloat(avgRoce) >= 12 ? 'positive' : 'neutral'}">${avgRoce !== null ? 'Filtered set' : 'No data'}</span>
       </div>
       <div class="stat-card">
         <div class="stat-card-label">Avg EBITDA</div>
-        <div class="stat-card-value">${avgEbitda !== 'N/A' ? avgEbitda + '%' : 'N/A'}</div>
-        <span class="stat-card-change neutral">${avgEbitda !== 'N/A' ? 'Filtered set' : 'No data'}</span>
+        <div class="stat-card-value">${avgEbitda !== null ? avgEbitda + '%' : '-'}</div>
+        <span class="stat-card-change neutral">${avgEbitda !== null ? 'Filtered set' : 'No data'}</span>
       </div>
     `;
   },
@@ -339,30 +375,31 @@ const App = {
     if (!tbody) return;
 
     const ids = filteredIds || Filters.getFilteredCompanyIds();
+    const qIdx = DataUtils.getQuarterIndexForPeriod(Filters.timePeriod);
 
     const fmt = (v, suffix) => v !== null && v !== undefined ? v + suffix : '-';
     const fmtCur = (v) => v !== null && v !== undefined ? DataUtils.formatCurrency(v) : '-';
 
     tbody.innerHTML = ids.map(id => {
       const c = DataUtils.getCompany(id);
-      const rev = DataUtils.getLatestValue(id, 'revenue');
-      const yoy = DataUtils.getYoYGrowth(id, 'revenue');
-      const ebitda = DataUtils.getLatestValue(id, 'ebitdaMargin');
-      const wc = DataUtils.getLatestValue(id, 'workingCapDays');
-      const inv = DataUtils.getLatestValue(id, 'inventoryDays');
-      const debt = DataUtils.getLatestValue(id, 'netDebtEbitda');
-      const capex = DataUtils.getLatestValue(id, 'capexIntensity');
-      const roce = DataUtils.getLatestValue(id, 'roce');
+      const rev = DataUtils.getValueAt(id, 'revenue', qIdx);
+      const yoy = DataUtils.getYoYGrowthAt(id, 'revenue', qIdx);
+      const ebitda = DataUtils.getValueAt(id, 'ebitdaMargin', qIdx);
+      const wc = DataUtils.getValueAt(id, 'workingCapDays', qIdx);
+      const inv = DataUtils.getValueAt(id, 'inventoryDays', qIdx);
+      const debt = DataUtils.getValueAt(id, 'netDebtEbitda', qIdx);
+      const capex = DataUtils.getValueAt(id, 'capexIntensity', qIdx);
+      const roce = DataUtils.getValueAt(id, 'roce', qIdx);
       const rating = DATA.performanceRatings[id];
 
       const yoyVal = parseFloat(yoy);
-      const trendIcon = isNaN(yoyVal) ? '<span class="trend-flat">&#9654;</span>' : yoyVal > 2 ? '<span class="trend-up">&#9650;</span>' : yoyVal < -2 ? '<span class="trend-down">&#9660;</span>' : '<span class="trend-flat">&#9654;</span>';
+      const trendIcon = isNaN(yoyVal) ? '-' : yoyVal > 2 ? '<span class="trend-up">&#9650;</span>' : yoyVal < -2 ? '<span class="trend-down">&#9660;</span>' : '<span class="trend-flat">&#9654;</span>';
       const yoyClass = isNaN(yoyVal) ? '' : yoyVal >= 0 ? 'text-green' : 'text-red';
-      const yoyDisplay = yoy === 'N/A' ? 'N/A' : yoy + '%';
+      const yoyDisplay = yoy === 'N/A' ? '-' : yoy + '%';
 
-      const ratingClass = rating.rating === 'Outperform' ? 'badge-outperform' : rating.rating === 'Inline' ? 'badge-inline' : 'badge-underperform';
+      const ratingClass = rating.rating === 'Outperform' ? 'badge-outperform' : rating.rating === 'Inline' ? 'badge-inline' : rating.rating === 'N/A' ? 'badge-info' : 'badge-underperform';
 
-      return `<tr class="clickable" data-company="${id}">
+      return `<tr>
         <td><span class="fw-600 text-navy">${c.name}</span></td>
         <td><span class="badge badge-info">${c.subCategory}</span></td>
         <td class="text-right mono">${fmtCur(rev)}</td>
@@ -373,17 +410,12 @@ const App = {
         <td class="text-right mono">${fmt(debt, 'x')}</td>
         <td class="text-right mono">${fmt(roce, '%')}</td>
         <td class="text-right mono">${fmt(capex, '%')}</td>
-        <td><span class="badge ${ratingClass}">${rating.rating}</span></td>
+        <td><span class="badge ${ratingClass}">${rating.rating === 'N/A' ? '-' : rating.rating}</span></td>
         <td class="text-center">${trendIcon}</td>
       </tr>`;
     }).join('');
 
-    // Bind click handlers for drill-down
-    tbody.querySelectorAll('tr.clickable').forEach(tr => {
-      tr.addEventListener('click', () => {
-        this.showCompanyModal(tr.dataset.company);
-      });
-    });
+    // Modal drill-down removed per user request
   },
 
   // ============================================================
@@ -393,6 +425,7 @@ const App = {
     const container = document.getElementById('heatmapContainer');
     if (!container) return;
     const ids = filteredIds || Filters.getFilteredCompanyIds();
+    const qIdx = DataUtils.getQuarterIndexForPeriod(Filters.timePeriod);
 
     const getHmClass = (value, metric) => {
       if (metric === 'wc' || metric === 'inv') {
@@ -410,10 +443,10 @@ const App = {
 
     ids.forEach(id => {
       const c = DataUtils.getCompany(id);
-      const wc = DataUtils.getLatestValue(id, 'workingCapDays');
-      const inv = DataUtils.getLatestValue(id, 'inventoryDays');
-      const wcChgRaw = DataUtils.getYoYGrowth(id, 'workingCapDays');
-      const invChgRaw = DataUtils.getYoYGrowth(id, 'inventoryDays');
+      const wc = DataUtils.getValueAt(id, 'workingCapDays', qIdx);
+      const inv = DataUtils.getValueAt(id, 'inventoryDays', qIdx);
+      const wcChgRaw = DataUtils.getYoYGrowthAt(id, 'workingCapDays', qIdx);
+      const invChgRaw = DataUtils.getYoYGrowthAt(id, 'inventoryDays', qIdx);
       const wcChg = parseFloat(wcChgRaw);
       const invChg = parseFloat(invChgRaw);
 
@@ -433,33 +466,64 @@ const App = {
   // ============================================================
   // SECTION 4: DEALS
   // ============================================================
+  // Helper: get Indian FY for a date string (YYYY-MM-DD)
+  // Indian FY: Apr–Mar. FY2026 = Apr 2025 – Mar 2026
+  _getDealFY(dateStr) {
+    const d = new Date(dateStr);
+    const month = d.getMonth(); // 0-indexed: 0=Jan, 3=Apr
+    const year = d.getFullYear();
+    return month >= 3 ? year + 1 : year; // Apr(3)+ → next FY, Jan-Mar → same year FY
+  },
+
+  // Helper: filter deals by company keywords AND FY dropdown
+  _getFilteredDeals(filteredIds) {
+    const ids = filteredIds || Filters.getFilteredCompanyIds();
+    const kw = this._getFilterKeywords(ids);
+    let deals = DATA.deals.filter(d => this._companyMatchesFilter(d.company + ' ' + (d.buyer || '') + ' ' + (d.target || ''), kw));
+
+    // Apply FY filter
+    const fySelect = document.getElementById('dealFyFilter');
+    if (fySelect && fySelect.value !== 'all') {
+      const fy = parseInt(fySelect.value);
+      deals = deals.filter(d => this._getDealFY(d.date) === fy);
+    }
+    return deals;
+  },
+
   renderDealsSummaryStats(filteredIds) {
     const el = document.getElementById('dealsSummaryStats');
     if (!el) return;
 
-    const ids = filteredIds || Filters.getFilteredCompanyIds();
-    const kw = this._getFilterKeywords(ids);
-    const dealsToShow = DATA.deals.filter(d => this._companyMatchesFilter(d.company + ' ' + (d.buyer || '') + ' ' + (d.target || ''), kw));
+    const dealsToShow = this._getFilteredDeals(filteredIds);
 
-    const totalValue = dealsToShow.reduce((sum, d) => sum + d.dealSize, 0);
-    const maCount = dealsToShow.filter(d => d.type === 'M&A').length;
-    const multiples = dealsToShow.map(d => parseFloat(d.valuationMultiple)).filter(v => !isNaN(v));
+    const failedStatuses = ['Failed', 'Rejected', 'Bidders Withdrew', 'Withdrew', 'Shelved'];
+    const activeDeals = dealsToShow.filter(d => !failedStatuses.includes(d.status));
+    const failedCount = dealsToShow.length - activeDeals.length;
+
+    const totalValue = activeDeals.reduce((sum, d) => sum + (d.dealSize || 0), 0);
+    const maCount = dealsToShow.filter(d => ['M&A', 'Acquisition', 'Demerger', 'Divestiture'].includes(d.type)).length;
+    const peCount = dealsToShow.filter(d => ['PE Investment', 'Strategic Investment', 'Strategic Stake', 'Stake Sale'].includes(d.type)).length;
+    const multiples = activeDeals.map(d => parseFloat(d.valuationMultiple)).filter(v => !isNaN(v));
     const avgMultiple = multiples.length ? (multiples.reduce((a, b) => a + b, 0) / multiples.length).toFixed(1) : 'N/A';
 
+    const failedTooltip = failedCount > 0
+      ? `title="Excludes ${failedCount} failed/rejected/withdrawn deal(s) from value calculation"`
+      : '';
+
     el.innerHTML = `
-      <div class="stat-card">
+      <div class="stat-card" ${failedTooltip} style="cursor:${failedCount > 0 ? 'help' : 'default'};">
         <div class="stat-card-label">Total Deal Value</div>
         <div class="stat-card-value">${DataUtils.formatCurrency(totalValue)}</div>
-        <span class="stat-card-change neutral">${dealsToShow.length} Deals</span>
+        <span class="stat-card-change neutral">${activeDeals.length} of ${dealsToShow.length} Deals${failedCount > 0 ? ' (' + failedCount + ' failed excl.)' : ''}</span>
       </div>
       <div class="stat-card">
-        <div class="stat-card-label">M&A Transactions</div>
+        <div class="stat-card-label">M&A / Restructuring</div>
         <div class="stat-card-value">${maCount}</div>
         <span class="stat-card-change neutral">of ${dealsToShow.length} total</span>
       </div>
       <div class="stat-card">
         <div class="stat-card-label">PE / Strategic</div>
-        <div class="stat-card-value">${dealsToShow.length - maCount}</div>
+        <div class="stat-card-value">${peCount}</div>
         <span class="stat-card-change neutral">Investments</span>
       </div>
       <div class="stat-card">
@@ -474,14 +538,27 @@ const App = {
     const grid = document.getElementById('dealsGrid');
     if (!grid) return;
 
-    const ids = filteredIds || Filters.getFilteredCompanyIds();
-    const kw = this._getFilterKeywords(ids);
-    const dealsToShow = DATA.deals.filter(d => this._companyMatchesFilter(d.company + ' ' + (d.buyer || '') + ' ' + (d.target || ''), kw));
+    const dealsToShow = this._getFilteredDeals(filteredIds);
 
     if (!dealsToShow.length) { grid.innerHTML = this._emptyState(); return; }
 
+    const typeColors = {
+      'M&A': 'badge-info', 'Acquisition': 'badge-info',
+      'PE Investment': 'badge-purple', 'Strategic Investment': 'badge-purple',
+      'Strategic Stake': 'badge-teal', 'Stake Sale': 'badge-teal',
+      'IPO': 'badge-outperform', 'QIP': 'badge-outperform', 'Fund Raise': 'badge-outperform',
+      'Land Allotment': 'badge-teal',
+      'Buyback': 'badge-inline', 'Demerger': 'badge-inline', 'Divestiture': 'badge-inline',
+      'JV': 'badge-info',
+      'Govt Incentive': 'badge-outperform',
+      'Capex': 'badge-teal',
+      'Corporate Action': 'badge-inline'
+    };
+
     grid.innerHTML = dealsToShow.map(d => {
-      const typeColors = { 'M&A': 'badge-info', 'PE Investment': 'badge-purple', 'Strategic Stake': 'badge-teal', 'IPO': 'badge-outperform' };
+      const sourceLink = d.sourceUrl
+        ? `<a href="${d.sourceUrl}" target="_blank" rel="noopener noreferrer" style="color:var(--intelligence-blue);text-decoration:none;font-size:11px;">${d.sourceName || 'Source'} &#8599;</a>`
+        : '';
       return `
         <div class="deal-card">
           <div class="deal-card-header">
@@ -493,7 +570,7 @@ const App = {
           <div class="deal-metrics">
             <div class="deal-metric">
               <span class="deal-metric-label">Deal Size</span>
-              <span class="deal-metric-value">₹${d.dealSize} Cr</span>
+              <span class="deal-metric-value">${d.dealSize !== null ? '₹' + d.dealSize.toLocaleString('en-IN') + ' Cr' : 'Undisclosed'}</span>
             </div>
             <div class="deal-metric">
               <span class="deal-metric-label">Valuation</span>
@@ -505,6 +582,7 @@ const App = {
             </div>
           </div>
           <div class="deal-rationale">${d.rationale}</div>
+          <div style="margin-top:8px;text-align:right;">${sourceLink}</div>
         </div>
       `;
     }).join('');
@@ -522,9 +600,10 @@ const App = {
     tbody.innerHTML = ids.map(id => {
       const c = DataUtils.getCompany(id);
       const ops = DATA.operationalMetrics;
-      const impDep = DataUtils.getLatestValue(id, 'importDependency');
-      const warranty = DataUtils.getLatestValue(id, 'warrantyPct');
-      const dealerProd = DataUtils.getLatestValue(id, 'dealerProductivity');
+      // Read from operationalMetrics (populated from research) instead of financials
+      const impDep = ops.importDependency ? ops.importDependency[id] : null;
+      const warranty = ops.warrantyPct ? ops.warrantyPct[id] : null;
+      const dealerProd = ops.dealerProductivity ? ops.dealerProductivity[id] : null;
       return `<tr>
         <td><span class="fw-600 text-navy">${c.name}</span></td>
         <td class="text-right mono">${fmtVal(ops.capacityUtilization[id], '%')}</td>
@@ -537,6 +616,175 @@ const App = {
         <td class="text-right mono">${dealerProd !== null ? '₹' + dealerProd + ' Cr' : '-'}</td>
       </tr>`;
     }).join('');
+  },
+
+  // ============================================================
+  // SECTION 5: MANUFACTURING FOOTPRINT TABLE
+  // ============================================================
+  renderMfgFootprint(filteredIds) {
+    const tbody = document.getElementById('mfgFootprintBody');
+    if (!tbody) return;
+    const ids = filteredIds || Filters.getFilteredCompanyIds();
+    // Static data from operational-intelligence-data.md research
+    const mfgData = {
+      whirlpool: { plants: 3, capex: null, expansion: 'PG Electroplast contract mfg at Roorkee; 9 MW solar rooftop' },
+      voltas: { plants: 4, capex: 100, expansion: 'Sanand facility (100% local fridge/WM); Chennai at 90% util.' },
+      bluestar: { plants: 5, capex: 200, expansion: 'Sri City Phase 3: 1.2M→2.05M units. New Group CTO hired.' },
+      crompton: { plants: 12, capex: 500, expansion: 'Rs 500 Cr capex FY25-27. 35M fans/yr, 55M lighting/yr.' },
+      bajaj_elec: { plants: 4, capex: null, expansion: 'Chakan fan plant (400K/month). Post-demerger focus.' },
+      vguard: { plants: 9, capex: null, expansion: '3 new factories 2025 (Vapi, Hyderabad x2). Sunflame integration.' },
+      ifb: { plants: 3, capex: null, expansion: 'Washer capacity constrained. BLDC motors local production started.' },
+      havells: { plants: 12, capex: 800, expansion: 'Rs 800 Cr Noida plant. Ghiloth fridge plant. Alwar cable expansion.' },
+      symphony: { plants: 2, capex: null, expansion: '100% outsourced domestic (9 OEM partners). Export plants only.' },
+      orient: { plants: 5, capex: null, expansion: 'New Hyderabad greenfield (May 2024). BLDC 45% target.' },
+      dixon: { plants: 24, capex: 25000, expansion: '$2.7-3B display fab (8.6G). ECMS approvals. Vivo/Signify JVs.' },
+      amber: { plants: 30, capex: 6785, expansion: 'YEIDA 100-acre facility. 27% India RAC footprint. ILJIN expansions.' },
+      ttk_prestige: { plants: 5, capex: 500, expansion: 'Karjan triply cookware. Rs 500 Cr 3-year modernization plan.' },
+      butterfly: { plants: 1, capex: null, expansion: 'Urappakkam: mixer upgraded 6K→9K units/day. Independent post-merger collapse.' },
+      bosch_jch: { plants: 1, capex: null, expansion: 'Faridabad only. Restructuring under Bosch ownership.' },
+    };
+    tbody.innerHTML = ids.map(id => {
+      const d = mfgData[id] || {};
+      return `<tr>
+        <td><span class="fw-600 text-navy">${DataUtils.getCompany(id).name.replace(' of India','').replace(' Greaves Consumer','')}</span></td>
+        <td class="text-right mono">${d.plants || '-'}</td>
+        <td class="text-right mono">${d.capex ? '₹' + d.capex.toLocaleString() : '-'}</td>
+        <td style="font-size:12px;max-width:300px;">${d.expansion || '-'}</td>
+      </tr>`;
+    }).join('');
+  },
+
+  // ============================================================
+  // SECTION 5: RETAIL FOOTPRINT TABLE
+  // ============================================================
+  renderRetailFootprint(filteredIds) {
+    const tbody = document.getElementById('retailFootprintBody');
+    if (!tbody) return;
+    const ids = filteredIds || Filters.getFilteredCompanyIds();
+    const retailData = {
+      whirlpool: { dealers: null, productivity: null, signal: 'Parent reducing stake to ~40%' },
+      voltas: { dealers: '24,000+ touch points', productivity: 0.64, signal: 'Voltas Beko stores + D2C platform' },
+      bluestar: { dealers: '3,000+ outlets', productivity: 4.0, signal: 'B2B projects + retail expansion' },
+      crompton: { dealers: '236,000+ retail; 2,800+ dist.', productivity: 2.81, signal: '860+ service centres. BLDC driving premium retail.' },
+      bajaj_elec: { dealers: '400,000+ retail; 1,000+ dist.', productivity: 4.83, signal: 'Morphy Richards brand integration' },
+      vguard: { dealers: '18,000+', productivity: null, signal: 'Non-South now 48.4% revenue. New SCM head.' },
+      ifb: { dealers: '300 COCOs + 180 franchise', productivity: 10.61, signal: 'Target 700+ stores. Premium experience focus.' },
+      havells: { dealers: '248,000 retail; 18,000 dealers', productivity: 1.21, signal: '900+ Utsav stores. SmartHub. Rural Vistaar.' },
+      symphony: { dealers: null, productivity: null, signal: '100% outsourced. Channel via OEM partners.' },
+      orient: { dealers: '125,000 outlets', productivity: 0.02, signal: '450+ cities service. Exports +40% YoY.' },
+      dixon: { dealers: 'B2B only', productivity: null, signal: 'OEM/ODM. No retail distribution.' },
+      amber: { dealers: 'B2B only', productivity: null, signal: 'OEM/ODM. Clients: Voltas, Panasonic, Daikin, LG.' },
+      ttk_prestige: { dealers: null, productivity: null, signal: 'GramyaHaat rural distribution investment.' },
+      butterfly: { dealers: '17 branches', productivity: null, signal: 'New Head of Procurement (ex-Royal Enfield).' },
+      bosch_jch: { dealers: null, productivity: null, signal: 'Restructuring under Bosch. Network being rebuilt.' },
+    };
+    tbody.innerHTML = ids.map(id => {
+      const d = retailData[id] || {};
+      return `<tr>
+        <td><span class="fw-600 text-navy">${DataUtils.getCompany(id).name.replace(' of India','').replace(' Greaves Consumer','')}</span></td>
+        <td class="text-right" style="font-size:12px;">${d.dealers || '-'}</td>
+        <td class="text-right mono">${d.productivity !== null ? '₹' + d.productivity + ' Cr' : '-'}</td>
+        <td style="font-size:12px;max-width:250px;">${d.signal || '-'}</td>
+      </tr>`;
+    }).join('');
+  },
+
+  // ============================================================
+  // SECTION 2: MARKET PULSE — Q3 Earnings Cards
+  // ============================================================
+  renderQ3EarningsCards() {
+    const container = document.getElementById('q3EarningsCards');
+    if (!container) return;
+    const data = DATA.marketPulse.q3Earnings;
+    if (!data || !data.length) return;
+    const signalColor = { positive: 'var(--green)', mixed: 'var(--amber)', negative: 'var(--red)', neutral: '#94A3B8' };
+    container.innerHTML = data.map(e => `
+      <div class="stat-card" style="border-top: 3px solid ${signalColor[e.signal] || '#94A3B8'};">
+        <div class="stat-card-label">${e.company}</div>
+        <div class="stat-card-value" style="font-size:1.1rem;">₹${e.revenue.toLocaleString()} Cr</div>
+        <span class="stat-card-change ${e.yoyGrowth > 5 ? 'positive' : e.yoyGrowth < 0 ? 'negative' : 'neutral'}">${e.yoyGrowth > 0 ? '+' : ''}${e.yoyGrowth}% YoY</span>
+        <div style="margin-top:6px;font-size:11px;color:var(--slate-400);">EBITDA: ${e.ebitdaMargin}%</div>
+        <div style="margin-top:4px;font-size:11px;color:var(--slate-300);">${e.note}</div>
+      </div>
+    `).join('');
+  },
+
+  // ============================================================
+  // SECTION 2: MARKET PULSE — Commodity Outlook Table
+  // ============================================================
+  renderCommodityOutlook() {
+    const tbody = document.getElementById('commodityOutlookBody');
+    if (!tbody) return;
+    const data = DATA.marketPulse.commodityOutlook;
+    if (!data || !data.length) return;
+    const impactBadge = (imp) => {
+      const color = imp === 'CRITICAL' ? '#EF4444' : imp === 'HIGH' ? '#F59E0B' : '#3B82F6';
+      return `<span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;color:#fff;background:${color};">${imp}</span>`;
+    };
+    tbody.innerHTML = data.map(c => `<tr>
+      <td><span class="fw-600">${c.commodity}</span></td>
+      <td class="mono" style="font-size:13px;">${c.forecast}</td>
+      <td>${impactBadge(c.impact)}</td>
+      <td style="font-size:12px;max-width:350px;">${c.detail}</td>
+      <td style="font-size:11px;color:var(--slate-400);">${c.source}</td>
+    </tr>`).join('');
+  },
+
+  // ============================================================
+  // SECTION 2: MARKET PULSE — Policy Impact Table
+  // ============================================================
+  renderPolicyImpact() {
+    const tbody = document.getElementById('policyImpactBody');
+    if (!tbody) return;
+    const data = DATA.marketPulse.policyImpact;
+    if (!data || !data.length) return;
+    const impactBadge = (imp) => {
+      const color = imp === 'positive' ? '#22C55E' : imp === 'negative' ? '#EF4444' : '#3B82F6';
+      const label = imp === 'positive' ? '&#9650; Tailwind' : imp === 'negative' ? '&#9660; Headwind' : '&#8594; Neutral';
+      return `<span style="color:${color};font-weight:600;font-size:12px;">${label}</span>`;
+    };
+    tbody.innerHTML = data.map(p => `<tr>
+      <td><span class="fw-600" style="font-size:13px;">${p.policy}</span></td>
+      <td style="font-size:12px;">${p.target}</td>
+      <td>${impactBadge(p.impact)}</td>
+      <td style="font-size:12px;max-width:350px;">${p.detail}</td>
+    </tr>`).join('');
+  },
+
+  // ============================================================
+  // SECTION 2: MARKET PULSE — Urban vs Rural Dynamics
+  // ============================================================
+  renderUrbanRural() {
+    const container = document.getElementById('urbanRuralContainer');
+    if (!container) return;
+    const d = DATA.marketPulse.urbanRuralDynamics;
+    if (!d) return;
+    container.innerHTML = `
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div style="padding:12px;border-radius:8px;background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.15);">
+          <div style="font-weight:600;font-size:13px;color:#22C55E;margin-bottom:6px;">&#9650; Urban Premium</div>
+          <div style="font-size:12px;color:var(--slate-300);">Growth: <strong>${d.urbanPremiumGrowth}</strong></div>
+          <div style="font-size:11px;color:var(--slate-400);margin-top:4px;">Frost-free, multi-door, inverter split ACs in Tier 1-2 cities</div>
+        </div>
+        <div style="padding:12px;border-radius:8px;background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.15);">
+          <div style="font-weight:600;font-size:13px;color:#EF4444;margin-bottom:6px;">&#9660; Rural Volume</div>
+          <div style="font-size:12px;color:var(--slate-300);">Recovery: <strong>${d.ruralVolumeRecovery}</strong></div>
+          <div style="font-size:11px;color:var(--slate-400);margin-top:4px;">Weather, farm income, essential inflation destroying discretionary power</div>
+        </div>
+      </div>
+      <div style="margin-top:12px;padding:10px;border-radius:8px;background:rgba(59,130,246,0.06);border:1px solid rgba(59,130,246,0.15);">
+        <div style="font-weight:600;font-size:13px;color:#3B82F6;margin-bottom:6px;">&#127968; Home Improvement Boom</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;font-size:12px;">
+          <div><span style="color:var(--slate-400);">Market Size:</span> <strong>${d.homeImprovementBoom.size}</strong></div>
+          <div><span style="color:var(--slate-400);">CAGR:</span> <strong>${d.homeImprovementBoom.cagr}</strong></div>
+          <div><span style="color:var(--slate-400);">Target 2030:</span> <strong>${d.homeImprovementBoom.target2030}</strong></div>
+          <div><span style="color:var(--slate-400);">Smart Home:</span> <strong>${d.smartHomeDemand}</strong></div>
+          <div><span style="color:var(--slate-400);">Modular:</span> <strong>${d.modularSolutions}</strong></div>
+          <div><span style="color:var(--slate-400);">Reno Cycle:</span> <strong>${d.renovationCycle}</strong></div>
+        </div>
+      </div>
+      <div style="margin-top:8px;font-size:11px;color:var(--slate-400);">Key insight: ${d.growthDriver}</div>
+    `;
   },
 
   // ============================================================

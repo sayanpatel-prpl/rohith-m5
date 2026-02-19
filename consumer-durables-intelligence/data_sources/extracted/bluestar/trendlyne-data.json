@@ -1,0 +1,79 @@
+{
+  "companyId": "bluestar",
+  "companyName": "Blue Star Limited",
+  "nseSymbol": "BLUESTARCO",
+  "bseCode": "539868",
+  "sector": "Consumer Durables - Air Conditioning",
+  "dataSource": "WebSearch aggregation (Trendlyne, MoneyControl, Screener, StockAnalysis, Yahoo Finance)",
+  "extractedDate": "2026-02-18",
+  "quarterlyResults": {
+    "Q4_FY2025": {
+      "period": "Jan-Mar 2025",
+      "revenue_cr": 4042.95,
+      "netProfit_cr": 194.40,
+      "ebitda_cr": null,
+      "ebitdaMargin_pct": null,
+      "notes": "Strong quarter"
+    },
+    "Q1_FY2026": {
+      "period": "Apr-Jun 2025",
+      "revenue_cr": 4019.0,
+      "netProfit_cr": 194.0,
+      "ebitda_cr": null,
+      "ebitdaMargin_pct": null,
+      "notes": "Net sales of Rs 4,019 Cr"
+    },
+    "Q2_FY2026": {
+      "period": "Jul-Sep 2025",
+      "revenue_cr": 2422.0,
+      "netProfit_cr": 99.0,
+      "ebitda_cr": null,
+      "ebitdaMargin_pct": null,
+      "notes": "Revenue grew 6.4% YoY from Rs 2,276 cr. Net profit grew 2.8% YoY from Rs 96 cr."
+    },
+    "Q3_FY2026": {
+      "period": "Oct-Dec 2025",
+      "revenue_cr": 2925.31,
+      "netProfit_cr": 80.66,
+      "ebitda_cr": null,
+      "ebitdaMargin_pct": null,
+      "notes": "Revenue rose 4.20% YoY from Rs 2,807.36 cr. Net profit declined 39.16% from Rs 132.57 cr previous quarter."
+    }
+  },
+  "annualResults": {
+    "FY2025": {
+      "revenue_cr": 11968.0,
+      "netProfit_cr": 591.0,
+      "revenueGrowth_pct": 23.6,
+      "notes": "Revenue up 23.6%, Profit Rs 591 cr"
+    }
+  },
+  "keyRatios": {
+    "asOfDate": "2025-11-30",
+    "pe": 67.2,
+    "pb": 11.8,
+    "evToEbitda": 40.2,
+    "roe_pct": 20.9,
+    "roce_pct": 27.6,
+    "debtToEquity": 0.1,
+    "eps": 26.1,
+    "bookValue": 151.3,
+    "dividendYield_pct": null
+  },
+  "balanceSheetHighlights": {
+    "asOfDate": "FY2025",
+    "marketCap_cr": 41188.0,
+    "netProfit_cr": 591.0,
+    "notes": "PE of 67.24x is 21% discount to peers median of 84.66x. PB of 11.80x is 18% premium to peers median of 9.98x."
+  },
+  "earningsTranscriptSummary": {
+    "available": true,
+    "source": "Yahoo Finance (BLUESTARCO.NS earnings call)",
+    "keyHighlights": [
+      "Q2 FY26 earnings call transcript available",
+      "Revenue growth driven by cooling products demand",
+      "Strategic focus on expanding market share",
+      "Revenue growth of 23.6% in FY2025"
+    ]
+  }
+}

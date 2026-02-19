@@ -1,0 +1,20 @@
+{
+  "fetchedAt": "2026-02-18T11:30:09.396Z",
+  "source": "Alpha Vantage (alphavantage.co)",
+  "apiKey": "Financial_API_Key",
+  "dataCutoff": "2020-01-01",
+  "companiesTotal": 14,
+  "companiesFetched": 1,
+  "companiesSkipped": 0,
+  "apiCallsMade": 1,
+  "rateLimited": true,
+  "companies": [
+    {
+      "companyId": "voltas",
+      "symbol": "VOLTAS.BSE",
+      "companyName": "Voltas Limited",
+      "fetchedAt": "2026-02-18T11:29:52.983Z",
+      "dataPostCutoff": "2020-01-01"
+    }
+  ]
+}

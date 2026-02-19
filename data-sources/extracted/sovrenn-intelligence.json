@@ -1,0 +1,844 @@
+[
+  {
+    "companyId": "amber",
+    "companyName": "Company is a leading solution provider for air conditioning and refrigeration products in India, with a strong presence across the entire value chain of Room Air Conditioners (RAC)",
+    "description": "Company is a leading solution provider for air conditioning and refrigeration products in India, with a strong presence across the entire value chain of Room Air Conditioners (RAC). Established in 1990, the company has evolved into a key player in the Indian OEM/ODM space, catering to major brands in the consumer durables industry.",
+    "clients": [
+      "Voltas",
+      "Panasonic",
+      "Daikin",
+      "LG."
+    ],
+    "keyGrowthTriggers": [
+      "Company operates across 3 divisions, with Q2FY26 revenue contribution of 53% from the Consumer Durable Division, 39% from the Electronics Division, and 8% from the Railway Subsystems & Mobility Division.",
+      "Consumer Durable Division: Company has 24 facilities under the Consumer Durable Division with 70% BoM catering capability, serving RAC, CAC, and components. Company expects industry growth driven by the GST reduction on RACs from 28% to 18% and aims to outperform the industry by 13–15% for the year.",
+      "Electronics Division: Company operates 6 facilities and expanding at Hosur with a planned investment of INR 991 Cr, targeting trial production by Q2FY27. The Ascent-K Circuit JV will focus on HDI, Flex, and semiconductor substrate PCBs with a LoI received for 16 acres in Jewar, pending state approval. Company is also expanding PCB assembly capacity in Pune and expects operating EBITDA margins to reach double digits by FY27.",
+      "Railways & Defense division: Operates 1 facility division (Sidwal) and is adding 2 more, backed by INR 2,600+ Cr order book & visibility with another INR 400–500 Cr expected soon. The Sidwal greenfield facility will begin trial operations in Q3FY26 and commercial production in Q4FY26, while the Yujin JV facility is ready with commercial production expected in H1FY27. Management has reaffirmed guidance to double the division’s revenue over the next 2 years with Vande Bharat deliveries largely from next year onward."
+    ],
+    "quarterlyResults": [
+      {
+        "date": "29th Jul 2025",
+        "quarter": "Jun-25",
+        "salesCr": 3449,
+        "salesGrowthYoY": 44,
+        "salesGrowthQoQ": -8,
+        "netProfitCr": 106,
+        "profitGrowthYoY": 41,
+        "profitGrowthQoQ": -10,
+        "tag": "GOOD RESULTS",
+        "rawText": "**29th Jul 2025:** (GOOD RESULTS) For the quarter ending Jun-25, Sales up 44% YoY from INR 2,401 Cr in Jun-24 to INR 3,449 Cr in Jun-25. Similarly, Net Profit up 41% from INR 75 Cr to INR 106 Cr. On a QoQ basis, Sales down 8% and Net Profit down 10"
+      },
+      {
+        "date": "27th May 2025",
+        "quarter": "Mar-25",
+        "salesCr": 3754,
+        "salesGrowthYoY": 34,
+        "salesGrowthQoQ": 76,
+        "netProfitCr": 118,
+        "profitGrowthYoY": 19,
+        "profitGrowthQoQ": 220.00000000000003,
+        "tag": "EXCELLENT RESULTS",
+        "rawText": "**27th May 2025:** (EXCELLENT RESULTS) For the quarter ending Mar-25, Sales up 34% YoY from INR 2,805 Cr in Mar-24 to INR 3,754 Cr in Mar-25. Similarly, Net Profit up 19% from INR 99 Cr to INR 118 Cr. On a QoQ basis, Sales up 76% and Net Profit up 3.2x."
+      }
+    ],
+    "dealActivity": [
+      {
+        "date": "9th Feb 2026",
+        "type": "other",
+        "description": "(GOOD RESULTS) For the quarter ending Dec-25, Sales up 38% YoY from INR 2,133 Cr in Dec-24 to INR 2,943 Cr in Dec-25. Over the same period, Operating Profit Margin increased from 7% to 8%. Similarly, Net Profit up 70% from INR 37 Cr to INR 63 Cr (adjust for Exceptional). Comparison on a QoQ basis not valid.",
+        "valueCr": 2133
+      },
+      {
+        "date": "19th Jan 2026",
+        "type": "other",
+        "description": "Company has been allotted 100 acres of land by Yamuna Expressway Industrial Development Authority (YEIDA) at Sector 8, near Jewar Airport, for setting up a new manufacturing facility. Additionally, Company’s material subsidiary Ascent-K Circuit Private Limited has been allotted 16 acres at Sector 10, YEIDA, for a separate manufacturing unit. The combined proposed investment is INR 6,785 Cr, to be deployed over the investment scheme period, and is expected to generate over 3,000 direct jobs in a phased manner.",
+        "valueCr": 6785
+      },
+      {
+        "date": "15th Dec 2025",
+        "type": "acquisition",
+        "description": "ICRA has reaffirmed Company’s Long-term rating to ICRA\\] AA \\- (Stable) with total rated limits increased to INR 2,165 Cr from INR 765 Cr citing its leadership in RAC ODM, deep backward integration, diversified and growing electronics portfolio, strong OEM relationships, and a strengthened balance sheet supported by recent equity raises and strategic acquisitions.",
+        "valueCr": 2165
+      },
+      {
+        "date": "1st Dec 2025",
+        "type": "acquisition",
+        "description": "Company’s subsidiary IL JIN Electronics (India) Pvt Ltd has completed the acquisition of an 80% stake in Shogini Technoarts Pvt Ltd for about INR 506 Cr, making Shogini a subsidiary of IL JIN and a step-down subsidiary of Amber.",
+        "valueCr": 506
+      },
+      {
+        "date": "24th Nov 2025",
+        "type": "acquisition",
+        "description": "Company’s material subsidiary IL JIN Electronics has acquired 1.4 L shares at NIS 24.59 per share, totaling NIS 3.32 million of Unitronics via ILJIN Holding, its wholly owned Israel-based arm. With this IL JIN now controls 41.2% of Unitronics.",
+        "valueCr": null
+      },
+      {
+        "date": "14th Nov 2025",
+        "type": "acquisition",
+        "description": "Company’s material subsidiary IL JIN Electronics signed a definitive agreement to acquire a majority stake in Shogini Technoarts, a Pune-based PCB maker with FY25 revenue of about INR 390 Cr. Shogini builds single, double, multilayer, metal and flexible PCBs and has been around since 1982\\. The deal, funded in cash and closed in tranches after conditions precedent, will make Shogini a subsidiary of IL JIN and a step-down subsidiary of Amber.",
+        "valueCr": 390
+      },
+      {
+        "date": "6th Nov 2025",
+        "type": "other",
+        "description": "(POOR RESULTS) For the quarter ending Sep-25, Sales down 2% YoY from INR 1685 Cr in Sep-24 to INR 1647 Cr in Sep-25. Similarly, Net Profit down from INR 21 Cr to a loss INR \\-32 Cr. On a QoQ basis, Sales down 52% and company moved from a profit of INR 106 Cr to a loss of INR \\-32 Cr.",
+        "valueCr": 1685
+      },
+      {
+        "date": "9th Oct 2025",
+        "type": "acquisition",
+        "description": "Company’s material subsidiary IL JIN Electronics (India) Pvt Ltd has completed the acquisition of a 40.20% controlling stake in Unitronics (1989) (R\"G) Ltd for a consideration of NIS 156.08 million. Of this, FIMI Opportunity V funds sold 31.34% and Mr. Haim Shani sold 8.86% of Unitronics’ equity. Unitronics has become a step-down subsidiary of Amber Enterprises, strengthening its global footprint and capabilities in industrial automation and smart manufacturing solutions.",
+        "valueCr": null
+      },
+      {
+        "date": "25th Sep 2025",
+        "type": "investment",
+        "description": "Company’s material subsidiary ILJIN Electronics (India) executed definitive agreements to raise INR 550 Cr via issue of 8.5 L Compulsorily Convertible Preference Shares (CCPS) to marquee investors including Singularity Equity Fund, Axis New Opportunities AIF, Nuvama Crossover Funds, Motilal Oswal Finvest, Avendus Future Leaders Fund, InCred Wealth, and Frangipani Capital. Funds will support organic and inorganic growth of Company’s electronics segment, with CCPS conversion at mutually agreed price. Company’s holding in ILJIN (currently 90.2%) will reduce post conversion.",
+        "valueCr": 550
+      },
+      {
+        "date": "22nd Sep 2025",
+        "type": "qip",
+        "description": "Company has closed its QIP raising INR 1,000 Cr through allotment of 12.6 L shares at INR 7,950/share to qualified institutional buyers.",
+        "valueCr": 1000
+      },
+      {
+        "date": "21st Sep 2025",
+        "type": "acquisition",
+        "description": "Company’s Material subsidiary IL JIN Electronics India Pvt Ltd has acquired 100% equity in ILJIN Holding Ltd, Israel, for cash consideration (100 ordinary shares of par value 1 NIS each) to establish a SPV for ILJIN’s strategic international investments and acquisitions.",
+        "valueCr": null
+      },
+      {
+        "date": "7th Sep 2025",
+        "type": "acquisition",
+        "description": "Company’s material subsidiary “ILJIN Electronics (India) Pvt Ltd” has raised INR 1,200 Cr in its first institutional round, led by ChrysCapital with INR 1,100 Cr and InCred Growth Partners Fund I with INR 100 crore through equity and CCPS. The funds will be used to scale operations, enhance manufacturing, and pursue targeted acquisitions in electronics manufacturing, aligning with India’s PLI and ECMS schemes.",
+        "valueCr": 1200
+      },
+      {
+        "date": "29th Jul 2025",
+        "type": "other",
+        "description": "(GOOD RESULTS) For the quarter ending Jun-25, Sales up 44% YoY from INR 2,401 Cr in Jun-24 to INR 3,449 Cr in Jun-25. Similarly, Net Profit up 41% from INR 75 Cr to INR 106 Cr. On a QoQ basis, Sales down 8% and Net Profit down 10%.",
+        "valueCr": 2401
+      },
+      {
+        "date": "28th Jul 2025",
+        "type": "acquisition",
+        "description": "Amber’s subsidiary ILJIN Electronics to acquire 40.2% stake in Israel-based Unitronics for NIS 156 Mn (approx. INR 403 Cr) gaining joint control with Mr. Haim Shani (45.13%). Unitronics is listed on TASE and specializes in PLCs, HMIs, IIoT, and Industry 4.0 automation solutions. Acquisition aligns with Company’s strategy to expand industrial automation capabilities and global footprint.",
+        "valueCr": 403
+      },
+      {
+        "date": "12th Jul 2025",
+        "type": "investment",
+        "description": "Company’s Board has approved resolution to raise up to INR 2,500 Cr through issuance of permissible securities, subject to shareholder approval in the upcoming 35th AGM scheduled for August 11, 2025\\.",
+        "valueCr": 2500
+      },
+      {
+        "date": "28th Jun 2025",
+        "type": "acquisition",
+        "description": "Amber Group via subsidiary \"IL JIN Electronics India Pvt Ltd \" to acquire majority stake in One Micro Systems Pvt Ltd \\- a leading player in Battery Energy Storage Systems (BESS), solar inverters (on-grid, off-grid, and hybrid), EV chargers, and UPS systems. This acquisition aligns with Amber’s strategy to expand into energy solution sector.",
+        "valueCr": null
+      },
+      {
+        "date": "27th May 2025",
+        "type": "other",
+        "description": "(EXCELLENT RESULTS) For the quarter ending Mar-25, Sales up 34% YoY from INR 2,805 Cr in Mar-24 to INR 3,754 Cr in Mar-25. Similarly, Net Profit up 19% from INR 99 Cr to INR 118 Cr. On a QoQ basis, Sales up 76% and Net Profit up 3.2x.",
+        "valueCr": 2805
+      }
+    ],
+    "concallHighlights": [
+      {
+        "date": "7th Nov 2025",
+        "quarter": "Q2FY26",
+        "points": [
+          "Company has secured funding at both the holding and subsidiary levels, including a ₹1,000 crore QIP at Amber and ₹1,750 crore CCPS/equity infusion at ILJIN Electronics (₹650 crore received; ₹1,100 crore pending CCI approval). Company targets becoming cash positive by year-end with H2 net interest cost of ₹20–25 crore. 2\\. Company expects the RAC industry to grow from 15 million units to 30–35 million units by FY30, supported by the GST reduction, and intends to maintain its 27% manufacturing footprint. 3\\. Company, through its Railways & Defense division (Sidwal), has an order book visibility of ₹2,600+ crore, with another ₹400–500 crore expected soon. Company has reaffirmed guidance to double the division’s revenue over the next two financial years, with Vande Bharat deliveries expected largely from next year onward."
+        ]
+      }
+    ],
+    "shareholding": [
+      {
+        "date": "31st Mar 2025",
+        "holder": "Goldman Sache Fund",
+        "stake": 1.7
+      },
+      {
+        "date": "31st Mar 2025",
+        "holder": "Kotak Small cap fund",
+        "stake": 4
+      },
+      {
+        "date": "31st Mar 2025",
+        "holder": "Motilal Oswal focused fund",
+        "stake": 2.4
+      },
+      {
+        "date": "31st Mar 2025",
+        "holder": "Sundram Mutual Fund",
+        "stake": 2
+      },
+      {
+        "date": "31st Mar 2025",
+        "holder": "HSBC Tax Saver Equity Fund",
+        "stake": 1.8
+      },
+      {
+        "date": "31st Mar 2025",
+        "holder": "DSP Business Cycle Fund",
+        "stake": 1.4
+      }
+    ]
+  },
+  {
+    "companyId": "bajaj",
+    "companyName": "Bajaj",
+    "description": "",
+    "clients": [],
+    "keyGrowthTriggers": [],
+    "quarterlyResults": [
+      {
+        "date": "31st Oct 2025",
+        "quarter": "Sept '25",
+        "salesCr": 1107,
+        "salesGrowthYoY": -1,
+        "salesGrowthQoQ": null,
+        "netProfitCr": 10,
+        "profitGrowthYoY": -23.6,
+        "profitGrowthQoQ": null,
+        "tag": "AVERAGE RESULTS",
+        "rawText": "**31st Oct 2025:** (AVERAGE RESULTS) For the quarter ending Sept '25, Sales decreased by 1.0% from 1,118 Cr in Sept '24 to 1,107 Cr in Sept '25. Over the same period, Operating Profit increased by 10.7% from 52 Cr to 57 Cr. Similarly, Net Profit decreased by 23.6% from 13 Cr to 10 Cr"
+      },
+      {
+        "date": "7th Aug 2025",
+        "quarter": "Jun '25",
+        "salesCr": 1065,
+        "salesGrowthYoY": -7.8,
+        "salesGrowthQoQ": null,
+        "netProfitCr": 1,
+        "profitGrowthYoY": -96.8,
+        "profitGrowthQoQ": null,
+        "tag": "WEAK RESULTS",
+        "rawText": "**7th Aug 2025:** (WEAK RESULTS) For the quarter ending Jun '25, Sales decreased by 7.8% from 1,155 Cr in Jun '24 to 1,065 Cr in Jun '25. Over the same period, Operating Profit decreased by 56.8% from 75 Cr to 33 Cr. Similarly, Net Profit decreased by 96.8% from 28 Cr to 1 Cr"
+      }
+    ],
+    "dealActivity": [],
+    "concallHighlights": [],
+    "shareholding": []
+  },
+  {
+    "companyId": "bluestar",
+    "companyName": "Bluestar",
+    "description": "",
+    "clients": [],
+    "keyGrowthTriggers": [],
+    "quarterlyResults": [
+      {
+        "date": "30th Jan 2026",
+        "quarter": "Dec '25",
+        "salesCr": 2925,
+        "salesGrowthYoY": 4,
+        "salesGrowthQoQ": null,
+        "netProfitCr": 81,
+        "profitGrowthYoY": -39,
+        "profitGrowthQoQ": null,
+        "tag": "AVERAGE RESULTS",
+        "rawText": "**30th Jan 2026:** (AVERAGE RESULTS) For the quarter ending Dec '25, Sales increased by 4% from 2,807 Cr in Dec '24 to 2,925 Cr in Dec '25. Over the same period, Operating Profit increased by 5% from 209 Cr to 220 Cr. Similarly, Net Profit decreased by 39% from 132 Cr to 81 Cr"
+      },
+      {
+        "date": "7th Nov 2025",
+        "quarter": "Sept '25",
+        "salesCr": 2422,
+        "salesGrowthYoY": 6.4,
+        "salesGrowthQoQ": null,
+        "netProfitCr": 99,
+        "profitGrowthYoY": 2.8,
+        "profitGrowthQoQ": null,
+        "tag": "AVERAGE RESULTS",
+        "rawText": "**7th Nov 2025:** (AVERAGE RESULTS) For the quarter ending Sept '25, Sales increased by 6.4% from 2,276 Cr in Sept '24 to 2,422 Cr in Sept '25. Over the same period, Operating Profit increased by 22.4% from 149 Cr to 182 Cr. Similarly, Net Profit increased by 2.8% from 96 Cr to 99 Cr"
+      },
+      {
+        "date": "6th Aug 2025",
+        "quarter": "Jun '25",
+        "salesCr": 2982,
+        "salesGrowthYoY": 4.1,
+        "salesGrowthQoQ": null,
+        "netProfitCr": 121,
+        "profitGrowthYoY": -28.4,
+        "profitGrowthQoQ": null,
+        "tag": "AVERAGE RESULTS",
+        "rawText": "**6th Aug 2025:** (AVERAGE RESULTS) For the quarter ending Jun '25, Sales increased by 4.1% from 2,865 Cr in Jun '24 to 2,982 Cr in Jun '25. Over the same period, Operating Profit decreased by 16.5% from 238 Cr to 199 Cr. Similarly, Net Profit decreased by 28.4% from 169 Cr to 121 Cr"
+      },
+      {
+        "date": "28th May 2025",
+        "quarter": "Mar '25",
+        "salesCr": 4019,
+        "salesGrowthYoY": 20.8,
+        "salesGrowthQoQ": null,
+        "netProfitCr": 194,
+        "profitGrowthYoY": 21.5,
+        "profitGrowthQoQ": null,
+        "tag": "GOOD RESULTS",
+        "rawText": "**28th May 2025:** (GOOD RESULTS) For the quarter ending Mar '25, Sales increased by 20.8% from 3,328 Cr in Mar '24 to 4,019 Cr in Mar '25. Over the same period, Operating Profit increased by 15.3% from 242 Cr to 279 Cr. Similarly, Net Profit increased by 21.5% from 160 Cr to 194 Cr"
+      }
+    ],
+    "dealActivity": [],
+    "concallHighlights": [],
+    "shareholding": []
+  },
+  {
+    "companyId": "butterfly",
+    "companyName": "Butterfly",
+    "description": "",
+    "clients": [],
+    "keyGrowthTriggers": [],
+    "quarterlyResults": [],
+    "dealActivity": [],
+    "concallHighlights": [],
+    "shareholding": []
+  },
+  {
+    "companyId": "crompton",
+    "companyName": "Crompton",
+    "description": "",
+    "clients": [],
+    "keyGrowthTriggers": [],
+    "quarterlyResults": [
+      {
+        "date": "12th Feb 2026",
+        "quarter": "Dec '25",
+        "salesCr": 1898,
+        "salesGrowthYoY": 7,
+        "salesGrowthQoQ": null,
+        "netProfitCr": 101,
+        "profitGrowthYoY": -10,
+        "profitGrowthQoQ": null,
+        "tag": "AVERAGE RESULTS",
+        "rawText": "**12th Feb 2026:** (AVERAGE RESULTS) For the quarter ending Dec '25, Sales increased by 7% from 1,769 Cr in Dec '24 to 1,898 Cr in Dec '25. Over the same period, Operating Profit increased by 4% from 188 Cr to 195 Cr. Similarly, Net Profit decreased by 10% from 112 Cr to 101 Cr"
+      },
+      {
+        "date": "7th Nov 2025",
+        "quarter": "Sept '25",
+        "salesCr": 1916,
+        "salesGrowthYoY": 1,
+        "salesGrowthQoQ": null,
+        "netProfitCr": 75,
+        "profitGrowthYoY": -41.1,
+        "profitGrowthQoQ": null,
+        "tag": "WEAK RESULTS",
+        "rawText": "**7th Nov 2025:** (WEAK RESULTS) For the quarter ending Sept '25, Sales increased by 1.0% from 1,896 Cr in Sept '24 to 1,916 Cr in Sept '25. Over the same period, Operating Profit decreased by 22.2% from 204 Cr to 158 Cr. Similarly, Net Profit decreased by 41.1% from 128 Cr to 75 Cr"
+      },
+      {
+        "date": "7th Aug 2025",
+        "quarter": "Jun '25",
+        "salesCr": 1998,
+        "salesGrowthYoY": -6.5,
+        "salesGrowthQoQ": null,
+        "netProfitCr": 124,
+        "profitGrowthYoY": -18.7,
+        "profitGrowthQoQ": null,
+        "tag": "WEAK RESULTS",
+        "rawText": "**7th Aug 2025:** (WEAK RESULTS) For the quarter ending Jun '25, Sales decreased by 6.5% from 2,138 Cr in Jun '24 to 1,998 Cr in Jun '25. Over the same period, Operating Profit decreased by 17.5% from 232 Cr to 192 Cr. Similarly, Net Profit decreased by 18.7% from 152 Cr to 124 Cr"
+      },
+      {
+        "date": "28th May 2025",
+        "quarter": "Mar '25",
+        "salesCr": 2061,
+        "salesGrowthYoY": 5.1,
+        "salesGrowthQoQ": null,
+        "netProfitCr": 172,
+        "profitGrowthYoY": 28.7,
+        "profitGrowthQoQ": null,
+        "tag": "AVERAGE RESULTS",
+        "rawText": "**28th May 2025:** (AVERAGE RESULTS) For the quarter ending Mar '25, Sales increased by 5.1% from 1,961 Cr in Mar '24 to 2,061 Cr in Mar '25. Over the same period, Operating Profit increased by 29.9% from 204 Cr to 264 Cr. Similarly, Net Profit increased by 28.7% from 133 Cr to 172 Cr"
+      }
+    ],
+    "dealActivity": [],
+    "concallHighlights": [],
+    "shareholding": []
+  },
+  {
+    "companyId": "dixon",
+    "companyName": "Dixon",
+    "description": "",
+    "clients": [],
+    "keyGrowthTriggers": [],
+    "quarterlyResults": [
+      {
+        "date": "5th Feb 2026",
+        "quarter": "Dec '25",
+        "salesCr": 10672,
+        "salesGrowthYoY": 2,
+        "salesGrowthQoQ": null,
+        "netProfitCr": 321,
+        "profitGrowthYoY": 48,
+        "profitGrowthQoQ": null,
+        "tag": "AVERAGE RESULTS",
+        "rawText": "**5th Feb 2026:** (AVERAGE RESULTS) For the quarter ending Dec '25, Sales increased by 2% from 10,454 Cr in Dec '24 to 10,672 Cr in Dec '25. Over the same period, Operating Profit increased by 6% from 391 Cr to 414 Cr. Similarly, Net Profit increased by 48% from 216 Cr to 321 Cr"
+      },
+      {
+        "date": "22nd Oct 2025",
+        "quarter": "Sept '25",
+        "salesCr": 14855,
+        "salesGrowthYoY": 28.8,
+        "salesGrowthQoQ": null,
+        "netProfitCr": 746,
+        "profitGrowthYoY": 81.1,
+        "profitGrowthQoQ": null,
+        "tag": "EXCELLENT RESULTS",
+        "rawText": "**22nd Oct 2025:** (EXCELLENT RESULTS) For the quarter ending Sept '25, Sales increased by 28.8% from 11,534 Cr in Sept '24 to 14,855 Cr in Sept '25. Over the same period, Operating Profit increased by 31.7% from 426 Cr to 561 Cr. Similarly, Net Profit increased by 81.1% from 412 Cr to 746 Cr"
+      }
+    ],
+    "dealActivity": [],
+    "concallHighlights": [],
+    "shareholding": []
+  },
+  {
+    "companyId": "havells",
+    "companyName": "Havells",
+    "description": "",
+    "clients": [],
+    "keyGrowthTriggers": [],
+    "quarterlyResults": [
+      {
+        "date": "20th Jan 2026",
+        "quarter": "Dec '25",
+        "salesCr": 5588,
+        "salesGrowthYoY": 14,
+        "salesGrowthQoQ": null,
+        "netProfitCr": 300,
+        "profitGrowthYoY": 8,
+        "profitGrowthQoQ": null,
+        "tag": "GOOD RESULTS",
+        "rawText": "**20th Jan 2026:** (GOOD RESULTS) For the quarter ending Dec '25, Sales increased by 14% from 4,889 Cr in Dec '24 to 5,588 Cr in Dec '25. Over the same period, Operating Profit increased by 21% from 426 Cr to 516 Cr. Similarly, Net Profit increased by 8% from 278 Cr to 300 Cr"
+      },
+      {
+        "date": "17th Oct 2025",
+        "quarter": "Sept '25",
+        "salesCr": 4779,
+        "salesGrowthYoY": 5.3,
+        "salesGrowthQoQ": null,
+        "netProfitCr": 318,
+        "profitGrowthYoY": 18.7,
+        "profitGrowthQoQ": null,
+        "tag": "AVERAGE RESULTS",
+        "rawText": "**17th Oct 2025:** (AVERAGE RESULTS) For the quarter ending Sept '25, Sales increased by 5.3% from 4,539 Cr in Sept '24 to 4,779 Cr in Sept '25. Over the same period, Operating Profit increased by 16.8% from 375 Cr to 438 Cr. Similarly, Net Profit increased by 18.7% from 268 Cr to 318 Cr"
+      },
+      {
+        "date": "22nd July 2025",
+        "quarter": "Jun '25",
+        "salesCr": 5455,
+        "salesGrowthYoY": -6,
+        "salesGrowthQoQ": null,
+        "netProfitCr": 348,
+        "profitGrowthYoY": -14.7,
+        "profitGrowthQoQ": null,
+        "tag": "WEAK RESULTS",
+        "rawText": "**22nd July 2025:** (WEAK RESULTS) For the quarter ending Jun '25, Sales decreased by 6% from 5,806 Cr in Jun '24 to 5,455 Cr in Jun '25. Over the same period, Operating Profit decreased by 9.8% from 572 Cr to 516 Cr. Similarly, Net Profit decreased by 14.7% from 408 Cr to 348 Cr"
+      },
+      {
+        "date": "20th May 2025",
+        "quarter": "Mar '25",
+        "salesCr": 6544,
+        "salesGrowthYoY": 20,
+        "salesGrowthQoQ": null,
+        "netProfitCr": 517,
+        "profitGrowthYoY": 16,
+        "profitGrowthQoQ": null,
+        "tag": "GOOD RESULTS",
+        "rawText": "**20th May 2025:** (GOOD RESULTS) For the quarter ending Mar '25, Sales increased by 20% from 5,442 Cr in Mar '24 to 6,544 Cr in Mar '25. Over the same period, Operating Profit increased by 19% from 635 Cr to 757 Cr. Similarly, Net Profit increased by 16% from 447 Cr to 517 Cr"
+      }
+    ],
+    "dealActivity": [],
+    "concallHighlights": [],
+    "shareholding": []
+  },
+  {
+    "companyId": "ifb",
+    "companyName": "Ifb",
+    "description": "",
+    "clients": [],
+    "keyGrowthTriggers": [],
+    "quarterlyResults": [
+      {
+        "date": "28th Jan 2026",
+        "quarter": "Dec '25",
+        "salesCr": 1375,
+        "salesGrowthYoY": 12,
+        "salesGrowthQoQ": null,
+        "netProfitCr": 25,
+        "profitGrowthYoY": -29,
+        "profitGrowthQoQ": null,
+        "tag": "AVERAGE RESULTS",
+        "rawText": "**28th Jan 2026:** (AVERAGE RESULTS) For the quarter ending Dec '25, Sales increased by 12% from 1228 Cr in Dec '24 to 1375 Cr in Dec '25. Over the same period, Operating Profit decreased by 14% from 86 Cr to 74 Cr. Similarly, Net Profit decreased by 29% from 34 Cr to 25 Cr"
+      },
+      {
+        "date": "3rd Nov 2025",
+        "quarter": "Sept '25",
+        "salesCr": 1370,
+        "salesGrowthYoY": 12.4,
+        "salesGrowthQoQ": null,
+        "netProfitCr": 51,
+        "profitGrowthYoY": 61.7,
+        "profitGrowthQoQ": null,
+        "tag": "GOOD RESULTS",
+        "rawText": "**3rd Nov 2025:** (GOOD RESULTS) For the quarter ending Sept '25, Sales increased by 12.4% from 1,219 Cr in Sept '24 to 1,370 Cr in Sept '25. Over the same period, Operating Profit increased by 49.6% from 66 Cr to 98 Cr. Similarly, Net Profit increased by 61.7% from 31 Cr to 51 Cr"
+      },
+      {
+        "date": "7th Aug 2025",
+        "quarter": "Jun '25",
+        "salesCr": 1301,
+        "salesGrowthYoY": 5.1,
+        "salesGrowthQoQ": null,
+        "netProfitCr": 25,
+        "profitGrowthYoY": -34.7,
+        "profitGrowthQoQ": null,
+        "tag": "AVERAGE RESULTS",
+        "rawText": "**7th Aug 2025:** (AVERAGE RESULTS) For the quarter ending Jun '25, Sales increased by 5.1% from 1,237 Cr in Jun '24 to 1,301 Cr in Jun '25. Over the same period, Operating Profit decreased by 24.3% from 79 Cr to 60 Cr. Similarly, Net Profit decreased by 34.7% from 39 Cr to 25 Cr"
+      },
+      {
+        "date": "10th June 2025",
+        "quarter": "Mar '25",
+        "salesCr": 1300,
+        "salesGrowthYoY": 23.2,
+        "salesGrowthQoQ": null,
+        "netProfitCr": 22,
+        "profitGrowthYoY": 60.8,
+        "profitGrowthQoQ": null,
+        "tag": "GOOD RESULTS",
+        "rawText": "**10th June 2025:** (GOOD RESULTS) For the quarter ending Mar '25, Sales increased by 23.2% from 1,055 Cr in Mar '24 to 1,300 Cr in Mar '25. Over the same period, Operating Profit increased by 35.3% from 43 Cr to 58 Cr. Similarly, Net Profit increased by 60.8% from 14 Cr to 22 Cr"
+      }
+    ],
+    "dealActivity": [],
+    "concallHighlights": [],
+    "shareholding": []
+  },
+  {
+    "companyId": "jch",
+    "companyName": "Jch",
+    "description": "",
+    "clients": [],
+    "keyGrowthTriggers": [],
+    "quarterlyResults": [
+      {
+        "date": "25th July 2025",
+        "quarter": "Jun '25",
+        "salesCr": 853,
+        "salesGrowthYoY": -14.4,
+        "salesGrowthQoQ": null,
+        "netProfitCr": 15,
+        "profitGrowthYoY": -57.8,
+        "profitGrowthQoQ": null,
+        "tag": "WEAK RESULTS",
+        "rawText": "**25th July 2025:** (WEAK RESULTS) For the quarter ending Jun '25, Sales decreased by 14.4% from 996 Cr in Jun '24 to 853 Cr in Jun '25. Over the same period, Operating Profit decreased by 35.6% from 57 Cr to 36 Cr. Similarly, Net Profit decreased by 57.8% from 36 Cr to 15 Cr"
+      },
+      {
+        "date": "30th May 2025",
+        "quarter": "Mar '25",
+        "salesCr": 933,
+        "salesGrowthYoY": 20.8,
+        "salesGrowthQoQ": null,
+        "netProfitCr": 56,
+        "profitGrowthYoY": 15,
+        "profitGrowthQoQ": null,
+        "tag": "AVERAGE RESULTS",
+        "rawText": "**30th May 2025:** (AVERAGE RESULTS) For the quarter ending Mar '25, Sales increased by 20.8% from 772 Cr in Mar '24 to 933 Cr in Mar '25. Over the same period, Operating Profit increased by 12.7% from 81 Cr to 92 Cr. Similarly, Net Profit increased by 15% from 49 Cr to 56 Cr"
+      }
+    ],
+    "dealActivity": [],
+    "concallHighlights": [],
+    "shareholding": []
+  },
+  {
+    "companyId": "orient",
+    "companyName": "Orient",
+    "description": "",
+    "clients": [],
+    "keyGrowthTriggers": [],
+    "quarterlyResults": [
+      {
+        "date": "23rd Jan 2026",
+        "quarter": "Dec '25",
+        "salesCr": 906,
+        "salesGrowthYoY": 11,
+        "salesGrowthQoQ": null,
+        "netProfitCr": 26,
+        "profitGrowthYoY": -4,
+        "profitGrowthQoQ": null,
+        "tag": "GOOD RESULTS",
+        "rawText": "**23rd Jan 2026:** (GOOD RESULTS) For the quarter ending Dec '25, Sales increased by 11% from 817 Cr in Dec '24 to 906 Cr in Dec '25. Over the same period, Operating Profit increased by 12% from 61 Cr to 68 Cr. Similarly, Net Profit decreased by 4% from 27 Cr to 26 Cr"
+      },
+      {
+        "date": "17th Oct 2025",
+        "quarter": "Sept '25",
+        "salesCr": 703,
+        "salesGrowthYoY": 6.5,
+        "salesGrowthQoQ": null,
+        "netProfitCr": 12,
+        "profitGrowthYoY": 20,
+        "profitGrowthQoQ": null,
+        "tag": "AVERAGE RESULTS",
+        "rawText": "**17th Oct 2025:** (AVERAGE RESULTS) For the quarter ending Sept '25, Sales increased by 6.5% from 660 Cr in Sept '24 to 703 Cr in Sept '25. Over the same period, Operating Profit increased by 5.6% from 36 Cr to 38 Cr. Similarly, Net Profit increased by 20.0% from 10 Cr to 12 Cr"
+      },
+      {
+        "date": "25th July 2025",
+        "quarter": "Jun '25",
+        "salesCr": 769,
+        "salesGrowthYoY": 1.9,
+        "salesGrowthQoQ": null,
+        "netProfitCr": 18,
+        "profitGrowthYoY": 22.2,
+        "profitGrowthQoQ": null,
+        "tag": "AVERAGE RESULTS",
+        "rawText": "**25th July 2025:** (AVERAGE RESULTS) For the quarter ending Jun '25, Sales increased by 1.9% from 755 Cr in Jun '24 to 769 Cr in Jun '25. Over the same period, Operating Profit increased by 15.0% from 40 Cr to 46 Cr. Similarly, Net Profit increased by 22.2% from 14 Cr to 18 Cr"
+      }
+    ],
+    "dealActivity": [
+      {
+        "date": "25th April 2025",
+        "type": "other",
+        "description": "(EXCELLENT RESULTS) For the quarter ending Mar-25, Sales up 9% YoY from INR 788 Cr in Mar-24 to INR 862 Cr in Mar-25. Over the same period, Operating Profit increased by 2.1x from 31 Cr to 67 Cr. Similarly, Net Profit up 2.4x from INR 13 Cr to INR 31 Cr.",
+        "valueCr": 788
+      }
+    ],
+    "concallHighlights": [],
+    "shareholding": []
+  },
+  {
+    "companyId": "symphony",
+    "companyName": "Symphony",
+    "description": "",
+    "clients": [],
+    "keyGrowthTriggers": [],
+    "quarterlyResults": [
+      {
+        "date": "7th Nov 2025",
+        "quarter": "Sept '25",
+        "salesCr": 163,
+        "salesGrowthYoY": -48.3,
+        "salesGrowthQoQ": null,
+        "netProfitCr": 19,
+        "profitGrowthYoY": -66.1,
+        "profitGrowthQoQ": null,
+        "tag": "POOR RESULTS",
+        "rawText": "**7th Nov 2025:** (POOR RESULTS) For the quarter ending Sept '25, Sales decreased by 48.3% from 315 Cr in Sept '24 to 163 Cr in Sept '25. Over the same period, Operating Profit decreased by 62.5% from 64 Cr to 24 Cr. Similarly, Net Profit decreased by 66.1% from 56 Cr to 19 Cr"
+      },
+      {
+        "date": "1st Aug 2025",
+        "quarter": "Jun '25",
+        "salesCr": 251,
+        "salesGrowthYoY": -36.1,
+        "salesGrowthQoQ": null,
+        "netProfitCr": 42,
+        "profitGrowthYoY": -52.3,
+        "profitGrowthQoQ": null,
+        "tag": "POOR RESULTS",
+        "rawText": "**1st Aug 2025:** (POOR RESULTS) For the quarter ending Jun '25, Sales decreased by 36.1% from 393 Cr in Jun '24 to 251 Cr in Jun '25. Over the same period, Operating Profit decreased by 70.1% from 87 Cr to 26 Cr. Similarly, Net Profit decreased by 52.3% from 88 Cr to 42 Cr"
+      },
+      {
+        "date": "4th June 2025",
+        "quarter": "Mar '25",
+        "salesCr": 488,
+        "salesGrowthYoY": 47,
+        "salesGrowthQoQ": null,
+        "netProfitCr": 79,
+        "profitGrowthYoY": 64.6,
+        "profitGrowthQoQ": null,
+        "tag": "EXCELLENT RESULTS",
+        "rawText": "**4th June 2025:** (EXCELLENT RESULTS) For the quarter ending Mar '25, Sales increased by 47% from 332 Cr in Mar '24 to 488 Cr in Mar '25. Over the same period, Operating Profit increased by 87.7% from 57 Cr to 107 Cr. Similarly, Net Profit increased by 64.6% from 48 Cr to 79 Cr"
+      }
+    ],
+    "dealActivity": [],
+    "concallHighlights": [],
+    "shareholding": []
+  },
+  {
+    "companyId": "ttk",
+    "companyName": "Ttk",
+    "description": "",
+    "clients": [],
+    "keyGrowthTriggers": [],
+    "quarterlyResults": [
+      {
+        "date": "30th Jan 2026",
+        "quarter": "Dec '25",
+        "salesCr": 801,
+        "salesGrowthYoY": 10,
+        "salesGrowthQoQ": null,
+        "netProfitCr": 32,
+        "profitGrowthYoY": -45,
+        "profitGrowthQoQ": null,
+        "tag": "AVERAGE RESULTS",
+        "rawText": "**30th Jan 2026:** (AVERAGE RESULTS) For the quarter ending Dec '25, Sales increased by 10% from 727 Cr in Dec '24 to 801 Cr in Dec '25. Over the same period, Operating Profit decreased by 9% from 79 Cr to 72 Cr. Similarly, Net Profit decreased by 45% from 57 Cr to 32 Cr"
+      },
+      {
+        "date": "28th Oct 2025",
+        "quarter": "Sept '25",
+        "salesCr": 834,
+        "salesGrowthYoY": 11.2,
+        "salesGrowthQoQ": null,
+        "netProfitCr": 63,
+        "profitGrowthYoY": 21.2,
+        "profitGrowthQoQ": null,
+        "tag": "GOOD RESULTS",
+        "rawText": "**28th Oct 2025:** (GOOD RESULTS) For the quarter ending Sept '25, Sales increased by 11.2% from 750 Cr in Sept '24 to 834 Cr in Sept '25. Over the same period, Operating Profit increased by 33.3% from 72 Cr to 96 Cr. Similarly, Net Profit increased by 21.2% from 52 Cr to 63 Cr"
+      },
+      {
+        "date": "28th July 2025",
+        "quarter": "Jun '25",
+        "salesCr": 609,
+        "salesGrowthYoY": 3.6,
+        "salesGrowthQoQ": null,
+        "netProfitCr": 26,
+        "profitGrowthYoY": -37.2,
+        "profitGrowthQoQ": null,
+        "tag": "WEAK RESULTS",
+        "rawText": "**28th July 2025:** (WEAK RESULTS) For the quarter ending Jun '25, Sales increased by 3.6% from 588 Cr in Jun '24 to 609 Cr in Jun '25. Over the same period, Operating Profit decreased by 25.9% from 54 Cr to 40 Cr. Similarly, Net Profit decreased by 37.2% from 41 Cr to 26 Cr"
+      }
+    ],
+    "dealActivity": [],
+    "concallHighlights": [],
+    "shareholding": []
+  },
+  {
+    "companyId": "vguard",
+    "companyName": "Vguard",
+    "description": "",
+    "clients": [],
+    "keyGrowthTriggers": [],
+    "quarterlyResults": [
+      {
+        "date": "14th Nov 2025",
+        "quarter": "Sept '25",
+        "salesCr": 1341,
+        "salesGrowthYoY": 3.6,
+        "salesGrowthQoQ": null,
+        "netProfitCr": 65,
+        "profitGrowthYoY": 3,
+        "profitGrowthQoQ": null,
+        "tag": "AVERAGE RESULTS",
+        "rawText": "**14th Nov 2025:** (AVERAGE RESULTS) For the quarter ending Sept '25, Sales increased by 3.6% from 1,294 Cr in Sept '24 to 1,341 Cr in Sept '25. Over the same period, Operating Profit decreased by 0.9% from 110 Cr to 109 Cr. Similarly, Net Profit increased by 3.0% from 63 Cr to 65 Cr"
+      },
+      {
+        "date": "29th July 2025",
+        "quarter": "Jun '25",
+        "salesCr": 1466,
+        "salesGrowthYoY": -0.7,
+        "salesGrowthQoQ": null,
+        "netProfitCr": 74,
+        "profitGrowthYoY": -25.4,
+        "profitGrowthQoQ": null,
+        "tag": "WEAK RESULTS",
+        "rawText": "**29th July 2025:** (WEAK RESULTS) For the quarter ending Jun '25, Sales decreased by 0.7% from 1,477 Cr in Jun '24 to 1,466 Cr in Jun '25. Over the same period, Operating Profit decreased by 20.7% from 156 Cr to 124 Cr. Similarly, Net Profit decreased by 25.4% from 99 Cr to 74 Cr"
+      },
+      {
+        "date": "6th June 2025",
+        "quarter": "Mar '25",
+        "salesCr": 1538,
+        "salesGrowthYoY": 14.5,
+        "salesGrowthQoQ": null,
+        "netProfitCr": 91,
+        "profitGrowthYoY": 19.6,
+        "profitGrowthQoQ": null,
+        "tag": "GOOD RESULTS",
+        "rawText": "**6th June 2025:** (GOOD RESULTS) For the quarter ending Mar '25, Sales increased by 14.5% from 1,343 Cr in Mar '24 to 1,538 Cr in Mar '25. Over the same period, Operating Profit increased by 12% from 128 Cr to 143 Cr. Similarly, Net Profit increased by 19.6% from 76 Cr to 91 Cr"
+      }
+    ],
+    "dealActivity": [],
+    "concallHighlights": [],
+    "shareholding": []
+  },
+  {
+    "companyId": "voltas",
+    "companyName": "Voltas",
+    "description": "",
+    "clients": [],
+    "keyGrowthTriggers": [],
+    "quarterlyResults": [
+      {
+        "date": "18th Nov 2025",
+        "quarter": "Sept '25",
+        "salesCr": 2347,
+        "salesGrowthYoY": -10.4,
+        "salesGrowthQoQ": null,
+        "netProfitCr": 32,
+        "profitGrowthYoY": null,
+        "profitGrowthQoQ": null,
+        "tag": "WEAK RESULTS",
+        "rawText": "**18th Nov 2025:** (WEAK RESULTS) For the quarter ending Sept '25, Sales decreased by 10.4% from 2,619 Cr in Sept '24 to 2,347 Cr in Sept '25. Over the same period, Operating Profit decreased by 73.9% from 130 Cr to 34 Cr. Similarly, Net Profit decreased from 133 Cr to 32 Cr"
+      },
+      {
+        "date": "8th Aug 2025",
+        "quarter": "Jun '25",
+        "salesCr": 3939,
+        "salesGrowthYoY": -20,
+        "salesGrowthQoQ": null,
+        "netProfitCr": 141,
+        "profitGrowthYoY": -58,
+        "profitGrowthQoQ": null,
+        "tag": "WEAK RESULTS",
+        "rawText": "**8th Aug 2025:** (WEAK RESULTS) For the quarter ending Jun '25, Sales decreased by 20% from 4,921 Cr in Jun '24 to 3,939 Cr in Jun '25. Over the same period, Operating Profit decreased by 61.3% from 394 Cr to 153 Cr. Similarly, Net Profit decreased by 58% from 335 Cr to 141 Cr"
+      }
+    ],
+    "dealActivity": [],
+    "concallHighlights": [],
+    "shareholding": []
+  },
+  {
+    "companyId": "whirlpool",
+    "companyName": "Whirlpool",
+    "description": "",
+    "clients": [],
+    "keyGrowthTriggers": [],
+    "quarterlyResults": [
+      {
+        "date": "11th Feb 2026",
+        "quarter": "Dec '25",
+        "salesCr": 1774,
+        "salesGrowthYoY": 4,
+        "salesGrowthQoQ": null,
+        "netProfitCr": 27,
+        "profitGrowthYoY": -40,
+        "profitGrowthQoQ": null,
+        "tag": "AVERAGE RESULTS",
+        "rawText": "**11th Feb 2026:** (AVERAGE RESULTS) For the quarter ending Dec '25, Sales increased by 4% from 1,705 Cr in Dec '24 to 1,774 Cr in Dec '25. Over the same period, Operating Profit increased by 31% from 69 Cr to 91 Cr. Similarly, Net Profit decreased by 40% from 45 Cr to 27 Cr"
+      },
+      {
+        "date": "6th Nov 2025",
+        "quarter": "Sept '25",
+        "salesCr": 1647,
+        "salesGrowthYoY": -3.8,
+        "salesGrowthQoQ": null,
+        "netProfitCr": 42,
+        "profitGrowthYoY": -21.9,
+        "profitGrowthQoQ": null,
+        "tag": "WEAK RESULTS",
+        "rawText": "**6th Nov 2025:** (WEAK RESULTS) For the quarter ending Sept '25, Sales decreased by 3.8% from 1,713 Cr in Sept '24 to 1,647 Cr in Sept '25. Over the same period, Operating Profit decreased by 33.5% from 87 Cr to 58 Cr. Similarly, Net Profit decreased by 21.9% from 54 Cr to 42 Cr"
+      },
+      {
+        "date": "28th July 2025",
+        "quarter": "Jun '25",
+        "salesCr": 2432,
+        "salesGrowthYoY": -2.6,
+        "salesGrowthQoQ": null,
+        "netProfitCr": 146,
+        "profitGrowthYoY": 0.6,
+        "profitGrowthQoQ": null,
+        "tag": "AVERAGE RESULTS",
+        "rawText": "**28th July 2025:** (AVERAGE RESULTS) For the quarter ending Jun '25, Sales decreased by 2.6% from 2,497 Cr in Jun '24 to 2,432 Cr in Jun '25. Over the same period, Operating Profit increased by 0.1% from 211 Cr to 211 Cr. Similarly, Net Profit increased by 0.6% from 145 Cr to 146 Cr"
+      },
+      {
+        "date": "6th June 2025",
+        "quarter": "Mar '25",
+        "salesCr": 2005,
+        "salesGrowthYoY": 15.6,
+        "salesGrowthQoQ": null,
+        "netProfitCr": 119,
+        "profitGrowthYoY": 50.4,
+        "profitGrowthQoQ": null,
+        "tag": "GOOD RESULTS",
+        "rawText": "**6th June 2025:** (GOOD RESULTS) For the quarter ending Mar '25, Sales increased by 15.6% from 1,734 Cr in Mar '24 to 2,005 Cr in Mar '25. Over the same period, Operating Profit increased by 27.4% from 144 Cr to 183 Cr. Similarly, Net Profit increased by 50.4% from 79 Cr to 119 Cr"
+      }
+    ],
+    "dealActivity": [],
+    "concallHighlights": [],
+    "shareholding": []
+  }
+]

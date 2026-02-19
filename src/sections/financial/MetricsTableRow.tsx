@@ -106,17 +106,17 @@ export function MetricsTableRow({
 
         {/* Working Capital Days */}
         <div className="text-xs text-right px-sm py-xs font-mono text-text-primary">
-          {metrics.workingCapitalDays} days
+          {metrics.workingCapitalDays != null ? `${metrics.workingCapitalDays} days` : "—"}
         </div>
 
         {/* ROCE */}
         <div className="text-xs text-right px-sm py-xs font-mono text-text-primary">
-          {(metrics.roce * 100).toFixed(1)}%
+          {metrics.roce != null ? `${(metrics.roce * 100).toFixed(1)}%` : "—"}
         </div>
 
         {/* Debt/Equity */}
         <div className="text-xs text-right px-sm py-xs font-mono text-text-primary">
-          {metrics.debtEquity.toFixed(2)}x
+          {metrics.debtEquity != null ? `${metrics.debtEquity.toFixed(2)}x` : "—"}
         </div>
 
         {/* Source attribution */}

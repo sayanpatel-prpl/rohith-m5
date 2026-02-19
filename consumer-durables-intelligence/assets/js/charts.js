@@ -24,7 +24,41 @@ Chart.defaults.elements.line.tension = 0.3;
 Chart.defaults.elements.point.radius = 2;
 Chart.defaults.elements.point.hoverRadius = 5;
 
+// Disable datalabels globally — only enable per-chart via plugins: [ChartDataLabels]
+Chart.defaults.set('plugins.datalabels', { display: false });
+
 const chartInstances = {};
+
+// Trim leading empty quarters — find first index where ANY company has data
+function trimLeadingNulls(companies, metric, start, end) {
+  for (let q = start; q <= end; q++) {
+    if (companies.some(id => DATA.financials[id][metric][q] !== null && DATA.financials[id][metric][q] !== undefined)) {
+      return q;
+    }
+  }
+  return start;
+}
+
+// Shared hover-highlight handler for multi-line trend charts
+// Hovering a line → bold + full opacity; all others dim. Mouse out → restore.
+function trendChartHoverHandler(event, elements, chart) {
+  const datasets = chart.data.datasets;
+  if (elements.length > 0) {
+    const hoveredIdx = elements[0].datasetIndex;
+    datasets.forEach((ds, i) => {
+      ds.borderWidth = i === hoveredIdx ? 3 : 1.2;
+      ds.borderColor = ds.baseColor + (i === hoveredIdx ? '' : '55');
+      ds.pointRadius = i === hoveredIdx ? 3 : 0;
+    });
+  } else {
+    datasets.forEach(ds => {
+      ds.borderWidth = 1.5;
+      ds.borderColor = ds.baseColor + '99';
+      ds.pointRadius = 0;
+    });
+  }
+  chart.update('none');
+}
 
 function destroyChart(key) {
   if (chartInstances[key]) {
@@ -42,29 +76,31 @@ const Charts = {
     destroyChart('demand');
     const ctx = document.getElementById('chartDemand');
     if (!ctx) return;
+    const ds = DATA.marketPulse.demandSignals;
+    const datasets = [];
+    // Use sectorRevenueGrowthYoY as primary demand signal (real data)
+    if (ds.sectorRevenueGrowthYoY) {
+      datasets.push({
+        label: 'Sector Revenue Growth YoY %',
+        data: ds.sectorRevenueGrowthYoY,
+        borderColor: '#3B82F6',
+        backgroundColor: 'rgba(59,130,246,0.08)',
+        fill: true,
+        borderWidth: 2,
+        spanGaps: true,
+      });
+    }
+    // Volume/price growth only if available (currently null)
+    if (ds.volumeGrowth) {
+      datasets.push({ label: 'Volume Growth %', data: ds.volumeGrowth, borderColor: '#22C55E', borderWidth: 2, spanGaps: true });
+    }
+    if (ds.priceGrowth) {
+      datasets.push({ label: 'Price Growth %', data: ds.priceGrowth, borderColor: '#F59E0B', borderWidth: 2, spanGaps: true });
+    }
+    if (!datasets.length) { ctx.parentElement.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#94A3B8;">No demand signal data available</div>'; return; }
     chartInstances.demand = new Chart(ctx, {
       type: 'line',
-      data: {
-        labels: DATA.quarters,
-        datasets: [
-          {
-            label: 'Volume Growth %',
-            data: DATA.marketPulse.demandSignals.volumeGrowth,
-            borderColor: '#3B82F6',
-            backgroundColor: 'rgba(59,130,246,0.08)',
-            fill: true,
-            borderWidth: 2,
-          },
-          {
-            label: 'Price Growth %',
-            data: DATA.marketPulse.demandSignals.priceGrowth,
-            borderColor: '#F59E0B',
-            backgroundColor: 'rgba(245,158,11,0.08)',
-            fill: true,
-            borderWidth: 2,
-          },
-        ],
-      },
+      data: { labels: DATA.quarters, datasets },
       options: {
         responsive: true,
         maintainAspectRatio: false,
@@ -82,23 +118,25 @@ const Charts = {
     const ctx = document.getElementById('chartInputCosts');
     if (!ctx) return;
     const d = DATA.marketPulse.inputCosts;
+    // Check if any cost data is available
+    if (!d.copper && !d.steel && !d.aluminum && !d.polymer) {
+      ctx.parentElement.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#94A3B8;font-size:13px;text-align:center;padding:20px;">Input cost index data not available.<br>No commodity price tracking in source data.</div>';
+      return;
+    }
+    const datasets = [];
+    if (d.copper) datasets.push({ label: 'Copper', data: d.copper, borderColor: '#EF4444', borderWidth: 2.5 });
+    if (d.steel) datasets.push({ label: 'Steel', data: d.steel, borderColor: '#3B82F6', borderWidth: 2 });
+    if (d.aluminum) datasets.push({ label: 'Aluminum', data: d.aluminum, borderColor: '#9333EA', borderWidth: 2 });
+    if (d.polymer) datasets.push({ label: 'Polymer', data: d.polymer, borderColor: '#F59E0B', borderWidth: 1.5, borderDash: [4,2] });
     chartInstances.inputCosts = new Chart(ctx, {
       type: 'line',
-      data: {
-        labels: DATA.quarters,
-        datasets: [
-          { label: 'Copper', data: d.copper, borderColor: '#EF4444', borderWidth: 2 },
-          { label: 'Steel', data: d.steel, borderColor: '#3B82F6', borderWidth: 2 },
-          { label: 'Plastics', data: d.plastic, borderColor: '#9333EA', borderWidth: 2 },
-          { label: 'Logistics', data: d.logistics, borderColor: '#F59E0B', borderWidth: 2 },
-        ],
-      },
+      data: { labels: DATA.quarters, datasets },
       options: {
         responsive: true,
         maintainAspectRatio: false,
         plugins: { legend: { position: 'top' } },
         scales: {
-          y: { grid: { color: 'rgba(0,0,0,0.04)' } },
+          y: { grid: { color: 'rgba(0,0,0,0.04)' }, title: { display: true, text: 'Index (Q1 FY23 = 100)' } },
           x: { grid: { display: false } },
         },
       },
@@ -223,17 +261,27 @@ const Charts = {
     const ctx = document.getElementById('chartRevenueTrend');
     if (!ctx) return;
     const companies = filteredCompanies || DataUtils.getAllCompanyIds();
-    const datasets = companies.map((id, i) => ({
-      label: DataUtils.getCompany(id).name.split(' ')[0],
-      data: DATA.financials[id].revenue,
-      borderColor: CHART_COLORS[i % CHART_COLORS.length],
-      borderWidth: 1.5,
-      pointRadius: 2,
-      spanGaps: true,
-    }));
+    const period = typeof Filters !== 'undefined' ? Filters.timePeriod : 'all';
+    const [rangeStart, end] = DataUtils.getQuarterRangeForPeriod(period);
+    const start = trimLeadingNulls(companies, 'revenue', rangeStart, end);
+    const labels = DATA.quarters.slice(start, end + 1);
 
-    // Compute Y-axis bounds from actual data for readable range
-    const allVals = companies.flatMap(id => DATA.financials[id].revenue.filter(v => v !== null));
+    const datasets = companies.map((id, i) => {
+      const color = CHART_COLORS[i % CHART_COLORS.length];
+      return {
+        label: DataUtils.getCompany(id).name.split(' ')[0],
+        data: DATA.financials[id].revenue.slice(start, end + 1),
+        borderColor: color + '99',
+        baseColor: color,
+        borderWidth: 1.5,
+        pointRadius: 0,
+        pointHoverRadius: 5,
+        spanGaps: true,
+      };
+    });
+
+    // Compute Y-axis bounds from sliced data
+    const allVals = companies.flatMap(id => DATA.financials[id].revenue.slice(start, end + 1).filter(v => v !== null));
     const dataMin = allVals.length ? Math.min(...allVals) : 0;
     const dataMax = allVals.length ? Math.max(...allVals) : 1000;
     const yMin = Math.max(0, Math.floor(dataMin * 0.8 / 100) * 100);
@@ -241,10 +289,12 @@ const Charts = {
 
     chartInstances.revenueTrend = new Chart(ctx, {
       type: 'line',
-      data: { labels: DATA.quarters, datasets },
+      data: { labels, datasets },
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        interaction: { mode: 'nearest', intersect: false },
+        onHover: trendChartHoverHandler,
         plugins: {
           legend: { position: 'top', labels: { font: { size: 10 }, boxWidth: 12, padding: 8 } },
           tooltip: { callbacks: { label: ctx => ctx.dataset.label + ': ₹' + (ctx.parsed.y >= 1000 ? (ctx.parsed.y/1000).toFixed(1) + 'K' : ctx.parsed.y) + ' Cr' } },
@@ -257,7 +307,19 @@ const Charts = {
             title: { display: true, text: '₹ Cr' },
             ticks: { callback: v => v >= 1000 ? (v / 1000).toFixed(0) + 'K' : v },
           },
-          x: { grid: { display: false }, ticks: { font: { size: 9 } } },
+          x: {
+            grid: {
+              display: true,
+              color: (ctx) => labels[ctx.index]?.startsWith('Q1') ? 'rgba(0,0,0,0.08)' : 'transparent',
+              drawTicks: false,
+            },
+            ticks: {
+              font: { size: 10 },
+              maxRotation: 0,
+              autoSkip: true,
+              callback: function(value) { return this.getLabelForValue(value).replace(' FY', "'"); },
+            },
+          },
         },
       },
     });
@@ -268,17 +330,27 @@ const Charts = {
     const ctx = document.getElementById('chartEbitdaTrend');
     if (!ctx) return;
     const companies = filteredCompanies || DataUtils.getAllCompanyIds();
-    const datasets = companies.map((id, i) => ({
-      label: DataUtils.getCompany(id).name.split(' ')[0],
-      data: DATA.financials[id].ebitdaMargin,
-      borderColor: CHART_COLORS[i % CHART_COLORS.length],
-      borderWidth: 1.5,
-      pointRadius: 2,
-      spanGaps: true,
-    }));
+    const period = typeof Filters !== 'undefined' ? Filters.timePeriod : 'all';
+    const [rangeStart, end] = DataUtils.getQuarterRangeForPeriod(period);
+    const start = trimLeadingNulls(companies, 'ebitdaMargin', rangeStart, end);
+    const labels = DATA.quarters.slice(start, end + 1);
 
-    // Compute Y-axis bounds from actual data
-    const allVals = companies.flatMap(id => DATA.financials[id].ebitdaMargin.filter(v => v !== null));
+    const datasets = companies.map((id, i) => {
+      const color = CHART_COLORS[i % CHART_COLORS.length];
+      return {
+        label: DataUtils.getCompany(id).name.split(' ')[0],
+        data: DATA.financials[id].ebitdaMargin.slice(start, end + 1),
+        borderColor: color + '99',
+        baseColor: color,
+        borderWidth: 1.5,
+        pointRadius: 0,
+        pointHoverRadius: 5,
+        spanGaps: true,
+      };
+    });
+
+    // Compute Y-axis bounds from sliced data
+    const allVals = companies.flatMap(id => DATA.financials[id].ebitdaMargin.slice(start, end + 1).filter(v => v !== null));
     const dataMin = allVals.length ? Math.min(...allVals) : 0;
     const dataMax = allVals.length ? Math.max(...allVals) : 20;
     const yMin = Math.floor(dataMin - 2);
@@ -286,10 +358,12 @@ const Charts = {
 
     chartInstances.ebitdaTrend = new Chart(ctx, {
       type: 'line',
-      data: { labels: DATA.quarters, datasets },
+      data: { labels, datasets },
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        interaction: { mode: 'nearest', intersect: false },
+        onHover: trendChartHoverHandler,
         plugins: {
           legend: { position: 'top', labels: { font: { size: 10 }, boxWidth: 12, padding: 8 } },
           tooltip: { callbacks: { label: ctx => ctx.dataset.label + ': ' + ctx.parsed.y + '%' } },
@@ -301,7 +375,19 @@ const Charts = {
             grid: { color: 'rgba(0,0,0,0.04)' },
             ticks: { callback: v => v + '%' },
           },
-          x: { grid: { display: false }, ticks: { font: { size: 9 } } },
+          x: {
+            grid: {
+              display: true,
+              color: (ctx) => labels[ctx.index]?.startsWith('Q1') ? 'rgba(0,0,0,0.08)' : 'transparent',
+              drawTicks: false,
+            },
+            ticks: {
+              font: { size: 10 },
+              maxRotation: 0,
+              autoSkip: true,
+              callback: function(value) { return this.getLabelForValue(value).replace(' FY', "'"); },
+            },
+          },
         },
       },
     });
@@ -311,13 +397,27 @@ const Charts = {
     destroyChart('roce');
     const ctx = document.getElementById('chartRoce');
     if (!ctx) return;
-    const companies = filteredCompanies || DataUtils.getAllCompanyIds();
-    const labels = companies.map(id => {
-      const n = DataUtils.getCompany(id).name;
-      return n.split(' ')[0];
-    });
-    const latestRoce = companies.map(id => DataUtils.getLatestValue(id, 'roce'));
-    const colors = latestRoce.map(v => v >= 20 ? '#22C55E' : v >= 15 ? '#3B82F6' : v >= 10 ? '#F59E0B' : '#EF4444');
+    const allIds = filteredCompanies || DataUtils.getAllCompanyIds();
+    const qIdx = DataUtils.getQuarterIndexForPeriod(typeof Filters !== 'undefined' ? Filters.timePeriod : 'latest');
+
+    // Build pairs, filter nulls, sort descending
+    const pairs = allIds
+      .map(id => ({ id, val: DataUtils.getValueAt(id, 'roce', qIdx) }))
+      .filter(p => p.val !== null)
+      .sort((a, b) => b.val - a.val);
+
+    const labels = pairs.map(p => DataUtils.getCompany(p.id).name.replace(/ of India| Consumer| Greaves| Industries| Electricals| Electric/g, ''));
+    const values = pairs.map(p => p.val);
+    const colors = values.map(v => v >= 25 ? '#16A34A' : v >= 18 ? '#22C55E' : v >= 15 ? '#3B82F6' : v >= 10 ? '#F59E0B' : '#EF4444');
+
+    // Sector average
+    const avg = values.length ? +(values.reduce((s, v) => s + v, 0) / values.length).toFixed(1) : 0;
+
+    // Dynamic height: 36px per bar, minimum 200px
+    const barHeight = 36;
+    const chartHeight = Math.max(200, pairs.length * barHeight + 60);
+    const container = ctx.parentElement;
+    container.style.height = chartHeight + 'px';
 
     chartInstances.roce = new Chart(ctx, {
       type: 'bar',
@@ -325,20 +425,47 @@ const Charts = {
         labels,
         datasets: [{
           label: 'ROCE %',
-          data: latestRoce,
+          data: values,
           backgroundColor: colors,
           borderRadius: 4,
-          barPercentage: 0.6,
+          barPercentage: 0.7,
+          categoryPercentage: 0.8,
         }],
       },
       options: {
         responsive: true,
         maintainAspectRatio: false,
         indexAxis: 'y',
-        plugins: { legend: { display: false } },
+        layout: { padding: { right: 40, left: 4 } },
+        plugins: {
+          legend: { display: false },
+          datalabels: {
+            display: true,
+            anchor: 'end',
+            align: 'right',
+            color: '#334155',
+            font: { size: 11, weight: '600' },
+            formatter: v => v + '%',
+          },
+          annotation: undefined,
+          tooltip: {
+            callbacks: {
+              label: ctx => 'ROCE: ' + ctx.parsed.x + '%' + (ctx.parsed.x >= avg ? '  (above avg)' : '  (below avg)'),
+              afterBody: () => 'Sector Avg: ' + avg + '%',
+            },
+          },
+        },
         scales: {
-          x: { grid: { color: 'rgba(0,0,0,0.04)' }, ticks: { callback: v => v + '%' } },
-          y: { grid: { display: false } },
+          x: {
+            grid: { color: 'rgba(0,0,0,0.05)' },
+            ticks: { callback: v => v + '%', font: { size: 11 } },
+            title: { display: true, text: 'ROCE %', font: { size: 12 } },
+            beginAtZero: true,
+          },
+          y: {
+            grid: { display: false },
+            ticks: { font: { size: 12, weight: '500' }, padding: 6, crossAlign: 'far' },
+          },
         },
       },
     });
@@ -372,8 +499,8 @@ const Charts = {
         maintainAspectRatio: false,
         plugins: { legend: { position: 'top', labels: { font: { size: 10 } } } },
         scales: {
-          x: { title: { display: true, text: 'Capacity Utilization %' }, grid: { color: 'rgba(0,0,0,0.04)' }, min: 50, max: 95 },
-          y: { title: { display: true, text: 'Localization %' }, grid: { color: 'rgba(0,0,0,0.04)' }, min: 50, max: 95 },
+          x: { title: { display: true, text: 'Capacity Utilization %' }, grid: { color: 'rgba(0,0,0,0.04)' }, min: 45, max: 95 },
+          y: { title: { display: true, text: 'Localization %' }, grid: { color: 'rgba(0,0,0,0.04)' }, min: 45, max: 95 },
         },
       },
     });
@@ -402,6 +529,48 @@ const Charts = {
         scales: {
           x: { stacked: true, grid: { display: false } },
           y: { stacked: true, grid: { color: 'rgba(0,0,0,0.04)' }, ticks: { callback: v => v + '%' }, max: 100 },
+        },
+      },
+    });
+  },
+
+  renderImportRiskChart(filteredCompanies) {
+    destroyChart('importRisk');
+    const ctx = document.getElementById('chartImportRisk');
+    if (!ctx) return;
+    const companies = filteredCompanies || DataUtils.getAllCompanyIds();
+    const labels = companies.map(id => DataUtils.getCompany(id).name.split(' ')[0]);
+    const impDep = companies.map(id => DATA.operationalMetrics.importDependency[id] || 0);
+    // Color-code by risk: >35% red, >25% amber, <=25% green
+    const colors = impDep.map(v => v > 35 ? '#EF4444' : v > 25 ? '#F59E0B' : '#22C55E');
+    chartInstances.importRisk = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels,
+        datasets: [{
+          label: 'Import Dependency %',
+          data: impDep,
+          backgroundColor: colors,
+          borderRadius: 4,
+          barPercentage: 0.65,
+        }],
+      },
+      options: {
+        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          datalabels: { anchor: 'end', align: 'end', formatter: v => v + '%', font: { size: 11, weight: 500 }, color: '#64748B' },
+          annotation: {
+            annotations: {
+              riskLine: { type: 'line', xMin: 30, xMax: 30, borderColor: '#EF4444', borderWidth: 1.5, borderDash: [4,3], label: { display: true, content: 'High Risk (30%)', position: 'start', font: { size: 10 } } },
+            },
+          },
+        },
+        scales: {
+          x: { grid: { color: 'rgba(0,0,0,0.04)' }, ticks: { callback: v => v + '%' }, max: 50 },
+          y: { grid: { display: false } },
         },
       },
     });
@@ -448,23 +617,38 @@ const Charts = {
     const ctx = document.getElementById('chartSentiment');
     if (!ctx) return;
     const companies = filteredCompanies || DataUtils.getAllCompanyIds();
-    const labels = companies.map(id => DataUtils.getCompany(id).name.split(' ')[0]);
+    // Filter to companies with sentiment data
+    const withData = companies.filter(id => DATA.sentimentScores[id]?.overall !== null);
+    if (!withData.length) { ctx.parentElement.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#94A3B8;">No sentiment data available</div>'; return; }
+    const labels = withData.map(id => DataUtils.getCompany(id).name.split(' ')[0]);
+    const values = withData.map(id => DATA.sentimentScores[id].overall);
+    const colors = values.map(v => v >= 70 ? '#22C55E' : v >= 50 ? '#3B82F6' : v >= 35 ? '#F59E0B' : '#EF4444');
     chartInstances.sentiment = new Chart(ctx, {
       type: 'bar',
       data: {
         labels,
-        datasets: [
-          { label: 'News', data: companies.map(id => DATA.sentimentScores[id].news), backgroundColor: '#3B82F6' },
-          { label: 'Analyst', data: companies.map(id => DATA.sentimentScores[id].analyst), backgroundColor: '#0D9488' },
-          { label: 'Social', data: companies.map(id => DATA.sentimentScores[id].social), backgroundColor: '#F59E0B' },
-        ],
+        datasets: [{
+          label: 'Earnings Quality Score',
+          data: values,
+          backgroundColor: colors,
+          borderRadius: 4,
+          barPercentage: 0.7,
+        }],
       },
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        plugins: { legend: { position: 'top' } },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: ctx => 'Score: ' + ctx.parsed.y + '/100',
+              afterBody: () => 'Source: Sovrenn quarterly result tags',
+            },
+          },
+        },
         scales: {
-          y: { grid: { color: 'rgba(0,0,0,0.04)' }, max: 100 },
+          y: { grid: { color: 'rgba(0,0,0,0.04)' }, max: 100, min: 0, title: { display: true, text: 'Score (0-100)' } },
           x: { grid: { display: false } },
         },
       },
@@ -520,25 +704,31 @@ const Charts = {
     const ctx = document.getElementById('chartCostBenchmark');
     if (!ctx) return;
     const cb = DATA.subSectorDeepDive.costStructureBenchmark;
-    const cats = Object.keys(cb);
-    const labelsMap = { rawMaterials: 'Raw Materials', labor: 'Labor', logistics: 'Logistics', marketing: 'Marketing', overhead: 'Overhead' };
+    // Filter to categories that have data (non-null)
+    const allCats = ['totalExpenses', 'rawMaterials', 'labor', 'logistics', 'marketing', 'overhead'];
+    const labelsMap = { totalExpenses: 'Total Expenses\n(% of Revenue)', rawMaterials: 'Raw Materials', labor: 'Labor', logistics: 'Logistics', marketing: 'Marketing', overhead: 'Overhead' };
+    const cats = allCats.filter(c => cb[c] !== null && cb[c] !== undefined);
+    if (!cats.length) { ctx.parentElement.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#94A3B8;">No cost breakdown data available</div>'; return; }
 
     chartInstances.costBenchmark = new Chart(ctx, {
       type: 'bar',
       data: {
-        labels: cats.map(c => labelsMap[c]),
+        labels: cats.map(c => labelsMap[c] || c),
         datasets: [
-          { label: 'Top Quartile', data: cats.map(c => cb[c].topQuartile), backgroundColor: '#22C55E', borderRadius: 4 },
+          { label: 'Best (Top Quartile OPM)', data: cats.map(c => cb[c].topQuartile), backgroundColor: '#22C55E', borderRadius: 4 },
           { label: 'Median', data: cats.map(c => cb[c].median), backgroundColor: '#3B82F6', borderRadius: 4 },
-          { label: 'Bottom Quartile', data: cats.map(c => cb[c].bottomQuartile), backgroundColor: '#EF4444', borderRadius: 4 },
+          { label: 'Worst (Bottom Quartile OPM)', data: cats.map(c => cb[c].bottomQuartile), backgroundColor: '#EF4444', borderRadius: 4 },
         ],
       },
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        plugins: { legend: { position: 'top' } },
+        plugins: {
+          legend: { position: 'top' },
+          tooltip: { callbacks: { label: ctx => ctx.dataset.label + ': ' + ctx.parsed.y + '% of revenue' } },
+        },
         scales: {
-          y: { grid: { color: 'rgba(0,0,0,0.04)' }, ticks: { callback: v => v + '%' } },
+          y: { grid: { color: 'rgba(0,0,0,0.04)' }, ticks: { callback: v => v + '%' }, title: { display: true, text: '% of Revenue' } },
           x: { grid: { display: false } },
         },
       },
@@ -550,13 +740,14 @@ const Charts = {
     const ctx = document.getElementById('chartScaleProfit');
     if (!ctx) return;
     const companies = filteredCompanies || DataUtils.getAllCompanyIds();
+    const qIdx = DataUtils.getQuarterIndexForPeriod(typeof Filters !== 'undefined' ? Filters.timePeriod : 'latest');
     chartInstances.scaleProfit = new Chart(ctx, {
       type: 'bubble',
       data: {
         datasets: companies.map((id, i) => {
-          const rev = DataUtils.getLatestValue(id, 'revenue') || 0;
-          const ebitda = DataUtils.getLatestValue(id, 'ebitdaMargin') || 0;
-          const roce = DataUtils.getLatestValue(id, 'roce') || 12;
+          const rev = DataUtils.getValueAt(id, 'revenue', qIdx) || 0;
+          const ebitda = DataUtils.getValueAt(id, 'ebitdaMargin', qIdx) || 0;
+          const roce = DataUtils.getValueAt(id, 'roce', qIdx) || 12;
           return {
             label: DataUtils.getCompany(id).name.split(' ')[0],
             data: [{ x: rev, y: ebitda, r: Math.max(roce / 3, 4) }],
@@ -595,41 +786,47 @@ const Charts = {
     destroyChart('sentimentRadar');
     const ctx = document.getElementById('chartSentimentRadar');
     if (!ctx) return;
-    // Use filtered companies (max 8 for readability), fall back to top 5
-    const companies = filteredCompanies && filteredCompanies.length <= 8
-      ? filteredCompanies
-      : (filteredCompanies || ['havells', 'bluestar', 'voltas', 'vguard', 'crompton']).slice(0, 8);
-    const labels = companies.map(id => DataUtils.getCompany(id).name.split(' ')[0]);
+    // With only overall score available, render as horizontal bar chart sorted by score
+    const allIds = filteredCompanies || DataUtils.getAllCompanyIds();
+    const withData = allIds.filter(id => DATA.sentimentScores[id]?.overall !== null);
+    if (!withData.length) { ctx.parentElement.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#94A3B8;">No sentiment data available</div>'; return; }
+    const sorted = [...withData].sort((a, b) => (DATA.sentimentScores[b].overall || 0) - (DATA.sentimentScores[a].overall || 0));
+    const labels = sorted.map(id => DataUtils.getCompany(id).name.split(' ')[0]);
+    const values = sorted.map(id => DATA.sentimentScores[id].overall);
+    const colors = values.map(v => v >= 70 ? '#22C55E' : v >= 50 ? '#3B82F6' : v >= 35 ? '#F59E0B' : '#EF4444');
     chartInstances.sentimentRadar = new Chart(ctx, {
-      type: 'radar',
+      type: 'bar',
       data: {
-        labels: ['News', 'Analyst', 'Social', 'Overall'],
-        datasets: companies.map((id, i) => ({
-          label: labels[i],
-          data: [
-            DATA.sentimentScores[id].news,
-            DATA.sentimentScores[id].analyst,
-            DATA.sentimentScores[id].social,
-            DATA.sentimentScores[id].overall,
-          ],
-          borderColor: CHART_COLORS[i % CHART_COLORS.length],
-          backgroundColor: CHART_COLORS[i % CHART_COLORS.length] + '15',
-          borderWidth: 2,
-          pointRadius: 3,
-        })),
+        labels,
+        datasets: [{
+          label: 'Earnings Quality',
+          data: values,
+          backgroundColor: colors,
+          borderRadius: 4,
+          barPercentage: 0.75,
+          categoryPercentage: 0.85,
+        }],
       },
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        scales: {
-          r: {
-            min: 0,
-            max: 100,
-            ticks: { stepSize: 20, font: { size: 9 } },
-            grid: { color: 'rgba(0,0,0,0.06)' },
+        indexAxis: 'y',
+        plugins: {
+          legend: { display: false },
+          datalabels: {
+            display: true,
+            anchor: 'end',
+            align: 'right',
+            color: '#334155',
+            font: { size: 11, weight: '600' },
+            formatter: v => v,
           },
+          tooltip: { callbacks: { afterBody: () => 'Source: Sovrenn quarterly result tags' } },
         },
-        plugins: { legend: { position: 'top', labels: { font: { size: 10 } } } },
+        scales: {
+          x: { grid: { color: 'rgba(0,0,0,0.05)' }, max: 100, min: 0, title: { display: true, text: 'Score (0-100)' } },
+          y: { grid: { display: false }, ticks: { font: { size: 11 } } },
+        },
       },
     });
   },
@@ -649,6 +846,7 @@ const Charts = {
     safe(() => this.renderRoceChart(filteredCompanies));
     safe(() => this.renderCapacityChart(filteredCompanies));
     safe(() => this.renderProductMixChart(filteredCompanies));
+    safe(() => this.renderImportRiskChart(filteredCompanies));
     safe(() => this.renderPromoterChart(filteredCompanies));
     safe(() => this.renderSentimentChart(filteredCompanies));
     safe(() => this.renderSegmentsChart());
@@ -666,6 +864,7 @@ const Charts = {
     safe(() => this.renderRoceChart(filteredCompanies));
     safe(() => this.renderCapacityChart(filteredCompanies));
     safe(() => this.renderProductMixChart(filteredCompanies));
+    safe(() => this.renderImportRiskChart(filteredCompanies));
     safe(() => this.renderPromoterChart(filteredCompanies));
     safe(() => this.renderSentimentChart(filteredCompanies));
     safe(() => this.renderScaleProfitChart(filteredCompanies));

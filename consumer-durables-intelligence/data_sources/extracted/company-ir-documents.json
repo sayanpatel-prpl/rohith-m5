@@ -1,0 +1,725 @@
+{
+  "metadata": {
+    "description": "Publicly available financial documents for 15 Indian consumer durables companies (FY2025 & FY2026)",
+    "generatedDate": "2026-02-18",
+    "notes": "Indian fiscal year runs April-March. FY2025 = April 2024 - March 2025. FY2026 = April 2025 - March 2026. URLs verified via web search; some documents may require navigating the IR page to access the latest uploads.",
+    "totalCompanies": 15
+  },
+  "companies": [
+    {
+      "companyId": "voltas",
+      "companyName": "Voltas Limited",
+      "bseCode": "500575",
+      "nseSymbol": "VOLTAS",
+      "irPageUrl": "https://www.voltas.in/investors/financial-snapshot",
+      "irScheduleUrl": "https://www.voltas.in/investors/schedule-announcements",
+      "documents": {
+        "annualReports": [
+          {
+            "title": "Voltas Annual Report FY2024-25 - Visioneering Tomorrow",
+            "year": "FY2025",
+            "url": "https://www.voltas.in/file-uploads/financial-snapshot/Annual-reports/VoltasAnnualReport2024-2025.pdf"
+          },
+          {
+            "title": "Voltas Subsidiary Annual Report FY2024-25",
+            "year": "FY2025",
+            "url": "https://www.voltas.in/file-uploads/financial-snapshot/subsidiary-reports/VoltasSubsidiaryAnnualReport2024-2025-13-06-2025.pdf"
+          }
+        ],
+        "quarterlyResults": [
+          {
+            "title": "Q4 FY2025 / Full Year FY2025 Financial Results (March 2025)",
+            "quarter": "Q4 FY2025",
+            "url": "https://www.voltas.in/images/schedule-announcements/Financial_Results_March_2025.pdf"
+          },
+          {
+            "title": "Q1 FY2026 Investor Presentation (June 2025)",
+            "quarter": "Q1 FY2026",
+            "url": "https://www.voltas.in/storage/press-releases/Voltas_Q1FY26_Investor_Spiel.pdf"
+          }
+        ],
+        "investorPresentations": [
+          {
+            "title": "Voltas Q1 FY2025 Investor Presentation",
+            "date": "August 2024",
+            "url": "https://www.voltas.in/images/Investor/schedule-announcements/download/Voltas_Q1_FY25_Investor_PPT.pdf"
+          },
+          {
+            "title": "Voltas Q1 FY2026 Investor Presentation",
+            "date": "August 2025",
+            "url": "https://www.voltas.in/storage/press-releases/Voltas_Q1FY26_Investor_Spiel.pdf"
+          }
+        ],
+        "earningsTranscripts": [
+          {
+            "title": "Voltas Q1 FY2025 Earnings Conference Call Transcript",
+            "quarter": "Q1 FY2025",
+            "url": "https://www.voltas.in/images/Investor/schedule-announcements/download/Voltas_Q1_FY25-Transcript_22082024.pdf"
+          },
+          {
+            "title": "Voltas Q2 FY2025 Earnings Conference Call Transcript",
+            "quarter": "Q2 FY2025",
+            "url": "https://www.voltas.in/images/schedule-announcements/TranscriptQ2FY25ResultsConferenceCall.pdf"
+          },
+          {
+            "title": "Voltas Q3 FY2025 Earnings Conference Call Transcript",
+            "quarter": "Q3 FY2025",
+            "url": "https://www.voltas.in/images/Investor/schedule-announcements/download/Voltas_Q3_FY25_Earnings_Transcript.pdf"
+          }
+        ],
+        "corporateGovernance": []
+      }
+    },
+    {
+      "companyId": "bluestar",
+      "companyName": "Blue Star Limited",
+      "bseCode": "500067",
+      "nseSymbol": "BLUESTARCO",
+      "irPageUrl": "https://www.bluestarindia.com/investors/investor-updates",
+      "irAnnualReportUrl": "https://www.bluestarindia.com/investors/annual-report",
+      "irPresentationsUrl": "https://www.bluestarindia.com/investors/investor-presentations",
+      "irConcallUrl": "https://www.bluestarindia.com/investors/investors-concall",
+      "documents": {
+        "annualReports": [
+          {
+            "title": "Blue Star Annual Report FY2024-25 (Interactive)",
+            "year": "FY2025",
+            "url": "https://www.bluestarindia.com/annual-report-2024-2025/92/index.html",
+            "note": "Interactive HTML report; PDF may be available on IR page"
+          }
+        ],
+        "quarterlyResults": [
+          {
+            "title": "Blue Star Investor Update Q3 FY2025 & 9M FY2025",
+            "quarter": "Q3 FY2025",
+            "url": "https://www.bluestarindia.com/media/394623/investor-update-note_q3fy25.pdf"
+          },
+          {
+            "title": "Blue Star Investor Update Q4 FY2025 & FY2025",
+            "quarter": "Q4 FY2025",
+            "url": "https://www.bluestarindia.com/media/404670/investor-update-q4fy25.pdf"
+          },
+          {
+            "title": "Blue Star Q1 FY2026 Press Release",
+            "quarter": "Q1 FY2026",
+            "url": "https://www.bluestarindia.com/media/404742/press-release-q1fy26.pdf"
+          }
+        ],
+        "investorPresentations": [
+          {
+            "title": "Blue Star Q1 FY2025 Investor Update",
+            "date": "August 2024",
+            "url": "https://www.bluestarindia.com/media/394504/blue-star-ltd_investor-update_q1fy25.pdf"
+          },
+          {
+            "title": "Blue Star Q4 FY2025 & FY2025 Investor Update",
+            "date": "May 2025",
+            "url": "https://www.bluestarindia.com/media/404670/investor-update-q4fy25.pdf"
+          }
+        ],
+        "earningsTranscripts": [
+          {
+            "title": "Blue Star Q4 FY2025 Earnings Call Transcript",
+            "quarter": "Q4 FY2025",
+            "url": "https://www.bluestarindia.com/media/404792/lettertoexchanges-q4fy25earningscalltranscript.pdf"
+          },
+          {
+            "title": "Blue Star Q1 FY2026 Earnings Conference Call Transcript",
+            "quarter": "Q1 FY2026",
+            "url": "https://www.bluestarindia.com/media/404795/transcript-bluestar-aug07-2025-final.pdf"
+          },
+          {
+            "title": "Blue Star Q2 & H1 FY2026 Earnings Conference Call Transcript",
+            "quarter": "Q2 FY2026",
+            "url": "https://www.bluestarindia.com/media/404822/transcript-q2fy26.pdf"
+          },
+          {
+            "title": "Blue Star Q3 & 9M FY2026 Earnings Conference Call Transcript",
+            "quarter": "Q3 FY2026",
+            "url": "https://www.bluestarindia.com/media/404847/earnings-call-transcripts-q3-9mfy26.pdf"
+          }
+        ],
+        "corporateGovernance": []
+      }
+    },
+    {
+      "companyId": "havells",
+      "companyName": "Havells India Limited",
+      "bseCode": "517354",
+      "nseSymbol": "HAVELLS",
+      "irPageUrl": "https://havells.com/corporate/investors/financials",
+      "irQuarterlyUrl": "https://havells.com/en/discover-havells/investor-relation/financials/quarterly-results.html",
+      "irDisclosureUrl": "https://havells.com/corporate/investors/disclosure",
+      "documents": {
+        "annualReports": [
+          {
+            "title": "Havells India Integrated Annual Report FY2024-25",
+            "year": "FY2025",
+            "url": "https://havells.com/media/wysiwyg/PDF/Financial/Annual-Reports/2024-2025/Integrated-Report.pdf"
+          },
+          {
+            "title": "Havells India Notice of 42nd AGM FY2024-25",
+            "year": "FY2025",
+            "url": "https://havells.com/media/wysiwyg/PDF/Financial/Annual-Reports/2024-2025/Notice_of_AGM.pdf"
+          }
+        ],
+        "quarterlyResults": [
+          {
+            "title": "Havells Q4 FY2025 Published Results",
+            "quarter": "Q4 FY2025",
+            "url": "https://havells.com/corporate/investors/financials",
+            "note": "Available on financials page; URL pattern: havells.com/media/wysiwyg/PDF/Financial/Quarterly-Results/2024-2025/Quarter-4/"
+          }
+        ],
+        "investorPresentations": [
+          {
+            "title": "Havells India Limited Corporate Presentation (June 2024)",
+            "date": "June 2024",
+            "url": "https://havells.com/media/wysiwyg/PDF/Presentation/Havells_India_Limited_June_2024.pdf"
+          }
+        ],
+        "earningsTranscripts": [
+          {
+            "title": "Havells Q4 FY2025 Earnings Call Transcript",
+            "quarter": "Q4 FY2025",
+            "url": "https://havells.com/media/wysiwyg/PDF/Corporate-announcements/2025/Transcript_of_Earnings_Call_25042025.pdf"
+          }
+        ],
+        "corporateGovernance": [],
+        "tenYearPerformance": [
+          {
+            "title": "Havells Progress at a Glance - Last 10 Years",
+            "url": "https://havells.com/media/wysiwyg/PDF/Financial/Ten-Year/Progress_at_a_Glance_for_last_10_years.pdf"
+          }
+        ]
+      }
+    },
+    {
+      "companyId": "crompton",
+      "companyName": "Crompton Greaves Consumer Electricals Limited",
+      "bseCode": "539876",
+      "nseSymbol": "CROMPTON",
+      "irPageUrl": "https://www.crompton.co.in/pages/financial-reports",
+      "irFinancialsUrl": "https://www.crompton.co.in/investors/financials/",
+      "irAnnualReportUrl": "https://www.crompton.co.in/investors/annual-report/",
+      "irGovernanceUrl": "https://www.crompton.co.in/pages/corporate-governance",
+      "documents": {
+        "annualReports": [
+          {
+            "title": "Crompton Integrated Annual Report FY2024-25",
+            "year": "FY2025",
+            "url": "https://reports.crompton.co.in/shopify/public/files/IvrMP89Bgk_Integrated%20Annual%20Report.pdf"
+          },
+          {
+            "title": "Crompton FY2024-25 Standalone Financial Statements",
+            "year": "FY2025",
+            "url": "https://reports.crompton.co.in/shopify/public/files/YOLAD5NWlC_Standalone%20Financial%20Statements.pdf"
+          }
+        ],
+        "quarterlyResults": [
+          {
+            "title": "Crompton Q3 FY2026 Press Release (February 2026)",
+            "quarter": "Q3 FY2026",
+            "url": "https://reports.crompton.co.in/shopify/public/files/CBKGuoc7Mr_PressRelease12022025.pdf"
+          }
+        ],
+        "investorPresentations": [
+          {
+            "title": "Crompton Q2 & H1 FY2026 Investor Presentation (November 2025)",
+            "date": "November 2025",
+            "url": "https://reports.crompton.co.in/shopify/public/files/bibz7NIvJ9_InvestorPresentation-nov.pdf"
+          }
+        ],
+        "earningsTranscripts": [],
+        "corporateGovernance": []
+      }
+    },
+    {
+      "companyId": "whirlpool",
+      "companyName": "Whirlpool of India Limited",
+      "bseCode": "500238",
+      "nseSymbol": "WHIRLPOOL",
+      "irPageUrl": "https://corporate.whirlpool.in/financial-information/",
+      "irInvestorsUrl": "https://corporate.whirlpool.in/investors/",
+      "documents": {
+        "annualReports": [
+          {
+            "title": "Whirlpool of India Annual Report FY2024-25",
+            "year": "FY2025",
+            "url": "https://corporate.whirlpool.in/wp-content/uploads/2025/08/Annual-Report-2024-25.pdf"
+          }
+        ],
+        "quarterlyResults": [
+          {
+            "title": "Whirlpool of India Quarterly Financial Results",
+            "quarter": "Multiple quarters FY2025-FY2026",
+            "url": "https://corporate.whirlpool.in/financial-information/",
+            "note": "Financial information page lists quarterly results for Sep 2025, Jun 2025, Dec 2024, Sep 2024, Jun 2024, and Mar 2024"
+          }
+        ],
+        "investorPresentations": [],
+        "earningsTranscripts": [
+          {
+            "title": "Whirlpool of India Q1 FY2025 Earnings Conference Call",
+            "quarter": "Q1 FY2025",
+            "url": "https://corporate.whirlpool.in/wp-content/uploads/2024/08/Q1-FY25-Earnings-Call-1.pdf"
+          }
+        ],
+        "corporateGovernance": []
+      }
+    },
+    {
+      "companyId": "symphony",
+      "companyName": "Symphony Limited",
+      "bseCode": "517385",
+      "nseSymbol": "SYMPHONY",
+      "irPageUrl": "https://symphonylimited.com/investor/results/",
+      "irFinancialsUrl": "https://www.symphonylimited.com/financials",
+      "irAnnualReportsUrl": "https://www.symphonylimited.com/annual-reports-related-documents",
+      "documents": {
+        "annualReports": [
+          {
+            "title": "Symphony Integrated Annual Report FY2024-25",
+            "year": "FY2025",
+            "url": "https://symphonylimited.com/wp-content/uploads/2025/07/Symphony__Annual_Report_FY_2024_25.pdf"
+          }
+        ],
+        "quarterlyResults": [],
+        "investorPresentations": [
+          {
+            "title": "Symphony Corporate Presentation (November 2025)",
+            "date": "November 2025",
+            "url": "https://symphonylimited.com/wp-content/uploads/2025/11/Corporate-Presentation_v1.pdf"
+          }
+        ],
+        "earningsTranscripts": [],
+        "corporateGovernance": []
+      }
+    },
+    {
+      "companyId": "orient-electric",
+      "companyName": "Orient Electric Limited",
+      "bseCode": "541301",
+      "nseSymbol": "ORIENTELEC",
+      "irPageUrl": "https://orientelectric.com/pages/investors",
+      "irAnnualReportsUrl": "https://orientelectric.com/pages/annual-reports",
+      "irFinancialStatementsUrl": "https://orientelectric.com/pages/financial-statements",
+      "irPresentationsUrl": "https://orientelectric.com/pages/investors-presentation",
+      "irEarningCallsUrl": "https://orientelectric.com/pages/earning-calls",
+      "documents": {
+        "annualReports": [
+          {
+            "title": "Orient Electric Annual Report FY2024-25",
+            "year": "FY2025",
+            "url": "https://orientelectric.com/pages/annual-reports",
+            "note": "Available on the annual reports page; direct PDF link accessible from that page"
+          }
+        ],
+        "quarterlyResults": [
+          {
+            "title": "Orient Electric Financial Statements (FY2025-26 quarters)",
+            "quarter": "Q1-Q3 FY2026",
+            "url": "https://orientelectric.com/pages/financial-statements",
+            "note": "All quarterly financial statements accessible from this page"
+          }
+        ],
+        "investorPresentations": [
+          {
+            "title": "Orient Electric Investor Presentations",
+            "date": "2025-2026",
+            "url": "https://orientelectric.com/pages/investors-presentation",
+            "note": "Multiple presentations available on this page"
+          }
+        ],
+        "earningsTranscripts": [
+          {
+            "title": "Orient Electric Earnings Calls",
+            "quarter": "FY2025-FY2026",
+            "url": "https://orientelectric.com/pages/earning-calls",
+            "note": "Earnings call recordings and transcripts available on this page"
+          }
+        ],
+        "corporateGovernance": []
+      }
+    },
+    {
+      "companyId": "bajaj-electricals",
+      "companyName": "Bajaj Electricals Limited",
+      "bseCode": "500031",
+      "nseSymbol": "BAJAJELEC",
+      "irPageUrl": "https://www.bajajelectricals.com/financial-results/",
+      "irInvestorsUrl": "https://www.bajajelectricals.com/investors",
+      "irResourcesUrl": "https://www.bajajelectricals.com/investor-resources/",
+      "documents": {
+        "annualReports": [
+          {
+            "title": "Bajaj Electricals Annual Report FY2024-25 (86th Annual Report)",
+            "year": "FY2025",
+            "url": "https://www.bajajelectricals.com/investors",
+            "note": "86th AGM Notice and Annual Report FY25 dispatched; accessible from investors page"
+          }
+        ],
+        "quarterlyResults": [
+          {
+            "title": "Bajaj Electricals Q3 FY2025 Financial Results (December 31, 2024)",
+            "quarter": "Q3 FY2025",
+            "url": "https://www.bajajelectricals.com/media/7991/q3-2024-25-financial-results-december-31-2024.pdf"
+          },
+          {
+            "title": "Bajaj Electricals Quarterly Results (Q1-Q3 FY2026)",
+            "quarter": "Q1-Q3 FY2026",
+            "url": "https://www.bajajelectricals.com/financial-results/",
+            "note": "Notices available for Q1 FY26, Q2 FY26, Q3 FY26 on financial results page"
+          }
+        ],
+        "investorPresentations": [
+          {
+            "title": "Bajaj Electricals Investor Presentation - Audited Financials FY23",
+            "date": "2023",
+            "url": "https://www.bajajelectricals.com/media/7595/presentation-on-the-audited-financials-for-the-fourth-quarter-and-fy-ended-march-31-2023.pdf",
+            "note": "Older presentation; newer ones available on investor resources page"
+          }
+        ],
+        "earningsTranscripts": [],
+        "corporateGovernance": []
+      }
+    },
+    {
+      "companyId": "vguard",
+      "companyName": "V-Guard Industries Limited",
+      "bseCode": "532953",
+      "nseSymbol": "VGUARD",
+      "irPageUrl": "https://www.vguard.in/investor-relations/",
+      "irAnnualReportsUrl": "https://www.vguard.in/investor-relations/annual-reports",
+      "irFinancialResultsUrl": "https://www.vguard.in/investor-relations/financial-results",
+      "irPresentationsUrl": "https://www.vguard.in/investor-relations/shareholder-information",
+      "documents": {
+        "annualReports": [
+          {
+            "title": "V-Guard Industries Annual Report FY2024-25",
+            "year": "FY2025",
+            "url": "https://www.vguard.in/investor-relations/annual-reports",
+            "note": "FY2024-25 annual report available on annual reports page"
+          }
+        ],
+        "quarterlyResults": [
+          {
+            "title": "V-Guard Financial Results FY2025",
+            "quarter": "FY2025",
+            "url": "https://www.vguard.in/uploads/investor_relations/VGUARD-Financial-Results-2025.pdf"
+          }
+        ],
+        "investorPresentations": [
+          {
+            "title": "V-Guard Investor Presentations",
+            "date": "2025-2026",
+            "url": "https://www.vguard.in/investor-relations/shareholder-information",
+            "note": "Investor presentations accessible from shareholder information page"
+          }
+        ],
+        "earningsTranscripts": [],
+        "corporateGovernance": []
+      }
+    },
+    {
+      "companyId": "ttk-prestige",
+      "companyName": "TTK Prestige Limited",
+      "bseCode": "517506",
+      "nseSymbol": "TTKPRESTIG",
+      "irPageUrl": "https://ttkprestige.com/corporate/investor-centre/",
+      "irInvestorInfoUrl": "https://ttkprestige.com/corporate/investor-centre/investor-information/",
+      "documents": {
+        "annualReports": [
+          {
+            "title": "TTK Prestige Annual Report FY2024-25",
+            "year": "FY2025",
+            "url": "https://ttkprestige.com/corporate/investor-centre/investor-information/",
+            "note": "Annual report available on investor information page"
+          }
+        ],
+        "quarterlyResults": [
+          {
+            "title": "TTK Prestige Quarterly Results (Q1-Q4 FY2025, Q1-Q3 FY2026)",
+            "quarter": "FY2025-FY2026",
+            "url": "https://ttkprestige.com/corporate/investor-centre/investor-information/",
+            "note": "All quarterly results with accompanying slides and transcripts available on investor information page"
+          }
+        ],
+        "investorPresentations": [
+          {
+            "title": "TTK Prestige Quarterly Investor Presentations",
+            "date": "FY2025-FY2026",
+            "url": "https://ttkprestige.com/corporate/investor-centre/investor-information/",
+            "note": "Presentations for analyst/institutional investor meetings available on investor information page"
+          }
+        ],
+        "earningsTranscripts": [
+          {
+            "title": "TTK Prestige Quarterly Earnings Call Transcripts",
+            "quarter": "FY2025-FY2026",
+            "url": "https://ttkprestige.com/corporate/investor-centre/investor-information/",
+            "note": "Transcripts available alongside quarterly results on investor information page"
+          }
+        ],
+        "corporateGovernance": [],
+        "subsidiaryReports": [
+          {
+            "title": "TTK British Holdings Limited Annual Report & Financial Statements",
+            "year": "FY2025",
+            "url": "https://ttkprestige.com/wp-content/uploads/2025/07/TTK-British-Holdings-Limited-final-accounts-Signed.pdf"
+          }
+        ]
+      }
+    },
+    {
+      "companyId": "butterfly",
+      "companyName": "Butterfly Gandhimathi Appliances Limited",
+      "bseCode": "517421",
+      "nseSymbol": "BUTTERFLY",
+      "irPageUrl": "https://butterflyindia.com/investor-relations/",
+      "documents": {
+        "annualReports": [
+          {
+            "title": "Butterfly Gandhimathi Appliances Annual Report FY2022-23",
+            "year": "FY2023",
+            "url": "https://www.butterflyindia.com/wp-content/uploads/2023/06/Butterfly-C2C-22-06-2023_Final.pdf",
+            "note": "Most recent annual report found via search; FY2025 report may be available on IR page"
+          }
+        ],
+        "quarterlyResults": [
+          {
+            "title": "Butterfly Quarterly Financial Results",
+            "quarter": "FY2025-FY2026",
+            "url": "https://butterflyindia.com/investor-relations/",
+            "note": "Quarterly financial results available on investor relations page; Q2 FY26 revenue Rs 293 Cr (14% YoY), Q3 FY26 revenue Rs 245 Cr (3% YoY)"
+          }
+        ],
+        "investorPresentations": [
+          {
+            "title": "Butterfly Q4 2021 Investor Presentation",
+            "date": "2021",
+            "url": "https://www.butterflyindia.com/wp-content/uploads/2021/12/Investor-Presentation-2021-Q4.pdf",
+            "note": "Older presentation; newer ones may be available on IR page"
+          }
+        ],
+        "earningsTranscripts": [],
+        "corporateGovernance": []
+      }
+    },
+    {
+      "companyId": "amber",
+      "companyName": "Amber Enterprises India Limited",
+      "bseCode": "540902",
+      "nseSymbol": "AMBER",
+      "irPageUrl": "https://www.ir.ambergroupindia.com/",
+      "irFinancialInfoUrl": "https://www.ir.ambergroupindia.com/financial-information/",
+      "documents": {
+        "annualReports": [
+          {
+            "title": "Amber Enterprises Annual Report FY2023-24",
+            "year": "FY2024",
+            "url": "https://www.ambergroupindia.com/wp-content/uploads/2024/07/Annual-Report-for-the-FY-2023-24.pdf",
+            "note": "FY2024-25 annual report likely available on financial information page"
+          }
+        ],
+        "quarterlyResults": [
+          {
+            "title": "Amber Enterprises Quarterly Financial Results FY2025-26",
+            "quarter": "FY2026",
+            "url": "https://www.ir.ambergroupindia.com/financial-information/",
+            "note": "FY2025-26 results including Q1, Q2, Q3 available on financial information page; Board meeting outcomes dated 29.07.2025 and 17.05.2025"
+          },
+          {
+            "title": "Amber Enterprises Financial Disclosure (September 2025)",
+            "quarter": "Q2 FY2026",
+            "url": "https://www.ir.ambergroupindia.com/wp-content/uploads/2025/09/AmberEnterprisesIndiaLimitedPD_20250922225404.pdf"
+          }
+        ],
+        "investorPresentations": [
+          {
+            "title": "Amber Enterprises Q4 FY2024 Investor Presentation",
+            "date": "May 2024",
+            "url": "https://www.ambergroupindia.com/wp-content/uploads/2024/05/Investor-Presentation-Q4-FY24.pdf"
+          },
+          {
+            "title": "Amber Enterprises Q3 & 9M FY2024 Investor Presentation",
+            "date": "February 2024",
+            "url": "https://www.ambergroupindia.com/wp-content/uploads/2024/02/Investor-Presentation-Q3-9MFY24.pdf"
+          }
+        ],
+        "earningsTranscripts": [
+          {
+            "title": "Amber Enterprises Q2 & H1 FY2024 Earnings Call Transcript",
+            "quarter": "Q2 FY2024",
+            "url": "https://www.ir.ambergroupindia.com/wp-content/uploads/2025/03/Earnings-Call-Transcript-Q2-H1-of-FY-23-24.pdf"
+          }
+        ],
+        "corporateGovernance": []
+      }
+    },
+    {
+      "companyId": "dixon",
+      "companyName": "Dixon Technologies (India) Limited",
+      "bseCode": "540699",
+      "nseSymbol": "DIXON",
+      "irPageUrl": "https://dixoninfo.com/financial-performance",
+      "irAlternateUrl": "https://web.dixondigital.in/financial-performance",
+      "irAnnualReportsUrl": "https://www.dixoninfo.com/annual-reports.php",
+      "irTranscriptsUrl": "https://www.dixoninfo.com/earning-call-transcript.php",
+      "irPresentationsUrl": "https://www.dixoninfo.com/investor-presentation.php",
+      "documents": {
+        "annualReports": [
+          {
+            "title": "Dixon Technologies Annual Report FY2023-24",
+            "year": "FY2024",
+            "url": "https://www.dixoninfo.com/json/dixon/annual-reports/dixon-annual-report-2023-24.pdf",
+            "note": "FY2024-25 annual report may be available on annual reports page"
+          }
+        ],
+        "quarterlyResults": [
+          {
+            "title": "Dixon Technologies Q4 FY2025 Financial Results with Presentation (May 2025)",
+            "quarter": "Q4 FY2025",
+            "url": "https://nsearchives.nseindia.com/corporate/DIXON_20052025161223_FinancialwithPPT20052025.pdf"
+          }
+        ],
+        "investorPresentations": [
+          {
+            "title": "Dixon Technologies Q1 FY2025 Earnings Presentation",
+            "date": "Q1 FY2025",
+            "url": "https://www.dixoninfo.com/json/dixon/quaterly-investor-presentation/Earning%20Presentation-%20Q1,%20FY24-25.pdf"
+          },
+          {
+            "title": "Dixon Technologies Q2 & H1 FY2025 Earnings Presentation",
+            "date": "Q2 FY2025",
+            "url": "https://www.dixoninfo.com/json/dixon/quaterly-investor-presentation/Earning%20Presentation-%20Q2%20&%20H1%20-FY24-25.pdf"
+          },
+          {
+            "title": "Dixon Technologies Corporate Presentation",
+            "date": "2025",
+            "url": "https://dixoninfo.com/json//dixon/corporate-presentation/Dixon-Corporate-Presentation.pdf"
+          }
+        ],
+        "earningsTranscripts": [
+          {
+            "title": "Dixon Technologies Earnings Call Transcripts",
+            "quarter": "FY2025-FY2026",
+            "url": "https://www.dixoninfo.com/earning-call-transcript.php",
+            "note": "Multiple transcripts available on this page"
+          }
+        ],
+        "corporateGovernance": []
+      }
+    },
+    {
+      "companyId": "jchac",
+      "companyName": "Johnson Controls-Hitachi Air Conditioning India Limited",
+      "altName": "Bosch Home Comfort India Ltd (renamed November 2025)",
+      "bseCode": "523398",
+      "nseSymbol": "JCHAC",
+      "irPageUrl": "https://buy.hitachiaircon.in/content/investors",
+      "documents": {
+        "annualReports": [
+          {
+            "title": "JCHAC Annual Report FY2023-24",
+            "year": "FY2024",
+            "url": "https://buy.hitachiaircon.in/images/investor_relation_reports/annual_report_0.94175200%201724843022.pdf",
+            "note": "FY2024-25 annual report likely available on investors page (board approved audited results May 2025)"
+          }
+        ],
+        "quarterlyResults": [
+          {
+            "title": "JCHAC Quarterly Financial Results",
+            "quarter": "FY2025-FY2026",
+            "url": "https://buy.hitachiaircon.in/content/investors",
+            "note": "Board meetings held for quarterly results: Feb 2025 (Q3 FY25), May 2025 (Q4 FY25/Annual), subsequent quarters in FY26"
+          }
+        ],
+        "investorPresentations": [],
+        "earningsTranscripts": [],
+        "corporateGovernance": [
+          {
+            "title": "JCHAC Board of Directors Information",
+            "url": "https://buy.hitachiaircon.in/cms/materials/4cbe22175a.pdf"
+          }
+        ]
+      }
+    },
+    {
+      "companyId": "ifb",
+      "companyName": "IFB Industries Limited",
+      "bseCode": "505726",
+      "nseSymbol": "IFBIND",
+      "irPageUrl": "https://www.ifbindustries.com/financial.php",
+      "documents": {
+        "annualReports": [
+          {
+            "title": "IFB Industries Annual Report FY2024-25",
+            "year": "FY2025",
+            "url": "https://www.ifbindustries.com/assets/IFB_AR_2024-25.pdf"
+          }
+        ],
+        "quarterlyResults": [
+          {
+            "title": "IFB Industries Quarterly Results",
+            "quarter": "FY2025-FY2026",
+            "url": "https://www.ifbindustries.com/financial.php",
+            "note": "All quarterly results accessible from financial page"
+          }
+        ],
+        "investorPresentations": [
+          {
+            "title": "IFB Industries Investor Presentation Q4 FY2024",
+            "date": "June 2023",
+            "url": "https://www.ifbindustries.com/assets/InvestorsPresentationQ4.pdf"
+          },
+          {
+            "title": "IFB Industries Investor Presentation (November 2024 via NSE)",
+            "date": "November 2024",
+            "url": "https://nsearchives.nseindia.com/corporate/IFBIND_02112024161832_InvestorPresentation.pdf"
+          }
+        ],
+        "earningsTranscripts": [
+          {
+            "title": "IFB Industries Q4 FY2024 Earnings Call Transcript",
+            "quarter": "Q4 FY2024",
+            "url": "https://www.ifbindustries.com/assets/Transcript_Q4_FY2024.pdf"
+          },
+          {
+            "title": "IFB Industries Q1 FY2026 Earnings Call Transcript",
+            "quarter": "Q1 FY2026",
+            "url": "https://www.ifbindustries.com/assets/Transcript_Q1_FY26.pdf"
+          }
+        ],
+        "corporateGovernance": [],
+        "sustainabilityReports": [
+          {
+            "title": "IFB Industries BRSR Report FY2024-25",
+            "year": "FY2025",
+            "url": "https://www.ifbindustries.com/assets/BRSR_2024-25.pdf"
+          }
+        ]
+      }
+    }
+  ],
+  "additionalDataSources": {
+    "nseArchives": {
+      "description": "NSE India corporate filings archives - contains all exchange filings including quarterly results, investor presentations, and press releases",
+      "baseUrl": "https://nsearchives.nseindia.com/corporate/",
+      "searchUrl": "https://www.nseindia.com/companies-listing/corporate-filings-announcements"
+    },
+    "bseIndia": {
+      "description": "BSE India corporate filings - complete financial results repository",
+      "baseUrl": "https://www.bseindia.com/corporates.html"
+    },
+    "trendlyne": {
+      "description": "Financial data aggregator with annual reports and quarterly results for all companies",
+      "annualReportsUrlPattern": "https://trendlyne.com/fundamentals/documents-annual-reports/{companyId}/{symbol}/{company-name}/",
+      "quarterlyResultsUrlPattern": "https://trendlyne.com/fundamentals/financials/{companyId}/{symbol}/{company-name}/"
+    },
+    "screenerIn": {
+      "description": "Screener.in provides comprehensive financial data including quarterly/annual results",
+      "baseUrl": "https://www.screener.in/company/{symbol}/"
+    }
+  }
+}
