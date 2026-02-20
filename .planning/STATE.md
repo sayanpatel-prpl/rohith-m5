@@ -19,19 +19,19 @@ Progress: [████████████████░░░░] 55% (12
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 8
-- Average duration: 4.25 min
-- Total execution time: 0.57 hours
+- Total plans completed: 9
+- Average duration: 3.89 min
+- Total execution time: 0.58 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01-foundation | 6 | 25min | 4.17min |
-| 02-priority-sections | 2 | 9min | 4.5min |
+| 02-priority-sections | 3 | 11min | 3.67min |
 
 **Recent Trend:**
-- Last 5 plans: 02-05 (2min), 02-01 (7min), 01-06 (3min), 01-04 (3min), 01-02 (4min)
+- Last 5 plans: 02-02 (2min), 02-05 (2min), 02-01 (7min), 01-06 (3min), 01-04 (3min)
 - Trend: Accelerating
 
 *Updated after each plan completion*
@@ -81,6 +81,10 @@ Recent decisions affecting current work:
 - **Text icons over emojis** (02-05): Used plain text characters for quadrant headers per project no-emoji convention
 - **Accent color as prop** (02-05): Passed accentColor string to QuadrantCard rather than deriving from title
 - **CSS variable severity colors** (02-05): Tailwind arbitrary value syntax bg-[var(--color-X)] for theme-consistent severity dots
+- **CSS group-hover tooltip** (02-02): Rich multi-line tooltip for Intelligence Grade using Tailwind group/group-hover with absolute positioning
+- **Severity dots pattern** (02-02): 5 filled/unfilled circles for red flag severity, compact and scannable
+- **color-mix for severity tints** (02-02): Reused oklch color-mix pattern from AMServiceLineTag for severity background tints
+- **Sort order for impact** (02-02): Red flags severity-descending, narrative risks red-first for immediate attention
 
 ### Pending Todos
 
