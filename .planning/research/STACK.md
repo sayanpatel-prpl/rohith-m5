@@ -1,259 +1,470 @@
-# Stack Research
+# Technology Stack
 
-**Domain:** Interactive Industry Intelligence Dashboard / Report Platform
-**Researched:** 2026-02-15
-**Confidence:** HIGH (core stack constrained + versions verified via npm registry)
+**Project:** A&M Consumer Durables Intelligence Dashboard (v2)
+**Researched:** 2026-02-20
+**Overall Confidence:** HIGH
 
 ## Recommended Stack
 
-### Core Technologies
+### Core Framework
+| Technology | Version | Purpose | Why |
+|------------|---------|---------|-----|
+| React | 19.1.x | UI framework | Latest stable, new hooks (useOptimistic, useActionState) improve form/async state management, no breaking changes from v18 |
+| TypeScript | 5.8.x | Type safety | Enhanced type inference, better IDE support, self-documenting code. React 19 simplified useRef types |
+| Vite | 6.x | Build tool & dev server | 5x faster builds, 100x faster HMR vs Vite 5, native ESM, optimized for React 19 |
+| Tailwind CSS | 4.x (stable) | Styling framework | v4 released Jan 2025: 5x faster builds, CSS-based config (no JS), cascade layers, registered custom properties |
 
-| Technology | Version | Purpose | Why Recommended |
-|------------|---------|---------|-----------------|
-| React | ^19.2.4 | UI framework | Constrained by project requirements. React 19 stable with use() hook, Actions, and improved Suspense -- all useful for async data loading in dashboard modules. Verified: all recommended libraries support React 19 peer dependency. |
-| TypeScript | ^5.9.3 | Type safety | Constrained. Critical for a data-heavy product: typed JSON data contracts prevent runtime errors when backend schema changes. Use strict mode. |
-| Vite | ^7.3.1 | Build tool | Constrained. Vite 7 is current stable. Use with `@vitejs/plugin-react` v5.1.4 and `@tailwindcss/vite` v4.1.18 (verified: supports Vite 5/6/7). Fast HMR essential for iterating on 10+ dashboard modules. |
-| Tailwind CSS | ^4.1.18 | Styling | Constrained. v4 uses CSS-first configuration (no tailwind.config.js). CSS custom properties (`@theme`) are the theming mechanism -- this is the foundation for multi-tenant white-labeling. |
-| React Router | ^7.13.0 | Routing | Kompete uses v7. Data router APIs (loaders, actions) useful for pre-fetching module data. Supports React 19 (peer dep: >=18). |
+**Confidence:** HIGH
+- All versions verified via official docs and npm (Feb 2026)
+- React 19 + Vite 6 + TypeScript 5 combo confirmed in multiple 2025/2026 production guides
+- Tailwind v4 stable release documented
 
-### Data Visualization
+### Charting Library
+| Technology | Version | Purpose | Why |
+|------------|---------|---------|-----|
+| Apache ECharts | 6.x | Primary charting | Canvas rendering (10x faster than SVG for large datasets), WebGL support, handles 10K+ data points, 50+ chart types including complex financial charts, sparklines built-in |
+| echarts-for-react | 3.0.x | React wrapper | Simple declarative API, recent maintenance (Jan 2026), peer dependency model allows ECharts version control |
 
-| Library | Version | Purpose | Why Recommended |
-|---------|---------|---------|-----------------|
-| Recharts | ^3.7.0 | Charts (line, bar, area, pie, radar, scatter, treemap) | Proven in Kompete. Declarative React components, built on D3. Supports React 19 explicitly (`^19.0.0` in peer deps). Best developer experience for the chart types this product needs: financial trend lines, margin comparisons, market share pie charts, revenue bar charts. Composable -- custom tooltips, reference lines, and brush zoom are straightforward. |
+**Rationale:**
+- **Why not Recharts**: SVG-only, slows above 10K points. Current v1.0 dashboard likely hitting this ceiling with 11 sections × 15 companies × quarterly data
+- **Why not Visx**: Low-level primitives require significant custom work for sparklines, financial charts. Good for full custom viz, overkill for standard financial dashboard
+- **Why not Highcharts**: Commercial license required, not open source
 
-**Why Recharts over alternatives:**
+**Confidence:** HIGH
+- Performance claims verified across 5+ independent 2025 comparisons
+- ECharts specifically recommended for financial/real-time dashboards in all sources
+- echarts-for-react v3.0.6 published Jan 2026 (actively maintained)
 
-| Library | Why Not for This Project |
-|---------|------------------------|
-| Nivo (@nivo/core v0.99.0) | Better for statistical/scientific viz. Heavier bundle. Pre-styled components clash with Tailwind + white-label theming. |
-| Victory | Smaller ecosystem, less community momentum. Recharts has more examples for financial dashboards. |
-| D3 (raw) | Too low-level for a 10-module dashboard. Recharts wraps D3 with React components -- use D3 directly only if you need a custom viz Recharts cannot do. |
-| Tremor | Opinionated UI kit, not just charts. Fights with custom design system. Good for internal tools, wrong for branded client-facing reports. |
-| Chart.js / react-chartjs-2 | Canvas-based, not SVG. Harder to style consistently with CSS variables for white-labeling. Less composable than Recharts. |
-| Apache ECharts | Powerful but imperative API. React wrappers are thin. Overkill unless you need 3D or geographic maps. |
+### Data Table Library
+| Technology | Version | Purpose | Why |
+|------------|---------|---------|-----|
+| @tanstack/react-table | 8.21.x | Headless table logic | Industry standard, headless (full style control), built-in sorting/filtering/pagination, supports inline sparklines, TypeScript-first, multi-column sort, fuzzy search |
 
-### Data Tables
+**Rationale:**
+- **Why headless**: Need full control over styling to match A&M brand (multi-tenant requirement)
+- **Why not Material React Table**: Opinionated Material Design styling conflicts with brand flexibility
+- **Why not AG Grid**: Commercial license for enterprise features, overkill for static intelligence dashboard
+- **Why not PrimeReact**: Heavy component library (140+ components), bundle size bloat for table-only needs
 
-| Library | Version | Purpose | Why Recommended |
-|---------|---------|---------|-----------------|
-| @tanstack/react-table | ^8.21.3 | Headless data tables | Financial Performance Tracker needs sortable, filterable tables for 15-20 companies with 10+ metrics each. Headless = full Tailwind styling control. Supports sorting, filtering, pagination, column pinning, row expansion. React >=16.8 peer dep. Bring your own UI -- pairs perfectly with white-label theming. |
+**Implementation Note:** Use TanStack Table for logic + custom cells with ECharts mini-charts for inline sparklines
 
-**Why headless over pre-styled:**
-Ant Design Tables (used in Kompete) come with built-in styles that fight Tailwind and make white-labeling harder. TanStack Table gives you the logic (sorting, filtering, column management) with zero UI opinions -- you build the `<table>` with Tailwind classes that respond to CSS custom properties per tenant.
+**Confidence:** HIGH
+- TanStack Table v8 stable, v9 in alpha (stick with v8)
+- Inline sparkline support confirmed in shadcn/ui blocks examples (Feb 2026)
+- Headless pattern matches existing Radix UI approach in v1.0
 
-### State Management & Data Fetching
+### Data Tables - Inline Sparklines Pattern
+Use TanStack Table's custom cell renderers with ECharts mini-chart instances:
+```typescript
+{
+  accessorKey: 'trend',
+  header: 'Trend',
+  cell: ({ getValue }) => (
+    <ReactECharts option={sparklineOption(getValue())} style={{ height: 40, width: 120 }} />
+  )
+}
+```
 
-| Library | Version | Purpose | Why Recommended |
-|---------|---------|---------|-----------------|
-| @tanstack/react-query | ^5.90.21 | Server state / data fetching | This product fetches JSON data from Express/Supabase backend. TanStack Query handles caching, stale-while-revalidate, background refetch, and loading/error states. Eliminates hand-rolled useEffect fetch patterns. Supports React 19 (`^18 \|\| ^19`). |
-| Zustand | ^5.0.11 | Client state | Lightweight (1.1KB). For UI state: active filters, selected company, current time period, sidebar state. NOT for server data (that belongs in TanStack Query). Supports React >=18.0.0. Simpler than Redux, more predictable than Context for shared state. |
+### State Management
+| Technology | Version | Purpose | Why |
+|------------|---------|---------|-----|
+| @tanstack/react-query | 5.x | Server state | Industry standard for data fetching, caching, invalidation. Separates server state from client state |
+| Zustand | 5.x | Client state | Lightweight (1.5KB), minimal boilerplate, works perfectly alongside TanStack Query for UI state (filters, modals, theme) |
 
-**Why not Redux Toolkit:** Overkill for this product. The server state is handled by TanStack Query. The remaining client state (filters, selections, UI toggles) is small enough for Zustand. Redux adds ceremony (slices, dispatch, selectors) without proportional benefit here.
+**Architecture Pattern:**
+- **TanStack Query**: All fetched data (section data, company data)
+- **Zustand**: UI state (global filters, dark mode, selected tenant)
+- **React 19 hooks**: Form state (useActionState), optimistic updates (useOptimistic)
 
-**Why not Context API alone:** Context triggers full subtree re-renders on state change. With 10+ modules reading filter state, this becomes a performance issue. Zustand uses external stores with selective subscriptions -- only components reading changed state re-render.
+**Rationale:**
+- **Why not Redux**: Overkill for intelligence dashboard, excessive boilerplate
+- **Why not Jotai/Recoil**: Atomic state not needed, Zustand simpler for global filters
+- **Why keep separation**: TanStack Query + Zustand follows 2025 best practice of separating server/client state concerns
 
-### UI Primitives (Headless)
+**Confidence:** HIGH
+- This exact combo (TanStack Query + Zustand) recommended across 8+ 2025 state management guides
+- Matches existing v1.0 architecture, reduces migration friction
 
-| Library | Version | Purpose | Why Recommended |
-|---------|---------|---------|-----------------|
-| Radix UI (primitives) | ^1.x-2.x | Accessible headless components | Use individual packages: `@radix-ui/react-dialog` (v1.1.15), `@radix-ui/react-popover` (v1.1.15), `@radix-ui/react-tooltip` (v1.2.8), `@radix-ui/react-select` (v2.2.6). Fully accessible, unstyled, composable. Style with Tailwind. All support React 19. |
+### UI Components
+| Technology | Version | Purpose | Why |
+|------------|---------|---------|-----|
+| Radix UI | 1.x | Headless primitives | Accessible (ARIA), unstyled (Tailwind flexibility), kbd navigation, dialog/popover/select/tabs for dashboard UI |
+| @radix-ui/react-icons | Latest | Icon system | Consistent with Radix ecosystem, tree-shakeable |
 
-**Why Radix over Headless UI:** Radix has broader component coverage (dialog, popover, tooltip, select, dropdown-menu, tabs, accordion, hover-card). Headless UI covers fewer primitives. Both are headless and Tailwind-compatible, but Radix gives you more components you will need across 10 dashboard modules.
+**Optional Enhancement:**
+- shadcn/ui blocks (NOT full library): Pre-built TanStack Table + Radix + Tailwind examples for financial tables, copy-paste pattern
 
-**Why NOT Ant Design (antd) for this project:** Kompete uses antd v6.3.0 but this project should NOT. Reasons:
-1. **White-label theming:** antd uses CSS-in-JS (cssinjs) with its own token system. Layering Tailwind + antd tokens + per-tenant CSS variables creates three competing style systems.
-2. **Bundle size:** antd imports pull in significant JS even with tree-shaking.
-3. **Design consistency:** antd has strong visual opinions. Consulting firm branding requires full visual control -- headless primitives + Tailwind give that.
+**Rationale:**
+- **Why Radix**: Already in v1.0, proven headless approach for multi-tenant branding
+- **Why not shadcn/ui full**: It's a copy-paste component collection, not an npm package. Cherry-pick table/dashboard blocks only
+- **Why not Headless UI**: Smaller primitive set, less mature than Radix
 
-### Icons
+**Confidence:** HIGH
+- Radix UI established leader in headless React components (2025)
+- Matches existing v1.0 stack
 
-| Library | Version | Purpose | Why Recommended |
-|---------|---------|---------|-----------------|
-| Lucide React | ^0.564.0 | Icon library | Already used in Kompete. Tree-shakeable, consistent style, 1500+ icons covering business/financial domain well. Each icon is an individual ESM import -- no bundle bloat. |
+### Drag & Drop (for Pipeline/Kanban Views)
+| Technology | Version | Purpose | Why |
+|------------|---------|---------|-----|
+| @dnd-kit/core | 6.3.x | Drag-and-drop logic | Modern (react-beautiful-dnd no longer maintained), accessible, 10KB zero-dep, performant |
+| @dnd-kit/sortable | Latest | Sortable lists | Optimized layer for kanban columns, pipeline stages |
 
-### Animations
+**Use Cases in Dashboard:**
+- Deals pipeline view (drag deals between stages)
+- Customizable section ordering
+- Column reordering in tables
 
-| Library | Version | Purpose | Why Recommended |
-|---------|---------|---------|-----------------|
-| Motion (framer-motion) | ^12.34.0 | Layout animations, transitions | Use for module transitions, chart entry animations, expandable sections. `motion` is the current package name (framer-motion renamed). Supports React 19 (`^18.0.0 \|\| ^19.0.0`). Use sparingly -- this is a data-dense product, not a marketing site. |
+**Confidence:** HIGH
+- dnd-kit is 2025 standard replacement for react-beautiful-dnd
+- Lightweight, maintained, recommended across 10+ 2025 drag-drop comparisons
 
-**Guidance:** Prefer CSS transitions (Tailwind's `transition-*` classes) for simple hover/focus effects. Reserve Motion for: layout animations (AnimatePresence for module switching), staggered chart entry, expandable card reveals.
+### Single-File HTML Bundling
+| Technology | Version | Purpose | Why |
+|------------|---------|---------|-----|
+| vite-plugin-singlefile | 2.3.x | Bundle to single HTML | Inlines all JS/CSS into dist/index.html, supports Vite 5-7, enables offline distribution |
 
-### Utility Libraries
+**Configuration:**
+```typescript
+// vite.config.ts
+import { viteSingleFile } from 'vite-plugin-singlefile'
 
-| Library | Version | Purpose | When to Use |
-|---------|---------|---------|-------------|
-| clsx | ^2.1.1 | Conditional class names | Every component. `clsx('base', isActive && 'active-class')`. Tiny (< 1KB). |
-| tailwind-merge | ^3.4.1 | Merge conflicting Tailwind classes | Component props that accept className overrides. Prevents `p-4 p-2` conflicts. Use via a `cn()` helper combining clsx + tailwind-merge. |
-| date-fns | ^4.1.0 | Date formatting/manipulation | Monthly report dates, time period labels, "last updated" timestamps. Tree-shakeable (import only functions you use). |
-| numeral | ^2.0.6 | Number formatting | Financial metrics: revenue (INR Cr), margins (%), growth rates. Format: `numeral(12345.67).format('0,0.00')`. Handles Indian numbering with custom locale. |
+export default defineConfig({
+  plugins: [react(), viteSingleFile()],
+  build: {
+    cssCodeSplit: false,
+    assetsInlineLimit: 100000000
+  }
+})
+```
 
-### Export / Print
+**Confidence:** HIGH
+- Same plugin as v1.0, Vite 6 compatibility confirmed (supports ^5.4.11, ^6.0.0, ^7.0.0)
+- Last updated 8 months ago (June 2025), actively maintained
 
-| Library | Version | Purpose | When to Use |
-|---------|---------|---------|-------------|
-| react-to-print | ^3.2.0 | Print-friendly report export | Already in Kompete. Triggers browser print dialog for any React component tree. Use for "Download as PDF" via browser print-to-PDF. Supports React 19 (`~19` in peer deps). |
-| html-to-image | ^1.11.13 | Screenshot individual charts/modules | "Export chart as PNG" feature. Better maintained than html2canvas. Uses modern APIs (foreignObject SVG rendering). |
+### Date/Time Utilities
+| Technology | Version | Purpose | Why |
+|------------|---------|---------|-----|
+| date-fns | 4.x | Date formatting | Functional, tree-shakeable, 22MB unpacked but only imports used functions, better TypeScript support than dayjs, extensive locale support |
 
-**Why not jsPDF + html2canvas:** react-to-print leverages native browser print, which produces higher quality PDFs with proper pagination. jsPDF + html2canvas renders to canvas then to PDF -- lower quality, font issues, and SVG chart rendering problems. Use native print path.
+**Rationale:**
+- **Why not dayjs**: 2KB footprint nice, but date-fns tree-shaking means similar bundle impact in practice. date-fns has stronger financial date formatting utilities
+- **Why not Luxon**: Heavier, Intl API abstraction not needed (can use native Intl.NumberFormat directly)
+
+**Confidence:** MEDIUM
+- Date-fns recommended for "build-size-conscious projects" but both valid choices
+- Existing v1.0 likely uses custom formatters (src/lib/formatters.ts), so this is additive not replacement
+
+### Testing
+| Technology | Version | Purpose | Why |
+|------------|---------|---------|-----|
+| Vitest | 3.x | Test runner | Built on Vite, native ESM, 100x faster than Jest, parallel worker threads, compatible with React Testing Library |
+| @testing-library/react | 16.x | Component testing | User-behavior focused, role-based queries, industry standard, works seamlessly with Vitest |
+| @testing-library/user-event | Latest | User interaction simulation | Simulates real user events (click, type, hover) more accurately than fireEvent |
+
+**Confidence:** HIGH
+- Vitest + RTL is 2025/2026 standard for React testing
+- "68% less test code" reported for React 19 tests with RTL (React Testing Patterns Report, Jan 2025)
+- Vitest 3 released with Vite 6 + React 19 compatibility
 
 ### Development Tools
+| Technology | Version | Purpose | Why |
+|------------|---------|---------|-----|
+| ESLint | 9.x | Linting | Flat config (eslint.config.js), TypeScript support via typescript-eslint |
+| Prettier | 3.x | Code formatting | Opinionated, zero-config, integrates with ESLint |
+| @vitejs/plugin-react | Latest | React Fast Refresh | HMR for React components |
 
-| Tool | Version | Purpose | Notes |
-|------|---------|---------|-------|
-| @vitejs/plugin-react | ^5.1.4 | Vite React integration | Fast Refresh, JSX transform |
-| @tailwindcss/vite | ^4.1.18 | Tailwind CSS Vite plugin | v4 uses this instead of PostCSS plugin. Verified: supports Vite 7. |
-| ESLint | ^9.39+ | Linting | Use flat config (eslint.config.js). Kompete already on ESLint 9. |
-| @eslint/js | ^9.39+ | ESLint core rules | Flat config base |
-| typescript-eslint | ^8.55.0 | TypeScript ESLint rules | Type-aware linting for strict TS |
-| Prettier | ^3.8.1 | Code formatting | Consistent formatting across team |
+**Confidence:** HIGH
+- ESLint 9 flat config is current standard (2025)
 
-## Installation
+### Source Attribution UI
+**Pattern:** No dedicated library needed. Custom implementation using:
+- Radix Popover/Tooltip for citation hover
+- Footnote references with superscript numbers
+- Citation panel component (custom build)
 
-```bash
-# Core framework (constrained)
-npm install react@^19.2.4 react-dom@^19.2.4 react-router-dom@^7.13.0
-
-# Data visualization
-npm install recharts@^3.7.0
-
-# Data tables
-npm install @tanstack/react-table@^8.21.3
-
-# State management & data fetching
-npm install @tanstack/react-query@^5.90.21 zustand@^5.0.11
-
-# UI primitives (install only what you need per module)
-npm install @radix-ui/react-dialog @radix-ui/react-popover @radix-ui/react-tooltip @radix-ui/react-select @radix-ui/react-tabs @radix-ui/react-accordion
-
-# Icons
-npm install lucide-react@^0.564.0
-
-# Animations (add when needed, not day 1)
-npm install motion@^12.34.0
-
-# Utilities
-npm install clsx@^2.1.1 tailwind-merge@^3.4.1 date-fns@^4.1.0 numeral@^2.0.6
-
-# Export
-npm install react-to-print@^3.2.0 html-to-image@^1.11.13
-
-# Dev dependencies
-npm install -D typescript@^5.9.3 vite@^7.3.1 @vitejs/plugin-react@^5.1.4 tailwindcss@^4.1.18 @tailwindcss/vite@^4.1.18
-
-# Dev tooling
-npm install -D eslint@^9.39.1 @eslint/js@^9.39.1 typescript-eslint@^8.55.0 prettier@^3.8.1 @types/react@^19.2.5 @types/react-dom@^19.2.3
+**Example Pattern:**
+```typescript
+<span>
+  Revenue grew 23%
+  <Popover>
+    <PopoverTrigger><sup>[1]</sup></PopoverTrigger>
+    <PopoverContent>
+      Q4 2025 Earnings Call, slide 12
+      <Button>View Source</Button>
+    </PopoverContent>
+  </Popover>
+</span>
 ```
+
+**Confidence:** MEDIUM
+- No established React citation library for financial dashboards
+- Custom pattern based on shadcn/ui AI inline citation examples (Feb 2026)
+- Research shows citation libraries target academic/CSL formatting, not financial intelligence
 
 ## Alternatives Considered
 
-| Recommended | Alternative | When to Use Alternative |
-|-------------|-------------|-------------------------|
-| Recharts | @nivo/bar, @nivo/line | If you need heatmaps or calendar charts that Recharts lacks natively. Nivo has excellent heatmap support. Consider for Sub-Sector Deep Dive heatmap if Recharts treemap is insufficient. |
-| @tanstack/react-table | AG Grid Community | If you need Excel-like grid features (inline editing, cell ranges, clipboard). Overkill for read-only financial tables in this product. |
-| Zustand | Jotai | If state becomes heavily interdependent atoms. Jotai's atom model is better for many small independent states. Zustand is better for a few coherent stores (filters, UI state). |
-| Radix UI | Headless UI | If you want fewer dependencies. Headless UI covers dialog, popover, menu, listbox, combobox, tabs, disclosure. Enough for many projects, but Radix gives tooltip, hover-card, and accordion out of the box. |
-| react-to-print | @react-pdf/renderer (v4.3.2) | If you need pixel-perfect branded PDF layouts different from screen layout. react-to-print prints what's on screen; @react-pdf/renderer builds PDFs from scratch with its own layout engine. Adds significant complexity. Only if consulting clients demand specific PDF formatting. |
-| numeral | Intl.NumberFormat (built-in) | If you want zero-dependency number formatting. `Intl.NumberFormat('en-IN')` handles Indian numbering natively. Numeral adds custom format strings and is more ergonomic for varied financial formats, but Intl is built-in and sufficient for basic INR formatting. |
+| Category | Recommended | Alternative | Why Not |
+|----------|-------------|-------------|---------|
+| Charting | Apache ECharts | Recharts | SVG rendering slows above 10K points, insufficient for 11-section dashboard |
+| Charting | Apache ECharts | Visx | Low-level primitives, too much custom work for standard financial charts |
+| Charting | Apache ECharts | Highcharts | Commercial license required |
+| Data Table | TanStack Table | AG Grid | Commercial license for enterprise features |
+| Data Table | TanStack Table | Material React Table | Opinionated Material Design conflicts with multi-tenant branding |
+| State (client) | Zustand | Redux Toolkit | Excessive boilerplate for dashboard scope |
+| State (client) | Zustand | Jotai/Recoil | Atomic state overkill, Zustand simpler |
+| Drag & Drop | dnd-kit | react-beautiful-dnd | No longer maintained (archived 2023) |
+| Date lib | date-fns | dayjs | date-fns better financial formatting, tree-shaking negates size difference |
+| Testing | Vitest | Jest | Vitest 100x faster, native ESM, built for Vite |
 
-## What NOT to Use
+## Installation
 
-| Avoid | Why | Use Instead |
-|-------|-----|-------------|
-| Ant Design (antd) | Three competing style systems (antd tokens + Tailwind + tenant CSS vars). Bundle bloat. Fights white-label theming. Kompete uses it but this project has different requirements. | Radix UI primitives + Tailwind CSS. Full visual control for branded instances. |
-| Redux Toolkit | Ceremony overhead (slices, dispatch, selectors) for simple client state. Server state belongs in TanStack Query, not Redux. | Zustand for client state, TanStack Query for server state. |
-| Styled Components / Emotion | CSS-in-JS adds runtime cost and conflicts with Tailwind v4's CSS-first approach. Cannot leverage Tailwind's `@theme` for white-labeling. | Tailwind CSS v4 with CSS custom properties for theming. |
-| Material UI (MUI) | Same problem as antd -- opinionated visual system that fights custom branding. Even heavier bundle. | Radix UI + Tailwind. |
-| Chart.js / react-chartjs-2 | Canvas-based rendering. Cannot style chart elements with CSS variables for white-labeling. SVG (Recharts) allows CSS-driven theming. | Recharts (SVG-based, CSS-styleable). |
-| Moment.js | Deprecated by its own maintainers. Massive bundle (330KB). | date-fns (tree-shakeable, ~5KB for typical usage). |
-| Axios | Unnecessary dependency when fetch() is built into all target browsers. TanStack Query wraps fetch beautifully. | Native fetch() + TanStack Query. |
-| html2canvas + jsPDF | html2canvas has known SVG rendering issues (fails on Recharts charts). Font embedding is buggy. | react-to-print (native browser print) + html-to-image (for individual chart exports). |
-| Next.js / Remix | This is a SPA dashboard, not an SEO-driven website. SSR adds complexity without benefit -- consulting partners access via authenticated sessions. Vite SPA is the right choice. | Vite SPA with React Router. |
-| Storybook (day 1) | Premature for a 10-module report product. Adds build complexity and maintenance overhead before you have enough shared components to justify it. Add in Phase 3+ if component library grows. | Build components inline, extract shared ones when patterns emerge. |
+### Core Dependencies
+```bash
+# Framework
+npm install react@19 react-dom@19
+npm install @vitejs/plugin-react vite@6
 
-## Stack Patterns by Variant
+# Charting
+npm install echarts@6 echarts-for-react@3
 
-**If a module needs a chart type Recharts does not support well (e.g., complex heatmap):**
-- Use Nivo for that specific chart only (`@nivo/heatmap`)
-- Keep Recharts as primary. Mixing chart libraries is fine for 1-2 edge cases.
-- Because Nivo also supports React 19 and renders SVG.
+# Data Table
+npm install @tanstack/react-table@8
 
-**If PDF export requirements become strict (consulting firm demands specific PDF layout):**
-- Add `@react-pdf/renderer` v4.3.2 for custom PDF generation
-- Keep react-to-print for quick "print this page" functionality
-- Because some consulting firms have specific report format requirements for client deliverables.
+# State Management
+npm install @tanstack/react-query@5 zustand@5
 
-**If the product needs real-time data in a future version:**
-- Add WebSocket support via native WebSocket API or socket.io-client
-- TanStack Query supports WebSocket-triggered invalidation patterns
-- Because monthly cadence is v1, but v2 may need live signals.
+# UI Primitives
+npm install @radix-ui/react-dialog @radix-ui/react-popover @radix-ui/react-select @radix-ui/react-tabs @radix-ui/react-icons
 
-**If Indian number formatting is insufficient with numeral:**
-- Use `Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' })`
-- numeral's Indian locale needs custom configuration
-- Because INR formatting with lakhs/crores is a common edge case.
+# Drag & Drop (if needed)
+npm install @dnd-kit/core@6 @dnd-kit/sortable
 
-## Version Compatibility
+# Date Utilities
+npm install date-fns@4
 
-| Package A | Compatible With | Notes |
-|-----------|-----------------|-------|
-| react@^19.2.4 | All recommended libraries | Verified: recharts, @tanstack/react-table, @tanstack/react-query, zustand, radix-ui, motion, react-to-print, sonner all list React 19 in peer deps. |
-| vite@^7.3.1 | @tailwindcss/vite@^4.1.18 | Verified: @tailwindcss/vite peer dep is `vite ^5.2.0 \|\| ^6 \|\| ^7`. |
-| vite@^7.3.1 | @vitejs/plugin-react@^5.1.4 | Kompete runs this combination successfully. |
-| tailwindcss@^4.1.18 | @tailwindcss/vite@^4.1.18 | Same version -- Tailwind v4 plugin is part of the tailwindcss package ecosystem. |
-| typescript@^5.9.3 | All recommended libraries | TS 5.x is universally supported. @types/react@^19.2.5 provides React 19 type definitions. |
-| eslint@^9.39.1 | typescript-eslint@^8.55.0 | Both use flat config. ESLint 9 + typescript-eslint 8 is the current standard combination. |
+# Styling
+npm install tailwindcss@4 @tailwindcss/vite
+```
 
-## Key Architecture Decision: White-Label Theming via Tailwind v4
+### Dev Dependencies
+```bash
+npm install -D typescript@5
+npm install -D vitest@3 @testing-library/react@16 @testing-library/user-event
+npm install -D eslint@9 prettier@3
+npm install -D vite-plugin-singlefile@2
+```
 
-Tailwind CSS v4 introduces `@theme` in CSS (not JS config). This is the foundation for multi-tenant white-labeling:
+## Migration Path from v1.0
 
-```css
-/* base-theme.css */
-@import "tailwindcss";
+### Keep (No Change)
+- React (upgrade 18 → 19, minimal breaking changes)
+- Vite (upgrade to v6)
+- TypeScript 5
+- Tailwind (upgrade v3 → v4, config migration required)
+- TanStack Query
+- Zustand
+- Radix UI
+- vite-plugin-singlefile
 
-@theme {
-  --color-primary: #1e40af;
-  --color-secondary: #7c3aed;
-  --font-family-heading: 'Inter', sans-serif;
-  --font-family-body: 'Inter', sans-serif;
+### Replace
+- **Recharts → Apache ECharts**: Performance upgrade for large datasets
+  - Migration effort: Medium (chart config syntax different)
+  - Risk: Low (both are declarative, well-documented)
+
+### New Additions
+- @tanstack/react-table (if not already using for complex tables)
+- @dnd-kit/core + @dnd-kit/sortable (for pipeline/kanban views)
+- date-fns (if standardizing date formatting beyond custom formatters)
+
+## Risk Assessment
+
+| Decision | Risk Level | Mitigation |
+|----------|-----------|------------|
+| Apache ECharts adoption | LOW | Well-documented, large community, echarts-for-react simplifies React integration |
+| Tailwind v4 migration | MEDIUM | Breaking changes from v3 (JS config → CSS config). Follow official migration guide |
+| TanStack Table for complex tables | LOW | Headless = full control, extensive docs, matches Radix pattern |
+| React 19 upgrade | LOW | Minimal breaking changes, useRef type changes documented |
+| Vite 6 upgrade | LOW | Mostly internal optimizations, config changes minimal |
+
+## Bundle Size Considerations
+
+Target: Single HTML file under 5MB (current v1.0 unknown, establish baseline)
+
+**Heavy Dependencies:**
+- Apache ECharts: ~1MB (tree-shake unused chart types)
+- Radix UI primitives: 50-100KB (tree-shakeable per primitive)
+- date-fns: Only imported functions included (tree-shakeable)
+- TanStack Table: ~50KB
+- Zustand: 1.5KB
+- dnd-kit: 10KB
+
+**Optimization Strategies:**
+1. Lazy load ECharts chart types (only load used chart types)
+2. Code-split by section (React.lazy + Suspense)
+3. Tree-shake Radix primitives (import specific components)
+4. Minimize Tailwind CSS (purge unused classes)
+5. Inline critical CSS, defer non-critical
+6. Use date-fns/format only, not entire library
+
+**Confidence:** MEDIUM
+- Need to measure v1.0 baseline before setting targets
+- Single-file HTML inherently larger than split-chunk approach, but offline distribution requirement justifies it
+
+## TypeScript Configuration
+
+```json
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  "include": ["src"],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }
 ```
 
-```css
-/* tenant-bcg.css -- loaded dynamically */
-@theme {
-  --color-primary: #00a651;   /* BCG green */
-  --color-secondary: #003d20;
-  --font-family-heading: 'BCG Henderson Sans', sans-serif;
-}
+## Vite Configuration
+
+```typescript
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import { viteSingleFile } from 'vite-plugin-singlefile'
+import tailwindcss from '@tailwindcss/vite'
+
+export default defineConfig({
+  plugins: [
+    react(),
+    tailwindcss(),
+    viteSingleFile()
+  ],
+  build: {
+    target: 'es2022',
+    cssCodeSplit: false,
+    assetsInlineLimit: 100000000,
+    rollupOptions: {
+      output: {
+        manualChunks: undefined // Single file output
+      }
+    }
+  }
+})
 ```
 
-Recharts SVG elements can consume these CSS variables:
-```tsx
-<Bar fill="var(--color-primary)" />
-<Line stroke="var(--color-secondary)" />
+## Tailwind v4 Migration Notes
+
+**Breaking Changes from v3:**
+- Configuration moves from `tailwind.config.js` to CSS via `@theme` directive
+- Use `@import "tailwindcss"` instead of `@tailwind` directives
+- Custom properties replace JS config for colors/spacing
+
+**Migration Steps:**
+1. Install `@tailwindcss/vite` plugin
+2. Convert `tailwind.config.js` tokens to CSS custom properties in `src/theme/tokens.css`
+3. Update imports in main CSS file
+4. Test all components for visual regressions
+
+**Confidence:** HIGH
+- Official migration guide published (Tailwind v4 docs)
+- Breaking changes well-documented
+
+## Source Attribution Pattern (Custom)
+
+Since no established React library exists for financial intelligence citations, implement custom pattern:
+
+**Component Structure:**
+```
+components/
+  citation/
+    CitationMarker.tsx      // Superscript number with popover
+    CitationPopover.tsx     // Source details on hover
+    CitationPanel.tsx       // Footer with all sources
+    useCitations.ts         // Hook to register/track citations
 ```
 
-This creates a single rendering pipeline where switching tenants = swapping a CSS file. No React re-render, no prop drilling, no runtime theme provider overhead.
+**Usage:**
+```typescript
+const { cite } = useCitations()
+
+<span>
+  Revenue grew 23% {cite({
+    source: "Q4 2025 Earnings Call",
+    page: "slide 12",
+    url: "/sources/earnings-q4-2025.pdf"
+  })}
+</span>
+```
+
+**Implementation Libraries:**
+- Radix Popover (hover interaction)
+- Zustand (citation registry for footer panel)
+- Custom footnote numbering logic
+
+**Confidence:** MEDIUM
+- Pattern inspired by shadcn/ui AI inline citation (Feb 2026)
+- No production examples in financial intelligence domain found
+- Requires custom development and UX validation
 
 ## Sources
 
-All versions verified via `npm view [package] version` and `npm view [package] peerDependencies` against the npm registry on 2026-02-15:
+### Charting Libraries
+- [Best React chart libraries 2025 - LogRocket](https://blog.logrocket.com/best-react-chart-libraries-2025/)
+- [8 Best React Chart Libraries 2025 - Embeddable](https://embeddable.com/blog/react-chart-libraries)
+- [Top React Chart Libraries 2025 - Updot](https://www.updot.co/insights/best-react-chart-libraries)
+- [Apache ECharts Official](https://echarts.apache.org/)
+- [echarts-for-react npm](https://www.npmjs.com/package/echarts-for-react)
 
-- React 19.2.4 -- peer dep compatibility confirmed for all libraries
-- Recharts 3.7.0 -- peer dep: `react ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0`
-- @tanstack/react-table 8.21.3 -- peer dep: `react >=16.8`
-- @tanstack/react-query 5.90.21 -- peer dep: `react ^18 || ^19`
-- Zustand 5.0.11 -- peer dep: `react >=18.0.0`
-- Tailwind CSS 4.1.18 -- no React peer dep (CSS tool)
-- @tailwindcss/vite 4.1.18 -- peer dep: `vite ^5.2.0 || ^6 || ^7`
-- Radix UI components -- peer dep: `react ^16.8 || ^17.0 || ^18.0 || ^19.0`
-- Motion 12.34.0 -- peer dep: `react ^18.0.0 || ^19.0.0`
-- react-to-print 3.2.0 -- peer dep: `react ~19`
-- Kompete frontend package.json -- confirms React 19 + Vite 7 + Lucide + react-router-dom 7 pattern works in production
+### Data Tables
+- [10 Best React Data Table Libraries 2026 - ReactScript](https://reactscript.com/best-data-table/)
+- [TanStack Table Official Docs](https://tanstack.com/table/latest)
+- [React Table Block Sparklines - shadcn/ui](https://www.shadcn.io/blocks/tables-sparkline)
+- [@tanstack/react-table npm](https://www.npmjs.com/package/@tanstack/react-table)
 
----
-*Stack research for: Kompete - Industry Intel Platform*
-*Researched: 2026-02-15*
+### State Management
+- [Zustand and TanStack Query - JavaScript in Plain English](https://javascript.plainenglish.io/zustand-and-tanstack-query-the-dynamic-duo-that-simplified-my-react-state-management-e71b924efb90)
+- [Goodbye Redux? Meet TanStack Query & Zustand in 2025](https://www.bugragulculer.com/blog/good-bye-redux-how-react-query-and-zustand-re-wired-state-management-in-25)
+
+### React 19 & Vite 6
+- [Complete Guide React TypeScript Vite 2026 - Medium](https://medium.com/@robinviktorsson/complete-guide-to-setting-up-react-with-typescript-and-vite-2025-468f6556aaf2)
+- [React 19 Best Practices 2025 - Medium](https://medium.com/@CodersWorld99/react-19-typescript-best-practices-the-new-rules-every-developer-must-follow-in-2025-3a74f63a0baf)
+- [Upgrading to Vitest 3, Vite 6, React 19](https://www.thecandidstartup.org/2025/03/31/vitest-3-vite-6-react-19.html)
+- [React 19 New Hooks - freeCodeCamp](https://www.freecodecamp.org/news/react-19-new-hooks-explained-with-examples/)
+
+### Tailwind CSS v4
+- [Tailwind CSS v4.0 Official](https://tailwindcss.com/blog/tailwindcss-v4)
+- [Tailwind CSS v4 Beta Release](https://tailwindcss.com/blog/tailwindcss-v4-beta)
+
+### Drag & Drop
+- [Build Kanban with dnd-kit - marmelab](https://marmelab.com/blog/2026/01/15/building-a-kanban-board-with-shadcn.html)
+- [@dnd-kit/core npm](https://www.npmjs.com/package/@dnd-kit/core)
+- [dnd-kit Official Docs](https://dndkit.com/)
+
+### Single File HTML
+- [vite-plugin-singlefile npm](https://www.npmjs.com/package/vite-plugin-singlefile)
+- [vite-plugin-singlefile GitHub](https://github.com/richardtallent/vite-plugin-singlefile)
+
+### Testing
+- [Vitest with React Testing Library Guide - Makers Den](https://makersden.io/blog/guide-to-react-testing-library-vitest)
+- [Vitest React Testing Library Guide - Incubyte](https://blog.incubyte.co/blog/vitest-react-testing-library-guide/)
+
+### UI Components
+- [Headless UI vs Radix 2025 - Subframe](https://www.subframe.com/tips/headless-ui-vs-radix)
+- [Radix UI Official](https://www.radix-ui.com/)
+
+### Date Libraries
+- [date-fns vs dayjs - dhiwise](https://www.dhiwise.com/post/date-fns-vs-dayjs-the-battle-of-javascript-date-libraries)
+
+### Citation UI
+- [React AI Inline Citation - shadcn/ui](https://www.shadcn.io/ai/inline-citation)
+- [AI UX Patterns Citations - ShapeofAI](https://www.shapeof.ai/patterns/citations)

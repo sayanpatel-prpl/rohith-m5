@@ -1,358 +1,619 @@
-# Pitfalls Research
+# Domain Pitfalls: Consulting Intelligence Dashboard
 
-**Domain:** AI-driven Industry Intelligence Dashboard / Multi-Tenant Consulting BD Platform
-**Researched:** 2026-02-15
-**Confidence:** MEDIUM-HIGH (React/Tailwind pitfalls verified via official docs; dashboard UX and multi-tenant patterns from established domain knowledge; consulting-specific UX from training data)
+**Domain:** Financial/Consulting Intelligence Dashboard (React SPA)
+**Researched:** 2026-02-20
+**Context:** High-stakes presentation (24-48hr deadline), 11 sections, 15 companies, single-file HTML output
 
 ---
 
 ## Critical Pitfalls
 
-### Pitfall 1: Storing Derived Financial Metrics in Component State
+Mistakes that cause presentation-day failures or require major rewrites.
 
-**What goes wrong:**
-Developers store computed values (YoY growth percentages, EBITDA margins, variance-vs-segment-average) in React state, then use `useEffect` to keep them in sync when the underlying data changes. This creates cascading re-render chains: raw data updates trigger effect, effect sets derived state, derived state triggers child re-renders, children's effects fire -- the entire dashboard flickers and lags.
+### Pitfall 1: Presentation-Day Demo Failures (The "81% Rule")
 
-With 10 report modules each containing multiple computed metrics (Revenue growth YoY/QoQ, EBITDA margin, working capital days, inventory days, Net Debt/EBITDA, Capex intensity, ROCE trend, plus variance analysis and outperform/inline/underperform tagging), the cascading effect chains multiply into hundreds of unnecessary renders per data update.
+**What goes wrong:** Dashboard works in development but fails during live presentation due to runtime errors, network dependencies, or visual regressions. Research shows 81% of salespeople have lost deals due to bad demos.
 
 **Why it happens:**
-Developers treat React like an imperative system -- "when X changes, update Y." The brief specifies computed layers on top of raw data (variance analysis vs. last quarter, vs. segment average, AI-generated confidence scores), which feels like "derived state that needs syncing." React's mental model for this is different: compute during render, memoize if expensive.
+- Lack of redundancy testing 10 minutes before presentation (not 1 hour before)
+- Reliance on external API endpoints without fallback data
+- Untested error boundaries allowing catastrophic UI crashes
+- Missing graceful degradation when data unavailable
 
-**How to avoid:**
-- Compute derived metrics inline during render. A function like `calculateEBITDAMargin(revenue, costs)` called during render is cheaper than a state/effect chain.
-- Use `useMemo` with dependency arrays for genuinely expensive computations (e.g., sorting 50 companies by multiple financial metrics, calculating quartile benchmarks across the universe).
-- Only `useMemo` if the computation takes >1ms in production mode. Profile with `console.time()` on realistic data (30-50 company universe).
-- Never chain effects: if module A's filter change should update module B's aggregation, handle it in the event handler or lift the state properly.
+**Consequences:**
+- Lost client confidence and deal termination
+- Visible panic erodes presenter credibility (the anxiety kills deals more than the technical issue)
+- No recovery path during live demo
 
-**Warning signs:**
-- Multiple `useEffect` hooks that call `setState` based on other state values.
-- Flickering or stale data when switching between report modules.
-- React DevTools Profiler showing >2 renders per user interaction.
-- Components re-rendering when unrelated filters change.
+**Prevention:**
+1. **Implement fail-safe data strategy:**
+   - Primary: Real API with `VITE_USE_REAL_API=true`
+   - Secondary: Automatic fallback to mock data on API failure
+   - Tertiary: Static fallback JSON bundled with build
+2. **Test complete flow 10 minutes before presentation:**
+   - Fresh browser session, all tabs refreshed
+   - Click through every section navigation
+   - Verify filters apply correctly
+   - Check dark mode toggle
+3. **Error boundaries at section level:**
+   - Wrap each section with `SectionErrorFallback`
+   - Display graceful error message, not blank screen
+   - Allow navigation to other sections even if one fails
+4. **Backup plan:**
+   - Pre-recorded demo video cued and ready
+   - PDF export of dashboard available
+   - Backup presenter familiar with recovery procedures
 
-**Phase to address:** Phase 1 (Foundation) -- establish the data flow pattern before building any modules. Create a `useFinancialMetrics(rawData, filters)` hook pattern that computes derivations via `useMemo` and returns ready-to-render objects.
+**Detection:**
+- Run pre-flight checklist 10 min before demo
+- Monitor browser console for ANY warnings/errors
+- Test on presentation laptop, not development machine
+- Verify build artifact is single-file HTML with all assets inlined
 
-**Confidence:** HIGH -- verified against React official documentation (react.dev).
+**Phase:** Pre-Launch Hardening (Phase 9)
 
 ---
 
-### Pitfall 2: Hardcoded Brand Identity Instead of Theme-Token Architecture
+### Pitfall 2: Source Attribution Failures (Compliance & Credibility Crisis)
 
-**What goes wrong:**
-Colors, fonts, logos, and spacing get scattered across component files as literal values or even as specific Tailwind utility classes. When the second consulting firm (say A&M after BCG) needs their branded instance, you face one of two terrible options: (a) fork the entire frontend, or (b) find-and-replace hundreds of color references. Both lead to unmaintainable code.
-
-The brief describes multi-tenant SaaS where BCG, A&M, and similar firms each get branded instances. This is not a cosmetic feature -- it is a core architectural requirement that must be designed in from day one.
+**What goes wrong:** Data presented without clear attribution, mixing mock/real data without labels, or displaying "Sample Data" warnings in production. Violates consulting standards and client trust.
 
 **Why it happens:**
-White-labeling feels like a "later" feature. Developers build the first tenant's look-and-feel directly, thinking "we'll abstract it when we need to." By then, brand assumptions are baked into component logic (not just styles -- conditional logic like "show BCG logo here," hardcoded chart color palettes, PDF export templates with embedded colors).
+- Mock data scaffolding code left in production build
+- Inconsistent source metadata across sections
+- No visual distinction between real vs fallback data
+- Source tracking not built into data model from day one
 
-**How to avoid:**
-- Use Tailwind v4's `@theme` directive with CSS custom properties from the start. Define a semantic token layer: `--color-brand-primary`, `--color-brand-accent`, `--color-chart-series-1` through `--color-chart-series-6`, `--color-signal-positive`, `--color-signal-negative`, `--color-signal-neutral`.
-- Create a tenant theme file pattern. Each tenant gets a CSS file that overrides `@theme` variables:
-  ```css
-  /* themes/bcg-theme.css */
-  @theme {
-    --color-brand-primary: oklch(0.45 0.12 250);
-    --color-brand-accent: oklch(0.65 0.15 145);
-  }
-  ```
-- Never reference concrete colors in components. Use semantic tokens everywhere: `bg-brand-primary`, `text-signal-negative`, `border-chart-series-1`.
-- Chart libraries must consume theme tokens, not hardcoded hex values. Build a `useChartColors()` hook that reads CSS custom properties and returns the palette.
-- Logo, company name, and tenant-specific copy must come from a tenant configuration object, never hardcoded.
+**Consequences:**
+- Client questions data credibility during Q&A
+- Regulatory/compliance issues for financial consulting
+- Inability to trace data lineage when numbers challenged
+- Loss of professional reputation
 
-**Warning signs:**
-- Any hex/rgb/oklch value in a component file (should only be in theme files).
-- The word "BCG" or any client name appearing in component code.
-- Chart components with inline color arrays.
-- Difficulty answering "how long to add a new tenant?" (answer should be: "create one CSS file and one config JSON, deploy").
+**Prevention:**
+1. **Embed source metadata in data model:**
+   ```typescript
+   interface BaseData {
+     metadata: {
+       source: string;           // "Company Filings", "BSE Data", etc.
+       lastUpdated: string;      // ISO date
+       dataType: "real" | "mock" | "hybrid";
+       coverage: string;         // "Q3 FY24", "Full Year 2023"
+     }
+   }
+   ```
+2. **Visual attribution in UI:**
+   - Footnote on every visualization: "Source: {metadata.source} | Updated: {metadata.lastUpdated}"
+   - Distinct styling for mock vs real data (e.g., dashed borders for mock)
+   - Banner warning if any section uses fallback data
+3. **Build-time validation:**
+   - CI check fails if `dataType: "mock"` found in production JSON
+   - Enforce source field presence in TypeScript types
+   - Generate source summary report during build
+4. **Data governance dashboard:**
+   - Admin view showing data freshness per section
+   - Lineage tracking from source → transformation → display
+   - Consumption metrics (which sections most viewed)
 
-**Phase to address:** Phase 1 (Foundation) -- the theme token system must exist before any component is built. This is a non-negotiable architectural decision.
+**Detection:**
+- Search codebase for "mock", "sample", "test data" labels
+- Verify every chart/table has source attribution
+- Review JSON files for complete metadata
+- Stakeholder review of data sources document
 
-**Confidence:** HIGH -- Tailwind v4 `@theme` with CSS custom properties verified via official docs. The pattern of semantic tokens for white-labeling is well-established.
+**Phase:** Data Quality Assurance (Phase 4) + Pre-Launch Hardening (Phase 9)
 
 ---
 
-### Pitfall 3: Building a "Dashboard" When the User Needs a "Briefing"
+### Pitfall 3: Single-File HTML Build Failures (Inlining Gotchas)
 
-**What goes wrong:**
-The team builds a traditional analytics dashboard with filters, drill-downs, and interactive charts. The MD/Partner at BCG opens it, sees 10 modules worth of charts and tables, and closes it. They needed a 5-minute briefing document that tells them what changed and why it matters -- not an analytics workbench they have to explore themselves.
-
-The brief explicitly states: "5-minute skim that answers 'What changed this month and why should I care?'" and the buyer persona is "time-poor, needs instant signal-to-noise, walks into meetings with this tool." A traditional dashboard violates every one of these requirements.
+**What goes wrong:** Vite plugin inlines most assets but silently fails on SVGs, favicon, or unrecognized file types. Deployed HTML references broken external paths.
 
 **Why it happens:**
-Engineering teams default to building dashboards because that is what data visualization libraries are designed for. The mental model is "present data, let users explore." But consulting MDs are not analysts -- they do not explore data. They consume conclusions and need supporting evidence on-demand. The correct mental model is closer to a McKinsey slide deck or a Bloomberg terminal's "top stories" than a Tableau dashboard.
+- `vite-plugin-singlefile` has known limitations with SVG/static assets
+- Inline script tags removed during build, converted to external scripts
+- CSS custom properties in `:root` not inlined correctly
+- Public folder assets not automatically bundled
 
-**How to avoid:**
-- Design the primary view as a **narrative flow**, not a dashboard grid. The "Cover & Executive Snapshot" module is the landing page. It reads like a document, not a control panel.
-- Use progressive disclosure: headline insight first, then supporting chart/table on click/expand. Never show the chart first.
-- Every data visualization must have a text headline above it that states the conclusion: "EBITDA margins contracted 180bps QoQ, driven by input cost inflation in Q3" -- not just "EBITDA Margin Trend."
-- Build the "Red Flags / Watchlist" as the primary navigation mechanism. MDs care about exceptions, not normal operations.
-- Test the "meeting-ready" scenario: can the user open this on their iPad 5 minutes before a client meeting and extract 3 talking points? If not, the UX has failed.
+**Consequences:**
+- Missing icons/logos on deployed page
+- Broken favicon in browser tab
+- External script dependencies fail when served from different domain
+- Dark mode tokens missing due to CSS extraction issues
 
-**Warning signs:**
-- The landing page has more than 2-3 charts visible above the fold.
-- Users need to click filters before seeing any useful information.
-- Chart titles are metric names ("Revenue Growth YoY") rather than insight statements ("Revenue growth accelerating across consumer durables").
-- No one is reading the AI-generated summaries because they are buried below the charts.
+**Prevention:**
+1. **Test single-file output before presentation:**
+   ```bash
+   npm run build
+   # Open dist/index.html directly in browser (file:// protocol)
+   # Verify all images, icons, styles render correctly
+   ```
+2. **Use data URIs for critical assets:**
+   - Convert logo SVG to data URI in source
+   - Inline favicon as base64 in HTML template
+   - Avoid relying on `/public` folder for essential assets
+3. **Check build warnings:**
+   - Monitor Vite output for "asset not inlined" messages
+   - Verify final bundle size matches expectations (large = good for single file)
+4. **Alternative: Use Base64 plugin:**
+   - For SVG logos, use `vite-plugin-svg-loader` to import as React components
+   - Ensures SVGs are compiled into JS bundle, not referenced externally
 
-**Phase to address:** Phase 1 (UX Design) and Phase 2 (Module Build). The narrative-first information architecture must be established before building individual modules. Each module's component hierarchy should be: Insight Headline > Supporting Evidence > Interactive Detail.
+**Detection:**
+- Build artifact is >2MB (indicates successful inlining)
+- No external `<link>` or `<script src=` tags in built HTML
+- Network tab shows zero requests when opening file locally
+- SVG logos render when offline
 
-**Confidence:** HIGH -- NNGroup research and consulting industry UX patterns are well-established. The brief itself provides strong signal about user needs.
+**Phase:** Build & Deployment Infrastructure (Phase 8)
 
 ---
 
-### Pitfall 4: Uncontrolled Chart Re-rendering on Filter/Tab Changes
+### Pitfall 4: Dark Mode Token Failures at Runtime
 
-**What goes wrong:**
-Every time a user changes a filter (e.g., switching from QoQ to YoY view, selecting a different company subset, changing the time period), all chart components on the page re-render. With SVG-based charting libraries rendering 50-company comparison charts, this causes 500ms+ frame drops. The app feels sluggish precisely at the moment the user is trying to interact with it.
-
-For this project specifically: the Financial Performance Tracker covers 30-50 companies with 7+ standardized metrics each. The Competitive Moves module shows cluster analysis. The Deals module shows transaction timelines. All of these are heavy SVG renders.
+**What goes wrong:** Dark mode works in development but breaks in production due to CSS custom property timing issues, incompatible fallback values, or token sync failures.
 
 **Why it happens:**
-- Chart data objects are recreated on every render (new array/object reference = chart thinks data changed = full SVG re-render).
-- Parent component state changes (like a global filter) propagate to all children.
-- Chart libraries like Recharts, Nivo, or Victory re-render their entire SVG tree on any prop change because they do not do granular DOM diffing on SVG elements.
+- CSS custom properties evaluated at runtime, not build time
+- IACVT (Invalid At Computed Value Time) behavior when property has incompatible value type
+- Token overrides don't reflect when design tokens updated
+- Fallback values `var(--name, fallback)` don't work as expected for type mismatches
 
-**How to avoid:**
-- Memoize chart data transformations with `useMemo`, keyed to the actual dependencies (not the entire data object).
-- Wrap chart components in `React.memo()` with custom comparison functions that do shallow equality on the data array's length and key identifiers, not deep equality.
-- Isolate filter state: use a module-level context or state so that changing a filter in Module 3 does not trigger re-renders in Modules 1, 2, 4-10.
-- For the 50-company comparison table/chart: virtualize the rendering. Only render companies visible in the viewport. Libraries like TanStack Virtual handle this.
-- Consider canvas-based rendering for charts with >20 data series. SVG performance degrades linearly with element count; canvas does not.
+**Consequences:**
+- White text on white background in dark mode
+- Chart colors invisible or clashing
+- Flash of unstyled content on load
+- Inconsistent theming across sections
 
-**Warning signs:**
-- Visible jank when changing filters or tabs.
-- React DevTools shows chart components re-rendering when their data has not actually changed.
-- Browser Performance tab shows long "Recalculate Style" or "Layout" tasks (>50ms) on interaction.
-- Scroll stuttering on the Financial Performance Tracker page.
+**Prevention:**
+1. **Use data-attribute pattern:**
+   ```css
+   :root {
+     --bg-primary: white;
+     --text-primary: black;
+   }
+   :root[data-theme="dark"] {
+     --bg-primary: #1a1a1a;
+     --text-primary: white;
+   }
+   ```
+2. **Test both modes systematically:**
+   - Automated visual regression tests for light/dark
+   - Check every section in both modes before presentation
+   - Verify chart colors from design token palette work in both themes
+3. **Avoid runtime token calculation:**
+   - Don't use JavaScript to calculate token values dynamically
+   - Define all tokens statically in CSS
+   - Use browser DevTools to verify computed values
+4. **Fallback strategy:**
+   - Always provide fallback: `color: var(--text-primary, black);`
+   - Test with custom properties disabled to verify graceful degradation
+   - Use semantic tokens (not primitive colors) for theme switching
 
-**Phase to address:** Phase 2 (Module Build) -- but the memoization patterns and component isolation architecture must be established in Phase 1. Create a `<ChartContainer>` wrapper in Phase 1 that handles memoization, loading states, and error boundaries.
+**Detection:**
+- Toggle dark mode in every section
+- Check console for CSS warnings about invalid custom properties
+- Verify localStorage persists theme correctly on reload
+- Test on fresh browser profile (no cached styles)
 
-**Confidence:** HIGH -- React rendering behavior is well-documented. SVG performance characteristics are well-established.
+**Phase:** UI/UX & Theming (Phase 2)
 
 ---
 
-### Pitfall 5: Financial Number Formatting Inconsistency
+### Pitfall 5: Data Integrity Corruption During Client-Side Filtering
 
-**What goes wrong:**
-Indian financial data has unique formatting requirements that get botched across different modules. The same company's revenue shows as "Rs 2,345 Cr" in one module, "INR 2345 Crore" in another, "2.3K Cr" in a chart tooltip, and "23.45B" (US billions) in an exported PDF. Percentages appear as "12.5%" in one place and "0.125" in another. Negative values show as "-180bps" in text but as red "(180)" in a table.
-
-For a consulting intelligence tool, inconsistent number formatting destroys credibility. If an MD sees conflicting representations of the same metric, they lose trust in the entire platform.
+**What goes wrong:** Filters applied incorrectly, causing data mismatches between sections, empty states shown when data exists, or stale data displayed after filter changes.
 
 **Why it happens:**
-- No centralized formatting layer. Each component does its own `toLocaleString()` or string interpolation.
-- Indian numbering system (lakhs/crores) is not the default in any JavaScript locale. `Intl.NumberFormat('en-IN')` gives you lakhs/crores separators but not the "Cr" suffix.
-- Different contexts need different precision: chart axes need abbreviated values ("2.3K Cr"), tables need full precision ("2,345.67 Cr"), tooltips need contextual precision.
-- Basis points (bps), percentage points, and percentages are three different things that get conflated.
+- Filter state stored in URL but not synced with Zustand store (or vice versa)
+- Infinite loops between URL sync and store updates
+- Fuzzy company matching fails when display names inconsistent across sections
+- `useMemo` dependencies missing, causing stale filtered data
 
-**How to avoid:**
-- Build a `formatters.ts` utility module in Phase 1 with these functions:
-  - `formatCurrency(value, { unit: 'cr' | 'lakh', precision: number, abbreviated: boolean })`
-  - `formatPercentage(value, { precision: number, showSign: boolean })`
-  - `formatBasisPoints(value)`
-  - `formatMultiple(value)` (for valuation multiples like EV/EBITDA)
-  - `formatGrowth(value)` (always shows +/- sign)
-  - `formatDelta(current, previous)` (returns formatted change with direction indicator)
-- Define formatting presets: `CHART_AXIS`, `TABLE_CELL`, `TOOLTIP`, `HEADLINE`, `EXPORT`.
-- Every number in the UI must go through a formatter. Never use raw `.toFixed()` or template literals for financial numbers.
-- Write unit tests for edge cases: zero values, negative values, very large numbers (>10,000 Cr), very small numbers (<1 Cr), null/undefined/NaN.
+**Consequences:**
+- Executive says "Show me only Voltas" but Competitive Moves shows all companies
+- Dashboard shows "No data available" when switching from 3 companies to 1 company
+- Filters reset unexpectedly during navigation
+- Client questions data accuracy when numbers don't match across sections
 
-**Warning signs:**
-- Any raw number rendering without a formatter function.
-- The string "toFixed" appearing in component files.
-- Different modules showing different representations of the same metric for the same company.
-- Users reporting "the numbers don't match" between modules.
+**Prevention:**
+1. **Bidirectional URL sync with guards:**
+   ```typescript
+   // Use ref to prevent sync loops
+   const isInternalUpdate = useRef(false);
 
-**Phase to address:** Phase 1 (Foundation) -- the formatting library must be the first utility built, before any data display component. It should have 100% unit test coverage.
+   useEffect(() => {
+     if (isInternalUpdate.current) return;
+     isInternalUpdate.current = true;
+     // Update store from URL
+     isInternalUpdate.current = false;
+   }, [searchParams]);
+   ```
+2. **Consistent company matching:**
+   - Use company ID as source of truth, not display name
+   - Implement fuzzy matching for legacy mock data (first-word matching)
+   - Log mismatches during development
+3. **Explicit filter dependencies:**
+   ```typescript
+   const filteredData = useMemo(() => {
+     return applyFilters(rawData, companies, tier, period);
+   }, [rawData, companies, tier, period]); // All dependencies listed
+   ```
+4. **Filter state validation:**
+   - Reset invalid filter combinations (e.g., company not in dataset)
+   - Show clear feedback when filters result in empty state
+   - Preserve filter state across section navigation
 
-**Confidence:** HIGH -- Indian number formatting challenges are well-documented. Financial data display standards are established in the consulting industry.
+**Detection:**
+- Test all filter combinations systematically
+- Verify URL params match Zustand store state
+- Check that navigation preserves filters
+- Monitor for "No data" states that shouldn't be empty
+
+**Phase:** Global State & Filtering (Phase 3)
 
 ---
 
-### Pitfall 6: PDF/Export as an Afterthought
+## Moderate Pitfalls
 
-**What goes wrong:**
-The team builds beautiful interactive charts using SVG-based libraries, then discovers in month 3 that the MD wants to "download this as a PDF" to email before a board meeting, or "export to PowerPoint" for a pitch deck. SVG charts do not render correctly in server-side PDF generation. Interactive elements (tooltips, drill-downs, animations) disappear. The layout that works at 1440px browser width does not work at A4/Letter PDF dimensions. Chart colors that look great on screen are illegible when printed in grayscale.
+Significant issues that degrade UX or require rework, but don't cause catastrophic failures.
 
-The brief says the user "walks into meetings with this tool." That means offline access or at minimum PDF export of key pages is a day-one requirement, not a nice-to-have.
+### Pitfall 6: Performance Degradation with Large Data Tables
+
+**What goes wrong:** Dashboard renders thousands of rows causing slow page loads, laggy scrolling, and browser freezes. Charts with 100+ data points render slowly.
 
 **Why it happens:**
-- Web-first development assumes screen rendering. PDF is a fundamentally different rendering context (fixed dimensions, no interactivity, different color space, pagination).
-- Chart libraries are designed for interactive web use. Their SVG output may not be compatible with PDF renderers (e.g., CSS-based styling, embedded fonts, gradients).
-- Layout assumptions (responsive, scroll-based) do not translate to fixed-page documents.
+- Rendering all rows simultaneously instead of virtualizing
+- Re-rendering entire table on every filter change
+- Expensive calculations not memoized
+- Chart libraries processing full dataset even when zoomed
 
-**How to avoid:**
-- Design components with a "print/export" mode from the start. Every chart component should accept a `mode: 'interactive' | 'static'` prop that controls whether animations, tooltips, and hover effects are included.
-- Use a headless browser approach (Puppeteer/Playwright running server-side) for PDF generation rather than trying to convert DOM to PDF client-side. This preserves visual fidelity.
-- Create a separate "report layout" CSS that targets print dimensions. Use `@media print` and export-specific Tailwind classes.
-- Design chart color palettes that work in both color and grayscale. Test by printing. Add pattern fills or labels as fallbacks for color-only differentiation.
-- Build the "Executive Snapshot" page as a single A4-friendly layout from the start. This is the page they will print most often.
+**Prevention:**
+1. **Virtualize large lists:**
+   - Use `react-window` or `@tanstack/react-virtual`
+   - Render only visible rows + buffer
+   - Expected performance: 10,000 rows with 60fps scrolling
+2. **Server-side aggregation:**
+   - Pre-calculate summaries in JSON (don't compute client-side)
+   - Provide both detailed and aggregated views
+   - Use backend endpoints for filtering when >1000 records
+3. **Memoization strategy:**
+   ```typescript
+   const expensiveCalculation = useMemo(() => {
+     return computeMetrics(rawData);
+   }, [rawData]); // Only recalculate when rawData changes
+   ```
+4. **Progressive rendering:**
+   - Show summary metrics immediately
+   - Load detailed tables on demand (tab activation)
+   - Lazy load charts below the fold
 
-**Warning signs:**
-- No `@media print` styles in the codebase.
-- Chart components have no concept of static vs. interactive rendering.
-- The team has never printed a page from the app.
-- Export discussions keep getting pushed to "later phases."
+**Detection:**
+- Lighthouse performance score <90
+- React DevTools Profiler shows >16ms render times
+- Browser freezes when applying filters
+- High memory usage in Chrome Task Manager
 
-**Phase to address:** Phase 1 (Architecture) must define the dual-mode component pattern. Phase 2 (Module Build) must implement static rendering for each chart. Phase 3 or 4 should implement the actual PDF pipeline. But the architecture must support it from day one.
-
-**Confidence:** MEDIUM -- PDF generation approaches evolve frequently. The architectural principle (design for it early) is HIGH confidence; specific library recommendations would need phase-specific research.
+**Phase:** Performance Optimization (Phase 7)
 
 ---
 
-### Pitfall 7: Data Loading Waterfall Across 10 Report Modules
+### Pitfall 7: Print/Export Layout Breakage
 
-**What goes wrong:**
-The dashboard loads Module 1's data, then Module 2's, then Module 3's -- sequentially. Each module makes its own API call, waits for the response, parses it, then renders. With 10 modules, the page takes 8-12 seconds to fully populate. The user sees a cascade of loading spinners, which feels broken even if each individual module loads quickly.
-
-Alternatively, the team tries to load all data upfront in a single massive API call. Now the initial load takes 4-5 seconds with a blank screen, and any filter change requires re-fetching everything.
+**What goes wrong:** Dashboard looks perfect on screen but breaks when printed or exported to PDF. Charts cut off, tables overflow, colors invisible.
 
 **Why it happens:**
-- Each module is built independently with its own data fetching logic.
-- No shared data layer or query coordination.
-- No distinction between "data needed for initial view" and "data needed on demand."
+- `overflow: hidden` on `<html>` or `<body>` prevents multi-page printing
+- CSS Grid/Flexbox doesn't respect page breaks
+- Dark mode styles applied in print (white text on white paper)
+- Chart libraries use pixel-based dimensions that don't scale
 
-**How to avoid:**
-- Implement a data prefetching strategy based on module visibility:
-  - **Above-the-fold modules** (Executive Snapshot, Market Pulse): fetch immediately, show skeleton loaders.
-  - **Below-the-fold modules**: fetch when the user scrolls near them (Intersection Observer) or prefetch after above-the-fold completes.
-  - **Detail/drill-down data**: fetch on interaction only.
-- Use a query library (TanStack Query) to deduplicate requests, cache responses, and coordinate refetching. If Module 1 and Module 3 both need the company financial dataset, it should be fetched once.
-- Design the API to support partial responses: the Executive Snapshot should not require the full 50-company detailed dataset -- it needs aggregated signals only.
-- Show meaningful skeleton loaders, not spinners. Skeleton loaders that match the actual content layout feel faster than a spinning circle.
+**Prevention:**
+1. **Print-specific CSS:**
+   ```css
+   @media print {
+     html, body { overflow: visible !important; height: auto !important; }
+     .no-print { display: none; }
+     .page-break { page-break-before: always; }
+     :root[data-theme="dark"] { /* Override dark mode for print */ }
+   }
+   ```
+2. **Test print preview:**
+   - Check every section in print preview before presentation
+   - Verify page breaks occur logically
+   - Ensure source attributions visible on printed pages
+3. **PDF export library:**
+   - Use `@react-pdf/renderer` for programmatic PDF generation
+   - Provides more control than browser print
+   - Can apply different layouts for screen vs print
 
-**Warning signs:**
-- Multiple API calls for the same underlying data.
-- Page load time >3 seconds for the initial meaningful paint.
-- Users complaining the app is "slow" even though individual module response times are acceptable.
-- Network tab showing 10+ parallel or sequential API requests on page load.
+**Detection:**
+- Print preview every section
+- Export to PDF and verify formatting
+- Check that multi-page content doesn't get cut off
 
-**Phase to address:** Phase 1 (Architecture) -- define the data layer and query strategy. This determines how every module fetches and shares data.
-
-**Confidence:** MEDIUM-HIGH -- TanStack Query patterns are well-established. The specific API design requires coordination with the backend team (which is separate per the brief).
+**Phase:** Pre-Launch Hardening (Phase 9)
 
 ---
 
-## Technical Debt Patterns
+### Pitfall 8: Indian Currency Formatting Inconsistencies
 
-Shortcuts that seem reasonable but create long-term problems.
+**What goes wrong:** Financial data displays in millions (Western format) instead of lakhs/crores (Indian format). Decimal separators and grouping wrong for regional expectations.
 
-| Shortcut | Immediate Benefit | Long-term Cost | When Acceptable |
-|----------|-------------------|----------------|-----------------|
-| Hardcoding tenant config in environment variables | Fast first-tenant setup | Cannot scale beyond 3-4 tenants; deploy-per-tenant instead of config-per-tenant | Never -- use a tenant config service from day one |
-| Using `any` type for financial data objects | Faster initial development | Every module interprets data differently; bugs from accessing wrong fields; impossible to refactor safely | Never -- define TypeScript interfaces for every financial data shape on day one |
-| Skipping responsive design for mobile | MDs use laptops, focus on desktop | iPad usage in meetings is common; presentation mode fails; demo scenarios break | Acceptable for MVP if tablet breakpoint is included; skip phone only |
-| Inline chart configuration | Each chart is self-contained and easy to understand | 10 modules x 3 charts = 30 chart configs to update when changing the brand palette or adding a new metric | Never -- extract chart config factories |
-| Mock data as static JSON files | Fast prototyping without backend | Mock data shape drifts from real API; edge cases (null values, empty datasets, very large numbers) are never tested | Acceptable in Phase 1 only if mock data matches the agreed API contract exactly |
-| Putting AI-generated text directly in component JSX | Quick to show the AI insight feature | Cannot update AI prompt/model without changing components; no separation between content generation and presentation | Never -- AI content should be a data layer concern, not a component concern |
+**Why it happens:**
+- Default `Intl.NumberFormat` uses Western grouping (1,000,000)
+- Indian format requires custom grouping (10,00,000)
+- Confusion between K (thousands), L (lakhs), Cr (crores)
+- Regional settings not configured correctly
 
-## Integration Gotchas
+**Prevention:**
+1. **Use Indian locale formatter:**
+   ```typescript
+   const indianCurrency = new Intl.NumberFormat('en-IN', {
+     style: 'currency',
+     currency: 'INR',
+     notation: 'compact', // Shows 1L, 10Cr instead of full numbers
+   });
+   ```
+2. **Consistent unit labeling:**
+   - ₹1.5L (lakhs), ₹150Cr (crores), not ₹150000K
+   - Tooltip shows full number: "₹1,50,00,000"
+   - Avoid mixing formats across sections
+3. **Unit conversion utilities:**
+   ```typescript
+   function formatIndianCurrency(value: number, unit: 'L' | 'Cr') {
+     const formatted = unit === 'L' ? value / 100000 : value / 10000000;
+     return `₹${formatted.toFixed(2)}${unit}`;
+   }
+   ```
+4. **Validate against client expectations:**
+   - Confirm preferred format with stakeholders early
+   - Be consistent: all financials in Crores OR all in Lakhs (not mixed)
 
-Common mistakes when connecting to external services.
+**Detection:**
+- Review every financial figure for correct grouping
+- Verify tooltips show full numbers correctly
+- Check that "1.5Cr" doesn't display as "15L"
 
-| Integration | Common Mistake | Correct Approach |
-|-------------|----------------|------------------|
-| Backend API (financial data) | Building frontend against assumed API shape, then discovering the real API returns different structures | Define TypeScript API contracts (interfaces) first; use them to generate both mock data and API client. Backend team validates against the same contract |
-| AI/LLM integration (insight generation) | Calling AI APIs from the frontend, creating latency and exposing API keys | AI-generated insights should be pre-computed by the backend and served as data. The frontend renders text, not generates it |
-| Authentication/tenant resolution | Using a single auth flow and bolting on tenant awareness later | Tenant must be resolved at auth time (from subdomain, login flow, or token claims). Every API call must carry tenant context. Build this into the auth wrapper from Phase 1 |
-| Third-party financial data sources | Assuming data is clean and complete; building UI that breaks on missing values | Defensive data layer: every field has a fallback, every chart handles empty/partial data gracefully, every metric shows "Data unavailable" rather than NaN or blank |
-| PDF export service | Trying to do PDF generation client-side with libraries like jsPDF or html2canvas | Use server-side headless browser (Puppeteer/Playwright) for visual fidelity. Client-side PDF generation cannot reliably reproduce complex SVG charts |
+**Phase:** Data Formatting & Utilities (Phase 1 foundation)
 
-## Performance Traps
+---
 
-Patterns that work at small scale but fail as usage grows.
+### Pitfall 9: Tailwind CSS Purge Removing Production Styles
 
-| Trap | Symptoms | Prevention | When It Breaks |
-|------|----------|------------|----------------|
-| Rendering all 50 companies in a comparison table without virtualization | Smooth at 10 companies; janky scroll at 30+; unusable at 50+ with multiple metric columns | Use TanStack Virtual or similar row virtualization. Only render rows in the viewport | >25 companies with >5 metric columns |
-| SVG charts with one path per data point in time series | Fine for 12-month data; slow for 5-year weekly data | Downsample data for chart rendering (show monthly aggregates on wide zoom, weekly on narrow). Keep full-resolution data for tooltips/export | >200 data points per series, or >5 series |
-| Unthrottled filter interactions (typing in search, sliding date range) | Each keystroke or slider position triggers a full data re-filter and chart re-render | Debounce filter inputs (300ms for text, 150ms for sliders). Use `useDeferredValue` for non-urgent filter updates | Any interactive filter connected to a chart with >100 data points |
-| Loading all 10 modules' data on initial page render | Acceptable at fast connection speeds; terrible on hotel/conference WiFi (where MDs often use the tool) | Lazy-load below-fold modules. Prefetch on hover/scroll-near. Cache aggressively (financial data changes monthly, not in real-time) | >500KB total API response size or >3 concurrent API calls |
-| Storing full company profiles in React context for "global access" | Works for prototype; causes entire app to re-render when any company data updates | Use a proper state management approach: TanStack Query for server state, component-local state for UI state. Context only for truly global, rarely-changing values (tenant config, auth) | >10 components consuming the context |
+**What goes wrong:** Styles work in development but disappear in production build. Dynamically generated class names get purged.
 
-## Security Mistakes
+**Why it happens:**
+- Tailwind v4 uses JIT mode: only generates classes found in source files
+- Dynamic class names (`text-${color}-500`) not detected by content scanner
+- Glob patterns in config missing file extensions (e.g., `.tsx` files)
+- Classes defined in JavaScript variables not safelisted
 
-Domain-specific security issues beyond general web security.
+**Prevention:**
+1. **Avoid dynamic class construction:**
+   ```typescript
+   // BAD: Tailwind can't detect this
+   const color = isDanger ? 'red' : 'green';
+   className={`text-${color}-500`}
 
-| Mistake | Risk | Prevention |
-|---------|------|------------|
-| Tenant data bleeding across instances | BCG sees A&M's deal pipeline or proprietary analysis. This is a company-ending trust violation for a consulting intelligence tool | Tenant isolation at every layer: API calls scoped by tenant ID from auth token, frontend state cleared on tenant switch, no cross-tenant data in cache. Test with multi-tenant QA scenarios |
-| Exposing financial data source identifiers in frontend code | Competitors or companies being analyzed could identify data sources, creating legal/relationship risk | All data source attribution should be server-side only. Frontend receives processed data without source metadata |
-| Client-side API key storage for AI/data services | API keys in environment variables are bundled into the JS and visible in browser DevTools | All third-party API calls must go through the backend. Frontend never holds API keys for AI, financial data, or any external service |
-| Caching sensitive deal data in browser storage | Deal intelligence (M&A, PE investments) is highly sensitive. Browser localStorage/sessionStorage persists across sessions and is accessible via DevTools | Use in-memory state only for deal data. If caching is needed, use encrypted session storage with short TTLs. Clear on logout |
-| Unprotected PDF export endpoint | Anyone with the URL can download full reports without authentication | PDF generation must require valid auth token. Generated PDFs should include tenant watermark and access timestamp |
+   // GOOD: Explicit class names
+   className={isDanger ? 'text-red-500' : 'text-green-500'}
+   ```
+2. **Configure content paths correctly:**
+   ```css
+   @theme {
+     /* All tokens defined here */
+   }
+   /* Ensure Vite plugin scans .tsx, .jsx, .html files */
+   ```
+3. **Safelist dynamic classes:**
+   - If dynamic classes necessary, use Tailwind safelist
+   - Better: use CSS custom properties for dynamic values
+4. **Test production build:**
+   - Always verify `npm run build && npm run preview`
+   - Check that chart colors, badges, status indicators render
 
-## UX Pitfalls
+**Detection:**
+- Missing colors/spacing in production build
+- Elements with no styling after deployment
+- DevTools shows classes but no CSS rules
 
-Common user experience mistakes specific to consulting intelligence tools.
+**Phase:** Styling System Setup (Phase 2)
 
-| Pitfall | User Impact | Better Approach |
-|---------|-------------|-----------------|
-| Showing raw data tables first, insights second | MD has to scroll past a 50-row table to find the "so what." They leave before reaching the insight | Lead with the AI-generated insight or headline metric. Table is the supporting evidence, shown on demand (expand/click) |
-| Requiring filter configuration before showing any data | "Select companies, select time period, select metrics" -- 3 clicks before seeing anything | Show a sensible default view (all tracked companies, latest quarter, key metrics). Allow refinement from there |
-| Using chart types that require explanation | Scatter plots with unlabeled axes, radar charts with 8+ axes, heat maps with non-obvious color scales | Stick to bar charts (comparison), line charts (trends), and tables (detail). MDs know these instantly. If you must use an exotic chart, it needs a text annotation explaining what it shows |
-| Cramming all 10 modules into a single scrollable page | Information overload. The MD cannot find the one module they need before their meeting | Use a tab/section navigation with clear labels matching the brief's module names. Let users bookmark/favorite specific modules. The Executive Snapshot is always the landing page |
-| Tiny, dense typography optimized for pixel density | Looks impressive in a design review; illegible on a projector or iPad at arm's length | Minimum 14px body text, 18px for headline metrics. Test at 75% zoom and on a projector. The MD may be presenting this to their team |
-| Interactive elements without clear affordance | Clickable cards that look like static text; expandable sections without expand indicators | Use obvious interactive cues: underlines for links, chevrons for expandable sections, hover states for clickable elements. MDs will not "discover" hidden interactions |
-| No "last updated" timestamp | MD walks into a meeting citing stale data because they did not realize the report had not refreshed | Show "Data as of: [date]" prominently on every module. Color-code: green for current month, yellow for last month, red for older |
-| Overwhelming color usage in charts | Rainbow charts with 15 colors for 15 companies make it impossible to identify any single company | Limit chart series to 5-7 companies per view. Use a "highlight + gray" pattern: selected company in brand color, others in muted gray. Let users select which companies to highlight |
+---
 
-## "Looks Done But Isn't" Checklist
+### Pitfall 10: TanStack Query Error Boundaries Causing Infinite Loops
 
-Things that appear complete but are missing critical pieces.
+**What goes wrong:** Error boundaries trigger, reset, re-fetch data, error again, creating infinite loop. Or errors don't bubble to error boundary at all.
 
-- [ ] **Financial Performance Tracker:** Often missing handling for companies with non-standard fiscal years (e.g., March-end vs December-end) -- verify that YoY comparisons align fiscal periods, not calendar periods
-- [ ] **Deal Tracker:** Often missing "rumored" vs "confirmed" status -- verify that deal pipeline shows confidence level and data source freshness
-- [ ] **AI-Generated Insights:** Often missing edge case handling for months with no significant changes -- verify that the AI produces a "no major shifts this period" message rather than hallucinating trends
-- [ ] **Company Comparison Charts:** Often missing handling for companies entering/exiting the tracked universe (IPO, delisting, acquisition) -- verify that historical charts handle companies that did not exist in earlier periods
-- [ ] **Export/PDF:** Often missing page break logic -- verify that tables do not split rows across pages, charts do not get cut off
-- [ ] **White-labeling:** Often missing email templates, PDF headers, and error pages -- verify that every user-facing surface carries tenant branding, not just the main dashboard
-- [ ] **Number Formatting:** Often missing the edge case where a metric is "Not Applicable" vs "Data Not Available" vs "Zero" -- verify that each has distinct visual treatment
-- [ ] **Responsive Layout:** Often missing tablet landscape mode (the most common iPad orientation for presentations) -- verify that the 1024px-1366px range renders correctly
-- [ ] **Loading States:** Often missing skeleton loaders for chart components -- verify that every module has a meaningful loading state, not just a spinner
-- [ ] **Error Boundaries:** Often missing per-module error isolation -- verify that one module's API failure does not crash the entire dashboard
+**Why it happens:**
+- React error boundaries only catch render errors, not async errors
+- TanStack Query errors happen asynchronously during data fetch
+- `throwOnError` not set, so errors stay in query result object
+- `QueryErrorResetBoundary` not wrapping error boundary correctly
 
-## Recovery Strategies
+**Prevention:**
+1. **Proper error boundary integration:**
+   ```typescript
+   import { QueryErrorResetBoundary } from '@tanstack/react-query';
+   import { ErrorBoundary } from 'react-error-boundary';
 
-When pitfalls occur despite prevention, how to recover.
+   <QueryErrorResetBoundary>
+     {({ reset }) => (
+       <ErrorBoundary onReset={reset} FallbackComponent={ErrorFallback}>
+         <Section />
+       </ErrorBoundary>
+     )}
+   </QueryErrorResetBoundary>
+   ```
+2. **Use throwOnError for critical queries:**
+   ```typescript
+   useQuery({
+     queryKey: ['section', sectionId],
+     queryFn: fetchSectionData,
+     throwOnError: true, // Errors bubble to error boundary
+   });
+   ```
+3. **Implement retry logic:**
+   ```typescript
+   // Default: 3 retries with exponential backoff
+   // Customize for specific error types
+   retry: (failureCount, error) => {
+     if (error.status === 404) return false; // Don't retry 404s
+     return failureCount < 3;
+   }
+   ```
+4. **Graceful error display:**
+   - Show partial data if available (e.g., cached)
+   - Provide actionable error message ("Data unavailable, showing cached version")
+   - Allow manual retry button
 
-| Pitfall | Recovery Cost | Recovery Steps |
-|---------|---------------|----------------|
-| Derived state in effects | MEDIUM | 1. Audit all useEffect hooks for setState calls. 2. Extract computation into useMemo or inline calculations. 3. Test each module for render count regression. Typically 2-3 days for 10 modules |
-| Hardcoded brand identity | HIGH | 1. Audit all color/font references across components. 2. Create semantic token map. 3. Replace literal values with tokens. 4. Extract tenant config. Typically 1-2 weeks. Riskiest recovery -- touches every component |
-| Dashboard instead of briefing UX | HIGH | 1. Redesign information hierarchy (this is a UX rearchitecture, not a code fix). 2. Rebuild landing page and module entry points. 3. Add insight headlines to every chart. Typically 2-3 weeks. Requires UX design work, not just code |
-| Chart re-rendering performance | LOW-MEDIUM | 1. Add React.memo to chart wrappers. 2. Memoize data transformations. 3. Profile and fix remaining hot spots. Typically 1-2 days per module |
-| Number formatting inconsistency | MEDIUM | 1. Build centralized formatter. 2. Find-and-replace all number rendering. 3. Add visual regression tests. Typically 3-5 days for full app |
-| PDF export retrofit | HIGH | 1. Add static mode to all chart components. 2. Build print-friendly layout. 3. Set up server-side rendering pipeline. Typically 2-3 weeks if not designed for from the start |
-| Data loading waterfall | MEDIUM | 1. Introduce TanStack Query or similar. 2. Deduplicate data fetching. 3. Add prefetching and caching. Typically 3-5 days |
+**Detection:**
+- Monitor for infinite re-render loops in DevTools
+- Check that error boundary fallback UI displays
+- Verify retry count doesn't exceed limit
+- Test with network throttling/offline mode
 
-## Pitfall-to-Phase Mapping
+**Phase:** API Integration & Data Fetching (Phase 3)
 
-How roadmap phases should address these pitfalls.
+---
 
-| Pitfall | Prevention Phase | Verification |
-|---------|------------------|--------------|
-| Derived state in effects | Phase 1: Foundation | Code review checklist: no useEffect + setState pairs for computed values. React DevTools render count < 3 per interaction |
-| Hardcoded brand identity | Phase 1: Foundation | Can swap tenant theme by changing one CSS import. Zero hex values in component files. `grep -r '#[0-9a-fA-F]{6}' src/components/` returns zero results |
-| Dashboard-vs-briefing UX | Phase 1: UX Design | User test with 3 people who match the MD persona. Success = extract 3 talking points in under 2 minutes without guidance |
-| Chart re-rendering | Phase 2: Module Build | React DevTools Profiler: changing one module's filter causes zero re-renders in other modules. No interaction causes >16ms frame time |
-| Number formatting | Phase 1: Foundation | 100% unit test coverage on formatters. Visual snapshot tests for every number format in every context (table, chart, tooltip, headline) |
-| PDF export architecture | Phase 1: Architecture | Component API supports `mode: 'static'` prop. At least one module renders correctly in `@media print` by end of Phase 2 |
-| Data loading waterfall | Phase 1: Architecture | Initial meaningful paint (Executive Snapshot visible) in <2 seconds on throttled 3G. Full page load <5 seconds on broadband |
-| Tenant data isolation | Phase 1: Foundation | Automated test: two tenant sessions cannot access each other's data. Auth token carries tenant scope |
-| Financial data edge cases | Phase 2: Module Build | Test matrix covering: null values, zero values, negative values, very large values, fiscal year misalignment, companies entering/exiting universe |
-| AI insight quality | Phase 3: AI Integration | Defined fallback behavior for no-change periods, partial data, and AI service outages. Human review process for generated insights |
+## Minor Pitfalls
+
+Quality-of-life issues and polish concerns.
+
+### Pitfall 11: Missing Empty States for Zero-Data Scenarios
+
+**What goes wrong:** Dashboard shows blank sections, broken layouts, or misleading charts when filters result in no data.
+
+**Prevention:**
+- Implement `EmptyState` component with clear messaging
+- Show "No companies match selected filters" vs "Data loading..."
+- Provide actionable guidance (e.g., "Try selecting more companies")
+- Preserve layout structure even when empty
+
+**Phase:** UI Components (Phase 2)
+
+---
+
+### Pitfall 12: Inconsistent Loading States Across Sections
+
+**What goes wrong:** Some sections show skeleton loaders, others show blank space, creating inconsistent UX.
+
+**Prevention:**
+- Standardize on skeleton UI pattern for all sections
+- Use `Suspense` with fallback component
+- Match skeleton layout to actual content structure
+- Avoid "flash of loading state" for fast queries (delay showing loader 200ms)
+
+**Phase:** UI Components (Phase 2)
+
+---
+
+### Pitfall 13: Browser Console Warnings in Production
+
+**What goes wrong:** Hundreds of React warnings, TanStack Query deprecation notices, or accessibility warnings visible in client browser.
+
+**Prevention:**
+- Fix all warnings before presentation
+- Configure production build to suppress development-only warnings
+- Run Lighthouse audit to catch accessibility issues
+- Test in incognito mode to simulate fresh user experience
+
+**Phase:** Pre-Launch Hardening (Phase 9)
+
+---
+
+## Phase-Specific Warnings
+
+| Phase Topic | Likely Pitfall | Mitigation |
+|-------------|---------------|------------|
+| **Phase 1: Foundation** | Choosing wrong formatter library for Indian numbers | Use `Intl.NumberFormat('en-IN')` from day one |
+| **Phase 2: UI/UX** | Dark mode tokens not tested until Phase 9 | Test both themes during initial styling |
+| **Phase 3: Data Fetching** | Filter state not synced with URL from start | Implement URL sync immediately, not later |
+| **Phase 4: Section Implementation** | Copy-paste code without updating data types | Use type-safe `useFilteredData<T>` hook |
+| **Phase 5: Advanced Features** | Search/export added without performance testing | Profile before adding features, not after |
+| **Phase 6: Multi-Tenancy** | CSS custom properties conflict with theming | Namespace tenant tokens: `--kompete-primary` |
+| **Phase 7: Performance** | Virtualizing too late (after performance issues) | Profile early, virtualize proactively |
+| **Phase 8: Build** | Testing single-file build day before presentation | Test build process weekly minimum |
+| **Phase 9: Hardening** | Discovering source attribution gaps at final review | Validate data lineage in Phase 4 |
+
+---
+
+## Presentation-Day Failure Checklist
+
+**10 Minutes Before Demo:**
+
+- [ ] Open production build in fresh browser profile
+- [ ] Navigate to ALL 11 sections (don't assume they work)
+- [ ] Apply filters: single company, multiple companies, tier filters
+- [ ] Toggle dark mode in 3 different sections
+- [ ] Check browser console for ANY errors/warnings
+- [ ] Verify source attributions visible on 3 random visualizations
+- [ ] Test on presentation laptop (not dev machine)
+- [ ] Have backup video cued in separate tab
+- [ ] Confirm internet connection (if using real API) or verify fallback works
+- [ ] Close all other browser tabs/apps (prevent memory issues)
+
+**What to Say If Demo Fails:**
+- "Can you still see my screen?" (calm, professional tone)
+- "Let me show you our backup visualization" (switch to video/PDF)
+- DO NOT: panic, apologize excessively, or make excuses
+
+---
 
 ## Sources
 
-- React official documentation -- "You Might Not Need an Effect" (react.dev) -- Verified HIGH confidence for derived state and effect chain pitfalls
-- React official documentation -- "useMemo" (react.dev) -- Verified HIGH confidence for memoization guidelines
-- Tailwind CSS v4 official documentation -- "@theme directive" (tailwindcss.com/docs/theme) -- Verified HIGH confidence for white-labeling architecture
-- NNGroup dashboard design research (nngroup.com) -- training data, MEDIUM confidence for UX pitfalls
-- Consulting industry UX patterns and financial data visualization conventions -- training data, MEDIUM confidence
-- Multi-tenant SaaS architecture patterns -- training data, MEDIUM confidence for security and isolation patterns
-- Indian financial data formatting (INR/Cr/Lakh system) -- training data, HIGH confidence (well-established domain knowledge)
+**Dashboard Design & Failures:**
+- [Why Dashboards Fail: Top Mistakes CEOs and CIOs Make](https://www.sapbwconsulting.com/blog/why-dashboards-fail)
+- [Top 12 Business Intelligence Challenges to Manage](https://www.techtarget.com/searchbusinessanalytics/tip/Top-11-business-intelligence-challenges-and-how-to-overcome-them)
+- [10 Common Mistakes in Creating an Effective Dashboard](https://www.limelight.consulting/hub/articles/10-common-mistakes-in-creating-an-effective-dashboard)
+- [Top 10 dashboard design mistakes](https://www.domo.com/learn/article/top-10-dashboard-design-mistakes-and-what-to-do-about-them)
 
----
-*Pitfalls research for: AI-driven Industry Intelligence Dashboard / Multi-Tenant Consulting BD Platform*
-*Researched: 2026-02-15*
+**Demo Failures & Prevention:**
+- [The Art of Failing Forward: Demo Lessons Learned](https://www.reprise.com/resources/blog/the-art-of-failing-forward-demo-lessons-learned)
+- [The Top 6 Live Product Demo Fails Of All Time](https://www.walnut.io/blog/product-demos/top-5-product-demo-fails/)
+- [Top 5 Technical Problems for Presenters](https://www.presentation-guru.com/the-5-most-common-technical-problems-for-presenters-and-how-to-avoid-them/)
+
+**React Performance & Large Datasets:**
+- [Building High-Performance Financial Dashboards with React](https://olivertriunfo.com/react-financial-dashboards/)
+- [How to optimize rendering performance with virtualization](https://www.zigpoll.com/content/how-can-i-optimize-the-rendering-performance-of-large-datasets-in-a-react-dashboard-using-virtualization-techniques)
+
+**Error Handling & Graceful Degradation:**
+- [UI best practices for loading, error, and empty states in React](https://blog.logrocket.com/ui-design-best-practices-loading-error-empty-state-react/)
+- [Building Resilient REST API Integrations: Graceful Degradation](https://medium.com/@oshiryaeva/building-resilient-rest-api-integrations-graceful-degradation-and-combining-patterns-e8352d8e29c0)
+- [The Static Fallback Architecture: A Blueprint for Graceful Degradation](https://medium.com/@bhargava.akki/the-static-fallback-architecture-a-blueprint-for-graceful-degradation-e114263a7b10)
+
+**TanStack Query Error Boundaries:**
+- [Managing query error states - Mastering Tanstack Query](https://app.studyraid.com/en/read/11355/355098/managing-query-error-states)
+- [How to use Error Boundary with React Query and Router v6](https://amanexplains.com/error-boundary-react-query-and-router-v6/)
+- [TanStack Query: The Data Fetching Solution You've Been Looking For](https://medium.com/simform-engineering/tanstack-query-the-data-fetching-solution-youve-been-looking-for-60e6e14261e6)
+
+**Single-File HTML Build Issues:**
+- [vite-plugin-singlefile GitHub](https://github.com/richardtallent/vite-plugin-singlefile)
+- [Inlining CSS and JS in HTML does not work · Issue #8397](https://github.com/vitejs/vite/issues/8397)
+
+**Dark Mode & CSS Custom Properties:**
+- [CSS Custom Properties: The Complete Guide for 2026](https://devtoolbox.dedyn.io/blog/css-custom-properties-complete-guide)
+- [Quick and Easy Dark Mode with CSS Custom Properties](https://css-irl.info/quick-and-easy-dark-mode-with-css-custom-properties/)
+
+**Indian Currency Formatting:**
+- [Decoding INR: Thousands (K), Lakhs (L), and Crores (Cr)](https://www.daytradeindia.in/decoding-inr-thousands-k-lakhs-l-and-crores-cr/)
+- [Getting Indian rupee lakhs / crores formatting in Excel](https://acetechpro.wordpress.com/2018/03/15/getting-indian-rupee-lakhs-crores-formatting-in-excel/)
+
+**Tailwind CSS Purge Issues:**
+- [Troubleshooting Tailwind CSS: Build Errors, Missing Styles](https://www.mindfulchase.com/explore/troubleshooting-tips/front-end-frameworks/troubleshooting-tailwind-css-build-errors,-missing-styles,-and-configuration-pitfalls-in-front-end-projects.html)
+- [Fixing Missing Styles in Tailwind CSS Due to Purging Issues](https://www.mindfulchase.com/explore/troubleshooting-tips/fixing-missing-styles-in-tailwind-css-due-to-purging-issues.html)
+- [Understanding Tailwind CSS Safelist and How It Solves Purging Issues](https://franklam.hashnode.dev/understanding-tailwind-css-safelist-and-how-it-solves-purging-issues)
+
+**Data Governance & Source Attribution:**
+- [Mastering Oversight: How a Data Governance Dashboard](https://diggrowth.com/blogs/data-management/data-governance-dashboard/)
+- [What Is In a Data Governance Dashboard?](https://www.inetsoft.com/info/what-is-in-data-governance-dashboards/)
+- [Data Governance Best Practices for 2026](https://www.alation.com/blog/data-governance-best-practices/)
+
+**Print/PDF Export:**
+- [How to generate PDFs in React with React to PDF](https://www.nutrient.io/blog/how-to-create-pdfs-with-react-to-pdf/)
+- [Generating PDFs in React with react-pdf](https://blog.logrocket.com/generating-pdfs-react/)
+
+**Security & Data Integrity:**
+- [A08 Software or Data Integrity Failures - OWASP Top 10:2025](https://owasp.org/Top10/2025/A08_2025-Software_or_Data_Integrity_Failures/)

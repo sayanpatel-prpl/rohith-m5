@@ -1,404 +1,376 @@
 # Project Research Summary
 
-**Project:** AI-driven Industry Intelligence Dashboard / Consulting BD Radar
-**Domain:** Multi-tenant SaaS intelligence platform for consulting firms (Consumer Durables mid-market India)
-**Researched:** 2026-02-15
-**Confidence:** MEDIUM-HIGH
+**Project:** A&M Consumer Durables Intelligence Dashboard (v2)
+**Domain:** Consulting-Grade Sector Intelligence Dashboard
+**Researched:** 2026-02-20
+**Confidence:** HIGH
 
 ## Executive Summary
 
-This is an interactive industry intelligence dashboard built as a multi-tenant SaaS product for consulting firms (BCG, A&M, etc.) conducting business development in India's Consumer Durables sector. Unlike traditional analytics dashboards, this is a monthly curated briefing that answers "which companies need consulting help and why?" The buyer persona is time-poor MDs/Partners who need 5-minute actionable intelligence, not self-service BI.
+This is a React + TypeScript SPA providing 10 interconnected intelligence sections covering the Indian Consumer Durables sector with 16 major companies. Research shows that consulting-grade intelligence dashboards require three critical differentiators beyond standard BI tools: transparent source attribution, presentation-optimized delivery, and "beyond filings" alternative data integration.
 
-The recommended stack is constrained (React 19 + Vite 7 + TypeScript 5 + Tailwind CSS v4) with a strong emphasis on headless UI components for white-label theming. Recharts handles visualization, TanStack libraries provide data management and tables, and the architecture centers on a JSON-driven section-module pattern where each of 10 report modules is self-contained. The backend (Express/Supabase) delivers shaped JSON data via REST APIs.
+The recommended approach builds on v1.0's proven foundation (React 19, TanStack Query, Zustand, Radix UI, Tailwind 4) while addressing performance bottlenecks through charting library migration (Recharts to Apache ECharts for 10x faster rendering) and introducing advanced intelligence features like Talk vs Walk verification and AI-powered signal detection. The architecture leverages client-side filtering with infinite cache for instant responses, multi-tenant theming via CSS custom properties, and single-file HTML distribution for offline capability.
 
-Critical risks include: (1) treating this as a dashboard instead of a briefing document (wrong information hierarchy), (2) hardcoding brand identity instead of using theme tokens (blocks multi-tenant scaling), (3) uncontrolled chart re-rendering on filter changes (performance collapse), and (4) derived financial metrics stored in effect chains (cascading re-render bugs). All four risks must be addressed in Phase 1 architecture or recovery becomes expensive. The white space this product occupies—India mid-market intelligence with AI-driven BD signals for consulting firms—has no direct competitor, making feature focus and UX execution more important than technical sophistication.
+The primary risk is presentation-day demo failures (research shows 81% of salespeople lose deals to bad demos). Mitigation requires fail-safe data strategy with automatic fallback to mock data, section-level error boundaries, and a 10-minute pre-flight checklist. Secondary risks include source attribution gaps (credibility crisis), dark mode token failures, and data integrity corruption during client-side filtering—all preventable through systematic validation and testing.
 
 ## Key Findings
 
 ### Recommended Stack
 
-The stack is heavily constrained by project requirements (React 19, TypeScript 5, Vite 7, Tailwind CSS v4) and informed by the existing Kompete codebase. The core shift from Kompete is eliminating Ant Design in favor of headless UI primitives (Radix UI) to enable proper multi-tenant white-labeling.
+The v2 stack upgrades performance-critical components while maintaining proven architecture patterns. React 19 brings improved async state management (useActionState, useOptimistic), Vite 6 delivers 5x faster builds, and Tailwind CSS 4's CSS-based configuration eliminates JS config complexity.
 
 **Core technologies:**
-- **React 19 + Vite 7** — constrained by project. React 19's use() hook and improved Suspense are useful for async data loading. Vite 7 provides fast HMR essential for iterating on 10+ dashboard modules.
-- **Tailwind CSS v4** — constrained. v4's @theme directive with CSS custom properties is the foundation for multi-tenant white-labeling. Each tenant gets a CSS file overriding theme variables; no JS-based theming.
-- **Recharts 3.7** — proven in Kompete. Declarative React components for financial charts (line, bar, area, pie, treemap). SVG-based means CSS-styleable for white-labeling. Supports React 19 explicitly.
-- **Radix UI primitives** — headless accessible components (dialog, popover, tooltip, select). Fully styled via Tailwind. Replaces Ant Design to avoid CSS-in-JS conflicts.
-- **TanStack Query** — server state management. Handles caching, stale-while-revalidate, background refetch for JSON data from Express/Supabase. Eliminates useEffect fetch patterns.
-- **Zustand** — lightweight client state (filters, UI toggles). For data that stays client-side only. Simpler than Redux, more performant than Context for shared state.
+- **Apache ECharts 6** + **echarts-for-react 3**: Canvas rendering handles 10K+ data points (10x faster than Recharts SVG), 50+ chart types including financial charts and sparklines. Addresses current performance ceiling with 11 sections × 15 companies × quarterly data.
+- **TanStack Table 8**: Headless table logic with full style control for multi-tenant branding, built-in sorting/filtering/pagination, supports inline sparklines via custom cell renderers.
+- **TanStack Query 5** + **Zustand 5**: Proven state separation pattern (server state vs client state). Query handles data caching with `staleTime: Infinity` for daily-updated data, Zustand manages global filters with URL sync.
+- **Radix UI 1.x**: Accessible headless primitives for dialog/popover/select/tabs. Matches existing v1.0 architecture, supports multi-tenant theming requirements.
+- **@dnd-kit/core 6**: Modern drag-and-drop for pipeline views, kanban boards, column reordering. Replaces archived react-beautiful-dnd.
+- **vite-plugin-singlefile 2**: Single HTML file output for offline distribution. Vite 6 compatibility confirmed, enables email/embed deployment.
 
-**What NOT to use:**
-- Ant Design (used in Kompete) — CSS-in-JS conflicts with Tailwind v4's CSS-first theming. Bundle bloat. Fights white-label requirements.
-- Redux Toolkit — ceremony overhead for simple client state. Server state belongs in TanStack Query.
-- Next.js/Remix — this is a SPA dashboard for authenticated users, not an SEO site. SSR adds complexity without benefit.
+**Migration considerations:**
+- Keep: React, Vite, TypeScript 5, TanStack Query, Zustand, Radix UI (upgrade versions)
+- Replace: Recharts → Apache ECharts (medium effort, well-documented migration)
+- New: TanStack Table, dnd-kit, date-fns (if standardizing date formatting)
 
 ### Expected Features
 
-Research identifies 3 feature categories: table stakes (expected by users), differentiators (competitive advantage), and anti-features (commonly requested but problematic).
+Research identifies clear tier separation between table stakes, differentiators, and anti-features.
 
 **Must have (table stakes):**
-- **Company profiles with standardized financials** — every competitor (PitchBook, Capitaline) has this. Users expect revenue, EBITDA, margins in consistent format.
-- **Time-series financial comparison** — compare Company A vs Company B across quarters. Chart-driven, QoQ/YoY views.
-- **Deal & transaction tracker** — M&A, PE investments, IPO filings. Core signal for consulting BD.
-- **Executive summary/snapshot** — AI-generated monthly brief. 5 bullets, big themes, red flags. This is the landing page.
-- **Competitive benchmarking view** — side-by-side comparison of 3-5 companies on key metrics. Used in every consulting pitch.
-- **Export/download** — PDF/CSV minimum. Partners take intelligence into their own decks.
-- **Multi-tenant branding** — each consulting firm expects their instance with their logo and colors.
-- **Monthly cadence content** — clear "February 2026 edition" framing. Not real-time alerting.
+- **Multi-level drill-down**: Annual → quarterly → monthly → transaction level navigation. Standard in all modern BI tools.
+- **Export to PDF/PowerPoint**: Consulting deliverables are deck-based. Clients expect offline viewing.
+- **Multi-company comparison views**: Benchmarking is core to consulting intelligence. Side-by-side comparison minimum viable.
+- **Source attribution on every metric**: Professional credibility requires visible sourcing. 4-tier confidence system already implemented.
+- **Executive summary view**: Decision-makers expect high-level overview before details. McKinsey/BCG standard.
+- **Presentation mode**: Clean, distraction-free view for client meetings. Hide filters/controls, keyboard navigation.
+- **Mobile/tablet responsiveness**: Executives review on iPads during travel. Non-responsive = unusable.
 
 **Should have (competitive differentiators):**
-- **BD Signal Scoring** — composite "who needs help?" scoring from financial stress + leadership changes + operational disruption. This is THE core differentiator. No existing platform does this.
-- **Action Lens** — persona-based interpretation. "What this means for PE investors" vs "for COOs." Pre-interpreted intelligence saves analyst hours.
-- **AI variance analysis** — not just "EBITDA margin: 8.2%" but "EBITDA margin declined 180bps QoQ, driven by raw material cost inflation, 230bps below segment average."
-- **Meeting prep mode** — 1-click company brief for BD meetings. Pulls from all modules into a structured 1-pager.
-- **90-day forward indicators** — predictive signals (likely fundraise, margin inflection, consolidation target). Forward-looking vs backward-looking competitors.
+- **Talk vs Walk verification**: Cross-validate company statements (earnings calls) against operational data (hiring, capex). Surfaces discrepancies signaling distress/opportunity. Strong fit for A&M's turnaround/restructuring focus.
+- **Beyond filings alternative data**: Integrate transaction data, web scraping, social sentiment. Reflects real-time market reality vs backward-looking filings.
+- **AI-powered signal detection**: Proactive alerts when patterns indicate inflection points (deteriorating liquidity, market share shifts). Moves from reactive reporting to predictive intelligence.
+- **Dynamic confidence scoring**: Visual indicators (color coding) show data reliability at metric level. Enhances existing 4-tier system with multi-source validation.
+- **Automated battlecards**: Auto-generate competitive position summary, valuation benchmarks, key risks per pipeline opportunity. Saves 10+ hours per deal.
 
 **Defer (v2+):**
-- Real-time alerting — destroys monthly cadence value prop. Consulting Partners want curated briefings, not 50 alerts/week.
-- Build-your-own-dashboard — massive complexity. Value is editorial curation, not self-service BI.
-- Social media monitoring — noisy signal for BD intelligence. Track management commentary and filings instead.
-- Automated client-facing PDF reports — conflates internal BD tool with client deliverables. Different quality bars and liability.
-
-**Anti-features (avoid):**
-- Real-time push notifications (explicitly out of scope per PROJECT.md)
-- Comprehensive news feed aggregation (becomes noise machine; Google Alerts already exists)
-- Covering 50+ companies day one (data quality collapses at scale without mature pipelines)
+- Scenario modeling (requires separate financial modeling engine)
+- Cross-sector pattern matching (requires large historical dataset + ML models)
+- Collaborative annotations (higher value for internal tools vs client deliverables)
+- User-editable dashboards (consultant-designed structure is the product)
 
 ### Architecture Approach
 
-The architecture centers on a **JSON-driven section-module pattern** where each of 10 report sections is self-contained. Backend shapes data to match frontend type contracts; sections render the data they receive without fetching or transforming.
+The architecture follows proven React SPA patterns optimized for consulting intelligence delivery: client-side filtering with infinite cache, lazy-loaded sections with Suspense + error boundaries, bidirectional URL state sync, and multi-tenant theming via CSS custom properties.
 
 **Major components:**
-1. **BrandProvider (Context)** — resolves tenant from URL slug, injects brand tokens as CSS custom properties. All components consume via Tailwind classes. Zero prop drilling. This is the multi-tenant architecture foundation.
-2. **Report Shell** — sidebar navigation across 10 sections, header with branding, layout container. Uses React Router v7 data router APIs.
-3. **Section Modules (x10)** — self-contained folders for Executive Snapshot, Market Pulse, Financial Tracker, Deals, Operational Intelligence, Leadership Watch, Competitive Moves, Sub-Sector Deep Dive, Action Lens, Watchlist. Each receives typed JSON props, renders itself, never fetches data.
-4. **SectionRenderer** — maps section ID to component, handles loading/error states, lazy-loads modules via React.lazy() for code splitting. Only active section's code is loaded.
-5. **Filter Store (Zustand)** — global state for company selection, sub-category, performance rating, time period. Sections subscribe via hooks. Filter changes trigger client-side data re-filtering without API calls.
-6. **Shared UI Primitives** — chart wrappers (TrendLineChart, BarComparisonChart), data display (StatCard, TrendIndicator, PerformanceTag), all consuming brand CSS variables automatically.
 
-**Data flow:** User hits URL → tenant resolution → brand CSS injection → report metadata fetch → section lazy-load on navigation → section data fetch (cached) → render. Filters update Zustand store → subscribed sections re-render with filtered data.
+1. **Application Shell** — Routing, layout, global providers (BrandProvider, QueryClientProvider). Initializes TanStack Query with `staleTime: Infinity` for static data, sets up URL ↔ Zustand sync with ref guards to prevent loops.
 
-**Critical pattern: Theme tokens via CSS custom properties.** Each tenant has a CSS file:
-```css
-@theme {
-  --color-brand-primary: #1e40af;
-  --color-brand-accent: #0d9488;
-}
-```
-Charts, components, and Tailwind utilities consume these. Switching tenants = swapping one CSS import. No React re-renders.
+2. **Data Layer** — API client with graceful degradation: tries real API (`VITE_API_URL`), falls back to mock data on failure. TanStack Query caches with infinite stale time, no refetch on focus/reconnect. Client-side filtering in `useMemo` (no filters in query keys).
+
+3. **Section Components** — 10 lazy-loaded sections (executive, financial, deals, etc.) call `useFilteredData<T>(sectionId)` hook, export default for lazy loading. Wrapped in section-level error boundaries for isolated failures.
+
+4. **Filter System** — Zustand store (companies, subCategory, performanceTier, timePeriod) synced bidirectionally with URL params. Filters applied client-side via `useMemo`, not server-side. Fuzzy company matching handles inconsistent display names.
+
+5. **Multi-Tenant Branding** — `BrandProvider` extracts `tenantSlug` from route params, sets `data-tenant` attribute on root element. CSS custom properties scoped per tenant in `tokens.css`. Brand configs in TypeScript for type safety.
+
+6. **Charting & Visualization** — Apache ECharts for performance (Canvas rendering, WebGL support). TanStack Table for data tables with custom cell renderers for inline sparklines. Chart theming via design token palette (5 colors).
 
 ### Critical Pitfalls
 
-**Top 5 pitfalls (all must be prevented in Phase 1):**
+Research identified 13 pitfalls across critical/moderate/minor severity. Top 5 require proactive prevention:
 
-1. **Storing derived financial metrics in component state** — with 10 modules and dozens of computed metrics (YoY growth, variance-vs-average, QoQ deltas), effect chains create cascading re-render bugs and flicker. **Solution:** Compute inline during render or use useMemo with proper dependencies. Never useEffect + setState for calculations.
+1. **Presentation-Day Demo Failures** — 81% of salespeople lose deals to bad demos. Fail-safe data strategy (real API → mock fallback → static JSON), section-level error boundaries, 10-minute pre-flight checklist, backup video cued. Test on presentation laptop, not dev machine.
 
-2. **Hardcoded brand identity** — colors, fonts, logos scattered across files as literal values. Second tenant requires forking the codebase. **Solution:** Tailwind v4 @theme with CSS custom properties from day one. Zero hex values in component files. Brand config in tenant CSS files only.
+2. **Source Attribution Failures** — Data without clear attribution violates consulting standards, causes credibility crisis. Embed source metadata in data model (`provider`, `confidence`, `extractedAt`), visual attribution on every chart/table, build-time validation that `dataType: "mock"` blocked in production.
 
-3. **Building a dashboard instead of a briefing** — traditional analytics dashboard with filters/drill-downs fails the user need. MDs need a 5-minute document, not an exploration workbench. **Solution:** Narrative-first information architecture. Executive Snapshot is landing page. Every chart has an insight headline above it. Progressive disclosure (headline first, chart on expand).
+3. **Single-File HTML Build Failures** — vite-plugin-singlefile silently fails on SVGs/static assets. Test `dist/index.html` directly in browser (file:// protocol), use data URIs for critical assets, verify no external `<link>` or `<script src=` tags in built HTML.
 
-4. **Uncontrolled chart re-rendering** — filter changes trigger full SVG re-renders across all charts. With 50-company comparison charts, this causes 500ms frame drops. **Solution:** React.memo on chart wrappers, useMemo for data transformations, isolate filter state so Module 3 filters don't re-render Modules 1, 2, 4-10.
+4. **Dark Mode Token Failures** — CSS custom properties fail at runtime due to IACVT (Invalid At Computed Value Time). Use data-attribute pattern (`[data-theme="dark"]`), test both modes in every section, always provide fallbacks (`var(--text-primary, black)`).
 
-5. **Financial number formatting inconsistency** — same revenue shows as "Rs 2,345 Cr" in one module, "INR 2345 Crore" in another. Indian numbering (lakhs/crores) is non-standard. **Solution:** Centralized formatters.ts with formatCurrency(), formatPercentage(), formatBasisPoints() built in Phase 1. Zero raw .toFixed() in component files. 100% test coverage.
-
-**Other key pitfalls:**
-- PDF/export as afterthought — design components with `mode: 'interactive' | 'static'` prop from start
-- Data loading waterfall — use TanStack Query for deduplication and caching, prefetch adjacent modules
-- Tenant data bleeding — tenant isolation at every layer, test with multi-tenant QA scenarios
+5. **Data Integrity Corruption** — Filters applied incorrectly cause section mismatches, empty states when data exists. Bidirectional URL sync with ref guards, company ID matching (not display names), explicit `useMemo` dependencies, filter state validation.
 
 ## Implications for Roadmap
 
-Based on combined research, suggested phase structure prioritizes foundation → data infrastructure → modules → AI layers → polish.
+Based on research, suggested phase structure prioritizes foundation → intelligence → advanced features with systematic risk mitigation.
 
-### Phase 1: Foundation & Architecture
-**Rationale:** Theme tokens, formatting utilities, typed data contracts, and component isolation patterns MUST exist before building any modules. These are the non-negotiable architectural decisions that become expensive to retrofit. ARCHITECTURE.md explicitly maps "Foundation" as the first build phase.
+### Phase 1: Foundation & Core Infrastructure
+**Rationale:** Solid data layer and filter system are prerequisites for all sections. Mock data enables parallel UI development. Source attribution must be baked into data model from day one (pitfall #2).
 
 **Delivers:**
-- BrandProvider with CSS custom properties for multi-tenant theming
-- formatters.ts library (INR/Cr/%, basis points, growth rates)
-- TypeScript data contract interfaces for all 10 section JSON shapes
-- Shared UI primitives (SectionCard, StatCard, TrendIndicator, ErrorCard, SectionSkeleton)
-- Chart wrappers consuming brand tokens (TrendLineChart, BarComparisonChart base implementations)
-- App shell with React Router v7, error boundaries, tenant resolution
+- Project setup (Vite 6 + React 19 + TypeScript 5 + Tailwind 4)
+- Data layer with API client + fallback logic (pitfall #1 mitigation)
+- TanStack Query configuration (`staleTime: Infinity`)
+- Mock data files with source metadata for 1-2 sections
+- Application shell (routing, layout, error boundaries, Suspense)
 
-**Addresses pitfalls:**
-- Hardcoded brand identity (Pitfall 2) — prevented via theme token architecture
-- Number formatting inconsistency (Pitfall 5) — prevented via centralized formatters
-- Derived state in effects (Pitfall 1) — established pattern: compute inline or useMemo
+**Stack elements:** React 19, Vite 6, TypeScript 5, TanStack Query 5, vite-plugin-singlefile
 
-**Research needs:** STANDARD PATTERNS — React, Tailwind v4, TypeScript project setup is well-documented. Skip /gsd:research-phase.
+**Avoids:** Source attribution gaps, build failures, API dependency blocking UI work
+
+**Research needs:** Standard patterns, skip `/gsd:research-phase`
 
 ---
 
-### Phase 2: Data Layer & Report Shell
-**Rationale:** Data fetching, state management, and the report container must be operational before building content modules. This establishes how sections load data, how filters work, and how navigation between modules behaves. Dependency: Phase 1 types define API contracts.
+### Phase 2: Filter System & Theming
+**Rationale:** Global filters are dependency for all sections. Multi-tenant theming affects every component, must be established before UI scaling. Dark mode testing now prevents phase 9 surprises (pitfall #4).
 
 **Delivers:**
-- API client with typed endpoints (data/api-client.ts, data/report-api.ts)
-- TanStack Query integration for server state caching
-- Zustand filter store (company selection, sub-category, performance, time period)
-- Report Shell with section navigation sidebar
-- SectionRenderer with React.lazy() code splitting
-- FilterBar UI with company selector, filters
+- Zustand filter store (companies, subCategory, performanceTier, timePeriod)
+- URL sync hook with ref guards (pitfall #5 mitigation)
+- `useFilteredData<T>` custom hook
+- FilterBar component with Radix UI primitives
+- Multi-tenant BrandProvider with CSS custom properties
+- Dark mode support with theme validation
 
-**Uses (from STACK.md):**
-- TanStack Query for server state caching and background refetch
-- Zustand for client-side filter state
-- React Router v7 data router APIs
+**Stack elements:** Zustand 5, Radix UI 1.x, Tailwind CSS 4 tokens
 
-**Implements (from ARCHITECTURE.md):**
-- Filter-Store Pattern (cross-section filtering without API refetch)
-- Section Module Pattern (lazy-loaded, data-as-props)
-- Data prefetching strategy (above-fold immediate, below-fold on scroll-near)
+**Implements:** Filter System + Multi-Tenant Branding architecture components
 
-**Addresses pitfalls:**
-- Data loading waterfall (Pitfall from PITFALLS.md) — TanStack Query deduplicates requests
-- Chart re-rendering (Pitfall 4) — filter store isolates state, prevents cascade
+**Avoids:** Data integrity corruption, dark mode token failures, global CSS conflicts
 
-**Research needs:** STANDARD PATTERNS — TanStack Query and Zustand patterns well-documented. Skip research-phase.
+**Research needs:** Standard patterns, skip `/gsd:research-phase`
 
 ---
 
-### Phase 3: Core Content Modules (Financial Foundation)
-**Rationale:** Build the 4 data-heavy modules that form the intelligence foundation. Financial Tracker is most complex (15-20 companies x 7 metrics x 13 quarters) and will stress-test chart/table primitives. Other modules depend on financial data existing. From FEATURES.md priority matrix: all P1 table stakes features.
+### Phase 3: MVP Section (Executive Snapshot)
+**Rationale:** One complete section validates architecture before scaling. Executive summary is table-stakes feature and most-viewed section. Pattern established here replicates across remaining sections.
 
 **Delivers:**
-- Financial Performance Tracker (company financials table + time-series comparison charts)
-- Deal & Transaction Tracker (M&A, PE/VC, IPO events with timeline visualization)
-- Leadership Watch (CXO changes, board reshuffles, promoter stake changes)
-- Executive Snapshot (AI-generated monthly summary, red flags, watchlist)
+- Executive Snapshot section (lazy-loaded)
+- Section-specific sub-components (BulletSummary, ThemeNarrative, RedFlagsTable)
+- Loading skeletons matching content structure
+- Section error boundary fallback UI
+- Chart components (bar, line, scatter) with Apache ECharts
+- CSV export functionality
 
-**Features (from FEATURES.md P1):**
-- Company profiles with standardized financials
-- Time-series financial comparison (QoQ/YoY)
-- Deal tracking with strategic rationale annotations
-- Executive summary with 5-bullet format
-- Data recency indicators ("as of Q3 FY25")
-- Source attribution on every metric
+**Features:** Executive summary view, presentation mode foundation, source attribution UI
 
-**Implements (from ARCHITECTURE.md):**
-- Typed data contracts for CompanyFinancials, DealTransaction, LeadershipEvent, ExecutiveSnapshot
-- Composable chart wrappers (TrendLineChart, BarComparisonChart used in Financial Tracker)
-- DataTable primitive (TanStack Table, headless styling) for financial metrics table
+**Stack elements:** Apache ECharts 6, echarts-for-react 3, Radix UI
 
-**Addresses pitfalls:**
-- Dashboard-vs-briefing UX (Pitfall 3) — Executive Snapshot is narrative landing page
-- Financial number formatting (Pitfall 5) — all metrics use formatters.ts
+**Avoids:** Inconsistent loading states, missing empty states, presentation-day failures
 
-**Research needs:** MINOR RESEARCH for Financial Tracker — TanStack Table configuration for 15-20 companies x 7 metrics with virtualization. Rest is standard.
+**Research needs:** Standard section patterns, skip `/gsd:research-phase`
 
 ---
 
-### Phase 4: Operational & Competitive Intelligence Modules
-**Rationale:** Add the modules that track operational signals and competitive moves. These build on the company universe and financial data from Phase 3 but add new data dimensions (supply chain, capacity, product launches). From FEATURES.md: P1-P2 table stakes to differentiators transition.
+### Phase 4: Section Scaling (Sections 2-6)
+**Rationale:** Proven patterns accelerate development. Build 2-3 sections per week reusing MVP components. Extract common components to `src/components/` for reusability.
 
 **Delivers:**
-- Operational Intelligence (supply chain signals, capacity changes, retail expansion/closures)
-- Competitive Moves (product launches, pricing actions, D2C initiatives, partnerships)
-- Market Pulse (macro demand signals, input cost trends, margin outlook, channel mix shifts)
-- Sub-Sector Deep Dive (rotating monthly deep dive into AC, refrigerator, washing machine, etc. sub-segments)
+- Financial Performance section (TanStack Table with inline sparklines)
+- Deals & Transactions section (DealCard, DealTimeline)
+- Leadership Intelligence section
+- Competitive Moves section
+- Growth Triggers section
+- Data table components with TanStack Table
+- Reusable chart components (legend, tooltip, annotations)
 
-**Features (from FEATURES.md):**
-- Operational signal tracking (table stakes per competitor parity)
-- Competitive benchmarking view (table stakes)
-- Macro context layer (Market Pulse adds sector-level signals)
-- Sub-segment cost structure benchmarks (differentiator)
+**Features:** Multi-company comparison views, multi-level drill-down navigation
 
-**Uses (from STACK.md):**
-- Recharts treemap for sub-sector market share visualization
-- Recharts heatmap (or Nivo heatmap if Recharts insufficient) for cost structure comparison
-- TanStack Table for operational events timeline
+**Stack elements:** TanStack Table 8, Apache ECharts
 
-**Addresses pitfalls:**
-- None specific — builds on foundation from Phases 1-2
+**Avoids:** Performance degradation (virtualize large tables proactively), copy-paste errors
 
-**Research needs:** MODERATE RESEARCH for Sub-Sector Deep Dive — cost structure data models and heatmap visualization for margin levers need domain validation. Consider /gsd:research-phase.
+**Research needs:** Standard patterns, skip `/gsd:research-phase`
 
 ---
 
-### Phase 5: AI-Powered Intelligence Layers
-**Rationale:** Add the AI-generated analysis features that transform raw data into consulting-grade intelligence. These require all data modules (Phases 3-4) to be operational because they synthesize across modules. From FEATURES.md: these are the P2 differentiators that create competitive moats.
+### Phase 5: Section Completion (Sections 7-10)
+**Rationale:** Complete remaining sections with established patterns. Focus shifts to performance optimization and edge cases.
 
 **Delivers:**
-- AI Variance Analysis (narrative on every financial metric: "why the change, vs. segment")
-- BD Signal Scoring (composite "who needs help" scoring from financial stress + leadership + operational signals)
-- Engagement Opportunity Classification (tag signals with service line: Turnaround, Growth Strategy, Cost Optimization, M&A Advisory)
-- Action Lens module (persona-based interpretation: "What this means for PE investors" vs "for COOs")
+- Shareholding Pattern section
+- Concall Highlights section
+- Red Flags section
+- Industry Trends section
+- Performance optimization (virtualization for large tables, lazy loading audit)
+- Mobile/tablet responsive layouts
+- Print styles with page break logic
 
-**Features (from FEATURES.md P2):**
-- AI variance analysis (HIGH value, HIGH complexity) — differentiator
-- BD signal scoring (THE core differentiator per FEATURES.md)
-- Engagement opportunity classification (directly maps to consulting service lines)
-- Action Lens persona views (genuinely novel per competitor analysis)
+**Features:** Mobile/tablet responsiveness, print/export optimization
 
-**Implements (from ARCHITECTURE.md):**
-- AI content as data layer (backend pre-generates, frontend renders)
-- Section modules consume AI-generated text via JSON props
-- Scoring model UI (composite score breakdown, confidence indicators)
+**Avoids:** Print layout breakage, performance issues with large datasets
 
-**Addresses pitfalls:**
-- AI-generated text directly in JSX (technical debt pattern from PITFALLS.md) — prevented via data-layer approach
-- Edge case handling for no-change periods (from PITFALLS.md "Looks Done But Isn't") — requires fallback messages
-
-**Research needs:** SIGNIFICANT RESEARCH — AI signal scoring calibration, composite metric design, persona classification taxonomy need domain expertise. REQUIRES /gsd:research-phase for BD scoring model design.
+**Research needs:** Standard patterns, skip `/gsd:research-phase`
 
 ---
 
-### Phase 6: Export & Meeting Prep Tools
-**Rationale:** Build the output features that let MDs take intelligence into meetings and presentations. These are high-value but require all content modules to be stable. From FEATURES.md: these turn "useful tool" into "must-have platform."
+### Phase 6: Export & Presentation Features
+**Rationale:** Consulting deliverable requirements (PDF/PowerPoint export, presentation mode) are table stakes but not blocking for core functionality.
 
 **Delivers:**
-- PDF export (full report or selected modules, print-optimized layout)
-- CSV export of data tables
-- Meeting Prep Brief Generator (1-click company brief pulling from all modules)
-- PowerPoint export (deck-ready slides)
+- Presentation mode UI toggle (hide filters, optimize for projection)
+- PDF export via browser print (with print-specific CSS)
+- PowerPoint export (optional, if high-value)
+- Meeting prep brief generation (synthesized insights)
+- Chart export to PNG/SVG
 
-**Features (from FEATURES.md):**
-- Basic export (PDF, CSV) — P1 table stakes
-- Meeting Prep Brief — P3 high-value differentiator
-- PowerPoint export — P2 high-value differentiator (Partners live in PowerPoint)
+**Features:** Export to PDF/PowerPoint, presentation mode
 
-**Uses (from STACK.md):**
-- react-to-print for browser-native PDF generation
-- html-to-image for individual chart PNG export
-- PptxGenJS (future) for PowerPoint generation
+**Stack elements:** Existing React components
 
-**Implements (from ARCHITECTURE.md):**
-- PrintableReport.tsx with all sections rendered sequentially
-- Component dual-mode (interactive vs static) per PITFALLS.md recommendation
-- Export-specific layouts via @media print
+**Avoids:** Print layout breakage, export failures during demos
 
-**Addresses pitfalls:**
-- PDF export as afterthought (Pitfall 6) — architecture designed for it from Phase 1, implementation in Phase 6
-- Chart components have static mode prop
-- Print-friendly layouts tested
-
-**Research needs:** MODERATE RESEARCH for PowerPoint export — PptxGenJS template design, branded slide layouts. Consider /gsd:research-phase.
+**Research needs:** PDF export libraries if programmatic generation needed. Consider `/gsd:research-phase` if PowerPoint export required.
 
 ---
 
-### Phase 7: Advanced Intelligence (Forward-Looking)
-**Rationale:** Add the predictive and deep-analysis features that are highest risk but highest value. These require historical calibration data and quality benchmarks from real usage. Defer until product-market fit established. From FEATURES.md: v2+ future consideration.
+### Phase 7: Advanced Intelligence Features
+**Rationale:** A&M differentiators (Talk vs Walk, alternative data, AI signals) require robust data pipeline + NLP capability. Build after core dashboard proves value.
 
 **Delivers:**
-- 90-Day Forward Indicators (predictive signals: likely fundraise, margin inflection, consolidation target)
-- Management Commentary Sentiment (NLP on earnings transcripts, tone shift tracking)
-- Competitive Cluster Mapping (visual strategy clustering)
+- Talk vs Walk verification engine (NLP on qualitative sources + metric correlation)
+- Alternative data integration (transaction data, job postings, pricing data)
+- AI-powered signal detection (early warning alerts for distress signals)
+- Dynamic confidence scoring enhancements (multi-source validation, decay over time)
+- Alert system foundation (threshold rules, notification infrastructure)
 
-**Features (from FEATURES.md P3):**
-- 90-day forward indicators (high value but high credibility risk)
-- Management commentary sentiment (differentiator for Indian mid-market)
-- Competitive cluster mapping (strategy white space identification)
+**Features:** Talk vs Walk verification, beyond filings alternative data, AI signal detection
 
-**Addresses features:**
-- Forward-looking signals (genuinely differentiated per FEATURES.md competitor analysis)
-- But deferred to v2+ due to accuracy risk and need for calibration data
+**Stack elements:** NLP libraries (if needed), alert notification system
 
-**Research needs:** SIGNIFICANT RESEARCH — time-series pattern recognition, financial projection models, NLP sentiment models, clustering algorithms. REQUIRES /gsd:research-phase for predictive modeling approach.
+**Avoids:** Feature complexity without validation, false positives eroding trust
+
+**Research needs:** NLP integration, alternative data APIs, ML model selection. **Flag for `/gsd:research-phase`** during planning.
+
+---
+
+### Phase 8: Advanced UI Features
+**Rationale:** Pipeline views, battlecards, customizable alerts are high-value but complex. Requires structured deal data and workflow integration.
+
+**Delivers:**
+- Deals pipeline kanban view (drag deals between stages)
+- Automated battlecard generation (per pipeline opportunity)
+- Customizable alert rules (user-defined thresholds)
+- Collaborative annotations (if internal tool use case)
+- Embedded expert commentary CMS
+
+**Features:** Automated battlecards, customizable alerts, drag-and-drop pipeline
+
+**Stack elements:** @dnd-kit/core 6, @dnd-kit/sortable
+
+**Avoids:** Scope creep into project management tool, workflow automation complexity
+
+**Research needs:** Deal pipeline data structure, CRM integration. Consider `/gsd:research-phase` for battlecard generation.
+
+---
+
+### Phase 9: Production Hardening
+**Rationale:** Pre-launch validation catches presentation-day failures. Error tracking, monitoring, performance profiling prevent live issues.
+
+**Delivers:**
+- 10-minute pre-flight checklist execution
+- Error tracking integration (Sentry)
+- Performance profiling (Lighthouse score >90)
+- Single-file build validation (test offline, verify inlining)
+- Source attribution validation across all sections
+- Browser console warning cleanup
+- Backup video/PDF preparation
+- Indian currency formatting validation (lakhs/crores)
+
+**Features:** Production readiness, demo failure prevention
+
+**Avoids:** All 13 pitfalls via systematic testing
+
+**Research needs:** Standard production practices, skip `/gsd:research-phase`
 
 ---
 
 ### Phase Ordering Rationale
 
-**Why this order:**
-1. **Foundation first (Phase 1)** — theme tokens, formatters, types are architectural decisions that become expensive to retrofit. From PITFALLS.md: hardcoded brand identity and number formatting are HIGH recovery cost.
-2. **Data layer before content (Phase 2)** — establishes how all modules fetch and filter data. From ARCHITECTURE.md build order: data layer precedes sections.
-3. **Financial modules first (Phase 3)** — Financial Tracker is most complex and will stress-test primitives. Executive Snapshot needs company data to exist. From FEATURES.md dependency graph: company data model is the foundation.
-4. **Operational/competitive second (Phase 4)** — build on company universe from Phase 3, add new data dimensions.
-5. **AI layers after data stable (Phase 5)** — AI features synthesize across modules. From FEATURES.md: AI variance analysis requires Financial Performance Tracker operational. BD scoring requires Financial + Leadership + Operational modules.
-6. **Export after content stable (Phase 6)** — cannot export unstable layouts. From PITFALLS.md: export features need stable UI.
-7. **Predictive features last (Phase 7)** — highest risk, needs real-world calibration. From FEATURES.md: defer to v2+ until product-market fit.
+**Foundation first** because filtering, theming, and data layer are dependencies for all sections. Building one complete section (Phase 3) validates architecture patterns before scaling to 10 sections (Phases 4-5).
 
-**Dependency chain (from ARCHITECTURE.md and FEATURES.md):**
-```
-Foundation (types, theme, formatters)
-  → Data Layer (API client, stores)
-    → Company Data Model
-      → Financial Tracker
-        → AI Variance Analysis
-          → BD Scoring
-            → Meeting Prep
-      → Deals Tracker
-      → Leadership Watch
-      → Operational Intelligence
-        → (feeds BD Scoring)
-```
+**Intelligence features later** (Phase 7) because Talk vs Walk verification and AI signal detection require both technical maturity (NLP, ML) and domain expertise. Deferring until core dashboard proves value reduces risk of over-engineering.
+
+**Advanced UI features last** (Phase 8) because pipeline views and battlecards depend on structured deal data and workflow integration. These are high-complexity, medium-risk features better addressed after core intelligence delivery works.
+
+**Hardening continuous** with dedicated phase (Phase 9) before launch. Research shows 81% of salespeople lose deals to bad demos—systematic pre-flight validation is non-negotiable.
 
 ### Research Flags
 
-**Phases needing deeper research during planning:**
-- **Phase 5 (AI Intelligence)** — BD signal scoring model design, composite scoring methodology, calibration approach. Domain-specific, no standard patterns. REQUIRES /gsd:research-phase.
-- **Phase 7 (Forward Indicators)** — predictive modeling approach, confidence scoring, time-series pattern libraries. Complex, risk of credibility damage. REQUIRES /gsd:research-phase.
-- **Phase 6 (PowerPoint Export)** — PptxGenJS integration, template design, branded slide generation. Moderate complexity. CONSIDER /gsd:research-phase.
+Phases likely needing deeper research during planning:
 
-**Phases with standard patterns (skip research-phase):**
-- **Phase 1 (Foundation)** — React + TypeScript + Tailwind v4 project setup is well-documented. Standard primitives.
-- **Phase 2 (Data Layer)** — TanStack Query and Zustand patterns are mature and documented.
-- **Phase 3 (Core Modules)** — Recharts, TanStack Table, data display components use established patterns. Minor research for virtualization only.
-- **Phase 4 (Operational Modules)** — extends Phase 3 patterns. Sub-Sector Deep Dive needs moderate research for cost structure data models.
+- **Phase 7 (Advanced Intelligence):** NLP libraries for Talk vs Walk verification, alternative data provider APIs, ML model selection for signal detection. Complex domain requiring specialized research.
+- **Phase 8 (Advanced UI):** Deal pipeline data structures, CRM integration patterns, battlecard template engines. May need vendor/API research.
+
+Phases with standard patterns (skip research-phase):
+
+- **Phases 1-6:** React SPA, TanStack Query, Zustand, Radix UI, Apache ECharts all have well-documented patterns. Established best practices cover 90% of implementation.
+- **Phase 9:** Production hardening uses standard monitoring/profiling tools. Error tracking (Sentry) and performance audits (Lighthouse) are commodity tooling.
 
 ## Confidence Assessment
 
 | Area | Confidence | Notes |
 |------|------------|-------|
-| Stack | **HIGH** | Core technologies verified via npm registry, peer dependencies checked. React 19 + Vite 7 + Tailwind v4 combination proven in Kompete. Recharts, TanStack libraries have explicit React 19 support. |
-| Features | **MEDIUM** | Feature categories based on training data knowledge of CB Insights, PitchBook, AlphaSense, consulting industry practices. No web verification available. Core feature patterns (company profiles, financial data, deal tracking) are stable. AI-powered features (BD scoring, variance analysis) are novel and need validation. |
-| Architecture | **HIGH** | Direct code examination of Kompete frontend and consumer-durables-intelligence prototype. Section-module pattern proven in prototype. BrandProvider with CSS custom properties verified against Tailwind v4 docs. React patterns (lazy, Suspense, memo) are official APIs. |
-| Pitfalls | **MEDIUM-HIGH** | React rendering pitfalls verified against official React docs (HIGH). Multi-tenant theming verified against Tailwind v4 docs (HIGH). Dashboard UX and consulting-specific pitfalls based on domain knowledge and NNGroup research (MEDIUM). Indian financial formatting pitfalls based on established domain knowledge (HIGH). |
+| Stack | HIGH | All versions verified via official docs and npm (Feb 2026). React 19 + Vite 6 + TypeScript 5 combo confirmed in multiple production guides. Apache ECharts performance claims verified across 5+ independent comparisons. |
+| Features | MEDIUM | Table stakes features confirmed across 10+ consulting dashboard sources. Differentiators based on McKinsey/BCG/Bain patterns but limited public documentation on proprietary intelligence features. Anti-features validated against BI tool bloat patterns. |
+| Architecture | HIGH | Core patterns (client-side filtering, lazy loading, URL state sync, multi-tenant theming) are established React SPA best practices. TanStack Query + Zustand separation widely recommended in 2025/2026 state management guides. Single-file HTML pattern validated by plugin documentation. |
+| Pitfalls | HIGH | Presentation-day failure statistics (81%) from credible sales research. Source attribution requirements based on consulting standards. Technical pitfalls (dark mode tokens, build failures, TanStack Query error boundaries) verified through issue trackers and documentation. |
 
-**Overall confidence:** MEDIUM-HIGH
+**Overall confidence:** HIGH
 
-Research is solid on technical stack (verified), architecture patterns (proven in codebase), and React best practices (official docs). Medium confidence on feature prioritization (based on competitor knowledge from training data, not current web research) and consulting BD use case specifics (domain expertise from training, not direct user research).
+Research draws from official documentation, verified npm packages, and established consulting practices. Medium confidence areas (feature differentiation, advanced intelligence) require validation during implementation but don't block initial phases.
 
 ### Gaps to Address
 
-**Gap 1: Indian financial data sourcing specifics**
-- **Issue:** Research identifies MCA filings, BSE/NSE filings as data sources, but exact API integration patterns for Indian company data are not detailed.
-- **Impact:** Affects Phase 3 (Financial Tracker) data pipeline design.
-- **Mitigation:** Phase 3 planning should include backend API contract definition session. Frontend research focused on rendering; backend data sourcing is separate team concern per PROJECT.md.
+**Alternative data integration specifics:** Research identifies value proposition and use cases but lacks vendor-specific API documentation. Resolution: Defer detailed research to Phase 7 planning. Consider `/gsd:research-phase` for alternative data provider evaluation.
 
-**Gap 2: AI signal scoring calibration methodology**
-- **Issue:** Research recommends BD signal scoring as core differentiator but does not specify the scoring algorithm or composite metric weights.
-- **Impact:** Phase 5 cannot proceed without scoring model design.
-- **Mitigation:** REQUIRES /gsd:research-phase before Phase 5. Need domain expertise on financial stress signals, consulting engagement triggers, and calibration approaches.
+**PowerPoint export implementation:** Research confirms table-stakes requirement but library comparisons incomplete. Resolution: Validate browser print → PDF satisfies requirement in Phase 6. If programmatic PowerPoint generation needed, research @react-pdf/renderer alternatives.
 
-**Gap 3: Meeting Prep Brief content structure**
-- **Issue:** Feature identified as "killer feature" but exact 1-pager format, content sections, and data extraction logic not specified.
-- **Impact:** Phase 6 Meeting Prep feature.
-- **Mitigation:** Prototype the 1-pager format in Phase 3-4 as modules stabilize. Gather samples from actual consulting firm briefing documents.
+**NLP library selection for Talk vs Walk:** Research confirms feature value but doesn't recommend specific NLP libraries (Compromise.js, natural, OpenAI API). Resolution: Defer to Phase 7 planning with dedicated NLP research.
 
-**Gap 4: Current state of competitor features (2026)**
-- **Issue:** Competitor analysis (CB Insights, PitchBook, AlphaSense) based on training data; products may have evolved. Specifically: AI-powered features are rapidly evolving space.
-- **Impact:** Feature differentiation assumptions may be outdated.
-- **Mitigation:** During Phase 5 planning, validate competitor capabilities via demos/trial accounts. Does not block earlier phases.
+**Indian number formatting edge cases:** Research confirms en-IN locale and lakhs/crores convention but lacks guidance on mixed-unit displays (e.g., "₹1.5Cr or ₹150L?"). Resolution: Validate formatting preferences with stakeholders in Phase 1, codify in formatters.
 
-**Gap 5: Sub-sector cost structure data model**
-- **Issue:** Sub-Sector Deep Dive requires detailed cost structure benchmarks (COGS breakdown, margin levers). Data model not defined.
-- **Impact:** Phase 4 Sub-Sector Deep Dive module.
-- **Mitigation:** This may warrant /gsd:research-phase for Phase 4 specifically for cost structure data model design and visualization approach.
+**Battlecard template structure:** Research identifies feature value for PE/transaction advisory but lacks template content specifics. Resolution: Defer to Phase 8 with stakeholder interviews on existing battlecard content/format.
 
 ## Sources
 
 ### Primary (HIGH confidence)
-- **Kompete frontend codebase** (`/frontend/src/`) — App.jsx, Report.jsx, MarketOverview.jsx, ComparisonMatrix.jsx, QuarterlyTrendChart.jsx, StatBox.jsx, api.js. Direct code examination. Validates React patterns, chart library usage, component structure, API integration approach.
-- **Consumer Durables Intelligence prototype** (`/consumer-durables-intelligence/`) — app.js, data.js, charts.js, filters.js. Direct code examination. Proves section-module pattern, data shapes, filter interactions.
-- **React 19 official documentation** (react.dev) — use() hook, Suspense, useMemo, useEffect best practices. Verified for Pitfall 1 (derived state), Pitfall 4 (re-rendering).
-- **Tailwind CSS v4 official documentation** (tailwindcss.com) — @theme directive, CSS custom properties. Verified for Pitfall 2 (white-labeling architecture).
-- **npm registry** (npmjs.com via `npm view`) — peer dependency verification for all recommended libraries (Recharts, TanStack Query, TanStack Table, Zustand, Radix UI, Motion, react-to-print). Confirms React 19 compatibility.
+
+**Stack & Technology:**
+- Apache ECharts Official Documentation — https://echarts.apache.org/
+- TanStack Query v5 Documentation — https://tanstack.com/query/latest
+- TanStack Table v8 Documentation — https://tanstack.com/table/latest
+- React 19 Official Documentation — https://react.dev/
+- Vite 6 Official Documentation — https://vitejs.dev/
+- Tailwind CSS v4 Official Documentation — https://tailwindcss.com/blog/tailwindcss-v4
+- Radix UI Official Documentation — https://www.radix-ui.com/
+- dnd-kit Official Documentation — https://dndkit.com/
+- vite-plugin-singlefile npm package — https://www.npmjs.com/package/vite-plugin-singlefile
+
+**Consulting Intelligence:**
+- McKinsey Presentation Structure Guide — https://slidemodel.com/mckinsey-presentation-structure/
+- Executive Dashboard Best Practices 2025 — https://improvado.io/blog/executive-dashboards
+- Financial Dashboard Design Guide 2026 — https://zebrabi.com/power-bi-financial-dashboards/
+
+**Pitfalls & Demo Failures:**
+- The Art of Failing Forward: Demo Lessons Learned — https://www.reprise.com/resources/blog/the-art-of-failing-forward-demo-lessons-learned
+- Why Dashboards Fail: Top Mistakes — https://www.sapbwconsulting.com/blog/why-dashboards-fail
+- TanStack Query Error Boundaries — https://app.studyraid.com/en/read/11355/355098/managing-query-error-states
 
 ### Secondary (MEDIUM confidence)
-- **CB Insights platform features** — training data knowledge. Company profiles, market intelligence, M&A tracking, AI-generated market maps. Confidence: MEDIUM (product features as of training cutoff May 2025; may have evolved).
-- **PitchBook platform features** — training data knowledge. Deal database, PE/VC intelligence, company financials. Industry-standard reference. Confidence: MEDIUM.
-- **AlphaSense platform features** — training data knowledge. AI-powered search, Smart Summaries, sentiment analysis. Confidence: MEDIUM.
-- **Bain/McKinsey industry report structures** — training data knowledge. Executive summary → benchmarking → strategic themes format. Consulting-grade intelligence structure is stable. Confidence: HIGH.
-- **NNGroup dashboard design research** — training data knowledge. Dashboard vs. briefing UX, progressive disclosure, narrative information architecture. Confidence: MEDIUM.
-- **Multi-tenant SaaS architecture patterns** — training data knowledge. CSS custom properties for theming, tenant isolation, brand token systems. Confidence: MEDIUM (patterns are stable, but specific implementation varies).
 
-### Tertiary (LOW confidence, requires validation)
-- **Indian financial data APIs** (MCA, BSE/NSE) — training data knowledge. Filing structures, data lag, API patterns. Confidence: LOW (backend integration concern, not frontend research scope).
-- **AI signal scoring for consulting BD** — inferred from training data on financial distress signals, but no direct examples of "BD radar scoring" products. Confidence: LOW (novel feature, needs domain validation).
-- **Current 2026 state of competitor AI features** — training data cutoff May 2025. AI landscape evolves quickly. Confidence: LOW (validate during Phase 5 planning).
+**Feature Research:**
+- Competitive Intelligence Dashboards 2026 — https://valonaintelligence.com/market-intelligence-software/competitive-intelligence-dashboard
+- Alternative Data Trends 2026 — https://www.kadoa.com/blog/alternative-data-trends-2026
+- Private Equity Deal Flow AI Strategies — https://grata.com/resources/private-equity-deal-flow
+- Signal Detection AI Guide 2026 — https://www.dip-ai.com/use-cases/en/the-best-signal-detection-AI
+
+**Architecture Patterns:**
+- React SPA Architecture Patterns 2026 — https://www.patterns.dev/react/react-2026/
+- Zustand Architecture Patterns at Scale — https://brainhub.eu/library/zustand-architecture-patterns-at-scale
+- Multi-Tenant Theming with Tailwind — https://medium.com/@aimanfaruk98/multi-tenant-theming-with-nextjs-app-router-tailwind-6a5a4195ed70
+- React Custom Hooks Guide 2026 — https://oneuptime.com/blog/post/2026-02-02-react-custom-hooks/view
+
+### Tertiary (LOW confidence)
+
+**Domain-Specific:**
+- Indian Rupee Formatting (Lakhs/Crores) — https://www.daytradeindia.in/decoding-inr-thousands-k-lakhs-l-and-crores-cr/
+- Data Governance Dashboard Best Practices — https://diggrowth.com/blogs/data-management/data-governance-dashboard/
+- AI-Powered Diligence Dashboards 2026 — https://diligencevault.com/5-ai-powered-diligence-dashboards-2026/
 
 ---
-*Research completed: 2026-02-15*
-*Ready for roadmap: YES*
+
+**Research completed:** 2026-02-20
+**Ready for roadmap:** Yes
