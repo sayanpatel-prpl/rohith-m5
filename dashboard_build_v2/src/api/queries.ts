@@ -1,17 +1,17 @@
 import { queryOptions } from "@tanstack/react-query";
 import { getFinancialApiData } from "../data/loaders/financial-api";
+import { buildExecutiveData } from "../data/adapters/executive-adapter";
+import { buildFinancialData } from "../data/adapters/financial-adapter";
+import { buildWatchlistData } from "../data/adapters/watchlist-adapter";
 import type { SectionId } from "../types/common";
 import type { SectionData } from "../types/sections";
 
 /**
- * Build section data from static JSON loaders.
+ * Build generic section data from static JSON loaders.
  *
- * Unlike v1 which fetched from an API, v2 loads data synchronously
- * from imported JSON via loaders. For now, this returns data from
- * the financial-api loader (closest to section shape).
- *
- * Section-specific adapters will be built in Phase 2 plans to
- * transform raw loader data into each section's typed shape.
+ * Fallback for sections that do not yet have dedicated adapters.
+ * Returns data from the financial-api loader (closest to section shape).
+ * Section-specific adapters will be built in later Phase 2 plans.
  */
 function buildSectionData(sectionId: SectionId): SectionData & Record<string, unknown> {
   const financialData = getFinancialApiData();
@@ -30,19 +30,20 @@ function buildSectionData(sectionId: SectionId): SectionData & Record<string, un
  * Each co-locates queryKey + queryFn for type-safe reuse.
  * Data is fetched once (static JSON) and filtered client-side (FOUND-14).
  *
+ * Priority sections (executive, financial, watchlist) use dedicated adapters
+ * that combine multiple data sources into rich typed payloads.
+ * Remaining sections use the generic buildSectionData fallback.
+ *
  * Usage: const { data } = useQuery(sectionQueries.executive());
  *
  * IMPORTANT: queryKeys do NOT include filter state.
  * Data is fetched once and filtered client-side via useMemo.
  */
-export const sectionQueries: Record<
-  SectionId,
-  () => ReturnType<typeof queryOptions>
-> = {
+export const sectionQueries = {
   executive: () =>
     queryOptions({
       queryKey: ["section", "executive"] as const,
-      queryFn: () => buildSectionData("executive"),
+      queryFn: () => buildExecutiveData(),
     }),
 
   "am-value-add": () =>
@@ -60,7 +61,7 @@ export const sectionQueries: Record<
   financial: () =>
     queryOptions({
       queryKey: ["section", "financial"] as const,
-      queryFn: () => buildSectionData("financial"),
+      queryFn: () => buildFinancialData(),
     }),
 
   deals: () =>
@@ -102,6 +103,6 @@ export const sectionQueries: Record<
   watchlist: () =>
     queryOptions({
       queryKey: ["section", "watchlist"] as const,
-      queryFn: () => buildSectionData("watchlist"),
+      queryFn: () => buildWatchlistData(),
     }),
-};
+} satisfies Record<SectionId, () => unknown>;
