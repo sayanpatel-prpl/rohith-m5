@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-20)
 
 **Core value:** Every section answers "where's the BD opportunity?" — sourced signals that help A&M partners identify which companies need help, what kind, and when to reach out.
-**Current focus:** Phase 2 - Priority Sections
+**Current focus:** Phase 3 - Section Group A
 
 ## Current Position
 
-Phase: 2 of 6 (Priority Sections)
-Plan: 5 of 5 in current phase
+Phase: 3 of 6 (Section Group A)
+Plan: 1 of 4 in current phase
 Status: In Progress
-Last activity: 2026-02-21 — Completed 02-04-PLAN.md (Company Modal)
+Last activity: 2026-02-21 — Completed 03-01-PLAN.md (Type & Mock Data Extensions)
 
-Progress: [█████████████████░░░] 59% (13 of 22 plans)
+Progress: [██████████████████░░] 64% (14 of 22 plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 10
-- Average duration: 3.91 min
-- Total execution time: 0.65 hours
+- Total plans completed: 11
+- Average duration: 3.82 min
+- Total execution time: 0.70 hours
 
 **By Phase:**
 
@@ -29,9 +29,10 @@ Progress: [█████████████████░░░] 59% (13
 |-------|-------|-------|----------|
 | 01-foundation | 6 | 25min | 4.17min |
 | 02-priority-sections | 4 | 17min | 4.25min |
+| 03-section-group-a | 1 | 4min | 4.00min |
 
 **Recent Trend:**
-- Last 5 plans: 02-04 (6min), 02-02 (2min), 02-05 (2min), 02-01 (7min), 01-06 (3min)
+- Last 5 plans: 03-01 (4min), 02-04 (6min), 02-02 (2min), 02-05 (2min), 02-01 (7min)
 - Trend: Accelerating
 
 *Updated after each plan completion*
@@ -92,6 +93,10 @@ Recent decisions affecting current work:
 - **Sovrenn tag cross-referencing** (02-04): Compares quarterly result tags vs actual revenue growth for disconnect/stealth signal detection
 - **Sector avg EBITDA ~10%** (02-04): Used as threshold for margin disconnect detection in Talk vs Walk
 - **Signal-to-service-line mapping** (02-04): turnaround->Restructuring, improvement->CPI, transaction->Transaction Advisory, neutral->Operations
+- **Phase 3 fields required not optional** (03-01): All new Phase 3 fields required (except policyTracker and seasonalPatterns) to ensure UI can rely on data presence
+- **amAngle strict 5-value union** (03-01): CDD Opportunity | Integration Support | Carve-out Advisory | Valuation | Restructuring for compile-time safety
+- **Traffic-light governance scoring** (03-01): red/amber/green with string[] factors array for flexible rendering
+- **dataConfidence 3-tier system** (03-01): Verified | Management Guidance Interpretation | Estimated matching source reliability tiers
 
 ### Pending Todos
 
@@ -108,5 +113,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-21
-Stopped at: Completed 02-04-PLAN.md (Company Modal)
+Stopped at: Completed 03-01-PLAN.md (Type & Mock Data Extensions)
 Resume file: None
