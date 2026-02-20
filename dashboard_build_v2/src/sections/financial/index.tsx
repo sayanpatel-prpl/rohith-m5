@@ -13,6 +13,7 @@ import { SectionSkeleton } from "@/components/ui/SectionSkeleton";
 import type { FinancialData } from "@/types/financial";
 import { FinancialTable } from "./FinancialTable";
 import { DerivedColumnsToggle } from "./DerivedColumnsToggle";
+import { CompanyModal } from "./CompanyModal";
 
 export default function FinancialPerformance() {
   const { data, isPending, error } = useFilteredData<FinancialData>("financial");
@@ -62,20 +63,18 @@ export default function FinancialPerformance() {
         companies={data.companies}
         derivedColumns={data.derivedColumns}
         showDerived={showDerived}
-        onRowClick={(row) => {
-          setSelectedCompanyId(row.id);
-          // Modal will be added in Plan 04
-          if (process.env.NODE_ENV === "development") {
-            console.log("Selected company:", row.id, row.name);
-          }
-        }}
+        onRowClick={(row) => setSelectedCompanyId(row.id)}
       />
 
-      {selectedCompanyId && (
-        <div className="sr-only" aria-live="polite">
-          Selected: {selectedCompanyId}
-        </div>
-      )}
+      <CompanyModal
+        company={
+          selectedCompanyId
+            ? (data.companies.find((c) => c.id === selectedCompanyId) ?? null)
+            : null
+        }
+        allCompanies={data.companies}
+        onClose={() => setSelectedCompanyId(null)}
+      />
 
       {data.dataAsOf && (
         <p className="text-[10px] text-text-muted text-right">
