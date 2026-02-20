@@ -17,6 +17,16 @@ export default defineConfig({
         __dirname,
         "../consumer-durables-intelligence/data_sources/extracted",
       ),
+      // echarts-for-react v3 has no package.json exports field, so Vite
+      // cannot resolve subpath imports like /core and /lib/types.
+      "echarts-for-react/core": path.resolve(
+        __dirname,
+        "node_modules/echarts-for-react/esm/core.js",
+      ),
+      "echarts-for-react/lib/types": path.resolve(
+        __dirname,
+        "node_modules/echarts-for-react/esm/types.js",
+      ),
     },
   },
   build: {

@@ -1,32 +1,23 @@
 /**
- * Financial Performance section stub.
+ * Financial Performance section (FINP-01 through FINP-06).
  *
- * Priority stub demonstrating the full data pipeline:
- * useFilteredData -> TanStack Query -> data loader -> JSON
- *
- * Phase 2 will flesh out: 15-company financial tracker with sparklines,
- * quarterly comparison tables, margin analysis, and A&M Signal triage.
+ * Workhorse section for A&M consultants -- 15-company financial tracker with
+ * sortable/filterable table, A&M Signal triage badges, inline sparklines,
+ * and toggleable derived intelligence columns (Market Share, Pricing Power,
+ * Competitive Intensity).
  */
 
+import { useState } from "react";
 import { useFilteredData } from "@/hooks/use-filtered-data";
-import { SourceAttribution } from "@/components/source";
 import { SectionSkeleton } from "@/components/ui/SectionSkeleton";
-import type { SectionData } from "@/types/sections";
-import type { SourceTier } from "@/types/source";
-import type { NewsItem } from "@/types/news";
-
-const sampleSource = {
-  source: "Screener.in",
-  confidence: "verified" as const,
-  tier: 1 as SourceTier,
-  lastUpdated: "2026-02-18",
-};
+import type { FinancialData } from "@/types/financial";
+import { FinancialTable } from "./FinancialTable";
+import { DerivedColumnsToggle } from "./DerivedColumnsToggle";
 
 export default function FinancialPerformance() {
-  const { data, isPending, error } = useFilteredData<SectionData>("financial");
-
-  // NEWS-06: graceful empty state
-  const newsItems: NewsItem[] = [];
+  const { data, isPending, error } = useFilteredData<FinancialData>("financial");
+  const [showDerived, setShowDerived] = useState(false);
+  const [selectedCompanyId, setSelectedCompanyId] = useState<string | null>(null);
 
   if (isPending) {
     return <SectionSkeleton variant="table" />;
@@ -43,48 +34,54 @@ export default function FinancialPerformance() {
     );
   }
 
+  if (!data) {
+    return null;
+  }
+
   return (
     <section className="space-y-md">
-      <header>
-        <h2 className="text-xl font-semibold text-text-primary">
-          Financial Performance
-        </h2>
-        <p className="text-sm text-text-secondary mt-xs">
-          Quarterly financials across 15 Consumer Durables companies
-        </p>
+      <header className="flex items-start justify-between gap-md">
+        <div>
+          <h2 className="text-xl font-semibold text-text-primary">
+            Financial Performance
+          </h2>
+          <p className="text-sm text-text-secondary mt-xs">
+            Quarterly financials across {data.companies.length} Consumer Durables
+            companies
+          </p>
+        </div>
+
+        <DerivedColumnsToggle
+          columns={data.derivedColumns}
+          visible={showDerived}
+          onToggle={() => setShowDerived((v) => !v)}
+        />
       </header>
 
-      <div className="rounded border border-border-default bg-surface-raised p-lg">
-        <p className="text-sm text-text-secondary">
-          <span className="font-medium text-text-primary">Coming in Phase 2:</span>{" "}
-          15-company financial tracker with inline sparklines, quarterly revenue
-          and margin comparison tables, segment-level breakdown, and A&M Signal
-          triage highlighting which companies need advisory intervention.
-        </p>
+      <FinancialTable
+        companies={data.companies}
+        derivedColumns={data.derivedColumns}
+        showDerived={showDerived}
+        onRowClick={(row) => {
+          setSelectedCompanyId(row.id);
+          // Modal will be added in Plan 04
+          if (process.env.NODE_ENV === "development") {
+            console.log("Selected company:", row.id, row.name);
+          }
+        }}
+      />
 
-        {data && (
-          <p className="text-xs text-text-muted mt-sm">
-            Data loaded for section: {data.section}
-            {data.dataAsOf ? ` (as of ${data.dataAsOf})` : ""}
-          </p>
-        )}
-      </div>
-
-      {/* NEWS_DATA_SLOT */}
-      {newsItems.length > 0 && (
-        <div className="rounded border border-border-default bg-surface-raised p-md">
-          <h3 className="text-sm font-medium text-text-primary mb-sm">
-            Related News
-          </h3>
-          {newsItems.map((item) => (
-            <p key={item.id} className="text-xs text-text-secondary">
-              {item.headline}
-            </p>
-          ))}
+      {selectedCompanyId && (
+        <div className="sr-only" aria-live="polite">
+          Selected: {selectedCompanyId}
         </div>
       )}
 
-      <SourceAttribution source={sampleSource} />
+      {data.dataAsOf && (
+        <p className="text-[10px] text-text-muted text-right">
+          Data as of {data.dataAsOf}
+        </p>
+      )}
     </section>
   );
 }
