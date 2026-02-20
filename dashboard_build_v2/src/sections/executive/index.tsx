@@ -1,29 +1,30 @@
 /**
- * Executive Snapshot section stub.
+ * Executive Snapshot section.
  *
- * Priority stub demonstrating the full data pipeline:
- * useFilteredData -> TanStack Query -> data loader -> JSON
+ * The first thing A&M leadership sees. Answers "what's the opportunity?"
+ * with Intelligence Grade, quantified advisory opportunity, and
+ * prioritized themes/flags.
  *
- * Phase 2 will flesh out: Intelligence Grade, Big Themes, Red Flags,
- * sector-wide KPI cards, and performance heatmap.
+ * EXEC-01: Intelligence Grade badge
+ * EXEC-02: A&M Opportunity Summary card
+ * EXEC-03: Big Themes with source citations
+ * EXEC-04: Red Flags with service line tags
+ * EXEC-05: Narrative Risks (Talk vs Walk)
  */
 
 import { useFilteredData } from "@/hooks/use-filtered-data";
-import { SourceAttribution } from "@/components/source";
 import { SectionSkeleton } from "@/components/ui/SectionSkeleton";
-import type { SectionData } from "@/types/sections";
-import type { SourceTier } from "@/types/source";
+import type { ExecutiveData } from "@/types/executive";
 import type { NewsItem } from "@/types/news";
 
-const sampleSource = {
-  source: "Screener.in",
-  confidence: "verified" as const,
-  tier: 1 as SourceTier,
-  lastUpdated: "2026-02-18",
-};
+import { IntelligenceGrade } from "./IntelligenceGrade";
+import { OpportunitySummary } from "./OpportunitySummary";
+import { BigThemes } from "./BigThemes";
+import { RedFlags } from "./RedFlags";
+import { NarrativeRisks } from "./NarrativeRisks";
 
 export default function ExecutiveSnapshot() {
-  const { data, isPending, error } = useFilteredData<SectionData>("executive");
+  const { data, isPending, error } = useFilteredData<ExecutiveData>("executive");
 
   // NEWS-06: graceful empty state
   const newsItems: NewsItem[] = [];
@@ -43,31 +44,42 @@ export default function ExecutiveSnapshot() {
     );
   }
 
+  if (!data) return null;
+
+  const {
+    intelligenceGrade,
+    opportunitySummary,
+    bigThemes,
+    redFlags,
+    narrativeRisks,
+  } = data;
+
   return (
-    <section className="space-y-md">
-      <header>
-        <h2 className="text-xl font-semibold text-text-primary">
-          Executive Snapshot
-        </h2>
-        <p className="text-sm text-text-secondary mt-xs">
-          Sector-wide intelligence at a glance
-        </p>
+    <section className="space-y-md animate-fade-in">
+      {/* Header row: title + Intelligence Grade badge */}
+      <header className="flex items-start justify-between">
+        <div>
+          <h2 className="text-xl font-semibold text-text-primary">
+            Executive Snapshot
+          </h2>
+          <p className="text-sm text-text-secondary mt-xs">
+            Sector-wide intelligence at a glance
+          </p>
+        </div>
+        <IntelligenceGrade grade={intelligenceGrade} />
       </header>
 
-      <div className="rounded border border-border-default bg-surface-raised p-lg">
-        <p className="text-sm text-text-secondary">
-          <span className="font-medium text-text-primary">Coming in Phase 2:</span>{" "}
-          Intelligence Grade with confidence scoring, Big Themes driving the
-          sector, Red Flags requiring immediate attention, sector-wide KPI
-          summary cards, and company performance heatmap.
-        </p>
+      {/* Opportunity Summary -- the punchline */}
+      <OpportunitySummary summary={opportunitySummary} />
 
-        {data && (
-          <p className="text-xs text-text-muted mt-sm">
-            Data loaded for section: {data.section}
-            {data.dataAsOf ? ` (as of ${data.dataAsOf})` : ""}
-          </p>
-        )}
+      {/* Two-column grid: Big Themes left, Red Flags + Narrative Risks right */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-md">
+        <BigThemes themes={bigThemes} />
+
+        <div className="space-y-md">
+          <RedFlags flags={redFlags} />
+          <NarrativeRisks risks={narrativeRisks} />
+        </div>
       </div>
 
       {/* NEWS_DATA_SLOT */}
@@ -84,7 +96,14 @@ export default function ExecutiveSnapshot() {
         </div>
       )}
 
-      <SourceAttribution source={sampleSource} />
+      {/* Data freshness footer */}
+      {(data.dataAsOf || data.lastUpdated) && (
+        <footer className="text-[10px] text-text-muted text-right pt-sm border-t border-border-default">
+          {data.dataAsOf && <span>Data as of {data.dataAsOf}</span>}
+          {data.dataAsOf && data.lastUpdated && <span> | </span>}
+          {data.lastUpdated && <span>Last updated {data.lastUpdated}</span>}
+        </footer>
+      )}
     </section>
   );
 }
