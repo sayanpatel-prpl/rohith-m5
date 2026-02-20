@@ -31,13 +31,15 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. Source attribution component displays on all test sections with tier badges (T1-T4)
   4. Filter system persists state to URL and applies filters across sections
   5. Progress tracking files (PROGRESS.md, DECISIONS.md, DATA_CATALOG.md, SOURCE_REFERENCE.md) exist and are populated
-**Plans:** 4 plans
+**Plans:** 6 plans
 
 Plans:
-- [ ] 01-01-PLAN.md — Project scaffolding, types, theme tokens, and utility libraries
-- [ ] 01-02-PLAN.md — Data loaders, company registry, state management, and data hooks
-- [ ] 01-03-PLAN.md — Source attribution, A&M service line tags, chart/table wrappers, UI primitives
-- [ ] 01-04-PLAN.md — App shell, routing, branding, section stubs, and tracking files
+- [ ] 01-01-PLAN.md — Project scaffolding and utility libraries
+- [ ] 01-05-PLAN.md — TypeScript type definitions and theme tokens
+- [ ] 01-02-PLAN.md — Data loaders, company registry, news API, state management, and data hooks
+- [ ] 01-03-PLAN.md — Source attribution, news credibility indicators, A&M service line tags, chart/table wrappers, UI primitives
+- [ ] 01-04-PLAN.md — App shell, routing, branding, layout components, and tracking files
+- [ ] 01-06-PLAN.md — Section stubs and lazy-loading registry
 
 ### Phase 2: Priority Sections (Executive + Financial + Watchlist)
 **Goal**: Deliver the three highest-impact sections that answer "where's the BD opportunity?"
@@ -116,7 +118,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation & Infrastructure | 0/4 | Planning complete | - |
+| 1. Foundation & Infrastructure | 0/6 | Planning complete | - |
 | 2. Priority Sections (Executive + Financial + Watchlist) | 0/TBD | Not started | - |
 | 3. Section Group A (Market + Deals + Leadership) | 0/TBD | Not started | - |
 | 4. Section Group B (Operations + Competitive + Sub-Sector) | 0/TBD | Not started | - |
