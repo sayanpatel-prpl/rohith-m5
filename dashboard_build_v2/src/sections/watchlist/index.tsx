@@ -1,31 +1,28 @@
 /**
- * Watchlist & Forward Indicators section stub.
+ * Watchlist & Forward Indicators Section (WTCH-01 through WTCH-04)
  *
- * Priority stub demonstrating the full data pipeline:
- * useFilteredData -> TanStack Query -> data loader -> JSON
+ * Displays 4 quadrants of forward-looking signals:
+ * - Stress Indicators: companies under financial distress
+ * - Likely Fundraises: companies likely to raise capital
+ * - Margin Inflection: margin trend reversals (positive or negative)
+ * - Consolidation Targets: small-cap underperformers ripe for M&A
  *
- * Phase 2 will flesh out: 4-quadrant watchlist matrix, stress scoring,
- * severity indicators, catalyst tracking, and forward-looking signals.
+ * Each entry shows severity (1-5), A&M service line, source attribution.
+ * Stress model methodology is explained in an expandable panel.
  */
 
 import { useFilteredData } from "@/hooks/use-filtered-data";
-import { SourceAttribution } from "@/components/source";
 import { SectionSkeleton } from "@/components/ui/SectionSkeleton";
-import type { SectionData } from "@/types/sections";
-import type { SourceTier } from "@/types/source";
+import { QuadrantCard } from "./QuadrantCard";
+import { StressModelInfo } from "./StressModelInfo";
+import { formatDate } from "@/lib/formatters";
+import type { WatchlistData } from "@/types/watchlist";
 import type { NewsItem } from "@/types/news";
 
-const sampleSource = {
-  source: "Trendlyne",
-  confidence: "verified" as const,
-  tier: 1 as SourceTier,
-  lastUpdated: "2026-02-18",
-};
-
 export default function WatchlistForwardIndicators() {
-  const { data, isPending, error } = useFilteredData<SectionData>("watchlist");
+  const { data, isPending, error } = useFilteredData<WatchlistData>("watchlist");
 
-  // NEWS-06: graceful empty state
+  // NEWS_DATA_SLOT: graceful empty state for future news integration
   const newsItems: NewsItem[] = [];
 
   if (isPending) {
@@ -47,6 +44,7 @@ export default function WatchlistForwardIndicators() {
 
   return (
     <section className="space-y-md">
+      {/* Header */}
       <header>
         <h2 className="text-xl font-semibold text-text-primary">
           Watchlist & Forward Indicators
@@ -56,21 +54,49 @@ export default function WatchlistForwardIndicators() {
         </p>
       </header>
 
-      <div className="rounded border border-border-default bg-surface-raised p-lg">
-        <p className="text-sm text-text-secondary">
-          <span className="font-medium text-text-primary">Coming in Phase 2:</span>{" "}
-          4-quadrant watchlist matrix (Watch/Alert/Monitor/Track), composite
-          stress scoring with weighted signals, severity indicators for risk
-          assessment, catalyst tracking, and forward-looking market signals.
-        </p>
+      {/* Stress Model methodology panel */}
+      {data?.stressModel && <StressModelInfo model={data.stressModel} />}
 
-        {data && (
-          <p className="text-xs text-text-muted mt-sm">
-            Data loaded for section: {data.section}
-            {data.dataAsOf ? ` (as of ${data.dataAsOf})` : ""}
-          </p>
-        )}
-      </div>
+      {/* 2x2 Quadrant Grid */}
+      {data?.quadrants && (
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-md">
+          {/* Top-left: Stress Indicators (red accent) */}
+          <QuadrantCard
+            title="Stress Indicators"
+            icon="!!"
+            entries={data.quadrants.stressIndicators}
+            accentColor="var(--color-negative)"
+            emptyMessage="No stress signals detected"
+          />
+
+          {/* Top-right: Likely Fundraises (green accent) */}
+          <QuadrantCard
+            title="Likely Fundraises"
+            icon="$"
+            entries={data.quadrants.likelyFundraises}
+            accentColor="var(--color-positive)"
+            emptyMessage="No fundraise signals detected"
+          />
+
+          {/* Bottom-left: Margin Inflection (amber accent) */}
+          <QuadrantCard
+            title="Margin Inflection"
+            icon="~"
+            entries={data.quadrants.marginInflection}
+            accentColor="var(--color-am-improvement)"
+            emptyMessage="No margin inflection detected"
+          />
+
+          {/* Bottom-right: Consolidation Targets (blue accent) */}
+          <QuadrantCard
+            title="Consolidation Targets"
+            icon="+"
+            entries={data.quadrants.consolidationTargets}
+            accentColor="var(--color-brand-accent)"
+            emptyMessage="No consolidation targets identified"
+          />
+        </div>
+      )}
 
       {/* NEWS_DATA_SLOT */}
       {newsItems.length > 0 && (
@@ -86,7 +112,17 @@ export default function WatchlistForwardIndicators() {
         </div>
       )}
 
-      <SourceAttribution source={sampleSource} />
+      {/* Footer: data freshness */}
+      {data && (
+        <div className="flex items-center justify-between text-xs text-text-muted pt-sm border-t border-surface-overlay">
+          {data.dataAsOf && (
+            <span>Data as of {formatDate(data.dataAsOf)}</span>
+          )}
+          {data.lastUpdated && (
+            <span>Last updated {formatDate(data.lastUpdated)}</span>
+          )}
+        </div>
+      )}
     </section>
   );
 }
