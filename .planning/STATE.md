@@ -12,7 +12,7 @@ See: .planning/PROJECT.md (updated 2026-02-20)
 Phase: 2 of 6 (Priority Sections)
 Plan: 5 of 5 in current phase
 Status: In Progress
-Last activity: 2026-02-21 — Completed 02-05-PLAN.md (Watchlist Section)
+Last activity: 2026-02-21 — Completed 02-03-PLAN.md (Financial Performance Section)
 
 Progress: [████████████████░░░░] 55% (12 of 22 plans)
 
@@ -85,6 +85,9 @@ Recent decisions affecting current work:
 - **Severity dots pattern** (02-02): 5 filled/unfilled circles for red flag severity, compact and scannable
 - **color-mix for severity tints** (02-02): Reused oklch color-mix pattern from AMServiceLineTag for severity background tints
 - **Sort order for impact** (02-02): Red flags severity-descending, narrative risks red-first for immediate attention
+- **Standalone FinancialTable** (02-03): Built standalone TanStack Table (not wrapping DataTable) to support row click for Plan 04 modal
+- **Derived values at render** (02-03): Market share, pricing power, competitive intensity computed in table useMemo, not in adapter
+- **Vite alias for echarts subpaths** (02-03): Fixed pre-existing echarts-for-react/core subpath resolution with vite.config.ts aliases
 
 ### Pending Todos
 
@@ -101,5 +104,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-21
-Stopped at: Completed 02-05-PLAN.md (Watchlist Section)
+Stopped at: Completed 02-03-PLAN.md (Financial Performance Section)
 Resume file: None
