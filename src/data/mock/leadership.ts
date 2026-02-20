@@ -74,6 +74,8 @@ const data: LeadershipGovernanceData = {
       changePct: -0.4,
       context:
         "Promoter pledge increased from 12% to 19% of holding; 0.4% stake sold via open market transactions. Combined with MD departure, raises concern about promoter group financial position.",
+      amServiceLineImplication:
+        "Declining promoter + stress signals = Turnaround Advisory opportunity",
     },
     {
       company: "TTK Prestige",
@@ -83,6 +85,8 @@ const data: LeadershipGovernanceData = {
       changePct: -0.7,
       context:
         "Minor stake dilution via GIC block deal; TTK family maintaining 70%+ holding. Strategic intent to improve free-float and institutional ownership mix.",
+      amServiceLineImplication:
+        "Strategic dilution with institutional entry = PE Advisory / Transaction Support",
     },
     {
       company: "Havells India",
@@ -92,6 +96,8 @@ const data: LeadershipGovernanceData = {
       changePct: 0,
       context:
         "Promoter holding stable at 59.4%; zero pledge. Strongest promoter governance profile in coverage universe.",
+      amServiceLineImplication:
+        "Stable holding + zero pledge = Growth Strategy / M&A support for acquisitions",
     },
     {
       company: "V-Guard Industries",
@@ -101,6 +107,8 @@ const data: LeadershipGovernanceData = {
       changePct: -0.4,
       context:
         "Minor dilution through Sunflame deal consideration; promoter remains firmly in control. Chittilappilly family has strong track record of capital allocation.",
+      amServiceLineImplication:
+        "Minor deal-driven dilution = Integration Advisory support",
     },
   ],
   auditorFlags: [
@@ -140,6 +148,67 @@ const data: LeadershipGovernanceData = {
       confidence: "medium",
       explanation:
         "Negative cash flow + near-full working capital facility utilization, despite being part of Crompton group. Integration synergies slower than expected. If Crompton support is withdrawn, standalone viability is questionable.",
+    },
+  ],
+  governanceRiskScores: [
+    {
+      company: "Orient Electric",
+      score: "red",
+      factors: [
+        "MD departure without successor",
+        "Promoter pledge increase 12% to 19%",
+        "Potential stake sale discussions",
+      ],
+      amServiceLine: "Restructuring / Turnaround",
+    },
+    {
+      company: "IFB Industries",
+      score: "red",
+      factors: [
+        "Independent director resignation",
+        "Auditor qualification on related-party transactions",
+        "Board below minimum strength",
+      ],
+      amServiceLine: "Restructuring / Governance Advisory",
+    },
+    {
+      company: "Butterfly Gandhimathi",
+      score: "amber",
+      factors: [
+        "Going concern emphasis",
+        "Negative operating cash flow x3 quarters",
+        "Working capital facility at 92%",
+      ],
+      amServiceLine: "Turnaround / Performance Improvement",
+    },
+    {
+      company: "Symphony",
+      score: "amber",
+      factors: [
+        "Board additions with PE background",
+        "International subsidiary losses",
+        "Potential restructuring signals",
+      ],
+      amServiceLine: "Corporate Restructuring",
+    },
+    {
+      company: "Havells India",
+      score: "green",
+      factors: [
+        "Stable promoter at 59.4%",
+        "Zero pledge",
+        "Strong governance track record",
+      ],
+      amServiceLine: "Growth Strategy / M&A Advisory",
+    },
+    {
+      company: "Voltas",
+      score: "green",
+      factors: [
+        "Planned CFO succession",
+        "Tata group governance framework",
+      ],
+      amServiceLine: "Operations Excellence",
     },
   ],
 };

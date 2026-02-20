@@ -14,6 +14,9 @@ const data: DealsTransactionsData = {
         "Crompton acquiring remaining Butterfly stake to consolidate kitchen appliances portfolio; integration expected to complete by Q1 FY26",
       date: "2024-11-15",
       source: "BSE Disclosure",
+      amAngle: "Integration Support",
+      amAngleRationale:
+        "Post-acquisition integration of Butterfly into Crompton kitchen portfolio -- synergy extraction, distribution rationalization",
     },
     {
       id: "deal-002",
@@ -24,6 +27,9 @@ const data: DealsTransactionsData = {
         "Growth capital for PLI-linked capacity expansion; Amber raising funds to build 3 new component manufacturing lines for inverter ACs",
       date: "2024-12-02",
       source: "Economic Times",
+      amAngle: "Valuation",
+      amAngleRationale:
+        "Growth capital raise requires independent valuation for PLI-linked capacity -- fair value assessment of manufacturing assets",
     },
     {
       id: "deal-003",
@@ -34,6 +40,9 @@ const data: DealsTransactionsData = {
         "V-Guard completing Sunflame integration; combined entity targets 15% kitchen appliances market share in South and West India",
       date: "2024-10-20",
       source: "BSE Disclosure",
+      amAngle: "Integration Support",
+      amAngleRationale:
+        "Kitchen appliances portfolio merger -- brand architecture, supply chain consolidation advisory",
     },
     {
       id: "deal-004",
@@ -44,6 +53,9 @@ const data: DealsTransactionsData = {
         "Funding new EMS facility in Noida for white goods OEM manufacturing; targeting Samsung and LG contract wins",
       date: "2024-12-18",
       source: "Mint",
+      amAngle: "CDD Opportunity",
+      amAngleRationale:
+        "Commercial due diligence for EMS facility investment -- validate Samsung/LG contract pipeline and capacity assumptions",
     },
     {
       id: "deal-005",
@@ -54,6 +66,9 @@ const data: DealsTransactionsData = {
         "CK Birla group exploring partial stake sale in Orient Electric amid promoter pledge concerns; discussions reportedly at early stage",
       date: "2025-01-05",
       source: "Business Standard (unnamed sources)",
+      amAngle: "Restructuring",
+      amAngleRationale:
+        "Promoter stake sale amid pledge concerns -- potential restructuring or turnaround advisory if financial stress deepens",
     },
     {
       id: "deal-006",
@@ -64,6 +79,9 @@ const data: DealsTransactionsData = {
         "Market speculation around Daikin India IPO at $2-3B valuation; parent Daikin Industries reportedly evaluating partial listing of India operations",
       date: "2025-01-10",
       source: "Moneycontrol (market speculation)",
+      amAngle: "Valuation",
+      amAngleRationale:
+        "IPO valuation advisory for India operations carve-out -- complex multinational parent structure",
     },
     {
       id: "deal-007",
@@ -74,6 +92,9 @@ const data: DealsTransactionsData = {
         "Havells acquiring D2C kitchen appliance brand to accelerate online channel presence; acqui-hire of 40-person digital team",
       date: "2024-11-28",
       source: "YourStory",
+      amAngle: "CDD Opportunity",
+      amAngleRationale:
+        "Acqui-hire due diligence -- validate D2C brand revenue, customer acquisition costs, digital team capabilities",
     },
     {
       id: "deal-008",
@@ -84,6 +105,9 @@ const data: DealsTransactionsData = {
         "GIC taking 4.5% stake via block deal; long-term bet on Indian premium kitchen appliances market growth",
       date: "2024-12-22",
       source: "NSE Block Deal",
+      amAngle: "Valuation",
+      amAngleRationale:
+        "Block deal pricing and institutional placement advisory -- GIC entry at premium valuation",
     },
   ],
   aiPatterns: [
