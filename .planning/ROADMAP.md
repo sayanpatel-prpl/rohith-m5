@@ -12,7 +12,7 @@ This roadmap delivers a consulting-grade intelligence dashboard for Alvarez & Ma
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Foundation & Infrastructure** - Project setup, data layer, global components
+- [x] **Phase 1: Foundation & Infrastructure** - Project setup, data layer, global components
 - [ ] **Phase 2: Priority Sections (Executive + Financial + Watchlist)** - Highest-value sections for presentation
 - [ ] **Phase 3: Section Group A (Market + Deals + Leadership)** - Market context and deal intelligence
 - [ ] **Phase 4: Section Group B (Operations + Competitive + Sub-Sector)** - Operational and competitive intelligence
@@ -34,12 +34,12 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans:** 6 plans
 
 Plans:
-- [ ] 01-01-PLAN.md — Project scaffolding and utility libraries
-- [ ] 01-05-PLAN.md — TypeScript type definitions and theme tokens
-- [ ] 01-02-PLAN.md — Data loaders, company registry, news API, state management, and data hooks
-- [ ] 01-03-PLAN.md — Source attribution, news credibility indicators, A&M service line tags, chart/table wrappers, UI primitives
-- [ ] 01-04-PLAN.md — App shell, routing, branding, layout components, and tracking files
-- [ ] 01-06-PLAN.md — Section stubs and lazy-loading registry
+- [x] 01-01-PLAN.md — Project scaffolding and utility libraries
+- [x] 01-05-PLAN.md — TypeScript type definitions and theme tokens
+- [x] 01-02-PLAN.md — Data loaders, company registry, news API, state management, and data hooks
+- [x] 01-03-PLAN.md — Source attribution, news credibility indicators, A&M service line tags, chart/table wrappers, UI primitives
+- [x] 01-04-PLAN.md — App shell, routing, branding, layout components, and tracking files
+- [x] 01-06-PLAN.md — Section stubs and lazy-loading registry
 
 ### Phase 2: Priority Sections (Executive + Financial + Watchlist)
 **Goal**: Deliver the three highest-impact sections that answer "where's the BD opportunity?"
@@ -51,9 +51,14 @@ Plans:
   3. Company modal opens with financial details, Talk vs Walk tab, and A&M engagement suggestions
   4. Watchlist displays all 4 quadrants with stress scoring, severity indicators, and A&M service line tags
   5. All sections show only real data from data_sources or "-" for unavailable data (no mock-data classes)
-**Plans**: TBD
+**Plans:** 5 plans
 
-Plans: TBD
+Plans:
+- [ ] 02-01-PLAN.md — Section types, data adapters, and query wiring
+- [ ] 02-02-PLAN.md — Executive Snapshot section UI
+- [ ] 02-03-PLAN.md — Financial Performance table with sparklines and A&M Signal
+- [ ] 02-04-PLAN.md — Company Modal with Talk vs Walk and engagement suggestions
+- [ ] 02-05-PLAN.md — Watchlist & Forward Indicators with 4-quadrant layout
 
 ### Phase 3: Section Group A (Market + Deals + Leadership)
 **Goal**: Add market context, deal intelligence, and governance insights
@@ -118,8 +123,8 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation & Infrastructure | 0/6 | Planning complete | - |
-| 2. Priority Sections (Executive + Financial + Watchlist) | 0/TBD | Not started | - |
+| 1. Foundation & Infrastructure | 6/6 | Complete | 2026-02-21 |
+| 2. Priority Sections (Executive + Financial + Watchlist) | 0/5 | Not started | - |
 | 3. Section Group A (Market + Deals + Leadership) | 0/TBD | Not started | - |
 | 4. Section Group B (Operations + Competitive + Sub-Sector) | 0/TBD | Not started | - |
 | 5. Cross-Cutting Features | 0/TBD | Not started | - |
