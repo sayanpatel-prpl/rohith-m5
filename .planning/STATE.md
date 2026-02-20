@@ -10,27 +10,27 @@ See: .planning/PROJECT.md (updated 2026-02-20)
 ## Current Position
 
 Phase: 1 of 6 (Foundation & Infrastructure)
-Plan: 5 of 6 in current phase
+Plan: 1 of 6 in current phase
 Status: Executing
-Last activity: 2026-02-20 — Completed 01-05-PLAN.md (Types & Theme Tokens)
+Last activity: 2026-02-21 — Completed 01-01-PLAN.md (Project Scaffold & Utility Libraries)
 
-Progress: [████░░░░░░] 40%
+Progress: [███░░░░░░░] 33%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 1
-- Average duration: 4 min
-- Total execution time: 0.07 hours
+- Total plans completed: 2
+- Average duration: 5.5 min
+- Total execution time: 0.18 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 01-foundation | 1 | 4min | 4min |
+| 01-foundation | 2 | 11min | 5.5min |
 
 **Recent Trend:**
-- Last 5 plans: 01-05 (4min)
+- Last 5 plans: 01-05 (4min), 01-01 (7min)
 - Trend: Starting
 
 *Updated after each plan completion*
@@ -52,6 +52,9 @@ Recent decisions affecting current work:
 - **Source tier badge colors** (01-05): oklch values matching A&M action-type color approach (green T1, blue T2, amber T3, red T4)
 - **Tokens aligned with v1** (01-05): Realigned scaffold tokens.css to match v1 brand colors, chart palette, and spacing
 - **Company subSector typed** (01-05): Strict union of 6 categories (AC, Kitchen, Electrical, EMS, Mixed, Cooler)
+- **ECharts v5 over v6** (01-01): Used ^5.5 for proven echarts-for-react v3 compatibility
+- **VARIANT_MAP for company normalization** (01-01): 50+ variant mappings for cross-source ID normalization
+- **Source registry pattern** (01-01): Known-source matching prevents filenames from leaking into UI
 
 ### Pending Todos
 
@@ -67,6 +70,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-02-20
-Stopped at: Completed 01-05-PLAN.md (Types & Theme Tokens)
+Last session: 2026-02-21
+Stopped at: Completed 01-01-PLAN.md (Project Scaffold & Utility Libraries)
 Resume file: None
