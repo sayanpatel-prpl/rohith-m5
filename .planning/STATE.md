@@ -66,6 +66,10 @@ Recent decisions affecting current work:
 - **lazySections typed as Record<SectionId>** (01-06): Compile-time completeness check ensures all 11 section IDs have lazy imports
 - **Priority stubs wire useFilteredData** (01-06): Executive, financial, watchlist validate the full data pipeline end-to-end
 - **SectionSkeleton variant per section** (01-06): Mixed for executive, table for financial, cards for watchlist
+- **A&M as default tenant** (01-04): getBrandConfig falls back to amBrand, default redirect /am/report
+- **No ReactQueryDevtools** (01-04): Production presentation build excludes devtools
+- **Native HTML select for FilterBar** (01-04): Simpler than Radix for deadline, avoids extra bundle size
+- **Theme toggle cycles** (01-04): light -> dark -> system single-button cycle
 
 ### Pending Todos
 
@@ -82,5 +86,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-21
-Stopped at: Completed 01-06-PLAN.md (Section Stubs & Lazy Registry)
+Stopped at: Completed 01-04-PLAN.md (App Shell & Layout Integration)
 Resume file: None
