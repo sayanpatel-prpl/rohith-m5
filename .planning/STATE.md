@@ -10,29 +10,29 @@ See: .planning/PROJECT.md (updated 2026-02-20)
 ## Current Position
 
 Phase: 2 of 6 (Priority Sections)
-Plan: 1 of 5 in current phase
+Plan: 5 of 5 in current phase
 Status: In Progress
-Last activity: 2026-02-21 — Completed 02-01-PLAN.md (Section Types & Data Adapters)
+Last activity: 2026-02-21 — Completed 02-05-PLAN.md (Watchlist Section)
 
-Progress: [███████████░░░░░░░░░] 32% (7 of 22 plans)
+Progress: [████████████████░░░░] 55% (12 of 22 plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 7
-- Average duration: 4.57 min
-- Total execution time: 0.53 hours
+- Total plans completed: 8
+- Average duration: 4.25 min
+- Total execution time: 0.57 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01-foundation | 6 | 25min | 4.17min |
-| 02-priority-sections | 1 | 7min | 7min |
+| 02-priority-sections | 2 | 9min | 4.5min |
 
 **Recent Trend:**
-- Last 5 plans: 02-01 (7min), 01-06 (3min), 01-04 (3min), 01-02 (4min), 01-03 (4min)
-- Trend: Stable
+- Last 5 plans: 02-05 (2min), 02-01 (7min), 01-06 (3min), 01-04 (3min), 01-02 (4min)
+- Trend: Accelerating
 
 *Updated after each plan completion*
 
@@ -77,6 +77,10 @@ Recent decisions affecting current work:
 - **Dynamic P25 stress threshold** (02-01): 25th percentile EBITDA margin computed from actual data, not hardcoded
 - **Narrative Risk detection** (02-01): Cross-reference Sovrenn quarterly tags vs actual profit growth for red/green disconnects
 - **Fundraise multi-signal scoring** (02-01): Require 2+ of 4 indicators (capex, deal activity, promoter decline, cash decline) to avoid false positives
+- **Type alias for name collision** (02-05): Import WatchlistEntry type as WatchlistEntryData to avoid collision with WatchlistEntryRow component
+- **Text icons over emojis** (02-05): Used plain text characters for quadrant headers per project no-emoji convention
+- **Accent color as prop** (02-05): Passed accentColor string to QuadrantCard rather than deriving from title
+- **CSS variable severity colors** (02-05): Tailwind arbitrary value syntax bg-[var(--color-X)] for theme-consistent severity dots
 
 ### Pending Todos
 
@@ -93,5 +97,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-21
-Stopped at: Completed 02-01-PLAN.md (Section Types & Data Adapters)
+Stopped at: Completed 02-05-PLAN.md (Watchlist Section)
 Resume file: None
