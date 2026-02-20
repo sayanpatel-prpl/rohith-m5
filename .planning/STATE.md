@@ -5,33 +5,34 @@
 See: .planning/PROJECT.md (updated 2026-02-20)
 
 **Core value:** Every section answers "where's the BD opportunity?" — sourced signals that help A&M partners identify which companies need help, what kind, and when to reach out.
-**Current focus:** Phase 1 - Foundation & Infrastructure
+**Current focus:** Phase 2 - Priority Sections
 
 ## Current Position
 
-Phase: 1 of 6 (Foundation & Infrastructure)
-Plan: 6 of 6 in current phase
-Status: Phase Complete
-Last activity: 2026-02-21 — Completed 01-06-PLAN.md (Section Stubs & Lazy Registry)
+Phase: 2 of 6 (Priority Sections)
+Plan: 1 of 5 in current phase
+Status: In Progress
+Last activity: 2026-02-21 — Completed 02-01-PLAN.md (Section Types & Data Adapters)
 
-Progress: [██████████] 100%
+Progress: [███████████░░░░░░░░░] 32% (7 of 22 plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 6
-- Average duration: 4.17 min
-- Total execution time: 0.42 hours
+- Total plans completed: 7
+- Average duration: 4.57 min
+- Total execution time: 0.53 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01-foundation | 6 | 25min | 4.17min |
+| 02-priority-sections | 1 | 7min | 7min |
 
 **Recent Trend:**
-- Last 5 plans: 01-06 (3min), 01-04 (3min), 01-02 (4min), 01-03 (4min), 01-05 (4min)
-- Trend: Accelerating
+- Last 5 plans: 02-01 (7min), 01-06 (3min), 01-04 (3min), 01-02 (4min), 01-03 (4min)
+- Trend: Stable
 
 *Updated after each plan completion*
 
@@ -70,6 +71,12 @@ Recent decisions affecting current work:
 - **No ReactQueryDevtools** (01-04): Production presentation build excludes devtools
 - **Native HTML select for FilterBar** (01-04): Simpler than Radix for deadline, avoids extra bundle size
 - **Theme toggle cycles** (01-04): light -> dark -> system single-button cycle
+- **Cross-source CompanyDataBundle** (02-01): Bundle all 4 loader results per company ID for unified cross-referencing in adapters
+- **Intelligence Grade from coverage** (02-01): Grade based on how many companies have 3+ source coverage (14+ = A, 10-13 = B+, etc.)
+- **AM Signal triage thresholds** (02-01): turnaround at -10% rev or <3% margin, improvement below sector median, transaction for outperformers with low D/E
+- **Dynamic P25 stress threshold** (02-01): 25th percentile EBITDA margin computed from actual data, not hardcoded
+- **Narrative Risk detection** (02-01): Cross-reference Sovrenn quarterly tags vs actual profit growth for red/green disconnects
+- **Fundraise multi-signal scoring** (02-01): Require 2+ of 4 indicators (capex, deal activity, promoter decline, cash decline) to avoid false positives
 
 ### Pending Todos
 
@@ -86,5 +93,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-21
-Stopped at: Completed 01-04-PLAN.md (App Shell & Layout Integration)
+Stopped at: Completed 02-01-PLAN.md (Section Types & Data Adapters)
 Resume file: None
