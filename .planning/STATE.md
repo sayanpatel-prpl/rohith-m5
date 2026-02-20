@@ -10,28 +10,28 @@ See: .planning/PROJECT.md (updated 2026-02-20)
 ## Current Position
 
 Phase: 1 of 6 (Foundation & Infrastructure)
-Plan: 1 of 6 in current phase
+Plan: 3 of 6 in current phase
 Status: Executing
-Last activity: 2026-02-21 — Completed 01-01-PLAN.md (Project Scaffold & Utility Libraries)
+Last activity: 2026-02-21 — Completed 01-03-PLAN.md (Shared UI Components)
 
-Progress: [███░░░░░░░] 33%
+Progress: [█████░░░░░] 50%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 2
-- Average duration: 5.5 min
-- Total execution time: 0.18 hours
+- Total plans completed: 3
+- Average duration: 5 min
+- Total execution time: 0.25 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 01-foundation | 2 | 11min | 5.5min |
+| 01-foundation | 3 | 15min | 5min |
 
 **Recent Trend:**
-- Last 5 plans: 01-05 (4min), 01-01 (7min)
-- Trend: Starting
+- Last 5 plans: 01-03 (4min), 01-05 (4min), 01-01 (7min)
+- Trend: Accelerating
 
 *Updated after each plan completion*
 
@@ -55,6 +55,10 @@ Recent decisions affecting current work:
 - **ECharts v5 over v6** (01-01): Used ^5.5 for proven echarts-for-react v3 compatibility
 - **VARIANT_MAP for company normalization** (01-01): 50+ variant mappings for cross-source ID normalization
 - **Source registry pattern** (01-01): Known-source matching prevents filenames from leaking into UI
+- **Inline style for tier colors** (01-03): var(--color-tier-X) via inline style for reliable rendering regardless of Tailwind v4 utility generation
+- **color-mix for AM tints** (01-03): Native CSS color-mix(in oklch) for 10% tint backgrounds on service line tags
+- **echarts-for-react/core** (01-03): Import from /core subpath to inject custom tree-shaken echarts instance
+- **Generic DataTable** (01-03): <T> generic prop for type-safe column definitions across all section tables
 
 ### Pending Todos
 
@@ -71,5 +75,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-21
-Stopped at: Completed 01-01-PLAN.md (Project Scaffold & Utility Libraries)
+Stopped at: Completed 01-03-PLAN.md (Shared UI Components)
 Resume file: None
