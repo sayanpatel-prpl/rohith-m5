@@ -19,18 +19,18 @@ Progress: [█████░░░░░] 50%
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 3
-- Average duration: 5 min
-- Total execution time: 0.25 hours
+- Total plans completed: 4
+- Average duration: 4.75 min
+- Total execution time: 0.32 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 01-foundation | 3 | 15min | 5min |
+| 01-foundation | 4 | 19min | 4.75min |
 
 **Recent Trend:**
-- Last 5 plans: 01-03 (4min), 01-05 (4min), 01-01 (7min)
+- Last 5 plans: 01-02 (4min), 01-03 (4min), 01-05 (4min), 01-01 (7min)
 - Trend: Accelerating
 
 *Updated after each plan completion*
@@ -59,6 +59,10 @@ Recent decisions affecting current work:
 - **color-mix for AM tints** (01-03): Native CSS color-mix(in oklch) for 10% tint backgrounds on service line tags
 - **echarts-for-react/core** (01-03): Import from /core subpath to inject custom tree-shaken echarts instance
 - **Generic DataTable** (01-03): <T> generic prop for type-safe column definitions across all section tables
+- **buildSectionData placeholder** (01-02): Uses financial-api loader as closest to section shape; section adapters deferred to Phase 2
+- **Company registry includes daikin/jch** (01-02): Included with inferred metadata despite absence from most data files
+- **News loader cached empty array** (01-02): Ready for zero-code-change news JSON integration
+- **Query factories for 11 sections** (01-02): Covers all SectionIds including am-value-add and what-this-means
 
 ### Pending Todos
 
