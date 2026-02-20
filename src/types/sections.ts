@@ -71,6 +71,8 @@ export interface MarketPulseData extends SectionDataBase {
     signal: string;
     direction: TrendDirection;
     magnitude: string;
+    /** Data provenance: how this signal was sourced/validated */
+    dataConfidence: "Verified" | "Management Guidance Interpretation" | "Estimated";
   }>;
   /** Key input cost trends */
   inputCosts: Array<{
@@ -78,6 +80,8 @@ export interface MarketPulseData extends SectionDataBase {
     trend: TrendDirection;
     qoqChange: number;
     yoyChange: number;
+    /** A&M advisory implication of this commodity trend */
+    amImplication: string;
   }>;
   /** Indexed quarterly time series for multi-line input cost chart (base 100) */
   inputCostHistory?: Array<{
@@ -92,6 +96,26 @@ export interface MarketPulseData extends SectionDataBase {
     currentSharePct: number;
     previousSharePct: number;
     trend: TrendDirection;
+  }>;
+  /** A&M thought leadership callout referencing alvarezandmarsal.com content */
+  amThoughtLeadership: {
+    title: string;
+    summary: string;
+    url: string;
+    source: string;
+  };
+  /** Policy tracker for government schemes affecting the sector */
+  policyTracker?: Array<{
+    policy: string;
+    status: "active" | "upcoming" | "expired";
+    impact: string;
+    affectedCompanies: string[];
+  }>;
+  /** Seasonal demand patterns */
+  seasonalPatterns?: Array<{
+    pattern: string;
+    timing: string;
+    implication: string;
   }>;
 }
 
@@ -109,6 +133,15 @@ export interface DealsTransactionsData extends SectionDataBase {
     rationale: string;
     date: string;
     source: string;
+    /** A&M service angle for this deal */
+    amAngle:
+      | "CDD Opportunity"
+      | "Integration Support"
+      | "Carve-out Advisory"
+      | "Valuation"
+      | "Restructuring";
+    /** Brief rationale for why this A&M angle applies */
+    amAngleRationale: string;
   }>;
   /** AI-detected patterns across deal activity */
   aiPatterns: Array<{
@@ -180,6 +213,8 @@ export interface LeadershipGovernanceData extends SectionDataBase {
     currentPct: number;
     changePct: number;
     context: string;
+    /** A&M service line implication based on promoter stake movement pattern */
+    amServiceLineImplication: string;
   }>;
   auditorFlags: Array<{
     company: string;
@@ -193,6 +228,13 @@ export interface LeadershipGovernanceData extends SectionDataBase {
     riskType: string;
     confidence: ConfidenceLevel;
     explanation: string;
+  }>;
+  /** Per-company governance risk scoring for LEAD-02 */
+  governanceRiskScores: Array<{
+    company: string;
+    score: "red" | "amber" | "green";
+    factors: string[];
+    amServiceLine: string;
   }>;
 }
 

@@ -13,7 +13,7 @@ This roadmap delivers a consulting-grade intelligence dashboard for Alvarez & Ma
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Foundation & Infrastructure** - Project setup, data layer, global components
-- [ ] **Phase 2: Priority Sections (Executive + Financial + Watchlist)** - Highest-value sections for presentation
+- [x] **Phase 2: Priority Sections (Executive + Financial + Watchlist)** - Highest-value sections for presentation
 - [ ] **Phase 3: Section Group A (Market + Deals + Leadership)** - Market context and deal intelligence
 - [ ] **Phase 4: Section Group B (Operations + Competitive + Sub-Sector)** - Operational and competitive intelligence
 - [ ] **Phase 5: Cross-Cutting Features** - A&M Value-Add section, What This Means For section, Talk vs Walk
@@ -54,11 +54,11 @@ Plans:
 **Plans:** 5 plans
 
 Plans:
-- [ ] 02-01-PLAN.md — Section types, data adapters, and query wiring
-- [ ] 02-02-PLAN.md — Executive Snapshot section UI
-- [ ] 02-03-PLAN.md — Financial Performance table with sparklines and A&M Signal
-- [ ] 02-04-PLAN.md — Company Modal with Talk vs Walk and engagement suggestions
-- [ ] 02-05-PLAN.md — Watchlist & Forward Indicators with 4-quadrant layout
+- [x] 02-01-PLAN.md — Section types, data adapters, and query wiring
+- [x] 02-02-PLAN.md — Executive Snapshot section UI
+- [x] 02-03-PLAN.md — Financial Performance table with sparklines and A&M Signal
+- [x] 02-04-PLAN.md — Company Modal with Talk vs Walk and engagement suggestions
+- [x] 02-05-PLAN.md — Watchlist & Forward Indicators with 4-quadrant layout
 
 ### Phase 3: Section Group A (Market + Deals + Leadership)
 **Goal**: Add market context, deal intelligence, and governance insights
@@ -70,9 +70,13 @@ Plans:
   3. Leadership & Governance section displays real leadership timeline and governance risk scoring per company
   4. All charts and tables in these sections have source attribution with tier badges
   5. News-dependent slots are structurally ready but show graceful empty states (no broken layouts)
-**Plans**: TBD
+**Plans:** 4 plans
 
-Plans: TBD
+Plans:
+- [ ] 03-01-PLAN.md — Type extensions and mock data enrichment for all 3 sections
+- [ ] 03-02-PLAN.md — Market Pulse UI enhancements (A&M implications, thought leadership, policy tracker)
+- [ ] 03-03-PLAN.md — Deals UI enhancements (A&M Angle badges, pattern summary card)
+- [ ] 03-04-PLAN.md — Leadership UI enhancements (governance risk scoring, promoter annotations)
 
 ### Phase 4: Section Group B (Operations + Competitive + Sub-Sector)
 **Goal**: Complete operational intelligence, competitive moves, and sub-sector analysis
@@ -124,8 +128,8 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation & Infrastructure | 6/6 | Complete | 2026-02-21 |
-| 2. Priority Sections (Executive + Financial + Watchlist) | 0/5 | Not started | - |
-| 3. Section Group A (Market + Deals + Leadership) | 0/TBD | Not started | - |
+| 2. Priority Sections (Executive + Financial + Watchlist) | 5/5 | Complete | 2026-02-21 |
+| 3. Section Group A (Market + Deals + Leadership) | 0/4 | Not started | - |
 | 4. Section Group B (Operations + Competitive + Sub-Sector) | 0/TBD | Not started | - |
 | 5. Cross-Cutting Features | 0/TBD | Not started | - |
 | 6. Production Hardening | 0/TBD | Not started | - |

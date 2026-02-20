@@ -12,26 +12,26 @@ See: .planning/PROJECT.md (updated 2026-02-20)
 Phase: 2 of 6 (Priority Sections)
 Plan: 5 of 5 in current phase
 Status: In Progress
-Last activity: 2026-02-21 — Completed 02-03-PLAN.md (Financial Performance Section)
+Last activity: 2026-02-21 — Completed 02-04-PLAN.md (Company Modal)
 
-Progress: [████████████████░░░░] 55% (12 of 22 plans)
+Progress: [█████████████████░░░] 59% (13 of 22 plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 9
-- Average duration: 3.89 min
-- Total execution time: 0.58 hours
+- Total plans completed: 10
+- Average duration: 3.91 min
+- Total execution time: 0.65 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01-foundation | 6 | 25min | 4.17min |
-| 02-priority-sections | 3 | 11min | 3.67min |
+| 02-priority-sections | 4 | 17min | 4.25min |
 
 **Recent Trend:**
-- Last 5 plans: 02-02 (2min), 02-05 (2min), 02-01 (7min), 01-06 (3min), 01-04 (3min)
+- Last 5 plans: 02-04 (6min), 02-02 (2min), 02-05 (2min), 02-01 (7min), 01-06 (3min)
 - Trend: Accelerating
 
 *Updated after each plan completion*
@@ -88,6 +88,10 @@ Recent decisions affecting current work:
 - **Standalone FinancialTable** (02-03): Built standalone TanStack Table (not wrapping DataTable) to support row click for Plan 04 modal
 - **Derived values at render** (02-03): Market share, pricing power, competitive intensity computed in table useMemo, not in adapter
 - **Vite alias for echarts subpaths** (02-03): Fixed pre-existing echarts-for-react/core subpath resolution with vite.config.ts aliases
+- **Native dialog element** (02-04): Used HTML <dialog> with showModal() API for company modal -- native Escape/focus with zero bundle cost
+- **Sovrenn tag cross-referencing** (02-04): Compares quarterly result tags vs actual revenue growth for disconnect/stealth signal detection
+- **Sector avg EBITDA ~10%** (02-04): Used as threshold for margin disconnect detection in Talk vs Walk
+- **Signal-to-service-line mapping** (02-04): turnaround->Restructuring, improvement->CPI, transaction->Transaction Advisory, neutral->Operations
 
 ### Pending Todos
 
@@ -104,5 +108,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-21
-Stopped at: Completed 02-03-PLAN.md (Financial Performance Section)
+Stopped at: Completed 02-04-PLAN.md (Company Modal)
 Resume file: None
