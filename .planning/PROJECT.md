@@ -1,12 +1,12 @@
-# Kompete - Industry Intel
+# Kompete v2 — A&M Consumer Durables Intelligence Dashboard
 
 ## What This Is
 
-An AI-driven interactive industry intelligence report for the Indian Consumer & Retail mid-market, starting with the Consumer Durables category. Built as a multi-tenant SaaS product where each consulting firm (BCG, Alvarez & Marsal, etc.) gets their own branded instance. Partners and MDs use it as a business development radar — spotting engagement opportunities, tracking which companies are under stress or expanding, and walking into prospect meetings already informed.
+A presentation-grade intelligence dashboard for the Indian Consumer Durables sector, built specifically for Alvarez & Marsal (A&M). It transforms raw financial filings, alternative data, and company research into consulting-grade BD intelligence — scoring companies on distress signals, classifying engagement opportunities by A&M service line, and answering "which company should A&M call on Monday, and with what pitch?" across 11 interconnected sections covering 15 tracked companies. Built as a single-file HTML output in `dashboard_build_v2/`.
 
 ## Core Value
 
-Every section answers "where's the BD opportunity?" — not just industry data, but specific signals that help consulting partners identify which companies need help, what kind of help, and when to reach out.
+Every section answers "where's the BD opportunity?" — not just industry data, but specific, sourced signals that help A&M partners identify which companies need help, what kind (Turnaround, CPI, Transaction Advisory, PE Services), and when to reach out.
 
 ## Requirements
 
@@ -16,57 +16,85 @@ Every section answers "where's the BD opportunity?" — not just industry data, 
 
 ### Active
 
-- [ ] Executive Snapshot — month in 5 bullets, big themes, red flags/watchlist with AI confidence scores
-- [ ] Market Pulse — demand signals, input cost trends, margin outlook, channel mix shifts for Consumer Durables mid-market
-- [ ] Financial Performance Tracker — standardized metrics (revenue growth, EBITDA margin, working capital days, ROCE, etc.) for 15-20 Consumer Durables companies with AI variance analysis and outperform/inline/underperform tagging
-- [ ] Deals, Transactions & Capital Movements — M&A, PE/VC investments, IPO filings, distressed asset activity with AI pattern recognition
-- [ ] Operational Intelligence — supply chain signals, manufacturing capacity, procurement shifts, retail expansion/rationalization
-- [ ] Leadership & Governance Watch — CXO changes, board reshuffles, promoter stake changes, auditor resignations with AI risk flags
-- [ ] Competitive Moves & Strategic Bets — product launches, pricing wars, D2C initiatives, quick commerce partnerships with cluster analysis
-- [ ] Sub-Sector Deep Dive — rotating monthly deep dive with cost structure benchmarks, margin levers, top-quartile analysis
-- [ ] "What This Means For..." Action Lens — tailored interpretations for PE/investors, founders, COOs/CFOs, procurement heads
-- [ ] Watchlist & Forward Indicators — 90-day forward-looking signals: likely fundraises, margin inflection candidates, consolidation targets, stress indicators
-- [ ] Multi-tenant white-label branding — each consulting firm gets branded instance with their logo, colors, fonts
-- [ ] Company universe — Consumer Durables: Whirlpool, Haier, Samsung, LG, Godrej, Blue Star, Kelvinator, Electrolux, Amber, Croma, PG, IFB, Voltas, Crompton Greaves, Bajaj Electricals, V-Guard Industries
+- [ ] 11 sections: Executive Snapshot, A&M Value-Add (position 2), Market Pulse, Financial Tracker, Deals & Transactions, Operational Intelligence, Leadership & Governance, Competitive Moves, Sub-Sector Deep Dive, What This Means For..., Watchlist & Forward Indicators
+- [ ] Strictly real data only — every displayed value traces to a source file in `data_sources/`; unavailable data shows "-"
+- [ ] 4-tier source attribution on every card, chart, and table (T1 Hard Financial, T2 Verified Alternative, T3 Curated Intelligence, T4 News & Sentiment)
+- [ ] A&M action-type triage across Financial Tracker and Watchlist (Turnaround/CPI/Transaction Advisory color coding)
+- [ ] A&M Value-Add Opportunities section as pipeline view (Identified/Qualified/Outreach-Ready) at nav position 2
+- [ ] Talk vs Walk verification system — management claims vs hard data with disconnect/stealth signal flagging
+- [ ] News data architecture — NewsItem interface with credibility scoring, graceful degradation when news is empty
+- [ ] Anti-clickbait filtering — low-credibility sources never reach UI, corroboration upgrades confidence
+- [ ] Derived market intelligence — intra-universe market share, pricing power proxy, competitive intensity index
+- [ ] Intelligence Grade (letter grade) replacing confidence meter in Executive Snapshot
+- [ ] A&M Opportunity Summary card at top of Executive Snapshot (total advisory opportunity, distress count, top action)
+- [ ] Sparklines in Financial Tracker for revenue and EBITDA% trend
+- [ ] Company modal with A&M engagement suggestion + Talk vs Walk tab
+- [ ] Stress indicators scoring model with clear thresholds for Watchlist
+- [ ] Governance risk scoring per company (auditor flags, promoter decline, board changes)
+- [ ] Cross-section navigation — insights reference and link to source sections
+- [ ] Progress tracking files (PROGRESS.md, DECISIONS.md, DATA_CATALOG.md, SOURCE_REFERENCE.md)
+- [ ] Single-file HTML output via vite-plugin-singlefile
+- [ ] Dark mode support for all new components and tokens
+- [ ] Multi-tenant branding preserved (data-tenant theming)
 
 ### Out of Scope
 
 - Backend data collection pipelines — separate workstream
-- FMCG, QSR, Apparel, Beauty categories — future expansion after Consumer Durables proves out
-- Mobile app — desktop-first for consulting partners
-- Real-time alerting — monthly cadence for v1
-- User auth / billing / subscription management — developer handles this
+- News scraping/refreshing — data arrives as JSON file drop before presentation
+- Export/sharing functionality — out of scope for v2
+- Mobile responsive — desktop-first for consulting partner presentation
+- User auth / billing — developer handles separately
+- Categories beyond Consumer Durables — future expansion
+- Modifying the existing v1.0 codebase — untouched, v2 builds in `dashboard_build_v2/`
 
 ## Context
 
-Kompete is building AI-powered intelligence products for professional services firms. Kompete (the first product) targets B2B SaaS companies with competitive intelligence. This is the second product — targeting consulting firms with industry landscape intelligence.
+This is a v2 rebuild of the Kompete Industry Intel dashboard, built in a separate `dashboard_build_v2/` directory. The existing v1.0 codebase in the project root remains untouched.
 
-The Consumer Durables category includes ~15-20 Indian entities in the ₹1,000-10,000 Cr revenue range. Data sources include public filings (BSE/NSE), earnings transcripts, news feeds, industry reports, and management commentary.
+**Target audience:** Alvarez & Marsal (A&M) — global professional services firm specializing in turnaround management, corporate performance improvement (CPI), restructuring, PE advisory, and operational transformation. Their consumer products practice covers growth strategy, operations, analytics, digital, and marketing across appliances/white goods.
 
-The buyer persona is an MD or Partner at a consulting firm who needs to:
-1. Spot companies that need consulting help (margin pressure, leadership changes, expansion stress)
-2. Prepare for BD meetings with current, relevant intelligence
-3. Track deal flow and capital movements for M&A advisory opportunities
-4. Understand competitive dynamics to advise clients
+**Presentation deadline:** Internal team review Feb 21 (tomorrow), presenter walkthrough Feb 22 (Sunday).
 
-Architecture can reuse patterns from Kompete (React 19 + Vite + TypeScript + Tailwind v4 + Recharts) but the data contract and module structure will differ significantly.
+**Data sources available (in `consumer-durables-intelligence/data_sources/`):**
+- `consolidated-dashboard-data.json` (401KB) — pre-aggregated dashboard data
+- `screener-all-companies.json` (348KB) — Screener.in financials for all companies
+- Per-company extracted data (15 companies): `consolidated.json`, `screener-financials.json`, `trendlyne-data.json`
+- `sovrenn-intelligence.json` — earnings quality tags
+- `deals-transactions-capital-movements.csv` — deal tracker
+- `operational-intelligence-data.md` (60KB) — operational signals
+- 14 company research markdown files (dated Feb 14, 2026) with sourced analysis
+- Company PDFs: annual reports, investor presentations, earnings transcripts, quarterly results
+
+**Architecture reuse from v1.0:**
+- React 19 + Vite + TypeScript 5 + Tailwind CSS v4
+- TanStack Query for data caching, Zustand for filters
+- Recharts for charts, Radix UI for accessible components
+- Lazy-loaded sections, single-file HTML build output
+- URL-based multi-tenant branding via BrandProvider
+
+**Key specification document:** `consumer-durables-intelligence/claude-code-prompt.md` — contains full section-by-section execution plan with 26 ordered steps.
 
 ## Constraints
 
-- **Tech stack**: React 19 + Vite + TypeScript 5 + Tailwind CSS v4 (consistent with Kompete for shared learnings)
-- **Category scope**: Consumer Durables only for v1 (not all 6 sub-sectors from the brief)
-- **Data format**: JSON data contracts compatible with Express/Supabase backend
-- **Cadence**: Monthly report generation (not real-time)
-- **Multi-tenant**: Each consulting firm gets branded instance via BrandProvider pattern
+- **Build location**: All v2 code in `dashboard_build_v2/` — do not modify files outside this directory
+- **Data integrity**: Strictly real data from `data_sources/`; show "-" where unavailable; never fabricate
+- **Source tracing**: Every data point must trace to original source (not the research file containing it)
+- **Timeline**: Must be presentation-ready by Feb 21 evening
+- **Tech stack**: React 19 + Vite + TypeScript 5 + Tailwind CSS v4 (open to library changes if they serve the spec better)
+- **Output**: Single-file HTML via vite-plugin-singlefile
+- **News slots**: Build component structure for news integration but leave content empty until final data refresh
+- **Section count**: Strictly 11 sections — do not merge or remove any
 
 ## Key Decisions
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| Interactive web report over static PDF | Consulting partners expect interactivity; drill-down into company data is core UX | -- Pending |
-| Consumer Durables first, other categories later | Prove the model with one focused category before expanding | -- Pending |
-| Multi-tenant from day one | Each consulting firm is a separate customer needing branded experience | -- Pending |
-| Reuse Kompete frontend architecture | Proven stack, shared component patterns, faster development | -- Pending |
+| Fresh build in dashboard_build_v2/ | Keep v1.0 untouched; clean separation of concerns | -- Pending |
+| A&M Value-Add at nav position 2 | This is the punchline — A&M leadership skims 2 sections max | -- Pending |
+| 4-tier source attribution system | A&M will ask "where did this number come from?" — must answer in 5 seconds | -- Pending |
+| News as pluggable JSON | News refreshed Sunday morning; zero code changes on refresh, only data swap | -- Pending |
+| Talk vs Walk verification | Differentiator over filing-only analysis — flags narrative disconnects | -- Pending |
+| Anti-clickbait filtering at data layer | Low-credibility sources filtered before reaching UI; protects dashboard credibility | -- Pending |
 
 ---
-*Last updated: 2026-02-15 after project initialization*
+*Last updated: 2026-02-20 after initialization*
