@@ -1,13 +1,9 @@
-import clsx from "clsx";
+import { Badge } from "./Badge";
+import type { BadgeVariant } from "./Badge";
 
 type DealType = "M&A" | "PE/VC" | "IPO" | "distressed";
 
-interface DealTypeBadgeProps {
-  type: DealType;
-  className?: string;
-}
-
-const config: Record<DealType, { label: string; className: string }> = {
+const config: Record<DealType, BadgeVariant> = {
   "M&A": {
     label: "M&A",
     className: "bg-chart-1/10 text-chart-1 border-chart-1/20",
@@ -26,17 +22,11 @@ const config: Record<DealType, { label: string; className: string }> = {
   },
 };
 
+interface DealTypeBadgeProps {
+  type: DealType;
+  className?: string;
+}
+
 export function DealTypeBadge({ type, className }: DealTypeBadgeProps) {
-  const { label, className: typeClassName } = config[type];
-  return (
-    <span
-      className={clsx(
-        "inline-flex items-center px-sm py-xs rounded border text-[10px] font-medium whitespace-nowrap",
-        typeClassName,
-        className,
-      )}
-    >
-      {label}
-    </span>
-  );
+  return <Badge variant={type} config={config} size="2xs" className={className} />;
 }

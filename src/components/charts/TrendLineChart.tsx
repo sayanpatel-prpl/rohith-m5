@@ -11,6 +11,7 @@ import {
 import { ChartTooltip } from "./ChartTooltip";
 import { createAnnotation } from "./ChartAnnotation";
 import type { ChartAnnotation } from "../../types/common";
+import { CHART_HEIGHT, CHART_MARGIN, GRID_PROPS, AXIS_TICK, AXIS_LINE } from "./chart-defaults";
 
 interface LineConfig {
   dataKey: string;
@@ -34,28 +35,21 @@ export function TrendLineChart({
   xDataKey,
   annotations,
   onPointClick,
-  height = 240,
+  height = CHART_HEIGHT,
 }: TrendLineChartProps) {
   return (
     <ResponsiveContainer width="100%" height={height}>
-      <LineChart
-        data={data}
-        margin={{ top: 8, right: 8, bottom: 4, left: 0 }}
-      >
-        <CartesianGrid
-          strokeDasharray="3 3"
-          stroke="var(--color-text-muted)"
-          opacity={0.15}
-        />
+      <LineChart data={data} margin={CHART_MARGIN}>
+        <CartesianGrid {...GRID_PROPS} />
         <XAxis
           dataKey={xDataKey}
-          tick={{ fontSize: 11, fill: "var(--color-text-secondary)" }}
-          axisLine={{ stroke: "var(--color-text-muted)", opacity: 0.3 }}
+          tick={AXIS_TICK}
+          axisLine={AXIS_LINE}
           tickLine={false}
         />
         <YAxis
-          tick={{ fontSize: 11, fill: "var(--color-text-secondary)" }}
-          axisLine={{ stroke: "var(--color-text-muted)", opacity: 0.3 }}
+          tick={AXIS_TICK}
+          axisLine={AXIS_LINE}
           tickLine={false}
         />
         <Tooltip content={<ChartTooltip />} />
