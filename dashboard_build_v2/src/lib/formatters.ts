@@ -1,0 +1,161 @@
+// ---------------------------------------------------------------------------
+// Intl.NumberFormat instances at MODULE SCOPE (expensive to construct;
+// reuse across all calls per RESEARCH.md anti-pattern guidance)
+// ---------------------------------------------------------------------------
+
+const indianNumberFormatter = new Intl.NumberFormat("en-IN", {
+  maximumFractionDigits: 2,
+});
+
+const indianIntegerFormatter = new Intl.NumberFormat("en-IN", {
+  maximumFractionDigits: 0,
+});
+
+// ---------------------------------------------------------------------------
+// INR Formatters
+// ---------------------------------------------------------------------------
+
+/**
+ * Format amount in INR Crore.
+ * @example formatINRCr(1500) => "INR 1,500 Cr"
+ * @example formatINRCr(0.5)  => "INR 0.5 Cr"
+ */
+export function formatINRCr(amountInCr: number): string {
+  // For values >= 100, drop fractional part for cleaner display
+  if (Math.abs(amountInCr) >= 100) {
+    return `INR ${indianIntegerFormatter.format(Math.round(amountInCr))} Cr`;
+  }
+  return `INR ${indianNumberFormatter.format(amountInCr)} Cr`;
+}
+
+/**
+ * Format amount in INR Lakh.
+ * @example formatINRLakh(45.2) => "INR 45.2 L"
+ */
+export function formatINRLakh(amountInLakh: number): string {
+  return `INR ${indianNumberFormatter.format(amountInLakh)} L`;
+}
+
+/**
+ * Auto-select Crore or Lakh based on magnitude (input always in Crore).
+ * Values < 1 Cr are converted to Lakh for readability.
+ * @example formatINRAuto(1500) => "INR 1,500 Cr"
+ * @example formatINRAuto(0.5)  => "INR 50 L"
+ */
+export function formatINRAuto(amountInCr: number): string {
+  if (Math.abs(amountInCr) < 1) {
+    return formatINRLakh(amountInCr * 100);
+  }
+  return formatINRCr(amountInCr);
+}
+
+// ---------------------------------------------------------------------------
+// Percentage & Basis Point Formatters
+// ---------------------------------------------------------------------------
+
+/**
+ * Format percentage with explicit sign.
+ * @example formatPercent(12.5)  => "+12.5%"
+ * @example formatPercent(-3.2)  => "-3.2%"
+ * @example formatPercent(0)     => "0.0%"
+ */
+export function formatPercent(value: number, decimals = 1): string {
+  const sign = value > 0 ? "+" : "";
+  return `${sign}${value.toFixed(decimals)}%`;
+}
+
+/**
+ * Format basis points with explicit sign.
+ * @example formatBps(180) => "+180 bps"
+ * @example formatBps(-50) => "-50 bps"
+ */
+export function formatBps(bps: number): string {
+  const sign = bps > 0 ? "+" : "";
+  return `${sign}${Math.round(bps)} bps`;
+}
+
+/**
+ * Format growth rate (input as decimal fraction) with period.
+ * @example formatGrowthRate(0.125)        => "+12.5% YoY"
+ * @example formatGrowthRate(0.125, "QoQ") => "+12.5% QoQ"
+ * @example formatGrowthRate(-0.032)       => "-3.2% YoY"
+ */
+export function formatGrowthRate(
+  rate: number,
+  period: "QoQ" | "YoY" = "YoY",
+): string {
+  return `${formatPercent(rate * 100)} ${period}`;
+}
+
+// ---------------------------------------------------------------------------
+// Generic Indian Number Formatter
+// ---------------------------------------------------------------------------
+
+/**
+ * Format a number with Indian grouping (no currency symbol).
+ * Uses the standard ##,##,### pattern for numbers >= 1000.
+ * @example formatIndianNumber(150000) => "1,50,000"
+ */
+export function formatIndianNumber(value: number): string {
+  return indianNumberFormatter.format(value);
+}
+
+// ---------------------------------------------------------------------------
+// Date Formatters
+// ---------------------------------------------------------------------------
+
+const dateFormatter = new Intl.DateTimeFormat("en-IN", {
+  day: "numeric",
+  month: "short",
+  year: "numeric",
+});
+
+const monthYearFormatter = new Intl.DateTimeFormat("en-IN", {
+  month: "short",
+  year: "numeric",
+});
+
+/**
+ * Format ISO date string to human-readable date.
+ * @example formatDate("2024-11-15") => "15 Nov 2024"
+ */
+export function formatDate(isoDate: string): string {
+  return dateFormatter.format(new Date(isoDate));
+}
+
+/**
+ * Format ISO date string to month and year only.
+ * @example formatMonthYear("2024-11-15") => "Nov 2024"
+ */
+export function formatMonthYear(isoDate: string): string {
+  return monthYearFormatter.format(new Date(isoDate));
+}
+
+// ---------------------------------------------------------------------------
+// Safe Display (DATA-04: Graceful Degradation)
+// ---------------------------------------------------------------------------
+
+/**
+ * Safely format a value that might be null/undefined/NaN.
+ * Returns a display object with text, data availability flag, and optional tooltip.
+ * Used by every data display point for graceful degradation.
+ *
+ * @example safeDisplay(12.5, formatPercent) => { text: "+12.5%", hasData: true }
+ * @example safeDisplay(null, formatPercent) => { text: "-", hasData: false, tooltip: "Data not available" }
+ * @example safeDisplay(undefined, formatINRCr, "Revenue data pending")
+ *   => { text: "-", hasData: false, tooltip: "Revenue data pending" }
+ */
+export function safeDisplay(
+  value: number | null | undefined,
+  formatter: (v: number) => string,
+  tooltip?: string,
+): { text: string; hasData: boolean; tooltip?: string } {
+  if (value == null || !isFinite(value)) {
+    return {
+      text: "-",
+      hasData: false,
+      tooltip: tooltip ?? "Data not available",
+    };
+  }
+  return { text: formatter(value), hasData: true };
+}
