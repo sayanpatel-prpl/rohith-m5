@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-20)
 
 **Core value:** Every section answers "where's the BD opportunity?" — sourced signals that help A&M partners identify which companies need help, what kind, and when to reach out.
-**Current focus:** Phase 5 - Cross-Cutting Features
+**Current focus:** Phase 6 - Production Hardening
 
 ## Current Position
 
-Phase: 5 of 6 (Cross-Cutting Features)
-Plan: 4 of 4 in current phase
-Status: Phase 5 Complete
-Last activity: 2026-02-21 — Completed 05-04-PLAN.md (Derived Metrics Visual Distinction & Alternative Data Slots)
+Phase: 6 of 6 (Production Hardening)
+Plan: 1 of 2 in current phase
+Status: In Progress
+Last activity: 2026-02-21 — Completed 06-01-PLAN.md (Codebase Audit & Source Attribution Coverage)
 
-Progress: [████████████████████] 100% (23 of 23 plans)
+Progress: [████████████████████] 96% (24 of 25 plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 23
-- Average duration: 4.09 min
-- Total execution time: 1.60 hours
+- Total plans completed: 24
+- Average duration: 3.92 min
+- Total execution time: 1.62 hours
 
 **By Phase:**
 
@@ -32,10 +32,11 @@ Progress: [████████████████████] 100% (2
 | 03-section-group-a | 4 | 18min | 4.50min |
 | 04-section-group-b | 4 | 22min | 5.50min |
 | 05-cross-cutting-features | 4 | 12min | 3.00min |
+| 06-production-hardening | 1 | 1min | 1.00min |
 
 **Recent Trend:**
-- Last 5 plans: 05-04 (4min), 05-03 (2min), 05-02 (2min), 05-01 (4min), 04-04 (2min)
-- Trend: Cross-cutting features complete; visual refinements and comment-only tasks execute in ~4min
+- Last 5 plans: 06-01 (1min), 05-04 (4min), 05-03 (2min), 05-02 (2min), 05-01 (4min)
+- Trend: Audit/remediation plans execute fastest; production hardening in progress
 
 *Updated after each plan completion*
 
@@ -136,6 +137,7 @@ Recent decisions affecting current work:
 - **2-column grid for insight cards** (05-03): md+ breakpoints use 2-column grid for better presentation density
 - **Derived badge 8px uppercase** (05-04): bg-surface-overlay + not-italic + uppercase tracking-wider for subtle visual distinction in derived column headers
 - **ALTERNATIVE_DATA_SLOT at function top** (05-04): Placed at top of each adapter's main build function body for consistent discoverability across all 9 adapters
+- **Static source object for operations** (06-01): Screener.in, Trendlyne T1 derived for OpsMetricsTable and DiagnosticTriggers matching financial table pattern
 
 ### Pending Todos
 
@@ -152,5 +154,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-21
-Stopped at: Completed 05-04-PLAN.md (Derived Metrics Visual Distinction & Alternative Data Slots) -- Phase 5 complete
+Stopped at: Completed 06-01-PLAN.md (Codebase Audit & Source Attribution Coverage)
 Resume file: None

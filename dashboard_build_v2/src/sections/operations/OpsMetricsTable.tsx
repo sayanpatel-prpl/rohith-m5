@@ -165,8 +165,8 @@ export function OpsMetricsTable({ metrics, crossLinkCompetitiveIds }: OpsMetrics
         <SourceAttribution
           source={{
             source: "Screener.in, Trendlyne",
-            confidence: "derived",
-            tier: "T1",
+            confidence: "derived" as const,
+            tier: 1,
             lastUpdated: "2025-01",
           }}
           compact
