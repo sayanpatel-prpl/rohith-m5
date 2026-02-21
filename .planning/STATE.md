@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-20)
 
 **Core value:** Every section answers "where's the BD opportunity?" — sourced signals that help A&M partners identify which companies need help, what kind, and when to reach out.
-**Current focus:** Phase 4 - Section Group B
+**Current focus:** Phase 5 - Cross-Cutting Features
 
 ## Current Position
 
-Phase: 4 of 6 (Section Group B)
-Plan: 4 of 4 in current phase
-Status: Phase Complete
-Last activity: 2026-02-21 — Completed 04-04-PLAN.md (Sub-Sector Deep Dive Section)
+Phase: 5 of 6 (Cross-Cutting Features)
+Plan: 1 of 4 in current phase
+Status: In Progress
+Last activity: 2026-02-21 — Completed 05-01-PLAN.md (Cross-Cutting Data Types & Adapters)
 
-Progress: [█████████████████░░░] 86% (19 of 22 plans)
+Progress: [██████████████████░░] 91% (20 of 22 plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 19
-- Average duration: 4.42 min
-- Total execution time: 1.40 hours
+- Total plans completed: 20
+- Average duration: 4.40 min
+- Total execution time: 1.47 hours
 
 **By Phase:**
 
@@ -31,10 +31,11 @@ Progress: [█████████████████░░░] 86% (19
 | 02-priority-sections | 4 | 17min | 4.25min |
 | 03-section-group-a | 4 | 18min | 4.50min |
 | 04-section-group-b | 4 | 22min | 5.50min |
+| 05-cross-cutting-features | 1 | 4min | 4.00min |
 
 **Recent Trend:**
-- Last 5 plans: 04-04 (2min), 04-03 (2min), 04-02 (2min), 04-01 (16min), 03-04 (5min)
-- Trend: Fast execution for UI-only section plans after data layer established
+- Last 5 plans: 05-01 (4min), 04-04 (2min), 04-03 (2min), 04-02 (2min), 04-01 (16min)
+- Trend: Cross-referencing adapters execute quickly by composing existing adapter outputs
 
 *Updated after each plan completion*
 
@@ -124,6 +125,10 @@ Recent decisions affecting current work:
 - **HTML table heatmap over ECharts** (04-03): HTML table grid with color-mix intensity cells is lighter weight and more readable for Company x MoveType matrix
 - **color-mix intensity cells** (04-03): Cell background via color-mix(in oklch, brand-primary N%, transparent) for count-based heatmaps
 - **Move type badge inline colors** (04-03): MoveType badge colors via inline style with color-mix for consistent pattern across sections
+- **Cross-ref adapters call build functions** (05-01): am-value-add and what-this-means adapters call sibling buildXxxData() functions not raw loaders for data consistency
+- **Pipeline dedup by companyId+practiceArea** (05-01): Merges keyDataPoints and keeps highest pipeline stage (outreach-ready > qualified > identified)
+- **Revenue-based fee proxy** (05-01): 2% of latest quarterly revenue used as estimated engagement size when market cap unavailable
+- **buildSectionData fallback removed** (05-01): All 11 sections now use dedicated adapters; no more generic fallback in queries.ts
 
 ### Pending Todos
 
@@ -140,5 +145,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-21
-Stopped at: Completed 04-03-PLAN.md (Competitive Moves Section) -- Phase 4 fully complete
+Stopped at: Completed 05-01-PLAN.md (Cross-Cutting Data Types & Adapters)
 Resume file: None
