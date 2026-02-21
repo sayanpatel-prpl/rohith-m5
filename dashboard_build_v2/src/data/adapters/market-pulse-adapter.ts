@@ -321,10 +321,21 @@ function buildAMThoughtLeadership(): AMThoughtLeadershipData {
 // Policy Tracker (MRKT-04)
 // ---------------------------------------------------------------------------
 
-function extractPolicies(lastUpdated: string): PolicyEntry[] {
+function extractPolicies(_lastUpdated: string): PolicyEntry[] {
   const sovrenn = getSovrennData();
   const policies: PolicyEntry[] = [];
   const seenPolicies = new Set<string>();
+
+  // Helper to get concall highlight text (JSON uses "points", type uses "keyPoints")
+  function getConcallText(company: typeof sovrenn[number]): string[] {
+    if (!company.concallHighlights?.length) return [];
+    return company.concallHighlights.flatMap((ch) => {
+      const points = ch.keyPoints ?? (ch as Record<string, unknown>)["points"];
+      return Array.isArray(points)
+        ? (points as string[])
+        : [];
+    });
+  }
 
   // Extract policy mentions from growth triggers and concall highlights
   const policyPatterns: {
@@ -356,7 +367,7 @@ function extractPolicies(lastUpdated: string): PolicyEntry[] {
   for (const company of sovrenn) {
     const allText = [
       ...company.keyGrowthTriggers,
-      ...(company.concallHighlights?.flatMap((ch) => ch.points ?? []) ?? []),
+      ...getConcallText(company),
     ];
 
     for (const text of allText) {
@@ -369,7 +380,7 @@ function extractPolicies(lastUpdated: string): PolicyEntry[] {
             .filter((c) => {
               const cText = [
                 ...c.keyGrowthTriggers,
-                ...(c.concallHighlights?.flatMap((ch) => ch.points ?? []) ?? []),
+                ...getConcallText(c),
               ];
               return cText.some((t) => pp.pattern.test(t));
             })
