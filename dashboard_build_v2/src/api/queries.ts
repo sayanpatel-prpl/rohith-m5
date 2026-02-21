@@ -3,6 +3,7 @@ import { getFinancialApiData } from "../data/loaders/financial-api";
 import { buildExecutiveData } from "../data/adapters/executive-adapter";
 import { buildFinancialData } from "../data/adapters/financial-adapter";
 import { buildWatchlistData } from "../data/adapters/watchlist-adapter";
+import { buildMarketPulseData } from "../data/adapters/market-pulse-adapter";
 import type { SectionId } from "../types/common";
 import type { SectionData } from "../types/sections";
 
@@ -55,7 +56,7 @@ export const sectionQueries = {
   "market-pulse": () =>
     queryOptions({
       queryKey: ["section", "market-pulse"] as const,
-      queryFn: () => buildSectionData("market-pulse"),
+      queryFn: () => buildMarketPulseData(),
     }),
 
   financial: () =>
