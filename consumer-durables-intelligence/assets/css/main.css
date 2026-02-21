@@ -9,9 +9,8 @@
  */
 
 /* ============================================================
-   IMPORTS & RESET
+   RESET (Font loaded via <link> in HTML <head> for non-blocking)
    ============================================================ */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
 
 *, *::before, *::after {
   margin: 0;
@@ -97,6 +96,28 @@
   --shadow-lg: 0 10px 15px -3px rgba(15, 31, 61, 0.08), 0 4px 6px -4px rgba(15, 31, 61, 0.04);
   --shadow-xl: 0 20px 25px -5px rgba(15, 31, 61, 0.1), 0 8px 10px -6px rgba(15, 31, 61, 0.06);
 
+  /* Badge/Chip Colors */
+  --blue-bg: rgba(59, 130, 246, 0.08);
+  --blue-border: rgba(59, 130, 246, 0.2);
+  --purple-bg: rgba(147, 51, 234, 0.08);
+  --purple-border: rgba(147, 51, 234, 0.2);
+  --teal-bg: rgba(13, 148, 136, 0.08);
+  --teal-border: rgba(13, 148, 136, 0.2);
+  --slate-bg: rgba(100, 116, 139, 0.08);
+  --slate-border: rgba(100, 116, 139, 0.2);
+
+  /* Layout Dimensions */
+  --sidebar-width: 260px;
+  --chart-max-height: 320px;
+  --modal-max-width: 720px;
+  --content-max-width: 1440px;
+
+  /* Z-Index Scale */
+  --z-dropdown: 30;
+  --z-sticky: 50;
+  --z-sidebar: 100;
+  --z-modal: 200;
+
   /* Transitions */
   --transition-fast: 150ms ease;
   --transition-base: 250ms ease;
@@ -146,14 +167,14 @@ a:hover { color: var(--deep-blue); }
 
 /* Sidebar Navigation */
 .sidebar {
-  width: 260px;
+  width: var(--sidebar-width);
   background: var(--navy);
   color: var(--white);
   position: fixed;
   top: 0;
   left: 0;
   bottom: 0;
-  z-index: 100;
+  z-index: var(--z-sidebar);
   display: flex;
   flex-direction: column;
   transition: transform var(--transition-base);
@@ -221,7 +242,7 @@ a:hover { color: var(--deep-blue); }
   font-size: 0.85rem;
   font-weight: 500;
   cursor: pointer;
-  transition: all var(--transition-fast);
+  transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
   border-left: 3px solid transparent;
 }
 
@@ -254,7 +275,7 @@ a:hover { color: var(--deep-blue); }
 
 /* Main Content Area */
 .main-content {
-  margin-left: 260px;
+  margin-left: var(--sidebar-width);
   flex: 1;
   min-height: 100vh;
 }
@@ -269,7 +290,7 @@ a:hover { color: var(--deep-blue); }
   justify-content: space-between;
   position: sticky;
   top: 0;
-  z-index: 50;
+  z-index: var(--z-sticky);
 }
 
 .top-bar-left {
@@ -319,7 +340,7 @@ a:hover { color: var(--deep-blue); }
   font-size: 0.8rem;
   font-weight: 500;
   cursor: pointer;
-  transition: all var(--transition-fast);
+  transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
   font-family: var(--font-primary);
 }
 
@@ -341,7 +362,7 @@ a:hover { color: var(--deep-blue); }
 /* Page Content */
 .page-content {
   padding: var(--sp-8);
-  max-width: 1440px;
+  max-width: var(--content-max-width);
 }
 
 /* ============================================================
@@ -529,21 +550,21 @@ a:hover { color: var(--deep-blue); }
 }
 
 .badge-info {
-  background: rgba(59, 130, 246, 0.08);
+  background: var(--blue-bg);
   color: var(--intelligence-blue);
-  border: 1px solid rgba(59, 130, 246, 0.2);
+  border: 1px solid var(--blue-border);
 }
 
 .badge-purple {
-  background: rgba(147, 51, 234, 0.08);
+  background: var(--purple-bg);
   color: var(--purple);
-  border: 1px solid rgba(147, 51, 234, 0.2);
+  border: 1px solid var(--purple-border);
 }
 
 .badge-teal {
-  background: rgba(13, 148, 136, 0.08);
+  background: var(--teal-bg);
   color: var(--teal);
-  border: 1px solid rgba(13, 148, 136, 0.2);
+  border: 1px solid var(--teal-border);
 }
 
 .severity-high { color: var(--red); }
@@ -569,7 +590,7 @@ a:hover { color: var(--deep-blue); }
   font-weight: 500;
   border: 1px solid transparent;
   cursor: pointer;
-  transition: all var(--transition-fast);
+  transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
 }
 
 .btn-primary {
@@ -663,14 +684,14 @@ a:hover { color: var(--deep-blue); }
   align-items: center;
   gap: 4px;
   padding: 4px 12px;
-  background: rgba(59, 130, 246, 0.08);
-  border: 1px solid rgba(59, 130, 246, 0.2);
+  background: var(--blue-bg);
+  border: 1px solid var(--blue-border);
   border-radius: var(--radius-full);
   font-size: 0.75rem;
   font-weight: 500;
   color: var(--intelligence-blue);
   cursor: pointer;
-  transition: all var(--transition-fast);
+  transition: background var(--transition-fast), color var(--transition-fast);
 }
 
 .filter-chip:hover {
@@ -843,36 +864,35 @@ a:hover { color: var(--deep-blue); }
 }
 
 .chart-container canvas {
-  max-height: 320px;
+  max-height: var(--chart-max-height);
 }
 
 .chart-container--roce canvas {
   max-height: none;
 }
 
-/* Mock data indicator — yellow highlight for sections without real data */
-.mock-data {
+/* Data pending indicator — subtle gray state for sections awaiting sourced data */
+.data-pending {
   position: relative;
-  background: rgba(250, 204, 21, 0.08) !important;
-  border: 1.5px solid rgba(250, 204, 21, 0.45) !important;
+  opacity: 0.7;
 }
-.mock-data::before {
-  content: 'MOCK DATA';
+.data-pending::before {
+  content: 'AWAITING SOURCE';
   position: absolute;
   top: 6px;
   right: 8px;
   font-size: 9px;
   font-weight: 700;
   letter-spacing: 0.5px;
-  color: #92400E;
-  background: rgba(250, 204, 21, 0.35);
+  color: var(--slate-500);
+  background: var(--slate-100);
   padding: 2px 6px;
   border-radius: 3px;
   z-index: 5;
   pointer-events: none;
 }
-.mock-data .card-header {
-  background: rgba(250, 204, 21, 0.06);
+.data-pending .card-header {
+  background: var(--slate-50);
 }
 
 .chart-legend-custom {
@@ -905,7 +925,7 @@ a:hover { color: var(--deep-blue); }
   border-radius: var(--radius-card);
   padding: var(--sp-5) var(--sp-6);
   box-shadow: var(--shadow-sm);
-  transition: all var(--transition-base);
+  transition: box-shadow var(--transition-base), border-color var(--transition-base);
 }
 
 .deal-card:hover {
@@ -1098,9 +1118,9 @@ a:hover { color: var(--deep-blue); }
 }
 
 .impact-low {
-  background: rgba(100, 116, 139, 0.08);
+  background: var(--slate-bg);
   color: var(--slate-500);
-  border: 1px solid rgba(100, 116, 139, 0.2);
+  border: 1px solid var(--slate-border);
 }
 
 /* ============================================================
@@ -1120,7 +1140,7 @@ a:hover { color: var(--deep-blue); }
   cursor: pointer;
   border-bottom: 2px solid transparent;
   margin-bottom: -2px;
-  transition: all var(--transition-fast);
+  transition: color var(--transition-fast), border-color var(--transition-fast);
 }
 
 .tab:hover {
@@ -1299,7 +1319,7 @@ a:hover { color: var(--deep-blue); }
   right: 0;
   bottom: 0;
   background: rgba(15, 23, 42, 0.5);
-  z-index: 200;
+  z-index: var(--z-modal);
   display: none;
   align-items: center;
   justify-content: center;
@@ -1314,7 +1334,7 @@ a:hover { color: var(--deep-blue); }
   background: var(--white);
   border-radius: var(--radius-modal);
   box-shadow: var(--shadow-xl);
-  max-width: 720px;
+  max-width: var(--modal-max-width);
   width: 90%;
   max-height: 85vh;
   overflow-y: auto;
@@ -1351,7 +1371,7 @@ a:hover { color: var(--deep-blue); }
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all var(--transition-fast);
+  transition: background var(--transition-fast), color var(--transition-fast);
 }
 
 .modal-close:hover {
@@ -1399,7 +1419,7 @@ a:hover { color: var(--deep-blue); }
   border: 1px solid var(--slate-200);
   border-radius: var(--radius-base);
   box-shadow: var(--shadow-lg);
-  z-index: 30;
+  z-index: var(--z-dropdown);
   max-height: 240px;
   overflow-y: auto;
   display: none;
@@ -1445,16 +1465,6 @@ a:hover { color: var(--deep-blue); }
 .hm-3 { background: #fef08a; color: #854d0e; }
 .hm-4 { background: #d9f99d; color: #3f6212; }
 .hm-5 { background: #bbf7d0; color: #166534; }
-
-/* ============================================================
-   SPARKLINE PLACEHOLDER
-   ============================================================ */
-.sparkline-container {
-  display: inline-block;
-  width: 80px;
-  height: 24px;
-  vertical-align: middle;
-}
 
 /* ============================================================
    PROGRESS / GAUGE
@@ -1538,7 +1548,36 @@ a:hover { color: var(--deep-blue); }
   }
 
   .section-header h2 {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+  }
+
+  .section-header p {
+    font-size: 0.75rem;
+  }
+
+  .stat-card-value {
+    font-size: 1.3rem;
+  }
+
+  .card-body {
+    padding: var(--sp-4);
+  }
+
+  .chart-container canvas {
+    max-height: 240px;
+  }
+
+  .data-table {
+    font-size: 0.75rem;
+  }
+
+  .badge {
+    font-size: 0.6rem;
+    padding: 2px 6px;
+  }
+
+  .modal {
+    width: 95%;
   }
 }
 
@@ -1572,10 +1611,124 @@ a:hover { color: var(--deep-blue); }
 .justify-between { justify-content: space-between; }
 .hidden { display: none !important; }
 
+/* ============================================================
+   ACCESSIBILITY — Focus Visible
+   ============================================================ */
+.btn:focus-visible,
+.top-bar-btn:focus-visible,
+.nav-item:focus-visible,
+.tab:focus-visible,
+.filter-select:focus-visible,
+.modal-close:focus-visible,
+.multi-select-trigger:focus-visible {
+  outline: 2px solid var(--intelligence-blue);
+  outline-offset: 2px;
+}
+
+/* ============================================================
+   NEWS INTELLIGENCE
+   ============================================================ */
+.news-item {
+  background: var(--white);
+  border: 1px solid var(--slate-200);
+  border-radius: var(--radius-card);
+  padding: var(--sp-5) var(--sp-6);
+  margin-bottom: var(--sp-4);
+  transition: box-shadow var(--transition-base);
+}
+
+.news-item:hover {
+  box-shadow: var(--shadow-md);
+}
+
+/* ============================================================
+   FINANCIAL TABLE ENHANCEMENTS
+   ============================================================ */
+/* A&M Signal badges */
+.am-signal {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: help;
+}
+.am-signal-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* Sparkline SVG */
+.sparkline-cell {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.sparkline-cell svg {
+  flex-shrink: 0;
+}
+
+/* Derived columns — hidden by default */
+.derived-col { display: none; }
+#financialTable.show-derived .derived-col { display: table-cell; }
+.derived-badge {
+  display: inline-block;
+  font-size: 9px;
+  font-style: italic;
+  color: var(--teal);
+  background: rgba(13,148,136,0.08);
+  border: 1px solid rgba(13,148,136,0.2);
+  padding: 1px 5px;
+  border-radius: 3px;
+  margin-left: 4px;
+  vertical-align: middle;
+}
+
+/* Toggle button */
+.toggle-derived-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: 1px solid var(--slate-200);
+  background: var(--white);
+  color: var(--slate-500);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background var(--transition-base), color var(--transition-base);
+}
+.toggle-derived-btn:hover {
+  background: rgba(13,148,136,0.06);
+  color: var(--teal);
+  border-color: rgba(13,148,136,0.3);
+}
+.toggle-derived-btn.active {
+  background: rgba(13,148,136,0.08);
+  color: var(--teal);
+  border-color: rgba(13,148,136,0.3);
+}
+
 /* Print styles */
 @media print {
-  .sidebar, .top-bar, .filters-bar { display: none; }
+  .sidebar, .top-bar, .filters-bar, .hamburger,
+  .modal-overlay, .nav-item-badge { display: none !important; }
   .main-content { margin-left: 0; }
   .page-content { padding: 0; max-width: 100%; }
+  .section-panel { display: block !important; page-break-before: always; }
+  .section-panel:first-child { page-break-before: auto; }
   .card { break-inside: avoid; box-shadow: none; border: 1px solid #ddd; }
+  .stat-card { break-inside: avoid; }
+  .data-table { font-size: 9pt; }
+  .data-table thead th { background: #f1f5f9 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .chart-container { break-inside: avoid; }
+  a[href]::after { content: " (" attr(href) ")"; font-size: 8pt; color: #666; }
+  a[href^="javascript"]::after, a[href^="#"]::after { content: none; }
+  .data-pending::before { content: 'AWAITING SOURCE'; background: #e5e7eb; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { color: #000; background: #fff; }
+  #dataSourcesFooter { page-break-before: always; }
 }

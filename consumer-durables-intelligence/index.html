@@ -3,20 +3,45 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Consumer Durables Intelligence | Kompete by Kompete</title>
+  <meta name="description" content="Consumer Durables Intelligence Dashboard — sector analysis covering 15 Indian white-goods and electronics companies. Financial tracking, deal flow, operational signals, and A&M advisory opportunities.">
+  <meta name="theme-color" content="#0F1F3D">
+  <meta name="color-scheme" content="dark light">
+
+  <title>Consumer Durables Intelligence | Kompete</title>
+
+  <!-- Preconnect to external origins for faster resource loading -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+
   <link rel="stylesheet" href="assets/css/main.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+  <!-- Chart.js — defer: needed for charts but not for initial DOM render -->
+  <script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+
+  <!-- Export libs — lazy-loaded on demand (only needed when user clicks Export) -->
+  <script id="jspdf-script" defer src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script id="xlsx-script" defer src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
 <body>
+<!-- Loading indicator — hidden once App.init() completes -->
+<div id="appLoader" style="position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:var(--navy,#0F1F3D);transition:opacity .3s ease;">
+  <div style="text-align:center;color:#CBD5E1;">
+    <div style="width:40px;height:40px;border:3px solid rgba(59,130,246,.2);border-top-color:#3B82F6;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px;"></div>
+    <div style="font-family:Inter,system-ui,sans-serif;font-size:14px;font-weight:500;">Loading Intelligence Dashboard&hellip;</div>
+  </div>
+</div>
+<style>@keyframes spin{to{transform:rotate(360deg)}}</style>
+
 <div class="app-container">
 
   <!-- ============================================================
        SIDEBAR NAVIGATION
        ============================================================ -->
-  <aside class="sidebar" id="sidebar">
+  <aside class="sidebar" id="sidebar" role="navigation" aria-label="Dashboard sections">
     <div class="sidebar-header">
       <div class="sidebar-logo">
         <div class="sidebar-logo-icon">CD</div>
@@ -54,6 +79,10 @@
       <div class="nav-item" data-section="competitive">
         <span class="nav-item-icon">&#9755;</span> Competitive Moves
       </div>
+      <div class="nav-item" data-section="news">
+        <span class="nav-item-icon">&#9993;</span> News Intelligence
+        <span class="nav-item-badge" id="newsBadge">0</span>
+      </div>
       <div class="nav-item" data-section="subsector">
         <span class="nav-item-icon">&#8981;</span> Sub-Sector Deep Dive
       </div>
@@ -77,11 +106,11 @@
   <!-- ============================================================
        MAIN CONTENT
        ============================================================ -->
-  <main class="main-content">
+  <main class="main-content" role="main">
     <!-- Top Bar -->
     <div class="top-bar">
       <div class="top-bar-left">
-        <button class="hamburger" id="hamburgerBtn">&#9776;</button>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Toggle sidebar navigation" aria-expanded="false">&#9776;</button>
         <div class="breadcrumb">
           <span>Kompete</span>
           <span>/</span>
@@ -89,9 +118,9 @@
         </div>
       </div>
       <div class="top-bar-right">
-        <button class="top-bar-btn" id="exportPdfBtn">Export PDF</button>
-        <button class="top-bar-btn" id="exportExcelBtn">Export Excel</button>
-        <button class="top-bar-btn primary" id="periodLabel">Feb 2026</button>
+        <button class="top-bar-btn" id="exportPdfBtn" aria-label="Export current view as PDF">Export PDF</button>
+        <button class="top-bar-btn" id="exportExcelBtn" aria-label="Export data as Excel spreadsheet">Export Excel</button>
+        <button class="top-bar-btn primary" id="periodLabel" aria-label="Current reporting period">Feb 2026</button>
       </div>
     </div>
 
@@ -113,7 +142,7 @@
         </div>
         <div class="filter-group">
           <span class="filter-label">Sub-Category</span>
-          <select class="filter-select" id="subCategoryFilter">
+          <select class="filter-select" id="subCategoryFilter" aria-label="Filter by sub-category">
             <option value="all">All Categories</option>
             <option value="White Goods">White Goods</option>
             <option value="Consumer Electronics">Consumer Electronics</option>
@@ -121,7 +150,7 @@
         </div>
         <div class="filter-group">
           <span class="filter-label">Performance</span>
-          <select class="filter-select" id="performanceFilter">
+          <select class="filter-select" id="performanceFilter" aria-label="Filter by performance rating">
             <option value="all">All Ratings</option>
             <option value="Outperform">Outperform</option>
             <option value="Inline">Inline</option>
@@ -130,7 +159,7 @@
         </div>
         <div class="filter-group">
           <span class="filter-label">Time Period</span>
-          <select class="filter-select" id="timePeriodFilter">
+          <select class="filter-select" id="timePeriodFilter" aria-label="Filter by time period">
             <option value="latest">Latest Quarter (Q3 FY26)</option>
             <option value="fy2025">FY 2025</option>
             <option value="fy2024">FY 2024</option>
@@ -140,7 +169,7 @@
         </div>
         <div class="filter-group">
           <span class="filter-label">Revenue Range</span>
-          <select class="filter-select" id="revenueFilter">
+          <select class="filter-select" id="revenueFilter" aria-label="Filter by revenue range">
             <option value="all">All Ranges</option>
             <option value="5000+">Above ₹5,000 Cr</option>
             <option value="2000-5000">₹2,000 - 5,000 Cr</option>
@@ -160,7 +189,7 @@
         </div>
 
         <!-- Key Insights Summary (Pitch-Ready) -->
-        <div class="card mb-6 mock-data" style="border-left: 4px solid var(--intelligence-blue);">
+        <div class="card mb-6 data-pending" style="border-left: 4px solid var(--intelligence-blue);">
           <div class="card-body">
             <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
               <h3 style="margin:0;">Key Insights — February 2026</h3>
@@ -176,14 +205,14 @@
 
         <div class="grid-2 mb-6">
           <!-- Big Themes -->
-          <div class="card mock-data">
+          <div class="card data-pending">
             <div class="card-header"><span class="card-title">Big Themes Emerging</span></div>
             <div class="card-body">
               <div class="themes-grid" id="themesGrid"></div>
             </div>
           </div>
           <!-- Red Flags -->
-          <div class="card mock-data">
+          <div class="card data-pending">
             <div class="card-header"><span class="card-title">Red Flags / Watchlist</span></div>
             <div class="card-body" id="redFlagsContainer"></div>
           </div>
@@ -245,6 +274,7 @@
                   <th>2026 Forecast</th>
                   <th>Impact</th>
                   <th>Detail</th>
+                  <th>A&amp;M Implication</th>
                   <th>Source</th>
                 </tr>
               </thead>
@@ -297,7 +327,7 @@
           <div class="card">
             <div class="card-header">
               <span class="card-title">Urban vs Rural Demand Dynamics</span>
-              <span style="font-size:11px;color:var(--slate-400);">Source: <a href="https://www.alvarezandmarsal.com/thought-leadership/the-reality-check-india-s-consumer-economy-needed" target="_blank" rel="noopener noreferrer" style="color:var(--intelligence-blue);text-decoration:none;">A&amp;M</a>, IBEF, WhalesBook</span>
+              <span style="font-size:11px;color:var(--slate-400);">Source: <a href="https://www.alvarezandmarsal.com/thought-leadership/the-reality-check-india-s-consumer-economy-needed" target="_blank" rel="noopener noreferrer" style="color:var(--teal);text-decoration:none;font-weight:600;">A&amp;M Thought Leadership</a>, IBEF, WhalesBook</span>
             </div>
             <div class="card-body" id="urbanRuralContainer"></div>
           </div>
@@ -322,9 +352,15 @@
 
         <div class="card mb-6">
           <div class="card-body" style="overflow-x:auto;">
+            <div style="display:flex;align-items:center;justify-content:flex-end;margin-bottom:10px;">
+              <button class="toggle-derived-btn" id="toggleDerivedBtn" title="Show/hide derived market intelligence columns">
+                <span>&#9881;</span> <span id="toggleDerivedLabel">Show Derived Metrics</span>
+              </button>
+            </div>
             <table class="data-table" id="financialTable">
               <thead>
                 <tr>
+                  <th>A&amp;M Signal</th>
                   <th>Company</th>
                   <th>Sub-Category</th>
                   <th class="text-right">Revenue (₹Cr)</th>
@@ -337,6 +373,9 @@
                   <th class="text-right">Capex % <span class="text-xs text-slate" title="Annual figure derived from Cash Flow / Revenue">(Ann.)</span></th>
                   <th>Rating</th>
                   <th>Trend</th>
+                  <th class="text-right derived-col" title="Intra-universe share: Revenue / Total sub-category revenue">Mkt Share % <span class="derived-badge">Derived</span></th>
+                  <th class="text-right derived-col" title="Revenue Growth % minus sector volume growth % (CEAMA/IBEF est.). Positive = pricing power">Pricing Power <span class="derived-badge">Derived</span></th>
+                  <th class="text-right derived-col" title="News activity events per ₹1000Cr revenue (from News Intelligence)">Comp. Intensity <span class="derived-badge">Derived</span></th>
                 </tr>
               </thead>
               <tbody id="financialTableBody"></tbody>
@@ -348,6 +387,7 @@
               Net Debt/EBITDA &rarr; <a href="https://www.screener.in/" target="_blank" rel="noopener noreferrer" style="color:var(--intelligence-blue);text-decoration:none;">Screener.in</a> Balance Sheet &divide; P&amp;L (derived) |
               Capex % &rarr; <a href="https://www.screener.in/" target="_blank" rel="noopener noreferrer" style="color:var(--intelligence-blue);text-decoration:none;">Screener.in</a> Cash Flow &divide; Revenue (derived) |
               Rating &rarr; Auto-computed (peer-relative model) |
+              A&amp;M Signal &rarr; Derived from Screener.in metrics (growth, margins, leverage, WC) |
               Cross-validation: <a href="https://trendlyne.com/fundamentals/stock-screener/" target="_blank" rel="noopener noreferrer" style="color:var(--intelligence-blue);text-decoration:none;">Trendlyne</a>
             </div>
           </div>
@@ -560,15 +600,18 @@
           <p>CEO/CXO changes, board reshuffles, promoter movements, and governance flags</p>
         </div>
 
-        <div class="card mb-6 mock-data">
+        <div class="card mb-6 data-pending">
           <div class="card-body">
             <div class="timeline" id="leadershipTimeline"></div>
           </div>
         </div>
 
         <div class="grid-2 mb-6">
-          <div class="card mock-data">
-            <div class="card-header"><span class="card-title">Promoter Holding (%)</span></div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">Promoter Holding (%)</span>
+              <span style="font-size:11px;color:var(--slate-400);">Source: <a href="https://www.screener.in/" target="_blank" rel="noopener noreferrer" style="color:var(--intelligence-blue);text-decoration:none;">Screener.in</a> Shareholding (Dec 2025)</span>
+            </div>
             <div class="card-body"><div class="chart-container"><canvas id="chartPromoter"></canvas></div></div>
           </div>
           <div class="card">
@@ -590,7 +633,60 @@
           <p>Product launches, pricing strategies, D2C initiatives, partnerships, and plant expansions</p>
         </div>
 
-        <div class="grid-2 mock-data" style="border-radius:12px;padding:4px;" id="competitiveGrid"></div>
+        <div class="grid-2 data-pending" style="border-radius:12px;padding:4px;" id="competitiveGrid"></div>
+      </div>
+
+      <!-- ============================================================
+           SECTION: NEWS INTELLIGENCE
+           ============================================================ -->
+      <div class="section-panel" id="section-news">
+        <div class="section-header">
+          <h2><span class="section-icon">&#9993;</span> News Intelligence</h2>
+          <p>Curated news feed with source credibility scoring and anti-clickbait framework &nbsp;|&nbsp; <span style="font-size:12px;color:var(--slate-400);">Source: 30K+ news items, filtered to tracked companies</span></p>
+        </div>
+
+        <!-- Source Credibility Legend -->
+        <div class="card mb-6" style="border-left: 4px solid var(--intelligence-blue);">
+          <div class="card-body" style="padding:12px 20px;">
+            <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;font-size:12px;">
+              <span style="font-weight:600;color:var(--slate-500);">Source Tiers:</span>
+              <span class="badge" style="background:rgba(34,197,94,0.08);color:#22C55E;border:1px solid rgba(34,197,94,0.2);">T1 Regulatory/Filing</span>
+              <span class="badge" style="background:rgba(59,130,246,0.08);color:#3B82F6;border:1px solid rgba(59,130,246,0.2);">T2 Major Press</span>
+              <span class="badge" style="background:rgba(245,158,11,0.08);color:#F59E0B;border:1px solid rgba(245,158,11,0.2);">T3 Trade/Industry</span>
+              <span class="badge" style="background:rgba(239,68,68,0.08);color:#EF4444;border:1px solid rgba(239,68,68,0.2);">T4 General</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- News Filters -->
+        <div style="display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap;align-items:center;">
+          <div class="filter-group">
+            <span class="filter-label">Source Tier</span>
+            <select class="filter-select" id="newsTierFilter" aria-label="Filter by source tier">
+              <option value="all">All Tiers</option>
+              <option value="1">T1 — Regulatory/Filing</option>
+              <option value="2">T2 — Major Press</option>
+              <option value="3">T3 — Trade/Industry</option>
+              <option value="4">T4 — General</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <span class="filter-label">Category</span>
+            <select class="filter-select" id="newsCategoryFilter" aria-label="Filter by news category">
+              <option value="all">All Categories</option>
+              <option value="Product Strategy">Product Strategy</option>
+              <option value="Product Investment">Product Investment</option>
+              <option value="Product Pivot">Product Pivot</option>
+              <option value="Technology Direction">Technology Direction</option>
+              <option value="CXO Statement">CXO Statement</option>
+              <option value="Product Vision">Product Vision</option>
+            </select>
+          </div>
+          <span style="font-size:12px;color:var(--slate-400);margin-left:auto;" id="newsCountLabel">0 items</span>
+        </div>
+
+        <!-- News Feed -->
+        <div id="newsFeed"></div>
       </div>
 
       <!-- ============================================================
@@ -602,26 +698,26 @@
           <p>Market sizing, cost benchmarks, margin levers, and scale vs profitability analysis</p>
         </div>
 
-        <div class="grid-4 mb-6 mock-data" style="border-radius:12px;padding:4px;">
+        <div class="grid-4 mb-6 data-pending" style="border-radius:12px;padding:4px;">
           <div class="stat-card">
             <div class="stat-card-label">Market Size</div>
-            <div class="stat-card-value">₹45K Cr</div>
-            <span class="stat-card-change positive">+12.5% YoY</span>
+            <div class="stat-card-value">-</div>
+            <span class="stat-card-change neutral">Awaiting source</span>
           </div>
           <div class="stat-card">
             <div class="stat-card-label">Largest Segment</div>
-            <div class="stat-card-value">ACs</div>
-            <span class="stat-card-change positive">₹22K Cr, +15%</span>
+            <div class="stat-card-value">-</div>
+            <span class="stat-card-change neutral">Awaiting source</span>
           </div>
           <div class="stat-card">
             <div class="stat-card-label">Fastest Growing</div>
-            <div class="stat-card-value">Coolers</div>
-            <span class="stat-card-change positive">+18% YoY</span>
+            <div class="stat-card-value">-</div>
+            <span class="stat-card-change neutral">Awaiting source</span>
           </div>
           <div class="stat-card">
             <div class="stat-card-label">Segments Tracked</div>
-            <div class="stat-card-value">4</div>
-            <span class="stat-card-change neutral">ACs, Fridges, WMs, Coolers</span>
+            <div class="stat-card-value">-</div>
+            <span class="stat-card-change neutral">Awaiting source</span>
           </div>
         </div>
 
@@ -642,7 +738,7 @@
           </div>
         </div>
 
-        <div class="card mb-6 mock-data">
+        <div class="card mb-6 data-pending">
           <div class="card-header"><span class="card-title">Margin Levers Analysis</span></div>
           <div class="card-body" style="overflow-x:auto;">
             <table class="data-table">
@@ -677,7 +773,7 @@
           <p>Tailored insights for different stakeholder groups</p>
         </div>
 
-        <div class="card mb-6 mock-data">
+        <div class="card mb-6 data-pending">
           <div class="tabs" id="stakeholderTabs">
             <div class="tab active" data-tab="pe">PE / Investors</div>
             <div class="tab" data-tab="founders">Founders / Promoters</div>
@@ -712,12 +808,12 @@
 
         <div class="grid-2 mb-6">
           <!-- Likely Fundraises -->
-          <div class="card mock-data">
+          <div class="card data-pending">
             <div class="card-header"><span class="card-title">Likely Fundraises (Next 90 Days)</span></div>
             <div class="card-body" id="fundraisesList"></div>
           </div>
           <!-- Margin Inflection -->
-          <div class="card mock-data">
+          <div class="card data-pending">
             <div class="card-header"><span class="card-title">Margin Inflection Candidates</span></div>
             <div class="card-body" id="inflectionList"></div>
           </div>
@@ -725,12 +821,12 @@
 
         <div class="grid-2 mb-6">
           <!-- Consolidation Targets -->
-          <div class="card mock-data">
+          <div class="card data-pending">
             <div class="card-header"><span class="card-title">Potential Consolidation Targets</span></div>
             <div class="card-body" id="consolidationList"></div>
           </div>
           <!-- Stress Indicators -->
-          <div class="card mock-data">
+          <div class="card data-pending">
             <div class="card-header"><span class="card-title">Stress Indicators</span></div>
             <div class="card-body" id="stressList"></div>
           </div>
@@ -754,9 +850,9 @@
           <p>Actionable advisory opportunities identified from intelligence analysis</p>
         </div>
 
-        <div class="grid-3 mb-6 mock-data" style="border-radius:12px;padding:4px;" id="amSummaryStats"></div>
+        <div class="grid-3 mb-6 data-pending" style="border-radius:12px;padding:4px;" id="amSummaryStats"></div>
 
-        <div class="mock-data" style="border-radius:12px;padding:4px;" id="amOpportunitiesList"></div>
+        <div class="data-pending" style="border-radius:12px;padding:4px;" id="amOpportunitiesList"></div>
       </div>
 
     </div><!-- /page-content -->
@@ -768,17 +864,53 @@
   <div class="modal">
     <div class="modal-header">
       <span class="modal-title" id="modalCompanyName"></span>
-      <button class="modal-close" id="modalClose">&times;</button>
+      <button class="modal-close" id="modalClose" aria-label="Close company detail">&times;</button>
     </div>
     <div class="modal-body" id="modalBody"></div>
   </div>
 </div>
 
-<!-- Scripts -->
-<script src="assets/js/data.js"></script>
-<script src="assets/js/charts.js"></script>
-<script src="assets/js/filters.js"></script>
-<script src="assets/js/export.js"></script>
-<script src="assets/js/app.js"></script>
+<!-- ============================================================
+     DATA SOURCES ATTRIBUTION
+     ============================================================ -->
+<footer id="dataSourcesFooter" style="max-width:1400px;margin:32px auto 0;padding:24px 32px 40px;border-top:1px solid var(--slate-700,#334155);font-size:12px;color:var(--slate-400,#94A3B8);line-height:1.9;">
+  <h3 style="font-size:13px;font-weight:600;color:var(--slate-300,#CBD5E1);margin-bottom:12px;">Data Sources</h3>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:8px 24px;">
+    <div><strong>Financial Data:</strong> <a href="https://www.screener.in/" target="_blank" rel="noopener noreferrer" style="color:var(--intelligence-blue,#3B82F6);text-decoration:none;">Screener.in</a> — Quarterly results, balance sheets, ratios (scraped 18 Feb 2026)</div>
+    <div><strong>Cross-Validation:</strong> <a href="https://trendlyne.com/fundamentals/stock-screener/" target="_blank" rel="noopener noreferrer" style="color:var(--intelligence-blue,#3B82F6);text-decoration:none;">Trendlyne</a> — Fundamental screener &amp; peer comparison</div>
+    <div><strong>Earnings Quality:</strong> <a href="https://www.sovrenn.com/" target="_blank" rel="noopener noreferrer" style="color:var(--intelligence-blue,#3B82F6);text-decoration:none;">Sovrenn</a> — Quarterly result tags &amp; sentiment scoring</div>
+    <div><strong>Deals &amp; Transactions:</strong> BSE/NSE filings, company disclosures (data_sources/deals-transactions-capital-movements.csv)</div>
+    <div><strong>News &amp; Reports:</strong> Samsung Newsroom, investor relations calls, industry publications (data_sources/Data source - NEWS - news + reports .csv)</div>
+    <div><strong>Commodity Outlook:</strong> <a href="https://www.meadmetals.com/blog/metal-industry-outlook-2026-procurement-guide" target="_blank" rel="noopener noreferrer" style="color:var(--intelligence-blue,#3B82F6);text-decoration:none;">Mead Metals</a>, JPMorgan, Goldman Sachs, UBS, ANI News</div>
+    <div><strong>Policy &amp; Macro:</strong> <a href="https://insights.dsij.in/" target="_blank" rel="noopener noreferrer" style="color:var(--intelligence-blue,#3B82F6);text-decoration:none;">DSIJ</a>, <a href="https://www.croma.com/unboxed/" target="_blank" rel="noopener noreferrer" style="color:var(--intelligence-blue,#3B82F6);text-decoration:none;">Croma</a>, BEE, Union Budget 2026</div>
+    <div><strong>Market Context:</strong> <a href="https://www.alvarezandmarsal.com/thought-leadership/the-reality-check-india-s-consumer-economy-needed" target="_blank" rel="noopener noreferrer" style="color:var(--intelligence-blue,#3B82F6);text-decoration:none;">A&amp;M</a>, IBEF, WhalesBook, <a href="https://www.swastika.co.in/" target="_blank" rel="noopener noreferrer" style="color:var(--intelligence-blue,#3B82F6);text-decoration:none;">Swastika Investmart</a></div>
+    <div><strong>Operational Intelligence:</strong> Company annual reports, investor presentations, earnings calls (operational-intelligence-data.md)</div>
+    <div><strong>Company Reports:</strong> 15 company PDF reports in data_sources/Reports/ (Amber, Bajaj, Blue Star, Butterfly, Crompton, Dixon, Havells, IFB, Orient, Symphony, TTK, V-Guard, Voltas, Whirlpool)</div>
+  </div>
+  <div style="margin-top:16px;padding-top:12px;border-top:1px solid var(--slate-700,#334155);font-size:11px;color:var(--slate-500,#64748B);">
+    <strong>Confidence Legend:</strong> <span style="color:#22C55E;">VERIFIED</span> = directly from Screener.in, BSE/NSE filings, company annual reports, Sovrenn tags &nbsp;|&nbsp;
+    <span style="color:#F59E0B;">DERIVED</span> = calculated from verified data (e.g., Net Debt/EBITDA) &nbsp;|&nbsp;
+    <span style="color:#EF4444;">ESTIMATED</span> = industry reports, earnings call interpretation, analyst estimates &mdash; always traceable to named source
+  </div>
+</footer>
+
+<!-- Scripts — defer ensures non-blocking parse; execution order preserved -->
+<script defer src="assets/js/data.js"></script>
+<script defer src="assets/js/news-data.js"></script>
+<script defer src="assets/js/charts.js"></script>
+<script defer src="assets/js/filters.js"></script>
+<script defer src="assets/js/export.js"></script>
+<script defer src="assets/js/app.js"></script>
+
+<!-- Dismiss loader once app initializes -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var loader = document.getElementById('appLoader');
+    if (loader) {
+      loader.style.opacity = '0';
+      setTimeout(function() { loader.remove(); }, 350);
+    }
+  });
+</script>
 </body>
 </html>

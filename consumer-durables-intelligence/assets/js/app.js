@@ -42,6 +42,87 @@ const App = {
     </div>`;
   },
 
+  // Helper: A&M Signal classification
+  _getAmSignal(companyId, qIdx) {
+    const yoy = parseFloat(DataUtils.getYoYGrowthAt(companyId, 'revenue', qIdx));
+    const ebitda = DataUtils.getValueAt(companyId, 'ebitdaMargin', qIdx);
+    const ebitdaPrior = qIdx >= 4 ? DataUtils.getValueAt(companyId, 'ebitdaMargin', qIdx - 4) : null;
+    const marginDelta = (ebitda !== null && ebitdaPrior !== null) ? ebitda - ebitdaPrior : 0;
+    const debt = DataUtils.getValueAt(companyId, 'netDebtEbitda', qIdx);
+    const wc = DataUtils.getValueAt(companyId, 'workingCapDays', qIdx);
+    const rating = DATA.performanceRatings[companyId]?.rating;
+    const capex = DataUtils.getValueAt(companyId, 'capexIntensity', qIdx);
+
+    // Red: Turnaround Candidate
+    if (!isNaN(yoy) && yoy < 0 && (marginDelta < -1 || (debt !== null && debt > 2))) {
+      const reasons = [];
+      if (yoy < 0) reasons.push('Rev decline ' + yoy.toFixed(1) + '%');
+      if (marginDelta < -1) reasons.push('Margin -' + Math.abs(marginDelta).toFixed(1) + 'pp');
+      if (debt > 2) reasons.push('Leverage ' + debt + 'x');
+      return { type: 'turnaround', color: '#EF4444', label: 'Turnaround', tooltip: reasons.join(', ') };
+    }
+
+    // Amber: Performance Improvement
+    if (rating === 'Inline' || rating === 'Underperform') {
+      const reasons = [];
+      if (wc !== null && wc > 40) reasons.push('WC ' + wc + ' days (high)');
+      if (marginDelta < -0.5) reasons.push('Margin compressing');
+      if (capex !== null && capex > 8) reasons.push('Capex ' + capex + '% (heavy)');
+      if (debt !== null && debt > 1.5) reasons.push('Leverage ' + debt + 'x');
+      if (reasons.length) return { type: 'improve', color: '#F59E0B', label: 'Perf. Improve', tooltip: reasons.join(', ') };
+    }
+
+    // Green: Transaction Advisory / CDD
+    if (rating === 'Outperform' || (!isNaN(yoy) && yoy > 15 && ebitda !== null && ebitda > 10)) {
+      const reasons = [];
+      if (rating === 'Outperform') reasons.push('Outperformer');
+      if (!isNaN(yoy) && yoy > 15) reasons.push('Rev +' + yoy.toFixed(1) + '%');
+      if (ebitda > 10) reasons.push('EBITDA ' + ebitda + '%');
+      return { type: 'transaction', color: '#22C55E', label: 'Transaction', tooltip: reasons.join(', ') };
+    }
+
+    // Blue: Monitor
+    return { type: 'monitor', color: '#3B82F6', label: 'Monitor', tooltip: 'No immediate signal' };
+  },
+
+  // Helper: Inline SVG sparkline from data array
+  _sparklineSvg(dataArray, qIdx) {
+    const end = Math.min(qIdx + 1, dataArray.length);
+    const start = Math.max(0, end - 6);
+    const slice = dataArray.slice(start, end).filter(v => v !== null && v !== undefined);
+    if (slice.length < 2) return '';
+    const min = Math.min(...slice);
+    const max = Math.max(...slice);
+    const range = max - min || 1;
+    const w = 50, h = 18, pad = 2;
+    const points = slice.map((v, i) => {
+      const x = pad + (i / (slice.length - 1)) * (w - 2 * pad);
+      const y = h - pad - ((v - min) / range) * (h - 2 * pad);
+      return `${x.toFixed(1)},${y.toFixed(1)}`;
+    }).join(' ');
+    const last = slice[slice.length - 1];
+    const first = slice[0];
+    const color = last > first ? '#22C55E' : last < first ? '#EF4444' : '#94A3B8';
+    const lastPt = points.split(' ').pop().split(',');
+    return `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" style="vertical-align:middle;">
+      <polyline points="${points}" fill="none" stroke="${color}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="${lastPt[0]}" cy="${lastPt[1]}" r="2" fill="${color}"/>
+    </svg>`;
+  },
+
+  // Helper: Compute sector medians for given company IDs at given quarter
+  _getSectorMedians(ids, qIdx) {
+    const collect = (metric) => ids.map(id => DataUtils.getValueAt(id, metric, qIdx)).filter(v => v !== null);
+    const median = (arr) => { if (!arr.length) return null; const s = [...arr].sort((a,b) => a - b); const m = Math.floor(s.length / 2); return s.length % 2 ? s[m] : (s[m-1] + s[m]) / 2; };
+    const avg = (arr) => arr.length ? +(arr.reduce((a,b) => a + b, 0) / arr.length).toFixed(1) : null;
+    return {
+      wcDays: median(collect('workingCapDays')),
+      invDays: median(collect('inventoryDays')),
+      ebitda: avg(collect('ebitdaMargin')),
+      debt: median(collect('netDebtEbitda')),
+    };
+  },
+
   init() {
     this.bindNavigation();
     this.bindModal();
@@ -50,6 +131,7 @@ const App = {
     try { Filters.loadFromLocalStorage(); } catch(e) { console.warn('Filter load failed, resetting:', e); localStorage.removeItem('cdi_filters'); }
     ExportUtils.init();
     this.bindDealFyFilter();
+    this.bindDerivedToggle();
     try { this.renderAllSections(); } catch(e) { console.error('renderAllSections error:', e); }
     try { Charts.renderAll(Filters.getFilteredCompanyIds()); } catch(e) { console.error('Charts.renderAll error:', e); }
   },
@@ -63,6 +145,19 @@ const App = {
         this.renderDeals(filtered);
       });
     }
+  },
+
+  bindDerivedToggle() {
+    const btn = document.getElementById('toggleDerivedBtn');
+    const table = document.getElementById('financialTable');
+    const label = document.getElementById('toggleDerivedLabel');
+    if (!btn || !table) return;
+    btn.addEventListener('click', () => {
+      table.classList.toggle('show-derived');
+      const showing = table.classList.contains('show-derived');
+      btn.classList.toggle('active', showing);
+      if (label) label.textContent = showing ? 'Hide Derived Metrics' : 'Show Derived Metrics';
+    });
   },
 
   // ============================================================
@@ -240,18 +335,79 @@ const App = {
       </div>
 
       <h4 class="mb-2">Earnings Quality Score</h4>
-      <div style="display:flex;gap:16px;align-items:center;">
+      <div style="display:flex;gap:16px;align-items:center;margin-bottom:16px;">
         <div style="text-align:center;">
           <div class="text-xs text-slate">Overall</div>
           <div class="fw-600 text-mono" style="font-size:1.3rem;color:${sent.overall !== null ? (sent.overall>=60?'var(--green)':sent.overall>=40?'var(--amber)':'var(--red)') : '#94A3B8'};">${sent.overall !== null ? sent.overall : 'N/A'}</div>
         </div>
         <div class="text-xs text-slate" style="max-width:200px;">Source: Sovrenn quarterly result tags (recency-weighted)</div>
       </div>
+
+      ${this._renderAmEngagement(companyId, qIdx)}
     `;
 
     document.getElementById('modalCompanyName').textContent = c.name;
     document.getElementById('modalBody').innerHTML = html;
     document.getElementById('companyModal').classList.add('active');
+  },
+
+  _renderAmEngagement(companyId, qIdx) {
+    const signal = this._getAmSignal(companyId, qIdx);
+    const ids = Filters.getFilteredCompanyIds();
+    const med = this._getSectorMedians(ids, qIdx);
+
+    const wc = DataUtils.getValueAt(companyId, 'workingCapDays', qIdx);
+    const ebitda = DataUtils.getValueAt(companyId, 'ebitdaMargin', qIdx);
+    const debt = DataUtils.getValueAt(companyId, 'netDebtEbitda', qIdx);
+    const rev = DataUtils.getValueAt(companyId, 'revenue', qIdx);
+    const yoy = parseFloat(DataUtils.getYoYGrowthAt(companyId, 'revenue', qIdx));
+    const impDep = DATA.operationalMetrics.importDependency[companyId];
+
+    const pitches = [];
+
+    if (wc !== null && med.wcDays !== null && wc > med.wcDays) {
+      const delta = wc - med.wcDays;
+      const potential = rev ? Math.round(rev * delta / 365) : '?';
+      pitches.push({ icon: '&#9200;', text: `<strong>Working capital optimization</strong> — ${wc} days vs sector median ${med.wcDays} days. Potential ~₹${potential} Cr cash release.` });
+    }
+
+    if (ebitda !== null && med.ebitda !== null && ebitda < med.ebitda) {
+      const gap = (med.ebitda - ebitda).toFixed(1);
+      const impact = rev ? Math.round(rev * parseFloat(gap) / 100) : '?';
+      pitches.push({ icon: '&#9650;', text: `<strong>Margin improvement program</strong> — ${ebitda}% vs sector avg ${med.ebitda}%. ${gap}pp uplift = ~₹${impact} Cr EBITDA impact.` });
+    }
+
+    if (debt !== null && debt > 1.5) {
+      pitches.push({ icon: '&#9888;', text: `<strong>Balance sheet restructuring</strong> — leverage at ${debt}x. De-leveraging roadmap and refinancing advisory.` });
+    }
+
+    if (!isNaN(yoy) && yoy > 15 && ebitda !== null && ebitda > 10) {
+      pitches.push({ icon: '&#9733;', text: `<strong>Transaction advisory / CDD</strong> — strong growth profile (${yoy.toFixed(1)}% YoY, ${ebitda}% EBITDA) positions for PE interest.` });
+    }
+
+    if (impDep !== null && impDep > 30) {
+      pitches.push({ icon: '&#9881;', text: `<strong>Supply chain de-risk</strong> — ${impDep}% import exposure. Localization roadmap + alternate supplier sourcing.` });
+    }
+
+    if (!pitches.length) {
+      pitches.push({ icon: '&#128269;', text: `<strong>Monitor</strong> — No immediate intervention triggers. Continue tracking for emerging signals.` });
+    }
+
+    return `
+      <div style="border-radius:8px;padding:14px;border:2px solid ${signal.color}30;background:${signal.color}08;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+          <span class="am-signal-dot" style="background:${signal.color};width:10px;height:10px;border-radius:50%;display:inline-block;"></span>
+          <h4 style="margin:0;font-size:14px;">Potential A&M Engagement</h4>
+          <span style="font-size:11px;font-weight:600;color:${signal.color};margin-left:auto;">${signal.label}</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          ${pitches.map(p => `<div style="display:flex;gap:8px;font-size:12px;color:var(--slate-600);line-height:1.5;">
+            <span style="flex-shrink:0;">${p.icon}</span>
+            <span>${p.text}</span>
+          </div>`).join('')}
+        </div>
+      </div>
+    `;
   },
 
   // ============================================================
@@ -396,6 +552,24 @@ const App = {
     const fmt = (v, suffix) => v !== null && v !== undefined ? v + suffix : '-';
     const fmtCur = (v) => v !== null && v !== undefined ? DataUtils.formatCurrency(v) : '-';
 
+    // Precompute sub-category revenue totals for market share
+    const subCatRevTotals = {};
+    ids.forEach(id => {
+      const cat = DataUtils.getCompany(id).subCategory;
+      const rev = DataUtils.getValueAt(id, 'revenue', qIdx) || 0;
+      subCatRevTotals[cat] = (subCatRevTotals[cat] || 0) + rev;
+    });
+
+    // Sector volume growth for pricing power
+    const volGrowth = DATA.marketPulse?.demandSignals?.volumeGrowth;
+    const sectorVolGrowth = (volGrowth && volGrowth[qIdx] !== null) ? volGrowth[qIdx] : 7;
+
+    // News counts per company for competitive intensity
+    const newsCounts = {};
+    if (typeof NEWS_DATA !== 'undefined') {
+      NEWS_DATA.items.forEach(n => { newsCounts[n.companyId] = (newsCounts[n.companyId] || 0) + 1; });
+    }
+
     tbody.innerHTML = ids.map(id => {
       const c = DataUtils.getCompany(id);
       const rev = DataUtils.getValueAt(id, 'revenue', qIdx);
@@ -415,12 +589,37 @@ const App = {
 
       const ratingClass = rating.rating === 'Outperform' ? 'badge-outperform' : rating.rating === 'Inline' ? 'badge-inline' : rating.rating === 'N/A' ? 'badge-info' : 'badge-underperform';
 
+      // A&M Signal
+      const signal = this._getAmSignal(id, qIdx);
+      const signalHtml = `<span class="am-signal" title="${signal.tooltip}"><span class="am-signal-dot" style="background:${signal.color};"></span>${signal.label}</span>`;
+
+      // Sparklines
+      const revSparkline = rev !== null ? this._sparklineSvg(DATA.financials[id].revenue, qIdx) : '';
+      const ebitdaSparkline = ebitda !== null ? this._sparklineSvg(DATA.financials[id].ebitdaMargin, qIdx) : '';
+
+      // Derived: Market Share %
+      const mktShare = (rev && subCatRevTotals[c.subCategory]) ? (rev / subCatRevTotals[c.subCategory] * 100).toFixed(1) : '-';
+
+      // Derived: Pricing Power
+      let pricingPower = '-';
+      let ppClass = '';
+      if (!isNaN(yoyVal)) {
+        const pp = (yoyVal - sectorVolGrowth).toFixed(1);
+        pricingPower = (pp >= 0 ? '+' : '') + pp + 'pp';
+        ppClass = pp >= 0 ? 'text-green' : 'text-red';
+      }
+
+      // Derived: Competitive Intensity
+      const newsCount = newsCounts[id] || 0;
+      const compIntensity = rev ? (newsCount / (rev / 1000)).toFixed(1) : '-';
+
       return `<tr>
+        <td>${signalHtml}</td>
         <td><span class="fw-600 text-navy">${c.name}</span></td>
         <td><span class="badge badge-info">${c.subCategory}</span></td>
-        <td class="text-right mono">${fmtCur(rev)}</td>
+        <td class="text-right mono"><span class="sparkline-cell">${fmtCur(rev)}${revSparkline}</span></td>
         <td class="text-right mono ${yoyClass}">${yoyDisplay}</td>
-        <td class="text-right mono">${fmt(ebitda, '%')}</td>
+        <td class="text-right mono"><span class="sparkline-cell">${fmt(ebitda, '%')}${ebitdaSparkline}</span></td>
         <td class="text-right mono">${fmt(wc, '')}</td>
         <td class="text-right mono">${fmt(inv, '')}</td>
         <td class="text-right mono">${fmt(debt, 'x')}</td>
@@ -428,10 +627,11 @@ const App = {
         <td class="text-right mono">${fmt(capex, '%')}</td>
         <td><span class="badge ${ratingClass}">${rating.rating === 'N/A' ? '-' : rating.rating}</span></td>
         <td class="text-center">${trendIcon}</td>
+        <td class="text-right mono derived-col">${mktShare}${mktShare !== '-' ? '%' : ''}</td>
+        <td class="text-right mono derived-col ${ppClass}">${pricingPower}</td>
+        <td class="text-right mono derived-col">${compIntensity}</td>
       </tr>`;
     }).join('');
-
-    // Modal drill-down removed per user request
   },
 
   // ============================================================
@@ -737,11 +937,26 @@ const App = {
       const color = imp === 'CRITICAL' ? '#EF4444' : imp === 'HIGH' ? '#F59E0B' : '#3B82F6';
       return `<span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;color:#fff;background:${color};">${imp}</span>`;
     };
+    // Cross-reference import dependency to generate A&M implications
+    const impDep = DATA.operationalMetrics.importDependency;
+    const getAmImplication = (commodity) => {
+      const highImport = Object.entries(impDep)
+        .filter(([, v]) => v >= 30)
+        .map(([id]) => DataUtils.getCompany(id).name.split(' ')[0])
+        .slice(0, 3);
+      const highList = highImport.length ? highImport.join(', ') : 'multiple companies';
+      if (commodity === 'Copper') return `Procurement advisory for high-import companies (${highList}). Hedging strategy + alternate supplier sourcing.`;
+      if (commodity === 'Aluminum') return `Supply chain de-risk for AC/component makers. Localization acceleration opportunity.`;
+      if (commodity === 'Steel') return `BoM cost optimization for white goods. Duty pass-through pricing advisory.`;
+      if (commodity === 'INR/USD') return `FX hedging program design. Import substitution roadmap for companies at >${30}% import dependency.`;
+      return 'Cost optimization advisory opportunity.';
+    };
     tbody.innerHTML = data.map(c => `<tr>
       <td><span class="fw-600">${c.commodity}</span></td>
       <td class="mono" style="font-size:13px;">${c.forecast}</td>
       <td>${impactBadge(c.impact)}</td>
-      <td style="font-size:12px;max-width:350px;">${c.detail}</td>
+      <td style="font-size:12px;max-width:300px;">${c.detail}</td>
+      <td style="font-size:12px;max-width:280px;color:var(--teal);"><strong style="color:var(--teal);">&#9654;</strong> ${getAmImplication(c.commodity)}</td>
       <td style="font-size:11px;color:var(--slate-400);">${c.source}</td>
     </tr>`).join('');
   },
@@ -800,6 +1015,21 @@ const App = {
         </div>
       </div>
       <div style="margin-top:8px;font-size:11px;color:var(--slate-400);">Key insight: ${d.growthDriver}</div>
+      <div style="margin-top:12px;padding:12px;border-radius:8px;background:rgba(13,148,136,0.06);border:1px solid rgba(13,148,136,0.2);">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;">
+          <span style="font-weight:700;font-size:12px;color:var(--teal);">What A&M Published</span>
+          <span class="badge" style="background:rgba(13,148,136,0.12);color:var(--teal);font-size:9px;border:1px solid rgba(13,148,136,0.25);">A&M Research</span>
+        </div>
+        <div style="font-size:12px;color:var(--slate-500);line-height:1.5;margin-bottom:6px;">
+          <strong style="color:var(--slate-600);">The Reality Check India's Consumer Economy Needed</strong> &mdash;
+          A&M's analysis highlights that India's consumer growth is price-hike and premiumization driven, not genuine volume expansion.
+          Rural demand remains fragile; urban discretionary spending masks structural weakness in mass-market penetration.
+        </div>
+        <a href="https://www.alvarezandmarsal.com/thought-leadership/the-reality-check-india-s-consumer-economy-needed" target="_blank" rel="noopener noreferrer"
+          style="display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;color:var(--teal);text-decoration:none;">
+          Read Full Report &#8599;
+        </a>
+      </div>
     `;
   },
 
