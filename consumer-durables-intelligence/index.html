@@ -612,12 +612,61 @@
       <div class="section-panel" id="section-leadership">
         <div class="section-header">
           <h2><span class="section-icon">&#9733;</span> Leadership, Org & Governance Watch</h2>
-          <p>CEO/CXO changes, board reshuffles, promoter movements, and governance flags</p>
+          <p>CEO/CXO changes, board reshuffles, promoter movements, and governance flags &nbsp;|&nbsp; <span style="font-size:12px;color:var(--slate-400);">28 verified events across 15 companies</span></p>
         </div>
 
-        <div class="card mb-6 data-pending">
+        <!-- A&M Leadership Triggers — Monday Morning Call List -->
+        <div class="card mb-6" style="border-left: 4px solid #EF4444;">
+          <div class="card-header">
+            <span class="card-title" style="color:#EF4444;">&#9888; A&M Leadership Triggers — Who to Call Monday</span>
+            <span style="font-size:11px;color:var(--slate-400);">Auto-computed from leadership events, governance flags, and promoter movements</span>
+          </div>
+          <div class="card-body" id="leadershipTriggersPanel">
+            <!-- Populated by App.renderLeadershipTriggers() -->
+          </div>
+        </div>
+
+        <!-- Governance Risk Summary -->
+        <div class="card mb-6" style="border-left: 4px solid var(--amber);">
+          <div class="card-header">
+            <span class="card-title" style="color:var(--amber);">&#9873; Governance Risk Monitor</span>
+            <span style="font-size:11px;color:var(--slate-400);">Board structure flags, promoter concentration, independence concerns</span>
+          </div>
+          <div class="card-body" id="governanceRiskPanel">
+            <!-- Populated by App.renderGovernanceRiskPanel() -->
+          </div>
+        </div>
+
+        <!-- Leadership Timeline (enhanced) -->
+        <div class="card mb-6">
+          <div class="card-header">
+            <span class="card-title">Leadership Change Timeline</span>
+            <span style="font-size:11px;color:var(--slate-400);">Sourced from regulatory filings, press, and corporate announcements</span>
+          </div>
           <div class="card-body">
             <div class="timeline" id="leadershipTimeline"></div>
+          </div>
+        </div>
+
+        <!-- Promoter Holding A&M Advisory Table -->
+        <div class="card mb-6">
+          <div class="card-header">
+            <span class="card-title">Promoter Holding — A&M Advisory Map</span>
+            <span style="font-size:11px;color:var(--slate-400);">Source: <a href="https://www.screener.in/" target="_blank" rel="noopener noreferrer" style="color:var(--intelligence-blue);text-decoration:none;">Screener.in</a> Shareholding (Dec 2025) &nbsp;|&nbsp; Advisory framing: editorial</span>
+          </div>
+          <div class="card-body" style="overflow-x:auto;">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Company</th>
+                  <th class="text-right">Promoter %</th>
+                  <th>Parent / Group</th>
+                  <th>Recent Leadership Events</th>
+                  <th>A&M Advisory Opportunity</th>
+                </tr>
+              </thead>
+              <tbody id="promoterAdvisoryBody"></tbody>
+            </table>
           </div>
         </div>
 

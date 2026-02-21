@@ -126,6 +126,46 @@ const App = {
     return { type: 'monitor', color: '#3B82F6', label: 'Monitor', tooltip: 'No immediate ops signal' };
   },
 
+  // Helper: Governance Signal classification (leadership + promoter data)
+  _getGovernanceSignal(companyId) {
+    const company = DataUtils.getCompany(companyId);
+    const promoter = company.promoterHolding;
+    const events = DATA.leadershipChanges.filter(lc => lc.companyId === companyId);
+    const highEvents = events.filter(e => e.riskLevel === 'High');
+    const medEvents = events.filter(e => e.riskLevel === 'Medium');
+    const recentEvents = events.filter(e => {
+      const d = new Date(e.date);
+      const cutoff = new Date();
+      cutoff.setMonth(cutoff.getMonth() - 12);
+      return d >= cutoff;
+    });
+
+    // Red — Governance Restructuring: multiple high-risk events OR promoter exiting
+    if (highEvents.length >= 2 || (promoter !== null && promoter < 25 && highEvents.length >= 1)) {
+      const reasons = [];
+      if (highEvents.length >= 2) reasons.push(highEvents.length + ' high-risk events');
+      if (promoter !== null && promoter < 25) reasons.push('Promoter ' + promoter + '%');
+      return { type: 'restructure', color: '#EF4444', label: 'Gov. Restructure', tooltip: reasons.join(', '), score: 3 };
+    }
+
+    // Amber — Governance Watch: high-risk event(s) OR rapid recent turnover
+    if (highEvents.length >= 1 || recentEvents.length >= 3 || (promoter !== null && promoter < 35 && medEvents.length >= 1)) {
+      const reasons = [];
+      if (highEvents.length >= 1) reasons.push(highEvents.length + ' high-risk event');
+      if (recentEvents.length >= 3) reasons.push(recentEvents.length + ' events in 12mo');
+      if (promoter !== null && promoter < 35) reasons.push('Promoter ' + promoter + '%');
+      return { type: 'watch', color: '#F59E0B', label: 'Gov. Watch', tooltip: reasons.join(', '), score: 2 };
+    }
+
+    // Green — Governance Stable: low-risk events only, strong promoter
+    if (highEvents.length === 0 && medEvents.length === 0 && promoter !== null && promoter > 50) {
+      return { type: 'stable', color: '#22C55E', label: 'Gov. Stable', tooltip: 'No flags, promoter ' + promoter + '%', score: 0 };
+    }
+
+    // Blue — Monitor
+    return { type: 'monitor', color: '#3B82F6', label: 'Monitor', tooltip: 'Standard governance', score: 1 };
+  },
+
   // Helper: Inline SVG sparkline from data array
   _sparklineSvg(dataArray, qIdx) {
     const end = Math.min(qIdx + 1, dataArray.length);
@@ -466,7 +506,10 @@ const App = {
     safe(() => this.renderRetailFootprint(filtered), 'retailFootprint');
     safe(() => this.renderDealsSummaryStats(filtered), 'dealsSummaryStats');
     safe(() => this.renderDeals(filtered), 'deals');
+    safe(() => this.renderLeadershipTriggers(filtered), 'leadershipTriggers');
+    safe(() => this.renderGovernanceRiskPanel(filtered), 'governanceRisk');
     safe(() => this.renderLeadership(filtered), 'leadership');
+    safe(() => this.renderPromoterAdvisory(filtered), 'promoterAdvisory');
     safe(() => this.renderLeadershipBadge(filtered), 'leadershipBadge');
     safe(() => this.renderCompetitiveMoves(filtered), 'competitiveMoves');
     safe(() => this.renderMarginLevers(), 'marginLevers');
@@ -1266,7 +1309,213 @@ const App = {
   },
 
   // ============================================================
-  // SECTION 6: LEADERSHIP
+  // SECTION 6: LEADERSHIP — Triggers Panel
+  // ============================================================
+  renderLeadershipTriggers(filteredIds) {
+    const panel = document.getElementById('leadershipTriggersPanel');
+    if (!panel) return;
+
+    const ids = filteredIds || Filters.getFilteredCompanyIds();
+    const triggers = [];
+
+    ids.forEach(id => {
+      const signal = this._getGovernanceSignal(id);
+      if (signal.type === 'stable' || signal.type === 'monitor') return;
+      const company = DataUtils.getCompany(id);
+      const name = company.name.replace(' of India', '').replace(' Greaves Consumer', '');
+      const events = DATA.leadershipChanges.filter(lc => lc.companyId === id);
+      const highEvents = events.filter(e => e.riskLevel === 'High');
+      const promoter = company.promoterHolding;
+
+      // Determine trigger type and evidence
+      let triggerType = '';
+      let evidence = '';
+      let opportunity = '';
+
+      if (highEvents.some(e => e.change === 'Ownership Change' || e.change === 'Promoter Stake Change')) {
+        const stakeEvent = highEvents.find(e => e.change === 'Ownership Change' || e.change === 'Promoter Stake Change');
+        triggerType = 'Ownership / Promoter Transition';
+        evidence = stakeEvent.detail;
+        opportunity = promoter !== null && promoter < 40
+          ? `Promoter at ${promoter}% — standalone strategy, brand licensing, MBO/PE advisory`
+          : `Ownership restructuring underway — post-acquisition integration, governance design advisory`;
+      } else if (highEvents.some(e => e.change.includes('CEO') || e.change === 'CXO Exodus')) {
+        const ceoEvent = highEvents.find(e => e.change.includes('CEO') || e.change === 'CXO Exodus');
+        triggerType = 'Leadership Vacuum / Transition';
+        evidence = ceoEvent.detail;
+        opportunity = `"First 100 Days" advisory — strategic diagnostics, org design, operational acceleration`;
+      } else if (highEvents.some(e => e.change === 'Governance Flag')) {
+        const govEvent = highEvents.find(e => e.change === 'Governance Flag');
+        triggerType = 'Governance Restructuring';
+        evidence = govEvent.detail;
+        opportunity = `Board restructuring, governance upgrade, professional management induction advisory`;
+      } else if (events.length >= 3) {
+        triggerType = 'Organizational Instability';
+        evidence = `${events.length} leadership events detected — ${events.map(e => e.change).join(', ')}`;
+        opportunity = `Talent retention strategy, succession planning, organizational stability assessment`;
+      } else {
+        triggerType = 'Governance Watch';
+        evidence = signal.tooltip;
+        opportunity = `Proactive governance advisory and board composition review`;
+      }
+
+      triggers.push({ name, id, signal, triggerType, evidence, opportunity, severity: signal.score });
+    });
+
+    // Sort by severity (highest first)
+    triggers.sort((a, b) => b.severity - a.severity);
+    const top = triggers.slice(0, 6);
+
+    if (!top.length) {
+      panel.innerHTML = '<div style="padding:12px;font-size:13px;color:var(--slate-400);">No critical leadership triggers detected — all companies within normal governance parameters.</div>';
+      return;
+    }
+
+    panel.innerHTML = top.map(t => `
+      <div class="leadership-trigger-item">
+        <div class="leadership-trigger-header">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span class="am-signal"><span class="am-signal-dot" style="background:${t.signal.color};"></span>${t.name}</span>
+            <span class="badge badge-${t.signal.type === 'restructure' ? 'underperform' : 'inline'}" style="font-size:10px;">${t.signal.label}</span>
+          </div>
+          <span class="leadership-trigger-type">${t.triggerType}</span>
+        </div>
+        <div class="leadership-trigger-evidence">${t.evidence}</div>
+        <div class="leadership-trigger-opportunity">&#9654; ${t.opportunity}</div>
+      </div>
+    `).join('');
+  },
+
+  // ============================================================
+  // SECTION 6: LEADERSHIP — Governance Risk Panel
+  // ============================================================
+  renderGovernanceRiskPanel(filteredIds) {
+    const panel = document.getElementById('governanceRiskPanel');
+    if (!panel) return;
+
+    const ids = filteredIds || Filters.getFilteredCompanyIds();
+    const flags = [];
+
+    ids.forEach(id => {
+      const company = DataUtils.getCompany(id);
+      const name = company.name.replace(' of India', '').replace(' Greaves Consumer', '');
+      const promoter = company.promoterHolding;
+      const events = DATA.leadershipChanges.filter(lc => lc.companyId === id);
+      const govFlags = events.filter(e => e.change === 'Governance Flag');
+      const signal = this._getGovernanceSignal(id);
+
+      // Only show companies with actual governance flags or concerning promoter situations
+      if (govFlags.length === 0 && (promoter === null || promoter > 40) && signal.type === 'stable') return;
+
+      const issues = [];
+      govFlags.forEach(f => issues.push(f.detail));
+      if (promoter !== null && promoter === 0) issues.push('Widely held — no promoter anchor. Vulnerable to activist/hostile actions.');
+      else if (promoter !== null && promoter < 30) issues.push(`Low promoter holding (${promoter}%) — watch for further dilution or exit.`);
+
+      if (!issues.length && signal.type === 'monitor') return;
+
+      flags.push({ name, id, promoter, signal, issues, govFlags });
+    });
+
+    flags.sort((a, b) => b.signal.score - a.signal.score);
+
+    if (!flags.length) {
+      panel.innerHTML = '<div style="padding:12px;font-size:13px;color:var(--slate-400);">No governance risk flags detected for filtered companies.</div>';
+      return;
+    }
+
+    panel.innerHTML = `<div class="governance-risk-grid">${flags.map(f => {
+      const borderColor = f.signal.color;
+      const issueHtml = f.issues.length
+        ? f.issues.map(i => `<div class="governance-issue-line">&#8226; ${i}</div>`).join('')
+        : '<div class="governance-issue-line" style="color:var(--slate-400);">No specific flags — monitoring</div>';
+      const promoterDisplay = f.promoter !== null ? f.promoter + '%' : 'N/A';
+      return `
+        <div class="governance-risk-card" style="border-left:3px solid ${borderColor};">
+          <div class="governance-risk-header">
+            <span class="fw-600 text-navy" style="font-size:13px;">${f.name}</span>
+            <span class="am-signal" style="font-size:11px;"><span class="am-signal-dot" style="background:${borderColor};"></span>${f.signal.label}</span>
+          </div>
+          <div style="font-size:11px;color:var(--slate-400);margin-bottom:6px;">Promoter: ${promoterDisplay}</div>
+          ${issueHtml}
+        </div>`;
+    }).join('')}</div>`;
+  },
+
+  // ============================================================
+  // SECTION 6: LEADERSHIP — Promoter Advisory Table
+  // ============================================================
+  renderPromoterAdvisory(filteredIds) {
+    const tbody = document.getElementById('promoterAdvisoryBody');
+    if (!tbody) return;
+
+    const ids = filteredIds || Filters.getFilteredCompanyIds();
+
+    tbody.innerHTML = ids.map(id => {
+      const company = DataUtils.getCompany(id);
+      const name = company.name.replace(' of India', '').replace(' Greaves Consumer', '');
+      const promoter = company.promoterHolding;
+      const parent = company.parentCompany || 'Independent';
+      const events = DATA.leadershipChanges.filter(lc => lc.companyId === id);
+      const signal = this._getGovernanceSignal(id);
+
+      // Promoter color coding
+      let promoterColor = '#22C55E';
+      if (promoter === null) promoterColor = '#94A3B8';
+      else if (promoter === 0) promoterColor = '#9333EA';
+      else if (promoter < 30) promoterColor = '#EF4444';
+      else if (promoter < 50) promoterColor = '#F59E0B';
+
+      // Recent events summary (max 2)
+      const recentEvents = [...events].sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 2);
+      const eventsSummary = recentEvents.length
+        ? recentEvents.map(e => `<div style="font-size:11px;margin-bottom:2px;"><span class="badge badge-${e.riskLevel==='High'?'underperform':e.riskLevel==='Medium'?'inline':'outperform'}" style="font-size:9px;padding:1px 5px;">${e.change}</span> ${e.person.split('(')[0].trim()}</div>`).join('')
+        : '<span style="font-size:11px;color:var(--slate-400);">No events</span>';
+
+      // A&M advisory based on promoter + events
+      let advisory = '';
+      let advisoryColor = '#94A3B8';
+      if (promoter !== null && promoter < 25) {
+        advisory = 'Acquisition target / PE entry — standalone strategy, brand licensing, MBO advisory';
+        advisoryColor = '#EF4444';
+      } else if (promoter === 0) {
+        advisory = 'Widely held — activist defense, poison pill advisory, board independence audit';
+        advisoryColor = '#9333EA';
+      } else if (promoter !== null && promoter < 40 && events.some(e => e.riskLevel === 'High')) {
+        advisory = 'Governance risk + low promoter — board restructuring, professional mgmt advisory';
+        advisoryColor = '#EF4444';
+      } else if (events.filter(e => e.riskLevel === 'High').length >= 2) {
+        advisory = 'Multi-signal distress — interim management, succession planning, operational continuity';
+        advisoryColor = '#F59E0B';
+      } else if (events.some(e => e.change.includes('CEO') && e.riskLevel !== 'Low')) {
+        advisory = '"First 100 Days" CEO transition advisory — strategic diagnostics, org design';
+        advisoryColor = '#F59E0B';
+      } else if (promoter !== null && promoter > 70) {
+        advisory = 'Family governance framework — succession planning, professional board advisory';
+        advisoryColor = '#3B82F6';
+      } else if (events.length === 0 || events.every(e => e.riskLevel === 'Low')) {
+        advisory = 'Monitoring — stable governance';
+        advisoryColor = '#94A3B8';
+      } else {
+        advisory = 'Standard governance advisory — board composition, ESG compliance';
+        advisoryColor = '#3B82F6';
+      }
+
+      return `<tr>
+        <td>
+          <span class="fw-600 text-navy">${name}</span>
+          <div style="margin-top:2px;"><span class="am-signal" style="font-size:10px;"><span class="am-signal-dot" style="background:${signal.color};"></span>${signal.label}</span></div>
+        </td>
+        <td class="text-right mono" style="color:${promoterColor};font-weight:600;">${promoter !== null ? promoter + '%' : 'N/A'}</td>
+        <td style="font-size:12px;">${parent}</td>
+        <td style="max-width:200px;">${eventsSummary}</td>
+        <td style="font-size:12px;max-width:280px;"><span style="border-left:3px solid ${advisoryColor};padding-left:8px;display:inline-block;">${advisory}</span></td>
+      </tr>`;
+    }).join('');
+  },
+
+  // ============================================================
+  // SECTION 6: LEADERSHIP — Timeline (Enhanced)
   // ============================================================
   renderLeadership(filteredIds) {
     const timeline = document.getElementById('leadershipTimeline');
@@ -1283,6 +1532,12 @@ const App = {
 
     timeline.innerHTML = sorted.map(lc => {
       const dotColor = DataUtils.getSeverityColor(lc.riskLevel);
+      const sourceLink = lc.sourceUrl
+        ? `<a href="${lc.sourceUrl}" target="_blank" rel="noopener noreferrer" class="timeline-source">&#128279; ${lc.sourceName || 'Source'}</a>`
+        : '';
+      const personBadge = lc.person
+        ? `<span class="timeline-person">${lc.person.split('(')[0].trim()}</span>`
+        : '';
       return `
         <div class="timeline-item">
           <div class="timeline-dot" style="background:${dotColor};"></div>
@@ -1292,8 +1547,10 @@ const App = {
               <span class="badge badge-${lc.riskLevel==='High'?'underperform':lc.riskLevel==='Medium'?'inline':'outperform'}">${lc.change}</span>
               <span class="timeline-date">${lc.date}</span>
             </div>
+            ${personBadge ? `<div style="margin-bottom:4px;">${personBadge}</div>` : ''}
             <div class="timeline-detail">${lc.detail}</div>
-            <div class="timeline-implication">Implication: ${lc.implication}</div>
+            <div class="timeline-implication"><strong style="color:var(--teal);">&#9654; A&M:</strong> ${lc.implication}</div>
+            ${sourceLink ? `<div style="margin-top:4px;">${sourceLink}</div>` : ''}
           </div>
         </div>
       `;

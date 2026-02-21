@@ -1763,6 +1763,93 @@ a:hover { color: var(--deep-blue); }
   font-weight: 600;
 }
 
+/* ============================================================
+   LEADERSHIP & GOVERNANCE ENHANCEMENTS
+   ============================================================ */
+/* Leadership trigger items (mirrors diagnostic-trigger pattern) */
+.leadership-trigger-item {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--slate-100);
+}
+.leadership-trigger-item:last-child { border-bottom: none; }
+
+.leadership-trigger-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  gap: 12px;
+}
+
+.leadership-trigger-type {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #EF4444;
+  white-space: nowrap;
+}
+
+.leadership-trigger-evidence {
+  font-size: 12px;
+  color: var(--slate-600);
+  line-height: 1.5;
+  margin-bottom: 4px;
+}
+
+.leadership-trigger-opportunity {
+  font-size: 12px;
+  color: var(--teal);
+  font-weight: 500;
+}
+
+/* Governance risk grid */
+.governance-risk-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 12px;
+}
+
+.governance-risk-card {
+  padding: 12px 16px;
+  border-radius: 8px;
+  background: var(--slate-50);
+}
+
+.governance-risk-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.governance-issue-line {
+  font-size: 11px;
+  color: var(--slate-600);
+  line-height: 1.6;
+}
+
+/* Timeline enhancements */
+.timeline-person {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--deep-blue);
+  background: rgba(30, 58, 138, 0.06);
+  padding: 1px 8px;
+  border-radius: 4px;
+}
+
+.timeline-source {
+  font-size: 11px;
+  color: var(--intelligence-blue);
+  text-decoration: none;
+  font-weight: 500;
+}
+.timeline-source:hover {
+  text-decoration: underline;
+}
+
 /* Print styles */
 @media print {
   .sidebar, .top-bar, .filters-bar, .hamburger,

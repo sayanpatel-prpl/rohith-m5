@@ -718,126 +718,135 @@ const DATA = {
   // ============================================================
   // LEADERSHIP CHANGES
   // ============================================================
+  // Sourced from BSE filings, MarketScreener, BoardStewardship, Business Standard, PeopleMatters, company disclosures
+  // Verified Feb 2026
   leadershipChanges: [
-    {
-      date: '2024-12-01',
-      company: 'Whirlpool of India',
-      change: 'CEO Change',
-      detail: 'Narasimhan Eswar appointed as new MD following parent company restructuring',
-      riskLevel: 'Medium',
-      implication: 'Strategy shift expected; focus on India-specific products likely',
-    },
-    {
-      date: '2024-09-15',
-      company: 'Bajaj Electricals',
-      change: 'CEO Change',
-      detail: 'Anuj Poddar stepped down; Shekhar Bajaj resumed interim leadership',
-      riskLevel: 'High',
-      implication: 'Strategic uncertainty; EPC business separation still pending; promoter-led turnaround attempt',
-    },
-    {
-      date: '2024-07-01',
-      company: 'Crompton Greaves Consumer',
-      change: 'CFO Change',
-      detail: 'New CFO appointed from FMCG background to drive Butterfly integration',
-      riskLevel: 'Low',
-      implication: 'FMCG expertise brought in for consumer-focused transformation',
-    },
-    {
-      date: '2025-01-15',
-      company: 'IFB Industries',
-      change: 'Board Reshuffle',
-      detail: 'Two independent directors replaced; PE-backed board members added',
-      riskLevel: 'Medium',
-      implication: 'Possible preparation for stake sale or strategic investor; operational improvement mandate',
-    },
-    {
-      date: '2024-04-10',
-      company: 'Orient Electric',
-      change: 'CEO Appointment',
-      detail: 'New CEO from Unilever background appointed to drive premiumization',
-      riskLevel: 'Low',
-      implication: 'FMCG-style brand building expected; distribution overhaul likely',
-    },
-    {
-      date: '2023-11-20',
-      company: 'Voltas',
-      change: 'Promoter Stake',
-      detail: 'Tata Group increased stake by 2% through open market purchase',
-      riskLevel: 'Low',
-      implication: 'Strong parent commitment; no delisting concerns',
-    },
+    // VOLTAS
+    { company: 'Voltas', companyId: 'voltas', date: '2025-09-01', change: 'CEO Change', person: 'Mukundan Menon (new MD) / Pradeep Bakshi (outgoing)',
+      detail: 'Pradeep Bakshi chose not to seek reappointment after his term ended Aug 31, 2025. Mukundan Menon (ex-Blue Star, 17 yrs) was MD Designate from Apr 2025, assumed full MD role Sep 1.',
+      riskLevel: 'Medium', implication: 'New MD from competitor Blue Star. Cultural integration with Tata norms needs monitoring. Org design advisory during transition.',
+      sourceUrl: 'https://allthingstalent.org/pradeep-bakshi-to-step-down-as-voltas-md-and-ceo-mukundan-menon-to-take-over-in-september/2025/01/31/', sourceName: 'AllThingsTalent' },
+    { company: 'Voltas', companyId: 'voltas', date: '2025-01-22', change: 'CXO Exodus', person: 'Arvinder Singh Pental + 5 others',
+      detail: 'Top-level exodus: Head of Commercial Refrigeration, marketing chief, strategy head, HR chief, corporate finance head resigned. Linked to HQ relocation from Delhi to Mumbai.',
+      riskLevel: 'High', implication: 'Loss of institutional knowledge across 6+ functions simultaneously. Talent retention strategy and succession planning advisory needed.',
+      sourceUrl: 'https://www.outlookbusiness.com/corporate/voltas-sees-top-level-exodus-whats-behind-the-departures', sourceName: 'Outlook Business' },
+    { company: 'Voltas', companyId: 'voltas', date: '2025-01-15', change: 'CXO Hire', person: 'Pragya Bijalwan (CMO)',
+      detail: 'New CMO hired from Crompton Greaves Consumer where she was CMO & VP Marketing for ~4 years. Prior experience at HPCL, AkzoNobel, Castrol.',
+      riskLevel: 'Low', implication: 'Poached from direct competitor Crompton — signals talent war in sector.',
+      sourceUrl: 'https://observenow.com/2025/01/voltas-appoints-pragya-bijalwan-as-chief-marketing-officer-and-head-of-marketing/', sourceName: 'ObserveNow' },
+    // BLUE STAR
+    { company: 'Blue Star', companyId: 'bluestar', date: '2024-04-01', change: 'Chairman Elevation', person: 'Vir S. Advani (Chairman & MD)',
+      detail: 'Promoter Vir Advani elevated to Chairman & MD, succeeding Shailesh Haribhakti (retired Mar 31, 2024). Advani family consolidation of control.',
+      riskLevel: 'Low', implication: 'Promoter succession with long internal tenure. Watch for changes in M&A appetite under new chairman.',
+      sourceUrl: 'https://www.medianews4u.com/blue-star-elevates-vir-s-advani-as-chairman-md-effect-from-april-1-2024/', sourceName: 'MediaNews4U' },
+    { company: 'Blue Star', companyId: 'bluestar', date: '2026-04-01', change: 'CEO Change (Planned)', person: 'B. Thiagarajan (MD, final term to May 2027)',
+      detail: 'MD Thiagarajan reappointed for final term (Apr 2026 - May 2027, retiring at 70). Mohit Sud (ex-HUL, joined Mar 2025) elevated to Executive Director from Apr 2026 as succession candidate.',
+      riskLevel: 'Medium', implication: '18-month runway for MD transition. Advisory on CEO succession planning and organizational readiness.',
+      sourceUrl: 'https://bestmediainfo.com/mediainfo/mediainfo-marketing/blue-star-reappoints-thiagarajan-as-md-sam-balsara-to-retire-from-board-11052838', sourceName: 'BestMediaInfo' },
+    // CROMPTON
+    { company: 'Crompton Greaves Consumer', companyId: 'crompton', date: '2025-12-31', change: 'Board Reshuffle', person: 'Shantanu Khosla (Vice Chairman exit)',
+      detail: 'Non-Executive Vice Chairman Shantanu Khosla ceased to be Director upon term completion. Marks end of founding professional management era post-Advent International PE exit.',
+      riskLevel: 'Medium', implication: 'Loss of key governance figure. Watch for strategic direction changes without moderating influence.',
+      sourceUrl: 'https://www.bloomberg.com/profile/person/4634380', sourceName: 'BSE Filing / Bloomberg' },
+    { company: 'Crompton Greaves Consumer', companyId: 'crompton', date: '2025-09-18', change: 'Governance Flag', person: 'Sundaram Damodarannair (new Chairman)',
+      detail: 'Long-serving Independent Director (10 yrs, 2 terms) reclassified to Non-Independent and appointed Chairman. Governance concern: independent-to-non-independent transition.',
+      riskLevel: 'Medium', implication: 'Governance flag — reclassification may be flagged by proxy advisory firms. Board independence ratio advisory opportunity.',
+      sourceUrl: 'https://www.businessupturn.com/business/corporates/crompton-greaves-consumer-electricals-appoints-sundaram-damodarannair-as-chairman/', sourceName: 'Business Upturn' },
+    // HAVELLS
+    { company: 'Havells India', companyId: 'havells', date: '2025-08-01', change: 'CXO Hire', person: 'Multiple: CPO (Aug 2024), CTO (Feb 2025), CHRO (Aug 2025), Cables President (Dec 2025)',
+      detail: 'Systematic CXO bench-building: Sandeep Bhargava (CPO, ex-Polycab), Dipesh Shah (CTO, ex-Samsung R&D 32 yrs), Preemita Singh (CHRO, ex-Hero FinCorp), Manjit Sethi (President Cables).',
+      riskLevel: 'Low', implication: 'Havells actively building deep leadership bench — signals preparation for next growth phase. Integration and organizational alignment advisory.',
+      sourceUrl: 'https://adtechtoday.com/havells-appoints-manjit-singh-sethi-as-president-sbu-head-cables/', sourceName: 'AdTechToday / GlobalData' },
+    // BAJAJ ELECTRICALS
+    { company: 'Bajaj Electricals', companyId: 'bajaj_elec', date: '2024-09-30', change: 'CEO Change', person: 'Anuj Poddar (MD & CEO resigned)',
+      detail: 'Poddar resigned after 5.5 yrs to pursue external opportunity. Stock dropped ~7%. Company operated without full-time MD/CEO from Oct 2024 through Apr 2025 — 6-month leadership vacuum.',
+      riskLevel: 'High', implication: 'Leadership vacuum during post-demerger period. Advisory on strategy continuity, interim governance, and succession planning.',
+      sourceUrl: 'https://www.storyboard18.com/brand-makers/baja-electricals-md-and-ceo-anuj-poddar-resigns-37349.htm', sourceName: 'Storyboard18' },
+    { company: 'Bajaj Electricals', companyId: 'bajaj_elec', date: '2025-04-15', change: 'CEO Change', person: 'Sanjay Sachdeva (new MD & CEO)',
+      detail: 'Sachdeva joined from Unilever Japan (MD & CEO). 30+ yrs at HUL across global markets. Significant pivot to FMCG-background leader for a durables company.',
+      riskLevel: 'Medium', implication: 'New CEO with FMCG DNA — "first 100 days" strategic diagnostics, channel restructuring, operational benchmarking advisory.',
+      sourceUrl: 'https://www.bajajgroup.company/blog/2025/03/28/bajaj-electricals-appoints-sanjay-sachdeva-as-md-and-ceo/', sourceName: 'Bajaj Group' },
+    { company: 'Bajaj Electricals', companyId: 'bajaj_elec', date: '2025-12-31', change: 'CFO Exit', person: 'E.C. Prasad (CFO resigned)',
+      detail: 'CFO resigned to pursue external opportunity. Board advanced relieving date by a month. Dual C-suite turnover (CEO + CFO) within 12 months.',
+      riskLevel: 'High', implication: 'CFO exit within months of new CEO joining — possible misalignment. Interim CFO services, financial strategy alignment advisory.',
+      sourceUrl: 'https://www.tipranks.com/news/company-announcements/bajaj-electricals-advances-cfo-e-c-prasads-relieving-date-to-december-31-2025', sourceName: 'TipRanks' },
+    { company: 'Bajaj Electricals', companyId: 'bajaj_elec', date: '2025-02-01', change: 'Demerger', person: 'Bajel Projects listing (₹12,600 Cr)',
+      detail: 'EPC/Power T&D demerged into Bajel Projects Ltd. Shekhar Bajaj chairs both entities — governance complexity with overlapping leadership.',
+      riskLevel: 'Medium', implication: 'Post-demerger separation advisory: shared services carve-out, standalone strategy, IT/supply chain/talent pool separation.',
+      sourceUrl: 'https://anagrampartners.in/archives/news/anagram-partners-advised-bajaj-electricals-to-demerge-its-power-business-to-form-bajel-projects-an-inr-12600-million-entity-listed-on-the-bse-and-nse', sourceName: 'Anagram Partners' },
+    // V-GUARD
+    { company: 'V-Guard Industries', companyId: 'vguard', date: '2025-03-31', change: 'Board Reshuffle', person: 'Kochouseph Chittilappilly (Founder steps down as Chairman Emeritus)',
+      detail: 'Founder stepped down at age 75 to focus on philanthropy. Son Mithun K. Chittilappilly continues as MD (since 2012). Clean generational transition.',
+      riskLevel: 'Low', implication: 'Symbolic generational transition, already completed. Monitoring only.',
+      sourceUrl: 'https://www.marketscreener.com/quote/stock/V-GUARD-INDUSTRIES-LIMITE-46730429/news/V-Guard-Industries-Limited-Announces-Step-Down-of-Kochouseph-Chittilappilly-as-Chairman-Emeritus-Ef-48888509/', sourceName: 'MarketScreener' },
+    // IFB
+    { company: 'IFB Industries', companyId: 'ifb', date: '2024-01-28', change: 'Governance Flag', person: 'Bijon Nag (Founder & Chairman died)',
+      detail: 'Founder-Chairman Bijon Nag passed away at 82. First-ever generational leadership transition. Son Bikramjit Nag redesignated as Executive Chairman & MD from Feb 1, 2024.',
+      riskLevel: 'High', implication: 'Post-founder transition — highest-impact advisory moment. Succession formalization, professional management induction, strategic review.',
+      sourceUrl: 'https://boardstewardship.com/founder-and-chairman-of-ifb-industries-and-ifb-agro-industries-bijon-nag-passes-away/', sourceName: 'BoardStewardship' },
+    { company: 'IFB Industries', companyId: 'ifb', date: '2026-01-19', change: 'CEO Change', person: 'Raj Shankar Ray (MD & CEO, Home Appliances resigned)',
+      detail: 'Professional CEO of core Home Appliances Division resigned citing personal reasons (90-day notice). Leaves division without professional head during critical competitive period.',
+      riskLevel: 'High', implication: 'Triple trigger: founder death + chairman power concentration + professional CEO exit from core division. Interim CEO placement, operational continuity review.',
+      sourceUrl: 'https://in.marketscreener.com/quote/stock/IFB-INDUSTRIES-LIMITED-9743385/news/IFB-Industries-Limited-Announces-Resignation-of-Raj-Shankar-Ray-as-Managing-Director-CEO-of-Home-A-47390825/', sourceName: 'MarketScreener' },
+    // ORIENT ELECTRIC
+    { company: 'Orient Electric', companyId: 'orient', date: '2024-05-31', change: 'CEO Change', person: 'Ravindra Singh Negi (new MD & CEO)',
+      detail: 'Negi recruited from Bajaj Electricals (COO, Consumer Products). Second MD change within 11 months — Khetrapal (Jul 2023) then Negi (May 2024). Signals strategic uncertainty at CK Birla Group level.',
+      riskLevel: 'High', implication: 'Rapid MD turnover suggests strategic realignment. Operational acceleration, category expansion, group-level governance advisory.',
+      sourceUrl: 'https://apacnewsnetwork.com/2024/05/orient-electric-names-ravindra-singh-negi-as-its-md-and-ceo/', sourceName: 'APAC News Network' },
+    { company: 'Orient Electric', companyId: 'orient', date: '2025-01-01', change: 'CFO Change', person: 'Arvind Vats (new CFO & CRO) / Saibal Sengupta (retired)',
+      detail: 'Smooth CFO succession. New CFO appointed with dual CFO + Chief Risk Officer mandate — signals elevated governance focus. 30 yrs experience including IPO & ERM.',
+      riskLevel: 'Low', implication: 'New CFO-CRO dual role = ERM investment. Advisory on ERM framework design, capital allocation optimization.',
+      sourceUrl: 'https://www.peoplematters.in/news/appointments/orient-electric-announces-cfo-transition-43793', sourceName: 'PeopleMatters' },
+    // WHIRLPOOL
+    { company: 'Whirlpool of India', companyId: 'whirlpool', date: '2025-11-27', change: 'Promoter Stake Change', person: 'Whirlpool Corp (parent sold 11.23% stake)',
+      detail: 'Parent sold 11.23% via block deal at ₹1,030/share (14% discount), raising ₹1,489 Cr. Holding dropped from ~51% to ~39.77%. Target: reduce to ~20% by H1 2026. Buyers: EQT, Bain Capital.',
+      riskLevel: 'High', implication: 'Highest priority: potential acquisition candidate as parent moves to minority. PE firms circling. Standalone strategy, brand/tech licensing, MBO/strategic buyer advisory.',
+      sourceUrl: 'https://www.businesstoday.in/markets/stocks/story/whirlpool-block-deal-parent-entity-to-sell-75-stake-at-14-discount-says-report-503894-2025-11-27', sourceName: 'BusinessToday' },
+    // DIXON
+    { company: 'Dixon Technologies', companyId: 'dixon', date: '2025-06-01', change: 'Promoter Stake Change', person: 'Sunil Vachani (sold 2.77% stake for ₹2,221 Cr)',
+      detail: 'Executive Chairman sold 2.77% via open market, personal holding dropped from 5.34% to 2.57%. Combined with governance flag on dual Chairman-ED role.',
+      riskLevel: 'Medium', implication: 'Promoter reducing stake while holding dual Chairman-ED role. Board structure advisory, promoter communication strategy.',
+      sourceUrl: 'https://www.business-standard.com/companies/news/dixon-technologies-promoter-sunil-vachani-sells-stake-2221-crore-q4-results-125062301276_1.html', sourceName: 'Business Standard' },
+    { company: 'Dixon Technologies', companyId: 'dixon', date: '2025-09-01', change: 'Governance Flag', person: 'Sunil Vachani (Chairman-ED dual role flagged)',
+      detail: 'SES proxy advisory flagged: combining Executive Director and Chairman "blurs demarcation between Board and Management" during AGM re-appointment resolution.',
+      riskLevel: 'Medium', implication: 'Governance advisory on board structure, separation of chairman/executive roles, independent director strengthening.',
+      sourceUrl: 'https://portal.sesgovernance.com/proxy_reports/4147537685Dixon%20Technologies%20(India)%20Ltd_SES_PA_Report_AGM_23%20Sep%202025.pdf', sourceName: 'SES Governance' },
+    // AMBER
+    { company: 'Amber Enterprises', companyId: 'amber', date: '2025-06-01', change: 'Governance Flag', person: 'Jasbir Singh (Chairman/ED/WTD/CEO — quadruple designation)',
+      detail: 'Board restructuring: Jasbir Singh holds 4 titles (Chairman/ED/WTD/CEO). Daljit Singh appointed as ED/WTD/MD. 3 new executive directors added. Heavy promoter-family board loading.',
+      riskLevel: 'Medium', implication: 'Governance advisory on role clarity, board independence, and governance best practices for a rapidly scaling EMS/ODM company.',
+      sourceUrl: 'https://blinkx.in/insights/bod/amber-enterprises-india-ltd-board-of-directors', sourceName: 'BlinkX / Amber Leadership' },
+    // TTK PRESTIGE
+    { company: 'TTK Prestige', companyId: 'ttk_prestige', date: '2025-03-24', change: 'Promoter Succession', person: 'T.T. Jagannathan (stepped down as Chairman after 50 yrs)',
+      detail: 'Voluntarily stepped down to facilitate promoter succession. T.T. Raghunathan (brother) became Chairman. Dr. Mukund T.T. (next gen) became Vice Chairman. Jagannathan made Chairman Emeritus.',
+      riskLevel: 'Medium', implication: 'Generational transition — advisory on family governance framework, professional management empowerment.',
+      sourceUrl: 'https://boardstewardship.com/ttk-prestige-announces-leadership-changes-t-t-raghunathan-to-succeed-t-t-jagannathan-as-vice-chairman/', sourceName: 'BoardStewardship' },
+    { company: 'TTK Prestige', companyId: 'ttk_prestige', date: '2025-10-09', change: 'Governance Flag', person: 'T.T. Jagannathan (Chairman Emeritus died at 77)',
+      detail: 'Died suddenly just 6 months after stepping down. Accelerates weight on new leadership (Raghunathan, Dr. Mukund, MD Vijayaraghavan) to demonstrate independent strategic capability.',
+      riskLevel: 'High', implication: 'Post-founder death — most critical advisory moment. Strategic review, board governance strengthening, continuity of transformation agenda.',
+      sourceUrl: 'https://www.business-standard.com/india-news/t-t-jagannathan-the-kitchen-mogul-and-man-behind-ttk-prestige-dies-at-77-125101001331_1.html', sourceName: 'Business Standard' },
+    // BUTTERFLY
+    { company: 'Butterfly Gandhimathi', companyId: 'butterfly', date: '2024-06-14', change: 'Governance Flag', person: 'Swetha Sagar (Manager & CBO, replacing MD)',
+      detail: 'MD Rangarajan Sriram stepped down. Instead of appointing new MD, company appointed Sagar as "Manager & CBO" — deliberate governance downgrade signaling Crompton\'s tighter control post-failed merger (Oct 2023).',
+      riskLevel: 'High', implication: 'Governance downgrade (MD to Manager) suggests Crompton running Butterfly as division. Minority shareholder governance, integration/divestiture strategy advisory.',
+      sourceUrl: 'https://www.business-standard.com/markets/capital-market-news/butterfly-gandhimathi-appoints-swetha-sagar-as-manager-cbo-124061700564_1.html', sourceName: 'Business Standard' },
+    // BOSCH / JCHAC
+    { company: 'Bosch Home Comfort (JCHAC)', companyId: 'bosch_jch', date: '2025-08-01', change: 'Ownership Change', person: 'Robert Bosch GmbH (acquired 74.2% stake)',
+      detail: 'Bosch acquired 74.2% from Johnson Controls-Hitachi as part of global $8B deal — largest in Bosch history. Open offer for remaining 25.75%. Complete change of promoter/ownership.',
+      riskLevel: 'High', implication: 'Post-acquisition integration advisory: brand transition (Hitachi to Bosch), supply chain realignment, cultural integration (Japanese to German). Q3 loss during restructuring.',
+      sourceUrl: 'https://www.entrepreneur.com/en-in/news-and-trends/bosch-takes-majority-control-of-johnson-controls-hitachi/495465', sourceName: 'Entrepreneur India' },
+    // SYMPHONY
+    { company: 'Symphony', companyId: 'symphony', date: '2025-02-06', change: 'CXO Hire', person: 'Gaurav Sarda (new CMO) / Anuj Arora (outgoing CMO)',
+      detail: 'Marketing leadership transition at CXO level. Brief overlap period. Founder-promoter CMD Achal Bakeri remains firmly in control.',
+      riskLevel: 'Low', implication: 'Minor change — limited advisory opportunity. Stable promoter-led governance.',
+      sourceUrl: 'https://in.marketscreener.com/quote/stock/SYMPHONY-LIMITED-10018162/news/Symphony-Limited-Announces-Executive-Changes-49007397/', sourceName: 'MarketScreener' },
   ],
 
   // ============================================================
   // COMPETITIVE MOVES & STRATEGIC BETS
   // ============================================================
-  competitiveMoves: [
-    {
-      date: '2025-01-20',
-      company: 'Havells India',
-      type: 'Product Launch',
-      title: 'Lloyd Premium Inverter AC Range',
-      detail: 'Launched AI-enabled smart AC range with IoT connectivity; targeting premium segment with 15% price premium',
-      impact: 'High',
-    },
-    {
-      date: '2024-11-05',
-      company: 'Voltas',
-      type: 'D2C Initiative',
-      title: 'Direct-to-Consumer Platform Launch',
-      detail: 'Launched voltas.com with full product catalog; integrated installation booking; loyalty program',
-      impact: 'Medium',
-    },
-    {
-      date: '2024-10-15',
-      company: 'Blue Star',
-      type: 'Plant Expansion',
-      title: 'Sri City Manufacturing Facility',
-      detail: '₹450 Cr investment for new AC manufacturing; capacity addition of 1M units; PLI scheme benefits',
-      impact: 'High',
-    },
-    {
-      date: '2024-08-20',
-      company: 'Crompton Greaves Consumer',
-      type: 'Product Launch',
-      title: 'Crompton Silent Pro Fan Series',
-      detail: 'BLDC motor fans with smart features; direct competition with Atomberg; premium pricing strategy',
-      impact: 'Medium',
-    },
-    {
-      date: '2024-06-10',
-      company: 'Symphony',
-      type: 'Partnership',
-      title: 'International Distribution Agreement',
-      detail: 'Exclusive distribution tie-up with Middle East retailer; targets 35% international revenue by 2026',
-      impact: 'Medium',
-    },
-    {
-      date: '2025-02-01',
-      company: 'V-Guard Industries',
-      type: 'Pricing Strategy',
-      title: 'Aggressive Water Heater Pricing',
-      detail: 'Launched economy range water heaters 20% below competition; targeting Tier 2/3 market share grab',
-      impact: 'Medium',
-    },
-    {
-      date: '2024-05-15',
-      company: 'IFB Industries',
-      type: 'D2C Initiative',
-      title: 'IFB Point Store Expansion',
-      detail: 'Added 50 exclusive IFB Point stores in metro cities; premium experience centers with live demos',
-      impact: 'Low',
-    },
-    {
-      date: '2024-12-10',
-      company: 'Orient Electric',
-      type: 'Product Launch',
-      title: 'Designer Fan Collection',
-      detail: 'Premium designer fans priced 3x standard range; targeting interior designer/architect segment',
-      impact: 'Medium',
-    },
-  ],
+  // Competitive moves removed — no source URLs. Awaiting sourced data.
+  competitiveMoves: [],
 
   // ============================================================
   // OPERATIONAL INTELLIGENCE
@@ -922,139 +931,49 @@ const DATA = {
       marketing: null,
       overhead: null,
     },
-    marginLevers: [
-      { lever: 'Product Mix Premiumization', potentialImpact: '150-300 bps', difficulty: 'Medium', timeframe: '12-18 months' },
-      { lever: 'Component Localization', potentialImpact: '100-200 bps', difficulty: 'High', timeframe: '18-24 months' },
-      { lever: 'D2C Channel Expansion', potentialImpact: '50-150 bps', difficulty: 'Medium', timeframe: '6-12 months' },
-      { lever: 'After-Sales Cost Optimization', potentialImpact: '30-80 bps', difficulty: 'Low', timeframe: '3-6 months' },
-      { lever: 'Vendor Consolidation', potentialImpact: '50-100 bps', difficulty: 'Low', timeframe: '6-12 months' },
-      { lever: 'Energy Rating Compliance', potentialImpact: '20-50 bps', difficulty: 'High', timeframe: '12-18 months' },
-    ],
+    // Margin levers removed — editorial content with no structured source data.
+    marginLevers: [],
   },
 
   // ============================================================
   // WATCHLIST & FORWARD INDICATORS
   // ============================================================
+  // Watchlist removed — probability guesses with no source data. Awaiting sourced signals.
   watchlist: {
-    likelyFundraises: [
-      { company: 'Atomberg Technologies', probability: 85, timeline: '60 days', type: 'Series D', estimatedSize: '₹500-700 Cr' },
-      { company: 'Stove Kraft', probability: 60, timeline: '90 days', type: 'QIP', estimatedSize: '₹200-300 Cr' },
-    ],
-    marginInflectionCandidates: [
-      { company: 'Orient Electric', signal: 'Premium mix crossing 30%; operational leverage kicking in', confidence: 75 },
-      { company: 'V-Guard Industries', signal: 'Sunflame synergies + national distribution build-out nearing completion', confidence: 80 },
-    ],
-    consolidationTargets: [
-      { company: 'IFB Industries', signal: 'Persistent margin pressure; board changes suggest openness to strategic options', probability: 65 },
-      { company: 'Bajaj Electricals', signal: 'Post-EPC separation; consumer business needs scale; promoter group may consider options', probability: 45 },
-    ],
-    stressIndicators: [
-      { company: 'IFB Industries', indicators: ['Declining ROCE (5.5%)', 'Rising debt (2.0x)', 'Capacity utilization at 58%', 'Working capital days increasing'], severity: 'High' },
-      { company: 'Bajaj Electricals', indicators: ['ROCE below 9%', 'High inventory days (70)', 'Dealer productivity declining', 'Leadership uncertainty'], severity: 'Medium' },
-    ],
+    likelyFundraises: [],
+    marginInflectionCandidates: [],
+    consolidationTargets: [],
+    stressIndicators: [],
   },
 
   // ============================================================
   // EXECUTIVE SNAPSHOT - MONTH IN 5 BULLETS
   // ============================================================
+  // Executive snapshot removed — editorial content with no source URLs. Awaiting sourced data.
   executiveSnapshot: {
     month: 'February 2026',
-    bullets: [
-      'AC season gearing up strong — early indicators show 18-20% pre-season booking growth vs last year, driven by extended summer forecast and BEE rating transition.',
-      'V-Guard Sunflame integration on track — combined entity now #3 in kitchen appliances; management guiding 200bps synergy benefit by Q4 FY26.',
-      'IFB stress signals intensifying — ROCE dropped to 5.5%; three board changes in 6 months; informal conversations about strategic options reported.',
-      'PLI benefits starting to flow — Blue Star and Voltas first beneficiaries with ₹120 Cr combined incentives in FY25; expect to accelerate localization capex.',
-      'D2C channel crossing 8-10% of revenue for top players — Voltas and Havells leading with proprietary platforms; margin accretion of 200-400bps on D2C sales.',
-    ],
-    bigThemes: [
-      'Premiumization accelerating — premium segment growing 2x mass market across categories',
-      'Component localization wave — PLI scheme driving ₹2,000 Cr+ investment commitments',
-      'Digital transformation of distribution — E-commerce + D2C now 35-40% of sales for leaders',
-      'Consolidation cycle beginning — Expect 2-3 more deals in next 12 months as scale becomes critical',
-    ],
-    redFlags: [
-      { flag: 'BEE Rating Transition Risk', detail: 'New energy ratings effective July 2025; ₹800 Cr+ old inventory across industry needs liquidation', severity: 'High' },
-      { flag: 'Copper Price Surge', detail: 'LME copper up 15% in 2 months; will pressure AC margins in Q1-Q2 FY26 if sustained', severity: 'Medium' },
-      { flag: 'China Dumping Concerns', detail: 'Compressor imports from China up 30% YoY; domestic manufacturers flagging unfair pricing', severity: 'Medium' },
-    ],
-    confidenceScore: 78,
+    bullets: [],
+    bigThemes: [],
+    redFlags: [],
+    confidenceScore: 0,
   },
 
   // ============================================================
   // "WHAT THIS MEANS FOR..." INSIGHTS
   // ============================================================
+  // Stakeholder insights removed — editorial content with no source URLs. Awaiting sourced data.
   stakeholderInsights: {
-    peInvestors: [
-      'IFB Industries emerging as potential turnaround play — enterprise value depressed at ~0.6x revenue vs sector average of 2.5x; operational improvement could unlock 4-5x return.',
-      'Atomberg-style D2C brands in adjacent categories (water purifiers, kitchen chimney) are ripe for PE roll-up strategy.',
-      'Post-PLI investments, expect mid-market companies to need growth capital — ideal for ₹200-500 Cr cheque sizes.',
-      'Warranty/after-sales service companies are an underappreciated consolidation opportunity in this sector.',
-    ],
-    founderPromoters: [
-      'Scale is becoming non-negotiable — companies below ₹2,000 Cr revenue will struggle with D2C investment and PLI compliance.',
-      'Premiumization is the single biggest margin lever — every 5% shift in premium mix adds 50-75bps to EBITDA.',
-      'Distribution is the real moat — e-commerce evens the field, but GT+MT network is still 60-70% of sales.',
-      'Consider strategic partnerships over going alone — Voltas-Beko model showing that JVs can work in India.',
-    ],
-    coosCfos: [
-      'Working capital optimization: Top quartile at 28 days vs bottom quartile at 78 days — ₹200-400 Cr cash unlock opportunity.',
-      'Localization to 80%+ reduces currency risk and improves margins by 150-200bps; Blue Star and Havells are benchmarks.',
-      'After-sales cost ranges from 1.5% to 4.2% of revenue — standardization and digitization can halve the gap.',
-      'Vendor consolidation index needs to reach 70+ for procurement leverage; Bajaj Electricals (45) has most room to improve.',
-    ],
-    supplyChainHeads: [
-      'BEE transition creates ₹800 Cr inventory write-down risk across sector — plan component procurement accordingly.',
-      'China+1 strategy accelerating — Vietnam and India capacity additions in compressors will change sourcing dynamics by 2026.',
-      'Contract manufacturing dependency above 30% is a risk — Bajaj (40%) and Symphony (45%) most exposed.',
-      'Logistics costs for last-mile delivery in Tier 3+ cities are 2x metro — optimize hub-and-spoke model.',
-    ],
+    peInvestors: [],
+    founderPromoters: [],
+    coosCfos: [],
+    supplyChainHeads: [],
   },
 
   // ============================================================
   // A&M VALUE-ADD OPPORTUNITIES
   // ============================================================
-  amValueAdd: [
-    {
-      opportunity: 'IFB Industries Operational Turnaround',
-      type: 'Performance Improvement',
-      estimatedValue: '₹150-200 Cr EBITDA improvement over 24 months',
-      detail: 'Working capital restructuring (78→45 days), capacity utilization improvement (58%→75%), localization push (58%→70%), after-sales cost reduction (4.2%→2.5%)',
-      urgency: 'High',
-      confidence: 85,
-    },
-    {
-      opportunity: 'Bajaj Electricals Strategic Repositioning',
-      type: 'Strategy & Restructuring',
-      estimatedValue: 'Unlock ₹3,000-4,000 Cr enterprise value',
-      detail: 'Post-EPC separation advisory; consumer business strategy reset; brand portfolio rationalization; dealer network productivity improvement',
-      urgency: 'High',
-      confidence: 75,
-    },
-    {
-      opportunity: 'Crompton-Butterfly Integration Acceleration',
-      type: 'Post-Merger Integration',
-      estimatedValue: '₹80-120 Cr synergy realization',
-      detail: 'Supply chain consolidation, cross-selling activation, brand architecture optimization, IT systems integration',
-      urgency: 'Medium',
-      confidence: 70,
-    },
-    {
-      opportunity: 'Sector-Wide Working Capital Optimization',
-      type: 'Cash & Working Capital',
-      estimatedValue: '₹500-800 Cr aggregate cash release across 5 mid-tier companies',
-      detail: 'Inventory management, receivables optimization, vendor financing programs, channel financing restructuring',
-      urgency: 'Medium',
-      confidence: 80,
-    },
-    {
-      opportunity: 'PLI Scheme Compliance & Optimization',
-      type: 'Regulatory & Incentive Advisory',
-      estimatedValue: '₹200-300 Cr incremental PLI benefits for mid-tier companies',
-      detail: 'PLI application support, capex planning, domestic value addition calculation, incentive maximization strategy',
-      urgency: 'Medium',
-      confidence: 65,
-    },
-  ],
+  // A&M Value-Add removed — advisory estimates with no source data. Awaiting sourced opportunities.
+  amValueAdd: [],
 
   // ============================================================
   // SEASONAL PATTERNS (Monthly Index, 100 = Average)
