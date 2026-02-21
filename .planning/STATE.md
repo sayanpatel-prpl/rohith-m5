@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-02-20)
 ## Current Position
 
 Phase: 3 of 6 (Section Group A)
-Plan: 2 of 4 in current phase
+Plan: 4 of 4 in current phase
 Status: In Progress
-Last activity: 2026-02-21 — Completed 03-02-PLAN.md (Market Pulse Section)
+Last activity: 2026-02-21 — Completed 03-04-PLAN.md (Leadership & Governance Section)
 
-Progress: [███████████████████░] 68% (15 of 22 plans)
+Progress: [████████████████████] 77% (17 of 22 plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 12
+- Total plans completed: 14
 - Average duration: 4.00 min
-- Total execution time: 0.80 hours
+- Total execution time: 0.93 hours
 
 **By Phase:**
 
@@ -29,10 +29,10 @@ Progress: [███████████████████░] 68% (15
 |-------|-------|-------|----------|
 | 01-foundation | 6 | 25min | 4.17min |
 | 02-priority-sections | 4 | 17min | 4.25min |
-| 03-section-group-a | 2 | 10min | 5.00min |
+| 03-section-group-a | 4 | 18min | 4.50min |
 
 **Recent Trend:**
-- Last 5 plans: 03-02 (6min), 03-01 (4min), 02-04 (6min), 02-02 (2min), 02-05 (2min)
+- Last 5 plans: 03-04 (5min), 03-03 (3min), 03-02 (6min), 03-01 (4min), 02-04 (6min)
 - Trend: Stable
 
 *Updated after each plan completion*
@@ -101,6 +101,9 @@ Recent decisions affecting current work:
 - **Concall highlights field fallback** (03-02): JSON uses 'points' but type has 'keyPoints'; adapter handles both via index signature cast
 - **A&M thought leadership static** (03-02): No live API; hardcoded with link to alvarezandmarsal.com insights page
 - **BIS policy default entry** (03-02): Added as known active policy even if not found in data extraction
+- **Governance risk from real shareholding** (03-04): Derived from Screener.in data; red at >5pp decline or <30% with decline, amber at >2pp or >3pp FII exit
+- **Concall highlight field fallback** (03-04): JSON 'points' vs typed 'keyPoints'; runtime fallback with cast
+- **Combined commit for v2 build** (03-04): Plan tasks designed for v1 enhancement; single atomic commit for v2 ground-up build
 
 ### Pending Todos
 
@@ -117,5 +120,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-21
-Stopped at: Completed 03-02-PLAN.md (Market Pulse Section)
+Stopped at: Completed 03-04-PLAN.md (Leadership & Governance Section)
 Resume file: None
