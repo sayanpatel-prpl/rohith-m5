@@ -1602,14 +1602,21 @@ const App = {
 
     const moveTypes = ['M&A', 'Plant Expansion', 'Partnership', 'Product Launch', 'PLI/Govt'];
 
-    // Build company → type → count matrix
+    // Build company → type → count + moves matrix
     const companies = {};
     filtered.forEach(m => {
       const name = m.company.replace(' of India', '').replace(' Greaves Consumer', '').replace(' Gandhimathi', '');
-      if (!companies[name]) companies[name] = { id: m.companyId, counts: {} };
-      moveTypes.forEach(t => { if (!companies[name].counts[t]) companies[name].counts[t] = 0; });
-      if (companies[name].counts[m.type] !== undefined) companies[name].counts[m.type]++;
-      else companies[name].counts[m.type] = 1;
+      if (!companies[name]) companies[name] = { id: m.companyId, counts: {}, moves: {} };
+      moveTypes.forEach(t => {
+        if (!companies[name].counts[t]) { companies[name].counts[t] = 0; companies[name].moves[t] = []; }
+      });
+      if (companies[name].counts[m.type] !== undefined) {
+        companies[name].counts[m.type]++;
+        companies[name].moves[m.type].push(m);
+      } else {
+        companies[name].counts[m.type] = 1;
+        companies[name].moves[m.type] = [m];
+      }
     });
 
     // Sort companies by total moves (most active first)
@@ -1626,14 +1633,28 @@ const App = {
       return 'background:rgba(239,68,68,0.12);color:#EF4444;font-weight:700;';
     };
 
+    // Store moves data for modal drilldown
+    this._heatmapMoves = {};
+    sorted.forEach(([name, data]) => {
+      moveTypes.forEach(t => {
+        if (data.moves[t] && data.moves[t].length) {
+          this._heatmapMoves[name + '||' + t] = data.moves[t];
+        }
+      });
+      // Also store all moves for the total column
+      const allMoves = moveTypes.flatMap(t => data.moves[t] || []);
+      if (allMoves.length) this._heatmapMoves[name + '||__total'] = allMoves;
+    });
+
     const headerHtml = moveTypes.map(t => `<th style="font-size:11px;white-space:nowrap;text-align:center;">${t}</th>`).join('');
     const rowsHtml = sorted.map(([name, data]) => {
       const total = Object.values(data.counts).reduce((s, v) => s + v, 0);
       const cells = moveTypes.map(t => {
         const c = data.counts[t] || 0;
-        return `<td style="text-align:center;${cellColor(c)}">${c || '—'}</td>`;
+        const clickable = c > 0 ? `class="heatmap-clickable" data-company="${name}" data-type="${t}" onclick="App._showHeatmapModal('${name.replace(/'/g, "\\'")}','${t}')"` : '';
+        return `<td style="text-align:center;${cellColor(c)}${c > 0 ? 'cursor:pointer;' : ''}" ${clickable}>${c || '—'}</td>`;
       }).join('');
-      return `<tr><td class="fw-600 text-navy" style="font-size:12px;white-space:nowrap;">${name}</td>${cells}<td class="text-right mono fw-600" style="font-size:12px;">${total}</td></tr>`;
+      return `<tr><td class="fw-600 text-navy" style="font-size:12px;white-space:nowrap;">${name}</td>${cells}<td class="text-right mono fw-600 heatmap-clickable" style="font-size:12px;cursor:pointer;" onclick="App._showHeatmapModal('${name.replace(/'/g, "\\'")}','__total')">${total}</td></tr>`;
     }).join('');
 
     container.innerHTML = `
@@ -1641,6 +1662,40 @@ const App = {
         <thead><tr><th>Company</th>${headerHtml}<th class="text-right">Total</th></tr></thead>
         <tbody>${rowsHtml}</tbody>
       </table>`;
+  },
+
+  // Show modal with competitive move details for a heatmap cell
+  _showHeatmapModal(companyName, moveType) {
+    const key = companyName + '||' + moveType;
+    const moves = this._heatmapMoves?.[key];
+    if (!moves || !moves.length) return;
+
+    const typeLabel = moveType === '__total' ? 'All Moves' : moveType;
+    document.getElementById('modalCompanyName').textContent = companyName + ' — ' + typeLabel;
+
+    const sorted = [...moves].sort((a, b) => new Date(b.date) - new Date(a.date));
+    const html = sorted.map(m => {
+      const impactColor = m.impact === 'High' ? '#EF4444' : m.impact === 'Medium' ? '#F59E0B' : '#22C55E';
+      const sourceHtml = m.sourceUrl
+        ? `<a href="${m.sourceUrl}" target="_blank" rel="noopener noreferrer" class="timeline-source" style="margin-right:8px;">&#128279; ${m.sourceName || 'Source'}</a>`
+        : (m.sourceName ? `<span style="font-size:11px;color:var(--slate-400);">${m.sourceName}</span>` : '');
+      const amHtml = m.amImplication
+        ? `<div class="move-am-implication" style="margin-top:8px;">${m.amImplication}</div>`
+        : '';
+      return `<div style="padding:14px 0;border-bottom:1px solid var(--slate-100);">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+          <span style="font-size:13px;font-weight:700;color:var(--navy);">${m.title}</span>
+          <span style="font-size:10px;font-weight:600;color:${impactColor};background:${impactColor}14;padding:2px 8px;border-radius:4px;white-space:nowrap;">${m.impact} Impact</span>
+        </div>
+        <div style="font-size:11px;color:var(--slate-500);margin-bottom:6px;">${m.date} &middot; ${m.type}</div>
+        <div style="font-size:12px;color:var(--slate-600);line-height:1.6;">${m.detail}</div>
+        ${amHtml}
+        <div style="margin-top:6px;">${sourceHtml}</div>
+      </div>`;
+    }).join('');
+
+    document.getElementById('modalBody').innerHTML = html;
+    document.getElementById('companyModal').classList.add('active');
   },
 
   // ============================================================
@@ -1707,17 +1762,21 @@ const App = {
     if (!tbody) return;
 
     if (!DATA.subSectorDeepDive.marginLevers.length) {
-      tbody.innerHTML = `<tr><td colspan="4">${this._emptyState('No margin lever data available')}</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="5">${this._emptyState('No margin lever data available')}</td></tr>`;
       return;
     }
 
     tbody.innerHTML = DATA.subSectorDeepDive.marginLevers.map(ml => {
       const diffColor = ml.difficulty === 'Low' ? 'text-green' : ml.difficulty === 'Medium' ? 'text-amber' : 'text-red';
-      return `<tr>
+      const sourceHtml = ml.sourceUrl
+        ? `<a href="${ml.sourceUrl}" target="_blank" rel="noopener noreferrer" class="timeline-source">${ml.source}</a>`
+        : `<span style="font-size:11px;color:var(--slate-500);">${ml.source}</span>`;
+      return `<tr title="${(ml.detail || '').replace(/"/g, '&quot;')}">
         <td class="fw-600">${ml.lever}</td>
         <td class="mono text-teal fw-600">${ml.potentialImpact}</td>
         <td><span class="${diffColor} fw-600">${ml.difficulty}</span></td>
         <td class="text-slate">${ml.timeframe}</td>
+        <td>${sourceHtml}</td>
       </tr>`;
     }).join('');
   },
@@ -1936,14 +1995,17 @@ const App = {
 
     if (!items.length) { feed.innerHTML = this._emptyState('No matching news items'); return; }
 
-    const tierColors = { 1: '#22C55E', 2: '#3B82F6', 3: '#F59E0B', 4: '#EF4444' };
-    const tierLabels = { 1: 'T1', 2: 'T2', 3: 'T3', 4: 'T4' };
+    const tierColors = { 1: '#1E3A8A', 2: '#2563EB', 3: '#60A5FA', 4: '#93C5FD' };
+    const tierLabels = { 1: 'Regulatory/Filing', 2: 'Major Press', 3: 'Trade/Industry', 4: 'General' };
 
     feed.innerHTML = items.map(n => {
       const borderColor = tierColors[n.sourceTier] || '#94A3B8';
-      const tierBadge = `<span class="badge" style="background:${borderColor}15;color:${borderColor};border:1px solid ${borderColor}33;font-size:10px;">${tierLabels[n.sourceTier]}</span>`;
+      const tierBadge = `<span class="badge" style="background:${borderColor}15;color:${borderColor};border:1px solid ${borderColor}33;font-size:10px;">${tierLabels[n.sourceTier] || 'General'}</span>`;
       const catBadge = n.category ? `<span class="badge badge-info" style="font-size:10px;">${n.category}</span>` : '';
-      const sourceLink = `<span style="font-size:11px;color:var(--slate-400);">${n.source}</span>`;
+      const tierName = tierLabels[n.sourceTier] || 'General';
+      const sourceLink = n.sourceUrl
+        ? `<span style="font-size:11px;color:var(--slate-500);">Source: ${tierName} — <a href="${n.sourceUrl}" target="_blank" rel="noopener noreferrer" class="timeline-source">${n.source}</a></span>`
+        : `<span style="font-size:11px;color:var(--slate-400);">Source: ${tierName} — ${n.source}</span>`;
       const cxoHtml = n.cxoQuote
         ? `<div style="margin-top:8px;padding:8px 12px;background:rgba(59,130,246,0.04);border-left:3px solid var(--intelligence-blue);border-radius:0 6px 6px 0;font-size:12px;color:var(--slate-600);font-style:italic;">${n.cxoQuote}</div>`
         : '';

@@ -1923,6 +1923,18 @@ a:hover { color: var(--deep-blue); }
   white-space: nowrap;
 }
 
+/* Heatmap clickable cells */
+.heatmap-clickable {
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  position: relative;
+}
+.heatmap-clickable:hover {
+  transform: scale(1.12);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  z-index: 1;
+}
+
 /* Print styles */
 @media print {
   .sidebar, .top-bar, .filters-bar, .hamburger,

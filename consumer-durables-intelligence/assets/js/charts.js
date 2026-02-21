@@ -793,8 +793,8 @@ const Charts = {
     if (!ctx) return;
     const cb = DATA.subSectorDeepDive.costStructureBenchmark;
     // Filter to categories that have data (non-null)
-    const allCats = ['totalExpenses', 'rawMaterials', 'labor', 'logistics', 'marketing', 'overhead'];
-    const labelsMap = { totalExpenses: 'Total Expenses\n(% of Revenue)', rawMaterials: 'Raw Materials', labor: 'Labor', logistics: 'Logistics', marketing: 'Marketing', overhead: 'Overhead' };
+    const allCats = ['totalExpenses', 'rawMaterials', 'employeeCost', 'otherExpenses'];
+    const labelsMap = { totalExpenses: 'Total Expenses', rawMaterials: 'Raw Materials', employeeCost: 'Employee Cost', otherExpenses: 'Other Expenses' };
     const cats = allCats.filter(c => cb[c] !== null && cb[c] !== undefined);
     if (!cats.length) { ctx.parentElement.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#94A3B8;">No cost breakdown data available</div>'; return; }
 

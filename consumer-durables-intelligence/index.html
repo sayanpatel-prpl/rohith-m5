@@ -740,10 +740,10 @@
             <span class="filter-label">Source Tier</span>
             <select class="filter-select" id="newsTierFilter" aria-label="Filter by source tier">
               <option value="all">All Tiers</option>
-              <option value="1">T1 — Regulatory/Filing</option>
-              <option value="2">T2 — Major Press</option>
-              <option value="3">T3 — Trade/Industry</option>
-              <option value="4">T4 — General</option>
+              <option value="1">Regulatory/Filing</option>
+              <option value="2">Major Press</option>
+              <option value="3">Trade/Industry</option>
+              <option value="4">General</option>
             </select>
           </div>
           <div class="filter-group">
@@ -774,28 +774,29 @@
           <p>Market sizing, cost benchmarks, margin levers, and scale vs profitability analysis</p>
         </div>
 
-        <div class="grid-4 mb-6 data-pending" style="border-radius:12px;padding:4px;">
+        <div class="grid-4 mb-6" style="border-radius:12px;padding:4px;">
           <div class="stat-card">
-            <div class="stat-card-label">Market Size</div>
-            <div class="stat-card-value">-</div>
-            <span class="stat-card-change neutral">Awaiting source</span>
+            <div class="stat-card-label">Market Size (Annualized)</div>
+            <div class="stat-card-value" id="ddMarketSize">&#8377;1,39,480 Cr</div>
+            <span class="stat-card-change positive">+6.6% YoY</span>
           </div>
           <div class="stat-card">
             <div class="stat-card-label">Largest Segment</div>
-            <div class="stat-card-value">-</div>
-            <span class="stat-card-change neutral">Awaiting source</span>
+            <div class="stat-card-value" id="ddLargestSeg">Consumer Elec.</div>
+            <span class="stat-card-change neutral">&#8377;90,260 Cr</span>
           </div>
           <div class="stat-card">
             <div class="stat-card-label">Fastest Growing</div>
-            <div class="stat-card-value">-</div>
-            <span class="stat-card-change neutral">Awaiting source</span>
+            <div class="stat-card-value" id="ddFastestSeg">White Goods</div>
+            <span class="stat-card-change positive">+9.3% YoY</span>
           </div>
           <div class="stat-card">
-            <div class="stat-card-label">Segments Tracked</div>
-            <div class="stat-card-value">-</div>
-            <span class="stat-card-change neutral">Awaiting source</span>
+            <div class="stat-card-label">OPM Spread (Top vs Bottom)</div>
+            <div class="stat-card-value" id="ddOpmSpread">350 bps</div>
+            <span class="stat-card-change neutral">9.7% vs 6.2%</span>
           </div>
         </div>
+        <div style="text-align:right;margin:-16px 0 12px;font-size:10px;color:var(--slate-400);">Source: <a href="https://www.screener.in/" target="_blank" rel="noopener noreferrer" style="color:var(--intelligence-blue);text-decoration:none;">Screener.in</a> &mdash; Q3 FY26 revenue annualized, OPM% quartiles</div>
 
         <div class="grid-2 mb-6">
           <div class="card">
@@ -814,8 +815,11 @@
           </div>
         </div>
 
-        <div class="card mb-6 data-pending">
-          <div class="card-header"><span class="card-title">Margin Levers Analysis</span></div>
+        <div class="card mb-6">
+          <div class="card-header">
+            <span class="card-title">Margin Levers Analysis</span>
+            <span style="font-size:11px;color:var(--slate-400);">Source: Operational metrics, company filings, A&amp;M advisory frameworks</span>
+          </div>
           <div class="card-body" style="overflow-x:auto;">
             <table class="data-table">
               <thead>
@@ -824,10 +828,36 @@
                   <th>Potential Impact</th>
                   <th>Difficulty</th>
                   <th>Timeframe</th>
+                  <th>Source</th>
                 </tr>
               </thead>
               <tbody id="marginLeversBody"></tbody>
             </table>
+          </div>
+        </div>
+
+        <!-- A&M Benchmark Comparison Callout -->
+        <div class="card mb-6" style="border-left:4px solid var(--teal);">
+          <div class="card-header">
+            <span class="card-title">A&amp;M Benchmark Comparison</span>
+            <span style="font-size:11px;color:var(--slate-400);">Source: <a href="https://www.alvarezandmarsal.com/industries/consumer-products" target="_blank" rel="noopener noreferrer" style="color:var(--intelligence-blue);text-decoration:none;">A&amp;M Case Studies</a></span>
+          </div>
+          <div class="card-body" id="amBenchmarkCallout">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+              <div style="padding:14px 16px;background:rgba(13,148,136,0.04);border-radius:8px;border:1px solid rgba(13,148,136,0.12);">
+                <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;color:var(--teal);margin-bottom:6px;">European White Goods Manufacturer</div>
+                <div style="font-size:13px;color:var(--slate-700);line-height:1.5;font-weight:600;">20%+ sales uplift through value proposition transformation</div>
+                <div style="font-size:11px;color:var(--slate-500);margin-top:4px;">Full-scale commercial transformation including pricing, channel strategy, and brand repositioning</div>
+              </div>
+              <div style="padding:14px 16px;background:rgba(13,148,136,0.04);border-radius:8px;border:1px solid rgba(13,148,136,0.12);">
+                <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;color:var(--teal);margin-bottom:6px;">US Consumer Products Company</div>
+                <div style="font-size:13px;color:var(--slate-700);line-height:1.5;font-weight:600;">$150M EBITDA improvement through full-scale transformation</div>
+                <div style="font-size:11px;color:var(--slate-500);margin-top:4px;">Operational restructuring, procurement optimization, and SG&amp;A rationalization</div>
+              </div>
+            </div>
+            <div style="padding:12px 16px;background:rgba(30,58,138,0.04);border-radius:8px;border:1px solid rgba(30,58,138,0.1);font-size:13px;color:var(--navy);line-height:1.6;">
+              <strong style="color:var(--deep-blue);">Implication for Indian Consumer Durables:</strong> Based on A&amp;M's global experience, companies in the bottom quartile of the Scale vs Profitability chart (OPM &lt; 6.2%) have <strong>200&ndash;500 bps margin improvement potential</strong> through a combination of premiumization, vendor consolidation, and distribution rationalization. Current bottom-quartile companies: Bajaj Electricals, Butterfly Gandhimathi, Orient Electric.
+            </div>
           </div>
         </div>
 
