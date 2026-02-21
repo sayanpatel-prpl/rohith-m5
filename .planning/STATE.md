@@ -121,6 +121,9 @@ Recent decisions affecting current work:
 - **Sub-sector sort order** (04-04): AC, Kitchen, Electrical, EMS, Mixed, Cooler for logical A&M consulting context grouping
 - **HTML table for margin levers** (04-04): Consistent with operations section table pattern; sub-sector badge pills for compact multi-value display
 - **color-mix for AM benchmark callout** (04-04): Native CSS color-mix(in oklch) via inline style for A&M branded background tint
+- **HTML table heatmap over ECharts** (04-03): HTML table grid with color-mix intensity cells is lighter weight and more readable for Company x MoveType matrix
+- **color-mix intensity cells** (04-03): Cell background via color-mix(in oklch, brand-primary N%, transparent) for count-based heatmaps
+- **Move type badge inline colors** (04-03): MoveType badge colors via inline style with color-mix for consistent pattern across sections
 
 ### Pending Todos
 
@@ -137,5 +140,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-21
-Stopped at: Completed 04-04-PLAN.md (Sub-Sector Deep Dive Section) -- Phase 4 complete
+Stopped at: Completed 04-03-PLAN.md (Competitive Moves Section) -- Phase 4 fully complete
 Resume file: None
