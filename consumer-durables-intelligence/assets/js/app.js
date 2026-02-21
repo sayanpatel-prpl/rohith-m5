@@ -511,6 +511,7 @@ const App = {
     safe(() => this.renderLeadership(filtered), 'leadership');
     safe(() => this.renderPromoterAdvisory(filtered), 'promoterAdvisory');
     safe(() => this.renderLeadershipBadge(filtered), 'leadershipBadge');
+    safe(() => this.renderCompetitiveHeatmap(filtered), 'competitiveHeatmap');
     safe(() => this.renderCompetitiveMoves(filtered), 'competitiveMoves');
     safe(() => this.renderMarginLevers(), 'marginLevers');
     safe(() => this.renderStakeholderInsights(filtered), 'stakeholderInsights');
@@ -1327,63 +1328,79 @@ const App = {
       const highEvents = events.filter(e => e.riskLevel === 'High');
       const promoter = company.promoterHolding;
 
-      // Determine trigger type and evidence
+      // Determine trigger type and concise evidence (NOT full detail — that's in the timeline)
       let triggerType = '';
       let evidence = '';
       let opportunity = '';
+      let sourceEvent = null;
 
       if (highEvents.some(e => e.change === 'Ownership Change' || e.change === 'Promoter Stake Change')) {
-        const stakeEvent = highEvents.find(e => e.change === 'Ownership Change' || e.change === 'Promoter Stake Change');
+        sourceEvent = highEvents.find(e => e.change === 'Ownership Change' || e.change === 'Promoter Stake Change');
         triggerType = 'Ownership / Promoter Transition';
-        evidence = stakeEvent.detail;
+        evidence = `${sourceEvent.person.split('(')[0].trim()} — ${sourceEvent.change}`;
         opportunity = promoter !== null && promoter < 40
           ? `Promoter at ${promoter}% — standalone strategy, brand licensing, MBO/PE advisory`
           : `Ownership restructuring underway — post-acquisition integration, governance design advisory`;
       } else if (highEvents.some(e => e.change.includes('CEO') || e.change === 'CXO Exodus')) {
-        const ceoEvent = highEvents.find(e => e.change.includes('CEO') || e.change === 'CXO Exodus');
+        sourceEvent = highEvents.find(e => e.change.includes('CEO') || e.change === 'CXO Exodus');
         triggerType = 'Leadership Vacuum / Transition';
-        evidence = ceoEvent.detail;
+        evidence = `${sourceEvent.person.split('(')[0].trim()} — ${sourceEvent.change}`;
         opportunity = `"First 100 Days" advisory — strategic diagnostics, org design, operational acceleration`;
       } else if (highEvents.some(e => e.change === 'Governance Flag')) {
-        const govEvent = highEvents.find(e => e.change === 'Governance Flag');
+        sourceEvent = highEvents.find(e => e.change === 'Governance Flag');
         triggerType = 'Governance Restructuring';
-        evidence = govEvent.detail;
+        evidence = `${sourceEvent.person.split('(')[0].trim()} — ${sourceEvent.change}`;
         opportunity = `Board restructuring, governance upgrade, professional management induction advisory`;
       } else if (events.length >= 3) {
+        sourceEvent = [...events].sort((a, b) => new Date(b.date) - new Date(a.date))[0];
         triggerType = 'Organizational Instability';
-        evidence = `${events.length} leadership events detected — ${events.map(e => e.change).join(', ')}`;
+        evidence = `${events.length} leadership events in tracking period`;
         opportunity = `Talent retention strategy, succession planning, organizational stability assessment`;
       } else {
+        sourceEvent = events[0] || null;
         triggerType = 'Governance Watch';
         evidence = signal.tooltip;
         opportunity = `Proactive governance advisory and board composition review`;
       }
 
-      triggers.push({ name, id, signal, triggerType, evidence, opportunity, severity: signal.score });
+      const eventDate = sourceEvent ? sourceEvent.date : null;
+      triggers.push({ name, id, signal, triggerType, evidence, opportunity, eventDate, sourceEvent });
     });
 
-    // Sort by severity (highest first)
-    triggers.sort((a, b) => b.severity - a.severity);
-    const top = triggers.slice(0, 6);
+    // Sort by recency (most recent first)
+    triggers.sort((a, b) => {
+      const da = a.eventDate ? new Date(a.eventDate) : new Date(0);
+      const db = b.eventDate ? new Date(b.eventDate) : new Date(0);
+      return db - da;
+    });
+    const top = triggers.slice(0, 8);
 
     if (!top.length) {
       panel.innerHTML = '<div style="padding:12px;font-size:13px;color:var(--slate-400);">No critical leadership triggers detected — all companies within normal governance parameters.</div>';
       return;
     }
 
-    panel.innerHTML = top.map(t => `
-      <div class="leadership-trigger-item">
+    panel.innerHTML = `<div class="leadership-trigger-grid">${top.map(t => {
+      const src = t.sourceEvent;
+      const sourceHtml = src && src.sourceUrl
+        ? `<a href="${src.sourceUrl}" target="_blank" rel="noopener noreferrer" class="timeline-source">&#128279; ${src.sourceName || 'Source'}</a>`
+        : '';
+      const dateStr = t.eventDate || '';
+      return `
+      <div class="leadership-trigger-card" style="border-left:3px solid ${t.signal.color};">
         <div class="leadership-trigger-header">
-          <div style="display:flex;align-items:center;gap:8px;">
-            <span class="am-signal"><span class="am-signal-dot" style="background:${t.signal.color};"></span>${t.name}</span>
-            <span class="badge badge-${t.signal.type === 'restructure' ? 'underperform' : 'inline'}" style="font-size:10px;">${t.signal.label}</span>
-          </div>
+          <span class="am-signal"><span class="am-signal-dot" style="background:${t.signal.color};"></span>${t.name}</span>
+          <span class="badge badge-${t.signal.type === 'restructure' ? 'underperform' : 'inline'}" style="font-size:10px;">${t.signal.label}</span>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
           <span class="leadership-trigger-type">${t.triggerType}</span>
+          <span class="timeline-date">${dateStr}</span>
         </div>
         <div class="leadership-trigger-evidence">${t.evidence}</div>
         <div class="leadership-trigger-opportunity">&#9654; ${t.opportunity}</div>
-      </div>
-    `).join('');
+        ${sourceHtml ? `<div style="margin-top:6px;">${sourceHtml}</div>` : ''}
+      </div>`;
+    }).join('')}</div>`;
   },
 
   // ============================================================
@@ -1408,9 +1425,13 @@ const App = {
       if (govFlags.length === 0 && (promoter === null || promoter > 40) && signal.type === 'stable') return;
 
       const issues = [];
-      govFlags.forEach(f => issues.push(f.detail));
-      if (promoter !== null && promoter === 0) issues.push('Widely held — no promoter anchor. Vulnerable to activist/hostile actions.');
-      else if (promoter !== null && promoter < 30) issues.push(`Low promoter holding (${promoter}%) — watch for further dilution or exit.`);
+      // Concise flag labels — full detail is in the Timeline section
+      govFlags.forEach(f => {
+        const person = f.person ? f.person.split('(')[0].trim() : '';
+        issues.push({ text: `${f.change}: ${person}`, url: f.sourceUrl, sourceName: f.sourceName });
+      });
+      if (promoter !== null && promoter === 0) issues.push({ text: 'Widely held — no promoter anchor', url: null, sourceName: null });
+      else if (promoter !== null && promoter < 30) issues.push({ text: `Low promoter holding (${promoter}%)`, url: null, sourceName: null });
 
       if (!issues.length && signal.type === 'monitor') return;
 
@@ -1427,7 +1448,12 @@ const App = {
     panel.innerHTML = `<div class="governance-risk-grid">${flags.map(f => {
       const borderColor = f.signal.color;
       const issueHtml = f.issues.length
-        ? f.issues.map(i => `<div class="governance-issue-line">&#8226; ${i}</div>`).join('')
+        ? f.issues.map(i => {
+          const srcLink = i.url
+            ? ` <a href="${i.url}" target="_blank" rel="noopener noreferrer" class="timeline-source" style="font-size:10px;">&#128279; ${i.sourceName || 'Source'}</a>`
+            : '';
+          return `<div class="governance-issue-line">&#8226; ${i.text}${srcLink}</div>`;
+        }).join('')
         : '<div class="governance-issue-line" style="color:var(--slate-400);">No specific flags — monitoring</div>';
       const promoterDisplay = f.promoter !== null ? f.promoter + '%' : 'N/A';
       return `
@@ -1436,7 +1462,7 @@ const App = {
             <span class="fw-600 text-navy" style="font-size:13px;">${f.name}</span>
             <span class="am-signal" style="font-size:11px;"><span class="am-signal-dot" style="background:${borderColor};"></span>${f.signal.label}</span>
           </div>
-          <div style="font-size:11px;color:var(--slate-400);margin-bottom:6px;">Promoter: ${promoterDisplay}</div>
+          <div style="font-size:11px;color:var(--slate-400);margin-bottom:6px;">Promoter: ${promoterDisplay} &nbsp;|&nbsp; <a href="https://www.screener.in/" target="_blank" rel="noopener noreferrer" style="color:var(--intelligence-blue);text-decoration:none;">Screener.in</a></div>
           ${issueHtml}
         </div>`;
     }).join('')}</div>`;
@@ -1466,10 +1492,15 @@ const App = {
       else if (promoter < 30) promoterColor = '#EF4444';
       else if (promoter < 50) promoterColor = '#F59E0B';
 
-      // Recent events summary (max 2)
+      // Recent events summary (max 2) with source links
       const recentEvents = [...events].sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 2);
       const eventsSummary = recentEvents.length
-        ? recentEvents.map(e => `<div style="font-size:11px;margin-bottom:2px;"><span class="badge badge-${e.riskLevel==='High'?'underperform':e.riskLevel==='Medium'?'inline':'outperform'}" style="font-size:9px;padding:1px 5px;">${e.change}</span> ${e.person.split('(')[0].trim()}</div>`).join('')
+        ? recentEvents.map(e => {
+          const srcLink = e.sourceUrl
+            ? ` <a href="${e.sourceUrl}" target="_blank" rel="noopener noreferrer" class="timeline-source" style="font-size:9px;">&#128279;</a>`
+            : '';
+          return `<div style="font-size:11px;margin-bottom:2px;"><span class="badge badge-${e.riskLevel==='High'?'underperform':e.riskLevel==='Medium'?'inline':'outperform'}" style="font-size:9px;padding:1px 5px;">${e.change}</span> ${e.person.split('(')[0].trim()}${srcLink}</div>`;
+        }).join('')
         : '<span style="font-size:11px;color:var(--slate-400);">No events</span>';
 
       // A&M advisory based on promoter + events
@@ -1558,7 +1589,62 @@ const App = {
   },
 
   // ============================================================
-  // SECTION 7: COMPETITIVE MOVES
+  // SECTION 7: COMPETITIVE MOVES — Heatmap
+  // ============================================================
+  renderCompetitiveHeatmap(filteredIds) {
+    const container = document.getElementById('competitiveHeatmapContainer');
+    if (!container) return;
+    if (!DATA.competitiveMoves.length) { container.innerHTML = this._emptyState('No competitive moves data'); return; }
+
+    const ids = filteredIds || Filters.getFilteredCompanyIds();
+    const kw = this._getFilterKeywords(ids);
+    const filtered = DATA.competitiveMoves.filter(m => this._companyMatchesFilter(m.company, kw));
+
+    const moveTypes = ['M&A', 'Plant Expansion', 'Partnership', 'Product Launch', 'PLI/Govt'];
+
+    // Build company → type → count matrix
+    const companies = {};
+    filtered.forEach(m => {
+      const name = m.company.replace(' of India', '').replace(' Greaves Consumer', '').replace(' Gandhimathi', '');
+      if (!companies[name]) companies[name] = { id: m.companyId, counts: {} };
+      moveTypes.forEach(t => { if (!companies[name].counts[t]) companies[name].counts[t] = 0; });
+      if (companies[name].counts[m.type] !== undefined) companies[name].counts[m.type]++;
+      else companies[name].counts[m.type] = 1;
+    });
+
+    // Sort companies by total moves (most active first)
+    const sorted = Object.entries(companies).sort((a, b) => {
+      const totalA = Object.values(a[1].counts).reduce((s, v) => s + v, 0);
+      const totalB = Object.values(b[1].counts).reduce((s, v) => s + v, 0);
+      return totalB - totalA;
+    });
+
+    const cellColor = (count) => {
+      if (count === 0) return 'background:var(--slate-50);color:var(--slate-300);';
+      if (count === 1) return 'background:rgba(59,130,246,0.1);color:#3B82F6;font-weight:600;';
+      if (count === 2) return 'background:rgba(245,158,11,0.12);color:#F59E0B;font-weight:700;';
+      return 'background:rgba(239,68,68,0.12);color:#EF4444;font-weight:700;';
+    };
+
+    const headerHtml = moveTypes.map(t => `<th style="font-size:11px;white-space:nowrap;text-align:center;">${t}</th>`).join('');
+    const rowsHtml = sorted.map(([name, data]) => {
+      const total = Object.values(data.counts).reduce((s, v) => s + v, 0);
+      const cells = moveTypes.map(t => {
+        const c = data.counts[t] || 0;
+        return `<td style="text-align:center;${cellColor(c)}">${c || '—'}</td>`;
+      }).join('');
+      return `<tr><td class="fw-600 text-navy" style="font-size:12px;white-space:nowrap;">${name}</td>${cells}<td class="text-right mono fw-600" style="font-size:12px;">${total}</td></tr>`;
+    }).join('');
+
+    container.innerHTML = `
+      <table class="data-table" style="font-size:12px;">
+        <thead><tr><th>Company</th>${headerHtml}<th class="text-right">Total</th></tr></thead>
+        <tbody>${rowsHtml}</tbody>
+      </table>`;
+  },
+
+  // ============================================================
+  // SECTION 7: COMPETITIVE MOVES — Cards
   // ============================================================
   renderCompetitiveMoves(filteredIds) {
     const grid = document.getElementById('competitiveGrid');
@@ -1573,15 +1659,27 @@ const App = {
     if (!filtered.length) { grid.innerHTML = this._emptyState('No matching competitive moves'); return; }
     const sorted = [...filtered].sort((a, b) => new Date(b.date) - new Date(a.date));
 
+    const typeColors = {
+      'Product Launch': 'badge-info',
+      'D2C Initiative': 'badge-purple',
+      'Plant Expansion': 'badge-teal',
+      'Partnership': 'badge-outperform',
+      'Pricing Strategy': 'badge-inline',
+      'M&A': 'badge-underperform',
+      'PLI/Govt': 'badge-info',
+    };
+
     grid.innerHTML = sorted.map(m => {
       const impactClass = m.impact === 'High' ? 'impact-high' : m.impact === 'Medium' ? 'impact-medium' : 'impact-low';
-      const typeColors = {
-        'Product Launch': 'badge-info',
-        'D2C Initiative': 'badge-purple',
-        'Plant Expansion': 'badge-teal',
-        'Partnership': 'badge-outperform',
-        'Pricing Strategy': 'badge-inline',
-      };
+      const sourceHtml = m.sourceUrl
+        ? `<div style="margin-top:6px;"><a href="${m.sourceUrl}" target="_blank" rel="noopener noreferrer" class="timeline-source">&#128279; ${m.sourceName || 'Source'}</a></div>`
+        : '';
+      const opsLinkHtml = m.opsLink
+        ? `<a href="#" onclick="event.preventDefault();document.getElementById('${m.opsLink}').scrollIntoView({behavior:'smooth'});App.showSection('operational');" class="move-ops-link">&#8594; See Operational Impact</a>`
+        : '';
+      const amHtml = m.amImplication
+        ? `<div class="move-am-implication"><strong style="color:var(--teal);">&#9654;</strong> ${m.amImplication}</div>`
+        : '';
       return `
         <div class="move-card">
           <div class="move-card-header">
@@ -1591,6 +1689,11 @@ const App = {
           <div class="move-title">${m.title}</div>
           <div class="move-company">${m.company} &middot; ${m.date}</div>
           <div class="move-detail">${m.detail}</div>
+          ${amHtml}
+          <div style="display:flex;align-items:center;gap:12px;margin-top:4px;">
+            ${sourceHtml}
+            ${opsLinkHtml}
+          </div>
         </div>
       `;
     }).join('');

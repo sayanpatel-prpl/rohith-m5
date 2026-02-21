@@ -616,9 +616,9 @@
         </div>
 
         <!-- A&M Leadership Triggers — Monday Morning Call List -->
-        <div class="card mb-6" style="border-left: 4px solid #EF4444;">
+        <div class="card mb-6">
           <div class="card-header">
-            <span class="card-title" style="color:#EF4444;">&#9888; A&M Leadership Triggers — Who to Call Monday</span>
+            <span class="card-title">Leadership Triggers</span>
             <span style="font-size:11px;color:var(--slate-400);">Auto-computed from leadership events, governance flags, and promoter movements</span>
           </div>
           <div class="card-body" id="leadershipTriggersPanel">
@@ -694,10 +694,22 @@
       <div class="section-panel" id="section-competitive">
         <div class="section-header">
           <h2><span class="section-icon">&#9755;</span> Competitive Moves & Strategic Bets</h2>
-          <p>Product launches, pricing strategies, D2C initiatives, partnerships, and plant expansions</p>
+          <p>M&A, capex, partnerships, product launches, and government incentives &nbsp;|&nbsp; <span style="font-size:12px;color:var(--slate-400);">Source: Company disclosures, BSE/NSE filings, news</span></p>
         </div>
 
-        <div class="grid-2 data-pending" style="border-radius:12px;padding:4px;" id="competitiveGrid"></div>
+        <!-- Competitive Intensity Heatmap -->
+        <div class="card mb-6">
+          <div class="card-header">
+            <span class="card-title">Competitive Intensity Heatmap</span>
+            <span style="font-size:11px;color:var(--slate-400);">Company &times; Move Type — color by frequency &nbsp;|&nbsp; Source: Compiled from deals CSV, company disclosures</span>
+          </div>
+          <div class="card-body" style="overflow-x:auto;" id="competitiveHeatmapContainer">
+            <!-- Populated by App.renderCompetitiveHeatmap() -->
+          </div>
+        </div>
+
+        <!-- Competitive Moves Grid -->
+        <div class="grid-2" style="border-radius:12px;padding:4px;" id="competitiveGrid"></div>
       </div>
 
       <!-- ============================================================

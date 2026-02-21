@@ -187,6 +187,7 @@ const Filters = {
       safe(() => App.renderLeadership(filtered), 'leadership');
       safe(() => App.renderPromoterAdvisory(filtered), 'promoterAdvisory');
       safe(() => App.renderLeadershipBadge(filtered), 'leadershipBadge');
+      safe(() => App.renderCompetitiveHeatmap(filtered), 'competitiveHeatmap');
       safe(() => App.renderCompetitiveMoves(filtered), 'competitiveMoves');
       safe(() => App.renderStakeholderInsights(filtered), 'stakeholderInsights');
       safe(() => App.renderWatchlist(filtered), 'watchlist');
