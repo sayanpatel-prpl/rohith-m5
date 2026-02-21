@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-20)
 
 **Core value:** Every section answers "where's the BD opportunity?" — sourced signals that help A&M partners identify which companies need help, what kind, and when to reach out.
-**Current focus:** Phase 3 - Section Group A
+**Current focus:** Phase 4 - Section Group B
 
 ## Current Position
 
-Phase: 3 of 6 (Section Group A)
-Plan: 4 of 4 in current phase
+Phase: 4 of 6 (Section Group B)
+Plan: 2 of 4 in current phase
 Status: In Progress
-Last activity: 2026-02-21 — Completed 03-04-PLAN.md (Leadership & Governance Section)
+Last activity: 2026-02-21 — Completed 04-01-PLAN.md (Section Group B Data Layer)
 
-Progress: [████████████████████] 77% (17 of 22 plans)
+Progress: [████████████████████] 82% (18 of 22 plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 14
-- Average duration: 4.00 min
-- Total execution time: 0.93 hours
+- Total plans completed: 15
+- Average duration: 4.80 min
+- Total execution time: 1.20 hours
 
 **By Phase:**
 
@@ -30,10 +30,11 @@ Progress: [████████████████████] 77% (17
 | 01-foundation | 6 | 25min | 4.17min |
 | 02-priority-sections | 4 | 17min | 4.25min |
 | 03-section-group-a | 4 | 18min | 4.50min |
+| 04-section-group-b | 1 | 16min | 16.00min |
 
 **Recent Trend:**
-- Last 5 plans: 03-04 (5min), 03-03 (3min), 03-02 (6min), 03-01 (4min), 02-04 (6min)
-- Trend: Stable
+- Last 5 plans: 04-01 (16min), 03-04 (5min), 03-03 (3min), 03-02 (6min), 03-01 (4min)
+- Trend: Larger scope (3 sections in 1 plan)
 
 *Updated after each plan completion*
 
@@ -108,6 +109,11 @@ Recent decisions affecting current work:
 - **Deal-keyword gate for other type** (03-03): "other" entries only kept if description contains deal keywords (acquisition, invest, stake, land allotment, etc.)
 - **AM angle from deal type+description** (03-03): acquisition->CDD/Integration, qip/fundraise->Valuation, land-allotment->CDD, rating->Valuation/Restructuring
 - **5 pattern detectors** (03-03): Serial Acquisition, Capital Mobilization, Vertical Integration, International Expansion, Capacity Expansion with deal count thresholds
+- **ConfidenceIcon = SourceConfidence** (04-01): Reused existing type alias for per-metric confidence indicators rather than defining a duplicate
+- **5 diagnostic trigger rules** (04-01): OPM<5% (Operations), WC>120d (CPI), D/E>1.5 (Restructuring), ROCE<8% (CPI), RevGrowth<-10% (Restructuring)
+- **Competitive moves from triggers+deals** (04-01): Growth triggers provide strategic intent; deal activity provides concrete actions; quarterly results filtered out
+- **Quartile linear interpolation** (04-01): Standard P25/median/P75 computation for sub-sector breakdowns
+- **Static A&M benchmarks** (04-01): 2 case studies (European White Goods 20%+ EBITDA, US Consumer Durables $150M EBITDA) for SSDD-02
 
 ### Pending Todos
 
@@ -124,5 +130,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-21
-Stopped at: Completed 03-04-PLAN.md (Leadership & Governance Section)
+Stopped at: Completed 04-01-PLAN.md (Section Group B Data Layer)
 Resume file: None
