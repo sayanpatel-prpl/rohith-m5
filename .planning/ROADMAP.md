@@ -15,7 +15,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 1: Foundation & Infrastructure** - Project setup, data layer, global components
 - [x] **Phase 2: Priority Sections (Executive + Financial + Watchlist)** - Highest-value sections for presentation
 - [x] **Phase 3: Section Group A (Market + Deals + Leadership)** - Market context and deal intelligence
-- [ ] **Phase 4: Section Group B (Operations + Competitive + Sub-Sector)** - Operational and competitive intelligence
+- [x] **Phase 4: Section Group B (Operations + Competitive + Sub-Sector)** - Operational and competitive intelligence
 - [ ] **Phase 5: Cross-Cutting Features** - A&M Value-Add section, What This Means For section, Talk vs Walk
 - [ ] **Phase 6: Production Hardening** - Validation, testing, presentation readiness
 
@@ -91,10 +91,10 @@ Plans:
 **Plans:** 4 plans
 
 Plans:
-- [ ] 04-01-PLAN.md — Types, adapters, and query wiring for all 3 sections
-- [ ] 04-02-PLAN.md — Operational Intelligence section UI (metrics table, confidence icons, diagnostic triggers)
-- [ ] 04-03-PLAN.md — Competitive Moves section UI (intensity heatmap, move cards, cross-links)
-- [ ] 04-04-PLAN.md — Sub-Sector Deep Dive section UI (sub-sector cards, margin levers, A&M benchmarks)
+- [x] 04-01-PLAN.md — Types, adapters, and query wiring for all 3 sections
+- [x] 04-02-PLAN.md — Operational Intelligence section UI (metrics table, confidence icons, diagnostic triggers)
+- [x] 04-03-PLAN.md — Competitive Moves section UI (intensity heatmap, move cards, cross-links)
+- [x] 04-04-PLAN.md — Sub-Sector Deep Dive section UI (sub-sector cards, margin levers, A&M benchmarks)
 
 ### Phase 5: Cross-Cutting Features
 **Goal**: Deliver A&M Value-Add section, What This Means For stakeholder insights, and Talk vs Walk verification
@@ -106,9 +106,13 @@ Plans:
   3. What This Means For section has all 4 tabs populated with cross-navigable insights
   4. Talk vs Walk verification surfaced in company modal, Executive Snapshot, and PE/Investors tab
   5. Derived intelligence metrics (market share, pricing power, competitive intensity) visible in appropriate sections
-**Plans**: TBD
+**Plans:** 4 plans
 
-Plans: TBD
+Plans:
+- [ ] 05-01-PLAN.md — Types, cross-referencing adapters, and query wiring for A&M Value-Add + What This Means For
+- [ ] 05-02-PLAN.md — A&M Value-Add section UI (pipeline/kanban layout)
+- [ ] 05-03-PLAN.md — What This Means For section UI (4 stakeholder tabs with cross-navigation)
+- [ ] 05-04-PLAN.md — Derived metrics visual distinction (DRVI-04) and ALTERNATIVE_DATA_SLOT comments (DRVI-05)
 
 ### Phase 6: Production Hardening
 **Goal**: Validate all requirements, test presentation readiness, ensure demo-proof delivery
@@ -134,6 +138,6 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 | 1. Foundation & Infrastructure | 6/6 | Complete | 2026-02-21 |
 | 2. Priority Sections (Executive + Financial + Watchlist) | 5/5 | Complete | 2026-02-21 |
 | 3. Section Group A (Market + Deals + Leadership) | 4/4 | Complete | 2026-02-21 |
-| 4. Section Group B (Operations + Competitive + Sub-Sector) | 0/4 | Not started | - |
-| 5. Cross-Cutting Features | 0/TBD | Not started | - |
+| 4. Section Group B (Operations + Competitive + Sub-Sector) | 4/4 | Complete | 2026-02-21 |
+| 5. Cross-Cutting Features | 0/4 | Not started | - |
 | 6. Production Hardening | 0/TBD | Not started | - |
