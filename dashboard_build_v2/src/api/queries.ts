@@ -4,6 +4,7 @@ import { buildExecutiveData } from "../data/adapters/executive-adapter";
 import { buildFinancialData } from "../data/adapters/financial-adapter";
 import { buildWatchlistData } from "../data/adapters/watchlist-adapter";
 import { buildMarketPulseData } from "../data/adapters/market-pulse-adapter";
+import { buildDealsData } from "../data/adapters/deals-adapter";
 import type { SectionId } from "../types/common";
 import type { SectionData } from "../types/sections";
 
@@ -68,7 +69,7 @@ export const sectionQueries = {
   deals: () =>
     queryOptions({
       queryKey: ["section", "deals"] as const,
-      queryFn: () => buildSectionData("deals"),
+      queryFn: () => buildDealsData(),
     }),
 
   operations: () =>
