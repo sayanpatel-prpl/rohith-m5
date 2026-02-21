@@ -294,9 +294,12 @@ export function FinancialTable({
               title={
                 derivedColumns.find((c) => c.id === "mktShare")?.methodology ?? ""
               }
-              className="cursor-help"
+              className="cursor-help inline-flex items-center gap-1"
             >
               Mkt Share %
+              <span className="text-[8px] font-medium px-1 py-0 rounded bg-surface-overlay text-text-muted not-italic uppercase tracking-wider">
+                Derived
+              </span>
             </span>
           ),
           size: 90,
@@ -304,7 +307,7 @@ export function FinancialTable({
             const derived = derivedValues.get(info.row.original.id);
             const val = derived?.mktShare;
             if (val == null) return <span className="text-text-muted">-</span>;
-            return <span className="text-sm">{val.toFixed(1)}%</span>;
+            return <span className="text-sm italic">{val.toFixed(1)}%</span>;
           },
         }),
       );
@@ -319,9 +322,12 @@ export function FinancialTable({
                 derivedColumns.find((c) => c.id === "pricingPower")?.methodology ??
                 ""
               }
-              className="cursor-help"
+              className="cursor-help inline-flex items-center gap-1"
             >
               Pricing Power
+              <span className="text-[8px] font-medium px-1 py-0 rounded bg-surface-overlay text-text-muted not-italic uppercase tracking-wider">
+                Derived
+              </span>
             </span>
           ),
           size: 100,
@@ -334,7 +340,7 @@ export function FinancialTable({
             return (
               <span
                 className={clsx(
-                  "text-sm",
+                  "text-sm italic",
                   isPositive && "text-positive",
                   isNegative && "text-negative",
                   !isPositive && !isNegative && "text-text-primary",
@@ -358,9 +364,12 @@ export function FinancialTable({
                 derivedColumns.find((c) => c.id === "competitiveIntensity")
                   ?.methodology ?? ""
               }
-              className="cursor-help"
+              className="cursor-help inline-flex items-center gap-1"
             >
               Competitive Intensity
+              <span className="text-[8px] font-medium px-1 py-0 rounded bg-surface-overlay text-text-muted not-italic uppercase tracking-wider">
+                Derived
+              </span>
             </span>
           ),
           size: 120,
@@ -368,7 +377,7 @@ export function FinancialTable({
             const derived = derivedValues.get(info.row.original.id);
             const val = derived?.competitiveIntensity;
             if (val == null) return <span className="text-text-muted">-</span>;
-            return <span className="text-sm">{val.toFixed(2)}</span>;
+            return <span className="text-sm italic">{val.toFixed(2)}</span>;
           },
         }),
       );

@@ -43,10 +43,10 @@ export function DerivedColumnsToggle({
           {columns.map((col) => (
             <span
               key={col.id}
-              className="px-1.5 py-0.5 rounded bg-surface-overlay cursor-help"
+              className="px-1.5 py-0.5 rounded bg-surface-overlay cursor-help italic"
               title={col.methodology}
             >
-              {col.label}
+              {col.label} (Derived)
             </span>
           ))}
         </div>
