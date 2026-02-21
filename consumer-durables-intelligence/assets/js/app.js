@@ -85,6 +85,47 @@ const App = {
     return { type: 'monitor', color: '#3B82F6', label: 'Monitor', tooltip: 'No immediate signal' };
   },
 
+  // Helper: Ops Signal classification (operational metrics only)
+  _getOpsSignal(companyId) {
+    const ops = DATA.operationalMetrics;
+    const cap = ops.capacityUtilization[companyId];
+    const impDep = ops.importDependency[companyId];
+    const afterSales = ops.afterSalesCostPct[companyId];
+    const vendor = ops.vendorConsolidationIndex[companyId];
+    const contract = ops.contractManufacturingPct[companyId];
+    const local = ops.localizationPct[companyId];
+
+    // Red — Ops Restructuring
+    if ((cap < 65 && (impDep > 30 || afterSales > 3)) ||
+        (vendor < 55 && contract > 25)) {
+      const reasons = [];
+      if (cap < 65) reasons.push('Capacity ' + cap + '%');
+      if (impDep > 30) reasons.push('Import ' + impDep + '%');
+      if (afterSales > 3) reasons.push('After-sales ' + afterSales + '%');
+      if (vendor < 55) reasons.push('Vendor idx ' + vendor);
+      if (contract > 25) reasons.push('Contract mfg ' + contract + '%');
+      return { type: 'restructure', color: '#EF4444', label: 'Ops Restructure', tooltip: reasons.join(', ') };
+    }
+
+    // Amber — Ops Improvement (at least 2 conditions)
+    let amberCount = 0;
+    const amberReasons = [];
+    if (cap < 75) { amberCount++; amberReasons.push('Capacity ' + cap + '%'); }
+    if (afterSales > 2.5) { amberCount++; amberReasons.push('After-sales ' + afterSales + '%'); }
+    if (impDep > 35) { amberCount++; amberReasons.push('Import ' + impDep + '%'); }
+    if (amberCount >= 2) {
+      return { type: 'improve', color: '#F59E0B', label: 'Ops Improve', tooltip: amberReasons.join(', ') };
+    }
+
+    // Green — Ops Efficient
+    if (cap > 82 && local > 75 && vendor > 70) {
+      return { type: 'efficient', color: '#22C55E', label: 'Ops Efficient', tooltip: 'Cap ' + cap + '%, Local ' + local + '%, Vendor ' + vendor };
+    }
+
+    // Blue — Monitor
+    return { type: 'monitor', color: '#3B82F6', label: 'Monitor', tooltip: 'No immediate ops signal' };
+  },
+
   // Helper: Inline SVG sparkline from data array
   _sparklineSvg(dataArray, qIdx) {
     const end = Math.min(qIdx + 1, dataArray.length);
@@ -419,6 +460,7 @@ const App = {
     safe(() => this.renderExecutiveSnapshot(filtered), 'executiveSnapshot');
     safe(() => this.renderFinancialTable(filtered), 'financialTable');
     safe(() => this.renderHeatmap(filtered), 'heatmap');
+    safe(() => this.renderDiagnosticTriggers(filtered), 'diagnosticTriggers');
     safe(() => this.renderOperationalTable(filtered), 'operationalTable');
     safe(() => this.renderMfgFootprint(filtered), 'mfgFootprint');
     safe(() => this.renderRetailFootprint(filtered), 'retailFootprint');
@@ -813,25 +855,152 @@ const App = {
     const ids = filteredIds || Filters.getFilteredCompanyIds();
 
     const fmtVal = (v, sfx) => v !== null && v !== undefined ? v + sfx : '-';
+    // Conditional formatting helper
+    const condClass = (metric, value) => {
+      if (value === null || value === undefined) return '';
+      if (metric === 'cap') return value < 65 ? 'ops-cell-red' : value < 75 ? 'ops-cell-amber' : '';
+      if (metric === 'impDep') return value > 35 ? 'ops-cell-red' : value > 25 ? 'ops-cell-amber' : '';
+      if (metric === 'afterSales') return value > 3 ? 'ops-cell-red' : value > 2.5 ? 'ops-cell-amber' : '';
+      if (metric === 'vendor') return value < 55 ? 'ops-cell-red' : value < 65 ? 'ops-cell-amber' : '';
+      if (metric === 'warranty') return value > 3 ? 'ops-cell-red' : value > 2.5 ? 'ops-cell-amber' : '';
+      return '';
+    };
+
     tbody.innerHTML = ids.map(id => {
       const c = DataUtils.getCompany(id);
       const ops = DATA.operationalMetrics;
-      // Read from operationalMetrics (populated from research) instead of financials
       const impDep = ops.importDependency ? ops.importDependency[id] : null;
       const warranty = ops.warrantyPct ? ops.warrantyPct[id] : null;
       const dealerProd = ops.dealerProductivity ? ops.dealerProductivity[id] : null;
+      const cap = ops.capacityUtilization[id];
+      const afterSales = ops.afterSalesCostPct[id];
+      const vendor = ops.vendorConsolidationIndex[id];
+
+      // Ops Signal
+      const signal = this._getOpsSignal(id);
+      const signalHtml = `<span class="am-signal" title="${signal.tooltip}"><span class="am-signal-dot" style="background:${signal.color};"></span>${signal.label}</span>`;
+
       return `<tr>
+        <td>${signalHtml}</td>
         <td><span class="fw-600 text-navy">${c.name}</span></td>
-        <td class="text-right mono">${fmtVal(ops.capacityUtilization[id], '%')}</td>
+        <td class="text-right mono ${condClass('cap', cap)}">${fmtVal(cap, '%')}</td>
         <td class="text-right mono">${fmtVal(ops.localizationPct[id], '%')}</td>
         <td class="text-right mono">${fmtVal(ops.contractManufacturingPct[id], '%')}</td>
-        <td class="text-right mono">${fmtVal(ops.afterSalesCostPct[id], '%')}</td>
-        <td class="text-right mono">${fmtVal(impDep, '%')}</td>
-        <td class="text-right mono">${fmtVal(ops.vendorConsolidationIndex[id], '')}</td>
-        <td class="text-right mono">${fmtVal(warranty, '%')}</td>
+        <td class="text-right mono ${condClass('afterSales', afterSales)}">${fmtVal(afterSales, '%')}</td>
+        <td class="text-right mono ${condClass('impDep', impDep)}">${fmtVal(impDep, '%')}</td>
+        <td class="text-right mono ${condClass('vendor', vendor)}">${fmtVal(vendor, '')}</td>
+        <td class="text-right mono ${condClass('warranty', warranty)}">${fmtVal(warranty, '%')}</td>
         <td class="text-right mono">${dealerProd !== null ? '₹' + dealerProd + ' Cr' : '-'}</td>
       </tr>`;
     }).join('');
+  },
+
+  // ============================================================
+  // SECTION 5: DIAGNOSTIC TRIGGERS
+  // ============================================================
+  renderDiagnosticTriggers(filteredIds) {
+    const el = document.getElementById('diagnosticTriggersBody');
+    if (!el) return;
+    const ids = filteredIds || Filters.getFilteredCompanyIds();
+    const ops = DATA.operationalMetrics;
+
+    // Sector bests for benchmarking
+    const allAfterSales = ids.map(id => ops.afterSalesCostPct[id]).filter(v => v != null);
+    const bestAfterSales = allAfterSales.length ? Math.min(...allAfterSales).toFixed(1) : '1.0';
+    const allVendor = ids.map(id => ops.vendorConsolidationIndex[id]).filter(v => v != null);
+    const bestVendor = allVendor.length ? Math.max(...allVendor) : 82;
+    const allDealerProd = ids.map(id => ops.dealerProductivity[id]).filter(v => v != null && v > 0);
+    const topDealerProd = allDealerProd.length ? Math.max(...allDealerProd).toFixed(2) : '10.0';
+
+    const triggers = [];
+
+    ids.forEach(id => {
+      const c = DataUtils.getCompany(id);
+      const name = c.name.replace(' of India', '').replace(' Greaves Consumer', '');
+      const signal = this._getOpsSignal(id);
+      const cap = ops.capacityUtilization[id];
+      const local = ops.localizationPct[id];
+      const impDep = ops.importDependency[id];
+      const afterSales = ops.afterSalesCostPct[id];
+      const warranty = ops.warrantyPct[id];
+      const vendor = ops.vendorConsolidationIndex[id];
+      const contract = ops.contractManufacturingPct[id];
+      const dealerProd = ops.dealerProductivity[id];
+
+      // Supply Chain Restructuring
+      if (impDep > 35 && local < 65) {
+        triggers.push({
+          company: name, signal, severity: signal.type === 'restructure' ? 0 : 1,
+          triggerType: 'Supply Chain Restructuring',
+          evidence: `${impDep}% import exposure, only ${local}% localized. Commodity shock risk: copper at $12,500/ton.`,
+          opportunity: 'Localization roadmap + alternate supplier sourcing',
+        });
+      }
+
+      // Quality/Service Transformation
+      if (afterSales > 3 || warranty > 2.5) {
+        triggers.push({
+          company: name, signal, severity: signal.type === 'restructure' ? 0 : 1,
+          triggerType: 'Quality/Service Transformation',
+          evidence: `After-sales ${afterSales}% of revenue, warranty ${warranty}%. Benchmark: sector best ${bestAfterSales}%.`,
+          opportunity: 'Service network optimization + warranty cost reduction program',
+        });
+      }
+
+      // Procurement Optimization
+      if (vendor < 55) {
+        triggers.push({
+          company: name, signal, severity: signal.type === 'restructure' ? 0 : 1,
+          triggerType: 'Procurement Optimization',
+          evidence: `Vendor fragmentation index ${vendor} (sector best: ${bestVendor}). Consolidation = margin uplift.`,
+          opportunity: 'Strategic sourcing + vendor rationalization',
+        });
+      }
+
+      // Manufacturing Consolidation
+      if (cap < 65) {
+        const mfgData = { whirlpool: 3, voltas: 4, bluestar: 5, crompton: 12, bajaj_elec: 4, vguard: 9, ifb: 3, havells: 12, symphony: 2, orient: 5, dixon: 24, amber: 30, ttk_prestige: 5, butterfly: 1, bosch_jch: 1 };
+        const plants = mfgData[id] || '?';
+        triggers.push({
+          company: name, signal, severity: 0,
+          triggerType: 'Manufacturing Consolidation',
+          evidence: `Running at ${cap}% utilization across ${plants} plants. Asset rationalization opportunity.`,
+          opportunity: 'Plant consolidation + capacity rebalancing',
+        });
+      }
+
+      // Distribution Restructuring
+      if (dealerProd !== null && dealerProd < 1.0) {
+        triggers.push({
+          company: name, signal, severity: signal.type === 'restructure' ? 0 : 1,
+          triggerType: 'Distribution Restructuring',
+          evidence: `Dealer productivity ₹${dealerProd} Cr vs sector top ₹${topDealerProd} Cr. Channel optimization advisory.`,
+          opportunity: 'ROI-per-touchpoint model + network rationalization',
+        });
+      }
+    });
+
+    // Sort by severity (Red first, then Amber), take max 5
+    triggers.sort((a, b) => a.severity - b.severity);
+    const top = triggers.slice(0, 5);
+
+    if (!top.length) {
+      el.innerHTML = `<div style="text-align:center;padding:20px;color:var(--slate-400);font-size:13px;">
+        No critical operational triggers detected &mdash; all companies within normal parameters.
+      </div>`;
+      return;
+    }
+
+    el.innerHTML = top.map(t => `
+      <div class="diagnostic-trigger-item">
+        <div class="diagnostic-trigger-header">
+          <span class="am-signal" title="${t.signal.tooltip}"><span class="am-signal-dot" style="background:${t.signal.color};"></span>${t.company}</span>
+          <span class="diagnostic-trigger-type">${t.triggerType}</span>
+        </div>
+        <div class="diagnostic-trigger-evidence">${t.evidence}</div>
+        <div class="diagnostic-trigger-opportunity"><strong>&#9654;</strong> ${t.opportunity}</div>
+      </div>
+    `).join('');
   },
 
   // ============================================================
@@ -861,11 +1030,39 @@ const App = {
     };
     tbody.innerHTML = ids.map(id => {
       const d = mfgData[id] || {};
+      const ops = DATA.operationalMetrics;
+      const cap = ops.capacityUtilization[id];
+      const contract = ops.contractManufacturingPct[id];
+      const local = ops.localizationPct[id];
+      const plants = d.plants;
+      const capex = d.capex;
+
+      // Generate A&M opportunity
+      let amOpp = '';
+      let amColor = '#3B82F6';
+      if (cap < 70 && plants > 5) {
+        amOpp = `Asset rationalization — ${plants} plants at ${cap}% utilization`;
+        amColor = '#EF4444';
+      } else if (capex > 500 && cap > 80) {
+        amOpp = `Capex advisory — ₹${capex.toLocaleString()} Cr expansion at near-full capacity. Execution risk monitoring`;
+        amColor = '#F59E0B';
+      } else if (contract > 20) {
+        amOpp = `Make-vs-buy optimization — ${contract}% outsourced. In-house feasibility study`;
+        amColor = '#F59E0B';
+      } else if (local < 65) {
+        amOpp = `Localization roadmap — ${local}% local. PLI incentive capture strategy`;
+        amColor = '#3B82F6';
+      } else {
+        amOpp = 'Capacity monitoring';
+        amColor = '#94A3B8';
+      }
+
       return `<tr>
         <td><span class="fw-600 text-navy">${DataUtils.getCompany(id).name.replace(' of India','').replace(' Greaves Consumer','')}</span></td>
         <td class="text-right mono">${d.plants || '-'}</td>
         <td class="text-right mono">${d.capex ? '₹' + d.capex.toLocaleString() : '-'}</td>
         <td style="font-size:12px;max-width:300px;">${d.expansion || '-'}</td>
+        <td style="font-size:12px;max-width:250px;"><span style="border-left:3px solid ${amColor};padding-left:8px;display:inline-block;">${amOpp}</span></td>
       </tr>`;
     }).join('');
   },
@@ -894,13 +1091,48 @@ const App = {
       butterfly: { dealers: '17 branches', productivity: null, signal: 'New Head of Procurement (ex-Royal Enfield).' },
       bosch_jch: { dealers: null, productivity: null, signal: 'Restructuring under Bosch. Network being rebuilt.' },
     };
+    // Compute sector top dealer productivity for benchmarking
+    const allProd = ids.map(id => (retailData[id] || {}).productivity).filter(v => v != null && v > 0);
+    const topProd = allProd.length ? Math.max(...allProd).toFixed(2) : '10.0';
+
     tbody.innerHTML = ids.map(id => {
       const d = retailData[id] || {};
+      const name = DataUtils.getCompany(id).name.replace(' of India','').replace(' Greaves Consumer','');
+
+      // Generate A&M Advisory
+      let advisory = '';
+      let advisoryColor = '#3B82F6';
+      if (d.productivity !== null && d.productivity < 1.0) {
+        advisory = `Channel optimization — ₹${d.productivity} Cr/dealer vs best-in-class ₹${topProd} Cr. ROI-per-touchpoint model`;
+        advisoryColor = '#EF4444';
+      } else if (d.dealers === 'B2B only') {
+        advisory = 'M&A / distribution partnership advisory — no direct retail. Strategic channel build-vs-buy';
+        advisoryColor = '#9333EA';
+      } else if (d.dealers && d.dealers.includes('00,000')) {
+        const countMatch = d.dealers.match(/([\d,]+)/);
+        const count = countMatch ? countMatch[1] : '100K+';
+        advisory = `Network rationalization — ${count} touchpoints. Efficiency audit opportunity`;
+        advisoryColor = '#F59E0B';
+      } else if (d.signal) {
+        advisory = d.signal;
+        advisoryColor = '#94A3B8';
+      } else {
+        advisory = 'Monitor';
+        advisoryColor = '#94A3B8';
+      }
+
+      const signalSecondary = (d.signal && advisory !== d.signal)
+        ? `<div style="font-size:11px;color:var(--slate-400);margin-top:3px;">${d.signal}</div>`
+        : '';
+
       return `<tr>
-        <td><span class="fw-600 text-navy">${DataUtils.getCompany(id).name.replace(' of India','').replace(' Greaves Consumer','')}</span></td>
+        <td><span class="fw-600 text-navy">${name}</span></td>
         <td class="text-right" style="font-size:12px;">${d.dealers || '-'}</td>
         <td class="text-right mono">${d.productivity !== null ? '₹' + d.productivity + ' Cr' : '-'}</td>
-        <td style="font-size:12px;max-width:250px;">${d.signal || '-'}</td>
+        <td style="font-size:12px;max-width:280px;">
+          <span style="border-left:3px solid ${advisoryColor};padding-left:8px;display:inline-block;">${advisory}</span>
+          ${signalSecondary}
+        </td>
       </tr>`;
     }).join('');
   },

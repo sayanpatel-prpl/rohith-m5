@@ -489,6 +489,15 @@
           <p>Supply chain, manufacturing, procurement, and retail operations &nbsp;|&nbsp; <span style="font-size:12px;color:var(--slate-400);">Sources: Company reports, investor presentations, earnings calls, <a href="https://www.screener.in/" target="_blank" rel="noopener noreferrer" style="color:var(--intelligence-blue);text-decoration:none;">Screener.in</a></span></p>
         </div>
 
+        <!-- A&M Diagnostic Triggers -->
+        <div class="card mb-6 diagnostic-triggers-card" style="border-left: 4px solid #F59E0B;">
+          <div class="card-header">
+            <span class="card-title">A&amp;M Diagnostic Triggers &mdash; Operational Interventions</span>
+            <span style="font-size:11px;color:var(--slate-400);">Auto-detected from operational metrics</span>
+          </div>
+          <div class="card-body" id="diagnosticTriggersBody"></div>
+        </div>
+
         <!-- Operational Metrics Comparison Table -->
         <div class="card mb-6">
           <div class="card-header">
@@ -499,6 +508,7 @@
             <table class="data-table" id="operationalTable">
               <thead>
                 <tr>
+                  <th>Ops Signal</th>
                   <th>Company</th>
                   <th class="text-right">Capacity Util. %</th>
                   <th class="text-right">Localization %</th>
@@ -516,7 +526,8 @@
               <strong style="color:var(--slate-500);">Confidence:</strong>
               Voltas Capacity 90% (VERIFIED) | Amber BoM 70% (VERIFIED) | Symphony 100% outsourced (VERIFIED) |
               Butterfly 80% in-house (VERIFIED) | Dixon 93% ODM (VERIFIED) |
-              Other metrics: DERIVED/ESTIMATED from company filings &amp; industry data
+              Other metrics: DERIVED/ESTIMATED from company filings &amp; industry data<br>
+              <strong style="color:var(--slate-500);">Signal:</strong> Auto-computed from operational metrics (threshold model)
             </div>
           </div>
         </div>
@@ -545,7 +556,10 @@
             <span class="card-title">Supply Chain Risk: Import Dependency vs Commodity Exposure</span>
             <span style="font-size:11px;color:var(--slate-400);">Source: operational-intelligence-data.md | Commodity data: <a href="https://www.meadmetals.com/blog/metal-industry-outlook-2026-procurement-guide" target="_blank" rel="noopener noreferrer" style="color:var(--intelligence-blue);text-decoration:none;">Mead Metals</a></span>
           </div>
-          <div class="card-body"><div class="chart-container"><canvas id="chartImportRisk"></canvas></div></div>
+          <div class="card-body">
+            <div class="chart-container"><canvas id="chartImportRisk"></canvas></div>
+            <div id="importRiskInsight" style="margin-top:12px;padding:12px;border-radius:8px;background:rgba(245,158,11,0.05);border:1px solid rgba(245,158,11,0.15);font-size:12px;color:var(--slate-600);line-height:1.6;"></div>
+          </div>
         </div>
 
         <!-- Manufacturing Capacity + Retail Footprint -->
@@ -563,6 +577,7 @@
                     <th class="text-right">Plants</th>
                     <th class="text-right">Capex (₹Cr)</th>
                     <th>Key Expansion</th>
+                    <th>A&amp;M Opportunity</th>
                   </tr>
                 </thead>
                 <tbody id="mfgFootprintBody"></tbody>
@@ -581,7 +596,7 @@
                     <th>Company</th>
                     <th class="text-right">Dealers/Touch Points</th>
                     <th class="text-right">Productivity (₹Cr)</th>
-                    <th>Expansion Signal</th>
+                    <th>A&amp;M Advisory</th>
                   </tr>
                 </thead>
                 <tbody id="retailFootprintBody"></tbody>

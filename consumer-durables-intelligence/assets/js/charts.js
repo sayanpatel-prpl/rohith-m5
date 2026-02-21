@@ -493,8 +493,68 @@ const Charts = {
     if (!ctx) return;
     const companies = filteredCompanies || DataUtils.getAllCompanyIds();
     const labels = companies.map(id => DataUtils.getCompany(id).name.split(' ')[0]);
+
+    // Quadrant labels plugin
+    const quadrantPlugin = {
+      id: 'quadrantLabels',
+      beforeDraw(chart) {
+        const { ctx: c, chartArea: { left, right, top, bottom }, scales: { x, y } } = chart;
+        const midX = x.getPixelForValue(70);
+        const midY = y.getPixelForValue(70);
+
+        // Draw quadrant backgrounds
+        c.save();
+        // Bottom-Left: Restructuring (red)
+        c.fillStyle = 'rgba(239,68,68,0.04)';
+        c.fillRect(left, midY, midX - left, bottom - midY);
+        // Bottom-Right: Import Risk (amber)
+        c.fillStyle = 'rgba(245,158,11,0.04)';
+        c.fillRect(midX, midY, right - midX, bottom - midY);
+        // Top-Left: Underutilized (blue)
+        c.fillStyle = 'rgba(59,130,246,0.04)';
+        c.fillRect(left, top, midX - left, midY - top);
+        // Top-Right: Operational Leaders (green)
+        c.fillStyle = 'rgba(34,197,94,0.04)';
+        c.fillRect(midX, top, right - midX, midY - top);
+
+        // Draw quadrant labels
+        c.font = 'italic 10px Inter, sans-serif';
+        c.textAlign = 'center';
+        const pad = 14;
+        // Bottom-Left
+        c.fillStyle = 'rgba(239,68,68,0.6)';
+        c.fillText('Restructuring', (left + midX) / 2, bottom - pad);
+        c.fillText('Candidates', (left + midX) / 2, bottom - pad + 12);
+        // Bottom-Right
+        c.fillStyle = 'rgba(245,158,11,0.6)';
+        c.fillText('Import Risk', (midX + right) / 2, bottom - pad);
+        // Top-Left
+        c.fillStyle = 'rgba(59,130,246,0.6)';
+        c.fillText('Underutilized', (left + midX) / 2, top + pad);
+        c.fillText('Assets', (left + midX) / 2, top + pad + 12);
+        // Top-Right
+        c.fillStyle = 'rgba(34,197,94,0.6)';
+        c.fillText('Operational', (midX + right) / 2, top + pad);
+        c.fillText('Leaders', (midX + right) / 2, top + pad + 12);
+
+        // Draw divider lines
+        c.strokeStyle = 'rgba(100,116,139,0.2)';
+        c.lineWidth = 1;
+        c.setLineDash([4, 3]);
+        c.beginPath();
+        c.moveTo(midX, top);
+        c.lineTo(midX, bottom);
+        c.moveTo(left, midY);
+        c.lineTo(right, midY);
+        c.stroke();
+        c.setLineDash([]);
+        c.restore();
+      },
+    };
+
     chartInstances.capacity = new Chart(ctx, {
       type: 'scatter',
+      plugins: [quadrantPlugin],
       data: {
         datasets: companies.map((id, i) => ({
           label: labels[i],
@@ -587,6 +647,21 @@ const Charts = {
         },
       },
     });
+
+    // Populate A&M insight below the chart
+    const insightEl = document.getElementById('importRiskInsight');
+    if (insightEl) {
+      const aboveThreshold = companies.filter(id => (DATA.operationalMetrics.importDependency[id] || 0) > 30);
+      const total = companies.length;
+      const avgImp = impDep.length ? (impDep.reduce((a, b) => a + b, 0) / impDep.length).toFixed(1) : '0';
+      const highRiskNames = aboveThreshold.map(id => DataUtils.getCompany(id).name.split(' ')[0]).join(', ');
+
+      if (aboveThreshold.length > 0) {
+        insightEl.innerHTML = `<strong style="color:var(--navy);">${aboveThreshold.length} of ${total} companies</strong> exceed the 30% import dependency threshold. Average exposure: <strong>${avgImp}%</strong>. A&M supply chain de-risking and localization advisory relevant for: <strong style="color:#EF4444;">${highRiskNames}</strong>.`;
+      } else {
+        insightEl.innerHTML = `All ${total} companies are below the 30% import dependency threshold. Average exposure: <strong>${avgImp}%</strong>. Sector in healthy localization range.`;
+      }
+    }
   },
 
   // ============================================================

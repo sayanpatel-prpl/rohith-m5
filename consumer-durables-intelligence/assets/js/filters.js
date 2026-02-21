@@ -109,6 +109,18 @@ const Filters = {
       this.applyFilters();
     });
 
+    // News tier filter
+    const newsTierEl = document.getElementById('newsTierFilter');
+    if (newsTierEl) newsTierEl.addEventListener('change', () => {
+      if (typeof App !== 'undefined') App.renderNewsFeed(this.getFilteredCompanyIds());
+    });
+
+    // News category filter
+    const newsCatEl = document.getElementById('newsCategoryFilter');
+    if (newsCatEl) newsCatEl.addEventListener('change', () => {
+      if (typeof App !== 'undefined') App.renderNewsFeed(this.getFilteredCompanyIds());
+    });
+
     // Reset button
     const resetBtn = document.getElementById('resetFilters');
     if (resetBtn) resetBtn.addEventListener('click', () => this.resetAll());
@@ -164,6 +176,7 @@ const Filters = {
       safe(() => App.renderQuickStats(filtered), 'quickStats');
       safe(() => App.renderFinancialTable(filtered), 'financialTable');
       safe(() => App.renderHeatmap(filtered), 'heatmap');
+      safe(() => App.renderDiagnosticTriggers(filtered), 'diagnosticTriggers');
       safe(() => App.renderOperationalTable(filtered), 'operationalTable');
       safe(() => App.renderMfgFootprint(filtered), 'mfgFootprint');
       safe(() => App.renderRetailFootprint(filtered), 'retailFootprint');
@@ -176,6 +189,8 @@ const Filters = {
       safe(() => App.renderWatchlist(filtered), 'watchlist');
       safe(() => App.renderAmSummaryStats(filtered), 'amSummaryStats');
       safe(() => App.renderAmOpportunities(filtered), 'amOpportunities');
+      safe(() => App.renderNewsFeed(filtered), 'newsFeed');
+      safe(() => App.renderNewsBadge(filtered), 'newsBadge');
     }
     // Update charts
     safe(() => Charts.updateFiltered(filtered), 'charts');

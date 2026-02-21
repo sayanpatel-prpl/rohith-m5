@@ -1713,6 +1713,56 @@ a:hover { color: var(--deep-blue); }
   border-color: rgba(13,148,136,0.3);
 }
 
+/* ============================================================
+   OPERATIONAL INTELLIGENCE ENHANCEMENTS
+   ============================================================ */
+/* Diagnostic trigger items */
+.diagnostic-trigger-item {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--slate-100);
+}
+.diagnostic-trigger-item:last-child { border-bottom: none; }
+
+.diagnostic-trigger-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  gap: 12px;
+}
+
+.diagnostic-trigger-type {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--teal);
+  white-space: nowrap;
+}
+
+.diagnostic-trigger-evidence {
+  font-size: 12px;
+  color: var(--slate-600);
+  line-height: 1.5;
+  margin-bottom: 4px;
+}
+
+.diagnostic-trigger-opportunity {
+  font-size: 12px;
+  color: var(--teal);
+  font-weight: 500;
+}
+
+/* Operational metrics conditional formatting */
+.ops-cell-red {
+  color: #EF4444;
+  font-weight: 600;
+}
+.ops-cell-amber {
+  color: #F59E0B;
+  font-weight: 600;
+}
+
 /* Print styles */
 @media print {
   .sidebar, .top-bar, .filters-bar, .hamburger,
