@@ -104,6 +104,10 @@ Recent decisions affecting current work:
 - **Governance risk from real shareholding** (03-04): Derived from Screener.in data; red at >5pp decline or <30% with decline, amber at >2pp or >3pp FII exit
 - **Concall highlight field fallback** (03-04): JSON 'points' vs typed 'keyPoints'; runtime fallback with cast
 - **Combined commit for v2 build** (03-04): Plan tasks designed for v1 enhancement; single atomic commit for v2 ground-up build
+- **Quarterly results filtered from deals** (03-03): Sovrenn dealActivity entries tagged GOOD/POOR/EXCELLENT RESULTS are quarterly data, not real deals; filtered out
+- **Deal-keyword gate for other type** (03-03): "other" entries only kept if description contains deal keywords (acquisition, invest, stake, land allotment, etc.)
+- **AM angle from deal type+description** (03-03): acquisition->CDD/Integration, qip/fundraise->Valuation, land-allotment->CDD, rating->Valuation/Restructuring
+- **5 pattern detectors** (03-03): Serial Acquisition, Capital Mobilization, Vertical Integration, International Expansion, Capacity Expansion with deal count thresholds
 
 ### Pending Todos
 
