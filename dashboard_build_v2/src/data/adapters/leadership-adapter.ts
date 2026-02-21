@@ -455,6 +455,22 @@ function computeSummaryStats(
 
 /** Build the complete Leadership & Governance section data payload */
 export function buildLeadershipData(): LeadershipData {
+  // ALTERNATIVE_DATA_SLOT: DGFT import/export data
+  // Integration point: Patent filing trends as proxy for R&D governance effectiveness
+  // Expected: getDGFTData() -> company-level import dependency ratios
+  //
+  // ALTERNATIVE_DATA_SLOT: PLI scheme data
+  // Integration point: Patent filing trends as proxy for R&D governance effectiveness
+  // Expected: getPLIData() -> company PLI eligibility and disbursement status
+  //
+  // ALTERNATIVE_DATA_SLOT: Google Trends data
+  // Integration point: Patent filing trends as proxy for R&D governance effectiveness
+  // Expected: getGoogleTrendsData() -> brand-level search interest indices
+  //
+  // ALTERNATIVE_DATA_SLOT: Patent filing data
+  // Integration point: Patent filing trends as proxy for R&D governance effectiveness
+  // Expected: getPatentData() -> company-level patent counts and categories
+
   const financialApi = getFinancialApiData();
   const lastUpdated = financialApi.lastUpdated ?? new Date().toISOString();
 

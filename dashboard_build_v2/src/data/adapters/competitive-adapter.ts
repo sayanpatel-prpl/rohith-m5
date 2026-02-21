@@ -337,6 +337,22 @@ function computeSummaryStats(
 
 /** Build the complete Competitive Landscape section data payload */
 export function buildCompetitiveData(): CompetitiveData {
+  // ALTERNATIVE_DATA_SLOT: DGFT import/export data
+  // Integration point: Patent filings as competitive moat signal, Google Trends for market share proxy
+  // Expected: getDGFTData() -> company-level import dependency ratios
+  //
+  // ALTERNATIVE_DATA_SLOT: PLI scheme data
+  // Integration point: Patent filings as competitive moat signal, Google Trends for market share proxy
+  // Expected: getPLIData() -> company PLI eligibility and disbursement status
+  //
+  // ALTERNATIVE_DATA_SLOT: Google Trends data
+  // Integration point: Patent filings as competitive moat signal, Google Trends for market share proxy
+  // Expected: getGoogleTrendsData() -> brand-level search interest indices
+  //
+  // ALTERNATIVE_DATA_SLOT: Patent filing data
+  // Integration point: Patent filings as competitive moat signal, Google Trends for market share proxy
+  // Expected: getPatentData() -> company-level patent counts and categories
+
   const now = new Date().toISOString();
 
   // Extract all competitive moves

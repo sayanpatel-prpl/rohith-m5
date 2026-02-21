@@ -337,6 +337,22 @@ function buildAMBenchmarks(): AMBenchmark[] {
 
 /** Build the complete Sub-Sector Deep Dive section data payload */
 export function buildDeepDiveData(): DeepDiveData {
+  // ALTERNATIVE_DATA_SLOT: DGFT import/export data
+  // Integration point: Sub-sector level import dependency and PLI allocation analysis
+  // Expected: getDGFTData() -> company-level import dependency ratios
+  //
+  // ALTERNATIVE_DATA_SLOT: PLI scheme data
+  // Integration point: Sub-sector level import dependency and PLI allocation analysis
+  // Expected: getPLIData() -> company PLI eligibility and disbursement status
+  //
+  // ALTERNATIVE_DATA_SLOT: Google Trends data
+  // Integration point: Sub-sector level import dependency and PLI allocation analysis
+  // Expected: getGoogleTrendsData() -> brand-level search interest indices
+  //
+  // ALTERNATIVE_DATA_SLOT: Patent filing data
+  // Integration point: Sub-sector level import dependency and PLI allocation analysis
+  // Expected: getPatentData() -> company-level patent counts and categories
+
   const financialApi = getFinancialApiData();
   const lastUpdated = financialApi.lastUpdated ?? new Date().toISOString();
 

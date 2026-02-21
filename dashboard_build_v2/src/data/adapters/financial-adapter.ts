@@ -142,6 +142,22 @@ function buildDerivedColumns(): DerivedColumn[] {
 
 /** Build the complete Financial Performance section data payload */
 export function buildFinancialData(): FinancialData {
+  // ALTERNATIVE_DATA_SLOT: DGFT import/export data
+  // Integration point: Add import dependency ratio column, PLI benefit tracking per company
+  // Expected: getDGFTData() -> company-level import dependency ratios
+  //
+  // ALTERNATIVE_DATA_SLOT: PLI scheme data
+  // Integration point: Add import dependency ratio column, PLI benefit tracking per company
+  // Expected: getPLIData() -> company PLI eligibility and disbursement status
+  //
+  // ALTERNATIVE_DATA_SLOT: Google Trends data
+  // Integration point: Add import dependency ratio column, PLI benefit tracking per company
+  // Expected: getGoogleTrendsData() -> brand-level search interest indices
+  //
+  // ALTERNATIVE_DATA_SLOT: Patent filing data
+  // Integration point: Add import dependency ratio column, PLI benefit tracking per company
+  // Expected: getPatentData() -> company-level patent counts and categories
+
   const financialApi = getFinancialApiData();
   const trendlyne = getTrendlyneData();
   const consolidated = getConsolidatedData();

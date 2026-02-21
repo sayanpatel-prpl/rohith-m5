@@ -31,10 +31,10 @@ Progress: [████████████████████] 96% (22
 | 02-priority-sections | 4 | 17min | 4.25min |
 | 03-section-group-a | 4 | 18min | 4.50min |
 | 04-section-group-b | 4 | 22min | 5.50min |
-| 05-cross-cutting-features | 2 | 6min | 3.00min |
+| 05-cross-cutting-features | 3 | 8min | 2.67min |
 
 **Recent Trend:**
-- Last 5 plans: 05-02 (2min), 05-01 (4min), 04-04 (2min), 04-03 (2min), 04-02 (2min)
+- Last 5 plans: 05-03 (2min), 05-02 (2min), 05-01 (4min), 04-04 (2min), 04-03 (2min)
 - Trend: UI sections building on existing adapters execute in ~2min
 
 *Updated after each plan completion*
@@ -131,6 +131,9 @@ Recent decisions affecting current work:
 - **buildSectionData fallback removed** (05-01): All 11 sections now use dedicated adapters; no more generic fallback in queries.ts
 - **Pure CSS kanban layout** (05-02): grid-cols-3 with border-left color coding for pipeline stages, no external kanban library
 - **Key data points truncation** (05-02): Max 3 visible points with +N more for card compactness in opportunity cards
+- **react-router not react-router-dom** (05-03): Project uses react-router v7 direct imports, not react-router-dom
+- **Tab summary badges in header** (05-03): Insight counts per stakeholder tab displayed as small stat badges for quick scanning
+- **2-column grid for insight cards** (05-03): md+ breakpoints use 2-column grid for better presentation density
 
 ### Pending Todos
 
@@ -147,5 +150,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-21
-Stopped at: Completed 05-02-PLAN.md (A&M Value-Add Pipeline UI)
+Stopped at: Completed 05-03-PLAN.md (What This Means For Section UI)
 Resume file: None

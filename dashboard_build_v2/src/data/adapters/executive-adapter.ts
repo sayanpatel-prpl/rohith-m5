@@ -549,6 +549,22 @@ function buildCompanySnapshots(
 
 /** Build the complete Executive section data payload */
 export function buildExecutiveData(): ExecutiveData {
+  // ALTERNATIVE_DATA_SLOT: DGFT import/export data
+  // Integration point: Enrich Big Themes with trade flow trends and patent innovation signals
+  // Expected: getDGFTData() -> company-level import dependency ratios
+  //
+  // ALTERNATIVE_DATA_SLOT: PLI scheme data
+  // Integration point: Enrich Big Themes with trade flow trends and patent innovation signals
+  // Expected: getPLIData() -> company PLI eligibility and disbursement status
+  //
+  // ALTERNATIVE_DATA_SLOT: Google Trends data
+  // Integration point: Enrich Big Themes with trade flow trends and patent innovation signals
+  // Expected: getGoogleTrendsData() -> brand-level search interest indices
+  //
+  // ALTERNATIVE_DATA_SLOT: Patent filing data
+  // Integration point: Enrich Big Themes with trade flow trends and patent innovation signals
+  // Expected: getPatentData() -> company-level patent counts and categories
+
   const financialApi = getFinancialApiData();
   const lastUpdated = financialApi.lastUpdated ?? new Date().toISOString();
 

@@ -304,6 +304,22 @@ function computeSummaryStats(
 
 /** Build the complete Operations section data payload */
 export function buildOperationsData(): OperationsData {
+  // ALTERNATIVE_DATA_SLOT: DGFT import/export data
+  // Integration point: DGFT data for backward integration verification, PLI for capex ROI
+  // Expected: getDGFTData() -> company-level import dependency ratios
+  //
+  // ALTERNATIVE_DATA_SLOT: PLI scheme data
+  // Integration point: DGFT data for backward integration verification, PLI for capex ROI
+  // Expected: getPLIData() -> company PLI eligibility and disbursement status
+  //
+  // ALTERNATIVE_DATA_SLOT: Google Trends data
+  // Integration point: DGFT data for backward integration verification, PLI for capex ROI
+  // Expected: getGoogleTrendsData() -> brand-level search interest indices
+  //
+  // ALTERNATIVE_DATA_SLOT: Patent filing data
+  // Integration point: DGFT data for backward integration verification, PLI for capex ROI
+  // Expected: getPatentData() -> company-level patent counts and categories
+
   const financialApi = getFinancialApiData();
   const lastUpdated = financialApi.lastUpdated ?? new Date().toISOString();
 

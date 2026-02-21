@@ -416,6 +416,22 @@ function extractPolicies(_lastUpdated: string): PolicyEntry[] {
 
 /** Build the complete Market Pulse section data payload */
 export function buildMarketPulseData(): MarketPulseData {
+  // ALTERNATIVE_DATA_SLOT: DGFT import/export data
+  // Integration point: Google Trends as real-time demand signal, DGFT for trade flow seasonality
+  // Expected: getDGFTData() -> company-level import dependency ratios
+  //
+  // ALTERNATIVE_DATA_SLOT: PLI scheme data
+  // Integration point: Google Trends as real-time demand signal, DGFT for trade flow seasonality
+  // Expected: getPLIData() -> company PLI eligibility and disbursement status
+  //
+  // ALTERNATIVE_DATA_SLOT: Google Trends data
+  // Integration point: Google Trends as real-time demand signal, DGFT for trade flow seasonality
+  // Expected: getGoogleTrendsData() -> brand-level search interest indices
+  //
+  // ALTERNATIVE_DATA_SLOT: Patent filing data
+  // Integration point: Google Trends as real-time demand signal, DGFT for trade flow seasonality
+  // Expected: getPatentData() -> company-level patent counts and categories
+
   const financialApi = getFinancialApiData();
   const lastUpdated = financialApi.lastUpdated ?? new Date().toISOString();
 
