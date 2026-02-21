@@ -6,6 +6,9 @@ import { buildWatchlistData } from "../data/adapters/watchlist-adapter";
 import { buildMarketPulseData } from "../data/adapters/market-pulse-adapter";
 import { buildDealsData } from "../data/adapters/deals-adapter";
 import { buildLeadershipData } from "../data/adapters/leadership-adapter";
+import { buildOperationsData } from "../data/adapters/operations-adapter";
+import { buildCompetitiveData } from "../data/adapters/competitive-adapter";
+import { buildDeepDiveData } from "../data/adapters/deep-dive-adapter";
 import type { SectionId } from "../types/common";
 import type { SectionData } from "../types/sections";
 
@@ -76,7 +79,7 @@ export const sectionQueries = {
   operations: () =>
     queryOptions({
       queryKey: ["section", "operations"] as const,
-      queryFn: () => buildSectionData("operations"),
+      queryFn: () => buildOperationsData(),
     }),
 
   leadership: () =>
@@ -88,13 +91,13 @@ export const sectionQueries = {
   competitive: () =>
     queryOptions({
       queryKey: ["section", "competitive"] as const,
-      queryFn: () => buildSectionData("competitive"),
+      queryFn: () => buildCompetitiveData(),
     }),
 
   "deep-dive": () =>
     queryOptions({
       queryKey: ["section", "deep-dive"] as const,
-      queryFn: () => buildSectionData("deep-dive"),
+      queryFn: () => buildDeepDiveData(),
     }),
 
   "what-this-means": () =>
