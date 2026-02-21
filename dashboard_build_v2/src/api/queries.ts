@@ -5,6 +5,7 @@ import { buildFinancialData } from "../data/adapters/financial-adapter";
 import { buildWatchlistData } from "../data/adapters/watchlist-adapter";
 import { buildMarketPulseData } from "../data/adapters/market-pulse-adapter";
 import { buildDealsData } from "../data/adapters/deals-adapter";
+import { buildLeadershipData } from "../data/adapters/leadership-adapter";
 import type { SectionId } from "../types/common";
 import type { SectionData } from "../types/sections";
 
@@ -81,7 +82,7 @@ export const sectionQueries = {
   leadership: () =>
     queryOptions({
       queryKey: ["section", "leadership"] as const,
-      queryFn: () => buildSectionData("leadership"),
+      queryFn: () => buildLeadershipData(),
     }),
 
   competitive: () =>
