@@ -33,9 +33,13 @@ const App = {
     return keywords.some(kw => lower.includes(kw));
   },
 
-  // Helper: empty state — show nothing (section heading remains visible)
-  _emptyState() {
-    return '';
+  // Helper: empty state — shows centered dash with optional message
+  _emptyState(message) {
+    const msg = message || 'Awaiting sourced data';
+    return `<div style="text-align:center;padding:24px 16px;color:var(--slate-400);font-size:0.85rem;">
+      <div style="font-size:1.5rem;font-weight:600;color:var(--slate-300);margin-bottom:4px;">&mdash;</div>
+      ${msg}
+    </div>`;
   },
 
   init() {
@@ -96,6 +100,7 @@ const App = {
       operational: 'Operational Intelligence',
       leadership: 'Leadership & Governance',
       competitive: 'Competitive Moves',
+      news: 'News Intelligence',
       subsector: 'Sub-Sector Deep Dive',
       stakeholder: 'What This Means For...',
       watchlist: 'Watchlist & Signals',
@@ -181,7 +186,7 @@ const App = {
         </div>
       </div>
 
-      <div class="mock-data" style="border-radius:8px;padding:12px;margin-bottom:16px;">
+      <div style="border-radius:8px;padding:12px;margin-bottom:16px;border:1px solid var(--slate-200);">
       <h4 class="mb-2">Company Profile</h4>
       <table class="data-table mb-4">
         <tbody>
@@ -199,7 +204,7 @@ const App = {
       </table>
       </div>
 
-      <div class="mock-data" style="border-radius:8px;padding:12px;margin-bottom:16px;">
+      <div style="border-radius:8px;padding:12px;margin-bottom:16px;border:1px solid var(--slate-200);">
       <h4 class="mb-2">Operational Metrics</h4>
       <table class="data-table mb-4">
         <tbody>
@@ -215,7 +220,7 @@ const App = {
       </table>
       </div>
 
-      <div class="mock-data" style="border-radius:8px;padding:12px;margin-bottom:16px;">
+      <div style="border-radius:8px;padding:12px;margin-bottom:16px;border:1px solid var(--slate-200);">
       <h4 class="mb-2">Channel Mix</h4>
       <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">
         <span class="badge badge-info">GT ${ch.gt}%</span>
@@ -225,7 +230,7 @@ const App = {
       </div>
       </div>
 
-      <div class="mock-data" style="border-radius:8px;padding:12px;margin-bottom:16px;">
+      <div style="border-radius:8px;padding:12px;margin-bottom:16px;border:1px solid var(--slate-200);">
       <h4 class="mb-2">Product Mix</h4>
       <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">
         <span class="badge badge-info">Premium ${pm.premium}%</span>
@@ -272,6 +277,8 @@ const App = {
     safe(() => this.renderAmSummaryStats(filtered), 'amSummaryStats');
     safe(() => this.renderAmOpportunities(filtered), 'amOpportunities');
     safe(() => this.renderQuickStats(filtered), 'quickStats');
+    safe(() => this.renderNewsFeed(filtered), 'newsFeed');
+    safe(() => this.renderNewsBadge(filtered), 'newsBadge');
     // Market Pulse new sections
     safe(() => this.renderQ3EarningsCards(), 'q3Earnings');
     safe(() => this.renderCommodityOutlook(), 'commodityOutlook');
@@ -286,40 +293,49 @@ const App = {
     const snap = DATA.executiveSnapshot;
     const kw = this._getFilterKeywords(filteredIds);
 
-    // Bullets — show those relevant to filtered companies or sector-wide
+    // Bullets
     const bulletsEl = document.getElementById('snapshotBullets');
     if (bulletsEl) {
-      const filtered = snap.bullets.filter(b => this._textMatchesFilter(b, kw));
-      bulletsEl.innerHTML = filtered.length ? filtered.map(b => `<li>${b}</li>`).join('') : '';
+      if (!snap.bullets.length) { bulletsEl.innerHTML = this._emptyState('No executive insights available'); }
+      else {
+        const filtered = snap.bullets.filter(b => this._textMatchesFilter(b, kw));
+        bulletsEl.innerHTML = filtered.length ? filtered.map(b => `<li>${b}</li>`).join('') : this._emptyState('No matching insights');
+      }
     }
 
-    // Themes — show those relevant to filtered companies or sector-wide
+    // Themes
     const themesEl = document.getElementById('themesGrid');
     if (themesEl) {
-      const filtered = snap.bigThemes.filter(t => this._textMatchesFilter(t, kw));
-      themesEl.innerHTML = filtered.length ? filtered.map(t => `<div class="theme-card">${t}</div>`).join('') : this._emptyState();
+      if (!snap.bigThemes.length) { themesEl.innerHTML = this._emptyState('No themes available'); }
+      else {
+        const filtered = snap.bigThemes.filter(t => this._textMatchesFilter(t, kw));
+        themesEl.innerHTML = filtered.length ? filtered.map(t => `<div class="theme-card">${t}</div>`).join('') : this._emptyState();
+      }
     }
 
-    // Red flags — filter by detail text
+    // Red flags
     const rfEl = document.getElementById('redFlagsContainer');
     if (rfEl) {
-      const filtered = snap.redFlags.filter(f => this._textMatchesFilter(f.flag + ' ' + f.detail, kw));
-      rfEl.innerHTML = filtered.length ? filtered.map(f => `
-        <div class="red-flag-item">
-          <div class="red-flag-severity" style="background:${DataUtils.getSeverityColor(f.severity)};"></div>
-          <div class="red-flag-content">
-            <div class="red-flag-title">${f.flag} <span class="badge badge-${f.severity==='High'?'underperform':f.severity==='Medium'?'inline':'outperform'}" style="margin-left:8px;">${f.severity}</span></div>
-            <div class="red-flag-detail">${f.detail}</div>
+      if (!snap.redFlags.length) { rfEl.innerHTML = this._emptyState('No red flags available'); }
+      else {
+        const filtered = snap.redFlags.filter(f => this._textMatchesFilter(f.flag + ' ' + f.detail, kw));
+        rfEl.innerHTML = filtered.length ? filtered.map(f => `
+          <div class="red-flag-item">
+            <div class="red-flag-severity" style="background:${DataUtils.getSeverityColor(f.severity)};"></div>
+            <div class="red-flag-content">
+              <div class="red-flag-title">${f.flag} <span class="badge badge-${f.severity==='High'?'underperform':f.severity==='Medium'?'inline':'outperform'}" style="margin-left:8px;">${f.severity}</span></div>
+              <div class="red-flag-detail">${f.detail}</div>
+            </div>
           </div>
-        </div>
-      `).join('') : this._emptyState();
+        `).join('') : this._emptyState();
+      }
     }
 
     // Confidence
     const confFill = document.getElementById('confidenceFill');
     const confScore = document.getElementById('confidenceScore');
     if (confFill) confFill.style.width = snap.confidenceScore + '%';
-    if (confScore) confScore.textContent = snap.confidenceScore;
+    if (confScore) confScore.textContent = snap.confidenceScore || '-';
   },
 
   renderQuickStats(filteredIds) {
@@ -794,11 +810,13 @@ const App = {
     const timeline = document.getElementById('leadershipTimeline');
     if (!timeline) return;
 
+    if (!DATA.leadershipChanges.length) { timeline.innerHTML = this._emptyState('No leadership changes available'); return; }
+
     const ids = filteredIds || Filters.getFilteredCompanyIds();
     const kw = this._getFilterKeywords(ids);
     const filtered = DATA.leadershipChanges.filter(lc => this._companyMatchesFilter(lc.company, kw));
 
-    if (!filtered.length) { timeline.innerHTML = this._emptyState(); return; }
+    if (!filtered.length) { timeline.innerHTML = this._emptyState('No matching leadership changes'); return; }
     const sorted = [...filtered].sort((a, b) => new Date(b.date) - new Date(a.date));
 
     timeline.innerHTML = sorted.map(lc => {
@@ -827,11 +845,13 @@ const App = {
     const grid = document.getElementById('competitiveGrid');
     if (!grid) return;
 
+    if (!DATA.competitiveMoves.length) { grid.innerHTML = this._emptyState('No competitive moves available'); return; }
+
     const ids = filteredIds || Filters.getFilteredCompanyIds();
     const kw = this._getFilterKeywords(ids);
     const filtered = DATA.competitiveMoves.filter(m => this._companyMatchesFilter(m.company, kw));
 
-    if (!filtered.length) { grid.innerHTML = this._emptyState(); return; }
+    if (!filtered.length) { grid.innerHTML = this._emptyState('No matching competitive moves'); return; }
     const sorted = [...filtered].sort((a, b) => new Date(b.date) - new Date(a.date));
 
     grid.innerHTML = sorted.map(m => {
@@ -863,6 +883,11 @@ const App = {
   renderMarginLevers() {
     const tbody = document.getElementById('marginLeversBody');
     if (!tbody) return;
+
+    if (!DATA.subSectorDeepDive.marginLevers.length) {
+      tbody.innerHTML = `<tr><td colspan="4">${this._emptyState('No margin lever data available')}</td></tr>`;
+      return;
+    }
 
     tbody.innerHTML = DATA.subSectorDeepDive.marginLevers.map(ml => {
       const diffColor = ml.difficulty === 'Low' ? 'text-green' : ml.difficulty === 'Medium' ? 'text-amber' : 'text-red';
@@ -905,8 +930,9 @@ const App = {
     Object.values(map).forEach(({ el, data }) => {
       const container = document.getElementById(el);
       if (container) {
+        if (!data.length) { container.innerHTML = this._emptyState('No insights available'); return; }
         const filtered = data.filter(insight => this._textMatchesFilter(insight, kw));
-        container.innerHTML = filtered.length ? filtered.map(insight => `<li>${insight}</li>`).join('') : '';
+        container.innerHTML = filtered.length ? filtered.map(insight => `<li>${insight}</li>`).join('') : this._emptyState('No matching insights');
       }
     });
   },
@@ -921,78 +947,90 @@ const App = {
     // Fundraises
     const frEl = document.getElementById('fundraisesList');
     if (frEl) {
-      const items = w.likelyFundraises.filter(f => this._companyMatchesFilter(f.company, kw));
-      frEl.innerHTML = items.length ? items.map(f => `
-        <div class="watchlist-item">
-          <div class="watchlist-item-left">
-            <div>
-              <div class="watchlist-company">${f.company}</div>
-              <div class="watchlist-signal">${f.type} | ${f.estimatedSize} | ${f.timeline}</div>
+      if (!w.likelyFundraises.length) { frEl.innerHTML = this._emptyState('No fundraise signals'); }
+      else {
+        const items = w.likelyFundraises.filter(f => this._companyMatchesFilter(f.company, kw));
+        frEl.innerHTML = items.length ? items.map(f => `
+          <div class="watchlist-item">
+            <div class="watchlist-item-left">
+              <div>
+                <div class="watchlist-company">${f.company}</div>
+                <div class="watchlist-signal">${f.type} | ${f.estimatedSize} | ${f.timeline}</div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div class="probability-bar"><div class="probability-fill" style="width:${f.probability}%;background:${f.probability>=70?'var(--green)':'var(--amber)'}"></div></div>
+              <span class="text-mono text-sm fw-600">${f.probability}%</span>
             </div>
           </div>
-          <div style="display:flex;align-items:center;gap:8px;">
-            <div class="probability-bar"><div class="probability-fill" style="width:${f.probability}%;background:${f.probability>=70?'var(--green)':'var(--amber)'}"></div></div>
-            <span class="text-mono text-sm fw-600">${f.probability}%</span>
-          </div>
-        </div>
-      `).join('') : this._emptyState();
+        `).join('') : this._emptyState();
+      }
     }
 
     // Margin inflection
     const miEl = document.getElementById('inflectionList');
     if (miEl) {
-      const items = w.marginInflectionCandidates.filter(m => this._companyMatchesFilter(m.company + ' ' + m.signal, kw));
-      miEl.innerHTML = items.length ? items.map(m => `
-        <div class="watchlist-item">
-          <div class="watchlist-item-left">
-            <div>
-              <div class="watchlist-company">${m.company}</div>
-              <div class="watchlist-signal">${m.signal}</div>
+      if (!w.marginInflectionCandidates.length) { miEl.innerHTML = this._emptyState('No inflection candidates'); }
+      else {
+        const items = w.marginInflectionCandidates.filter(m => this._companyMatchesFilter(m.company + ' ' + m.signal, kw));
+        miEl.innerHTML = items.length ? items.map(m => `
+          <div class="watchlist-item">
+            <div class="watchlist-item-left">
+              <div>
+                <div class="watchlist-company">${m.company}</div>
+                <div class="watchlist-signal">${m.signal}</div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div class="probability-bar"><div class="probability-fill" style="width:${m.confidence}%;background:var(--teal)"></div></div>
+              <span class="text-mono text-sm fw-600">${m.confidence}%</span>
             </div>
           </div>
-          <div style="display:flex;align-items:center;gap:8px;">
-            <div class="probability-bar"><div class="probability-fill" style="width:${m.confidence}%;background:var(--teal)"></div></div>
-            <span class="text-mono text-sm fw-600">${m.confidence}%</span>
-          </div>
-        </div>
-      `).join('') : this._emptyState();
+        `).join('') : this._emptyState();
+      }
     }
 
     // Consolidation targets
     const ctEl = document.getElementById('consolidationList');
     if (ctEl) {
-      const items = w.consolidationTargets.filter(c => this._companyMatchesFilter(c.company + ' ' + c.signal, kw));
-      ctEl.innerHTML = items.length ? items.map(c => `
-        <div class="watchlist-item">
-          <div class="watchlist-item-left">
-            <div>
-              <div class="watchlist-company">${c.company}</div>
-              <div class="watchlist-signal">${c.signal}</div>
+      if (!w.consolidationTargets.length) { ctEl.innerHTML = this._emptyState('No consolidation targets'); }
+      else {
+        const items = w.consolidationTargets.filter(c => this._companyMatchesFilter(c.company + ' ' + c.signal, kw));
+        ctEl.innerHTML = items.length ? items.map(c => `
+          <div class="watchlist-item">
+            <div class="watchlist-item-left">
+              <div>
+                <div class="watchlist-company">${c.company}</div>
+                <div class="watchlist-signal">${c.signal}</div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div class="probability-bar"><div class="probability-fill" style="width:${c.probability}%;background:var(--amber)"></div></div>
+              <span class="text-mono text-sm fw-600">${c.probability}%</span>
             </div>
           </div>
-          <div style="display:flex;align-items:center;gap:8px;">
-            <div class="probability-bar"><div class="probability-fill" style="width:${c.probability}%;background:var(--amber)"></div></div>
-            <span class="text-mono text-sm fw-600">${c.probability}%</span>
-          </div>
-        </div>
-      `).join('') : this._emptyState();
+        `).join('') : this._emptyState();
+      }
     }
 
     // Stress indicators
     const stEl = document.getElementById('stressList');
     if (stEl) {
-      const items = w.stressIndicators.filter(s => this._companyMatchesFilter(s.company, kw));
-      stEl.innerHTML = items.length ? items.map(s => `
-        <div class="watchlist-item" style="flex-direction:column;align-items:flex-start;">
-          <div style="display:flex;align-items:center;justify-content:space-between;width:100%;margin-bottom:8px;">
-            <span class="watchlist-company">${s.company}</span>
-            <span class="badge badge-${s.severity==='High'?'underperform':'inline'}">${s.severity} Severity</span>
+      if (!w.stressIndicators.length) { stEl.innerHTML = this._emptyState('No stress indicators'); }
+      else {
+        const items = w.stressIndicators.filter(s => this._companyMatchesFilter(s.company, kw));
+        stEl.innerHTML = items.length ? items.map(s => `
+          <div class="watchlist-item" style="flex-direction:column;align-items:flex-start;">
+            <div style="display:flex;align-items:center;justify-content:space-between;width:100%;margin-bottom:8px;">
+              <span class="watchlist-company">${s.company}</span>
+              <span class="badge badge-${s.severity==='High'?'underperform':'inline'}">${s.severity} Severity</span>
+            </div>
+            <div class="stress-indicators">
+              ${s.indicators.map(ind => `<span class="stress-tag">${ind}</span>`).join('')}
+            </div>
           </div>
-          <div class="stress-indicators">
-            ${s.indicators.map(ind => `<span class="stress-tag">${ind}</span>`).join('')}
-          </div>
-        </div>
-      `).join('') : this._emptyState();
+        `).join('') : this._emptyState();
+      }
     }
   },
 
@@ -1002,6 +1040,15 @@ const App = {
   renderAmSummaryStats(filteredIds) {
     const el = document.getElementById('amSummaryStats');
     if (!el) return;
+
+    if (!DATA.amValueAdd.length) {
+      el.innerHTML = `
+        <div class="stat-card"><div class="stat-card-label">Opportunities Identified</div><div class="stat-card-value">-</div><span class="stat-card-change neutral">Awaiting source</span></div>
+        <div class="stat-card"><div class="stat-card-label">High Urgency</div><div class="stat-card-value">-</div><span class="stat-card-change neutral">Awaiting source</span></div>
+        <div class="stat-card"><div class="stat-card-label">Avg Confidence</div><div class="stat-card-value">-</div><span class="stat-card-change neutral">Awaiting source</span></div>
+      `;
+      return;
+    }
 
     const kw = this._getFilterKeywords(filteredIds);
     const opps = DATA.amValueAdd.filter(o => this._textMatchesFilter(o.opportunity + ' ' + o.detail, kw));
@@ -1028,6 +1075,86 @@ const App = {
     `;
   },
 
+  // ============================================================
+  // NEWS INTELLIGENCE
+  // ============================================================
+  _getFilteredNews(filteredIds) {
+    if (typeof NEWS_DATA === 'undefined') return [];
+    const kw = this._getFilterKeywords(filteredIds);
+    let items = NEWS_DATA.items.filter(n => this._companyMatchesFilter(n.company, kw));
+
+    // Tier filter
+    const tierFilter = document.getElementById('newsTierFilter');
+    if (tierFilter && tierFilter.value !== 'all') {
+      const tier = parseInt(tierFilter.value);
+      items = items.filter(n => n.sourceTier === tier);
+    }
+
+    // Category filter
+    const catFilter = document.getElementById('newsCategoryFilter');
+    if (catFilter && catFilter.value !== 'all') {
+      items = items.filter(n => n.category === catFilter.value);
+    }
+
+    return items;
+  },
+
+  renderNewsFeed(filteredIds) {
+    const feed = document.getElementById('newsFeed');
+    if (!feed) return;
+
+    if (typeof NEWS_DATA === 'undefined' || !NEWS_DATA.items.length) {
+      feed.innerHTML = this._emptyState('No news data available');
+      return;
+    }
+
+    const items = this._getFilteredNews(filteredIds);
+    const countLabel = document.getElementById('newsCountLabel');
+    if (countLabel) countLabel.textContent = items.length + ' items';
+
+    if (!items.length) { feed.innerHTML = this._emptyState('No matching news items'); return; }
+
+    const tierColors = { 1: '#22C55E', 2: '#3B82F6', 3: '#F59E0B', 4: '#EF4444' };
+    const tierLabels = { 1: 'T1', 2: 'T2', 3: 'T3', 4: 'T4' };
+
+    feed.innerHTML = items.map(n => {
+      const borderColor = tierColors[n.sourceTier] || '#94A3B8';
+      const tierBadge = `<span class="badge" style="background:${borderColor}15;color:${borderColor};border:1px solid ${borderColor}33;font-size:10px;">${tierLabels[n.sourceTier]}</span>`;
+      const catBadge = n.category ? `<span class="badge badge-info" style="font-size:10px;">${n.category}</span>` : '';
+      const sourceLink = `<span style="font-size:11px;color:var(--slate-400);">${n.source}</span>`;
+      const cxoHtml = n.cxoQuote
+        ? `<div style="margin-top:8px;padding:8px 12px;background:rgba(59,130,246,0.04);border-left:3px solid var(--intelligence-blue);border-radius:0 6px 6px 0;font-size:12px;color:var(--slate-600);font-style:italic;">${n.cxoQuote}</div>`
+        : '';
+      const implHtml = n.strategicImplication
+        ? `<div style="margin-top:6px;font-size:12px;color:var(--slate-500);"><strong style="color:var(--slate-600);">Implication:</strong> ${n.strategicImplication}</div>`
+        : '';
+
+      return `
+        <div class="news-item" style="border-left:4px solid ${borderColor};">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap;">
+            ${tierBadge} ${catBadge}
+            <span style="font-size:12px;color:var(--slate-400);margin-left:auto;">${n.date}</span>
+          </div>
+          <div style="font-weight:600;font-size:0.9rem;color:var(--navy);margin-bottom:4px;">${n.title}</div>
+          <div style="font-size:12px;color:var(--slate-500);margin-bottom:4px;">${n.company}</div>
+          ${n.summary ? `<div style="font-size:13px;color:var(--slate-600);line-height:1.5;margin-bottom:6px;">${n.summary}</div>` : ''}
+          ${cxoHtml}
+          ${implHtml}
+          <div style="margin-top:8px;text-align:right;">${sourceLink}</div>
+        </div>
+      `;
+    }).join('');
+  },
+
+  renderNewsBadge(filteredIds) {
+    const badge = document.getElementById('newsBadge');
+    if (!badge) return;
+    if (typeof NEWS_DATA === 'undefined') { badge.textContent = '0'; return; }
+    const kw = this._getFilterKeywords(filteredIds);
+    const count = NEWS_DATA.items.filter(n => this._companyMatchesFilter(n.company, kw)).length;
+    badge.textContent = count;
+  },
+
   renderLeadershipBadge(filteredIds) {
     const badge = document.getElementById('leadershipBadge');
     if (!badge) return;
@@ -1042,10 +1169,12 @@ const App = {
     const el = document.getElementById('amOpportunitiesList');
     if (!el) return;
 
+    if (!DATA.amValueAdd.length) { el.innerHTML = this._emptyState('No advisory opportunities available'); return; }
+
     const kw = this._getFilterKeywords(filteredIds);
     const filtered = DATA.amValueAdd.filter(o => this._textMatchesFilter(o.opportunity + ' ' + o.detail, kw));
 
-    if (!filtered.length) { el.innerHTML = this._emptyState(); return; }
+    if (!filtered.length) { el.innerHTML = this._emptyState('No matching opportunities'); return; }
 
     el.innerHTML = filtered.map(opp => {
       const urgencyClass = opp.urgency === 'High' ? 'badge-underperform' : 'badge-inline';

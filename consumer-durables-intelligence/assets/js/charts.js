@@ -98,9 +98,16 @@ const Charts = {
       datasets.push({ label: 'Price Growth %', data: ds.priceGrowth, borderColor: '#F59E0B', borderWidth: 2, spanGaps: true });
     }
     if (!datasets.length) { ctx.parentElement.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#94A3B8;">No demand signal data available</div>'; return; }
+    // Find first quarter index with non-null data across all datasets
+    let startIdx = 0;
+    for (let i = 0; i < DATA.quarters.length; i++) {
+      if (datasets.some(d => d.data[i] !== null && d.data[i] !== undefined)) { startIdx = i; break; }
+    }
+    const trimmedLabels = DATA.quarters.slice(startIdx);
+    datasets.forEach(d => { d.data = d.data.slice(startIdx); });
     chartInstances.demand = new Chart(ctx, {
       type: 'line',
-      data: { labels: DATA.quarters, datasets },
+      data: { labels: trimmedLabels, datasets },
       options: {
         responsive: true,
         maintainAspectRatio: false,
@@ -148,14 +155,20 @@ const Charts = {
     const ctx = document.getElementById('chartMarginBands');
     if (!ctx) return;
     const m = DATA.marketPulse.marginOutlook;
+    // Find first quarter index with non-null data
+    let startIdx = 0;
+    const allSeries = [m.topQuartile, m.sectorAvgEbitda, m.bottomQuartile];
+    for (let i = 0; i < DATA.quarters.length; i++) {
+      if (allSeries.some(s => s[i] !== null && s[i] !== undefined)) { startIdx = i; break; }
+    }
     chartInstances.marginBands = new Chart(ctx, {
       type: 'line',
       data: {
-        labels: DATA.quarters,
+        labels: DATA.quarters.slice(startIdx),
         datasets: [
           {
             label: 'Top Quartile',
-            data: m.topQuartile,
+            data: m.topQuartile.slice(startIdx),
             borderColor: '#22C55E',
             backgroundColor: 'rgba(34,197,94,0.06)',
             fill: '+1',
@@ -163,14 +176,14 @@ const Charts = {
           },
           {
             label: 'Sector Average',
-            data: m.sectorAvgEbitda,
+            data: m.sectorAvgEbitda.slice(startIdx),
             borderColor: '#3B82F6',
             borderWidth: 2,
             borderDash: [5, 3],
           },
           {
             label: 'Bottom Quartile',
-            data: m.bottomQuartile,
+            data: m.bottomQuartile.slice(startIdx),
             borderColor: '#EF4444',
             backgroundColor: 'rgba(239,68,68,0.06)',
             fill: '-1',

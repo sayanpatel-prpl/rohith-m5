@@ -59,25 +59,27 @@ const ExportUtils = {
     doc.text('February 2026 | Prepared by Kompete Intelligence', margin, 48);
     y = 70;
 
-    // Executive Snapshot
-    doc.setTextColor(15, 31, 61);
-    addText('Executive Snapshot', 16, 'bold');
-    addLine();
-    DATA.executiveSnapshot.bullets.forEach((b, i) => {
-      addText(`${i + 1}. ${b}`, 9, 'normal', [51, 65, 85]);
-    });
+    // Executive Snapshot (skip if data is empty)
+    if (DATA.executiveSnapshot.bullets.length || DATA.executiveSnapshot.bigThemes.length || DATA.executiveSnapshot.redFlags.length) {
+      doc.setTextColor(15, 31, 61);
+      addText('Executive Snapshot', 16, 'bold');
+      addLine();
+      DATA.executiveSnapshot.bullets.forEach((b, i) => {
+        addText(`${i + 1}. ${b}`, 9, 'normal', [51, 65, 85]);
+      });
 
-    y += 4;
-    addText('Big Themes', 12, 'bold');
-    DATA.executiveSnapshot.bigThemes.forEach(t => {
-      addText(`• ${t}`, 9, 'normal', [51, 65, 85]);
-    });
+      y += 4;
+      addText('Big Themes', 12, 'bold');
+      DATA.executiveSnapshot.bigThemes.forEach(t => {
+        addText(`• ${t}`, 9, 'normal', [51, 65, 85]);
+      });
 
-    y += 4;
-    addText('Red Flags', 12, 'bold');
-    DATA.executiveSnapshot.redFlags.forEach(f => {
-      addText(`[${f.severity}] ${f.flag}: ${f.detail}`, 9, 'normal', f.severity === 'High' ? [239, 68, 68] : [245, 158, 11]);
-    });
+      y += 4;
+      addText('Red Flags', 12, 'bold');
+      DATA.executiveSnapshot.redFlags.forEach(f => {
+        addText(`[${f.severity}] ${f.flag}: ${f.detail}`, 9, 'normal', f.severity === 'High' ? [239, 68, 68] : [245, 158, 11]);
+      });
+    }
 
     // Financial Summary
     doc.addPage();
@@ -125,19 +127,21 @@ const ExportUtils = {
       y += 4;
     });
 
-    // A&M Value Add
-    doc.addPage();
-    y = margin;
-    addText('A&M Value-Add Opportunities', 16, 'bold');
-    addLine();
+    // A&M Value Add (skip if data is empty)
+    if (DATA.amValueAdd.length) {
+      doc.addPage();
+      y = margin;
+      addText('A&M Value-Add Opportunities', 16, 'bold');
+      addLine();
 
-    DATA.amValueAdd.forEach(opp => {
-      addText(opp.opportunity, 11, 'bold');
-      addText(`Type: ${opp.type} | Urgency: ${opp.urgency} | Confidence: ${opp.confidence}%`, 8, 'normal', [100, 116, 139]);
-      addText(`Value: ${opp.estimatedValue}`, 9, 'bold', [13, 148, 136]);
-      addText(opp.detail, 8, 'normal', [51, 65, 85]);
-      y += 3;
-    });
+      DATA.amValueAdd.forEach(opp => {
+        addText(opp.opportunity, 11, 'bold');
+        addText(`Type: ${opp.type} | Urgency: ${opp.urgency} | Confidence: ${opp.confidence}%`, 8, 'normal', [100, 116, 139]);
+        addText(`Value: ${opp.estimatedValue}`, 9, 'bold', [13, 148, 136]);
+        addText(opp.detail, 8, 'normal', [51, 65, 85]);
+        y += 3;
+      });
+    }
 
     // Footer on each page
     const totalPages = doc.getNumberOfPages();
@@ -264,6 +268,24 @@ const ExportUtils = {
     }));
     const ws6 = XLSX.utils.json_to_sheet(sentData);
     XLSX.utils.book_append_sheet(wb, ws6, 'Sentiment');
+
+    // Sheet 7: News Intelligence
+    if (typeof NEWS_DATA !== 'undefined' && NEWS_DATA.items.length) {
+      const newsData = NEWS_DATA.items.map(n => ({
+        'Date': n.date,
+        'Company': n.company,
+        'Title': n.title,
+        'Category': n.category,
+        'Source': n.source,
+        'Source Tier': 'T' + n.sourceTier,
+        'Credibility': n.sourceCredibility,
+        'Summary': n.summary,
+        'CXO Quote': n.cxoQuote || '',
+        'Strategic Implication': n.strategicImplication || '',
+      }));
+      const ws7 = XLSX.utils.json_to_sheet(newsData);
+      XLSX.utils.book_append_sheet(wb, ws7, 'News Intelligence');
+    }
 
     XLSX.writeFile(wb, 'Consumer_Durables_Intelligence_Feb2026.xlsx');
   },
