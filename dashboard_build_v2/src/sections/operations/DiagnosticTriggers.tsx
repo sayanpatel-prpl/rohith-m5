@@ -7,6 +7,7 @@
  */
 
 import { AMServiceLineTag } from "@/components/source/AMServiceLineTag";
+import { SourceAttribution } from "@/components/source";
 import type { DiagnosticTrigger } from "@/types/operations";
 
 interface DiagnosticTriggersProps {
@@ -61,6 +62,18 @@ export function DiagnosticTriggers({ triggers }: DiagnosticTriggersProps) {
           ))}
         </div>
       )}
+
+      <div className="mt-sm pt-sm border-t border-border-default">
+        <SourceAttribution
+          source={{
+            source: "Screener.in, Trendlyne",
+            confidence: "derived",
+            tier: "T1",
+            lastUpdated: "2025-01",
+          }}
+          compact
+        />
+      </div>
     </div>
   );
 }

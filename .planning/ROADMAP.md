@@ -16,7 +16,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 2: Priority Sections (Executive + Financial + Watchlist)** - Highest-value sections for presentation
 - [x] **Phase 3: Section Group A (Market + Deals + Leadership)** - Market context and deal intelligence
 - [x] **Phase 4: Section Group B (Operations + Competitive + Sub-Sector)** - Operational and competitive intelligence
-- [ ] **Phase 5: Cross-Cutting Features** - A&M Value-Add section, What This Means For section, Talk vs Walk
+- [x] **Phase 5: Cross-Cutting Features** - A&M Value-Add section, What This Means For section, Talk vs Walk
 - [ ] **Phase 6: Production Hardening** - Validation, testing, presentation readiness
 
 ## Phase Details
@@ -109,10 +109,10 @@ Plans:
 **Plans:** 4 plans
 
 Plans:
-- [ ] 05-01-PLAN.md — Types, cross-referencing adapters, and query wiring for A&M Value-Add + What This Means For
-- [ ] 05-02-PLAN.md — A&M Value-Add section UI (pipeline/kanban layout)
-- [ ] 05-03-PLAN.md — What This Means For section UI (4 stakeholder tabs with cross-navigation)
-- [ ] 05-04-PLAN.md — Derived metrics visual distinction (DRVI-04) and ALTERNATIVE_DATA_SLOT comments (DRVI-05)
+- [x] 05-01-PLAN.md — Types, cross-referencing adapters, and query wiring for A&M Value-Add + What This Means For
+- [x] 05-02-PLAN.md — A&M Value-Add section UI (pipeline/kanban layout)
+- [x] 05-03-PLAN.md — What This Means For section UI (4 stakeholder tabs with cross-navigation)
+- [x] 05-04-PLAN.md — Derived metrics visual distinction (DRVI-04) and ALTERNATIVE_DATA_SLOT comments (DRVI-05)
 
 ### Phase 6: Production Hardening
 **Goal**: Validate all requirements, test presentation readiness, ensure demo-proof delivery
@@ -124,9 +124,11 @@ Plans:
   3. Every card, chart, and table displays source attribution with tier badge
   4. Navigation follows correct order with A&M Value-Add at position 2
   5. Single-file HTML build loads offline with all assets inlined and dark mode functional
-**Plans**: TBD
+**Plans:** 2 plans
 
-Plans: TBD
+Plans:
+- [ ] 06-01-PLAN.md — Codebase audit and source attribution remediation (GLBL-01, GLBL-02, GLBL-04)
+- [ ] 06-02-PLAN.md — Build validation, empty data resilience, and presentation readiness (GLBL-03)
 
 ## Progress
 
@@ -139,5 +141,5 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 | 2. Priority Sections (Executive + Financial + Watchlist) | 5/5 | Complete | 2026-02-21 |
 | 3. Section Group A (Market + Deals + Leadership) | 4/4 | Complete | 2026-02-21 |
 | 4. Section Group B (Operations + Competitive + Sub-Sector) | 4/4 | Complete | 2026-02-21 |
-| 5. Cross-Cutting Features | 0/4 | Not started | - |
-| 6. Production Hardening | 0/TBD | Not started | - |
+| 5. Cross-Cutting Features | 4/4 | Complete | 2026-02-21 |
+| 6. Production Hardening | 0/2 | Not started | - |

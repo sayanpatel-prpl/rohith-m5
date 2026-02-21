@@ -11,6 +11,7 @@
 
 import { useMemo, useState } from "react";
 import type { OpsMetricRow, ConfidenceIcon as ConfidenceIconType } from "@/types/operations";
+import { SourceAttribution } from "@/components/source";
 import { ConfidenceIcon } from "./ConfidenceIcon";
 import { MethodologyTooltip } from "./MethodologyTooltip";
 
@@ -160,6 +161,17 @@ export function OpsMetricsTable({ metrics, crossLinkCompetitiveIds }: OpsMetrics
           )}
         </tbody>
       </table>
+      <div className="px-2 py-1.5 border-t border-border-default">
+        <SourceAttribution
+          source={{
+            source: "Screener.in, Trendlyne",
+            confidence: "derived",
+            tier: "T1",
+            lastUpdated: "2025-01",
+          }}
+          compact
+        />
+      </div>
     </div>
   );
 }
