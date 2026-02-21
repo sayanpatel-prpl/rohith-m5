@@ -19,8 +19,8 @@ export function AppShell() {
       <div className="flex flex-col flex-1 min-w-0">
         <TopBar />
         <FilterBar />
-        <main className="flex-1 overflow-y-auto">
-          <div className="max-w-[1600px] mx-auto px-xl py-lg">
+        <main className="flex-1 overflow-y-auto bg-surface">
+          <div className="max-w-[1600px] mx-auto px-xl py-lg animate-fade-in">
             <Outlet />
           </div>
         </main>

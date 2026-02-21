@@ -20,21 +20,12 @@ import type {
   DealType,
   AMAngle,
 } from "../../types/deals";
-import type { SourceInfo } from "../../types/source";
 import type { ConfidenceLevel } from "../../types/common";
+import { sovrennSource } from "./source-helpers";
 
 // ---------------------------------------------------------------------------
 // Helpers
 // ---------------------------------------------------------------------------
-
-function sovrennSource(lastUpdated: string): SourceInfo {
-  return {
-    source: "Sovrenn Intelligence curated analysis",
-    confidence: "derived",
-    tier: 3,
-    lastUpdated,
-  };
-}
 
 /**
  * Parse informal date strings like "1st Dec 2025" or "9th Feb 2026"

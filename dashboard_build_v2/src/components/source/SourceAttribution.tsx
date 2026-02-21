@@ -41,9 +41,9 @@ export function SourceAttribution({ source, compact = false, className }: Source
             href={source.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:underline"
+            className="underline decoration-dotted underline-offset-2 hover:decoration-solid hover:text-text-secondary transition-colors"
           >
-            {source.source}
+            {source.source} {"\u2197"}
           </a>
         ) : (
           <span>{source.source}</span>
@@ -66,9 +66,9 @@ export function SourceAttribution({ source, compact = false, className }: Source
           href={source.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="hover:underline font-medium"
+          className="underline decoration-dotted underline-offset-2 hover:decoration-solid hover:text-text-secondary font-medium transition-colors"
         >
-          {source.source}
+          {source.source} {"\u2197"}
         </a>
       ) : (
         <span className="font-medium">{source.source}</span>

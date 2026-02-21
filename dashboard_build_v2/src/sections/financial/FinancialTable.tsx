@@ -53,6 +53,7 @@ const TABLE_SOURCE = {
   confidence: "verified" as const,
   tier: 1 as SourceTier,
   lastUpdated: "2026-02-18",
+  url: "https://www.screener.in/",
 };
 
 export function FinancialTable({

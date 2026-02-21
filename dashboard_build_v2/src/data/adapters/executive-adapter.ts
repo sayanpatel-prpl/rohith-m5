@@ -32,48 +32,8 @@ import type {
   ExecutiveCompanySnapshot,
 } from "../../types/executive";
 import type { AMServiceLine } from "../../types/am-theme";
-import type { SourceInfo } from "../../types/source";
 import type { PerformanceLevel } from "../../types/common";
-
-// ---------------------------------------------------------------------------
-// Helper: create SourceInfo objects for each data source
-// ---------------------------------------------------------------------------
-
-function screenerSource(lastUpdated: string): SourceInfo {
-  return {
-    source: "Screener.in consolidated financial data",
-    confidence: "verified",
-    tier: 1,
-    lastUpdated,
-  };
-}
-
-function financialApiSource(lastUpdated: string): SourceInfo {
-  return {
-    source: "Screener.in + Trendlyne aggregated metrics",
-    confidence: "verified",
-    tier: 1,
-    lastUpdated,
-  };
-}
-
-function sovrennSource(lastUpdated: string): SourceInfo {
-  return {
-    source: "Sovrenn Intelligence curated analysis",
-    confidence: "derived",
-    tier: 3,
-    lastUpdated,
-  };
-}
-
-function derivedSource(lastUpdated: string): SourceInfo {
-  return {
-    source: "Cross-source derived analysis",
-    confidence: "derived",
-    tier: 4,
-    lastUpdated,
-  };
-}
+import { screenerSource, financialApiSource, sovrennSource, derivedSource } from "./source-helpers";
 
 // ---------------------------------------------------------------------------
 // Helper: map company IDs across data sources

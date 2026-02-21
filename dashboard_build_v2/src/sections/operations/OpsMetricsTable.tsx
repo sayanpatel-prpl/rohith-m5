@@ -168,6 +168,7 @@ export function OpsMetricsTable({ metrics, crossLinkCompetitiveIds }: OpsMetrics
             confidence: "derived" as const,
             tier: 1,
             lastUpdated: "2025-01",
+            url: "https://www.screener.in/",
           }}
           compact
         />

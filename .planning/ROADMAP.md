@@ -17,7 +17,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 3: Section Group A (Market + Deals + Leadership)** - Market context and deal intelligence
 - [x] **Phase 4: Section Group B (Operations + Competitive + Sub-Sector)** - Operational and competitive intelligence
 - [x] **Phase 5: Cross-Cutting Features** - A&M Value-Add section, What This Means For section, Talk vs Walk
-- [ ] **Phase 6: Production Hardening** - Validation, testing, presentation readiness
+- [x] **Phase 6: Production Hardening** - Validation, testing, presentation readiness
 
 ## Phase Details
 
@@ -127,8 +127,8 @@ Plans:
 **Plans:** 2 plans
 
 Plans:
-- [ ] 06-01-PLAN.md — Codebase audit and source attribution remediation (GLBL-01, GLBL-02, GLBL-04)
-- [ ] 06-02-PLAN.md — Build validation, empty data resilience, and presentation readiness (GLBL-03)
+- [x] 06-01-PLAN.md — Codebase audit and source attribution remediation (GLBL-01, GLBL-02, GLBL-04)
+- [x] 06-02-PLAN.md — Build validation, empty data resilience, and presentation readiness (GLBL-03)
 
 ## Progress
 
@@ -142,4 +142,4 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 | 3. Section Group A (Market + Deals + Leadership) | 4/4 | Complete | 2026-02-21 |
 | 4. Section Group B (Operations + Competitive + Sub-Sector) | 4/4 | Complete | 2026-02-21 |
 | 5. Cross-Cutting Features | 4/4 | Complete | 2026-02-21 |
-| 6. Production Hardening | 0/2 | Not started | - |
+| 6. Production Hardening | 2/2 | Complete | 2026-02-21 |

@@ -32,7 +32,7 @@ export function StatCard({ label, value, trend, source, className }: StatCardPro
   return (
     <div
       className={clsx(
-        "bg-surface-raised rounded-lg p-4 flex flex-col gap-1",
+        "bg-surface-raised rounded-lg p-4 flex flex-col gap-1 border border-surface-overlay",
         className,
       )}
     >

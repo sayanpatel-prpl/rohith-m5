@@ -53,7 +53,8 @@ export function FilterBar() {
   return (
     <div
       data-print-hide
-      className="flex items-center gap-3 px-5 h-9 bg-surface border-b border-surface-overlay shrink-0"
+      className="flex items-center gap-3 px-6 h-9 bg-surface-raised/50 shrink-0"
+      style={{ borderBottom: "1px solid oklch(0.92 0.01 250)" }}
     >
       <span className="text-xs text-text-muted font-medium">Filters</span>
 

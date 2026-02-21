@@ -43,7 +43,7 @@ export default function FinancialPerformance() {
     <section className="space-y-md">
       <header className="flex items-start justify-between gap-md">
         <div>
-          <h2 className="text-xl font-semibold text-text-primary">
+          <h2 className="text-xl font-semibold text-text-primary tracking-tight">
             Financial Performance
           </h2>
           <p className="text-sm text-text-secondary mt-xs">

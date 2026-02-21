@@ -59,7 +59,7 @@ export default function ExecutiveSnapshot() {
       {/* Header row: title + Intelligence Grade badge */}
       <header className="flex items-start justify-between">
         <div>
-          <h2 className="text-xl font-semibold text-text-primary">
+          <h2 className="text-xl font-semibold text-text-primary tracking-tight">
             Executive Snapshot
           </h2>
           <p className="text-sm text-text-secondary mt-xs">

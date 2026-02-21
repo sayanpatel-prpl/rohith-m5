@@ -2,48 +2,68 @@
 
 /* Design tokens as CSS custom properties via @theme */
 @theme {
-  --color-brand-primary: oklch(0.29 0.05 226);
-  --color-brand-secondary: oklch(0.59 0.06 224);
-  --color-brand-accent: oklch(0.74 0.10 49);
+  --color-brand-primary: oklch(0.22 0.05 250);
+  --color-brand-secondary: oklch(0.40 0.08 250);
+  --color-brand-accent: oklch(0.55 0.20 250);
 
-  --color-surface: oklch(0.99 0 0);
-  --color-surface-raised: oklch(0.97 0 0);
-  --color-surface-overlay: oklch(0.95 0 0);
+  /* Surfaces with visible distinction */
+  --color-surface: oklch(0.97 0.003 240);
+  --color-surface-raised: oklch(1.0 0 0);
+  --color-surface-overlay: oklch(0.94 0.005 240);
 
-  --color-text-primary: oklch(0.15 0 0);
-  --color-text-secondary: oklch(0.40 0 0);
-  --color-text-muted: oklch(0.55 0 0);
+  /* Borders */
+  --color-border-default: oklch(0.88 0.01 250);
+  --color-border-subtle: oklch(0.92 0.005 250);
 
-  /* Kompete chart palette -- warm gold, sage, steel blue, amber, violet */
-  --color-chart-1: oklch(0.74 0.10 49);
-  --color-chart-2: oklch(0.63 0.04 126);
-  --color-chart-3: oklch(0.59 0.06 224);
-  --color-chart-4: oklch(0.68 0.12 39);
-  --color-chart-5: oklch(0.59 0.05 289);
+  /* Text with slight blue-slate tint */
+  --color-text-primary: oklch(0.18 0.03 250);
+  --color-text-secondary: oklch(0.42 0.02 250);
+  --color-text-muted: oklch(0.58 0.01 250);
+
+  /* Sidebar (Navy) */
+  --color-sidebar-bg: oklch(0.18 0.04 250);
+  --color-sidebar-text: oklch(0.75 0.02 250);
+  --color-sidebar-text-active: oklch(0.98 0 0);
+  --color-sidebar-hover: oklch(0.22 0.04 250);
+  --color-sidebar-active-bg: oklch(0.25 0.06 250);
+
+  /* Chart palette -- Intelligence Blue, Teal, Amber, Purple, Red */
+  --color-chart-1: oklch(0.60 0.18 250);
+  --color-chart-2: oklch(0.63 0.12 175);
+  --color-chart-3: oklch(0.72 0.15 65);
+  --color-chart-4: oklch(0.55 0.16 300);
+  --color-chart-5: oklch(0.60 0.18 20);
 
   /* Semantic colors */
-  --color-positive: oklch(0.63 0.04 126);
-  --color-negative: oklch(0.60 0.14 16);
-  --color-neutral: oklch(0.59 0.06 224);
+  --color-positive: oklch(0.62 0.16 145);
+  --color-negative: oklch(0.58 0.20 20);
+  --color-warning: oklch(0.70 0.15 65);
+  --color-neutral: oklch(0.55 0.08 250);
 
   /* A&M Action Type Colors (AMTH-01) */
-  --color-am-turnaround: oklch(0.55 0.18 20);
-  --color-am-improvement: oklch(0.65 0.14 55);
-  --color-am-transaction: oklch(0.60 0.15 145);
-  --color-am-neutral: oklch(0.55 0.02 260);
+  --color-am-turnaround: oklch(0.55 0.20 20);
+  --color-am-improvement: oklch(0.65 0.15 55);
+  --color-am-transaction: oklch(0.60 0.16 145);
+  --color-am-neutral: oklch(0.55 0.04 250);
 
   /* Source Tier Badge Colors (SRCA-02) */
-  --color-tier-1: oklch(0.55 0.15 145);
-  --color-tier-2: oklch(0.55 0.15 250);
-  --color-tier-3: oklch(0.65 0.14 55);
-  --color-tier-4: oklch(0.55 0.18 20);
+  --color-tier-1: oklch(0.55 0.16 145);
+  --color-tier-2: oklch(0.55 0.16 250);
+  --color-tier-3: oklch(0.65 0.15 55);
+  --color-tier-4: oklch(0.55 0.20 20);
+
+  /* Shadow system -- navy-based for cohesive depth */
+  --shadow-sm: 0 1px 2px oklch(0.18 0.04 250 / 0.06);
+  --shadow-md: 0 4px 6px -1px oklch(0.18 0.04 250 / 0.08), 0 2px 4px -2px oklch(0.18 0.04 250 / 0.05);
+  --shadow-lg: 0 10px 15px -3px oklch(0.18 0.04 250 / 0.08), 0 4px 6px -4px oklch(0.18 0.04 250 / 0.04);
+  --shadow-xl: 0 20px 25px -5px oklch(0.18 0.04 250 / 0.10), 0 8px 10px -6px oklch(0.18 0.04 250 / 0.05);
 
   /* Typography */
   --font-body: "Inter", system-ui, sans-serif;
   --font-display: "Inter", system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-mono: "IBM Plex Mono", "JetBrains Mono", ui-monospace, monospace;
 
-  /* COMFORTABLE text scale - Modern, readable */
+  /* COMFORTABLE text scale */
   --text-xs: 0.75rem;      /* 12px */
   --text-sm: 0.875rem;     /* 14px */
   --text-base: 1rem;       /* 16px */
@@ -52,7 +72,7 @@
   --text-2xl: 1.5rem;      /* 24px */
   --text-3xl: 2rem;        /* 32px */
 
-  /* SPACIOUS spacing - Modern, breathable */
+  /* SPACIOUS spacing */
   --spacing-xs: 0.5rem;    /* 8px */
   --spacing-sm: 0.75rem;   /* 12px */
   --spacing-md: 1rem;      /* 16px */
@@ -60,6 +80,12 @@
   --spacing-xl: 2rem;      /* 32px */
   --spacing-2xl: 3rem;     /* 48px */
   --spacing-3xl: 4rem;     /* 64px */
+
+  /* Border radius */
+  --radius-sm: 0.375rem;   /* 6px */
+  --radius-md: 0.5rem;     /* 8px */
+  --radius-lg: 0.75rem;    /* 12px */
+  --radius-xl: 1rem;       /* 16px */
 
   /* Fade animation for section transitions */
   --animate-fade-in: fade-in 200ms ease-out;
@@ -71,12 +97,23 @@
 /* Dark mode overrides + tenant overrides */
 @layer base {
   .dark {
-    --color-surface: oklch(0.18 0.01 243);
-    --color-surface-raised: oklch(0.23 0.03 233);
-    --color-surface-overlay: oklch(0.29 0.05 226);
-    --color-text-primary: oklch(0.94 0.02 25);
-    --color-text-secondary: oklch(0.67 0.01 272);
-    --color-text-muted: oklch(0.52 0.02 242);
+    --color-surface: oklch(0.14 0.02 250);
+    --color-surface-raised: oklch(0.19 0.03 250);
+    --color-surface-overlay: oklch(0.24 0.04 250);
+    --color-border-default: oklch(0.28 0.03 250);
+    --color-border-subtle: oklch(0.25 0.02 250);
+    --color-text-primary: oklch(0.94 0.02 60);
+    --color-text-secondary: oklch(0.70 0.02 250);
+    --color-text-muted: oklch(0.52 0.02 250);
+
+    --color-sidebar-bg: oklch(0.10 0.03 250);
+    --color-sidebar-hover: oklch(0.14 0.03 250);
+    --color-sidebar-active-bg: oklch(0.18 0.05 250);
+
+    /* Shadow system - dark mode uses darker shadows */
+    --shadow-sm: 0 1px 2px oklch(0.05 0 0 / 0.3);
+    --shadow-md: 0 4px 6px -1px oklch(0.05 0 0 / 0.3), 0 2px 4px -2px oklch(0.05 0 0 / 0.2);
+    --shadow-lg: 0 10px 15px -3px oklch(0.05 0 0 / 0.3), 0 4px 6px -4px oklch(0.05 0 0 / 0.15);
 
     /* A&M Action Type Colors - Dark mode (brighter for dark backgrounds) */
     --color-am-turnaround: oklch(0.65 0.20 20);
@@ -93,7 +130,7 @@
 
   /* Tenant overrides -- only accent color and display font change per brand */
   [data-tenant="kompete"] {
-    --color-brand-accent: oklch(0.74 0.10 49);  /* Kompete warm gold */
+    --color-brand-accent: oklch(0.55 0.20 250);  /* Kompete Intelligence Blue */
   }
 
   [data-tenant="bcg"] {
@@ -107,10 +144,78 @@
   }
 }
 
+/* ===== GLOBAL STYLES ===== */
+
+/* Smooth scrollbar */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    font-family: var(--font-body);
+    line-height: 1.6;
+  }
+
+  /* Section headers get subtle bottom accent */
+  section > header {
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid oklch(0.93 0.01 250);
+    margin-bottom: 0.25rem;
+  }
+  .dark section > header {
+    border-bottom-color: oklch(0.25 0.02 250);
+  }
+
+  /* Scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: oklch(0.75 0.01 250);
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: oklch(0.60 0.02 250);
+  }
+}
+
+/* Auto-elevation — any surface-raised card-like element with rounded gets shadow */
+@layer base {
+  [class*="bg-surface-raised"][class*="rounded"] {
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow 200ms ease, border-color 200ms ease;
+  }
+  [class*="bg-surface-raised"][class*="rounded"]:hover {
+    box-shadow: var(--shadow-md);
+  }
+}
+
+/* Card hover effects and transitions */
+@layer utilities {
+  .card-elevated {
+    background: var(--color-surface-raised);
+    border: 1px solid oklch(0.88 0.01 250);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow 200ms ease, border-color 200ms ease;
+  }
+  .card-elevated:hover {
+    box-shadow: var(--shadow-md);
+    border-color: oklch(0.82 0.02 250);
+  }
+}
+
 /* Fade-in keyframes for section transitions */
 @keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* Accordion open/close keyframes for Radix Accordion */
@@ -125,39 +230,32 @@
 
 /* Print styles -- hide non-essential UI, full-width layout */
 @media print {
-  /* Hide elements marked for print exclusion */
   [data-print-hide] {
     display: none !important;
   }
 
-  /* Full width layout on white background */
   body {
     background: white !important;
     color: black !important;
   }
 
-  /* Remove fixed heights so content flows naturally */
   .h-screen {
     height: auto !important;
   }
 
-  /* Ensure main content fills the page */
   main {
     overflow: visible !important;
     padding: 0.5rem !important;
   }
 
-  /* Preserve brand typography */
   .font-display {
     font-family: var(--font-display) !important;
   }
 
-  /* Avoid page breaks inside cards and tables */
   [class*="bg-surface-raised"] {
     break-inside: avoid;
   }
 
-  /* Print-ready content: ensure clean layout for meeting prep briefs */
   [data-print-content] {
     color: black !important;
     background: white !important;

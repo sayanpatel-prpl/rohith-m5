@@ -22,20 +22,7 @@ import type {
   CompetitiveIntensityRow,
   CompetitiveSummaryStats,
 } from "../../types/competitive";
-import type { SourceInfo } from "../../types/source";
-
-// ---------------------------------------------------------------------------
-// Source helpers
-// ---------------------------------------------------------------------------
-
-function sovrennSource(lastUpdated: string): SourceInfo {
-  return {
-    source: "Sovrenn Intelligence curated analysis",
-    confidence: "derived",
-    tier: 3,
-    lastUpdated,
-  };
-}
+import { sovrennSource } from "./source-helpers";
 
 // ---------------------------------------------------------------------------
 // Move Type Classification

@@ -29,29 +29,7 @@ import type {
   MarginLever,
   AMBenchmark,
 } from "../../types/deep-dive";
-import type { SourceInfo } from "../../types/source";
-
-// ---------------------------------------------------------------------------
-// Source helpers
-// ---------------------------------------------------------------------------
-
-function screenerSource(lastUpdated: string): SourceInfo {
-  return {
-    source: "Screener.in consolidated financial data",
-    confidence: "verified",
-    tier: 1,
-    lastUpdated,
-  };
-}
-
-function sovrennSource(lastUpdated: string): SourceInfo {
-  return {
-    source: "Sovrenn Intelligence curated analysis",
-    confidence: "derived",
-    tier: 3,
-    lastUpdated,
-  };
-}
+import { screenerSource, sovrennSource } from "./source-helpers";
 
 // ---------------------------------------------------------------------------
 // Sub-sector labels

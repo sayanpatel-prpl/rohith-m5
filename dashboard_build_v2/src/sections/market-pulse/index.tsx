@@ -16,7 +16,6 @@ import { SectionSkeleton } from "@/components/ui/SectionSkeleton";
 import type { MarketPulseData } from "@/types/market-pulse";
 import type { NewsItem } from "@/types/news";
 
-import { AMThoughtLeadership } from "./AMThoughtLeadership";
 import { DemandSignals } from "./DemandSignals";
 import { InputCostTrends } from "./InputCostTrends";
 import { PolicyTracker } from "./PolicyTracker";
@@ -55,16 +54,6 @@ export default function MarketPulse() {
           Macro context for BD opportunity identification -- demand signals, input costs, and policy landscape
         </p>
       </header>
-
-      {/* A&M Thought Leadership callout (MRKT-03) -- prominent position */}
-      {data.amThoughtLeadership && (
-        <AMThoughtLeadership
-          title={data.amThoughtLeadership.title}
-          summary={data.amThoughtLeadership.summary}
-          url={data.amThoughtLeadership.url}
-          source={data.amThoughtLeadership.source}
-        />
-      )}
 
       {/* Demand Signals (MRKT-01, MRKT-04) */}
       <DemandSignals signals={data.demandSignals} />

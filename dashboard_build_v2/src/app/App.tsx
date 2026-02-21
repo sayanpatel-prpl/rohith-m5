@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router";
+import { HashRouter, Routes, Route, Navigate } from "react-router";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { ErrorBoundary } from "react-error-boundary";
 import { queryClient } from "../api/query-client";
@@ -13,14 +13,15 @@ import type { SectionId } from "../types/common";
 
 /**
  * Root application component.
- * Wires: QueryClientProvider -> BrowserRouter -> BrandProvider -> AppShell -> section routes.
+ * Wires: QueryClientProvider -> HashRouter -> BrandProvider -> AppShell -> section routes.
+ * HashRouter for file:// protocol compatibility (offline single-file demo).
  * No ReactQueryDevtools (production presentation build).
  * Default tenant: "am" (A&M).
  */
 export function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
+      <HashRouter>
         <Routes>
           <Route
             path="/:tenantSlug/report"
@@ -65,7 +66,7 @@ export function App() {
             element={<Navigate to="/am/report" replace />}
           />
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </QueryClientProvider>
   );
 }

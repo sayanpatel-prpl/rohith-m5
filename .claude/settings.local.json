@@ -54,7 +54,20 @@
       "Bash(npm_config_cache=/tmp/npm-cache npx -y vercel deploy --prod --token vca_6YL2Q5xcOqUbvRfmh58AihRERfl56WFhcL63kyyrL00r5QLldx10jlfI --scope prateek-kurkanjis-projects)",
       "Bash(npm_config_cache=/tmp/npm-cache npx:*)",
       "Bash(chmod:*)",
-      "Bash(bash /tmp/vercel-deploy.sh)"
+      "Bash(bash /tmp/vercel-deploy.sh)",
+      "Bash(wc:*)",
+      "Bash(cloc:*)",
+      "Bash(git -C /c/Users/rohit/OneDrive/Documents/Kompete/rohith-m5 log --oneline -20)",
+      "Bash(git -C /c/Users/rohit/OneDrive/Documents/Kompete/rohith-m5 show --stat HEAD)",
+      "Bash(npx:*)",
+      "Bash(git stash:*)",
+      "Bash(git stash pop:*)",
+      "Skill(gsd:map-codebase)",
+      "Bash(grep:*)",
+      "Bash(npm run lint)",
+      "Bash(npm run test:*)",
+      "Skill(gsd:plan-phase)",
+      "Skill(gsd:execute-phase)"
     ]
   }
 }

@@ -29,38 +29,7 @@ import type {
   StressModel,
   StressThresholds,
 } from "../../types/watchlist";
-import type { SourceInfo } from "../../types/source";
-
-// ---------------------------------------------------------------------------
-// Helper: create SourceInfo objects
-// ---------------------------------------------------------------------------
-
-function screenerSource(lastUpdated: string): SourceInfo {
-  return {
-    source: "Screener.in consolidated financial data",
-    confidence: "verified",
-    tier: 1,
-    lastUpdated,
-  };
-}
-
-function financialApiSource(lastUpdated: string): SourceInfo {
-  return {
-    source: "Screener.in + Trendlyne aggregated metrics",
-    confidence: "verified",
-    tier: 1,
-    lastUpdated,
-  };
-}
-
-function derivedSource(lastUpdated: string): SourceInfo {
-  return {
-    source: "Cross-source derived analysis",
-    confidence: "derived",
-    tier: 4,
-    lastUpdated,
-  };
-}
+import { screenerSource, financialApiSource, derivedSource } from "./source-helpers";
 
 // ---------------------------------------------------------------------------
 // Helper: bundled company data

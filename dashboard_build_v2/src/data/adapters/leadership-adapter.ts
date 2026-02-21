@@ -39,38 +39,12 @@ import type {
   LeadershipSummaryStats,
 } from "../../types/leadership";
 import type { AMServiceLine } from "../../types/am-theme";
-import type { SourceInfo } from "../../types/source";
+import { screenerSource as _screenerSource, sovrennSource as _sovrennSource, derivedSource as _derivedSource } from "./source-helpers";
 
-// ---------------------------------------------------------------------------
-// Source helpers
-// ---------------------------------------------------------------------------
-
-function screenerSource(lastUpdated: string): SourceInfo {
-  return {
-    source: "Screener.in shareholding data",
-    confidence: "verified",
-    tier: 1,
-    lastUpdated,
-  };
-}
-
-function sovrennSource(lastUpdated: string): SourceInfo {
-  return {
-    source: "Sovrenn Intelligence concall analysis",
-    confidence: "derived",
-    tier: 3,
-    lastUpdated,
-  };
-}
-
-function derivedSource(lastUpdated: string): SourceInfo {
-  return {
-    source: "Cross-source governance analysis",
-    confidence: "derived",
-    tier: 4,
-    lastUpdated,
-  };
-}
+// Leadership-specific source labels
+const screenerSource = (lastUpdated: string) => _screenerSource(lastUpdated, "Screener.in shareholding data");
+const sovrennSource = (lastUpdated: string) => _sovrennSource(lastUpdated, "Sovrenn Intelligence concall analysis");
+const derivedSource = (lastUpdated: string) => _derivedSource(lastUpdated, "Cross-source governance analysis");
 
 // ---------------------------------------------------------------------------
 // Company data bundle (local to this adapter)

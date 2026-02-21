@@ -70,6 +70,7 @@ export function DiagnosticTriggers({ triggers }: DiagnosticTriggersProps) {
             confidence: "derived" as const,
             tier: 1,
             lastUpdated: "2025-01",
+            url: "https://www.screener.in/",
           }}
           compact
         />

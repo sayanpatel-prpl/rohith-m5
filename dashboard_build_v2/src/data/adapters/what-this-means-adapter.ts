@@ -27,21 +27,8 @@ import type {
   StakeholderTab,
   StakeholderTabSummary,
 } from "../../types/what-this-means";
-import type { SourceInfo } from "../../types/source";
 import type { SectionId } from "../../types/common";
-
-// ---------------------------------------------------------------------------
-// Source helpers
-// ---------------------------------------------------------------------------
-
-function crossRefSource(lastUpdated: string): SourceInfo {
-  return {
-    source: "Cross-section derived analysis",
-    confidence: "derived",
-    tier: 4,
-    lastUpdated,
-  };
-}
+import { crossRefSource } from "./source-helpers";
 
 // ---------------------------------------------------------------------------
 // Section label mapping

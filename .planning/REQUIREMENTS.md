@@ -1,7 +1,7 @@
-# Requirements: Kompete - Industry Intel
+# Requirements: Kompete v2 — A&M Consumer Durables Intelligence Dashboard
 
-**Defined:** 2026-02-15
-**Core Value:** Every section answers "where's the BD opportunity?" — signals that help consulting partners identify which companies need help, what kind, and when to reach out.
+**Defined:** 2026-02-20
+**Core Value:** Every section answers "where's the BD opportunity?" — sourced signals that help A&M partners identify which companies need help, what kind, and when to reach out.
 
 ## v1 Requirements
 
@@ -9,235 +9,261 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Foundation
 
-- [ ] **FOUND-01**: App renders with React Router navigation between 10 report sections
-- [ ] **FOUND-02**: BrandProvider resolves tenant from URL slug and injects brand tokens (logo, colors, fonts) as CSS custom properties
-- [ ] **FOUND-03**: Switching tenant URL updates all branding (header, charts, typography) without page reload
-- [ ] **FOUND-04**: Centralized formatters handle INR Cr/Lakh, percentages, basis points, and growth rates consistently across all modules
-- [ ] **FOUND-05**: TypeScript data contracts define JSON shape for all 10 section data payloads
-- [ ] **FOUND-06**: Shared UI primitives (StatCard, TrendIndicator, PerformanceTag, SectionSkeleton) render with brand tokens
-- [ ] **FOUND-07**: Chart wrappers (TrendLineChart, BarComparisonChart) consume brand CSS variables for colors
-- [ ] **FOUND-08**: Error boundaries catch and display section-level errors without crashing other sections
-- [ ] **FOUND-09**: API client fetches typed JSON from Express/Supabase backend with TanStack Query caching
-- [ ] **FOUND-10**: Report shell displays section navigation sidebar with active state indication
-- [ ] **FOUND-11**: SectionRenderer lazy-loads each module via React.lazy() — only active section's code is loaded
-- [ ] **FOUND-12**: Zustand filter store manages company selection, sub-category, performance rating, and time period filters across sections
-- [ ] **FOUND-13**: FilterBar UI lets user select companies (multi-select), sub-category, performance tier, and time period
-- [ ] **FOUND-14**: Filter changes update visible data without triggering API refetch (client-side filtering)
+- [ ] **FOUND-01**: Dashboard built in `dashboard_build_v2/` as independent React+Vite+TS project
+- [ ] **FOUND-02**: Single-file HTML output via vite-plugin-singlefile
+- [ ] **FOUND-03**: Dark mode support with all new tokens having dark variants
+- [ ] **FOUND-04**: Multi-tenant branding preserved via `data-tenant` CSS variable theming
+- [ ] **FOUND-05**: Progress tracking files created at project root (PROGRESS.md, DECISIONS.md, DATA_CATALOG.md, SOURCE_REFERENCE.md)
 
-### Executive Snapshot
+### Data Layer
 
-- [ ] **EXEC-01**: User sees monthly summary in 5-bullet format covering big themes for the month
-- [ ] **EXEC-02**: User sees red flags/watchlist with AI confidence scores (high/medium/low)
-- [ ] **EXEC-03**: User sees data recency indicator ("as of [month] [year]" or "Q3 FY25")
-- [ ] **EXEC-04**: AI-generated narrative explains why each theme matters for BD opportunities
+- [ ] **DATA-01**: Data layer consumes JSON files from `consumer-durables-intelligence/data_sources/`
+- [ ] **DATA-02**: Client-side filtering via Zustand store (companies, sub-category, performance tier, time period)
+- [ ] **DATA-03**: TanStack Query caching with staleTime: Infinity (no refetch on focus/reconnect)
+- [ ] **DATA-04**: Graceful degradation — unavailable data shows "-" with tooltip, no broken layouts
+- [ ] **DATA-05**: DATA_CATALOG.md created mapping every data file to sections it serves
 
-### Market Pulse
+### Source Attribution
 
-- [ ] **MRKT-01**: User sees demand signals for Consumer Durables mid-market with trend direction
-- [ ] **MRKT-02**: User sees input cost trends (steel, copper, plastics, etc.) with QoQ/YoY movement
-- [ ] **MRKT-03**: User sees margin outlook across the sector with visual trend indicators
-- [ ] **MRKT-04**: User sees channel mix shifts (offline retail vs online vs D2C) with percentage breakdown
+- [ ] **SRCA-01**: Reusable `<SourceAttribution>` component with source, confidence (verified/derived/estimated), tier (1-4), lastUpdated, and optional URL
+- [ ] **SRCA-02**: Tier badge styling — T1 solid green, T2 solid blue, T3 outline amber, T4 outline red with warning icon
+- [ ] **SRCA-03**: Every card, chart, table, and insight displays source attribution
+- [ ] **SRCA-04**: Source tracing from research files to original sources (not citing the research file itself)
+- [ ] **SRCA-05**: SOURCE_REFERENCE.md maintained as presenter's cheat sheet — every data point traceable in 5 seconds
 
-### Financial Performance
+### News & Credibility
 
-- [ ] **FINP-01**: User sees standardized financial metrics table for 15-20 Consumer Durables companies (revenue growth, EBITDA margin, working capital days, ROCE, debt/equity)
-- [ ] **FINP-02**: User can compare any 2-5 companies side-by-side on selected metrics
-- [ ] **FINP-03**: User sees time-series charts showing QoQ and YoY trends per company per metric
-- [ ] **FINP-04**: Each company is tagged as outperform/inline/underperform relative to sector average
-- [ ] **FINP-05**: Source attribution appears on every metric ("BSE filing Q3 FY25", "Earnings transcript")
-- [ ] **FINP-06**: AI variance analysis explains metric changes in narrative form ("EBITDA margin declined 180bps QoQ, driven by raw material cost inflation, 230bps below segment average")
-- [ ] **FINP-07**: User can sort and filter the financial metrics table by any column
+- [ ] **NEWS-01**: NewsItem TypeScript interface with sourceTier, sourceCredibility, corroboratedBy, contradictedBy, isVerifiedByFiling
+- [ ] **NEWS-02**: Anti-clickbait filtering — low credibility sources filtered at data layer, never reach UI
+- [ ] **NEWS-03**: Corroborated signals (2+ sources) display with elevated confidence styling
+- [ ] **NEWS-04**: Contradicted signals show "Conflicting Reports" tag with both sides
+- [ ] **NEWS-05**: NEWS_DATA_SLOT code comments in all 14 news-dependent components
+- [ ] **NEWS-06**: News-dependent components degrade gracefully when news array is empty — no empty states visible
+- [ ] **NEWS-07**: src/api/news.ts module reads from news data file and merges into section displays
 
-### Deals & Transactions
+### A&M Theming
 
-- [ ] **DEAL-01**: User sees M&A transactions with acquirer, target, deal value, and strategic rationale
-- [ ] **DEAL-02**: User sees PE/VC investments with investor, company, amount, and stage
-- [ ] **DEAL-03**: User sees IPO filings and capital market activity
-- [ ] **DEAL-04**: User sees distressed asset activity and stressed company signals
-- [ ] **DEAL-05**: Timeline visualization shows deal flow chronologically
-- [ ] **DEAL-06**: AI pattern recognition highlights deal clusters and recurring investor themes
+- [ ] **AMTH-01**: A&M action-type color tokens in CSS (turnaround red, improvement amber, transaction green, neutral slate)
+- [ ] **AMTH-02**: A&M service line tags on insights (CPI, Restructuring, Transaction Advisory, PE Services, Digital, Operations)
 
-### Operational Intelligence
+### Section 1 — Executive Snapshot
 
-- [ ] **OPER-01**: User sees supply chain signals (raw material sourcing shifts, logistics disruptions)
-- [ ] **OPER-02**: User sees manufacturing capacity changes (plant expansions, closures, utilization rates)
-- [ ] **OPER-03**: User sees procurement shifts (vendor changes, import/export pattern changes)
-- [ ] **OPER-04**: User sees retail expansion/rationalization data (store openings, closures, channel shifts)
+- [ ] **EXEC-01**: Intelligence Grade letter badge (A/B+/C) replacing confidence meter, with hover tooltip explaining methodology
+- [ ] **EXEC-02**: A&M Opportunity Summary card at top — total advisory opportunity (₹Cr), companies in distress zone count, top recommended action
+- [ ] **EXEC-03**: Big Themes populated from real data (remove mock-data class), each citing source
+- [ ] **EXEC-04**: Red Flags populated from real data, mapped to A&M service lines (Turnaround, CPI, Transaction Advisory, Interim Management)
+- [ ] **EXEC-05**: Narrative Risks surfacing top Talk vs Walk disconnects alongside Red Flags
 
-### Leadership & Governance
+### Section 11 → 2 — A&M Value-Add Opportunities
 
-- [ ] **LEAD-01**: User sees CXO changes (new appointments, departures) with company and role
-- [ ] **LEAD-02**: User sees board reshuffles and committee changes
-- [ ] **LEAD-03**: User sees promoter stake changes (increases, pledges, dilutions) with trend
-- [ ] **LEAD-04**: User sees auditor resignations and statutory audit flags
-- [ ] **LEAD-05**: AI risk flags highlight governance events that signal company stress or opportunity
+- [ ] **AMVA-01**: Section positioned at nav position 2 (right after Executive Snapshot)
+- [ ] **AMVA-02**: Pipeline/kanban layout — Identified, Qualified, Outreach-Ready columns
+- [ ] **AMVA-03**: Each opportunity card: Company, Engagement Type, Est. Size (₹Cr), Key Data Points, Sources
+- [ ] **AMVA-04**: Every opportunity tagged by A&M practice area (CPI, Restructuring, PE Services, Corporate Transactions, Digital, Operations)
+- [ ] **AMVA-05**: Opportunities auto-generated from cross-referencing Sections 3, 5, 6, 10 data
 
-### Competitive Moves
+### Section 2 → 3 — Market Pulse
 
-- [ ] **COMP-01**: User sees product launches and new SKU introductions across the sector
-- [ ] **COMP-02**: User sees pricing actions (price wars, premium positioning shifts)
-- [ ] **COMP-03**: User sees D2C initiatives and quick commerce partnerships
-- [ ] **COMP-04**: Cluster analysis groups companies by competitive strategy (cost leader vs premium vs niche)
+- [ ] **MRKT-01**: Reduce ESTIMATED labels — source from earnings calls or relabel as "Management Guidance Interpretation"
+- [ ] **MRKT-02**: A&M implication column in Commodity Outlook table (cross-reference commodity data with import dependency)
+- [ ] **MRKT-03**: A&M thought leadership callout box referencing alvarezandmarsal.com consumer economy report
+- [ ] **MRKT-04**: Keep verified data: demand signals, input costs (Mead Metals), commodity outlook, margin bands, policy tracker, seasonal patterns
 
-### Sub-Sector Deep Dive
+### Section 3 → 4 — Financial Performance Tracker
 
-- [ ] **SSDD-01**: User sees rotating monthly deep dive into one sub-segment (AC, refrigerator, washing machine, etc.)
-- [ ] **SSDD-02**: Cost structure benchmarks compare COGS breakdown across companies in the sub-segment
-- [ ] **SSDD-03**: Margin levers analysis identifies what drives profitability differences
-- [ ] **SSDD-04**: Top-quartile analysis highlights best-performing companies and what they do differently
+- [ ] **FINP-01**: A&M Signal triage column — red (turnaround), amber (performance improvement), green (transaction advisory) with classification logic tooltip
+- [ ] **FINP-02**: Sparklines (50px) next to Revenue and EBITDA% showing last 4-6 quarters
+- [ ] **FINP-03**: Company modal with "Potential A&M Engagement" auto-generated from peer-relative metrics
+- [ ] **FINP-04**: Talk vs Walk tab in company modal — 2-3 management claims vs hard data with disconnect (red) and stealth signal (green) flags
+- [ ] **FINP-05**: Derived market intelligence columns (toggleable): Mkt Share %, Pricing Power, Competitive Intensity — each with methodology tooltip
+- [ ] **FINP-06**: Sortable, filterable metrics table for 15 companies with source attribution per column
 
-### Action Lens
+### Section 4 → 5 — Deals, Transactions & Capital Movements
 
-- [ ] **ACTN-01**: User can switch between persona views: PE/Investors, Founders, COOs/CFOs, Procurement Heads
-- [ ] **ACTN-02**: Each persona view tailors the interpretation of the same data to that audience's priorities
-- [ ] **ACTN-03**: AI generates actionable takeaways specific to each persona ("For PE investors: Blue Star's margin compression + promoter stake pledge = potential distressed acquisition target")
+- [ ] **DEAL-01**: A&M Angle tag on each deal card (CDD Opportunity, Integration Support, Carve-out Advisory, Valuation, Restructuring)
+- [ ] **DEAL-02**: Pattern recognition summary card at top (AI-interpreted deal clusters, promoter dilution trends)
+- [ ] **DEAL-03**: All deals from data_sources/ loaded and cross-referenced with data.js
 
-### Watchlist & Forward Indicators
+### Section 5 → 6 — Operational Intelligence
 
-- [ ] **WTCH-01**: User sees 90-day forward-looking signals: likely fundraises based on financial trajectory
-- [ ] **WTCH-02**: User sees margin inflection candidates (companies approaching profitability turning points)
-- [ ] **WTCH-03**: User sees consolidation targets (companies likely to be acquired based on market position + financial stress)
-- [ ] **WTCH-04**: User sees stress indicators (companies showing multiple distress signals simultaneously)
+- [ ] **OPER-01**: Per-cell confidence icons in ops table (✓ verified, ~ derived, ? estimated) with tooltips
+- [ ] **OPER-02**: A&M Operations Diagnostic Triggers card (capacity util < 70%, import dep > 50% + commodity headwind, after-sales cost > 3%)
+- [ ] **OPER-03**: Cross-links between Operational Intelligence and Competitive Moves sections
 
-### AI Intelligence
+### Section 6 → 7 — Leadership, Org & Governance Watch
 
-- [ ] **AINL-01**: BD Signal Scoring assigns a composite "needs consulting help" score to each company from financial stress + leadership changes + operational disruption signals
-- [ ] **AINL-02**: Engagement Opportunity Classification tags each signal with likely service line (Turnaround, Growth Strategy, Cost Optimization, M&A Advisory)
-- [ ] **AINL-03**: AI confidence scores appear on all AI-generated insights (high/medium/low with reasoning)
+- [ ] **LEAD-01**: Leadership timeline populated from real data (remove mock-data), each entry sourced
+- [ ] **LEAD-02**: Governance risk scoring per company (auditor resignation = red, promoter decline > 2% QoQ = amber, board reconstitution = amber, stable = green)
+- [ ] **LEAD-03**: Promoter holding chart annotated with A&M service line implications (declining + stress = turnaround, rising institutional = PE advisory)
 
-### Export & Meeting Prep
+### Section 7 → 8 — Competitive Moves & Strategic Bets
 
-- [ ] **EXPT-01**: User can export full report or selected sections as PDF with print-optimized layout
-- [ ] **EXPT-02**: User can export data tables as CSV
-- [ ] **EXPT-03**: Meeting Prep Brief generates 1-click company brief pulling key data from all modules into a structured 1-pager
-- [ ] **EXPT-04**: User can export report sections as branded PowerPoint slides
+- [ ] **COMP-01**: Populated from real data in data_sources/ (remove mock-data), every entry sourced
+- [ ] **COMP-02**: Competitive Intensity Heatmap — Company x Move Type matrix, color by frequency
+- [ ] **COMP-03**: Cross-links to Operational Intelligence for moves with operational implications
 
-### Multi-Tenant Branding
+### Section 8 → 9 — Sub-Sector Deep Dive
 
-- [ ] **BRND-01**: Each consulting firm instance displays their logo in header and export outputs
-- [ ] **BRND-02**: Each instance uses the firm's color palette across all UI elements and charts
-- [ ] **BRND-03**: Each instance uses the firm's typography (font family, weights)
-- [ ] **BRND-04**: Tenant resolution from URL slug loads correct brand configuration without rebuild
+- [ ] **SSDD-01**: Margin Levers Analysis table populated from real data (premiumization, backward integration, distribution rationalization, vendor consolidation, SKU rationalization)
+- [ ] **SSDD-02**: A&M Benchmark Comparison callout referencing A&M case studies (European white goods 20%+ uplift, US consumer $150M EBITDA improvement)
+- [ ] **SSDD-03**: Chart sources standardized and visible (Screener.in revenue, OPM% quartiles, ROCE)
+
+### Section 9 → 10 — "What This Means For..."
+
+- [ ] **WTMF-01**: All 4 tabs (PE/Investors, Founders, COOs/CFOs, Supply Chain Heads) populated with real sourced insights from other sections
+- [ ] **WTMF-02**: Recommended A&M Service tag per insight (CPI, Restructuring, Transaction Advisory, Digital, Operations)
+- [ ] **WTMF-03**: Cross-navigable insights — each referencing another section has clickable link to that section + card
+
+### Section 10 → 11 — Watchlist & Forward Indicators
+
+- [ ] **WTCH-01**: All 4 watchlist quadrants populated from real data (Likely Fundraises, Margin Inflection, Consolidation Targets, Stress Indicators)
+- [ ] **WTCH-02**: Each entry: company, signal detail, severity 1-5, days to event, source, A&M service line
+- [ ] **WTCH-03**: Stress Indicators scoring model with clear thresholds (cash burn 2+ quarters, debt maturity 12 months, revenue decline 2+ quarters, EBITDA% below P25)
+- [ ] **WTCH-04**: Likely Fundraise signals (low promoter + high capex plans + declining cash + board approvals)
+
+### Talk vs Walk
+
+- [ ] **TVW-01**: TalkVsWalk TypeScript interface (company, claim, claimSource, dataVerification, verificationData, verificationSource)
+- [ ] **TVW-02**: Detection patterns flagging: premiumization (ASP vs revenue/volume), backward integration (import dependency), expansion (capex-to-revenue), rural penetration (dealer count)
+- [ ] **TVW-03**: Stealth Signals (green flag) — numbers show trend management hasn't discussed yet
+- [ ] **TVW-04**: Narrative Disconnects (red flag) — management claims contradicted by filed data
+- [ ] **TVW-05**: Talk vs Walk surfaced in: company modal (S4), Executive Snapshot narrative risks (S1), PE/Investors tab (S10)
+
+### Derived Intelligence
+
+- [ ] **DRVI-01**: Intra-universe market share by sub-category (revenue / total sub-category revenue × 100) with methodology caveat
+- [ ] **DRVI-02**: Pricing Power Proxy (Revenue Growth % minus sector volume growth %)
+- [ ] **DRVI-03**: Competitive Intensity Index (event count per ₹1000Cr revenue)
+- [ ] **DRVI-04**: Derived metrics visually distinguished (italic + "Derived" badge) from filed metrics
+- [ ] **DRVI-05**: ALTERNATIVE_DATA_SLOT code comments for Tier 2 data slots (DGFT imports, PLI, Google Trends, patent filings)
+
+### Global
+
+- [ ] **GLBL-01**: All mock-data CSS class instances removed — replaced with real sourced data or "-"
+- [ ] **GLBL-02**: Navigation order: Executive Snapshot, A&M Value-Add, Market Pulse, Financial Tracker, Deals, Operational Intelligence, Leadership, Competitive Moves, Sub-Sector, What This Means For, Watchlist
+- [ ] **GLBL-03**: Build tested with empty news JSON + empty alt-data — no broken layouts
+- [ ] **GLBL-04**: Every card has source attribution with tier badge (final audit)
 
 ## v2 Requirements
 
-Deferred to future release. Tracked but not in current roadmap.
+Deferred to future release.
 
-### Notifications
+### Advanced Intelligence
 
-- **NOTF-01**: User receives email digest when new monthly report is published
-- **NOTF-02**: User receives alert when high-priority BD signal detected (real-time)
+- **ADVN-01**: Real-time customizable alert rules with email/Slack integration
+- **ADVN-02**: Scenario modeling interface (what-if capex/revenue changes)
+- **ADVN-03**: Automated battlecards for deal pipeline
+- **ADVN-04**: Collaborative annotations (team notes on data points)
+- **ADVN-05**: Cross-sector pattern matching with ML similarity models
 
-### Advanced Analytics
+### Mobile & Distribution
 
-- **ADVN-01**: Management commentary sentiment analysis (NLP on earnings transcripts, tone shift tracking)
-- **ADVN-02**: Competitive cluster mapping visualization (strategy white space identification)
-- **ADVN-03**: Custom company watchlists with user-defined alert thresholds
-
-### Multi-Category Expansion
-
-- **MCAT-01**: FMCG category with sector-specific modules
-- **MCAT-02**: QSR category with sector-specific modules
-- **MCAT-03**: Apparel category with sector-specific modules
-- **MCAT-04**: Beauty category with sector-specific modules
+- **MOBL-01**: Mobile/tablet responsive layout
+- **MOBL-02**: PowerPoint export (EXPT-04 from v1.0)
+- **MOBL-03**: Presentation mode (hide filters, keyboard navigation)
 
 ## Out of Scope
 
 | Feature | Reason |
 |---------|--------|
-| Backend data collection pipelines | Separate workstream per PROJECT.md |
-| FMCG, QSR, Apparel, Beauty categories | Future expansion after Consumer Durables proves out |
-| Mobile app | Desktop-first for consulting partners |
-| Real-time push notifications | Monthly cadence for v1; destroys curated briefing value |
-| User auth / billing / subscription | Developer handles separately |
-| Build-your-own-dashboard | Value is editorial curation, not self-service BI |
-| Social media monitoring | Noisy signal for BD intelligence; track filings instead |
-| News feed aggregation | Becomes noise machine; Google Alerts exists |
-| 50+ company coverage | Data quality collapses without mature pipelines; 15-20 is the right scope |
-| Automated client-facing reports | Conflates internal BD tool with client deliverables; different quality bars |
+| Backend data pipelines | Separate workstream — data arrives as JSON files |
+| News scraping/collection | Data arrives via JSON drop before presentation |
+| User auth / billing | Developer handles separately |
+| FMCG/QSR/Apparel categories | Future expansion after Consumer Durables |
+| Modifying v1.0 codebase | Untouched; v2 is independent build |
+| Export/sharing functionality | Deferred — not needed for presentation |
+| Real-time data refresh | Monthly cadence, data is pre-extracted |
 
 ## Traceability
 
-Which phases cover which requirements. Updated during roadmap creation.
-
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| FOUND-01 | Phase 1: Foundation and Architecture | Pending |
-| FOUND-02 | Phase 1: Foundation and Architecture | Pending |
-| FOUND-03 | Phase 1: Foundation and Architecture | Pending |
-| FOUND-04 | Phase 1: Foundation and Architecture | Pending |
-| FOUND-05 | Phase 1: Foundation and Architecture | Pending |
-| FOUND-06 | Phase 1: Foundation and Architecture | Pending |
-| FOUND-07 | Phase 1: Foundation and Architecture | Pending |
-| FOUND-08 | Phase 1: Foundation and Architecture | Pending |
-| FOUND-09 | Phase 2: Report Shell and Data Layer | Pending |
-| FOUND-10 | Phase 2: Report Shell and Data Layer | Pending |
-| FOUND-11 | Phase 2: Report Shell and Data Layer | Pending |
-| FOUND-12 | Phase 2: Report Shell and Data Layer | Pending |
-| FOUND-13 | Phase 2: Report Shell and Data Layer | Pending |
-| FOUND-14 | Phase 2: Report Shell and Data Layer | Pending |
-| EXEC-01 | Phase 3: Core Financial Intelligence | Pending |
-| EXEC-02 | Phase 3: Core Financial Intelligence | Pending |
-| EXEC-03 | Phase 3: Core Financial Intelligence | Pending |
-| EXEC-04 | Phase 3: Core Financial Intelligence | Pending |
-| MRKT-01 | Phase 5: Market Context and Operations | Pending |
-| MRKT-02 | Phase 5: Market Context and Operations | Pending |
-| MRKT-03 | Phase 5: Market Context and Operations | Pending |
-| MRKT-04 | Phase 5: Market Context and Operations | Pending |
-| FINP-01 | Phase 3: Core Financial Intelligence | Pending |
-| FINP-02 | Phase 3: Core Financial Intelligence | Pending |
-| FINP-03 | Phase 3: Core Financial Intelligence | Pending |
-| FINP-04 | Phase 3: Core Financial Intelligence | Pending |
-| FINP-05 | Phase 3: Core Financial Intelligence | Pending |
-| FINP-06 | Phase 3: Core Financial Intelligence | Pending |
-| FINP-07 | Phase 3: Core Financial Intelligence | Pending |
-| DEAL-01 | Phase 4: Deal Flow and Leadership Signals | Pending |
-| DEAL-02 | Phase 4: Deal Flow and Leadership Signals | Pending |
-| DEAL-03 | Phase 4: Deal Flow and Leadership Signals | Pending |
-| DEAL-04 | Phase 4: Deal Flow and Leadership Signals | Pending |
-| DEAL-05 | Phase 4: Deal Flow and Leadership Signals | Pending |
-| DEAL-06 | Phase 4: Deal Flow and Leadership Signals | Pending |
-| OPER-01 | Phase 5: Market Context and Operations | Pending |
-| OPER-02 | Phase 5: Market Context and Operations | Pending |
-| OPER-03 | Phase 5: Market Context and Operations | Pending |
-| OPER-04 | Phase 5: Market Context and Operations | Pending |
-| LEAD-01 | Phase 4: Deal Flow and Leadership Signals | Pending |
-| LEAD-02 | Phase 4: Deal Flow and Leadership Signals | Pending |
-| LEAD-03 | Phase 4: Deal Flow and Leadership Signals | Pending |
-| LEAD-04 | Phase 4: Deal Flow and Leadership Signals | Pending |
-| LEAD-05 | Phase 4: Deal Flow and Leadership Signals | Pending |
-| COMP-01 | Phase 6: Competitive Landscape and Sub-Sector Analysis | Pending |
-| COMP-02 | Phase 6: Competitive Landscape and Sub-Sector Analysis | Pending |
-| COMP-03 | Phase 6: Competitive Landscape and Sub-Sector Analysis | Pending |
-| COMP-04 | Phase 6: Competitive Landscape and Sub-Sector Analysis | Pending |
-| SSDD-01 | Phase 6: Competitive Landscape and Sub-Sector Analysis | Pending |
-| SSDD-02 | Phase 6: Competitive Landscape and Sub-Sector Analysis | Pending |
-| SSDD-03 | Phase 6: Competitive Landscape and Sub-Sector Analysis | Pending |
-| SSDD-04 | Phase 6: Competitive Landscape and Sub-Sector Analysis | Pending |
-| ACTN-01 | Phase 7: AI-Powered Intelligence | Pending |
-| ACTN-02 | Phase 7: AI-Powered Intelligence | Pending |
-| ACTN-03 | Phase 7: AI-Powered Intelligence | Pending |
-| WTCH-01 | Phase 8: Forward-Looking Signals | Pending |
-| WTCH-02 | Phase 8: Forward-Looking Signals | Pending |
-| WTCH-03 | Phase 8: Forward-Looking Signals | Pending |
-| WTCH-04 | Phase 8: Forward-Looking Signals | Pending |
-| AINL-01 | Phase 7: AI-Powered Intelligence | Pending |
-| AINL-02 | Phase 7: AI-Powered Intelligence | Pending |
-| AINL-03 | Phase 7: AI-Powered Intelligence | Pending |
-| EXPT-01 | Phase 9: Export and Meeting Prep | Pending |
-| EXPT-02 | Phase 9: Export and Meeting Prep | Pending |
-| EXPT-03 | Phase 9: Export and Meeting Prep | Pending |
-| EXPT-04 | Phase 9: Export and Meeting Prep | Pending |
-| BRND-01 | Phase 1: Foundation and Architecture | Pending |
-| BRND-02 | Phase 1: Foundation and Architecture | Pending |
-| BRND-03 | Phase 1: Foundation and Architecture | Pending |
-| BRND-04 | Phase 1: Foundation and Architecture | Pending |
+| FOUND-01 | Phase 1 | Pending |
+| FOUND-02 | Phase 1 | Pending |
+| FOUND-03 | Phase 1 | Pending |
+| FOUND-04 | Phase 1 | Pending |
+| FOUND-05 | Phase 1 | Pending |
+| DATA-01 | Phase 1 | Pending |
+| DATA-02 | Phase 1 | Pending |
+| DATA-03 | Phase 1 | Pending |
+| DATA-04 | Phase 1 | Pending |
+| DATA-05 | Phase 1 | Pending |
+| SRCA-01 | Phase 1 | Pending |
+| SRCA-02 | Phase 1 | Pending |
+| SRCA-03 | Phase 1 | Pending |
+| SRCA-04 | Phase 1 | Pending |
+| SRCA-05 | Phase 1 | Pending |
+| NEWS-01 | Phase 1 | Pending |
+| NEWS-02 | Phase 1 | Pending |
+| NEWS-03 | Phase 1 | Pending |
+| NEWS-04 | Phase 1 | Pending |
+| NEWS-05 | Phase 1 | Pending |
+| NEWS-06 | Phase 1 | Pending |
+| NEWS-07 | Phase 1 | Pending |
+| AMTH-01 | Phase 1 | Pending |
+| AMTH-02 | Phase 1 | Pending |
+| EXEC-01 | Phase 2 | Pending |
+| EXEC-02 | Phase 2 | Pending |
+| EXEC-03 | Phase 2 | Pending |
+| EXEC-04 | Phase 2 | Pending |
+| EXEC-05 | Phase 2 | Pending |
+| FINP-01 | Phase 2 | Pending |
+| FINP-02 | Phase 2 | Pending |
+| FINP-03 | Phase 2 | Pending |
+| FINP-04 | Phase 2 | Pending |
+| FINP-05 | Phase 2 | Pending |
+| FINP-06 | Phase 2 | Pending |
+| WTCH-01 | Phase 2 | Pending |
+| WTCH-02 | Phase 2 | Pending |
+| WTCH-03 | Phase 2 | Pending |
+| WTCH-04 | Phase 2 | Pending |
+| MRKT-01 | Phase 3 | Pending |
+| MRKT-02 | Phase 3 | Pending |
+| MRKT-03 | Phase 3 | Pending |
+| MRKT-04 | Phase 3 | Pending |
+| DEAL-01 | Phase 3 | Pending |
+| DEAL-02 | Phase 3 | Pending |
+| DEAL-03 | Phase 3 | Pending |
+| LEAD-01 | Phase 3 | Pending |
+| LEAD-02 | Phase 3 | Pending |
+| LEAD-03 | Phase 3 | Pending |
+| OPER-01 | Phase 4 | Pending |
+| OPER-02 | Phase 4 | Pending |
+| OPER-03 | Phase 4 | Pending |
+| COMP-01 | Phase 4 | Pending |
+| COMP-02 | Phase 4 | Pending |
+| COMP-03 | Phase 4 | Pending |
+| SSDD-01 | Phase 4 | Pending |
+| SSDD-02 | Phase 4 | Pending |
+| SSDD-03 | Phase 4 | Pending |
+| AMVA-01 | Phase 5 | Pending |
+| AMVA-02 | Phase 5 | Pending |
+| AMVA-03 | Phase 5 | Pending |
+| AMVA-04 | Phase 5 | Pending |
+| AMVA-05 | Phase 5 | Pending |
+| WTMF-01 | Phase 5 | Pending |
+| WTMF-02 | Phase 5 | Pending |
+| WTMF-03 | Phase 5 | Pending |
+| TVW-01 | Phase 5 | Pending |
+| TVW-02 | Phase 5 | Pending |
+| TVW-03 | Phase 5 | Pending |
+| TVW-04 | Phase 5 | Pending |
+| TVW-05 | Phase 5 | Pending |
+| DRVI-01 | Phase 5 | Pending |
+| DRVI-02 | Phase 5 | Pending |
+| DRVI-03 | Phase 5 | Pending |
+| DRVI-04 | Phase 5 | Pending |
+| DRVI-05 | Phase 5 | Pending |
+| GLBL-01 | Phase 6 | Pending |
+| GLBL-02 | Phase 6 | Pending |
+| GLBL-03 | Phase 6 | Pending |
+| GLBL-04 | Phase 6 | Pending |
 
 **Coverage:**
 - v1 requirements: 70 total
-- Mapped to phases: 70
+- Mapped to phases: 70/70 (100%)
 - Unmapped: 0
 
 ---
-*Requirements defined: 2026-02-15*
-*Last updated: 2026-02-15 after roadmap creation*
+*Requirements defined: 2026-02-20*
+*Last updated: 2026-02-21 after roadmap creation*

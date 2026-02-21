@@ -28,20 +28,7 @@ import type {
   OperationsSummaryStats,
 } from "../../types/operations";
 import type { AMServiceLine } from "../../types/am-theme";
-import type { SourceInfo } from "../../types/source";
-
-// ---------------------------------------------------------------------------
-// Source helpers
-// ---------------------------------------------------------------------------
-
-function screenerSource(lastUpdated: string): SourceInfo {
-  return {
-    source: "Screener.in consolidated financial data",
-    confidence: "verified",
-    tier: 1,
-    lastUpdated,
-  };
-}
+import { screenerSource } from "./source-helpers";
 
 // ---------------------------------------------------------------------------
 // Company data bundle (local to this adapter)

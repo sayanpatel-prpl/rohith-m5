@@ -25,38 +25,7 @@ import type {
   PolicyEntry,
   DataConfidence,
 } from "../../types/market-pulse";
-import type { SourceInfo } from "../../types/source";
-
-// ---------------------------------------------------------------------------
-// Helper: source info constructors
-// ---------------------------------------------------------------------------
-
-function sovrennSource(lastUpdated: string): SourceInfo {
-  return {
-    source: "Sovrenn Intelligence curated analysis",
-    confidence: "derived",
-    tier: 3,
-    lastUpdated,
-  };
-}
-
-function screenerSource(lastUpdated: string): SourceInfo {
-  return {
-    source: "Screener.in consolidated financial data",
-    confidence: "verified",
-    tier: 1,
-    lastUpdated,
-  };
-}
-
-function derivedSource(lastUpdated: string): SourceInfo {
-  return {
-    source: "Cross-source derived analysis",
-    confidence: "derived",
-    tier: 4,
-    lastUpdated,
-  };
-}
+import { sovrennSource, screenerSource, derivedSource } from "./source-helpers";
 
 // ---------------------------------------------------------------------------
 // Demand Signals (MRKT-01, MRKT-04)
@@ -442,7 +411,7 @@ export function buildMarketPulseData(): MarketPulseData {
     demandSignals: extractDemandSignals(lastUpdated),
     inputCosts: extractInputCosts(lastUpdated),
     commodityOutlook: buildCommodityOutlook(lastUpdated),
-    amThoughtLeadership: buildAMThoughtLeadership(),
+    amThoughtLeadership: null,
     policyTracker: extractPolicies(lastUpdated),
   };
 }

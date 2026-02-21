@@ -42,23 +42,24 @@ export function TopBar() {
   }
 
   return (
-    <header className="h-11 flex items-center justify-between px-5 bg-surface-raised border-b border-surface-overlay shrink-0">
+    <header className="h-12 flex items-center justify-between px-6 bg-surface-raised shadow-sm shrink-0"
+      style={{ borderBottom: "1px solid oklch(0.90 0.01 250)" }}>
       {/* Left: Section title + data recency */}
       <div className="flex items-center gap-3">
-        <h1 className="text-sm font-semibold text-text-primary">
+        <h1 className="text-base font-semibold text-text-primary tracking-tight">
           {sectionTitle}
         </h1>
-        <span className="text-xs text-text-muted">
+        <span className="text-xs text-text-muted px-2 py-0.5 rounded-full bg-surface-overlay">
           Q3 FY2026 | Screener.in
         </span>
       </div>
 
       {/* Right: Dark mode toggle + Print */}
-      <div className="flex items-center gap-2" data-print-hide>
+      <div className="flex items-center gap-1" data-print-hide>
         <button
           onClick={cycleTheme}
-          className="flex items-center gap-1 text-xs text-text-secondary hover:text-text-primary
-                     px-2 py-1 rounded hover:bg-surface-overlay transition-colors cursor-pointer"
+          className="flex items-center gap-1.5 text-xs text-text-secondary hover:text-text-primary
+                     px-2.5 py-1.5 rounded-md hover:bg-surface-overlay transition-colors cursor-pointer"
           title={`Theme: ${THEME_LABELS[theme]}`}
         >
           <span className="text-sm">{THEME_ICONS[theme]}</span>
@@ -67,8 +68,8 @@ export function TopBar() {
 
         <button
           onClick={() => window.print()}
-          className="flex items-center gap-1 text-xs text-text-secondary hover:text-text-primary
-                     px-2 py-1 rounded hover:bg-surface-overlay transition-colors cursor-pointer"
+          className="flex items-center gap-1.5 text-xs text-text-secondary hover:text-text-primary
+                     px-2.5 py-1.5 rounded-md hover:bg-surface-overlay transition-colors cursor-pointer"
           title="Print report"
         >
           <span className="text-sm">{"\u2399"}</span>

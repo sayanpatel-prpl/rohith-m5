@@ -30,20 +30,7 @@ import type {
   PipelineSummary,
 } from "../../types/am-value-add";
 import type { AMServiceLine } from "../../types/am-theme";
-import type { SourceInfo } from "../../types/source";
-
-// ---------------------------------------------------------------------------
-// Source helpers
-// ---------------------------------------------------------------------------
-
-function crossRefSource(lastUpdated: string): SourceInfo {
-  return {
-    source: "Cross-section derived analysis",
-    confidence: "derived",
-    tier: 4,
-    lastUpdated,
-  };
-}
+import { crossRefSource } from "./source-helpers";
 
 // ---------------------------------------------------------------------------
 // Pipeline stage ordering (for dedup: higher = stronger signal)
