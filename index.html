@@ -196,11 +196,61 @@
     }
     .theme-toggle:hover { color: var(--accent-gold); background: var(--accent-gold-muted); }
 
+    /* === Company Filter Bar (global pill filter — PRI-113) === */
+    .company-filter-bar {
+      display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+      padding: 10px 24px;
+      background: var(--surface-raised);
+      border-bottom: 1px solid var(--surface-overlay);
+      position: fixed; top: 48px; left: 260px; right: 0;
+      z-index: 49; overflow-x: auto;
+    }
+    .company-filter-bar .cf-label {
+      font-size: 10px; font-weight: 600; color: var(--text-muted);
+      text-transform: uppercase; letter-spacing: 0.06em; margin-right: 4px; white-space: nowrap;
+    }
+    .company-pill {
+      font-size: 11px; font-weight: 500; padding: 4px 12px;
+      border-radius: var(--radius-full); border: 1px solid var(--surface-overlay);
+      background: transparent; color: var(--text-secondary);
+      cursor: pointer; font-family: var(--font-body); transition: all 0.2s ease; white-space: nowrap;
+    }
+    .company-pill:hover { color: var(--text-primary); border-color: var(--accent-gold); }
+    .company-pill.active { background: var(--accent-gold); color: #fff; border-color: var(--accent-gold); }
+    .company-pill.all-pill { font-weight: 600; }
+    .company-filter-notice {
+      background: var(--accent-gold-muted); border: 1px solid var(--accent-gold-border);
+      border-radius: var(--radius-md); padding: 8px 14px;
+      font-size: 11px; color: var(--accent-gold); margin-bottom: 14px; display: none;
+    }
+    .company-filter-notice.visible { display: flex; align-items: center; gap: 6px; }
+
+    /* === Product Mix Bar (company modal — PRI-115) === */
+    .product-mix-bar-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+    .product-mix-bar-row .pm-label {
+      font-size: 11px; color: var(--text-secondary);
+      width: 140px; flex-shrink: 0; text-align: right;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .product-mix-bar-row .pm-track {
+      flex: 1; height: 18px; background: var(--surface-overlay);
+      border-radius: 4px; overflow: hidden; position: relative;
+    }
+    .product-mix-bar-row .pm-fill {
+      height: 100%; border-radius: 4px;
+      background: linear-gradient(90deg, var(--accent-gold), var(--accent-gold-light));
+      transition: width 0.4s ease;
+    }
+    .product-mix-bar-row .pm-pct {
+      font-size: 11px; font-family: var(--font-mono); color: var(--text-muted);
+      width: 36px; text-align: right; flex-shrink: 0;
+    }
+
     /* === Main Content (v2 AppShell.tsx) === */
     .main {
       margin-left: 260px;
       flex: 1;
-      padding: 72px 36px 48px;
+      padding: 108px 36px 48px;
       max-width: 1600px;
     }
 
@@ -209,12 +259,6 @@
       margin-bottom: 20px;
       padding-bottom: 14px;
       border-bottom: 2px solid var(--surface-overlay);
-    }
-    .section-header h2 {
-      font-size: 22px;
-      font-weight: 700;
-      letter-spacing: -0.025em;
-      font-family: var(--font-display);
     }
     .section-header .section-subtitle {
       font-size: 14px;
@@ -438,8 +482,9 @@
       border-radius: 8px;
       padding: 14px 18px; margin-bottom: 12px;
       border-left: 4px solid var(--surface-overlay);
-      transition: border-color 0.2s ease;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
+    .alert-card:hover { border-color: var(--accent-gold-border); box-shadow: 0 2px 8px var(--accent-gold-muted); }
     .alert-card.alert-critical { border-left-color: var(--negative); }
     .alert-card.alert-warning { border-left-color: var(--warning); }
     .alert-card.alert-info { border-left-color: var(--brand-accent); }
@@ -503,29 +548,70 @@
     .dark .tier-estimated { background: rgba(245,158,11,0.12); color: var(--warning-500); border-color: rgba(245,158,11,0.2); }
     .dark .tier-derived { background: rgba(255,255,255,0.06); color: var(--text-muted); border-color: rgba(255,255,255,0.08); }
 
-    /* === Intelligence Grade Badge === */
-    .intel-grade {
-      display: inline-flex; align-items: center; justify-content: center;
-      width: 52px; height: 52px; border-radius: 50%; font-size: 20px; font-weight: 700;
-      border: 2.5px solid; cursor: default; position: relative;
+    /* === Mock/Estimated Data Label === */
+    .mock-data-label {
+      display: inline-flex; align-items: center;
+      font-size: 9px; font-weight: 600; padding: 1px 6px;
+      border-radius: var(--radius-full);
+      background: rgba(239,68,68,0.08); color: var(--danger-500);
+      border: 1px solid rgba(239,68,68,0.15);
+      letter-spacing: 0.02em;
+      margin-left: 6px;
+    }
+    .dark .mock-data-label {
+      background: rgba(239,68,68,0.12);
+      border-color: rgba(239,68,68,0.20);
+    }
+
+    /* === EBITDA Movement Story Cards === */
+    .ebitda-story-card {
+      padding: 16px 20px;
+      border-left: 3px solid var(--brand-accent);
+    }
+    .ebitda-story-card h4 {
+      font-size: 13px; font-weight: 700; margin: 0 0 8px;
+      font-family: var(--font-display);
+    }
+    .ebitda-trend-line {
       font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+      line-height: 1.7;
     }
-    .intel-grade.grade-a { background: var(--success-50); color: var(--success-700); border-color: var(--success-700); }
-    .intel-grade.grade-b { background: var(--warning-50); color: var(--warning-700); border-color: var(--warning-700); }
-    .intel-grade.grade-c { background: var(--danger-50); color: var(--danger-700); border-color: var(--danger-700); }
-    .dark .intel-grade.grade-a { background: rgba(16,185,129,0.12); color: var(--success-500); border-color: var(--success-500); }
-    .dark .intel-grade.grade-b { background: rgba(245,158,11,0.12); color: var(--warning-500); border-color: var(--warning-500); }
-    .dark .intel-grade.grade-c { background: rgba(239,68,68,0.12); color: var(--danger-500); border-color: var(--danger-500); }
-    .intel-grade-tooltip {
-      display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
-      width: 280px; background: var(--surface); border: 1px solid var(--surface-overlay);
-      border-radius: var(--radius); padding: 12px; font-size: 11px; font-weight: 400;
-      color: var(--text-secondary); z-index: 100; box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      margin-top: 8px; text-align: left; line-height: 1.5;
+    .ebitda-trend-line .trend-year { color: var(--text-muted); font-size: 10px; }
+    .ebitda-trend-line .trend-val { font-weight: 600; color: var(--text-primary); }
+    .ebitda-trend-line .trend-val.declining { color: var(--negative); }
+    .ebitda-trend-line .trend-val.improving { color: var(--positive); }
+    .ebitda-trend-line .trend-arrow { color: var(--text-muted); margin: 0 2px; }
+    .ebitda-drivers {
+      display: flex; gap: 8px; margin-bottom: 10px; flex-wrap: wrap;
     }
-    .dark .intel-grade-tooltip { background: var(--gray-800); border-color: var(--gray-700); }
-    .intel-grade:hover .intel-grade-tooltip { display: block; }
-    .intel-grade-label { font-size: 9px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 4px; text-align: center; }
+    .ebitda-driver {
+      font-size: 11px; padding: 3px 8px;
+      border-radius: var(--radius-sm);
+      display: inline-flex; align-items: center; gap: 4px;
+    }
+    .ebitda-driver.up {
+      background: var(--success-50); color: var(--success-700);
+      border: 1px solid rgba(4,120,87,0.12);
+    }
+    .ebitda-driver.down {
+      background: var(--danger-50); color: var(--danger-700);
+      border: 1px solid rgba(185,28,28,0.12);
+    }
+    .dark .ebitda-driver.up {
+      background: rgba(16,185,129,0.10); color: var(--success-500);
+      border-color: rgba(16,185,129,0.18);
+    }
+    .dark .ebitda-driver.down {
+      background: rgba(239,68,68,0.10); color: var(--danger-500);
+      border-color: rgba(239,68,68,0.18);
+    }
+    .ebitda-narrative {
+      font-size: 12px; color: var(--text-secondary);
+      line-height: 1.65; margin-bottom: 6px;
+    }
 
     /* === Competitive Heatmap === */
     .heatmap-table { width: 100%; border-collapse: collapse; font-size: 11px; }
@@ -557,13 +643,15 @@
     .dte-badge {
       display: inline-flex; align-items: center; font-size: 9px; font-weight: 600;
       padding: 1px 6px; border-radius: var(--radius-full);
-      background: var(--surface-overlay); color: var(--text-muted);
+      background: var(--accent-gold-muted); color: var(--accent-gold);
+      border: 1px solid var(--accent-gold-border);
       font-family: var(--font-mono); margin-left: 6px;
     }
-    .dte-badge.urgent { background: var(--danger-50); color: var(--danger-700); }
-    .dte-badge.soon { background: var(--warning-50); color: var(--warning-700); }
-    .dark .dte-badge.urgent { background: rgba(239,68,68,0.12); color: var(--danger-500); }
-    .dark .dte-badge.soon { background: rgba(245,158,11,0.12); color: var(--warning-500); }
+    .dte-badge.urgent { background: var(--danger-50); color: var(--danger-700); border-color: rgba(185,28,28,0.15); }
+    .dte-badge.soon { background: var(--warning-50); color: var(--warning-700); border-color: rgba(180,83,9,0.15); }
+    .dark .dte-badge { background: var(--accent-gold-muted); color: var(--accent-gold); border-color: var(--accent-gold-border); }
+    .dark .dte-badge.urgent { background: rgba(239,68,68,0.12); color: var(--danger-500); border-color: rgba(239,68,68,0.2); }
+    .dark .dte-badge.soon { background: rgba(245,158,11,0.12); color: var(--warning-500); border-color: rgba(245,158,11,0.2); }
 
     /* === Expandable/Collapsible === */
     .expandable-toggle { cursor: pointer; display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 500; color: var(--text-muted); user-select: none; }
@@ -611,46 +699,6 @@
     .tvw-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px; }
     .tvw-col-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 4px; font-weight: 600; }
     .tvw-col-text { font-size: 12px; line-height: 1.6; color: var(--text-secondary); }
-
-    /* === Leadership Timeline === */
-    .timeline { position: relative; padding-left: 24px; }
-    .timeline::before { content: ''; position: absolute; left: 5px; top: 0; bottom: 0; width: 1px; background: var(--surface-overlay); }
-    .timeline-item { position: relative; padding-bottom: 20px; }
-    .timeline-item:last-child { padding-bottom: 0; }
-    .timeline-dot { position: absolute; left: -24px; top: 3px; width: 11px; height: 11px; border-radius: 50%; border: 2px solid var(--surface); }
-    .timeline-dot.promoter-change { background: var(--danger-500); }
-    .timeline-dot.institutional-shift { background: var(--warning-500); }
-    .timeline-dot.management-commentary { background: var(--info-500); }
-    .timeline-dot.shareholding-alert { background: var(--danger-500); }
-    .timeline-date { font-size: 10px; color: var(--text-muted); font-family: var(--font-mono); }
-    .timeline-type { display: inline-flex; font-size: 9px; padding: 1px 6px; border-radius: var(--radius-full); background: var(--surface-overlay); color: var(--text-muted); margin-left: 6px; }
-    .timeline-title { font-size: 12px; font-weight: 600; color: var(--text-primary); margin-top: 3px; }
-    .timeline-detail { font-size: 11px; color: var(--text-secondary); line-height: 1.5; margin-top: 2px; }
-
-    /* === Governance Risk Scoring === */
-    .risk-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-    .risk-card { background: var(--surface-raised); border: 1px solid var(--surface-overlay); border-radius: var(--radius); padding: 16px; transition: border-color 0.2s ease; }
-    .risk-card:hover { border-color: var(--accent-gold-border); }
-    .risk-header { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
-    .risk-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-    .risk-dot.red { background: var(--danger-500); }
-    .risk-dot.amber { background: var(--warning-500); }
-    .risk-dot.green { background: var(--success-500); }
-    .risk-name { font-size: 13px; font-weight: 600; color: var(--text-primary); }
-    .risk-factors { margin: 0; padding-left: 18px; }
-    .risk-factors li { font-size: 11px; color: var(--text-secondary); line-height: 1.6; }
-
-    /* === Promoter Holdings Accordion === */
-    .promo-card { border: 1px solid var(--surface-overlay); border-radius: var(--radius); margin-bottom: 10px; overflow: hidden; }
-    .promo-header { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; cursor: pointer; background: var(--surface-raised); }
-    .promo-header:hover { background: var(--surface-overlay); }
-    .promo-company { font-size: 13px; font-weight: 600; }
-    .promo-pct { font-size: 12px; font-family: var(--font-mono); }
-    .promo-change { font-size: 11px; font-family: var(--font-mono); margin-left: 8px; }
-    .promo-chevron { font-size: 10px; color: var(--text-muted); transition: transform 0.2s; }
-    .promo-card.open .promo-chevron { transform: rotate(90deg); }
-    .promo-body { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; padding: 0 16px; }
-    .promo-card.open .promo-body { max-height: 400px; padding: 12px 16px; }
 
     /* === Ops Metrics Table === */
     .ops-table { width: 100%; border-collapse: collapse; font-size: 11px; }
@@ -834,10 +882,11 @@
 
     /* === Pipeline Summary Bar === */
     .pipeline-bar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 16px; }
-    .pipeline-pill { font-size: 10px; padding: 3px 10px; border-radius: 12px; font-weight: 500; }
-    .pipeline-pill.identified { background: var(--surface-overlay); color: var(--text-secondary); }
+    .pipeline-pill { font-size: 10px; padding: 3px 10px; border-radius: 12px; font-weight: 500; border: 1px solid transparent; }
+    .pipeline-pill.identified { background: var(--accent-gold-muted); color: var(--accent-gold); border-color: var(--accent-gold-border); }
     .pipeline-pill.qualified { background: var(--warning-100); color: var(--warning-700); }
     .pipeline-pill.outreach { background: var(--success-100); color: var(--success-700); }
+    .dark .pipeline-pill.identified { background: var(--accent-gold-muted); color: var(--accent-gold); border-color: var(--accent-gold-border); }
     .dark .pipeline-pill.qualified { background: rgba(245,158,11,0.12); color: var(--warning-500); }
     .dark .pipeline-pill.outreach { background: rgba(34,197,94,0.12); color: var(--success-500); }
 
@@ -881,7 +930,8 @@
     @media (max-width: 900px) {
       .sidebar { width: 200px; }
       .topbar { left: 200px; }
-      .main { margin-left: 200px; padding: 68px 20px 20px; }
+      .company-filter-bar { left: 200px; }
+      .main { margin-left: 200px; padding: 104px 20px 20px; }
       .card-grid.cols-2, .card-grid.cols-3, .card-grid.cols-4 { grid-template-columns: 1fr; }
       .stat-row { flex-direction: column; }
     }
@@ -908,7 +958,6 @@
       <div class="nav-group-label">Analysis</div>
       <a class="nav-item" data-section="deals">Deals &amp; Transactions</a>
       <a class="nav-item" data-section="operations">Operational Intelligence</a>
-      <a class="nav-item" data-section="leadership">Leadership &amp; Governance</a>
       <a class="nav-item" data-section="competitive">Competitive Moves</a>
 
       <div class="nav-group-label">Strategy</div>
@@ -926,7 +975,6 @@
   <div class="topbar">
     <div class="topbar-left">
       <span class="topbar-title" id="topbar-section-title">Financial Performance</span>
-      <span class="data-tag">Q3 FY2026 | Screener.in</span>
     </div>
     <div class="topbar-right">
       <button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark/light mode">
@@ -939,33 +987,20 @@
     </div>
   </div>
 
+  <!-- Company Filter Bar (global — PRI-113) -->
+  <div class="company-filter-bar" id="companyFilterBar">
+    <span class="cf-label">Companies:</span>
+    <!-- Pills rendered dynamically by JS from COMPANIES array -->
+  </div>
+
   <!-- Main Content -->
   <div class="main">
 
     <!-- ==================== EXECUTIVE SNAPSHOT ==================== -->
     <div id="section-executive" class="section-panel">
-      <div class="section-header" style="display:flex; justify-content:space-between; align-items:flex-start;">
-        <div>
-          <h2>Executive Snapshot</h2>
-          <p class="section-subtitle">Sector-wide intelligence at a glance</p>
-          <span class="data-tag">Feb 2026 &middot; Consumer Durables</span>
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:center;">
-          <div class="intel-grade grade-b">B+
-            <div class="intel-grade-tooltip">
-              <strong style="font-size:12px;color:var(--text-primary);">Intelligence Grade: B+</strong><br><br>
-              <strong>Methodology:</strong> Composite score across data freshness, source diversity, confidence tier coverage, and cross-section signal density.<br><br>
-              <strong>Contributing Factors:</strong>
-              <ul style="margin:6px 0 0 16px;padding:0;">
-                <li>16 companies tracked with Q3 FY26 financials (Tier 1)</li>
-                <li>157 CoSTAR signals across 3 companies (Tier 1)</li>
-                <li>18 deals with verified sources (Tier 1&ndash;2)</li>
-                <li>Gap: Limited real-time pricing &amp; channel data</li>
-              </ul>
-            </div>
-          </div>
-          <div class="intel-grade-label">Intel Grade</div>
-        </div>
+      <div class="section-header">
+        <p class="section-subtitle">Sector-wide intelligence at a glance</p>
+        <span class="data-tag">Feb 2026 &middot; Consumer Durables</span>
       </div>
 
       <h3 class="sub-header">Month in 5 Bullets</h3>
@@ -1058,7 +1093,7 @@
             <div class="tvw-col-text">Revenue -18.5% YoY, net loss of Rs 34 Cr, EBITDA margin collapsed to 4.1%. Worst performer in sector by both metrics.</div>
           </div>
         </div>
-        <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-derived">Derived</span> Concall vs Screener.in</span></div>
+        <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-derived">Derived</span> Concall transcripts</span></div>
       </div>
 
       <div class="tvw-card">
@@ -1076,7 +1111,7 @@
             <div class="tvw-col-text">EBITDA at 7.4% &mdash; 260 bps below target. Material cost outpacing revenue growth (+19.7% vs +14.6%). Chairman admits &ldquo;sales process is weak&rdquo; for multiple years running.</div>
           </div>
         </div>
-        <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-derived">Derived</span> CoSTAR IFB signals #2, #3</span></div>
+        <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-derived">Derived</span> Transcript Intel IFB signals #2, #3</span></div>
       </div>
 
       <div class="tvw-card">
@@ -1094,7 +1129,7 @@
             <div class="tvw-col-text">OPM at 3.86% &mdash; near-zero margin of safety. Dealer dependency increased (99.15% &rarr; 99.33%). Zero D2C infrastructure. Ad spend +62% YoY to support &ldquo;share gains&rdquo;.</div>
           </div>
         </div>
-        <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-derived">Derived</span> CoSTAR Whirlpool signals #7, #9, #14</span></div>
+        <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-derived">Derived</span> Transcript Intel Whirlpool signals #7, #9, #14</span></div>
       </div>
 
       <div class="tvw-card">
@@ -1112,7 +1147,7 @@
             <div class="tvw-col-text">Revenue +14.3%, EBITDA +21% growth, near debt-free (D/E 0.03x), ROCE 25.3%. Outperforming narrative on every financial metric. Strongest overall execution in sector.</div>
           </div>
         </div>
-        <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-derived">Derived</span> Screener.in Q3 FY26</span></div>
+        <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-derived">Derived</span> Company Filings Q3 FY26</span></div>
       </div>
 
       <div class="tvw-card">
@@ -1130,16 +1165,15 @@
             <div class="tvw-col-text">ROCE at 40% (sector-leading), negative working capital (-7 days), successful IT hardware 481% growth, camera module scale-up on track. Management under-selling execution quality.</div>
           </div>
         </div>
-        <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-derived">Derived</span> CoSTAR Dixon signals #33-51</span></div>
+        <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-derived">Derived</span> Transcript Intel Dixon signals #33-51</span></div>
       </div>
 
-      <div class="section-footer">Data as of Feb 2026 | Sources: Industry reports, company filings, CoSTAR signal cross-reference</div>
+      <div class="section-footer">Data as of Feb 2026 | Sources: Industry reports, company filings, Transcript Intel signal cross-reference</div>
     </div>
 
     <!-- ==================== MARKET PULSE ==================== -->
     <div id="section-market-pulse" class="section-panel">
       <div class="section-header">
-        <h2>Market Pulse</h2>
         <p class="section-subtitle">Macro context for BD opportunity identification &mdash; demand signals, input costs, and policy landscape</p>
         <span class="data-tag">Feb 2026 &middot; Demand, Costs &amp; Channels</span>
       </div>
@@ -1159,7 +1193,7 @@
             <span class="affected-co">Voltas</span>
             <span class="affected-co">Crompton</span>
           </div>
-          <span class="source-attr"><span class="source-tier tier-verified">Verified</span> Screener.in</span>
+          <span class="source-attr"><span class="source-tier tier-verified">Verified</span> Company Filings</span>
         </div>
         <div class="signal-card">
           <div class="signal-header">
@@ -1200,7 +1234,7 @@
           </div>
           <div class="signal-value val-negative">$12,500/ton</div>
           <div class="cost-change">QoQ: +18% &middot; YoY: +32%</div>
-          <div class="signal-detail">JPMorgan Q2 2026 target. Refined shortfall 150K tonnes. AI data centers consuming up to 50K tons per site. Spot buying now prohibitively risky.</div>
+          <div class="signal-detail">JPMorgan Q2 2026 target. Refined shortfall 150K tonnes. AI data centers consuming up to 50K tons per site. <a style="color:var(--info-500);cursor:pointer;font-size:10px" onclick="document.querySelector('[data-section=operations]').click()">Full analysis in Operations &rarr;</a></div>
           <div class="affected-companies">
             <span class="affected-co">Blue Star</span>
             <span class="affected-co">Voltas</span>
@@ -1330,7 +1364,7 @@
           <span class="policy-dot active"></span>
           <div>
             <div class="policy-name">White Goods PLI Scheme (Round 4) <span class="policy-status badge badge-green">Active</span></div>
-            <div class="policy-detail">85 companies enrolled. Rs 11,198 Cr cumulative investment. 5 new entrants in Round 4 (Kirloskar, Indo Asia, Kryon, Godrej, Pranav Vikas). Production target Rs 1.9L Cr.</div>
+            <div class="policy-detail">85 companies enrolled. Rs 11,198 Cr cumulative investment. 5 new entrants in Round 4. Production target Rs 1.9L Cr. <a style="color:var(--info-500);cursor:pointer;font-size:10px" onclick="document.querySelector('[data-section=operations]').click()">Full PLI breakdown in Operations &rarr;</a></div>
             <div class="policy-affects">Affects: Amber, Dixon, Havells, Godrej, Kirloskar Pneumatic</div>
           </div>
         </div>
@@ -1338,7 +1372,7 @@
           <span class="policy-dot active"></span>
           <div>
             <div class="policy-name">ECMS (Electronics Component Manufacturing) <span class="policy-status badge badge-green">Active</span></div>
-            <div class="policy-detail">Rs 40,000 Cr allocation in Union Budget 2026. 46 approvals with Rs 54,567 Cr committed investment. Targets compressors, PCBs, motors, display modules.</div>
+            <div class="policy-detail">Rs 40,000 Cr allocation in Union Budget 2026. 46 approvals with Rs 54,567 Cr committed investment. <a style="color:var(--info-500);cursor:pointer;font-size:10px" onclick="document.querySelector('[data-section=operations]').click()">Full ECMS details in Operations &rarr;</a></div>
             <div class="policy-affects">Affects: Amber/ILJIN, Dixon, Indigrid</div>
           </div>
         </div>
@@ -1368,15 +1402,14 @@
         </div>
       </div>
 
-      <div class="section-footer">Data as of Feb 2026 | Sources: Screener.in, Trendlyne, company filings, DPIIT, BEE, MoCI</div>
+      <div class="section-footer">Data as of Feb 2026 | Sources: Company filings, DPIIT, BEE, MoCI</div>
     </div>
 
     <!-- ==================== FINANCIAL PERFORMANCE ==================== -->
     <div id="section-financial" class="section-panel active">
       <div class="section-header">
-        <h2>Financial Performance</h2>
         <p class="section-subtitle">Quarterly financial benchmarking across 16 tracked companies</p>
-        <span class="data-tag">Q3 FY2026 &middot; Screener.in</span>
+        <span class="data-tag">Q3 FY2026 &middot; Company Filings</span>
       </div>
 
       <div style="margin-bottom:12px; display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
@@ -1398,10 +1431,10 @@
             <th data-sort="wcDays" class="right">WC Days <span class="sort-arrow">&#9670;</span></th>
             <th data-sort="roce" class="right">ROCE <span class="sort-arrow">&#9670;</span></th>
             <th data-sort="de" class="right">D/E <span class="sort-arrow">&#9670;</span></th>
-            <th data-sort="pe" class="right derived-col" title="Price-to-Earnings ratio. Source: Screener.in">P/E <span class="sort-arrow">&#9670;</span></th>
-            <th data-sort="netProfit" class="right derived-col" title="Net Profit in Crores. Source: Screener.in">Net Profit (Cr) <span class="sort-arrow">&#9670;</span></th>
-            <th data-sort="invDays" class="right derived-col" title="Inventory Days. Derived from Screener.in ratio analysis">Inv Days <span class="sort-arrow">&#9670;</span></th>
-            <th data-sort="debtorDays" class="right derived-col" title="Debtor Days. Derived from Screener.in ratio analysis">Debtor Days <span class="sort-arrow">&#9670;</span></th>
+            <th data-sort="pe" class="right derived-col" title="Price-to-Earnings ratio. Source: Company filings">P/E <span class="sort-arrow">&#9670;</span></th>
+            <th data-sort="netProfit" class="right derived-col" title="Net Profit in Crores. Source: Company filings">Net Profit (Cr) <span class="sort-arrow">&#9670;</span></th>
+            <th data-sort="invDays" class="right derived-col" title="Inventory Days. Derived from company filings">Inv Days <span class="sort-arrow">&#9670;</span></th>
+            <th data-sort="debtorDays" class="right derived-col" title="Debtor Days. Derived from company filings">Debtor Days <span class="sort-arrow">&#9670;</span></th>
             <th data-sort="ccc" class="right derived-col" title="Cash Conversion Cycle = Inv Days + Debtor Days - Days Payable">CCC <span class="sort-arrow">&#9670;</span></th>
             <th style="width:32px"></th>
           </tr>
@@ -1410,13 +1443,12 @@
         </tbody>
       </table>
       </div>
-      <div class="section-footer"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Screener.in, scraped 2026-02-18</span> &middot; Q3 FY2026</div>
+      <div class="section-footer"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Company Filings, Q3 FY2026</span> &middot; Q3 FY2026</div>
     </div>
 
     <!-- ==================== DEALS & TRANSACTIONS ==================== -->
     <div id="section-deals" class="section-panel">
       <div class="section-header">
-        <h2>Deals &amp; Transactions</h2>
         <p class="section-subtitle">M&amp;A activity, investments, and strategic transactions with advisory angles</p>
         <span class="data-tag">Jan&ndash;Feb 2026 &middot; PE/VC, M&amp;A, QIP</span>
       </div>
@@ -1443,7 +1475,7 @@
           <span class="source-attr"><span class="source-tier tier-verified">Verified</span> VCCEdge</span>
         </div>
         <div class="stat-box">
-          <div class="stat-value">$21.6M</div>
+          <div class="stat-value">$21.6M <span class="mock-data-label">ESTIMATED</span></div>
           <div class="stat-label">Avg PE Deal Size (vs $43.3M Dec)</div>
           <span class="source-attr"><span class="source-tier tier-estimated">Estimated</span> Calculated</span>
         </div>
@@ -1609,12 +1641,12 @@
         </div>
         <div class="pattern-card">
           <div class="pattern-name">D2C &amp; Home Tech Capital Inflow <span class="pattern-conf med">Medium Confidence</span></div>
-          <div class="pattern-desc">ZILO ($15.3M Series A), Material Depot ($10M Series B), Indigrid (Rs 40 Cr seed) &mdash; capital flowing into home interiors, renovation tech, and smart home infrastructure. Avg deal size $21.6M vs $43.3M in Dec signals investor discipline. Focus shifting from top-line growth to unit-economic viability.</div>
+          <div class="pattern-desc">ZILO ($15.3M Series A), Material Depot ($10M Series B), Indigrid (Rs 40 Cr seed) &mdash; capital flowing into home interiors, renovation tech, and smart home infrastructure. Avg deal size $21.6M vs $43.3M in Dec <span class="mock-data-label">ESTIMATED</span> signals investor discipline. Focus shifting from top-line growth to unit-economic viability.</div>
           <div class="pattern-deals">Supporting deals: 5 &middot; <span class="source-attr"><span class="source-tier tier-derived">Derived</span> VCCEdge, Tracxn</span></div>
         </div>
         <div class="pattern-card">
           <div class="pattern-name">Component Localization Push <span class="pattern-conf med">Medium Confidence</span></div>
-          <div class="pattern-desc">PLI Round 4 selections (Kirloskar, Indo Asia, Kryon, Godrej, Pranav Vikas) targeting compressors, copper tubes, motors, heat exchangers. Dixon-HKC JV for display modules. Pattern: India building component manufacturing base to reduce import dependency (CIF imports still Rs 1.25L Cr). ECMS 46 approvals (Rs 54,567 Cr) accelerate this.</div>
+          <div class="pattern-desc">PLI Round 4 selections targeting compressors, copper tubes, motors, heat exchangers. Dixon-HKC JV for display modules. India building component manufacturing base to reduce import dependency (CIF imports still Rs 1.25L Cr). <a style="color:var(--info-500);cursor:pointer;font-size:10px" onclick="document.querySelector('[data-section=operations]').click()">Full PLI/ECMS data in Operations &rarr;</a></div>
           <div class="pattern-deals">Supporting deals: 7 &middot; <span class="source-attr"><span class="source-tier tier-verified">Verified</span> DPIIT, MoCI</span></div>
         </div>
       </div>
@@ -1624,7 +1656,6 @@
     <!-- ==================== OPERATIONAL INTELLIGENCE ==================== -->
     <div id="section-operations" class="section-panel">
       <div class="section-header">
-        <h2>Operational Intelligence</h2>
         <p class="section-subtitle">Manufacturing efficiency, working capital, and operational KPI benchmarking with diagnostic triggers</p>
         <span class="data-tag">Feb 2026 &middot; Supply Chain, Manufacturing, Procurement</span>
       </div>
@@ -1713,7 +1744,7 @@
             <strong>NAND Flash:</strong> +55&ndash;60% &nbsp;|&nbsp; <strong>Enterprise SSD:</strong> +53&ndash;58%<br>
             Driven by HBM reallocation for AI servers. Impacts smart appliances and connected devices.
           </div>
-          <div class="alert-meta"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> TrendForce</span></div>
+          <div class="alert-meta"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> TrendForce</span> &middot; <a style="font-size:10px;color:var(--info-500);cursor:pointer" onclick="document.querySelector('[data-section=market-pulse]').click()">Cost impact in Market Pulse &rarr;</a></div>
         </div>
       </div>
       <h3 class="sub-header" style="margin-top:32px">Operational Metrics Benchmark</h3>
@@ -1727,18 +1758,18 @@
               <th style="cursor:pointer" onclick="sortOps('revGrowth')">Rev Growth% <span class="ops-sort" data-ops="revGrowth">&#9670;</span></th>
               <th style="cursor:pointer" onclick="sortOps('ebitdaMargin')">EBITDA% <span class="ops-sort" data-ops="ebitdaMargin">&#9670;</span></th>
               <th style="cursor:pointer" onclick="sortOps('opm')">OPM% <span class="ops-sort" data-ops="opm">&#9670;</span></th>
-              <th style="cursor:pointer" onclick="sortOps('roce')" title="Return on Capital Employed. Source: Screener.in financial statements.">ROCE% <span class="ops-sort" data-ops="roce">&#9670;</span></th>
+              <th style="cursor:pointer" onclick="sortOps('roce')" title="Return on Capital Employed. Source: Company filings financial statements.">ROCE% <span class="ops-sort" data-ops="roce">&#9670;</span></th>
               <th style="cursor:pointer" onclick="sortOps('wcDays')">WC Days <span class="ops-sort" data-ops="wcDays">&#9670;</span></th>
               <th style="cursor:pointer" onclick="sortOps('de')">D/E <span class="ops-sort" data-ops="de">&#9670;</span></th>
               <th style="cursor:pointer" onclick="sortOps('invDays')">Inv Days <span class="ops-sort" data-ops="invDays">&#9670;</span></th>
               <th style="cursor:pointer" onclick="sortOps('debtorDays')">Debtor Days <span class="ops-sort" data-ops="debtorDays">&#9670;</span></th>
-              <th style="cursor:pointer" onclick="sortOps('ccc')" title="Cash Conversion Cycle = Inventory Days + Debtor Days - Days Payable. Source: Screener.in ratio analysis.">CCC <span class="ops-sort" data-ops="ccc">&#9670;</span></th>
+              <th style="cursor:pointer" onclick="sortOps('ccc')" title="Cash Conversion Cycle = Inventory Days + Debtor Days - Days Payable. Source: Company filings ratio analysis.">CCC <span class="ops-sort" data-ops="ccc">&#9670;</span></th>
             </tr>
           </thead>
           <tbody id="opsTableBody"></tbody>
         </table>
       </div>
-      <div style="margin-bottom:24px"><span class="source-attr"><span class="source-tier tier-derived">Derived</span> Screener.in, Trendlyne &middot; Q3 FY2026 financials</span></div>
+      <div style="margin-bottom:24px"><span class="source-attr"><span class="source-tier tier-derived">Derived</span> Company Filings &middot; Q3 FY2026 financials</span></div>
 
       <h3 class="sub-header" style="margin-top:32px">Diagnostic Triggers</h3>
       <p style="font-size:11px; color:var(--text-muted); margin:-8px 0 12px 0;">Companies showing operational stress signals based on Q3 FY26 financials</p>
@@ -1768,278 +1799,14 @@
         <div class="diag-desc">Working capital days at 43 with ROCE declining. WC efficiency lag despite revenue growth of 10.6%.</div>
         <div class="diag-value">WC: 43 days</div>
       </div>
-      <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-derived">Derived</span> Screener.in Q3 FY26 financials</span></div>
+      <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-derived">Derived</span> Company Filings Q3 FY26 financials</span></div>
 
       <div class="section-footer">Data as of Feb 2026 | Sources: Industry reports, MoCI, DPIIT PLI tracker</div>
-    </div>
-
-    <!-- ==================== LEADERSHIP & GOVERNANCE ==================== -->
-    <div id="section-leadership" class="section-panel">
-      <div class="section-header">
-        <h2>Leadership &amp; Governance</h2>
-        <p class="section-subtitle">Promoter activity, governance signals, and institutional shareholding patterns</p>
-        <span class="data-tag">Feb 2026 &middot; Promoter Moves, Governance, Shareholding</span>
-      </div>
-
-      <div class="stat-row" style="margin-bottom:24px" id="leadershipSummaryStats"></div>
-
-      <h3 class="sub-header">Critical Alerts</h3>
-
-      <div class="alert-card alert-critical">
-        <div class="alert-title">Whirlpool Parent Divestiture <span class="badge badge-red">High Risk</span></div>
-        <div class="alert-body">
-          Whirlpool Corporation (US parent) reducing stake from 51% to ~20% in Whirlpool of India. Signals strategic de-prioritization of India operations. Creates uncertainty around brand investment, R&amp;D commitment, and long-term product roadmap. Potential acquisition target for domestic conglomerates.
-        </div>
-        <div class="alert-meta">AI Flag: Promoter exit probability &mdash; High &middot; <span class="source-attr"><span class="source-tier tier-verified">Verified</span> BSE filings</span></div>
-      </div>
-
-      <div class="alert-card alert-critical">
-        <div class="alert-title">Crompton-Butterfly Merger Collapse <span class="badge badge-red">Governance</span></div>
-        <div class="alert-body">
-          Proposed merger between Crompton Greaves Consumer Electricals and Butterfly Gandhimathi collapsed due to public shareholder disapproval. Butterfly shares rose 7% post-cancellation. Market will no longer accept consolidation plays if valuation metrics and swap ratios don&rsquo;t clearly favor minority shareholders.
-        </div>
-        <div class="alert-meta">AI Flag: Execution risk increasing &middot; <span class="source-attr"><span class="source-tier tier-verified">Verified</span> BSE, Alpha Spread</span></div>
-      </div>
-
-      <div class="alert-card alert-warning">
-        <div class="alert-title">BSE Consumer Durables Index &mdash; Institutional Selling <span class="badge badge-amber">Monitor</span></div>
-        <div class="alert-body">
-          8 consecutive sessions of decline in Jan&ndash;Feb 2026. FIIs and domestic mutual funds selling. Reflects systemic anxiety over ability to navigate inflationary supercycle. Could constrain future capital raising for capacity expansion.
-        </div>
-        <div class="alert-meta">AI Flag: Capital access risk &middot; <span class="source-attr"><span class="source-tier tier-estimated">Estimated</span> ICICI Direct, Market Commentary</span></div>
-      </div>
-
-      <h3 class="sub-header">Amber Enterprises &mdash; Institutional Shareholding (Mar 2025)</h3>
-      <div class="card">
-        <table class="comparison-table">
-          <thead>
-            <tr><th>Institution</th><th class="right">Holding (%)</th><th>Notes</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>Kotak Small Cap Fund</td><td class="right mono">4.0%</td><td>Largest institutional holder</td></tr>
-            <tr><td>Motilal Oswal Focused Fund</td><td class="right mono">2.4%</td><td>Growth-focused</td></tr>
-            <tr><td>Sundram Mutual Fund</td><td class="right mono">2.0%</td><td>Diversified MF</td></tr>
-            <tr><td>HSBC Tax Saver Equity Fund</td><td class="right mono">1.8%</td><td>Tax-advantaged vehicle</td></tr>
-            <tr><td>Goldman Sachs Fund</td><td class="right mono">1.7%</td><td>Foreign institutional</td></tr>
-            <tr><td>DSP Business Cycle Fund</td><td class="right mono">1.4%</td><td>Cyclical strategy</td></tr>
-          </tbody>
-        </table>
-        <p style="font-size:12px;color:var(--text-muted);margin-top:12px">
-          Amber also raised Rs 550 Cr CCPS at ILJIN (Sep 2025) from Singularity Equity, Axis New Opportunities, Nuvama, Motilal Oswal Finvest, Avendus Future Leaders, InCred Wealth, Frangipani Capital.
-        </p>
-        <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> BSE/NSE shareholding pattern, SEBI</span></div>
-      </div>
-      <h3 class="sub-header" style="margin-top:28px">Leadership &amp; Governance Timeline</h3>
-      <div class="card" style="padding:20px 24px">
-        <div class="timeline">
-          <div class="timeline-item">
-            <span class="timeline-dot promoter-change"></span>
-            <div class="timeline-date">Jan 30, 2025 <span class="timeline-type">Promoter Change</span></div>
-            <div class="timeline-title">Whirlpool Corp announces stake reduction 51% &rarr; ~20%</div>
-            <div class="timeline-detail">Existential structural risk: brand, IP, technology pipeline, and BIS compliance all rest on unfinalized BLA/TLA licensing arrangement.</div>
-          </div>
-          <div class="timeline-item">
-            <span class="timeline-dot promoter-change"></span>
-            <div class="timeline-date">Feb 2024 <span class="timeline-type">Promoter Change</span></div>
-            <div class="timeline-title">Whirlpool Mauritius entity sells 24% stake</div>
-            <div class="timeline-detail">Sequential sell-down pattern: first the offshore entity, then the parent. Market now pricing in full de-consolidation by mid-2025.</div>
-          </div>
-          <div class="timeline-item">
-            <span class="timeline-dot institutional-shift"></span>
-            <div class="timeline-date">Sep 2025 <span class="timeline-type">Institutional Shift</span></div>
-            <div class="timeline-title">Amber Enterprises raises Rs 1,000 Cr QIP + Rs 550 Cr CCPS at ILJIN</div>
-            <div class="timeline-detail">ChrysCapital, Singularity Equity, Axis New Opportunities, Nuvama, Motilal Oswal, Avendus, InCred Wealth, Frangipani Capital participate.</div>
-          </div>
-          <div class="timeline-item">
-            <span class="timeline-dot shareholding-alert"></span>
-            <div class="timeline-date">Jan-Feb 2026 <span class="timeline-type">Shareholding Alert</span></div>
-            <div class="timeline-title">BSE Consumer Durables Index &mdash; 8 consecutive sessions of decline</div>
-            <div class="timeline-detail">FII + domestic MF selling intensified. Reflects systemic anxiety over inflationary supercycle. Constrains future capital raising.</div>
-          </div>
-          <div class="timeline-item">
-            <span class="timeline-dot management-commentary"></span>
-            <div class="timeline-date">Feb 2026 <span class="timeline-type">Mgmt Commentary</span></div>
-            <div class="timeline-title">IFB Chairman: &ldquo;Sales process is weak... said quarter-after-quarter, year-after-year&rdquo;</div>
-            <div class="timeline-detail">Multi-year admission of persistent execution failure. Systemic management capability gap driving stagnant core revenue. A&amp;M engagement mandate issued.</div>
-          </div>
-          <div class="timeline-item">
-            <span class="timeline-dot institutional-shift"></span>
-            <div class="timeline-date">Dec 2025 <span class="timeline-type">Institutional Shift</span></div>
-            <div class="timeline-title">Crompton-Butterfly merger collapse &mdash; shareholder disapproval</div>
-            <div class="timeline-detail">Public shareholders rejected swap ratio. Butterfly shares rose 7% post-cancellation. Market will no longer accept consolidation without clear minority value.</div>
-          </div>
-          <div class="timeline-item">
-            <span class="timeline-dot management-commentary"></span>
-            <div class="timeline-date">Jan 2026 <span class="timeline-type">Mgmt Commentary</span></div>
-            <div class="timeline-title">Amber YEIDA land allotment &mdash; Rs 6,785 Cr investment near Jewar Airport</div>
-            <div class="timeline-detail">100 acres at Sector 8 + 16 acres for Ascent-K Circuit. 3,000+ direct jobs. Largest single investment commitment in consumer durables EMS.</div>
-          </div>
-        </div>
-      </div>
-
-      <h3 class="sub-header" style="margin-top:28px">Governance Risk Scoring</h3>
-      <p style="font-size:11px; color:var(--text-muted); margin:-8px 0 14px 0;">Per-company risk assessment: <span style="color:var(--danger-500)">&#9679;</span> Red (severe) &nbsp; <span style="color:var(--warning-500)">&#9679;</span> Amber (elevated) &nbsp; <span style="color:var(--success-500)">&#9679;</span> Green (stable)</p>
-      <div class="risk-grid">
-        <div class="risk-card">
-          <div class="risk-header"><span class="risk-dot red"></span><span class="risk-name">Whirlpool of India</span></div>
-          <ul class="risk-factors">
-            <li>Parent divestiture 51% &rarr; ~20%</li>
-            <li>BLA/TLA licensing not finalized</li>
-            <li>Transfer pricing exposure Rs 105+ Cr</li>
-            <li>Zero D2C despite stated intent</li>
-          </ul>
-        </div>
-        <div class="risk-card">
-          <div class="risk-header"><span class="risk-dot red"></span><span class="risk-name">Crompton Greaves</span></div>
-          <ul class="risk-factors">
-            <li>Butterfly merger collapsed (shareholder rejection)</li>
-            <li>M&amp;A governance credibility damaged</li>
-            <li>Needs to rebuild market trust for future consolidation</li>
-          </ul>
-        </div>
-        <div class="risk-card">
-          <div class="risk-header"><span class="risk-dot amber"></span><span class="risk-name">Bajaj Electricals</span></div>
-          <ul class="risk-factors">
-            <li>Net loss of Rs 34 Cr in Q3</li>
-            <li>Revenue decline -18.5% YoY</li>
-            <li>Potential turnaround or acquisition candidate</li>
-          </ul>
-        </div>
-        <div class="risk-card">
-          <div class="risk-header"><span class="risk-dot amber"></span><span class="risk-name">IFB Industries</span></div>
-          <ul class="risk-factors">
-            <li>Multi-year admission of execution failure</li>
-            <li>A&amp;M mandate for material cost reduction</li>
-            <li>Chairman commentary signals systemic issues</li>
-          </ul>
-        </div>
-        <div class="risk-card">
-          <div class="risk-header"><span class="risk-dot amber"></span><span class="risk-name">Amber Enterprises</span></div>
-          <ul class="risk-factors">
-            <li>Highest D/E in sector (0.77x)</li>
-            <li>Aggressive multi-front expansion strain</li>
-            <li>Execution risk across 5+ simultaneous investments</li>
-          </ul>
-        </div>
-        <div class="risk-card">
-          <div class="risk-header"><span class="risk-dot green"></span><span class="risk-name">Havells India</span></div>
-          <ul class="risk-factors">
-            <li>Near debt-free (D/E 0.03x)</li>
-            <li>Strong institutional holding base</li>
-            <li>Consistent management execution on premiumization</li>
-          </ul>
-        </div>
-        <div class="risk-card">
-          <div class="risk-header"><span class="risk-dot green"></span><span class="risk-name">Blue Star</span></div>
-          <ul class="risk-factors">
-            <li>ROCE 26.2% &mdash; well above sector avg</li>
-            <li>Conservative cost-control approach</li>
-            <li>Stable promoter and institutional base</li>
-          </ul>
-        </div>
-        <div class="risk-card">
-          <div class="risk-header"><span class="risk-dot green"></span><span class="risk-name">Dixon Technologies</span></div>
-          <ul class="risk-factors">
-            <li>ROCE 40% &mdash; sector-leading</li>
-            <li>6 active JVs diversifying exposure</li>
-            <li>Transparent concall disclosures on risk</li>
-          </ul>
-        </div>
-      </div>
-
-      <h3 class="sub-header" style="margin-top:28px">Promoter Holdings Trends</h3>
-      <p style="font-size:11px; color:var(--text-muted); margin:-8px 0 14px 0;">Quarterly Promoter / FII / DII breakdowns for key governance-flagged companies (click to expand)</p>
-
-      <div class="promo-card" onclick="this.classList.toggle('open')">
-        <div class="promo-header">
-          <div><span class="promo-company">Whirlpool of India</span> <span class="promo-pct">~20%</span> <span class="promo-change val-negative">&darr; -31pp</span></div>
-          <span class="promo-chevron">&#9654;</span>
-        </div>
-        <div class="promo-body">
-          <svg width="100%" height="140" viewBox="0 0 400 140" style="font-family:var(--font-mono);font-size:9px">
-            <text x="50" y="12" fill="var(--text-muted)" font-size="9">Promoter</text><text x="160" y="12" fill="var(--text-muted)" font-size="9">FII</text><text x="250" y="12" fill="var(--text-muted)" font-size="9">DII</text>
-            <rect x="8" y="10" width="8" height="8" rx="1" fill="var(--kompete-azure)"/><rect x="130" y="10" width="8" height="8" rx="1" fill="var(--success-500)"/><rect x="225" y="10" width="8" height="8" rx="1" fill="var(--warning-500)"/>
-            <!-- Mar 24 -->
-            <text x="0" y="45" fill="var(--text-muted)">Mar 24</text>
-            <rect x="55" y="30" width="100" height="16" rx="2" fill="var(--kompete-azure)" opacity="0.8"/><text x="108" y="42" fill="white" font-weight="600">51%</text>
-            <rect x="160" y="30" width="30" height="16" rx="2" fill="var(--success-500)" opacity="0.7"/><text x="168" y="42" fill="white" font-weight="600">15%</text>
-            <rect x="195" y="30" width="20" height="16" rx="2" fill="var(--warning-500)" opacity="0.7"/><text x="198" y="42" fill="white" font-weight="600">10%</text>
-            <!-- Sep 24 -->
-            <text x="0" y="72" fill="var(--text-muted)">Sep 24</text>
-            <rect x="55" y="57" width="54" height="16" rx="2" fill="var(--kompete-azure)" opacity="0.8"/><text x="74" y="69" fill="white" font-weight="600">27%</text>
-            <rect x="114" y="57" width="48" height="16" rx="2" fill="var(--success-500)" opacity="0.7"/><text x="130" y="69" fill="white" font-weight="600">24%</text>
-            <rect x="167" y="57" width="36" height="16" rx="2" fill="var(--warning-500)" opacity="0.7"/><text x="177" y="69" fill="white" font-weight="600">18%</text>
-            <!-- Mar 25 (est) -->
-            <text x="0" y="99" fill="var(--text-muted)">Mar 25</text>
-            <rect x="55" y="84" width="40" height="16" rx="2" fill="var(--kompete-azure)" opacity="0.8"/><text x="66" y="96" fill="white" font-weight="600">~20%</text>
-            <rect x="100" y="84" width="56" height="16" rx="2" fill="var(--success-500)" opacity="0.7"/><text x="120" y="96" fill="white" font-weight="600">28%</text>
-            <rect x="161" y="84" width="44" height="16" rx="2" fill="var(--warning-500)" opacity="0.7"/><text x="174" y="96" fill="white" font-weight="600">22%</text>
-          </svg>
-          <p style="font-size:11px;color:var(--text-secondary);margin-top:8px">Promoter stake collapsed from 51% to ~20% in 12 months. FII/DII absorbed the float &mdash; now institutional investors collectively control more than the promoter.</p>
-          <div style="margin-top:6px"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> BSE shareholding patterns</span></div>
-        </div>
-      </div>
-
-      <div class="promo-card" onclick="this.classList.toggle('open')">
-        <div class="promo-header">
-          <div><span class="promo-company">Amber Enterprises</span> <span class="promo-pct">38.6%</span> <span class="promo-change" style="color:var(--text-muted)">&rarr; Stable</span></div>
-          <span class="promo-chevron">&#9654;</span>
-        </div>
-        <div class="promo-body">
-          <svg width="100%" height="140" viewBox="0 0 400 140" style="font-family:var(--font-mono);font-size:9px">
-            <text x="50" y="12" fill="var(--text-muted)" font-size="9">Promoter</text><text x="160" y="12" fill="var(--text-muted)" font-size="9">FII</text><text x="250" y="12" fill="var(--text-muted)" font-size="9">DII</text>
-            <rect x="8" y="10" width="8" height="8" rx="1" fill="var(--kompete-azure)"/><rect x="130" y="10" width="8" height="8" rx="1" fill="var(--success-500)"/><rect x="225" y="10" width="8" height="8" rx="1" fill="var(--warning-500)"/>
-            <!-- Mar 24 -->
-            <text x="0" y="45" fill="var(--text-muted)">Mar 24</text>
-            <rect x="55" y="30" width="78" height="16" rx="2" fill="var(--kompete-azure)" opacity="0.8"/><text x="84" y="42" fill="white" font-weight="600">39.1%</text>
-            <rect x="138" y="30" width="38" height="16" rx="2" fill="var(--success-500)" opacity="0.7"/><text x="147" y="42" fill="white" font-weight="600">19%</text>
-            <rect x="181" y="30" width="44" height="16" rx="2" fill="var(--warning-500)" opacity="0.7"/><text x="193" y="42" fill="white" font-weight="600">22%</text>
-            <!-- Sep 24 -->
-            <text x="0" y="72" fill="var(--text-muted)">Sep 24</text>
-            <rect x="55" y="57" width="77" height="16" rx="2" fill="var(--kompete-azure)" opacity="0.8"/><text x="83" y="69" fill="white" font-weight="600">38.6%</text>
-            <rect x="137" y="57" width="42" height="16" rx="2" fill="var(--success-500)" opacity="0.7"/><text x="148" y="69" fill="white" font-weight="600">21%</text>
-            <rect x="184" y="57" width="46" height="16" rx="2" fill="var(--warning-500)" opacity="0.7"/><text x="197" y="69" fill="white" font-weight="600">23%</text>
-            <!-- Mar 25 (est) -->
-            <text x="0" y="99" fill="var(--text-muted)">Mar 25</text>
-            <rect x="55" y="84" width="77" height="16" rx="2" fill="var(--kompete-azure)" opacity="0.8"/><text x="83" y="96" fill="white" font-weight="600">38.6%</text>
-            <rect x="137" y="84" width="44" height="16" rx="2" fill="var(--success-500)" opacity="0.7"/><text x="149" y="96" fill="white" font-weight="600">22%</text>
-            <rect x="186" y="84" width="48" height="16" rx="2" fill="var(--warning-500)" opacity="0.7"/><text x="200" y="96" fill="white" font-weight="600">24%</text>
-          </svg>
-          <p style="font-size:11px;color:var(--text-secondary);margin-top:8px">Promoter holding stable at 38.6% post-QIP dilution. Institutional base diversifying with 6 new MF/PE investors via ILJIN CCPS. Kotak Small Cap (4.0%) is largest institutional holder.</p>
-          <div style="margin-top:6px"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> BSE shareholding patterns</span></div>
-        </div>
-      </div>
-
-      <div class="promo-card" onclick="this.classList.toggle('open')">
-        <div class="promo-header">
-          <div><span class="promo-company">Dixon Technologies</span> <span class="promo-pct">32.3%</span> <span class="promo-change" style="color:var(--text-muted)">&rarr; Stable</span></div>
-          <span class="promo-chevron">&#9654;</span>
-        </div>
-        <div class="promo-body">
-          <svg width="100%" height="100" viewBox="0 0 400 100" style="font-family:var(--font-mono);font-size:9px">
-            <text x="50" y="12" fill="var(--text-muted)" font-size="9">Promoter</text><text x="160" y="12" fill="var(--text-muted)" font-size="9">FII</text><text x="250" y="12" fill="var(--text-muted)" font-size="9">DII</text>
-            <rect x="8" y="10" width="8" height="8" rx="1" fill="var(--kompete-azure)"/><rect x="130" y="10" width="8" height="8" rx="1" fill="var(--success-500)"/><rect x="225" y="10" width="8" height="8" rx="1" fill="var(--warning-500)"/>
-            <text x="0" y="45" fill="var(--text-muted)">Sep 24</text>
-            <rect x="55" y="30" width="65" height="16" rx="2" fill="var(--kompete-azure)" opacity="0.8"/><text x="77" y="42" fill="white" font-weight="600">32.3%</text>
-            <rect x="125" y="30" width="50" height="16" rx="2" fill="var(--success-500)" opacity="0.7"/><text x="140" y="42" fill="white" font-weight="600">25%</text>
-            <rect x="180" y="30" width="56" height="16" rx="2" fill="var(--warning-500)" opacity="0.7"/><text x="198" y="42" fill="white" font-weight="600">28%</text>
-            <text x="0" y="72" fill="var(--text-muted)">Mar 25</text>
-            <rect x="55" y="57" width="65" height="16" rx="2" fill="var(--kompete-azure)" opacity="0.8"/><text x="77" y="69" fill="white" font-weight="600">32.3%</text>
-            <rect x="125" y="57" width="52" height="16" rx="2" fill="var(--success-500)" opacity="0.7"/><text x="141" y="69" fill="white" font-weight="600">26%</text>
-            <rect x="182" y="57" width="54" height="16" rx="2" fill="var(--warning-500)" opacity="0.7"/><text x="199" y="69" fill="white" font-weight="600">27%</text>
-          </svg>
-          <p style="font-size:11px;color:var(--text-secondary);margin-top:8px">Promoter stable. Strong institutional base (FII 25-26%, DII 27-28%). Transparent governance with detailed risk disclosures in concalls. No governance flags.</p>
-          <div style="margin-top:6px"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> BSE shareholding patterns</span></div>
-        </div>
-      </div>
-
-      <div class="section-footer">Data as of Feb 2026 | Sources: BSE/NSE filings, annual reports, SEBI disclosures, CoSTAR analysis</div>
     </div>
 
     <!-- ==================== COMPETITIVE MOVES ==================== -->
     <div id="section-competitive" class="section-panel">
       <div class="section-header">
-        <h2>Competitive Moves</h2>
         <p class="section-subtitle">Product strategy, pricing actions, distribution shifts, and strategic partnerships</p>
         <span class="data-tag">Feb 2026 &middot; Product, Pricing, Distribution</span>
       </div>
@@ -2117,7 +1884,7 @@
             <span class="move-card-company">Industry-wide</span>
             <span class="move-card-type pricing">Pricing</span>
           </div>
-          <div class="move-card-desc">Pre-BEE channel stuffing: Aggressive liquidation of older BEE-rated stock Oct&ndash;Dec 2025. Heavy promotional discounting into secondary/tertiary networks. Compressed Q3 margins.</div>
+          <div class="move-card-desc">Pre-BEE channel stuffing: Aggressive liquidation of older BEE-rated stock Oct&ndash;Dec 2025. Heavy promotional discounting into secondary/tertiary networks. Compressed Q3 margins. <a style="color:var(--info-500);cursor:pointer;font-size:10px" onclick="document.querySelector('[data-section=market-pulse]').click()">BEE policy in Market Pulse &rarr;</a></div>
           <div class="move-card-meta">
             <span class="move-card-impact high">High Impact</span>
             <span class="source-attr"><span class="source-tier tier-derived">Derived</span> Industry analysis</span>
@@ -2172,7 +1939,7 @@
             <span class="move-card-company">PLI Round 4</span>
             <span class="move-card-type partnership">Partnership</span>
           </div>
-          <div class="move-card-desc">5 new companies: Kirloskar, Indo Asia, Kryon, Godrej &amp; Boyce, Pranav Vikas. Rs 863 Cr investment in compressors, copper tubes, control assemblies. Total PLI: 85 companies.</div>
+          <div class="move-card-desc">5 new companies added: Rs 863 Cr investment in compressors, copper tubes, control assemblies. Total PLI: 85 companies. <a style="color:var(--info-500);cursor:pointer;font-size:10px" onclick="document.querySelector('[data-section=operations]').click()">Full PLI table in Operations &rarr;</a></div>
           <div class="move-card-meta">
             <span class="move-card-impact medium">Medium Impact</span>
             <span class="source-attr"><span class="source-tier tier-verified">Verified</span> DPIIT</span>
@@ -2347,7 +2114,6 @@
     <!-- ==================== SUB-SECTOR DEEP DIVE ==================== -->
     <div id="section-deep-dive" class="section-panel">
       <div class="section-header">
-        <h2>Sub-Sector Deep Dive</h2>
         <p class="section-subtitle">Cost structure benchmarking, margin levers, and scale vs profitability analysis</p>
         <span class="data-tag">Feb 2026 &middot; Consumer Durables Cost Structure Benchmark</span>
       </div>
@@ -2392,7 +2158,7 @@
             <tr>
               <td><strong>Havells India</strong></td>
               <td class="right mono">5,588</td>
-              <td class="right mono">11.2%</td>
+              <td class="right mono">9.2%</td>
               <td class="right mono val-positive">25.3%</td>
               <td class="right mono">0.03x</td>
               <td class="right mono">12</td>
@@ -2410,7 +2176,7 @@
             <tr>
               <td><strong>Blue Star</strong></td>
               <td class="right mono">2,925</td>
-              <td class="right mono">9.1%</td>
+              <td class="right mono">7.5%</td>
               <td class="right mono val-positive">26.2%</td>
               <td class="right mono">0.33x</td>
               <td class="right mono">16</td>
@@ -2430,15 +2196,14 @@
         <p style="font-size:12px;color:var(--text-muted);margin-top:12px">
           Key insight: Dixon&rsquo;s 40% ROCE on 4.8% margins vs Symphony&rsquo;s 36.8% ROCE on 17.3% margins &mdash; two fundamentally different paths to capital efficiency. Dixon wins on asset turns; Symphony wins on pricing power.
         </p>
-        <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Screener.in Q3 FY26</span></div>
+        <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Company Filings Q3 FY26</span></div>
       </div>
-      <div class="section-footer">Data as of Feb 2026 | Sources: Screener.in, company annual reports, industry benchmarks</div>
+      <div class="section-footer">Data as of Feb 2026 | Sources: Company filings, annual reports</div>
     </div>
 
     <!-- ==================== A&M VALUE-ADD OPPORTUNITIES ==================== -->
     <div id="section-am-value-add" class="section-panel">
       <div class="section-header">
-        <h2>A&amp;M Value-Add Opportunities</h2>
         <p class="section-subtitle">Advisory pipeline derived from cross-section intelligence analysis</p>
         <span class="data-tag">Feb 2026 &middot; Pipeline: Identified &rarr; Qualified &rarr; Outreach-Ready</span>
       </div>
@@ -2487,7 +2252,7 @@
               <li>EBITDA 7.4% vs 10%+ target (260 bps gap)</li>
               <li>Chairman admits &ldquo;sales process weak&rdquo;</li>
             </ul>
-            <div class="kanban-card-source"><span class="source-attr"><span class="source-tier tier-derived">Derived</span> CoSTAR + Financial</span></div>
+            <div class="kanban-card-source"><span class="source-attr"><span class="source-tier tier-derived">Derived</span> Transcript Intel + Financial</span></div>
           </div>
           <div class="kanban-card identified">
             <div class="kanban-card-company">Mid-tier Brand Targets</div>
@@ -2524,7 +2289,7 @@
               <li>TP litigation (INR 10,568 lacs exposure)</li>
             </ul>
             <div class="kanban-card-more">+2 more data points</div>
-            <div class="kanban-card-source"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> CoSTAR + BSE</span></div>
+            <div class="kanban-card-source"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Transcript Intel + BSE</span></div>
           </div>
           <div class="kanban-card qualified">
             <div class="kanban-card-company">Amber Enterprises</div>
@@ -2550,16 +2315,16 @@
             <div class="kanban-card-type">Manufacturing Strategy</div>
             <ul class="kanban-card-points">
               <li>85 companies under White Goods PLI</li>
-              <li>Component localization 150&ndash;250 bps margin lever</li>
+              <li>Component localization 150&ndash;250 bps margin lever <span class="mock-data-label">ESTIMATED</span></li>
             </ul>
-            <div class="kanban-card-source"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Operations</span></div>
+            <div class="kanban-card-source"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Operations</span> &middot; <a style="font-size:10px;color:var(--info-500);cursor:pointer" onclick="document.querySelector('[data-section=operations]').click()">Full PLI data &rarr;</a></div>
           </div>
           <div class="kanban-card qualified">
             <div class="kanban-card-company">Havells India</div>
             <div class="kanban-card-type">Premiumization Strategy</div>
             <ul class="kanban-card-points">
               <li>Strong premiumization, +14.3% revenue growth</li>
-              <li>Near debt-free, EBITDA 11.2%</li>
+              <li>Near debt-free, EBITDA 9.2%</li>
             </ul>
             <div class="kanban-card-source"><span class="source-attr"><span class="source-tier tier-derived">Derived</span> Financial + Watchlist</span></div>
           </div>
@@ -2611,7 +2376,6 @@
     <!-- ==================== ACTION LENS ==================== -->
     <div id="section-action-lens" class="section-panel">
       <div class="section-header">
-        <h2>Action Lens</h2>
         <p class="section-subtitle">Stakeholder-specific intelligence insights</p>
         <span class="data-tag">Feb 2026 &middot; What This Means For&hellip;</span>
       </div>
@@ -2634,13 +2398,13 @@
         <div class="card-grid cols-2">
           <div class="card">
             <h4 style="font-size:12px;margin:0 0 6px">Smart Money Shift <span class="badge badge-accent" style="font-size:9px;float:right">Deal Advisory</span></h4>
-            <p style="font-size:12px;color:var(--text-secondary);line-height:1.6">Migrating to smaller growth-stage deals ($21.6M avg vs $43.3M). Bloated late-stage mega-rounds avoided. Target: D2C infrastructure, home interiors tech, deep-tech EMS.</p>
+            <p style="font-size:12px;color:var(--text-secondary);line-height:1.6">Migrating to smaller growth-stage deals ($21.6M avg vs $43.3M <span class="mock-data-label">ESTIMATED</span>). Bloated late-stage mega-rounds avoided. Target: D2C infrastructure, home interiors tech, deep-tech EMS.</p>
             <div style="font-size:10px;color:var(--text-muted);margin-top:6px">Companies: ZILO, Material Depot, Indigrid</div>
             <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-derived">Derived</span> Deals section</span> &middot; <a style="font-size:10px;color:var(--info-500);cursor:pointer" onclick="document.querySelector('[data-section=deals]').click()">View in Deals &rarr;</a></div>
           </div>
           <div class="card">
             <h4 style="font-size:12px;margin:0 0 6px">Retail/Consumer Vertical <span class="badge badge-accent" style="font-size:9px;float:right">M&amp;A Advisory</span></h4>
-            <p style="font-size:12px;color:var(--text-secondary);line-height:1.6">Most active vertical: 39 deals in Jan 2026 alone. Focus shifting from consumer brand funding to supply chain infrastructure plays.</p>
+            <p style="font-size:12px;color:var(--text-secondary);line-height:1.6">Most active vertical: 39 deals in Jan 2026 alone <span class="mock-data-label">ESTIMATED</span>. Focus shifting from consumer brand funding to supply chain infrastructure plays.</p>
             <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> VCCEdge</span> &middot; <a style="font-size:10px;color:var(--info-500);cursor:pointer" onclick="document.querySelector('[data-section=deals]').click()">View in Deals &rarr;</a></div>
           </div>
           <div class="card">
@@ -2670,13 +2434,13 @@
           </div>
           <div class="card">
             <h4 style="font-size:12px;margin:0 0 6px">Design-to-Value Imperative <span class="badge badge-accent" style="font-size:9px;float:right">Product Strategy</span></h4>
-            <p style="font-size:12px;color:var(--text-secondary);line-height:1.6">Engineer around locally available components. Consumers reject superficial feature-stuffing. 100&ndash;200 bps margin improvement opportunity.</p>
+            <p style="font-size:12px;color:var(--text-secondary);line-height:1.6">Engineer around locally available components. Consumers reject superficial feature-stuffing. 100&ndash;200 bps margin improvement opportunity <span class="mock-data-label">ESTIMATED</span>.</p>
             <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-derived">Derived</span> Deep Dive</span></div>
           </div>
           <div class="card">
             <h4 style="font-size:12px;margin:0 0 6px">M&amp;A Governance Bar <span class="badge badge-accent" style="font-size:9px;float:right">Governance</span></h4>
             <p style="font-size:12px;color:var(--text-secondary);line-height:1.6">Crompton-Butterfly failure = market won&rsquo;t blindly accept M&amp;A. Corporate governance and minority shareholder value non-negotiable.</p>
-            <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-derived">Derived</span> Leadership</span> &middot; <a style="font-size:10px;color:var(--info-500);cursor:pointer" onclick="document.querySelector('[data-section=leadership]').click()">View in Leadership &rarr;</a></div>
+            <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-derived">Derived</span> Leadership</span></div>
           </div>
         </div>
       </div>
@@ -2696,8 +2460,8 @@
           </div>
           <div class="card">
             <h4 style="font-size:12px;margin:0 0 6px">Q4 Price Hikes Urgent <span class="badge badge-accent" style="font-size:9px;float:right">Pricing</span></h4>
-            <p style="font-size:12px;color:var(--text-secondary);line-height:1.6">Operating margins risk staying below 5% during summer if costs aren&rsquo;t passed through. BEE norms + commodity inflation compressing margins simultaneously.</p>
-            <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-derived">Derived</span> Market Pulse</span></div>
+            <p style="font-size:12px;color:var(--text-secondary);line-height:1.6">Operating margins risk staying below 5% during summer <span class="mock-data-label">ESTIMATED</span> if costs aren&rsquo;t passed through. BEE norms + commodity inflation compressing margins simultaneously.</p>
+            <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-derived">Derived</span> Market Pulse</span> &middot; <a style="font-size:10px;color:var(--info-500);cursor:pointer" onclick="document.querySelector('[data-section=market-pulse]').click()">BEE policy in Market Pulse &rarr;</a></div>
           </div>
           <div class="card">
             <h4 style="font-size:12px;margin:0 0 6px">B2B Digital Platform <span class="badge badge-accent" style="font-size:9px;float:right">Digital</span></h4>
@@ -2738,7 +2502,6 @@
     <!-- ==================== WATCHLIST ==================== -->
     <div id="section-watchlist" class="section-panel">
       <div class="section-header">
-        <h2>Watchlist &amp; Forward Indicators</h2>
         <p class="section-subtitle">Companies requiring attention and forward-looking signals</p>
         <span class="data-tag">Next 90 Days &middot; Q4 FY26 &amp; Beyond</span>
       </div>
@@ -2757,11 +2520,11 @@
                 <span class="q-entry-company">Havells India</span>
                 <span class="dte-badge soon">~35d</span>
               </div>
-              <div class="q-entry-signal">Strong premiumization, +14.3% revenue growth, 21% EBITDA growth. Near debt-free. Q3 EBITDA: 11.2%</div>
+              <div class="q-entry-signal">Strong premiumization, +14.3% revenue growth, 21% EBITDA growth <span class="mock-data-label">ESTIMATED</span>. Near debt-free. Q3 EBITDA: 9.2%</div>
               <div class="q-entry-detail">Catalyst: Premium housing demand + diversified portfolio</div>
               <div class="q-entry-meta">
                 <span class="severity-dots" title="Severity: 4/5"><span class="dot filled high"></span><span class="dot filled high"></span><span class="dot filled high"></span><span class="dot filled high"></span><span class="dot"></span></span>
-                <span class="source-attr"><span class="source-tier tier-verified">Verified</span> Screener.in</span>
+                <span class="source-attr"><span class="source-tier tier-verified">Verified</span> Company Filings</span>
               </div>
             </div>
             <div class="q-entry">
@@ -2769,7 +2532,7 @@
                 <span class="q-entry-company">Crompton Greaves</span>
                 <span class="dte-badge urgent">~20d</span>
               </div>
-              <div class="q-entry-signal">2 rounds of price hikes planned for Q4/Q1. Butterfly subsidiary margins expanding +100bps. Q3 EBITDA: 12.6%</div>
+              <div class="q-entry-signal">2 rounds of price hikes planned for Q4/Q1. Butterfly subsidiary margins expanding +100bps. Q3 EBITDA: 10.3%</div>
               <div class="q-entry-detail">Catalyst: Price hike execution + ECD segment growth</div>
               <div class="q-entry-meta">
                 <span class="severity-dots" title="Severity: 4/5"><span class="dot filled high"></span><span class="dot filled high"></span><span class="dot filled high"></span><span class="dot filled high"></span><span class="dot"></span></span>
@@ -2808,7 +2571,7 @@
               <div class="q-entry-detail">Key metric: -18.5% rev, 4.1% EBITDA margin</div>
               <div class="q-entry-meta">
                 <span class="severity-dots" title="Severity: 5/5"><span class="dot filled high"></span><span class="dot filled high"></span><span class="dot filled high"></span><span class="dot filled high"></span><span class="dot filled high"></span></span>
-                <span class="source-attr"><span class="source-tier tier-verified">Verified</span> Screener.in</span>
+                <span class="source-attr"><span class="source-tier tier-verified">Verified</span> Company Filings</span>
               </div>
             </div>
             <div class="q-entry">
@@ -2820,7 +2583,7 @@
               <div class="q-entry-detail">Key metric: -26% rev, 17.3% EBITDA, 36.8% ROCE</div>
               <div class="q-entry-meta">
                 <span class="severity-dots" title="Severity: 4/5"><span class="dot filled high"></span><span class="dot filled high"></span><span class="dot filled high"></span><span class="dot filled high"></span><span class="dot"></span></span>
-                <span class="source-attr"><span class="source-tier tier-verified">Verified</span> Screener.in</span>
+                <span class="source-attr"><span class="source-tier tier-verified">Verified</span> Company Filings</span>
               </div>
             </div>
             <div class="q-entry">
@@ -2828,7 +2591,7 @@
                 <span class="q-entry-company">BSE CD Index</span>
                 <span class="dte-badge urgent">Now</span>
               </div>
-              <div class="q-entry-signal">8-session decline. Institutional selling (FII + MF). Reflects anxiety over inflationary supercycle. Constrains capital raising for sector.</div>
+              <div class="q-entry-signal">8-session decline <span class="mock-data-label">ESTIMATED</span>. Institutional selling (FII + MF). Constrains capital raising for sector. <a style="color:var(--info-500);cursor:pointer;font-size:10px" onclick="document.querySelector('[data-section=executive]').click()">Context in Executive &rarr;</a></div>
               <div class="q-entry-detail">Broad market signal &mdash; impacts all listed consumer durables</div>
               <div class="q-entry-meta">
                 <span class="severity-dots" title="Severity: 3/5"><span class="dot filled mid"></span><span class="dot filled mid"></span><span class="dot filled mid"></span><span class="dot"></span><span class="dot"></span></span>
@@ -2863,7 +2626,7 @@
                 <span class="q-entry-company">Whirlpool of India</span>
                 <span class="dte-badge soon">~120d</span>
               </div>
-              <div class="q-entry-signal">US parent reducing stake from 51% &rarr; ~20%. Creates brand uncertainty. Potential acquisition target for domestic conglomerates.</div>
+              <div class="q-entry-signal">US parent reducing stake from 51% &rarr; ~20%. Potential acquisition target. <a style="color:var(--info-500);cursor:pointer;font-size:10px" onclick="document.querySelector('[data-section=deals]').click()">Full pattern in Deals &rarr;</a></div>
               <div class="q-entry-detail">BLA/TLA renegotiation creates engagement window for acquirers</div>
               <div class="q-entry-meta">
                 <span class="severity-dots" title="Severity: 4/5"><span class="dot filled high"></span><span class="dot filled high"></span><span class="dot filled high"></span><span class="dot filled high"></span><span class="dot"></span></span>
@@ -2926,7 +2689,7 @@
         <div class="card">
           <h4>Near-Term (Mar&ndash;Apr 2026)</h4>
           <ul>
-            <li><strong>BEE compliance cost pass-through:</strong> Watch Q4 results for actual price hike execution vs. market share sacrifice <span class="dte-badge urgent">~35d</span></li>
+            <li><strong>BEE compliance cost pass-through:</strong> Watch Q4 results for price hike execution vs. market share sacrifice. <a style="color:var(--info-500);cursor:pointer;font-size:10px" onclick="document.querySelector('[data-section=market-pulse]').click()">BEE details in Market Pulse &rarr;</a> <span class="dte-badge urgent">~35d</span></li>
             <li><strong>Summer season demand test:</strong> First full season under new BEE norms + elevated prices. Will volume hold? <span class="dte-badge soon">~40d</span></li>
             <li><strong>India-UK CETA implementation:</strong> Expected April 2026. 99.1% of Indian exports at zero duty. Opens tech cooperation. <span class="dte-badge soon">~35d</span></li>
           </ul>
@@ -2934,10 +2697,10 @@
         <div class="card">
           <h4>Medium-Term (Q1 FY27)</h4>
           <ul>
-            <li><strong>PLI production ramp:</strong> Rs 1.9L Cr projected production from White Goods PLI. Watch actual utilization rates. <span class="dte-badge">~60d</span></li>
+            <li><strong>PLI production ramp:</strong> Rs 1.9L Cr projected production. Watch utilization rates. <a style="color:var(--info-500);cursor:pointer;font-size:10px" onclick="document.querySelector('[data-section=operations]').click()">PLI data in Operations &rarr;</a> <span class="dte-badge">~60d</span></li>
             <li><strong>Amber Jewar facility:</strong> Rs 6,785 Cr investment. 100+ acres near Jewar Airport. Construction timeline is key. <span class="dte-badge">~90d</span></li>
             <li><strong>Dixon IT hardware:</strong> Rs 4,000 Cr FY27 target. Windows 10 EOL-driven device replacement cycle begins. <span class="dte-badge">~60d</span></li>
-            <li><strong>Copper price trajectory:</strong> JPM $12,500 target. If realized, AC/refrigerator margins face severe structural compression. <span class="dte-badge soon">~45d</span></li>
+            <li><strong>Copper price trajectory:</strong> JPM $12,500 target. Severe margin risk if realized. <a style="color:var(--info-500);cursor:pointer;font-size:10px" onclick="document.querySelector('[data-section=operations]').click()">Multi-bank analysis in Operations &rarr;</a> <span class="dte-badge soon">~45d</span></li>
           </ul>
         </div>
       </div>
@@ -2947,10 +2710,19 @@
     <!-- ==================== TRANSCRIPT INTEL ==================== -->
     <div id="section-transcript-intel" class="section-panel">
       <div class="section-header">
-        <h2>Transcript Intel</h2>
-        <p class="section-subtitle">AM CoSTAR Signal Ranking &mdash; annual report analysis across 3 companies</p>
-        <span class="data-tag">AM CoSTAR &middot; 3 Companies &middot; 157 Signals</span>
+        <p class="section-subtitle">Transcript Intel Analysis &mdash; annual report analysis across 3 companies</p>
+        <span class="data-tag">Transcript Intel &middot; 3 Companies &middot; 157 Signals</span>
       </div>
+
+      <h3 class="sub-header">EBITDA Movement Story</h3>
+      <p style="font-size:11px; color:var(--text-muted); margin:-8px 0 14px 0;">Margin trajectory and key drivers extracted from annual reports and earnings transcripts.</p>
+      <div class="card-grid cols-3">
+        <div class="card ebitda-story-card"><h4>Dixon Technologies</h4><div class="ebitda-trend-line"><span class="trend-year">FY20</span> <span class="trend-val declining">5.2%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY21</span> <span class="trend-val declining">4.5%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY22</span> <span class="trend-val declining">3.6%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY23</span> <span class="trend-val">4.3%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY24</span> <span class="trend-val declining">4.1%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY25</span> <span class="trend-val declining">3.9%</span></div><div class="ebitda-drivers"><span class="ebitda-driver down">Material cost 92.7% of rev</span><span class="ebitda-driver down">Mobile 85% concentration</span><span class="ebitda-driver up">ODM mix 4% &rarr; 56%</span><span class="ebitda-driver up">Home Appliances 11.5% OPM</span><span class="ebitda-driver down">PAT margin only 2.2%</span></div><div class="ebitda-narrative">Five-year structural margin compression despite 119% revenue growth. Material cost pass-through model (92.7%) leaves no buffer. The ODM shift (4% to 56% in Consumer Electronics) is the primary internal margin lever, with Home Appliances at 11.5% OPM serving as the benchmark for what backward integration can achieve.</div><div><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Transcript Intel Analysis</span> &middot; AR 2024-25, Q3 FY26 Results</div></div>
+        <div class="card ebitda-story-card"><h4>IFB Industries</h4><div class="ebitda-trend-line"><span class="trend-year">FY23</span> <span class="trend-val declining">~5.5%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY24</span> <span class="trend-val declining">~5.7%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY25</span> <span class="trend-val improving">6.5%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">Target</span> <span class="trend-val">10%+</span></div><div class="ebitda-drivers"><span class="ebitda-driver down">Material cost +19.7% vs rev +14.6%</span><span class="ebitda-driver down">Channel schemes INR 1,500 Cr</span><span class="ebitda-driver down">FL washer stagnant 3 yrs</span><span class="ebitda-driver up">AC segment EBITDA+ (1.7%)</span><span class="ebitda-driver up">Engineering div 16.2% margin</span><span class="ebitda-driver down">Fixed cost INR 75 Cr/month</span></div><div class="ebitda-narrative">PBDIT at 6.5% vs 10%+ internal target &mdash; a structural gap of 350+ bps representing INR 170+ Cr annual under-delivery. Material cost outpacing revenue growth is the primary suppressant. A&amp;M engaged Feb 2025 with INR 200+ Cr savings target over 18 months, confirming deeply embedded procurement inefficiency.</div><div><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Transcript Intel Analysis</span> &middot; AR 2024-25, Q4 FY25 Transcript</div></div>
+        <div class="card ebitda-story-card"><h4>Whirlpool of India</h4><div class="ebitda-trend-line"><span class="trend-year">FY23</span> <span class="trend-val declining">2.2%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY24</span> <span class="trend-val declining">2.0%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY25</span> <span class="trend-val improving">3.9%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">Gross</span> <span class="trend-val improving">~33.3%</span></div><div class="ebitda-drivers"><span class="ebitda-driver down">E-waste cost INR 81 Cr (+84%)</span><span class="ebitda-driver down">Freight 6.3% of revenue</span><span class="ebitda-driver down">Parent 51% &rarr; ~20% risk</span><span class="ebitda-driver up">P4G: material cost -1%</span><span class="ebitda-driver up">Gross margin +140 bps</span><span class="ebitda-driver down">Traded goods +74% unexplained</span></div><div class="ebitda-narrative">OPM recovering from a trough of 2.0% (FY24) to 3.9% (FY25), driven by P4G cost productivity and revenue leverage. However, E-waste regulatory costs (+84% YoY) and freight (6.3% of revenue) are consuming gross margin gains. The parent sell-down from 51% to ~20% creates existential brand and IP risk overshadowing all margin improvement efforts.</div><div><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Transcript Intel Analysis</span> &middot; AR 2024-25, AR 2023-24</div></div>
+      </div>
+
+      <h3 class="sub-header">Signal Ranking</h3>
 
       <div class="company-tabs" id="intelTabs">
         <button class="company-tab active" data-company="dixon">Dixon Technologies <span class="badge badge-amber" id="dixon-count"></span></button>
@@ -2985,7 +2757,7 @@
         </thead>
         <tbody id="signalBody"></tbody>
       </table>
-      <div class="section-footer"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> AM CoSTAR Signal Ranking</span> &middot; Annual Reports FY23-FY25</div>
+      <div class="section-footer"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Transcript Intel Analysis</span> &middot; Annual Reports FY23-FY25</div>
     </div>
 
   </div>
@@ -3000,7 +2772,7 @@
   </dialog>
 
   <script>
-    // ========== REAL FINANCIAL DATA (Source: Screener.in, scraped 2026-02-18) ==========
+    // ========== REAL FINANCIAL DATA (Source: Company filings, Q3 FY2026) ==========
     var COMPANIES = [
       {
         id: "amber", name: "Amber Enterprises India", ticker: "AMBER", subSector: "EMS/OEM",
@@ -3010,7 +2782,8 @@
         perf: "outperform",
         latestQ: "Q3 FY2026", qSales: 2943, qNetProfit: -9,
         variance: "Revenue surged 37.9% YoY to INR 2,943 Cr in Q3 FY2026. EBITDA margin at 11.2%. Net loss of INR 9 Cr due to seasonal factors in RAC OEM segment.",
-        source: "Screener.in (AMBER/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025"
+        source: "Company Filings (AMBER/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025",
+        productMix: [{segment:"Room AC Components",pct:60},{segment:"Mobility",pct:15},{segment:"Electronics",pct:15},{segment:"Other",pct:10}]
       },
       {
         id: "bajaj", name: "Bajaj Electricals", ticker: "BAJAJELEC", subSector: "Electrical",
@@ -3020,7 +2793,8 @@
         perf: "underperform",
         latestQ: "Q3 FY2026", qSales: 1051, qNetProfit: -34,
         variance: "Revenue declined 18.5% YoY to INR 1,051 Cr in Q3 FY2026. EBITDA margin compressed to 4.1%. Net loss of INR 34 Cr.",
-        source: "Screener.in (BAJAJELEC/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025"
+        source: "Company Filings (BAJAJELEC/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025",
+        productMix: [{segment:"Consumer Products",pct:55},{segment:"Lighting",pct:25},{segment:"EPC",pct:20}]
       },
       {
         id: "bluestar", name: "Blue Star", ticker: "BLUESTARCO", subSector: "Cooling",
@@ -3030,7 +2804,8 @@
         perf: "inline",
         latestQ: "Q3 FY2026", qSales: 2925, qNetProfit: 81,
         variance: "Revenue grew 4.2% YoY to INR 2,925 Cr in Q3 FY2026. EBITDA margin at 7.5%. Net profit: INR 81 Cr. Strong ROCE of 26.2%.",
-        source: "Screener.in (BLUESTARCO/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025"
+        source: "Company Filings (BLUESTARCO/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025",
+        productMix: [{segment:"Room AC",pct:40},{segment:"Commercial Refrigeration",pct:35},{segment:"Engineering Services",pct:25}]
       },
       {
         id: "butterfly", name: "Butterfly Gandhimathi", ticker: "BUTTERFLY", subSector: "Kitchen",
@@ -3040,7 +2815,8 @@
         perf: "inline",
         latestQ: "Q3 FY2026", qSales: 245, qNetProfit: 11,
         variance: "Revenue grew 2.9% YoY to INR 245 Cr in Q3 FY2026. EBITDA margin at 10.6%. Net profit: INR 11 Cr. Near debt-free with D/E of 0.03x.",
-        source: "Screener.in (BUTTERFLY/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025"
+        source: "Company Filings (BUTTERFLY/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025",
+        productMix: [{segment:"Kitchen Appliances",pct:70},{segment:"Home Appliances",pct:30}]
       },
       {
         id: "crompton", name: "Crompton Greaves Consumer", ticker: "CROMPTON", subSector: "Electrical",
@@ -3050,7 +2826,8 @@
         perf: "inline",
         latestQ: "Q3 FY2026", qSales: 1898, qNetProfit: 101,
         variance: "Revenue grew 7.3% YoY to INR 1,898 Cr in Q3 FY2026. EBITDA margin at 10.3%. Net profit: INR 101 Cr. Negative WC days indicate strong cash cycle.",
-        source: "Screener.in (CROMPTON/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025"
+        source: "Company Filings (CROMPTON/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025",
+        productMix: [{segment:"Fans",pct:35},{segment:"Lighting",pct:25},{segment:"Pumps",pct:20},{segment:"Consumer Appliances",pct:20}]
       },
       {
         id: "dixon", name: "Dixon Technologies", ticker: "DIXON", subSector: "EMS/OEM",
@@ -3060,7 +2837,8 @@
         perf: "inline",
         latestQ: "Q3 FY2026", qSales: 10673, qNetProfit: 321,
         variance: "Revenue grew 2.1% YoY to INR 10,673 Cr in Q3 FY2026. EBITDA margin at 4.8% (typical for EMS model). Net profit: INR 321 Cr. Exceptional ROCE of 40%.",
-        source: "Screener.in (DIXON/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025"
+        source: "Company Filings (DIXON/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025",
+        productMix: [{segment:"Mobile",pct:45},{segment:"Consumer Electronics",pct:25},{segment:"Lighting",pct:15},{segment:"Home Appliances",pct:10},{segment:"Security",pct:5}]
       },
       {
         id: "havells", name: "Havells India", ticker: "HAVELLS", subSector: "Diversified",
@@ -3070,7 +2848,8 @@
         perf: "inline",
         latestQ: "Q3 FY2026", qSales: 5588, qNetProfit: 300,
         variance: "Revenue grew 14.3% YoY to INR 5,588 Cr in Q3 FY2026. EBITDA margin at 9.2%. Net profit: INR 300 Cr. Near debt-free. Strong ROCE of 25.3%.",
-        source: "Screener.in (HAVELLS/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025"
+        source: "Company Filings (HAVELLS/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025",
+        productMix: [{segment:"Switchgear",pct:30},{segment:"Cables",pct:25},{segment:"Lighting",pct:20},{segment:"Consumer Appliances",pct:15},{segment:"Lloyd AC",pct:10}]
       },
       {
         id: "ifb", name: "IFB Industries", ticker: "IFBIND", subSector: "Appliances",
@@ -3080,7 +2859,8 @@
         perf: "inline",
         latestQ: "Q3 FY2026", qSales: 1375, qNetProfit: 24,
         variance: "Revenue grew 8.3% YoY to INR 1,375 Cr in Q3 FY2026. EBITDA margin at 7.4%. Net profit: INR 24 Cr. Negative WC days reflect efficient working capital management.",
-        source: "Screener.in (IFBIND/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025"
+        source: "Company Filings (IFBIND/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025",
+        productMix: [{segment:"Washing Machines",pct:45},{segment:"Kitchen Appliances",pct:30},{segment:"AC",pct:15},{segment:"Engineering",pct:10}]
       },
       {
         id: "orient", name: "Orient Electric", ticker: "ORIENTELEC", subSector: "Electrical",
@@ -3090,7 +2870,8 @@
         perf: "inline",
         latestQ: "Q3 FY2026", qSales: 906, qNetProfit: 26,
         variance: "Revenue grew 10.9% YoY to INR 906 Cr in Q3 FY2026. EBITDA margin at 9.6%. Net profit: INR 26 Cr.",
-        source: "Screener.in (ORIENTELEC/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025"
+        source: "Company Filings (ORIENTELEC/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025",
+        productMix: [{segment:"Fans",pct:40},{segment:"Lighting",pct:25},{segment:"Home Appliances",pct:20},{segment:"Switchgear",pct:15}]
       },
       {
         id: "symphony", name: "Symphony", ticker: "SYMPHONY", subSector: "Cooling",
@@ -3100,7 +2881,8 @@
         perf: "underperform",
         latestQ: "Q3 FY2026", qSales: 179, qNetProfit: 20,
         variance: "Revenue declined 26% YoY to INR 179 Cr in Q3 FY2026. Despite top-line decline, EBITDA margin remains best-in-class at 17.3%. ROCE of 36.8% is sector-leading.",
-        source: "Screener.in (SYMPHONY/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025"
+        source: "Company Filings (SYMPHONY/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025",
+        productMix: [{segment:"Air Coolers",pct:85},{segment:"Climate Control",pct:15}]
       },
       {
         id: "ttk", name: "TTK Prestige", ticker: "TTKPRESTIG", subSector: "Kitchen",
@@ -3110,7 +2892,8 @@
         perf: "inline",
         latestQ: "Q3 FY2026", qSales: 801, qNetProfit: 32,
         variance: "Revenue grew 10.2% YoY to INR 801 Cr in Q3 FY2026. EBITDA margin at 11.5%. Net profit: INR 32 Cr. Elevated WC days of 69 reflect inventory build-up.",
-        source: "Screener.in (TTKPRESTIG/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025"
+        source: "Company Filings (TTKPRESTIG/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025",
+        productMix: [{segment:"Kitchen Appliances",pct:60},{segment:"Cookware",pct:25},{segment:"Home Cleaning",pct:15}]
       },
       {
         id: "vguard", name: "V-Guard Industries", ticker: "VGUARD", subSector: "Electrical",
@@ -3120,7 +2903,8 @@
         perf: "inline",
         latestQ: "Q3 FY2026", qSales: 1404, qNetProfit: 57,
         variance: "Revenue grew 10.6% YoY to INR 1,404 Cr in Q3 FY2026. EBITDA margin at 10.7%. Net profit: INR 57 Cr. Near debt-free with D/E of 0.07x.",
-        source: "Screener.in (VGUARD/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025"
+        source: "Company Filings (VGUARD/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025",
+        productMix: [{segment:"Wires & Cables",pct:35},{segment:"Stabilizers",pct:20},{segment:"Pumps",pct:15},{segment:"Kitchen",pct:15},{segment:"Water Heaters",pct:15}]
       },
       {
         id: "voltas", name: "Voltas", ticker: "VOLTAS", subSector: "Cooling",
@@ -3130,7 +2914,8 @@
         perf: "underperform",
         latestQ: "Q3 FY2026", qSales: 3071, qNetProfit: 84,
         variance: "Revenue declined 1.1% YoY to INR 3,071 Cr in Q3 FY2026. EBITDA margin at 5.4%. Net profit: INR 84 Cr.",
-        source: "Screener.in (VOLTAS/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025"
+        source: "Company Filings (VOLTAS/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025",
+        productMix: [{segment:"Room AC",pct:55},{segment:"Commercial AC",pct:30},{segment:"Engineering Products",pct:15}]
       },
       {
         id: "whirlpool", name: "Whirlpool of India", ticker: "WHIRLPOOL", subSector: "Appliances",
@@ -3140,7 +2925,8 @@
         perf: "inline",
         latestQ: "Q3 FY2026", qSales: 1774, qNetProfit: 27,
         variance: "Revenue grew 4% YoY to INR 1,774 Cr in Q3 FY2026. EBITDA margin at 8%. Net profit: INR 27 Cr. Negative WC days reflect tight inventory management.",
-        source: "Screener.in (WHIRLPOOL/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025"
+        source: "Company Filings (WHIRLPOOL/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025",
+        productMix: [{segment:"Refrigerators",pct:50},{segment:"Washing Machines",pct:35},{segment:"AC & Other",pct:15}]
       }
     ];
 
@@ -3191,9 +2977,13 @@
     }
 
     var companyFilterValue = '';
+    var selectedCompanies = new Set(); // PRI-113: global company filter
 
     function renderTable() {
       var filtered = COMPANIES.filter(function(c) {
+        // PRI-113: global pill filter
+        if (selectedCompanies.size > 0 && !selectedCompanies.has(c.id)) return false;
+        // Existing text filter
         if (!companyFilterValue) return true;
         return c.name.toLowerCase().indexOf(companyFilterValue) !== -1 ||
                c.ticker.toLowerCase().indexOf(companyFilterValue) !== -1;
@@ -3465,6 +3255,21 @@
       body += '<h4 style="font-size:12px;margin:16px 0 8px">Key Insight</h4>';
       body += '<p style="font-size:12px;line-height:1.6;color:var(--text-secondary)">' + esc(c.variance) + '</p>';
 
+      // Product Mix (PRI-115)
+      if (c.productMix && c.productMix.length > 0) {
+        body += '<h4 style="font-size:12px;margin:16px 0 8px">Product Mix (Revenue Contribution)</h4>';
+        body += '<div style="margin-bottom:8px">';
+        c.productMix.forEach(function(pm) {
+          body += '<div class="product-mix-bar-row">' +
+            '<span class="pm-label" title="' + esc(pm.segment) + '">' + esc(pm.segment) + '</span>' +
+            '<div class="pm-track"><div class="pm-fill" style="width:' + pm.pct + '%"></div></div>' +
+            '<span class="pm-pct">' + pm.pct + '%</span>' +
+            '</div>';
+        });
+        body += '</div>';
+        body += '<span class="source-attr"><span class="source-tier tier-estimated">Estimated</span> Approximate segment contribution based on industry analysis</span>';
+      }
+
       // Additional metrics
       body += '<div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:14px">';
       if (c.pe != null) body += '<span class="badge badge-low">P/E: ' + c.pe.toFixed(1) + 'x</span>';
@@ -3531,7 +3336,7 @@
       renderTable();
     });
 
-    // ========== TRANSCRIPT INTEL DATA (AM CoSTAR Signal Ranking) ==========
+    // ========== TRANSCRIPT INTEL DATA (Transcript Intel Analysis) ==========
     var SIGNAL_DATA = {
       dixon: {
         name: "Dixon Technologies", ticker: "DIXON",
@@ -3855,21 +3660,120 @@
           '<div class="stat-box"><div class="stat-value">' + avgRoce + '%</div><div class="stat-label">Avg ROCE</div></div>' +
           '<div class="stat-box"><div class="stat-value" style="color:var(--danger-500)">' + diagCount + '</div><div class="stat-label">Diagnostic Triggers</div></div>';
       }
-      // Leadership summary
-      var promoterDeclines = 2; // Whirlpool, BSE index
-      var govRisk = 3; // Whirlpool, Crompton, Bajaj
-      var avgPromoter = 52.4; // approximate from shareholding data
-      var leadEl = document.getElementById('leadershipSummaryStats');
-      if (leadEl) {
-        leadEl.innerHTML =
-          '<div class="stat-box"><div class="stat-value">' + COMPANIES.length + '</div><div class="stat-label">Companies Tracked</div></div>' +
-          '<div class="stat-box"><div class="stat-value" style="color:var(--danger-500)">' + govRisk + '</div><div class="stat-label">Governance Risk</div></div>' +
-          '<div class="stat-box"><div class="stat-value">' + avgPromoter + '%</div><div class="stat-label">Avg Promoter %</div></div>' +
-          '<div class="stat-box"><div class="stat-value" style="color:var(--warning-500)">' + promoterDeclines + '</div><div class="stat-label">Promoter Declines</div></div>';
+    }
+
+    // ========== COMPANY FILTER BAR (PRI-113) ==========
+    function initCompanyFilterBar() {
+      var bar = document.getElementById('companyFilterBar');
+      if (!bar) return;
+
+      // "All" pill
+      var allPill = document.createElement('button');
+      allPill.className = 'company-pill all-pill active';
+      allPill.textContent = 'All';
+      allPill.id = 'cfPillAll';
+      allPill.addEventListener('click', function() {
+        selectedCompanies.clear();
+        updateFilterPillStates();
+        applyCompanyFilter();
+      });
+      bar.appendChild(allPill);
+
+      // One pill per company
+      COMPANIES.slice().sort(function(a, b) {
+        return a.name.localeCompare(b.name);
+      }).forEach(function(c) {
+        var pill = document.createElement('button');
+        pill.className = 'company-pill';
+        pill.textContent = c.name.replace(' Enterprises India', '').replace(' Greaves Consumer', '').replace(' Technologies', '').replace(' Industries', '').replace(' of India', '').replace(' Electric', ' Elec.').replace(' Electricals', ' Elec.');
+        pill.setAttribute('data-company-id', c.id);
+        pill.title = c.name;
+        pill.addEventListener('click', function() {
+          if (selectedCompanies.has(c.id)) {
+            selectedCompanies.delete(c.id);
+          } else {
+            selectedCompanies.add(c.id);
+          }
+          updateFilterPillStates();
+          applyCompanyFilter();
+        });
+        bar.appendChild(pill);
+      });
+    }
+
+    function updateFilterPillStates() {
+      var allPill = document.getElementById('cfPillAll');
+      var pills = document.querySelectorAll('.company-pill[data-company-id]');
+      if (selectedCompanies.size === 0) {
+        if (allPill) allPill.classList.add('active');
+        pills.forEach(function(p) { p.classList.remove('active'); });
+      } else {
+        if (allPill) allPill.classList.remove('active');
+        pills.forEach(function(p) {
+          p.classList.toggle('active', selectedCompanies.has(p.getAttribute('data-company-id')));
+        });
       }
+      // Show/hide filter notice on non-financial sections
+      var notices = document.querySelectorAll('.company-filter-notice');
+      notices.forEach(function(n) {
+        n.classList.toggle('visible', selectedCompanies.size > 0);
+      });
+    }
+
+    function applyCompanyFilter() {
+      // Re-render financial table (primary filter target)
+      renderTable();
+
+      // Filter deal cards by company name match
+      var dealCards = document.querySelectorAll('#dealCardsGrid .move-card-item');
+      dealCards.forEach(function(card) {
+        if (selectedCompanies.size === 0) { card.style.display = ''; return; }
+        var companyEl = card.querySelector('.move-card-company');
+        var text = companyEl ? companyEl.textContent.toLowerCase() : card.textContent.toLowerCase();
+        var match = false;
+        COMPANIES.forEach(function(c) {
+          if (selectedCompanies.has(c.id)) {
+            var shortName = c.name.split(' ')[0].toLowerCase();
+            if (text.indexOf(shortName) !== -1) match = true;
+          }
+        });
+        card.style.display = match ? '' : 'none';
+      });
+
+      // Filter competitive move cards by company name match
+      var moveCards = document.querySelectorAll('#moveCardsGrid .move-card-item');
+      moveCards.forEach(function(card) {
+        if (selectedCompanies.size === 0) { card.style.display = ''; return; }
+        var companyEl = card.querySelector('.move-card-company');
+        var text = companyEl ? companyEl.textContent.toLowerCase() : card.textContent.toLowerCase();
+        var match = false;
+        COMPANIES.forEach(function(c) {
+          if (selectedCompanies.has(c.id)) {
+            var shortName = c.name.split(' ')[0].toLowerCase();
+            if (text.indexOf(shortName) !== -1) match = true;
+          }
+        });
+        card.style.display = match ? '' : 'none';
+      });
+
+      // Filter watchlist quadrant cards
+      var watchCards = document.querySelectorAll('.quadrant-card');
+      watchCards.forEach(function(card) {
+        if (selectedCompanies.size === 0) { card.style.display = ''; return; }
+        var text = card.textContent.toLowerCase();
+        var match = false;
+        COMPANIES.forEach(function(c) {
+          if (selectedCompanies.has(c.id)) {
+            var shortName = c.name.split(' ')[0].toLowerCase();
+            if (text.indexOf(shortName) !== -1) match = true;
+          }
+        });
+        card.style.display = match ? '' : 'none';
+      });
     }
 
     // Initial render
+    initCompanyFilterBar();
     renderTable();
     renderOpsTable();
     renderSubSectorCards();
