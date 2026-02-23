@@ -917,10 +917,64 @@
     .dark ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); }
     .dark ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
 
+    /* === Font Size Toggle === */
+    .font-size-control {
+      display: flex; align-items: center; gap: 2px;
+      margin-right: 4px;
+    }
+    .font-btn {
+      background: none; border: 1px solid var(--gray-300); color: var(--text-secondary);
+      width: 30px; height: 28px; border-radius: 4px; cursor: pointer;
+      font-size: 12px; font-weight: 600; font-family: var(--font-body);
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s ease;
+    }
+    .font-btn:first-child { border-radius: 4px 0 0 4px; }
+    .font-btn:last-child { border-radius: 0 4px 4px 0; }
+    .font-btn:not(:first-child) { border-left: none; }
+    .font-btn:hover { color: var(--accent-gold); border-color: var(--accent-gold-border); background: var(--accent-gold-muted); }
+    .font-btn.active { color: var(--accent-gold); border-color: var(--accent-gold); background: var(--accent-gold-muted); }
+    .dark .font-btn { border-color: var(--gray-700); }
+    .dark .font-btn:not(:first-child) { border-left: none; }
+
+    /* Font size scale: small */
+    html.font-small .section-panel { font-size: 12px; }
+    html.font-small .section-panel h3 { font-size: 11.5px; }
+    html.font-small .section-panel .card p,
+    html.font-small .section-panel .card li { font-size: 11.5px; }
+    html.font-small .section-panel .stat-box .stat-value { font-size: 17px; }
+    html.font-small .section-panel .stat-box .stat-label { font-size: 9px; }
+    html.font-small .section-panel table th,
+    html.font-small .section-panel table td { font-size: 10.5px; }
+    html.font-small .section-panel .alert-card { font-size: 11.5px; }
+    html.font-small .section-panel .signal-card { font-size: 11.5px; }
+    html.font-small .section-panel .card h3 { font-size: 11.5px; }
+    html.font-small .section-panel .persona-card { font-size: 11.5px; }
+    html.font-small .section-panel .kanban-card { font-size: 11.5px; }
+    html.font-small .section-panel .quadrant-card { font-size: 11.5px; }
+    html.font-small .section-panel .move-card-item { font-size: 11.5px; }
+
+    /* Font size scale: large */
+    html.font-large .section-panel { font-size: 15.5px; }
+    html.font-large .section-panel h3 { font-size: 15px; }
+    html.font-large .section-panel .card p,
+    html.font-large .section-panel .card li { font-size: 15px; }
+    html.font-large .section-panel .stat-box .stat-value { font-size: 23px; }
+    html.font-large .section-panel .stat-box .stat-label { font-size: 12px; }
+    html.font-large .section-panel table th,
+    html.font-large .section-panel table td { font-size: 13.5px; }
+    html.font-large .section-panel .alert-card { font-size: 15px; }
+    html.font-large .section-panel .signal-card { font-size: 15px; }
+    html.font-large .section-panel .card h3 { font-size: 15px; }
+    html.font-large .section-panel .persona-card { font-size: 15px; }
+    html.font-large .section-panel .kanban-card { font-size: 15px; }
+    html.font-large .section-panel .quadrant-card { font-size: 15px; }
+    html.font-large .section-panel .move-card-item { font-size: 15px; }
+
     /* === Fade animation (replaced by fadeSlideIn above) === */
     /* === Print === */
     @media print {
-      .sidebar, .topbar, .theme-toggle { display: none !important; }
+      .sidebar, .topbar, .theme-toggle, .font-size-control { display: none !important; }
       .main { margin-left: 0 !important; padding: 16px !important; max-width: 100% !important; }
       .card { break-inside: avoid; box-shadow: none !important; border: 1px solid #ddd !important; }
       body { background: white !important; color: black !important; }
@@ -977,6 +1031,11 @@
       <span class="topbar-title" id="topbar-section-title">Financial Performance</span>
     </div>
     <div class="topbar-right">
+      <div class="font-size-control">
+        <button class="font-btn" onclick="setFontSize('small', this)" title="Small text">A&#8722;</button>
+        <button class="font-btn active" onclick="setFontSize('normal', this)" title="Normal text">A</button>
+        <button class="font-btn" onclick="setFontSize('large', this)" title="Large text">A+</button>
+      </div>
       <button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark/light mode">
         <span id="theme-icon">&#9790;</span>
         <span id="theme-label">Dark</span>
@@ -3287,6 +3346,28 @@
     document.getElementById('companyModal').addEventListener('click', function(e) {
       if (e.target === this) this.close();
     });
+
+    // ========== FONT SIZE TOGGLE ==========
+    function setFontSize(size, el) {
+      document.documentElement.classList.remove('font-small', 'font-large');
+      if (size === 'small') document.documentElement.classList.add('font-small');
+      if (size === 'large') document.documentElement.classList.add('font-large');
+      localStorage.setItem('font-size-preference', size);
+      document.querySelectorAll('.font-btn').forEach(function(btn) { btn.classList.remove('active'); });
+      if (el) el.classList.add('active');
+    }
+    // Restore font size preference on load
+    (function() {
+      var pref = localStorage.getItem('font-size-preference');
+      if (pref && pref !== 'normal') {
+        if (pref === 'small') document.documentElement.classList.add('font-small');
+        if (pref === 'large') document.documentElement.classList.add('font-large');
+        var btns = document.querySelectorAll('.font-btn');
+        btns.forEach(function(btn) { btn.classList.remove('active'); });
+        var idx = pref === 'small' ? 0 : 2;
+        if (btns[idx]) btns[idx].classList.add('active');
+      }
+    })();
 
     // ========== THEME TOGGLE ==========
     function toggleTheme() {
