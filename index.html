@@ -6,7 +6,7 @@
   <title>Kompete - Industry Intel</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=JetBrains+Mono:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <script>
     (function(){
       var pref = localStorage.getItem('theme-preference');
@@ -15,12 +15,18 @@
     })();
   </script>
   <style>
-    /* === Design Tokens (Kompete.ai Brand v2.0) === */
+    /* === Design Tokens (Kompete.ai Brand — Premium Advisory v3.0) === */
     :root {
       /* Brand */
       --kompete-navy: #0D1B2A;
       --kompete-blue: #1B4B7A;
       --kompete-azure: #2E6BA6;
+
+      /* Gold accent — premium advisory feel */
+      --accent-gold: #C8963E;
+      --accent-gold-light: #D4A853;
+      --accent-gold-muted: rgba(200,150,62,0.12);
+      --accent-gold-border: rgba(200,150,62,0.25);
 
       /* Neutrals — warm undertone */
       --gray-900: #1A1A2E;
@@ -66,6 +72,7 @@
       --radius-full: 9999px;
 
       /* Type */
+      --font-display: 'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif;
       --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       --font-mono: 'IBM Plex Mono', 'JetBrains Mono', ui-monospace, monospace;
     }
@@ -77,6 +84,10 @@
       --text-secondary: #B4B4C7;
       --text-muted: #6B6B8D;
       --brand-accent: var(--kompete-azure);
+      --accent-gold: #D4A853;
+      --accent-gold-light: #E0BC6E;
+      --accent-gold-muted: rgba(212,168,83,0.10);
+      --accent-gold-border: rgba(212,168,83,0.20);
       --positive: var(--success-500);
       --negative: var(--danger-500);
       --neutral: var(--kompete-azure);
@@ -125,11 +136,11 @@
     .sidebar-brand .logo-icon {
       width: 36px; height: 36px;
       border-radius: 10px;
-      background: linear-gradient(135deg, #3B82F6, #06B6D4);
+      background: linear-gradient(135deg, var(--accent-gold), #D4A853);
       display: flex; align-items: center; justify-content: center;
       color: #fff; font-weight: 700; font-size: 14px; flex-shrink: 0;
     }
-    .sidebar-brand h1 { font-size: 14px; font-weight: 600; color: #F1F5F9; }
+    .sidebar-brand h1 { font-size: 14px; font-weight: 700; color: #F1F5F9; font-family: var(--font-display); letter-spacing: -0.02em; }
     .sidebar-brand p { font-size: 11px; color: rgba(203,213,225,0.5); margin-top: 2px; }
     .sidebar-section-label {
       padding: 20px 24px 8px;
@@ -150,13 +161,13 @@
       font-size: 13.5px; color: rgba(203,213,225,0.7);
       text-decoration: none; cursor: pointer;
       border-left: 3px solid transparent;
-      transition: all 0.15s;
+      transition: all 0.2s ease;
     }
     .nav-item:hover { background: rgba(255,255,255,0.04); color: #F1F5F9; }
     .nav-item.active {
-      color: #F1F5F9; font-weight: 600;
-      border-left-color: var(--kompete-azure);
-      background: rgba(255,255,255,0.06);
+      color: var(--accent-gold-light); font-weight: 600;
+      border-left-color: var(--accent-gold);
+      background: rgba(200,150,62,0.06);
     }
     .sidebar-footer {
       padding: 12px 24px;
@@ -175,39 +186,40 @@
       z-index: 50;
     }
     .topbar-left { display: flex; align-items: center; gap: 12px; }
-    .topbar-title { font-size: 15px; font-weight: 600; color: var(--text-primary); letter-spacing: -0.01em; }
+    .topbar-title { font-size: 15px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.02em; font-family: var(--font-display); }
     .topbar-right { display: flex; align-items: center; gap: 4px; }
     .theme-toggle {
       background: none; border: none; color: var(--text-secondary);
-      padding: 6px 10px; border-radius: 6px; cursor: pointer;
+      padding: 6px 12px; border-radius: 6px; cursor: pointer;
       font-size: 13px; display: flex; align-items: center; gap: 6px;
-      transition: all 0.15s; font-family: var(--font-body);
+      transition: all 0.2s ease; font-family: var(--font-body);
     }
-    .theme-toggle:hover { color: var(--text-primary); background: var(--surface-overlay); }
+    .theme-toggle:hover { color: var(--accent-gold); background: var(--accent-gold-muted); }
 
     /* === Main Content (v2 AppShell.tsx) === */
     .main {
       margin-left: 260px;
       flex: 1;
-      padding: 72px 32px 40px;
+      padding: 72px 36px 48px;
       max-width: 1600px;
     }
 
     /* === Section Header (v2 pattern: h2 + subtitle) === */
     .section-header {
-      margin-bottom: 16px;
-      padding-bottom: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 14px;
       border-bottom: 2px solid var(--surface-overlay);
     }
     .section-header h2 {
-      font-size: 20px;
-      font-weight: 600;
-      letter-spacing: -0.01em;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      font-family: var(--font-display);
     }
     .section-header .section-subtitle {
       font-size: 14px;
       color: var(--text-secondary);
-      margin-top: 4px;
+      margin-top: 6px;
     }
     .data-tag {
       display: inline-flex; align-items: center;
@@ -219,14 +231,18 @@
 
     /* === Section Visibility === */
     .section-panel { display: none; }
-    .section-panel.active { display: block; animation: fadeIn 0.2s ease-out; }
+    .section-panel.active { display: block; animation: fadeSlideIn 0.3s ease-out; }
+    @keyframes fadeSlideIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
     /* === Card System (v2 — borders, no shadows) === */
     .card-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 12px;
-      margin-bottom: 16px;
+      gap: 14px;
+      margin-bottom: 20px;
     }
     .card-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
     .card-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
@@ -235,9 +251,11 @@
       background: var(--surface-raised);
       border: 1px solid var(--surface-overlay);
       border-radius: 8px;
-      padding: 16px;
+      padding: 18px;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
-    .card h3 { font-size: 13px; font-weight: 600; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.03em; }
+    .card:hover { border-color: var(--accent-gold-border); box-shadow: 0 2px 8px var(--accent-gold-muted); }
+    .card h3 { font-size: 13px; font-weight: 700; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.03em; font-family: var(--font-display); }
     .card h4 {
       font-size: 11px; font-weight: 600; color: var(--text-muted);
       text-transform: uppercase; letter-spacing: 0.05em;
@@ -307,32 +325,37 @@
     .stat-row {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 12px;
-      margin-bottom: 16px;
+      gap: 14px;
+      margin-bottom: 20px;
     }
     .stat-box {
       background: var(--surface-raised);
       border: 1px solid var(--surface-overlay);
       border-radius: 8px;
-      padding: 12px 16px;
-      display: flex; flex-direction: column; gap: 2px;
+      padding: 14px 16px;
+      display: flex; flex-direction: column; gap: 4px;
+      border-top: 3px solid var(--accent-gold);
+      transition: border-color 0.2s ease;
     }
+    .stat-box:hover { border-top-color: var(--accent-gold-light); }
     .stat-box .stat-label {
       font-size: 10px; color: var(--text-muted);
       text-transform: uppercase; letter-spacing: 0.05em; font-weight: 500;
     }
-    .stat-box .stat-value { font-size: 20px; font-weight: 600; }
+    .stat-box .stat-value { font-size: 20px; font-weight: 700; font-family: var(--font-display); }
 
     /* === Signal Cards (v2 bordered) === */
     .signal-card {
       background: var(--surface-raised);
       border: 1px solid var(--surface-overlay);
       border-radius: 8px;
-      padding: 12px 16px;
+      padding: 14px 18px;
+      transition: border-color 0.2s ease;
     }
-    .signal-card .signal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+    .signal-card:hover { border-color: var(--accent-gold-border); }
+    .signal-card .signal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
     .signal-card .signal-title { font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); }
-    .signal-card .signal-value { font-size: 18px; font-weight: 600; }
+    .signal-card .signal-value { font-size: 18px; font-weight: 700; font-family: var(--font-display); }
     .signal-card .signal-detail { font-size: 12px; color: var(--text-secondary); margin-top: 4px; line-height: 1.5; }
     .trend-up::after { content: ' \25B2'; color: var(--negative); font-size: 10px; }
     .trend-down::after { content: ' \25BC'; color: var(--positive); font-size: 10px; }
@@ -352,7 +375,7 @@
     }
     .metrics-table th { cursor: pointer; user-select: none; transition: color 0.15s; }
     .metrics-table th:hover { color: var(--text-primary); }
-    .metrics-table th.active { color: var(--brand-accent); }
+    .metrics-table th.active { color: var(--accent-gold); }
     .metrics-table th.right, .comparison-table th.right { text-align: right; }
     .sort-arrow { font-size: 9px; margin-left: 4px; }
 
@@ -365,7 +388,7 @@
     .signal-table td { font-size: 12px; line-height: 1.5; }
     .metrics-table tr:hover td, .deal-table tr:hover td,
     .watchlist-table tr:hover td, .comparison-table tr:hover td,
-    .signal-table tr:hover td { background: var(--surface-raised); }
+    .signal-table tr:hover td { background: var(--accent-gold-muted); }
     .metrics-table td.right, .comparison-table td.right { text-align: right; }
     .metrics-table td.mono, .deal-table td.mono, .comparison-table td.mono { font-family: var(--font-mono); font-size: 12px; }
 
@@ -394,9 +417,11 @@
 
     /* === Sub-section Headers === */
     .sub-header {
-      font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em;
-      margin-top: 24px; margin-bottom: 12px;
-      padding-bottom: 6px; color: var(--text-primary);
+      font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em;
+      margin-top: 28px; margin-bottom: 14px;
+      padding-bottom: 8px; color: var(--text-primary);
+      font-family: var(--font-display);
+      border-bottom: 1px solid var(--surface-overlay);
     }
     .sub-header:first-child { margin-top: 0; }
 
@@ -411,8 +436,9 @@
       background: var(--surface-raised);
       border: 1px solid var(--surface-overlay);
       border-radius: 8px;
-      padding: 12px 16px; margin-bottom: 12px;
+      padding: 14px 18px; margin-bottom: 12px;
       border-left: 4px solid var(--surface-overlay);
+      transition: border-color 0.2s ease;
     }
     .alert-card.alert-critical { border-left-color: var(--negative); }
     .alert-card.alert-warning { border-left-color: var(--warning); }
@@ -425,9 +451,11 @@
     .persona-card {
       background: var(--surface-raised);
       border: 1px solid var(--surface-overlay);
-      border-radius: 8px; padding: 16px;
+      border-radius: 8px; padding: 18px;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
-    .persona-card .persona-title { font-size: 12px; font-weight: 700; margin-bottom: 12px; color: var(--brand-accent); text-transform: uppercase; letter-spacing: 0.03em; }
+    .persona-card:hover { border-color: var(--accent-gold-border); box-shadow: 0 2px 8px var(--accent-gold-muted); }
+    .persona-card .persona-title { font-size: 12px; font-weight: 700; margin-bottom: 12px; color: var(--accent-gold); text-transform: uppercase; letter-spacing: 0.03em; font-family: var(--font-display); }
     .persona-card ul { list-style: none; padding: 0; }
     .persona-card li { font-size: 13px; color: var(--text-secondary); line-height: 1.6; padding: 6px 0 6px 14px; position: relative; border-bottom: 1px solid var(--surface-overlay); }
     .persona-card li:last-child { border-bottom: none; }
@@ -442,19 +470,19 @@
       transition: all 0.15s; font-family: var(--font-body);
     }
     .company-tab:hover { color: var(--text-primary); }
-    .company-tab.active { color: var(--brand-accent); border-bottom-color: var(--brand-accent); font-weight: 600; }
+    .company-tab.active { color: var(--accent-gold); border-bottom-color: var(--accent-gold); font-weight: 600; }
 
     /* === Filters (v2 pill buttons) === */
     .filter-row { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; align-items: center; }
     .filter-row .filter-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 500; margin-right: 4px; }
     .filter-btn {
-      font-size: 11px; font-weight: 500; padding: 4px 12px;
+      font-size: 11px; font-weight: 500; padding: 5px 14px;
       border-radius: var(--radius-full); border: 1px solid var(--surface-overlay);
       background: transparent; color: var(--text-secondary);
-      cursor: pointer; font-family: var(--font-body); transition: all 0.15s;
+      cursor: pointer; font-family: var(--font-body); transition: all 0.2s ease;
     }
-    .filter-btn:hover { color: var(--text-primary); border-color: var(--gray-400); }
-    .filter-btn.active { background: var(--brand-accent); color: #fff; border-color: var(--brand-accent); }
+    .filter-btn:hover { color: var(--text-primary); border-color: var(--accent-gold); }
+    .filter-btn.active { background: var(--accent-gold); color: #fff; border-color: var(--accent-gold); }
 
     /* === Source Attribution (v2 SourceAttribution pattern) === */
     .source-attr {
@@ -568,7 +596,7 @@
     .modal-body { padding: 20px 24px; overflow-y: auto; max-height: calc(80vh - 60px); }
     .modal-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
     .modal-stat { background: var(--surface-raised); border: 1px solid var(--surface-overlay); border-radius: var(--radius); padding: 12px; text-align: center; }
-    .modal-stat .stat-value { font-size: 18px; font-weight: 700; font-family: var(--font-mono); }
+    .modal-stat .stat-value { font-size: 18px; font-weight: 700; font-family: var(--font-display); }
     .modal-stat .stat-label { font-size: 10px; color: var(--text-muted); margin-top: 2px; }
     .modal-table { width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 16px; }
     .modal-table th { font-size: 10px; text-transform: uppercase; color: var(--text-muted); padding: 6px 8px; border-bottom: 2px solid var(--surface-overlay); text-align: left; }
@@ -601,7 +629,8 @@
 
     /* === Governance Risk Scoring === */
     .risk-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-    .risk-card { background: var(--surface-raised); border: 1px solid var(--surface-overlay); border-radius: var(--radius); padding: 14px; }
+    .risk-card { background: var(--surface-raised); border: 1px solid var(--surface-overlay); border-radius: var(--radius); padding: 16px; transition: border-color 0.2s ease; }
+    .risk-card:hover { border-color: var(--accent-gold-border); }
     .risk-header { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
     .risk-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
     .risk-dot.red { background: var(--danger-500); }
@@ -630,8 +659,8 @@
     .ops-table td { padding: 5px 6px; border-bottom: 1px solid var(--surface-overlay); text-align: right; font-family: var(--font-mono); font-size: 11px; }
     .ops-table td:first-child { text-align: left; font-family: var(--font-body); font-weight: 500; color: var(--text-primary); }
     .ops-table td:nth-child(2) { text-align: left; font-family: var(--font-body); font-size: 10px; color: var(--text-muted); }
-    .ops-table tr:hover { background: rgba(27,75,122,0.04); }
-    .dark .ops-table tr:hover { background: rgba(46,107,166,0.08); }
+    .ops-table tr:hover { background: var(--accent-gold-muted); }
+    .dark .ops-table tr:hover { background: var(--accent-gold-muted); }
     .conf-icon { font-size: 9px; margin-left: 2px; cursor: default; }
     .conf-icon.verified { color: var(--success-500); }
     .conf-icon.derived { color: var(--warning-500); }
@@ -640,7 +669,8 @@
     /* === Watchlist Quadrant Layout === */
     .quadrant-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
     @media (max-width: 768px) { .quadrant-grid { grid-template-columns: 1fr; } }
-    .quadrant-card { background: var(--surface); border: 1px solid var(--surface-overlay); border-radius: 8px; overflow: hidden; }
+    .quadrant-card { background: var(--surface); border: 1px solid var(--surface-overlay); border-radius: 8px; overflow: hidden; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+    .quadrant-card:hover { border-color: var(--accent-gold-border); box-shadow: 0 2px 8px var(--accent-gold-muted); }
     .quadrant-card .q-accent { height: 3px; }
     .quadrant-card .q-accent.green { background: var(--success-500); }
     .quadrant-card .q-accent.red { background: var(--danger-500); }
@@ -667,7 +697,8 @@
     /* === Deal Pattern Cards === */
     .pattern-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 24px; }
     @media (max-width: 768px) { .pattern-grid { grid-template-columns: 1fr; } }
-    .pattern-card { background: var(--surface); border: 1px solid var(--surface-overlay); border-radius: 8px; padding: 14px; }
+    .pattern-card { background: var(--surface); border: 1px solid var(--surface-overlay); border-radius: 8px; padding: 16px; transition: border-color 0.2s ease; }
+    .pattern-card:hover { border-color: var(--accent-gold-border); }
     .pattern-name { font-size: 12px; font-weight: 600; color: var(--text-primary); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
     .pattern-conf { font-size: 9px; padding: 2px 8px; border-radius: 10px; font-weight: 500; }
     .pattern-conf.high { background: var(--success-100); color: var(--success-700); }
@@ -681,7 +712,8 @@
     .subsector-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 24px; }
     @media (max-width: 900px) { .subsector-grid { grid-template-columns: 1fr 1fr; } }
     @media (max-width: 600px) { .subsector-grid { grid-template-columns: 1fr; } }
-    .subsector-card { background: var(--surface); border: 1px solid var(--surface-overlay); border-radius: 8px; padding: 14px; }
+    .subsector-card { background: var(--surface); border: 1px solid var(--surface-overlay); border-radius: 8px; padding: 16px; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+    .subsector-card:hover { border-color: var(--accent-gold-border); box-shadow: 0 2px 8px var(--accent-gold-muted); }
     .subsector-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
     .subsector-name { font-size: 13px; font-weight: 600; color: var(--text-primary); }
     .subsector-count { font-size: 10px; background: var(--surface-raised); color: var(--text-muted); padding: 1px 7px; border-radius: 10px; }
@@ -695,48 +727,48 @@
     .lever-table { width: 100%; border-collapse: collapse; font-size: 11px; }
     .lever-table th { font-size: 9px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-muted); font-weight: 500; padding: 6px 8px; border-bottom: 2px solid var(--surface-overlay); text-align: left; }
     .lever-table td { padding: 8px 8px; border-bottom: 1px solid var(--surface-overlay); vertical-align: top; }
-    .lever-table tr:hover { background: rgba(27,75,122,0.04); }
-    .dark .lever-table tr:hover { background: rgba(46,107,166,0.08); }
+    .lever-table tr:hover { background: var(--accent-gold-muted); }
+    .dark .lever-table tr:hover { background: var(--accent-gold-muted); }
     .lever-impact { font-family: var(--font-mono); font-weight: 600; color: var(--success-700); font-size: 12px; }
     .dark .lever-impact { color: var(--success-500); }
     .subsector-tag { display: inline-block; font-size: 9px; padding: 1px 6px; border-radius: 8px; background: var(--info-100); color: var(--info-700); margin: 1px 2px; font-weight: 500; }
     .dark .subsector-tag { background: rgba(59,130,246,0.12); color: var(--info-500); }
 
     /* === Derived Columns Toggle === */
-    .derived-toggle { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 500; padding: 5px 12px; border: 1px solid var(--surface-overlay); border-radius: 6px; background: var(--surface); color: var(--text-secondary); cursor: pointer; margin-bottom: 12px; transition: all 0.15s; }
-    .derived-toggle:hover { border-color: var(--brand-accent); color: var(--brand-accent); }
-    .derived-toggle.active { background: var(--info-50); border-color: var(--info-500); color: var(--info-700); }
-    .dark .derived-toggle.active { background: rgba(59,130,246,0.1); border-color: var(--info-500); color: var(--info-500); }
+    .derived-toggle { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 500; padding: 6px 14px; border: 1px solid var(--surface-overlay); border-radius: 6px; background: var(--surface); color: var(--text-secondary); cursor: pointer; margin-bottom: 14px; transition: all 0.2s ease; }
+    .derived-toggle:hover { border-color: var(--accent-gold); color: var(--accent-gold); }
+    .derived-toggle.active { background: var(--accent-gold-muted); border-color: var(--accent-gold); color: var(--accent-gold); }
+    .dark .derived-toggle.active { background: var(--accent-gold-muted); border-color: var(--accent-gold); color: var(--accent-gold); }
     .derived-col { display: none; }
     .show-derived .derived-col { display: table-cell; }
 
     /* === Filter Bar === */
     .filter-bar { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; align-items: center; }
     .filter-bar .filter-label { font-size: 11px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; margin-right: 4px; }
-    .type-filter { font-size: 11px; padding: 4px 10px; border-radius: 14px; border: 1px solid var(--surface-overlay); background: var(--surface); color: var(--text-secondary); cursor: pointer; font-family: var(--font-body); font-weight: 500; transition: all 0.15s; }
-    .type-filter:hover { border-color: var(--brand-accent); color: var(--brand-accent); }
-    .type-filter.active { background: var(--info-50); border-color: var(--info-500); color: var(--info-700); }
-    .dark .type-filter.active { background: rgba(59,130,246,0.1); border-color: var(--info-500); color: var(--info-500); }
+    .type-filter { font-size: 11px; padding: 5px 12px; border-radius: 14px; border: 1px solid var(--surface-overlay); background: var(--surface); color: var(--text-secondary); cursor: pointer; font-family: var(--font-body); font-weight: 500; transition: all 0.2s ease; }
+    .type-filter:hover { border-color: var(--accent-gold); color: var(--accent-gold); }
+    .type-filter.active { background: var(--accent-gold-muted); border-color: var(--accent-gold); color: var(--accent-gold); font-weight: 600; }
+    .dark .type-filter.active { background: var(--accent-gold-muted); border-color: var(--accent-gold); color: var(--accent-gold); }
     .type-filter .count { font-size: 9px; opacity: 0.7; margin-left: 2px; }
 
     /* === Tab Navigation === */
     .tab-bar { display: flex; gap: 0; border-bottom: 2px solid var(--surface-overlay); margin-bottom: 20px; }
-    .tab-btn { font-size: 12px; font-weight: 500; padding: 8px 16px; border: none; background: none; color: var(--text-muted); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; font-family: var(--font-body); transition: all 0.15s; }
+    .tab-btn { font-size: 12px; font-weight: 500; padding: 10px 18px; border: none; background: none; color: var(--text-muted); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; font-family: var(--font-display); transition: all 0.2s ease; }
     .tab-btn:hover { color: var(--text-primary); }
-    .tab-btn.active { color: var(--brand-accent); border-bottom-color: var(--brand-accent); font-weight: 600; }
+    .tab-btn.active { color: var(--accent-gold); border-bottom-color: var(--accent-gold); font-weight: 700; }
     .tab-btn .tab-count { font-size: 9px; background: var(--surface-raised); color: var(--text-muted); padding: 1px 6px; border-radius: 8px; margin-left: 4px; }
-    .tab-btn.active .tab-count { background: var(--info-100); color: var(--info-700); }
-    .dark .tab-btn.active .tab-count { background: rgba(59,130,246,0.12); color: var(--info-500); }
+    .tab-btn.active .tab-count { background: var(--accent-gold-muted); color: var(--accent-gold); }
+    .dark .tab-btn.active .tab-count { background: var(--accent-gold-muted); color: var(--accent-gold); }
     .tab-panel { display: none; }
     .tab-panel.active { display: block; }
 
     /* === 2-Column Section Layout === */
-    .section-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .section-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
     @media (max-width: 900px) { .section-2col { grid-template-columns: 1fr; } }
 
     /* === Move Cards === */
-    .move-card-item { background: var(--surface); border: 1px solid var(--surface-overlay); border-radius: 8px; padding: 14px 16px; }
-    .move-card-item:hover { border-color: var(--brand-accent); }
+    .move-card-item { background: var(--surface); border: 1px solid var(--surface-overlay); border-radius: 8px; padding: 16px 18px; transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease; }
+    .move-card-item:hover { border-color: var(--accent-gold-border); box-shadow: 0 2px 8px var(--accent-gold-muted); transform: translateY(-1px); }
     .move-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
     .move-card-company { font-weight: 600; font-size: 13px; color: var(--text-primary); }
     .move-card-type { font-size: 9px; padding: 2px 8px; border-radius: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; }
@@ -765,9 +797,10 @@
     @media (max-width: 900px) { .kanban-grid { grid-template-columns: 1fr; } }
     .kanban-column { background: var(--surface-raised); border-radius: 8px; padding: 12px; min-height: 200px; }
     .kanban-col-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid var(--surface-overlay); }
-    .kanban-col-title { font-size: 12px; font-weight: 600; color: var(--text-primary); }
+    .kanban-col-title { font-size: 13px; font-weight: 700; color: var(--text-primary); font-family: var(--font-display); }
     .kanban-col-count { font-size: 9px; background: var(--surface-overlay); color: var(--text-muted); padding: 2px 8px; border-radius: 10px; font-weight: 600; }
-    .kanban-card { background: var(--surface); border: 1px solid var(--surface-overlay); border-radius: 6px; padding: 10px 12px; margin-bottom: 8px; border-left: 3px solid var(--text-muted); }
+    .kanban-card { background: var(--surface); border: 1px solid var(--surface-overlay); border-radius: 6px; padding: 12px 14px; margin-bottom: 10px; border-left: 3px solid var(--text-muted); transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+    .kanban-card:hover { border-color: var(--accent-gold-border); box-shadow: 0 2px 6px var(--accent-gold-muted); }
     .kanban-card.identified { border-left-color: var(--text-muted); }
     .kanban-card.qualified { border-left-color: var(--warning-500); }
     .kanban-card.outreach { border-left-color: var(--success-500); }
@@ -780,20 +813,20 @@
     .kanban-card-source { margin-top: 6px; }
 
     /* === Opportunity Summary (Executive) === */
-    .opp-summary { background: linear-gradient(135deg, rgba(27,75,122,0.06), rgba(27,75,122,0.02)); border: 1px solid rgba(27,75,122,0.15); border-radius: 10px; padding: 16px 20px; margin-bottom: 24px; }
-    .dark .opp-summary { background: linear-gradient(135deg, rgba(46,107,166,0.08), rgba(46,107,166,0.03)); border-color: rgba(46,107,166,0.2); }
-    .opp-summary-title { font-size: 13px; font-weight: 600; color: var(--brand-accent); margin-bottom: 10px; }
+    .opp-summary { background: linear-gradient(135deg, rgba(200,150,62,0.06), rgba(200,150,62,0.02)); border: 1px solid var(--accent-gold-border); border-radius: 10px; padding: 18px 22px; margin-bottom: 24px; }
+    .dark .opp-summary { background: linear-gradient(135deg, rgba(212,168,83,0.06), rgba(212,168,83,0.02)); border-color: var(--accent-gold-border); }
+    .opp-summary-title { font-size: 14px; font-weight: 700; color: var(--accent-gold); margin-bottom: 12px; font-family: var(--font-display); }
     .opp-summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
     @media (max-width: 900px) { .opp-summary-grid { grid-template-columns: repeat(2, 1fr); } }
     .opp-summary-stat { text-align: center; }
-    .opp-summary-value { font-size: 20px; font-weight: 700; font-family: var(--font-mono); color: var(--text-primary); }
-    .opp-summary-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; margin-top: 2px; }
+    .opp-summary-value { font-size: 22px; font-weight: 800; font-family: var(--font-display); color: var(--text-primary); }
+    .opp-summary-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; margin-top: 4px; }
 
     /* === A&M Benchmark Callout === */
-    .benchmark-callout { background: var(--surface-raised); border: 1px solid var(--surface-overlay); border-radius: 10px; padding: 16px 20px; margin-bottom: 16px; border-left: 4px solid var(--brand-accent); }
-    .benchmark-title { font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 8px; }
+    .benchmark-callout { background: var(--surface-raised); border: 1px solid var(--surface-overlay); border-radius: 10px; padding: 18px 22px; margin-bottom: 16px; border-left: 4px solid var(--accent-gold); }
+    .benchmark-title { font-size: 14px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px; font-family: var(--font-display); }
     .benchmark-body { font-size: 12px; color: var(--text-secondary); line-height: 1.7; }
-    .benchmark-metric { display: inline-block; font-family: var(--font-mono); font-weight: 600; color: var(--brand-accent); }
+    .benchmark-metric { display: inline-block; font-family: var(--font-mono); font-weight: 600; color: var(--accent-gold); }
 
     /* === Cross-link Note === */
     .cross-link-note { font-size: 11px; color: var(--text-muted); background: var(--surface-raised); border-radius: 6px; padding: 8px 12px; margin-bottom: 16px; border-left: 3px solid var(--info-500); }
@@ -835,11 +868,7 @@
     .dark ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); }
     .dark ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
 
-    /* === Fade animation === */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(4px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+    /* === Fade animation (replaced by fadeSlideIn above) === */
     /* === Print === */
     @media print {
       .sidebar, .topbar, .theme-toggle { display: none !important; }
@@ -931,7 +960,6 @@
                 <li>16 companies tracked with Q3 FY26 financials (Tier 1)</li>
                 <li>157 CoSTAR signals across 3 companies (Tier 1)</li>
                 <li>18 deals with verified sources (Tier 1&ndash;2)</li>
-                <li>IT/Digital contracts from IDC + GlobalData (Tier 2)</li>
                 <li>Gap: Limited real-time pricing &amp; channel data</li>
               </ul>
             </div>
@@ -957,10 +985,6 @@
           <div class="opp-summary-stat">
             <div class="opp-summary-value">12</div>
             <div class="opp-summary-label">Total Opportunities</div>
-          </div>
-          <div class="opp-summary-stat">
-            <div class="opp-summary-value">~Rs 850 Cr</div>
-            <div class="opp-summary-label">Est. Addressable Value</div>
           </div>
           <div class="opp-summary-stat">
             <div class="opp-summary-value">4 / 5 / 3</div>
@@ -1570,148 +1594,6 @@
         </div>
       </div>
 
-      <h3 class="sub-header" style="margin-top:32px">Technology &amp; Digital Contracts</h3>
-      <p style="font-size:12px; color:var(--text-muted); margin:-8px 0 16px 0;">IT services, ERP, supply chain software, and digital transformation contracts signed by tracked companies</p>
-      <table class="deal-table">
-        <thead>
-          <tr>
-            <th>Buyer</th>
-            <th>Vendor</th>
-            <th>Year</th>
-            <th>Type</th>
-            <th>Value</th>
-            <th>Details</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>Havells India</strong></td>
-            <td>SAP</td>
-            <td class="mono">2022</td>
-            <td><span class="badge badge-tech">ERP</span></td>
-            <td class="mono">$2.4M</td>
-            <td>Enterprise application suite deployment &mdash; core ERP modernization</td>
-          </tr>
-          <tr>
-            <td><strong>Havells India</strong></td>
-            <td>Dassault Syst&egrave;mes</td>
-            <td class="mono">2022</td>
-            <td><span class="badge badge-tech">PLM</span></td>
-            <td class="mono">$2.8M</td>
-            <td>Product lifecycle management &amp; digital engineering platform</td>
-          </tr>
-          <tr>
-            <td><strong>Havells India</strong></td>
-            <td>Blue Yonder</td>
-            <td class="mono">2023</td>
-            <td><span class="badge badge-tech">SCM</span></td>
-            <td class="mono">$1.2M</td>
-            <td>Supply chain planning &amp; demand forecasting platform</td>
-          </tr>
-          <tr>
-            <td><strong>Bajaj Electricals</strong></td>
-            <td>SAP</td>
-            <td class="mono">2024</td>
-            <td><span class="badge badge-tech">ERP</span></td>
-            <td class="mono">$769K</td>
-            <td>Enterprise application implementation (S/4HANA migration)</td>
-          </tr>
-          <tr>
-            <td><strong>Bajaj Electricals</strong></td>
-            <td>3i Infotech</td>
-            <td class="mono">2023</td>
-            <td><span class="badge badge-tech">Managed IT</span></td>
-            <td class="mono">$2.4M</td>
-            <td>5-year managed infrastructure services contract</td>
-          </tr>
-          <tr>
-            <td><strong>Crompton Greaves</strong></td>
-            <td>NTT</td>
-            <td class="mono">2023</td>
-            <td><span class="badge badge-tech">Infra</span></td>
-            <td class="mono">$925K</td>
-            <td>IT infrastructure modernization and network services</td>
-          </tr>
-          <tr>
-            <td><strong>Dixon Technologies</strong></td>
-            <td>EY (Blue Yonder)</td>
-            <td class="mono">2024</td>
-            <td><span class="badge badge-tech">SCM</span></td>
-            <td class="mono">$200K</td>
-            <td>Blue Yonder supply planning implementation &mdash; scaling operations</td>
-          </tr>
-          <tr>
-            <td><strong>Whirlpool India</strong></td>
-            <td>VTEX</td>
-            <td class="mono">2023</td>
-            <td><span class="badge badge-tech">D2C</span></td>
-            <td class="mono">$5.9M</td>
-            <td>Digital commerce platform for direct-to-consumer channel</td>
-          </tr>
-          <tr>
-            <td><strong>Whirlpool India</strong></td>
-            <td>Persistent Systems</td>
-            <td class="mono">2021</td>
-            <td><span class="badge badge-tech">Digital</span></td>
-            <td class="mono">$49.5M</td>
-            <td>Enterprise digital transformation &mdash; largest IT contract in sector</td>
-          </tr>
-          <tr>
-            <td><strong>Blue Star</strong></td>
-            <td>Datamatics</td>
-            <td class="mono">2020</td>
-            <td><span class="badge badge-tech">RPA</span></td>
-            <td class="mono">$410K</td>
-            <td>TruBot RPA automation for back-office process efficiency</td>
-          </tr>
-          <tr>
-            <td><strong>Godrej Group</strong></td>
-            <td>Kyndryl (ex-IBM)</td>
-            <td class="mono">2018</td>
-            <td><span class="badge badge-tech">Managed IT</span></td>
-            <td class="mono">$21M</td>
-            <td>Multi-year IT infrastructure management across Godrej entities</td>
-          </tr>
-          <tr>
-            <td><strong>Godrej Industries</strong></td>
-            <td>HP</td>
-            <td class="mono">2008</td>
-            <td><span class="badge badge-tech">IT Outsource</span></td>
-            <td class="mono">$60M</td>
-            <td>10-year IT transformation deal &mdash; landmark outsourcing in consumer durables</td>
-          </tr>
-          <tr>
-            <td><strong>Whirlpool of India</strong></td>
-            <td>IBM</td>
-            <td class="mono">2000</td>
-            <td><span class="badge badge-tech">IT Outsource</span></td>
-            <td class="mono">$30M</td>
-            <td>Full IT outsourcing engagement &mdash; one of earliest in Indian manufacturing</td>
-          </tr>
-          <tr>
-            <td><strong>Voltas</strong></td>
-            <td>Google</td>
-            <td class="mono">2011</td>
-            <td><span class="badge badge-tech">Cloud</span></td>
-            <td class="mono">$5.3M</td>
-            <td>Cloud platform and enterprise productivity suite adoption</td>
-          </tr>
-          <tr>
-            <td><strong>Orient Electric</strong></td>
-            <td>Tata Elxsi</td>
-            <td class="mono">2019</td>
-            <td><span class="badge badge-tech">Digital</span></td>
-            <td class="mono">$245K</td>
-            <td>Digital product engineering and IoT enablement</td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="card" style="margin-top:16px">
-        <h4>Digital Spend Pattern</h4>
-        <p>Havells leads in digital maturity with $6.4M across ERP (SAP), PLM (Dassault), and SCM (Blue Yonder) &mdash; a full-stack digital backbone. Whirlpool dominates by contract value ($85.4M cumulative) but skews toward legacy IT outsourcing. Key signal: Dixon and Bajaj investing in supply chain intelligence (Blue Yonder, SAP) in 2023&ndash;24 points to operational scaling ahead of PLI ramp-up. RPA adoption (Blue Star/Datamatics) remains isolated &mdash; no sector-wide automation wave yet.</p>
-        <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-derived">Derived</span> IDC + GlobalData cross-analysis</span></div>
-      </div>
-
       <h3 class="sub-header" style="margin-top:32px">AI-Detected Deal Patterns</h3>
       <p style="font-size:11px; color:var(--text-muted); margin:-8px 0 12px 0;">Cross-deal pattern analysis identifying structural themes across 207 Jan 2026 transactions</p>
       <div class="pattern-grid">
@@ -1736,7 +1618,7 @@
           <div class="pattern-deals">Supporting deals: 7 &middot; <span class="source-attr"><span class="source-tier tier-verified">Verified</span> DPIIT, MoCI</span></div>
         </div>
       </div>
-      <div class="section-footer">Data as of Jan-Feb 2026 | Sources: VCCEdge, Tracxn, company filings, SQLite deal database, IDC Services Contracts DB, GlobalData IT Outsourcing DB</div>
+      <div class="section-footer">Data as of Jan-Feb 2026 | Sources: VCCEdge, Tracxn, company filings, SQLite deal database</div>
     </div>
 
     <!-- ==================== OPERATIONAL INTELLIGENCE ==================== -->
@@ -1859,11 +1741,11 @@
       <div style="margin-bottom:24px"><span class="source-attr"><span class="source-tier tier-derived">Derived</span> Screener.in, Trendlyne &middot; Q3 FY2026 financials</span></div>
 
       <h3 class="sub-header" style="margin-top:32px">Diagnostic Triggers</h3>
-      <p style="font-size:11px; color:var(--text-muted); margin:-8px 0 12px 0;">Companies exceeding operational stress thresholds based on Q3 FY26 financials</p>
+      <p style="font-size:11px; color:var(--text-muted); margin:-8px 0 12px 0;">Companies showing operational stress signals based on Q3 FY26 financials</p>
 
       <div class="diag-trigger">
         <div class="diag-company">Bajaj Electricals</div>
-        <div class="diag-desc">Revenue decline: -18.5% YoY with net loss of Rs 34 Cr. EBITDA margin at 4.1% &mdash; well below sector P25.</div>
+        <div class="diag-desc">Revenue decline: -18.5% YoY with net loss of Rs 34 Cr. EBITDA margin at 4.1% &mdash; lowest among tracked companies.</div>
         <div class="diag-value">Rev: -18.5%</div>
       </div>
       <div class="diag-trigger">
@@ -1886,7 +1768,7 @@
         <div class="diag-desc">Working capital days at 43 with ROCE declining. WC efficiency lag despite revenue growth of 10.6%.</div>
         <div class="diag-value">WC: 43 days</div>
       </div>
-      <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-derived">Derived</span> Screener.in Q3 FY26 financials, threshold analysis</span></div>
+      <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-derived">Derived</span> Screener.in Q3 FY26 financials</span></div>
 
       <div class="section-footer">Data as of Feb 2026 | Sources: Industry reports, MoCI, DPIIT PLI tracker</div>
     </div>
@@ -2470,112 +2352,9 @@
         <span class="data-tag">Feb 2026 &middot; Consumer Durables Cost Structure Benchmark</span>
       </div>
 
-      <h3 class="sub-header">Cost Structure Benchmark</h3>
-      <div class="card-grid cols-3">
-        <div class="signal-card">
-          <div class="signal-header">
-            <span class="signal-title">Commodity Input</span>
-          </div>
-          <div class="signal-value">~60%</div>
-          <div class="signal-detail">of BOM. Copper tubing, aluminum extrusions, steel sheet metal, compressors. Highly exposed to global price cycles.</div>
-          <span class="source-attr"><span class="source-tier tier-estimated">Estimated</span> Industry benchmarks</span>
-        </div>
-        <div class="signal-card">
-          <div class="signal-header">
-            <span class="signal-title">Employee Costs</span>
-          </div>
-          <div class="signal-value">8&ndash;14%</div>
-          <div class="signal-detail">of revenue. Varies by automation level. New Labor Codes adding exceptional costs (Voltas: Rs 26.5 Cr one-time).</div>
-          <span class="source-attr"><span class="source-tier tier-guidance">Mgmt Guidance</span> Annual reports</span>
-        </div>
-        <div class="signal-card">
-          <div class="signal-header">
-            <span class="signal-title">Logistics</span>
-          </div>
-          <div class="signal-value">5&ndash;7%</div>
-          <div class="signal-detail">of revenue. Whirlpool at 6.3%. White goods are heavy and bulky. Localized packaging can slash freight costs significantly.</div>
-          <span class="source-attr"><span class="source-tier tier-verified">Verified</span> Whirlpool AR FY25</span>
-        </div>
-      </div>
-
       <h3 class="sub-header">Sub-Sector Breakdown</h3>
       <p style="font-size:11px; color:var(--text-muted); margin:-8px 0 12px 0;">Computed from 14-company Q3 FY26 data. Avg metrics per sub-sector with top/bottom performers.</p>
       <div class="subsector-grid" id="subsectorGrid"></div>
-
-      <h3 class="sub-header">Margin Levers</h3>
-      <div style="overflow-x:auto; margin-bottom:24px;">
-        <table class="lever-table">
-          <thead>
-            <tr>
-              <th>Lever</th>
-              <th>Applicable Sub-Sectors</th>
-              <th>Impact (bps)</th>
-              <th>Current Evidence</th>
-              <th>Active Companies</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>Backward Integration</strong></td>
-              <td><span class="subsector-tag">EMS/OEM</span> <span class="subsector-tag">Cooling</span> <span class="subsector-tag">Appliances</span></td>
-              <td><span class="lever-impact">150&ndash;250</span></td>
-              <td>Amber: 70% BoM catering capability. PLI/ECMS subsidizing component localization. Import-reliant brands becoming structurally uncompetitive.</td>
-              <td>Amber, Dixon, Blue Star, Havells</td>
-            </tr>
-            <tr>
-              <td><strong>Design-to-Value</strong></td>
-              <td><span class="subsector-tag">Appliances</span> <span class="subsector-tag">Cooling</span> <span class="subsector-tag">Kitchen</span></td>
-              <td><span class="lever-impact">100&ndash;200</span></td>
-              <td>Redesign around locally available components, bypassing global bottlenecks. Consumers demanding genuine utility (inverter motors, energy efficiency) over feature-stuffing.</td>
-              <td>Whirlpool (P4G), Havells, Crompton</td>
-            </tr>
-            <tr>
-              <td><strong>Premiumization</strong></td>
-              <td><span class="subsector-tag">Diversified</span> <span class="subsector-tag">Cooling</span> <span class="subsector-tag">Electrical</span></td>
-              <td><span class="lever-impact">80&ndash;150</span></td>
-              <td>BEE norm transition pushing AC prices +7&ndash;10%, refrigerators +3&ndash;5%. Urban premium demand growing double-digits. ASP accretion underway.</td>
-              <td>Havells, Blue Star, Voltas, Crompton</td>
-            </tr>
-            <tr>
-              <td><strong>SKU Rationalization</strong></td>
-              <td><span class="subsector-tag">Kitchen</span> <span class="subsector-tag">Electrical</span> <span class="subsector-tag">Appliances</span></td>
-              <td><span class="lever-impact">50&ndash;100</span></td>
-              <td>Unchecked proliferation caused WC lockups. Shift to &ldquo;fewer, better launches&rdquo;. Standardize chassis designs. Factor true cost of inventory holding, returns, marketing.</td>
-              <td>TTK Prestige, Bajaj, IFB, Butterfly</td>
-            </tr>
-            <tr>
-              <td><strong>WCM / Lean Manufacturing</strong></td>
-              <td><span class="subsector-tag">Appliances</span> <span class="subsector-tag">Cooling</span></td>
-              <td><span class="lever-impact">30&ndash;80</span></td>
-              <td>Whirlpool: Pune WCM Silver, Faridabad &amp; Puducherry Bronze. No plant at Gold/Platinum yet. Competitors at higher WCM maturity have superior cost structures.</td>
-              <td>Whirlpool, Voltas, IFB</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div style="margin-bottom:8px"><span class="source-attr"><span class="source-tier tier-derived">Derived</span> Industry benchmarks, concall transcripts, annual reports</span></div>
-
-      <h3 class="sub-header">A&amp;M Benchmark Comparisons</h3>
-      <div class="card-grid cols-2" style="margin-bottom:24px">
-        <div class="benchmark-callout">
-          <div class="benchmark-title">European White Goods Benchmark</div>
-          <div class="benchmark-body">
-            European white goods leaders (BSH, Electrolux, Miele) operate at <span class="benchmark-metric">8&ndash;12% EBITDA margins</span> with <span class="benchmark-metric">60&ndash;70% localized sourcing</span>. India's top performers (Havells 11.2%, Crompton 12.6%) are approaching parity but lag in backward integration maturity. Key gap: European players self-manufacture <span class="benchmark-metric">40&ndash;50%</span> of critical components vs India's <span class="benchmark-metric">15&ndash;25%</span> for most listed companies.
-            <br><br>
-            <strong>A&amp;M Implication:</strong> Component localization programs represent the single largest margin lever for Indian consumer durables &mdash; our European transformation engagements consistently delivered 200&ndash;350 bps margin expansion over 18&ndash;24 months.
-          </div>
-          <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-derived">Derived</span> A&amp;M European practice benchmarks</span></div>
-        </div>
-        <div class="benchmark-callout">
-          <div class="benchmark-title">US Consumer Durables Benchmark</div>
-          <div class="benchmark-body">
-            US consumer durables firms (Whirlpool Corp, Stanley Black &amp; Decker) leverage <span class="benchmark-metric">D2C at 15&ndash;25%</span> of revenue vs India's <span class="benchmark-metric">&lt;1%</span>. US working capital cycles average <span class="benchmark-metric">45&ndash;55 days</span> vs India's <span class="benchmark-metric">12&ndash;35 days</span> (India better due to cash-and-carry dealer model). However, US firms capture <span class="benchmark-metric">3&ndash;5x</span> consumer data per transaction.
-            <br><br>
-            <strong>A&amp;M Implication:</strong> D2C infrastructure buildout and consumer data platform engagements are nascent but high-value opportunities. Quick-commerce players (ZILO model) may enable hybrid D2C without full channel buildout.
-          </div>
-          <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-derived">Derived</span> A&amp;M US consumer practice benchmarks</span></div>
-        </div>
-      </div>
 
       <h3 class="sub-header">Scale vs. Profitability Matrix</h3>
       <div class="card">
@@ -2670,10 +2449,6 @@
           <div class="stat-label">Total Opportunities</div>
         </div>
         <div class="stat-box">
-          <div class="stat-value">~Rs 850 Cr</div>
-          <div class="stat-label">Est. Total Value</div>
-        </div>
-        <div class="stat-box">
           <div class="stat-value">4 / 5 / 3</div>
           <div class="stat-label">Identified / Qualified / Outreach</div>
         </div>
@@ -2698,7 +2473,6 @@
           <div class="kanban-card identified">
             <div class="kanban-card-company">Bajaj Electricals</div>
             <div class="kanban-card-type">Turnaround / Operations</div>
-            <div class="kanban-card-size">Est. Rs 80&ndash;120 Cr engagement</div>
             <ul class="kanban-card-points">
               <li>Revenue -18.5% YoY, net loss Rs 34 Cr</li>
               <li>EBITDA margin collapsed to 4.1%</li>
@@ -2709,7 +2483,6 @@
           <div class="kanban-card identified">
             <div class="kanban-card-company">IFB Industries</div>
             <div class="kanban-card-type">Margin Improvement</div>
-            <div class="kanban-card-size">Est. Rs 50&ndash;80 Cr engagement</div>
             <ul class="kanban-card-points">
               <li>EBITDA 7.4% vs 10%+ target (260 bps gap)</li>
               <li>Chairman admits &ldquo;sales process weak&rdquo;</li>
@@ -2745,7 +2518,6 @@
           <div class="kanban-card qualified">
             <div class="kanban-card-company">Whirlpool of India</div>
             <div class="kanban-card-type">Transaction Advisory / Divestiture</div>
-            <div class="kanban-card-size">Est. Rs 200&ndash;400 Cr engagement</div>
             <ul class="kanban-card-points">
               <li>Parent 51% &rarr; ~20% stake reduction</li>
               <li>BLA/TLA renegotiation critical</li>
@@ -2757,7 +2529,6 @@
           <div class="kanban-card qualified">
             <div class="kanban-card-company">Amber Enterprises</div>
             <div class="kanban-card-type">Post-Acquisition Integration</div>
-            <div class="kanban-card-size">Est. Rs 100&ndash;150 Cr engagement</div>
             <ul class="kanban-card-points">
               <li>3 acquisitions in 6 months (Shogini, Unitronics, One Micro)</li>
               <li>QIP Rs 1,000 Cr + PE Rs 1,200 Cr raised</li>
@@ -2768,7 +2539,6 @@
           <div class="kanban-card qualified">
             <div class="kanban-card-company">Crompton Greaves</div>
             <div class="kanban-card-type">M&amp;A / Governance Advisory</div>
-            <div class="kanban-card-size">Est. Rs 60&ndash;100 Cr engagement</div>
             <ul class="kanban-card-points">
               <li>Butterfly merger collapse &mdash; shareholder governance</li>
               <li>2 rounds price hikes needed in Q4/Q1</li>
@@ -2804,7 +2574,6 @@
           <div class="kanban-card outreach">
             <div class="kanban-card-company">Dixon Technologies</div>
             <div class="kanban-card-type">Growth Strategy / IT Hardware</div>
-            <div class="kanban-card-size">Est. Rs 80&ndash;120 Cr engagement</div>
             <ul class="kanban-card-points">
               <li>IT hardware Rs 1,500 Cr &rarr; Rs 4,000 Cr pivot</li>
               <li>HKC display JV integration</li>
@@ -2815,7 +2584,6 @@
           <div class="kanban-card outreach">
             <div class="kanban-card-company">Voltas</div>
             <div class="kanban-card-type">Working Capital Optimization</div>
-            <div class="kanban-card-size">Est. Rs 40&ndash;60 Cr engagement</div>
             <ul class="kanban-card-points">
               <li>17.9% RAC market share maintained</li>
               <li>International exposure reduction model</li>
@@ -2826,7 +2594,6 @@
           <div class="kanban-card outreach">
             <div class="kanban-card-company">Blue Star</div>
             <div class="kanban-card-type">Cost Transformation</div>
-            <div class="kanban-card-size">Est. Rs 50&ndash;80 Cr engagement</div>
             <ul class="kanban-card-points">
               <li>&ldquo;Draconian cost-control&rdquo; measures initiated</li>
               <li>B2B + B2C dual-channel optimization</li>
@@ -3154,28 +2921,7 @@
         </div>
       </div>
 
-      <div style="margin:20px 0 24px">
-        <div class="expandable-toggle" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">
-          <span class="expandable-chevron">&#9654;</span> Stress Scoring Methodology
-        </div>
-        <div class="expandable-content">
-          <div class="card" style="margin-top:10px; font-size:11px; line-height:1.7; color:var(--text-secondary);">
-            <p style="margin-bottom:8px"><strong style="color:var(--text-primary)">How companies are flagged for stress monitoring:</strong></p>
-            <ul style="margin:0; padding-left:20px;">
-              <li><strong>Revenue decline:</strong> 2+ consecutive quarters of YoY revenue decline triggers &ldquo;Stress&rdquo; signal</li>
-              <li><strong>EBITDA margin threshold:</strong> Below sector P25 (currently ~5.4%) for 2+ quarters flags margin compression risk</li>
-              <li><strong>Debt maturity risk:</strong> D/E &gt; 0.5x combined with operating cash flow insufficient for interest coverage</li>
-              <li><strong>Working capital strain:</strong> WC Days &gt; 45 or Cash Conversion Cycle exceeding 60 days</li>
-              <li><strong>Institutional exit:</strong> Sustained FII + domestic MF selling over 3+ consecutive months</li>
-            </ul>
-            <p style="margin-top:10px; font-size:10px; color:var(--text-muted)">
-              Thresholds calibrated against Indian Consumer Durables sector P25/P75 from Q3 FY26 Screener.in data. Companies meeting 2+ criteria are flagged.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <h3 class="sub-header">Forward Signals &mdash; Next 90 Days</h3>
+      <h3 class="sub-header" style="margin-top:28px">Forward Signals &mdash; Next 90 Days</h3>
       <div class="card-grid cols-2">
         <div class="card">
           <h4>Near-Term (Mar&ndash;Apr 2026)</h4>
@@ -3278,12 +3024,12 @@
       },
       {
         id: "bluestar", name: "Blue Star", ticker: "BLUESTARCO", subSector: "Cooling",
-        revGrowth: 4.2, ebitdaMargin: 9.09, wcDays: 16, roce: 26.2, de: 0.33, pe: 61.5,
+        revGrowth: 4.2, ebitdaMargin: 7.5, wcDays: 16, roce: 26.2, de: 0.33, pe: 61.5,
         netProfit: 81, invDays: 28, debtorDays: 55, ccc: 47,
-        revTrend: [2450,2680,2810,2925], ebitdaTrend: [8.1,8.5,8.9,9.1],
+        revTrend: [2450,2680,2810,2925], ebitdaTrend: [6.8,7.0,7.2,7.5],
         perf: "inline",
         latestQ: "Q3 FY2026", qSales: 2925, qNetProfit: 81,
-        variance: "Revenue grew 4.2% YoY to INR 2,925 Cr in Q3 FY2026. EBITDA margin at 9.1%. Net profit: INR 81 Cr. Strong ROCE of 26.2%.",
+        variance: "Revenue grew 4.2% YoY to INR 2,925 Cr in Q3 FY2026. EBITDA margin at 7.5%. Net profit: INR 81 Cr. Strong ROCE of 26.2%.",
         source: "Screener.in (BLUESTARCO/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025"
       },
       {
@@ -3298,12 +3044,12 @@
       },
       {
         id: "crompton", name: "Crompton Greaves Consumer", ticker: "CROMPTON", subSector: "Electrical",
-        revGrowth: 7.3, ebitdaMargin: 12.59, wcDays: -16, roce: 19.0, de: 0.05, pe: 45.1,
+        revGrowth: 7.3, ebitdaMargin: 10.3, wcDays: -16, roce: 19.0, de: 0.05, pe: 45.1,
         netProfit: 101, invDays: 22, debtorDays: 18, ccc: 24,
-        revTrend: [1680,1750,1770,1898], ebitdaTrend: [11.5,12.0,12.2,12.6],
+        revTrend: [1680,1750,1770,1898], ebitdaTrend: [9.5,9.8,10.0,10.3],
         perf: "inline",
         latestQ: "Q3 FY2026", qSales: 1898, qNetProfit: 101,
-        variance: "Revenue grew 7.3% YoY to INR 1,898 Cr in Q3 FY2026. EBITDA margin at 12.6%. Net profit: INR 101 Cr. Negative WC days indicate strong cash cycle.",
+        variance: "Revenue grew 7.3% YoY to INR 1,898 Cr in Q3 FY2026. EBITDA margin at 10.3%. Net profit: INR 101 Cr. Negative WC days indicate strong cash cycle.",
         source: "Screener.in (CROMPTON/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025"
       },
       {
@@ -3318,22 +3064,22 @@
       },
       {
         id: "havells", name: "Havells India", ticker: "HAVELLS", subSector: "Diversified",
-        revGrowth: 14.3, ebitdaMargin: 11.18, wcDays: 12, roce: 25.3, de: 0.03, pe: 68.9,
+        revGrowth: 14.3, ebitdaMargin: 9.2, wcDays: 12, roce: 25.3, de: 0.03, pe: 68.9,
         netProfit: 300, invDays: 30, debtorDays: 28, ccc: 46,
-        revTrend: [4200,4650,4890,5588], ebitdaTrend: [10.2,10.5,10.9,11.2],
+        revTrend: [4200,4650,4890,5588], ebitdaTrend: [8.4,8.7,9.0,9.2],
         perf: "inline",
         latestQ: "Q3 FY2026", qSales: 5588, qNetProfit: 300,
-        variance: "Revenue grew 14.3% YoY to INR 5,588 Cr in Q3 FY2026. EBITDA margin at 11.2%. Net profit: INR 300 Cr. Near debt-free. Strong ROCE of 25.3%.",
+        variance: "Revenue grew 14.3% YoY to INR 5,588 Cr in Q3 FY2026. EBITDA margin at 9.2%. Net profit: INR 300 Cr. Near debt-free. Strong ROCE of 25.3%.",
         source: "Screener.in (HAVELLS/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025"
       },
       {
         id: "ifb", name: "IFB Industries", ticker: "IFBIND", subSector: "Appliances",
-        revGrowth: 11.3, ebitdaMargin: 7.43, wcDays: -2, roce: 17.4, de: 0.18, pe: 52.8,
+        revGrowth: 8.3, ebitdaMargin: 7.43, wcDays: -2, roce: 17.4, de: 0.18, pe: 52.8,
         netProfit: 24, invDays: 32, debtorDays: 25, ccc: 55,
-        revTrend: [1150,1220,1270,1413], ebitdaTrend: [5.8,6.2,6.8,7.4],
+        revTrend: [1150,1220,1270,1375], ebitdaTrend: [5.8,6.2,6.8,7.4],
         perf: "inline",
-        latestQ: "Q3 FY2026", qSales: 1413, qNetProfit: 24,
-        variance: "Revenue grew 11.3% YoY to INR 1,413 Cr in Q3 FY2026. EBITDA margin at 7.4%. Net profit: INR 24 Cr. Negative WC days reflect efficient working capital management.",
+        latestQ: "Q3 FY2026", qSales: 1375, qNetProfit: 24,
+        variance: "Revenue grew 8.3% YoY to INR 1,375 Cr in Q3 FY2026. EBITDA margin at 7.4%. Net profit: INR 24 Cr. Negative WC days reflect efficient working capital management.",
         source: "Screener.in (IFBIND/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025"
       },
       {
