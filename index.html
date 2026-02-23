@@ -196,35 +196,6 @@
     }
     .theme-toggle:hover { color: var(--accent-gold); background: var(--accent-gold-muted); }
 
-    /* === Company Filter Bar (global pill filter — PRI-113) === */
-    .company-filter-bar {
-      display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
-      padding: 10px 24px;
-      background: var(--surface-raised);
-      border-bottom: 1px solid var(--surface-overlay);
-      position: fixed; top: 48px; left: 260px; right: 0;
-      z-index: 49; overflow-x: auto;
-    }
-    .company-filter-bar .cf-label {
-      font-size: 10px; font-weight: 600; color: var(--text-muted);
-      text-transform: uppercase; letter-spacing: 0.06em; margin-right: 4px; white-space: nowrap;
-    }
-    .company-pill {
-      font-size: 11px; font-weight: 500; padding: 4px 12px;
-      border-radius: var(--radius-full); border: 1px solid var(--surface-overlay);
-      background: transparent; color: var(--text-secondary);
-      cursor: pointer; font-family: var(--font-body); transition: all 0.2s ease; white-space: nowrap;
-    }
-    .company-pill:hover { color: var(--text-primary); border-color: var(--accent-gold); }
-    .company-pill.active { background: var(--accent-gold); color: #fff; border-color: var(--accent-gold); }
-    .company-pill.all-pill { font-weight: 600; }
-    .company-filter-notice {
-      background: var(--accent-gold-muted); border: 1px solid var(--accent-gold-border);
-      border-radius: var(--radius-md); padding: 8px 14px;
-      font-size: 11px; color: var(--accent-gold); margin-bottom: 14px; display: none;
-    }
-    .company-filter-notice.visible { display: flex; align-items: center; gap: 6px; }
-
     /* === Product Mix Bar (company modal — PRI-115) === */
     .product-mix-bar-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
     .product-mix-bar-row .pm-label {
@@ -250,7 +221,7 @@
     .main {
       margin-left: 260px;
       flex: 1;
-      padding: 108px 36px 48px;
+      padding: 68px 36px 48px;
       max-width: 1600px;
     }
 
@@ -984,8 +955,7 @@
     @media (max-width: 900px) {
       .sidebar { width: 200px; }
       .topbar { left: 200px; }
-      .company-filter-bar { left: 200px; }
-      .main { margin-left: 200px; padding: 104px 20px 20px; }
+      .main { margin-left: 200px; padding: 64px 20px 20px; }
       .card-grid.cols-2, .card-grid.cols-3, .card-grid.cols-4 { grid-template-columns: 1fr; }
       .stat-row { flex-direction: column; }
     }
@@ -1044,12 +1014,6 @@
         &#9113; Print
       </button>
     </div>
-  </div>
-
-  <!-- Company Filter Bar (global — PRI-113) -->
-  <div class="company-filter-bar" id="companyFilterBar">
-    <span class="cf-label">Companies:</span>
-    <!-- Pills rendered dynamically by JS from COMPANIES array -->
   </div>
 
   <!-- Main Content -->
@@ -3036,13 +3000,9 @@
     }
 
     var companyFilterValue = '';
-    var selectedCompanies = new Set(); // PRI-113: global company filter
 
     function renderTable() {
       var filtered = COMPANIES.filter(function(c) {
-        // PRI-113: global pill filter
-        if (selectedCompanies.size > 0 && !selectedCompanies.has(c.id)) return false;
-        // Existing text filter
         if (!companyFilterValue) return true;
         return c.name.toLowerCase().indexOf(companyFilterValue) !== -1 ||
                c.ticker.toLowerCase().indexOf(companyFilterValue) !== -1;
@@ -3743,118 +3703,7 @@
       }
     }
 
-    // ========== COMPANY FILTER BAR (PRI-113) ==========
-    function initCompanyFilterBar() {
-      var bar = document.getElementById('companyFilterBar');
-      if (!bar) return;
-
-      // "All" pill
-      var allPill = document.createElement('button');
-      allPill.className = 'company-pill all-pill active';
-      allPill.textContent = 'All';
-      allPill.id = 'cfPillAll';
-      allPill.addEventListener('click', function() {
-        selectedCompanies.clear();
-        updateFilterPillStates();
-        applyCompanyFilter();
-      });
-      bar.appendChild(allPill);
-
-      // One pill per company
-      COMPANIES.slice().sort(function(a, b) {
-        return a.name.localeCompare(b.name);
-      }).forEach(function(c) {
-        var pill = document.createElement('button');
-        pill.className = 'company-pill';
-        pill.textContent = c.name.replace(' Enterprises India', '').replace(' Greaves Consumer', '').replace(' Technologies', '').replace(' Industries', '').replace(' of India', '').replace(' Electric', ' Elec.').replace(' Electricals', ' Elec.');
-        pill.setAttribute('data-company-id', c.id);
-        pill.title = c.name;
-        pill.addEventListener('click', function() {
-          if (selectedCompanies.has(c.id)) {
-            selectedCompanies.delete(c.id);
-          } else {
-            selectedCompanies.add(c.id);
-          }
-          updateFilterPillStates();
-          applyCompanyFilter();
-        });
-        bar.appendChild(pill);
-      });
-    }
-
-    function updateFilterPillStates() {
-      var allPill = document.getElementById('cfPillAll');
-      var pills = document.querySelectorAll('.company-pill[data-company-id]');
-      if (selectedCompanies.size === 0) {
-        if (allPill) allPill.classList.add('active');
-        pills.forEach(function(p) { p.classList.remove('active'); });
-      } else {
-        if (allPill) allPill.classList.remove('active');
-        pills.forEach(function(p) {
-          p.classList.toggle('active', selectedCompanies.has(p.getAttribute('data-company-id')));
-        });
-      }
-      // Show/hide filter notice on non-financial sections
-      var notices = document.querySelectorAll('.company-filter-notice');
-      notices.forEach(function(n) {
-        n.classList.toggle('visible', selectedCompanies.size > 0);
-      });
-    }
-
-    function applyCompanyFilter() {
-      // Re-render financial table (primary filter target)
-      renderTable();
-
-      // Filter deal cards by company name match
-      var dealCards = document.querySelectorAll('#dealCardsGrid .move-card-item');
-      dealCards.forEach(function(card) {
-        if (selectedCompanies.size === 0) { card.style.display = ''; return; }
-        var companyEl = card.querySelector('.move-card-company');
-        var text = companyEl ? companyEl.textContent.toLowerCase() : card.textContent.toLowerCase();
-        var match = false;
-        COMPANIES.forEach(function(c) {
-          if (selectedCompanies.has(c.id)) {
-            var shortName = c.name.split(' ')[0].toLowerCase();
-            if (text.indexOf(shortName) !== -1) match = true;
-          }
-        });
-        card.style.display = match ? '' : 'none';
-      });
-
-      // Filter competitive move cards by company name match
-      var moveCards = document.querySelectorAll('#moveCardsGrid .move-card-item');
-      moveCards.forEach(function(card) {
-        if (selectedCompanies.size === 0) { card.style.display = ''; return; }
-        var companyEl = card.querySelector('.move-card-company');
-        var text = companyEl ? companyEl.textContent.toLowerCase() : card.textContent.toLowerCase();
-        var match = false;
-        COMPANIES.forEach(function(c) {
-          if (selectedCompanies.has(c.id)) {
-            var shortName = c.name.split(' ')[0].toLowerCase();
-            if (text.indexOf(shortName) !== -1) match = true;
-          }
-        });
-        card.style.display = match ? '' : 'none';
-      });
-
-      // Filter watchlist quadrant cards
-      var watchCards = document.querySelectorAll('.quadrant-card');
-      watchCards.forEach(function(card) {
-        if (selectedCompanies.size === 0) { card.style.display = ''; return; }
-        var text = card.textContent.toLowerCase();
-        var match = false;
-        COMPANIES.forEach(function(c) {
-          if (selectedCompanies.has(c.id)) {
-            var shortName = c.name.split(' ')[0].toLowerCase();
-            if (text.indexOf(shortName) !== -1) match = true;
-          }
-        });
-        card.style.display = match ? '' : 'none';
-      });
-    }
-
     // Initial render
-    initCompanyFilterBar();
     renderTable();
     renderOpsTable();
     renderSubSectorCards();
