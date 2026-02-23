@@ -1747,7 +1747,10 @@
       </div>
 
       <div style="margin-bottom:12px; display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
-        <input type="text" id="companyFilter" class="company-filter-input" placeholder="Filter companies..." />
+        <select id="companyDropdown" class="company-filter-input" style="width:220px;cursor:pointer">
+          <option value="">All Companies</option>
+        </select>
+        <input type="text" id="companyFilter" class="company-filter-input" placeholder="Search by name..." style="width:180px" />
         <button class="derived-toggle" id="derivedToggle" onclick="toggleDerived()">
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><rect x="1" y="1" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M4 7h6M7 4v6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
           Show Market Intelligence
@@ -1763,6 +1766,7 @@
             <th data-sort="wcDays" class="right" data-tip="Working Capital Days: (Current Assets - Current Liabilities) / (Revenue/365). Negative = cash-generative">WC Days <span class="sort-arrow">&#9670;</span></th>
             <th data-sort="roce" class="right" data-tip="Return on Capital Employed: EBIT / Capital Employed">ROCE <span class="sort-arrow">&#9670;</span></th>
             <th data-sort="de" class="right" data-tip="Debt-to-Equity: Total borrowings / shareholders equity. Above 1.0x = more debt than equity">D/E <span class="sort-arrow">&#9670;</span></th>
+            <th data-tip="Top A&amp;M signal from Transcript Intel analysis. Click row for full company detail.">A&amp;M Signal</th>
             <th data-sort="pe" class="right derived-col" data-tip="Price-to-Earnings ratio: Market price per share / Earnings per share. Source: Company filings">P/E <span class="sort-arrow">&#9670;</span></th>
             <th data-sort="netProfit" class="right derived-col" data-tip="Net Profit in Crores after tax. Source: Company filings">Net Profit (Cr) <span class="sort-arrow">&#9670;</span></th>
             <th data-sort="invDays" class="right derived-col" data-tip="Inventory Days: Average inventory / (COGS/365). Lower = faster inventory turnover">Inv Days <span class="sort-arrow">&#9670;</span></th>
@@ -3571,24 +3575,36 @@
     }
 
     var companyFilterValue = '';
+    var companyDropdownId = '';
     var opsFilterValue = '';
     var compFilterValue = '';
     var leadFilterValue = '';
     var dealsFilterValue = '';
     var watchFilterValue = '';
 
-    // Shared helper: filter COMPANIES array by a search term
-    function filterCompanies(term) {
-      if (!term) return COMPANIES.slice();
+    // Shared helper: filter COMPANIES array by a search term (+ optional dropdown id)
+    function filterCompanies(term, dropdownId) {
       return COMPANIES.filter(function(c) {
+        if (dropdownId && c.id !== dropdownId) return false;
+        if (!term) return true;
         return c.name.toLowerCase().indexOf(term) !== -1 ||
                c.ticker.toLowerCase().indexOf(term) !== -1 ||
                (c.subSector && c.subSector.toLowerCase().indexOf(term) !== -1);
       });
     }
 
+    function getTopSignal(companyId) {
+      var data = typeof SIGNAL_DATA !== 'undefined' && SIGNAL_DATA[companyId];
+      if (!data || !data.signals || !data.signals.length) return null;
+      // Find highest severity signal (Critical > High > Medium > Low > Informational)
+      var sevOrder = {Critical:0, High:1, Medium:2, Low:3, Informational:4};
+      var top = data.signals.slice().sort(function(a,b){ return (sevOrder[a.sev]||5) - (sevOrder[b.sev]||5) || a.r - b.r; })[0];
+      return top;
+    }
+
     function renderTable() {
       var filtered = COMPANIES.filter(function(c) {
+        if (companyDropdownId && c.id !== companyDropdownId) return false;
         if (!companyFilterValue) return true;
         return c.name.toLowerCase().indexOf(companyFilterValue) !== -1 ||
                c.ticker.toLowerCase().indexOf(companyFilterValue) !== -1;
@@ -3610,7 +3626,7 @@
       tbody.innerHTML = '';
 
       var showDerived = document.getElementById('financialTable').classList.contains('show-derived');
-      var colSpan = showDerived ? 12 : 7;
+      var colSpan = showDerived ? 13 : 8;
 
       if (sorted.length === 0) {
         var emptyRow = document.createElement('tr');
@@ -3635,6 +3651,7 @@
           '<td class="right mono">' + (c.wcDays != null ? c.wcDays + ' days' : 'NA') + '</td>' +
           '<td class="right mono">' + (c.roce != null ? c.roce.toFixed(1) + '%' : 'NA') + '</td>' +
           '<td class="right mono">' + (c.de != null ? c.de.toFixed(2) + 'x' : 'NA') + '</td>' +
+          (function(){ var sig = getTopSignal(c.id); if (!sig) return '<td style="font-size:11px;color:var(--text-muted);text-align:center">&mdash;</td>'; return '<td style="font-size:10px;max-width:160px;line-height:1.35"><span class="badge ' + sevBadgeClass(sig.sev) + '" style="margin-right:4px">' + esc(sig.sev) + '</span>' + esc(sig.ind) + '</td>'; })() +
           '<td class="right mono derived-col">' + (c.pe != null ? c.pe.toFixed(1) + 'x' : 'NA') + '</td>' +
           '<td class="right mono derived-col ' + profitClass + '">' + (c.netProfit != null ? c.netProfit.toLocaleString('en-IN') : 'NA') + '</td>' +
           '<td class="right mono derived-col">' + (c.invDays != null ? c.invDays : 'NA') + '</td>' +
@@ -3957,7 +3974,28 @@
       });
     });
 
-    // Company filter input (Financial section — filters table + charts)
+    // Populate company dropdown
+    (function() {
+      var dd = document.getElementById('companyDropdown');
+      COMPANIES.slice().sort(function(a,b){ return a.name.localeCompare(b.name); }).forEach(function(c) {
+        var opt = document.createElement('option');
+        opt.value = c.id;
+        opt.textContent = c.name;
+        dd.appendChild(opt);
+      });
+    })();
+
+    // Company dropdown change (Financial section — filters table + all charts)
+    document.getElementById('companyDropdown').addEventListener('change', function() {
+      companyDropdownId = this.value;
+      renderTable();
+      renderRevenueTrendChart();
+      renderEbitdaTrendChart();
+      renderRoceComparison();
+      renderWcHeatmap();
+    });
+
+    // Company text filter (Financial section — filters table + charts)
     document.getElementById('companyFilter').addEventListener('input', function() {
       companyFilterValue = this.value.toLowerCase().trim();
       renderTable();
@@ -4576,7 +4614,7 @@
     function renderRevenueTrendChart() {
       var el = document.getElementById('revenueTrendChart');
       if (!el) return;
-      var filteredCos = filterCompanies(companyFilterValue);
+      var filteredCos = filterCompanies(companyFilterValue, companyDropdownId);
       var quarters = ['Q4 FY25','Q1 FY26','Q2 FY26','Q3 FY26'];
       var W = 700, H = 220, padL = 60, padR = 20, padT = 16, padB = 36;
       var allVals = [];
@@ -4625,7 +4663,7 @@
     function renderEbitdaTrendChart() {
       var el = document.getElementById('ebitdaTrendChart');
       if (!el) return;
-      var filteredCos = filterCompanies(companyFilterValue);
+      var filteredCos = filterCompanies(companyFilterValue, companyDropdownId);
       var quarters = ['Q4 FY25','Q1 FY26','Q2 FY26','Q3 FY26'];
       var W = 700, H = 220, padL = 50, padR = 20, padT = 16, padB = 36;
       var allVals = [];
@@ -4669,7 +4707,7 @@
     function renderRoceComparison() {
       var el = document.getElementById('roceComparison');
       if (!el) return;
-      var sorted = filterCompanies(companyFilterValue).sort(function(a, b) { return (b.roce || 0) - (a.roce || 0); });
+      var sorted = filterCompanies(companyFilterValue, companyDropdownId).sort(function(a, b) { return (b.roce || 0) - (a.roce || 0); });
       var maxRoce = Math.max.apply(null, sorted.map(function(c) { return c.roce || 0; }));
       var avgRoce = sorted.reduce(function(s, c) { return s + (c.roce || 0); }, 0) / sorted.length;
 
@@ -4705,7 +4743,7 @@
     function renderWcHeatmap() {
       var el = document.getElementById('wcHeatmap');
       if (!el) return;
-      var sorted = filterCompanies(companyFilterValue).sort(function(a, b) { return (a.wcDays || 0) - (b.wcDays || 0); });
+      var sorted = filterCompanies(companyFilterValue, companyDropdownId).sort(function(a, b) { return (a.wcDays || 0) - (b.wcDays || 0); });
 
       function hWc(v) { if (v <= 0) return 'heat-cold'; if (v <= 20) return 'heat-cool'; if (v <= 40) return 'heat-neutral'; if (v <= 60) return 'heat-warm'; return 'heat-hot'; }
       function hInv(v) { if (v <= 20) return 'heat-cold'; if (v <= 30) return 'heat-cool'; if (v <= 40) return 'heat-neutral'; if (v <= 55) return 'heat-warm'; return 'heat-hot'; }
