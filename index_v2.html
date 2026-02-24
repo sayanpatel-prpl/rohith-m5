@@ -529,16 +529,91 @@
     .persona-card li:last-child { border-bottom: none; }
     .persona-card li::before { content: ''; position: absolute; left: 0; top: 14px; width: 4px; height: 4px; border-radius: 50%; background: var(--brand-accent); }
 
-    /* === Company Tabs (v2 pills) === */
-    .company-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
-    .company-tab {
-      padding: 6px 14px; font-size: 13px; font-weight: 500; color: var(--text-muted);
-      cursor: pointer; border: 1px solid var(--surface-overlay); background: var(--card-bg);
-      border-radius: 20px;
-      transition: all 0.15s; font-family: var(--font-body);
+    /* === Transcript Intel Layout === */
+    .intel-layout { display: flex; gap: 24px; }
+    .intel-sidebar { width: 220px; flex-shrink: 0; max-height: 75vh; overflow-y: auto; display: flex; flex-direction: column; gap: 2px; }
+    .intel-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 20px; }
+
+    .intel-company-item {
+      padding: 10px 12px; border-radius: var(--radius-md); cursor: pointer;
+      border: 1px solid transparent; transition: all 0.15s; background: transparent;
     }
-    .company-tab:hover { border-color: var(--intelligence-blue); color: var(--text-primary); }
-    .company-tab.active { color: #fff; background: var(--intelligence-blue); border-color: var(--intelligence-blue); font-weight: 600; }
+    .intel-company-item:hover { background: var(--surface-overlay); }
+    .intel-company-item.active { background: var(--card-bg); border-color: var(--intelligence-blue); box-shadow: 0 1px 4px rgba(59,130,246,0.08); }
+    .intel-company-name { font-size: 13px; font-weight: 600; color: var(--text-primary); display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+    .intel-company-count { font-size: 11px; font-family: var(--font-mono); color: var(--text-muted); }
+    .intel-severity-bar { display: flex; height: 4px; border-radius: 2px; overflow: hidden; gap: 1px; }
+    .intel-severity-bar .sev-seg { height: 100%; }
+    .sev-seg-critical { background: var(--negative); }
+    .sev-seg-high { background: var(--warning); }
+    .sev-seg-medium { background: var(--text-muted); }
+    .sev-seg-low { background: var(--success-500); opacity: 0.5; }
+    .sev-seg-info { background: var(--surface-overlay); }
+
+    /* === Risk Scorecard === */
+    .risk-scorecard { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .risk-metric { padding: 14px 16px; border-radius: var(--radius-md); background: var(--card-bg); border: 1px solid var(--surface-overlay); }
+    .risk-metric-value { font-size: 28px; font-weight: 700; font-family: var(--font-mono); line-height: 1; margin-bottom: 4px; }
+    .risk-metric-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; }
+    .risk-metric.critical .risk-metric-value { color: var(--negative); }
+    .risk-metric.high .risk-metric-value { color: var(--warning); }
+    .risk-metric.negative .risk-metric-value { color: var(--negative); }
+    .risk-metric.positive .risk-metric-value { color: var(--positive); }
+
+    /* === Signal Distribution Bar === */
+    .signal-dist-wrap { padding: 12px 0; }
+    .signal-dist-bar { display: flex; height: 10px; border-radius: 5px; overflow: hidden; gap: 2px; margin-bottom: 8px; cursor: pointer; }
+    .signal-dist-bar .dist-seg { height: 100%; transition: opacity 0.15s; min-width: 3px; }
+    .signal-dist-bar .dist-seg:hover { opacity: 0.8; }
+    .dist-seg-critical { background: var(--negative); }
+    .dist-seg-high { background: var(--warning); }
+    .dist-seg-medium { background: #94a3b8; }
+    .dist-seg-low { background: var(--success-500); opacity: 0.6; }
+    .dist-seg-info { background: var(--intelligence-blue); opacity: 0.3; }
+    .signal-dist-legend { display: flex; gap: 16px; font-size: 11px; color: var(--text-muted); flex-wrap: wrap; }
+    .signal-dist-legend span { display: flex; align-items: center; gap: 4px; cursor: pointer; }
+    .signal-dist-legend span::before { content: ''; display: inline-block; width: 8px; height: 8px; border-radius: 2px; }
+    .legend-critical::before { background: var(--negative) !important; }
+    .legend-high::before { background: var(--warning) !important; }
+    .legend-medium::before { background: #94a3b8 !important; }
+    .legend-low::before { background: var(--success-500) !important; opacity: 0.6; }
+    .legend-info::before { background: var(--intelligence-blue) !important; opacity: 0.3; }
+
+    /* === Top Signal Cards === */
+    .top-signals-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .top-signal-card {
+      padding: 14px 16px; border-radius: var(--radius-md); background: var(--card-bg);
+      border: 1px solid var(--surface-overlay); border-left: 3px solid var(--negative);
+    }
+    .top-signal-card.sev-high { border-left-color: var(--warning); }
+    .top-signal-card .tsc-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; }
+    .top-signal-card .tsc-indicator { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.03em; }
+    .top-signal-card .tsc-signal { font-size: 13px; color: var(--text-primary); line-height: 1.5; margin-bottom: 6px; }
+    .top-signal-card .tsc-rationale { font-size: 11px; color: var(--text-muted); line-height: 1.5; }
+    .top-signal-card .tsc-meta { display: flex; gap: 8px; align-items: center; margin-top: 8px; }
+
+    /* === Expandable Table === */
+    .signal-table-toggle { padding: 10px 0; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: var(--text-secondary); border: none; background: none; font-family: var(--font-body); }
+    .signal-table-toggle .toggle-arrow { transition: transform 0.2s; display: inline-block; }
+    .signal-table-toggle.open .toggle-arrow { transform: rotate(90deg); }
+    .signal-table-wrap { overflow: hidden; }
+    .signal-table-wrap.collapsed { max-height: 0; }
+
+    /* Table severity row tinting */
+    .signal-table tr.row-critical { background: rgba(239,68,68,0.04); }
+    .signal-table tr.row-high { background: rgba(245,158,11,0.04); }
+    .dark .signal-table tr.row-critical { background: rgba(239,68,68,0.06); }
+    .dark .signal-table tr.row-high { background: rgba(245,158,11,0.06); }
+
+    /* Responsive: sidebar to horizontal strip below 900px */
+    @media (max-width: 900px) {
+      .intel-layout { flex-direction: column; }
+      .intel-sidebar { width: 100%; max-height: none; flex-direction: row; overflow-x: auto; overflow-y: hidden; gap: 8px; padding-bottom: 8px; }
+      .intel-company-item { min-width: 160px; flex-shrink: 0; }
+      .risk-scorecard { grid-template-columns: repeat(2, 1fr); }
+      .top-signals-grid { grid-template-columns: 1fr; }
+      .ebitda-story-card { grid-template-columns: 1fr !important; }
+    }
 
     /* === Filters (v2 pill buttons) === */
     .filter-row { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; align-items: center; }
@@ -587,12 +662,15 @@
     }
 
     /* === EBITDA Movement Story Cards === */
-    .ebitda-story-container { display: flex; justify-content: center; }
-    .ebitda-story-container .ebitda-story-card { max-width: 600px; width: 100%; }
+    .ebitda-story-container { display: block; }
+    .ebitda-story-container .ebitda-story-card { max-width: 100%; width: 100%; }
     .ebitda-story-card {
+      display: grid; grid-template-columns: 1fr 280px; gap: 16px;
       padding: 16px 20px;
       border-left: 3px solid var(--brand-accent);
     }
+    .ebitda-left { display: flex; flex-direction: column; gap: 8px; }
+    .ebitda-right { display: flex; flex-direction: column; gap: 6px; }
     .ebitda-story-card h4 {
       font-size: 13px; font-weight: 700; margin: 0 0 8px;
       font-family: var(--font-display);
@@ -1376,14 +1454,14 @@
         <div class="tvw-columns">
           <div>
             <div class="tvw-col-label">Management Says</div>
-            <div class="tvw-col-text">&ldquo;Confident of returning to growth trajectory with new product launches and distribution expansion&rdquo;</div>
+            <div class="tvw-col-text">&ldquo;Improvement in gross margins&rdquo; (MD letter FY25). &ldquo;Built for Life&rdquo; premiumisation drive with extended warranty on 23 SKUs. FY25 recovery narrative: trade channel +6%, air coolers +65%, dealer base +21% to 850+.</div>
           </div>
           <div>
             <div class="tvw-col-label">Data Shows</div>
-            <div class="tvw-col-text">Revenue -18.5% YoY, net loss of Rs 34 Cr, EBITDA margin collapsed to 4.1%. Worst performer in sector by both metrics.</div>
+            <div class="tvw-col-text">9MFY26 revenue -9.7% YoY to Rs 3,210 Cr. Q3 FY26 PBT: -Rs 20.28 Cr (operating loss). Board pre-approved minimum remuneration for FY26 losses. CP utilization 43%. Retailer base -15% (2L &rarr; 1.7L). Exceptional Rs 28.89 Cr restructuring charge. Other expenses +17.5% in loss quarter.</div>
           </div>
         </div>
-        <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-derived">Derived</span> Concall transcripts</span></div>
+        <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> AR FY24-25, Board Outcome Q3 FY26</span></div>
       </div>
 
       <div class="tvw-card">
@@ -1474,6 +1552,78 @@
           </div>
         </div>
         <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-derived">Derived</span> Transcript Intel Dixon signals #33-51</span></div>
+      </div>
+
+      <div class="tvw-card">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+          <strong style="font-size:13px">Symphony</strong>
+          <span class="tvw-badge-disconnect">Disconnect</span>
+        </div>
+        <div class="tvw-columns">
+          <div>
+            <div class="tvw-col-label">Management Says</div>
+            <div class="tvw-col-text">&ldquo;Market share has been fairly stable within a percent or two kind of band over last 3&ndash;4 years.&rdquo; Guides RTY portfolio diversification &ldquo;growing at 50%+ CAGR.&rdquo; Calls FY25 standalone EBITDA of 24.25% as the new benchmark. Presents CT Australia as &ldquo;strategically important given shifting geopolitical conditions.&rdquo;</div>
+          </div>
+          <div>
+            <div class="tvw-col-label">Data Shows</div>
+            <div class="tvw-col-text">9M FY26 standalone revenue -30% YoY (&rarr; Rs 566 Cr); EBITDA collapsed 57% to Rs 81 Cr (14.4% margin). CT Australia: 11+ quarters of consecutive losses, divestiture failed (10 NDAs, zero bids accepted). Rs 58 Cr Pathways fraud write-off (15% recovered). Consolidated EBITDA margin 9.5% &mdash; 490 bps below standalone due to subsidiary drag. IMPCO Mexico PAT turned negative.</div>
+          </div>
+        </div>
+        <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Q3 FY26 Earnings Call Jan 29, 2026 + AR FY25 + Corporate Presentation Feb 2026</span></div>
+      </div>
+
+      <div class="tvw-card">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+          <strong style="font-size:13px">Amber Enterprises</strong>
+          <span class="tvw-badge-disconnect">Disconnect</span>
+        </div>
+        <div class="tvw-columns">
+          <div>
+            <div class="tvw-col-label">Management Says</div>
+            <div class="tvw-col-text">&ldquo;Remain optimistic that the division will outperform the industry.&rdquo; Guides Consumer Durables +13&ndash;15% FY26. Claims &ldquo;forward-looking strategy built on strengthening backward integration, boosting R&amp;D and innovation.&rdquo; Electronics Division &ldquo;double-digit EBITDA margins by FY27.&rdquo; Railway Division &ldquo;doubling revenue over the next two financial years.&rdquo;</div>
+          </div>
+          <div>
+            <div class="tvw-col-label">Data Shows</div>
+            <div class="tvw-col-text">Consumer Durables EBITDA compressed 7.7% &rarr; 6.9% (9MFY26) despite +19% revenue. Structural PAT margin only 2.5%. Rs 94 Cr Shivalik impairment &mdash; Q3 PAT negative (Rs -9 Cr). Railway revenue -6% FY25 (flat in FY24). 3 acquisitions in 12 months with integration complexity. Finance cost +32% YoY. D/E at 1.32x. FY24 Consumer Durables revenue -7% when brands took assembly in-house &mdash; validates structural risk.</div>
+          </div>
+        </div>
+        <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Q3 FY26, Q4 FY25, Q3 FY25, Q4 FY24 Investor Presentations + 35th AGM</span></div>
+      </div>
+
+      <div class="tvw-card">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+          <strong style="font-size:13px">Crompton Greaves Consumer</strong>
+          <span class="tvw-badge-disconnect">Disconnect</span>
+        </div>
+        <div class="tvw-columns">
+          <div>
+            <div class="tvw-col-label">Management Says</div>
+            <div class="tvw-col-text">&ldquo;Crompton 2.0 strategy anchored on consumer need-led innovation, premiumization, TAM expansion.&rdquo; Solar rooftop revenue target ~Rs 2,000 Cr in 18-24 months. Butterfly guided &ldquo;double-digit growth this year.&rdquo; BLDC &ldquo;endeavor is to become #1.&rdquo; Category entry criteria: &ldquo;can we become a top 3 player.&rdquo;</div>
+          </div>
+          <div>
+            <div class="tvw-col-label">Data Shows</div>
+            <div class="tvw-col-text">9M FY26 EBITDA compressed to 9.6% (from 10.9%). Revenue nearly flat +0.2% YoY for 9 months. Butterfly revenue +3% (not double-digit). Solar rooftop Q3 revenue only Rs 19 Cr vs Rs 2,000 Cr aspiration. Material margin -150 bps standalone. Employee cost growing at 2x revenue. Simultaneous entry into wires, solar rooftop, while managing BEE 2.0, Baroda VRS, BCG GTM &mdash; bandwidth risk on Rs 557 Cr 9M EBITDA base.</div>
+          </div>
+        </div>
+        <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Q3 FY26 Earnings Call + Q1 FY26 Transcript + Q3/Q2 FY26 Investor Presentations + MD&amp;A FY25</span></div>
+      </div>
+
+      <div class="tvw-card">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+          <strong style="font-size:13px">Butterfly Gandhimathi</strong>
+          <span class="tvw-badge-disconnect">Disconnect</span>
+        </div>
+        <div class="tvw-columns">
+          <div>
+            <div class="tvw-col-label">Management Says</div>
+            <div class="tvw-col-text">&ldquo;Strategic interventions aimed at driving business revival &mdash; revised pricing structure, improved management of trade spends.&rdquo; &ldquo;Industry-leading revenue growth at 14% YoY&rdquo; (Q2 FY26). Targets pan-India expansion via Crompton synergies. &ldquo;Celebrating Change&rdquo; brand repositioning with 40+ SKU Idea First Series.</div>
+          </div>
+          <div>
+            <div class="tvw-col-label">Data Shows</div>
+            <div class="tvw-col-text">Revenue 18% below FY23 peak (Rs 865 Cr vs Rs 1,057 Cr). EBITDA margin at 2.94% in FY24 &mdash; near-breakeven. ~75% revenue still South India concentrated. Retail outlets declined 25,000+ to 24,000+. Crompton merger rejected by shareholders (72.6% against). Steel has NO alternate vendor. MFI/rural demand suppressed. Auxiliary categories deliberately cut. Recovery on a contracted base.</div>
+          </div>
+        </div>
+        <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> AR FY21, AR FY22-23, AR FY24-25, Q3 FY22 Investor Presentation, Q1/Q2 FY26 Results</span></div>
       </div>
 
       <div class="section-footer"><span class="source-attr"><span class="source-tier tier-derived">Derived</span> Industry reports, Company filings, Transcript Intel</span> &middot; Feb 2026</div>
@@ -2181,18 +2331,18 @@
 
       <div class="diag-trigger">
         <div class="diag-company">Bajaj Electricals</div>
-        <div class="diag-desc">Revenue decline: -18.5% YoY with net loss of Rs 34 Cr. EBITDA margin at 4.1% &mdash; lowest among tracked companies.</div>
-        <div class="diag-value">Rev: -18.5%</div>
+        <div class="diag-desc">CRITICAL: Q3 FY26 operating loss (PBT -Rs 20.28 Cr). 9MFY26 revenue -9.7% to Rs 3,210 Cr. CP utilization 43%. Board pre-approved minimum remuneration for anticipated full-year FY26 losses. Exceptional Rs 28.89 Cr gratuity restructuring. Retailer base -15%.</div>
+        <div class="diag-value">PBT: -Rs 20 Cr</div>
       </div>
       <div class="diag-trigger">
         <div class="diag-company">Symphony</div>
-        <div class="diag-desc">Revenue decline: -26.0% YoY. Consecutive quarters of volume erosion despite asset-light model.</div>
-        <div class="diag-value">Rev: -26.0%</div>
+        <div class="diag-desc">9M FY26 standalone revenue -30% to Rs 566 Cr; EBITDA -57% to Rs 81 Cr. Rain-disrupted summer + channel inventory overhang. CT Australia 11+ qtrs losses; divestiture failed. Rs 58 Cr Pathways fraud.</div>
+        <div class="diag-value">Rev: -30% (9M)</div>
       </div>
       <div class="diag-trigger">
         <div class="diag-company">Amber Enterprises</div>
-        <div class="diag-desc">Debt/Equity at 0.77x &mdash; highest in sector. Working capital days at -28 (negative = supplier-funded). Rapid expansion strain.</div>
-        <div class="diag-value">D/E: 0.77x</div>
+        <div class="diag-desc">D/E at 1.32x (FY25). Finance cost +32% YoY to Rs 220 Cr. PAT margin 2.5% &mdash; structurally thin. Rs 94 Cr Shivalik impairment. 3 acquisitions in 12 months. Rs 4,200 Cr PCB capex with Jewar TBD.</div>
+        <div class="diag-value">D/E: 1.32x</div>
       </div>
       <div class="diag-trigger">
         <div class="diag-company">TTK Prestige</div>
@@ -2291,10 +2441,10 @@
             <span class="move-card-company">Crompton Greaves</span>
             <span class="move-card-type pricing">Pricing</span>
           </div>
-          <div class="move-card-desc">2 rounds of price hikes planned (Q4 + Q1) to combat raw material inflation. ECD segment showing margin expansion +100bps.</div>
+          <div class="move-card-desc">Net price increase 1-1.5% implemented Jan 2026 with further in Q4 FY26 and Q1 FY27 to combat copper/aluminium/steel inflation. Material margin -150 bps YoY standalone. UNNATI multi-sourcing +10% and alternative raw material qualification as structural cost mitigation.</div>
           <div class="move-card-meta">
             <span class="move-card-impact medium">Medium Impact</span>
-            <span class="source-attr"><span class="source-tier tier-guidance">Mgmt Guidance</span> Concall</span>
+            <span class="source-attr"><span class="source-tier tier-verified">Verified</span> Q3 FY26 Earnings Call + Investor Presentation</span>
           </div>
         </div>
         <div class="move-card-item" data-move-type="Pricing">
@@ -2505,8 +2655,8 @@
             <span class="lead-trigger-type green">CMO Transition</span>
             <span class="lead-trigger-date">2025-02-06</span>
           </div>
-          <div class="lead-trigger-body">Marketing leadership transition: Anuj Arora &rarr; Gaurav Sarda. Brief overlap period. Founder-promoter CMD Achal Bakeri remains firmly in control.</div>
-          <div class="lead-trigger-advisory">&triangleright; Stable &mdash; founder control intact</div>
+          <div class="lead-trigger-body">Marketing leadership transition: Anuj Arora &rarr; Gaurav Sarda. Brief overlap period. Founder-promoter CMD Achal Bakeri remains firmly in control. Key governance flags: Pathways Retail Rs 58 Cr fraud (Chairman acknowledged &ldquo;lapse in credit management judgment&rdquo;); CT Australia divestiture rolled back Jan 2026 (10 NDAs, no acceptable bid). Credit insurance now taken for all modern trade post-Pathways.</div>
+          <div class="lead-trigger-advisory">&triangleright; Founder control stable; subsidiary governance + credit monitoring require advisory attention</div>
         </div>
       </div>
 
@@ -2563,8 +2713,8 @@
             <span class="lead-trigger-type amber">Board Loading</span>
             <span class="lead-trigger-date">2025-06-01</span>
           </div>
-          <div class="lead-trigger-body">Jasbir Singh holds 4 titles (Chairman/ED/WTD/CEO). Daljit Singh appointed as ED/WTD/MD. 3 new executive directors added. Heavy promoter-family board loading.</div>
-          <div class="lead-trigger-advisory">&triangleright; Governance &amp; risk advisory on board independence</div>
+          <div class="lead-trigger-body">Rs 94 Cr Shivalik investment impairment in Q3FY26 &mdash; failed JV execution. 3 acquisitions in 12 months across 3 geographies (India, Israel, India). Unitronics at ~45.5% minority control classified as subsidiary. Customer concentration undisclosed despite 67% revenue from Consumer Durables OEM contracts. ECMS scheme compliance obligations on Rs 3,700 Cr investments.</div>
+          <div class="lead-trigger-advisory">&triangleright; Post-acquisition integration advisory + governance risk assessment on JV/subsidiary portfolio</div>
         </div>
         <div class="lead-trigger">
           <div class="lead-trigger-header">
@@ -2698,8 +2848,8 @@
         <div class="gov-risk-row">
           <span class="risk-badge amber"></span>
           <span class="gov-risk-company">Amber Enterprises</span>
-          <span class="gov-risk-factors">Promoter holds 4 titles, heavy family board loading</span>
-          <span class="gov-risk-service">Governance &amp; Risk Advisory</span>
+          <span class="gov-risk-factors">Rs 94 Cr Shivalik impairment (JV governance gap). 3 acquisitions in 12 months including Unitronics Israel at ~45.5% minority control. Customer concentration undisclosed.</span>
+          <span class="gov-risk-service">Governance &amp; Risk Advisory + Post-Acquisition Integration</span>
         </div>
         <div class="gov-risk-row">
           <span class="risk-badge green"></span>
@@ -2714,10 +2864,10 @@
           <span class="gov-risk-service">Growth Strategy</span>
         </div>
         <div class="gov-risk-row">
-          <span class="risk-badge green"></span>
+          <span class="risk-badge amber"></span>
           <span class="gov-risk-company">Symphony</span>
-          <span class="gov-risk-factors">Founder-promoter firmly in control, stable CMO transition</span>
-          <span class="gov-risk-service">Growth Strategy</span>
+          <span class="gov-risk-factors">Founder-promoter firmly in control. Rs 58 Cr Pathways fraud (credit governance lapse acknowledged). CT Australia divestiture failed (10 NDAs). Subsidiary impairment guided by Mar 2026.</span>
+          <span class="gov-risk-service">Subsidiary Restructuring + Credit Governance</span>
         </div>
       </div>
 
@@ -2772,7 +2922,7 @@
               <td class="right mono val-positive">36.8%</td>
               <td class="right mono">0.01x</td>
               <td class="right mono">-14</td>
-              <td>Asset-light, brand-led. Best-in-class margins despite -26% revenue decline.</td>
+              <td>100% asset-light (zero manufacturing, 486 employees). India ROCE infinite (negative capital employed). FY25 peak EBITDA 24.25%; 9M FY26 collapsed to 14.4% (weather). Market leader: domestic revenue 4x No.2 player. CT Australia drag ~490 bps on consolidated. Treasury Rs 460 Cr, debt-free.</td>
             </tr>
             <tr>
               <td><strong>Havells India</strong></td>
@@ -2790,7 +2940,7 @@
               <td class="right mono">14.5%</td>
               <td class="right mono">0.77x</td>
               <td class="right mono">-28</td>
-              <td><span data-tip="Original Equipment Manufacturer: Makes products sold under other brands" class="tip-below">OEM</span>/<span data-tip="Original Design Manufacturer: Designs and manufactures products sold under other brands" class="tip-below">ODM</span>. Revenue surge +37.9% but leveraged. Aggressive acquisition strategy.</td>
+              <td><span data-tip="Original Equipment Manufacturer: Makes products sold under other brands" class="tip-below">OEM</span>/<span data-tip="Original Design Manufacturer: Designs and manufactures products sold under other brands" class="tip-below">ODM</span>. 26&ndash;27% RAC outsourced mfg share. Revenue +38% Q3 YoY. EBITDA 8.4% (Q3). Electronics at inflection (10.5% EBITDA). Consumer Durables 67%, Electronics 28%, Railway 5%. 3 acquisitions in 12 months. Rs 4,200 Cr PCB capex. D/E 1.32x (FY25). PAT margin 2.5% &mdash; thin.</td>
             </tr>
             <tr>
               <td><strong>Blue Star</strong></td>
@@ -2808,7 +2958,7 @@
               <td class="right mono">11.6%</td>
               <td class="right mono">0.13x</td>
               <td class="right mono">35</td>
-              <td>Stressed. Revenue -18.5%. Margin collapse. Potential turnaround or target.</td>
+              <td>CRITICAL: Pure-play FMEG post-EPC demerger. Q3 FY26 operating loss (PBT -Rs 20.28 Cr). 9MFY26 rev -9.7%. CP utilization 43%. Board pre-approved min. remuneration for anticipated FY26 losses. Retailer base -15%. 4 brands (BAJAJ, Nex, Morphy Richards, Nirlep). Rs 509 Cr surplus funds buffer.</td>
             </tr>
             <tr>
               <td><strong>TTK Prestige</strong></td>
@@ -2819,10 +2969,19 @@
               <td class="right mono">69</td>
               <td>Kitchen leader (667 Xclusive stores, 314 towns). 6 plants. Debt-free, Rs 825 Cr cash. 48% own-mfg, 52% traded. Rs 500 Cr transformation underway. EBITDA contracting (15.4% &rarr; 13.4%).</td>
             </tr>
+            <tr>
+              <td><strong>Crompton Greaves</strong></td>
+              <td class="right mono">1,898</td>
+              <td class="right mono">10.3%</td>
+              <td class="right mono val-positive">19.0%</td>
+              <td class="right mono">0.05x</td>
+              <td class="right mono">-16</td>
+              <td>World #1 ceiling fans, India #1 residential pumps. Zero-net-debt. 7 plants, 236K+ retailers. FY25 EBITDA 11.66% (peak) compressed to 9.6% in 9M FY26. BLDC Nucleus platform in-house. Butterfly (75%) EBITDA 8.2%. Solar rooftop Rs 500 Cr order book. Wires entry announced. Rs 350 Cr greenfield planned.</td>
+            </tr>
           </tbody>
         </table>
         <p style="font-size:12px;color:var(--text-muted);margin-top:12px">
-          Key insight: Dixon&rsquo;s 40% ROCE on 4.8% margins vs Symphony&rsquo;s 36.8% ROCE on 17.3% margins &mdash; two fundamentally different paths to capital efficiency. Dixon wins on asset turns; Symphony wins on pricing power.
+          Key insight: Dixon&rsquo;s 40% ROCE on 4.8% margins vs Symphony&rsquo;s infinite standalone ROCE on 24.25% peak FY25 margins (negative core capital employed) &mdash; two fundamentally different asset-light paths to capital efficiency. Dixon wins on EMS volume throughput; Symphony wins on pricing power and brand monetization with zero manufacturing assets.
         </p>
         <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Company Filings Q3 FY26</span></div>
       </div>
@@ -2861,17 +3020,20 @@
         <div class="kanban-column">
           <div class="kanban-col-header">
             <span class="kanban-col-title">Identified</span>
-            <span class="kanban-col-count">4</span>
+            <span class="kanban-col-count">5</span>
           </div>
           <div class="kanban-card identified">
             <div class="kanban-card-company">Bajaj Electricals</div>
-            <div class="kanban-card-type">Turnaround / Operations</div>
+            <div class="kanban-card-type">Turnaround &amp; Restructuring</div>
             <ul class="kanban-card-points">
-              <li>Revenue -18.5% YoY, net loss Rs 34 Cr</li>
-              <li>EBITDA margin collapsed to 4.1%</li>
-              <li>Management narrative disconnect flagged</li>
+              <li>Q3 FY26 operating loss: PBT -Rs 20.28 Cr; 9MFY26 PBT -Rs 35.57 Cr</li>
+              <li>Board pre-approved min. remuneration &mdash; FY26 full-year loss anticipated</li>
+              <li>CP capacity utilization 43% &mdash; fixed cost absorption crisis</li>
+              <li>Dual CEO + COO exit; new MD Mar 2025 &mdash; strategy transition window</li>
+              <li>Retailer base -15%; channel partner retention 81%</li>
+              <li>Exceptional Rs 28.89 Cr gratuity &mdash; silent workforce restructuring</li>
             </ul>
-            <div class="kanban-card-source"><span class="source-attr"><span class="source-tier tier-derived">Derived</span> Financial + Executive</span></div>
+            <div class="kanban-card-source"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> AR FY24-25, Board Outcome Q3 FY26</span></div>
           </div>
           <div class="kanban-card identified">
             <div class="kanban-card-company">IFB Industries</div>
@@ -2893,12 +3055,27 @@
           </div>
           <div class="kanban-card identified">
             <div class="kanban-card-company">Symphony</div>
-            <div class="kanban-card-type">Strategic Review</div>
+            <div class="kanban-card-type">Subsidiary Restructuring + Seasonal Risk Advisory</div>
             <ul class="kanban-card-points">
-              <li>Revenue -26% but margins sector-leading 17.3%</li>
-              <li>Asset-light model resilient; volume recovery key</li>
+              <li>CT Australia: 11+ qtrs losses, divestiture failed (10 NDAs). Further impairment guided by Mar 2026.</li>
+              <li>9M FY26 standalone revenue -30%, EBITDA -57% (weather + channel overhang)</li>
+              <li>Consolidated EBITDA 9.5% vs standalone 14.4% &mdash; 490 bps subsidiary drag</li>
+              <li>Pathways Retail Rs 58 Cr fraud write-off; credit governance remediation underway</li>
             </ul>
-            <div class="kanban-card-source"><span class="source-attr"><span class="source-tier tier-derived">Derived</span> Watchlist</span></div>
+            <div class="kanban-card-more">+3 more data points (IMPCO Mexico, GSK China, RTY portfolio)</div>
+            <div class="kanban-card-source"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Transcript Intel + AR FY25 + Corporate Presentation Feb 2026</span></div>
+          </div>
+          <div class="kanban-card identified">
+            <div class="kanban-card-company">Butterfly Gandhimathi</div>
+            <div class="kanban-card-type">Turnaround / Cost Structure Advisory</div>
+            <ul class="kanban-card-points">
+              <li>EBITDA margin collapsed to 2.94% (FY24); recovering to 9.5% (Q2 FY26)</li>
+              <li>Revenue 18% below FY23 peak &mdash; 651 bps margin recovery on contracted base</li>
+              <li>Steel single-source risk (no alternate vendor); no commodity hedging</li>
+              <li>~75% South India concentration; pan-India share only ~5%</li>
+            </ul>
+            <div class="kanban-card-more">+4 more: Crompton merger rejected, MFI channel suppressed, plant consolidated, retail outlets declining</div>
+            <div class="kanban-card-source"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Transcript Intel + AR FY21-FY25 + Q1/Q2 FY26</span></div>
           </div>
         </div>
 
@@ -2921,22 +3098,29 @@
           </div>
           <div class="kanban-card qualified">
             <div class="kanban-card-company">Amber Enterprises</div>
-            <div class="kanban-card-type">Post-Acquisition Integration</div>
+            <div class="kanban-card-type">Post-Acquisition Integration + Cost Structure Advisory</div>
             <ul class="kanban-card-points">
-              <li>3 acquisitions in 6 months (Shogini, Unitronics, One Micro)</li>
-              <li>QIP Rs 1,000 Cr + PE Rs 1,200 Cr raised</li>
-              <li>Integration complexity across PCB, PLC, BESS verticals</li>
+              <li>3 acquisitions in 12 months (Power One, Unitronics Israel, Shogini) &mdash; integration overstretch risk across UPS/solar, industrial automation, PCBs</li>
+              <li>Rs 94 Cr Shivalik investment impairment (Q3 FY26) &mdash; failed JV execution precedent for current acquisition wave</li>
+              <li>Finance cost +32% YoY (Rs 220 Cr FY25); D/E at 1.32x; Rs 4,200 Cr PCB capex pipeline with Jewar timeline TBD</li>
+              <li>PAT margin structurally thin at 2.5% on Rs 9,973 Cr revenue &mdash; D&amp;A + interest cost squeezing below-EBITDA returns</li>
+              <li>Consumer Durables EBITDA compressed 7.7% &rarr; 6.9% (9MFY26) despite 19% revenue growth &mdash; largest division margin erosion</li>
             </ul>
-            <div class="kanban-card-source"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> BSE + Deals</span></div>
+            <div class="kanban-card-more">+4 more data points (RAC in-sourcing risk, Railway delays, employee cost escalation, working capital intensity)</div>
+            <div class="kanban-card-source"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Transcript Intel + CRISIL Nov 2025 + Investor Presentations</span></div>
           </div>
           <div class="kanban-card qualified">
             <div class="kanban-card-company">Crompton Greaves</div>
-            <div class="kanban-card-type">M&amp;A / Governance Advisory</div>
+            <div class="kanban-card-type">Margin Improvement + New Category Strategy</div>
             <ul class="kanban-card-points">
-              <li>Butterfly merger collapse &mdash; shareholder governance</li>
-              <li>2 rounds price hikes needed in Q4/Q1</li>
+              <li>9M FY26 EBITDA compressed to 9.6% (from 11.66% FY25 peak) &mdash; 200+ bps recovery needed</li>
+              <li>Material margin -150 bps; commodity cost pass-through incomplete despite 1-1.5% pricing</li>
+              <li>New category proliferation risk: solar rooftop, wires, pumps simultaneously without phased gating</li>
+              <li>Butterfly (75%) revenue +3% vs double-digit guidance &mdash; turnaround below aspiration</li>
+              <li>BLDC capacity constraint: demand outpacing supply, revenue leakage in premium segment</li>
             </ul>
-            <div class="kanban-card-source"><span class="source-attr"><span class="source-tier tier-derived">Derived</span> Leadership + Competitive</span></div>
+            <div class="kanban-card-more">+3 more: BCG GTM restructuring, Baroda VRS integration, greenfield Rs 350 Cr capex</div>
+            <div class="kanban-card-source"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Transcript Intel + Q3/Q2/Q1 FY26 Presentations + MD&amp;A FY25</span></div>
           </div>
           <div class="kanban-card qualified">
             <div class="kanban-card-company">Industry PLI Beneficiaries</div>
@@ -3157,7 +3341,7 @@
           <div class="q-accent green"></div>
           <div class="quadrant-header">
             <div class="quadrant-title">&#9650; Margin Inflection Candidates</div>
-            <span class="quadrant-count">3 entries</span>
+            <span class="quadrant-count">4 entries</span>
           </div>
           <div class="quadrant-body">
             <div class="q-entry">
@@ -3177,11 +3361,11 @@
                 <span class="q-entry-company">Crompton Greaves</span>
                 <span class="dte-badge urgent">~20d</span>
               </div>
-              <div class="q-entry-signal">2 rounds of price hikes planned for Q4/Q1. Butterfly subsidiary margins expanding +100bps. Q3 EBITDA: 10.3%</div>
-              <div class="q-entry-detail">Catalyst: Price hike execution + ECD segment growth</div>
+              <div class="q-entry-signal">9M FY26 EBITDA compressed to 9.6% (from 11.66% peak). Material margin -150 bps standalone. Zero-net-debt achieved. Price increases 1-1.5% Jan 2026 + Q4/Q1 planned. BLDC Nucleus 1L+ units, 50%+ QoQ growth but supply-constrained. Solar rooftop Rs 500 Cr order book (Rs 19 Cr Q3 revenue). Butterfly EBITDA 8.2% (+100 bps). Wires entry announced (Rs 36K Cr TAM). Lighting EBIT +480 bps via B2B pivot. Q3 EBITDA: 10.3% (recovering from 8.3% Q2 trough) <span class="source-tier tier-verified">Verified</span></div>
+              <div class="q-entry-detail">Catalysts: Q4/Q1 pricing pass-through, BLDC capacity ramp at Baddi, solar rooftop order execution (AP Rs 445 Cr + Telangana), Butterfly national expansion, BCG GTM restructuring outcome. Risks: commodity persistence, PM-KUSUM expiry, new category bandwidth strain</div>
               <div class="q-entry-meta">
-                <span class="severity-dots" title="Severity: 4/5"><span class="dot filled high"></span><span class="dot filled high"></span><span class="dot filled high"></span><span class="dot filled high"></span><span class="dot"></span></span>
-                <span class="source-attr"><span class="source-tier tier-guidance">Mgmt Guidance</span> Concall</span>
+                <span class="severity-dots" title="Severity: 5/5"><span class="dot filled high"></span><span class="dot filled high"></span><span class="dot filled high"></span><span class="dot filled high"></span><span class="dot filled high"></span></span>
+                <span class="source-attr"><span class="source-tier tier-verified">Verified</span> Q3 FY26 Earnings Call + Q1 FY26 Transcript + Investor Presentations + MD&amp;A FY25</span>
               </div>
             </div>
             <div class="q-entry">
@@ -3194,6 +3378,18 @@
               <div class="q-entry-meta">
                 <span class="severity-dots" title="Severity: 3/5"><span class="dot filled mid"></span><span class="dot filled mid"></span><span class="dot filled mid"></span><span class="dot"></span><span class="dot"></span></span>
                 <span class="source-attr"><span class="source-tier tier-guidance">Mgmt Guidance</span> Dixon concall</span>
+              </div>
+            </div>
+            <div class="q-entry">
+              <div class="q-entry-header">
+                <span class="q-entry-company">Butterfly Gandhimathi</span>
+                <span class="dte-badge soon">~45d</span>
+              </div>
+              <div class="q-entry-signal">EBITDA recovered 651 bps in 6 quarters: 2.94% (FY24) &rarr; 7.55% (FY25) &rarr; 9.5% (Q2 FY26). Material margin recovered to 41% (Q1 FY26, +320 bps YoY). Q2 FY26 revenue +14% YoY &ldquo;industry-leading.&rdquo; All core categories double-digit growth. <span class="source-tier tier-verified">Verified</span></div>
+              <div class="q-entry-detail">Catalysts: Idea First Series traction on e-com/modern trade, Crompton distribution synergies for pan-India, A&amp;P ROI discipline, pricing actions, slow-moving inventory -86%</div>
+              <div class="q-entry-meta">
+                <span class="severity-dots" title="Severity: 4/5"><span class="dot filled high"></span><span class="dot filled high"></span><span class="dot filled high"></span><span class="dot filled high"></span><span class="dot"></span></span>
+                <span class="source-attr"><span class="source-tier tier-verified">Verified</span> AR FY24-25, Q1/Q2 FY26 Results, Q3 FY22 Investor Presentation</span>
               </div>
             </div>
           </div>
@@ -3212,11 +3408,11 @@
                 <span class="q-entry-company">Bajaj Electricals</span>
                 <span class="dte-badge urgent">Q4 watch</span>
               </div>
-              <div class="q-entry-signal">Severe revenue decline: -18.5% YoY. Net loss Rs 34 Cr. EBITDA margin collapsed to 4.1%. Potential turnaround or acquisition target.</div>
-              <div class="q-entry-detail">Key metric: -18.5% rev, 4.1% EBITDA margin</div>
+              <div class="q-entry-signal">CRITICAL: Q3 FY26 operating loss (PBT -Rs 20.28 Cr). 9MFY26 revenue -9.7% to Rs 3,210 Cr. Board pre-authorized minimum remuneration for FY26 losses. CP utilization 43%. Exceptional Rs 28.89 Cr workforce restructuring. Dual CEO+COO exit. Rs 134 Cr PBT swing in 9 months.</div>
+              <div class="q-entry-detail">Key metric: 9MFY26 PBT -Rs 35.57 Cr, CP util. 43%, retailer base -15%, interest coverage 3.1x &rarr; &lt;1x</div>
               <div class="q-entry-meta">
                 <span class="severity-dots" title="Severity: 5/5"><span class="dot filled high"></span><span class="dot filled high"></span><span class="dot filled high"></span><span class="dot filled high"></span><span class="dot filled high"></span></span>
-                <span class="source-attr"><span class="source-tier tier-verified">Verified</span> Company Filings</span>
+                <span class="source-attr"><span class="source-tier tier-verified">Verified</span> AR FY24-25, Board Outcome Q3 FY26</span>
               </div>
             </div>
             <div class="q-entry">
@@ -3224,11 +3420,11 @@
                 <span class="q-entry-company">Symphony</span>
                 <span class="dte-badge soon">~35d</span>
               </div>
-              <div class="q-entry-signal">Revenue collapsed -26% YoY but margins remain sector-leading at 17.3%. ROCE 36.8%. Asset-light model resilient. Volume recovery is the key test.</div>
-              <div class="q-entry-detail">Key metric: -26% rev, 17.3% EBITDA, 36.8% ROCE</div>
+              <div class="q-entry-signal">9M FY26 standalone revenue -30% to Rs 566 Cr; EBITDA -57% to Rs 81 Cr (14.4% margin). CT Australia divestiture failed (10 NDAs) &mdash; further impairment guided by Mar 2026. Pathways Retail Rs 58 Cr fraud write-off (Rs 8.5 Cr recovered). Consolidated EBITDA margin 9.5% vs standalone 14.4% (490 bps subsidiary drag). IMPCO Mexico PAT turned negative. Core India ROCE infinite (negative capital employed). <span class="source-tier tier-verified">Verified</span></div>
+              <div class="q-entry-detail">Catalysts: CT Australia balance sheet treatment by Mar 31, 2026; FY26 summer season demand recovery; IMPCO Mexico turnaround sustainability; water heater A&amp;P payback; channel inventory normalization post-record Mar 2025 stocking</div>
               <div class="q-entry-meta">
-                <span class="severity-dots" title="Severity: 4/5"><span class="dot filled high"></span><span class="dot filled high"></span><span class="dot filled high"></span><span class="dot filled high"></span><span class="dot"></span></span>
-                <span class="source-attr"><span class="source-tier tier-verified">Verified</span> Company Filings</span>
+                <span class="severity-dots" title="Severity: 5/5"><span class="dot filled high"></span><span class="dot filled high"></span><span class="dot filled high"></span><span class="dot filled high"></span><span class="dot filled high"></span></span>
+                <span class="source-attr"><span class="source-tier tier-verified">Verified</span> Q3 FY26 Earnings Call Jan 29, 2026 + AR FY25 + Corporate Presentation Feb 2026</span>
               </div>
             </div>
             <div class="q-entry">
@@ -3306,11 +3502,11 @@
                 <span class="q-entry-company">Amber Enterprises</span>
                 <span class="dte-badge soon">~45d</span>
               </div>
-              <div class="q-entry-signal">Rs 1,000 Cr QIP completed. Jewar facility (Rs 6,785 Cr) and 7 ILJIN acquisitions signal continued capital needs. D/E at 0.77x &mdash; highest in sector.</div>
-              <div class="q-entry-detail">Follow-on fundraise likely for Jewar phase 2 + working capital</div>
+              <div class="q-entry-signal">Rs 2,750 Cr equity raised in FY26. Rs 4,200 Cr PCB capex pipeline (Hosur Rs 991 Cr + Jewar Rs 3,200 Cr). D/E at 1.32x (FY25). Finance cost +32% to Rs 220 Cr. Interest coverage 3.87x. 3 acquisitions absorbing capital. CRISIL AA-/Positive enables debt access.</div>
+              <div class="q-entry-detail">Further fundraise likely for Jewar HDI PCB facility (timeline TBD) + acquisition integration working capital needs</div>
               <div class="q-entry-meta">
                 <span class="severity-dots" title="Severity: 4/5"><span class="dot filled high"></span><span class="dot filled high"></span><span class="dot filled high"></span><span class="dot filled high"></span><span class="dot"></span></span>
-                <span class="source-attr"><span class="source-tier tier-derived">Derived</span> Capital structure analysis</span>
+                <span class="source-attr"><span class="source-tier tier-verified">Verified</span> Investor Presentations + CRISIL Nov 2025</span>
               </div>
             </div>
             <div class="q-entry">
@@ -3367,58 +3563,80 @@
     <!-- ==================== TRANSCRIPT INTEL ==================== -->
     <div id="section-transcript-intel" class="section-panel">
       <div class="section-header">
-        <p class="section-subtitle">Transcript Intel Analysis &mdash; annual report analysis across 5 companies</p>
-        <span class="data-tag">Transcript Intel &middot; 5 Companies</span>
+        <p class="section-subtitle">Transcript Intel Analysis &mdash; annual report analysis across 10 companies</p>
+        <span class="data-tag">Transcript Intel &middot; 10 Companies</span>
       </div>
 
-      <div class="company-tabs" id="intelTabs">
-        <button class="company-tab active" data-company="dixon">Dixon Technologies <span class="badge badge-amber" id="dixon-count"></span></button>
-        <button class="company-tab" data-company="ifb">IFB Industries <span class="badge badge-amber" id="ifb-count"></span></button>
-        <button class="company-tab" data-company="whirlpool">Whirlpool of India <span class="badge badge-amber" id="whirlpool-count"></span></button>
-        <button class="company-tab" data-company="havells">Havells India <span class="badge badge-amber" id="havells-count"></span></button>
-        <button class="company-tab" data-company="ttk">TTK Prestige <span class="badge badge-amber" id="ttk-count"></span></button>
-      </div>
+      <div class="intel-layout">
 
-      <h3 class="sub-header">EBITDA Movement Story</h3>
-      <p style="font-size:11px; color:var(--text-muted); margin:-8px 0 14px 0;">Margin trajectory and key drivers extracted from annual reports and earnings transcripts.</p>
+      <!-- Company Sidebar -->
+      <div class="intel-sidebar" id="intelSidebar"></div>
+
+      <!-- Main Content -->
+      <div class="intel-main">
+
+      <!-- Risk Scorecard -->
+      <div class="risk-scorecard" id="riskScorecard"></div>
+
+      <h3 class="sub-header" style="margin-bottom:4px">EBITDA Movement Story</h3>
+      <p style="font-size:11px; color:var(--text-muted); margin:0 0 14px 0;">Margin trajectory and key drivers extracted from annual reports and earnings transcripts.</p>
       <div class="ebitda-story-container">
-        <div class="card ebitda-story-card" data-company="dixon"><h4>Dixon Technologies</h4><div class="ebitda-trend-line"><span class="trend-year">FY20</span> <span class="trend-val declining">5.2%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY21</span> <span class="trend-val declining">4.5%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY22</span> <span class="trend-val declining">3.6%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY23</span> <span class="trend-val">4.3%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY24</span> <span class="trend-val declining">4.1%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY25</span> <span class="trend-val declining">3.9%</span></div><div class="ebitda-drivers"><span class="ebitda-driver down">Material cost 92.7% of rev</span><span class="ebitda-driver down">Mobile 85% concentration</span><span class="ebitda-driver up">ODM mix 4% &rarr; 56%</span><span class="ebitda-driver up">Home Appliances 11.5% OPM</span><span class="ebitda-driver down">PAT margin only 2.2%</span></div><div class="ebitda-narrative">Five-year structural margin compression despite 119% revenue growth. Material cost pass-through model (92.7%) leaves no buffer. The ODM shift (4% to 56% in Consumer Electronics) is the primary internal margin lever, with Home Appliances at 11.5% OPM serving as the benchmark for what backward integration can achieve.</div><div><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Transcript Intel Analysis</span> &middot; AR 2024-25, Q3 FY26 Results</div></div>
-        <div class="card ebitda-story-card" data-company="ifb" style="display:none"><h4>IFB Industries</h4><div class="ebitda-trend-line"><span class="trend-year">FY23</span> <span class="trend-val declining">~5.5%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY24</span> <span class="trend-val declining">~5.7%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY25</span> <span class="trend-val improving">6.5%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">Target</span> <span class="trend-val">10%+</span></div><div class="ebitda-drivers"><span class="ebitda-driver down">Material cost +19.7% vs rev +14.6%</span><span class="ebitda-driver down">Channel schemes INR 1,500 Cr</span><span class="ebitda-driver down">FL washer stagnant 3 yrs</span><span class="ebitda-driver up">AC segment EBITDA+ (1.7%)</span><span class="ebitda-driver up">Engineering div 16.2% margin</span><span class="ebitda-driver down">Fixed cost INR 75 Cr/month</span></div><div class="ebitda-narrative">PBDIT at 6.5% vs 10%+ internal target &mdash; a structural gap of 350+ bps representing INR 170+ Cr annual under-delivery. Material cost outpacing revenue growth is the primary suppressant. A&amp;M engaged Feb 2025 with INR 200+ Cr savings target over 18 months, confirming deeply embedded procurement inefficiency.</div><div><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Transcript Intel Analysis</span> &middot; AR 2024-25, Q4 FY25 Transcript</div></div>
-        <div class="card ebitda-story-card" data-company="whirlpool" style="display:none"><h4>Whirlpool of India</h4><div class="ebitda-trend-line"><span class="trend-year">FY23</span> <span class="trend-val declining">2.2%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY24</span> <span class="trend-val declining">2.0%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY25</span> <span class="trend-val improving">3.9%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">Gross</span> <span class="trend-val improving">~33.3%</span></div><div class="ebitda-drivers"><span class="ebitda-driver down">E-waste cost INR 81 Cr (+84%)</span><span class="ebitda-driver down">Freight 6.3% of revenue</span><span class="ebitda-driver down">Parent 51% &rarr; ~20% risk</span><span class="ebitda-driver up">P4G: material cost -1%</span><span class="ebitda-driver up">Gross margin +140 bps</span><span class="ebitda-driver down">Traded goods +74% unexplained</span></div><div class="ebitda-narrative">OPM recovering from a trough of 2.0% (FY24) to 3.9% (FY25), driven by P4G cost productivity and revenue leverage. However, E-waste regulatory costs (+84% YoY) and freight (6.3% of revenue) are consuming gross margin gains. The parent sell-down from 51% to ~20% creates existential brand and IP risk overshadowing all margin improvement efforts.</div><div><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Transcript Intel Analysis</span> &middot; AR 2024-25, AR 2023-24</div></div>
-        <div class="card ebitda-story-card" data-company="havells" style="display:none"><h4>Havells India</h4><div class="ebitda-trend-line"><span class="trend-year">Q4 FY25</span> <span class="trend-val">8.4%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">Q1 FY26</span> <span class="trend-val improving">8.7%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">Q2 FY26</span> <span class="trend-val improving">9.0%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">Q3 FY26</span> <span class="trend-val improving">9.2%</span></div><div class="ebitda-drivers"><span class="ebitda-driver up">Employee cost flat 7 qtrs (Rs 460-490 Cr)</span><span class="ebitda-driver up">EBITDA +21% vs Rev +14%</span><span class="ebitda-driver down">Cables at 90-100% util. cap constraint</span><span class="ebitda-driver down">Lloyd only 2.6% margin (23.6% of rev)</span><span class="ebitda-driver down">Switchgear margin -400bps (26.5% &rarr; 22.5%)</span><span class="ebitda-driver up">Mgmt guided 150-200bps expansion</span></div><div class="ebitda-narrative">EBITDA margin trending up (8.4% &rarr; 9.2%) with operating leverage &mdash; employee costs stable for 7 quarters against 14-17% revenue growth. However, the fastest-growing segment (Lloyd at 35.3%) carries only 2.6% margin, creating a structural mix headwind. Cables supply-constrained at 90-100% utilization limits the highest-volume segment. The 150-200bps margin expansion guidance hinges on Lloyd margin normalization and cables capacity unlock.</div><div><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Transcript Intel Analysis</span> &middot; Q1-Q3 FY26 Transcripts + Annual Report FY25</div></div>
-        <div class="card ebitda-story-card" data-company="ttk" style="display:none"><h4>TTK Prestige</h4><div class="ebitda-trend-line"><span class="trend-year">FY21</span> <span class="trend-val improving">16.8%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY22</span> <span class="trend-val improving">17.4%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY23</span> <span class="trend-val declining">15.3%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY24</span> <span class="trend-val declining">15.4%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY25</span> <span class="trend-val declining">13.4%</span></div><div class="ebitda-drivers"><span class="ebitda-driver down">Rs 29.8 Cr strategic OPEX (Rs 16.3 Cr in Q4)</span><span class="ebitda-driver down">Q4 EBITDA margin -520 bps (17.2% &rarr; 12.0%)</span><span class="ebitda-driver down">Aluminium price escalation &mdash; forced Nov 2024 hike</span><span class="ebitda-driver down">Rs 71.4 Cr UK goodwill impairment</span><span class="ebitda-driver up">Adjusted EBITDA 14.6% (ex-strategic investments)</span><span class="ebitda-driver down">8-quarter forward dilution committed</span></div><div class="ebitda-narrative">EBITDA margin declining from FY22 peak of 17.4% to FY25 reported 13.4% &mdash; a 400 bps erosion over 3 years. Rs 500 Cr transformation (Rs 200 Cr OPEX + Rs 300 Cr CAPEX) is the primary near-term drag: Rs 29.8 Cr charged in FY25 with acceleration in Q4. Adjusted for strategic investments, underlying margin is 14.6% &mdash; still below historical peaks. Management targets return to 14-15% mid-teen margins but has committed to 8 more quarters of dilution. Aluminium inflation and competitive pricing pressure add external headwinds.</div><div><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Transcript Intel Analysis</span> &middot; Q4 FY25 Transcript + Annual Report FY25</div></div>
+        <div class="card ebitda-story-card" data-company="dixon"><div class="ebitda-left"><h4>Dixon Technologies</h4><div class="ebitda-trend-line"><span class="trend-year">FY20</span> <span class="trend-val declining">5.2%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY21</span> <span class="trend-val declining">4.5%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY22</span> <span class="trend-val declining">3.6%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY23</span> <span class="trend-val">4.3%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY24</span> <span class="trend-val declining">4.1%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY25</span> <span class="trend-val declining">3.9%</span></div><div class="ebitda-narrative">Five-year structural margin compression despite 119% revenue growth. Material cost pass-through model (92.7%) leaves no buffer. The ODM shift (4% to 56% in Consumer Electronics) is the primary internal margin lever, with Home Appliances at 11.5% OPM serving as the benchmark for what backward integration can achieve.</div><div><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Transcript Intel Analysis</span> &middot; AR 2024-25, Q3 FY26 Results</div></div><div class="ebitda-right"><div class="ebitda-drivers"><span class="ebitda-driver down">Material cost 92.7% of rev</span><span class="ebitda-driver down">Mobile 85% concentration</span><span class="ebitda-driver up">ODM mix 4% &rarr; 56%</span><span class="ebitda-driver up">Home Appliances 11.5% OPM</span><span class="ebitda-driver down">PAT margin only 2.2%</span></div></div></div>
+        <div class="card ebitda-story-card" data-company="ifb" style="display:none"><div class="ebitda-left"><h4>IFB Industries</h4><div class="ebitda-trend-line"><span class="trend-year">FY23</span> <span class="trend-val declining">~5.5%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY24</span> <span class="trend-val declining">~5.7%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY25</span> <span class="trend-val improving">6.5%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">Target</span> <span class="trend-val">10%+</span></div><div class="ebitda-narrative">PBDIT at 6.5% vs 10%+ internal target &mdash; a structural gap of 350+ bps representing INR 170+ Cr annual under-delivery. Material cost outpacing revenue growth is the primary suppressant. A&amp;M engaged Feb 2025 with INR 200+ Cr savings target over 18 months, confirming deeply embedded procurement inefficiency.</div><div><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Transcript Intel Analysis</span> &middot; AR 2024-25, Q4 FY25 Transcript</div></div><div class="ebitda-right"><div class="ebitda-drivers"><span class="ebitda-driver down">Material cost +19.7% vs rev +14.6%</span><span class="ebitda-driver down">Channel schemes INR 1,500 Cr</span><span class="ebitda-driver down">FL washer stagnant 3 yrs</span><span class="ebitda-driver up">AC segment EBITDA+ (1.7%)</span><span class="ebitda-driver up">Engineering div 16.2% margin</span><span class="ebitda-driver down">Fixed cost INR 75 Cr/month</span></div></div></div>
+        <div class="card ebitda-story-card" data-company="whirlpool" style="display:none"><div class="ebitda-left"><h4>Whirlpool of India</h4><div class="ebitda-trend-line"><span class="trend-year">FY23</span> <span class="trend-val declining">2.2%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY24</span> <span class="trend-val declining">2.0%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY25</span> <span class="trend-val improving">3.9%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">Gross</span> <span class="trend-val improving">~33.3%</span></div><div class="ebitda-narrative">OPM recovering from a trough of 2.0% (FY24) to 3.9% (FY25), driven by P4G cost productivity and revenue leverage. However, E-waste regulatory costs (+84% YoY) and freight (6.3% of revenue) are consuming gross margin gains. The parent sell-down from 51% to ~20% creates existential brand and IP risk overshadowing all margin improvement efforts.</div><div><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Transcript Intel Analysis</span> &middot; AR 2024-25, AR 2023-24</div></div><div class="ebitda-right"><div class="ebitda-drivers"><span class="ebitda-driver down">E-waste cost INR 81 Cr (+84%)</span><span class="ebitda-driver down">Freight 6.3% of revenue</span><span class="ebitda-driver down">Parent 51% &rarr; ~20% risk</span><span class="ebitda-driver up">P4G: material cost -1%</span><span class="ebitda-driver up">Gross margin +140 bps</span><span class="ebitda-driver down">Traded goods +74% unexplained</span></div></div></div>
+        <div class="card ebitda-story-card" data-company="havells" style="display:none"><div class="ebitda-left"><h4>Havells India</h4><div class="ebitda-trend-line"><span class="trend-year">Q4 FY25</span> <span class="trend-val">8.4%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">Q1 FY26</span> <span class="trend-val improving">8.7%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">Q2 FY26</span> <span class="trend-val improving">9.0%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">Q3 FY26</span> <span class="trend-val improving">9.2%</span></div><div class="ebitda-narrative">EBITDA margin trending up (8.4% &rarr; 9.2%) with operating leverage &mdash; employee costs stable for 7 quarters against 14-17% revenue growth. However, the fastest-growing segment (Lloyd at 35.3%) carries only 2.6% margin, creating a structural mix headwind. Cables supply-constrained at 90-100% utilization limits the highest-volume segment. The 150-200bps margin expansion guidance hinges on Lloyd margin normalization and cables capacity unlock.</div><div><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Transcript Intel Analysis</span> &middot; Q1-Q3 FY26 Transcripts + Annual Report FY25</div></div><div class="ebitda-right"><div class="ebitda-drivers"><span class="ebitda-driver up">Employee cost flat 7 qtrs (Rs 460-490 Cr)</span><span class="ebitda-driver up">EBITDA +21% vs Rev +14%</span><span class="ebitda-driver down">Cables at 90-100% util. cap constraint</span><span class="ebitda-driver down">Lloyd only 2.6% margin (23.6% of rev)</span><span class="ebitda-driver down">Switchgear margin -400bps (26.5% &rarr; 22.5%)</span><span class="ebitda-driver up">Mgmt guided 150-200bps expansion</span></div></div></div>
+        <div class="card ebitda-story-card" data-company="ttk" style="display:none"><div class="ebitda-left"><h4>TTK Prestige</h4><div class="ebitda-trend-line"><span class="trend-year">FY21</span> <span class="trend-val improving">16.8%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY22</span> <span class="trend-val improving">17.4%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY23</span> <span class="trend-val declining">15.3%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY24</span> <span class="trend-val declining">15.4%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY25</span> <span class="trend-val declining">13.4%</span></div><div class="ebitda-narrative">EBITDA margin declining from FY22 peak of 17.4% to FY25 reported 13.4% &mdash; a 400 bps erosion over 3 years. Rs 500 Cr transformation (Rs 200 Cr OPEX + Rs 300 Cr CAPEX) is the primary near-term drag: Rs 29.8 Cr charged in FY25 with acceleration in Q4. Adjusted for strategic investments, underlying margin is 14.6% &mdash; still below historical peaks. Management targets return to 14-15% mid-teen margins but has committed to 8 more quarters of dilution. Aluminium inflation and competitive pricing pressure add external headwinds.</div><div><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Transcript Intel Analysis</span> &middot; Q4 FY25 Transcript + Annual Report FY25</div></div><div class="ebitda-right"><div class="ebitda-drivers"><span class="ebitda-driver down">Rs 29.8 Cr strategic OPEX (Rs 16.3 Cr in Q4)</span><span class="ebitda-driver down">Q4 EBITDA margin -520 bps (17.2% &rarr; 12.0%)</span><span class="ebitda-driver down">Aluminium price escalation &mdash; forced Nov 2024 hike</span><span class="ebitda-driver down">Rs 71.4 Cr UK goodwill impairment</span><span class="ebitda-driver up">Adjusted EBITDA 14.6% (ex-strategic investments)</span><span class="ebitda-driver down">8-quarter forward dilution committed</span></div></div></div>
+        <div class="card ebitda-story-card" data-company="symphony" style="display:none"><div class="ebitda-left"><h4>Symphony Limited</h4><div class="ebitda-trend-line"><span class="trend-year">FY21</span> <span class="trend-val">17.9%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY22</span> <span class="trend-val improving">20.0%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY23</span> <span class="trend-val improving">20.2%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY24</span> <span class="trend-val">20.2%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY25</span> <span class="trend-val improving">24.3%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">9M FY26</span> <span class="trend-val declining">14.4%</span></div><div class="ebitda-narrative">Standalone EBITDA margin trajectory: FY21 17.9% &rarr; FY25 24.25% (peak, +404 bps expansion in a single year) &rarr; 9M FY26 14.4% (sharp reversal). FY25 expansion was driven by three factors: gross margin gains from 17 new margin-accretive models and value engineering (+0.73 ppt), employee cost operating leverage (+0.84 ppt), and other expenses dilution on higher revenue (+2.51 ppt). FY26 collapse is weather-driven (subdued, rain-disrupted summer) compounded by channel inventory overhang from record March 2025 stocking. 100% asset-light model means minimal fixed cost buffer &mdash; revenue volatility flows directly to EBITDA. Consolidated margin (9.5% 9M FY26) is structurally depressed by CT Australia persistent losses (~490 bps drag). Core India business ROCE is infinite (negative capital employed), but earnings quality is fundamentally seasonal.</div><div><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Transcript Intel Analysis</span> &middot; AR FY25, Q4 FY25 Transcript, Q3 FY26 Transcript, Corporate Presentation Feb 2026</div></div><div class="ebitda-right"><div class="ebitda-drivers"><span class="ebitda-driver up">FY25: gross margin +73 bps to 49.75% (value engineering + 17 new models)</span><span class="ebitda-driver up">FY25: employee cost dilution +0.84 ppt (operating leverage)</span><span class="ebitda-driver up">FY25: other expenses leverage +2.51 ppt</span><span class="ebitda-driver down">9M FY26: revenue -30% YoY (rain-disrupted summer)</span><span class="ebitda-driver down">9M FY26: gross margin -1.8 ppt to 48.3%</span><span class="ebitda-driver down">Water heater A&amp;P: 90%+ of Rs 11 Cr Q3 spend</span><span class="ebitda-driver down">Consolidated: CT Australia drag ~490 bps on EBITDA</span></div></div></div>
+        <div class="card ebitda-story-card" data-company="bajaj" style="display:none"><div class="ebitda-left"><h4>Bajaj Electricals</h4><div class="ebitda-trend-line"><span class="trend-year">FY23</span> <span class="trend-val">~9.6%*</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY24</span> <span class="trend-val declining">7.5%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY25</span> <span class="trend-val">7.5%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">9M FY26</span> <span class="trend-val declining">Negative</span></div><div class="ebitda-narrative">EBITDA margin flat at 7.5% in FY24 and FY25 despite +4% revenue recovery in FY25 &mdash; no operating leverage materializing. FY23 margins were higher (~9.6%) but include EPC contribution. The FY26 collapse is structural: 9MFY26 revenue -9.7% YoY to Rs 3,210 Cr, with Q3 FY26 PBT turning negative (-Rs 20.28 Cr). Consumer Products at 43% capacity utilization (10.8 Mn installed vs 4.6 Mn produced) is the primary fixed-cost absorption problem. EBIT margin erosion from 5.1% to 4.5% while EBITDA held flat confirms rising depreciation burden from an oversized asset base. Other expenses surging +17.5% in a declining revenue quarter destroyed whatever margin stability existed. The Board&rsquo;s pre-authorization of minimum director remuneration &ldquo;in case of absence/inadequacy of profits&rdquo; confirms management expects full-year FY26 losses. *FY23 includes partial EPC contribution.</div><div><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Transcript Intel Analysis</span> &middot; AR FY24-25, AR FY23-24, Board Outcome Q3 FY26</div></div><div class="ebitda-right"><div class="ebitda-drivers"><span class="ebitda-driver down">9MFY26 PBT -Rs 35.57 Cr (vs +Rs 98.43 Cr 9MFY25)</span><span class="ebitda-driver down">CP capacity utilization 43% &mdash; fixed cost absorption crisis</span><span class="ebitda-driver down">Other expenses +17.5% in Q3 despite -5% revenue</span><span class="ebitda-driver down">Exceptional Rs 28.89 Cr gratuity/LE restructuring</span><span class="ebitda-driver down">EBIT margin 5.1% &rarr; 4.5% (D&amp;A load rising)</span><span class="ebitda-driver up">Domestic sourcing &gt;90% CP, &gt;99% LS</span><span class="ebitda-driver down">Board pre-approved min. remuneration for FY26 losses</span></div></div></div>
+        <div class="card ebitda-story-card" data-company="crompton" style="display:none"><div class="ebitda-left"><h4>Crompton Greaves Consumer</h4><div class="ebitda-trend-line"><span class="trend-year">FY23</span> <span class="trend-val">~10.5%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY24</span> <span class="trend-val improving">10.78%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY25</span> <span class="trend-val improving">11.66%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">Q2 FY26</span> <span class="trend-val declining">8.3%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">Q3 FY26</span> <span class="trend-val improving">10.3%</span></div><div class="ebitda-narrative">FY25 EBITDA margin of 11.66% was the 5-year peak, driven by commodity cost easing (-132 bps material cost improvement), zero-debt achievement, and BLDC premiumization. FY26 is a challenge year: 9M FY26 consolidated EBITDA compressed to 9.6% (from 10.9%) due to copper/aluminium/steel inflation, weak Q1 fan season (-8% vs industry -11%), and Baroda VRS charge. Q2 FY26 was the trough at 8.3%; Q3 recovered to 10.3% (+200 bps QoQ) driven by GST-deferred demand realization, pricing actions, and seasonal normalization. Recovery levers: price increases (1-1.5% Jan 2026 + Q4/Q1), UNNATI multi-sourcing +10%, BLDC/premium mix improvement, Baroda fixed-cost savings, and lighting B2B pivot (EBIT +480 bps to 15.5%). Material cost at 67% of revenue is the primary swing factor. Management guided further pricing in Q4/Q1 FY27 to restore FY25-level margins.</div><div><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Transcript Intel Analysis</span> &middot; Q3 FY26 Earnings Call + Q3/Q2 FY26 Investor Presentations + MD&amp;A FY25</div></div><div class="ebitda-right"><div class="ebitda-drivers"><span class="ebitda-driver down">Material margin -150 bps YoY standalone (31.1% vs 32.6%)</span><span class="ebitda-driver down">Employee cost +13.6% vs revenue +7.3%</span><span class="ebitda-driver down">Baroda VRS Rs 20.36 Cr exceptional</span><span class="ebitda-driver up">Zero-net-debt: finance cost 0.61% of revenue</span><span class="ebitda-driver up">Lighting EBIT +480 bps (15.5% Q2 FY26)</span><span class="ebitda-driver up">Price increase 1-1.5% Jan 2026 + more planned</span><span class="ebitda-driver up">Butterfly EBITDA 7.2% &rarr; 8.2% (+100 bps YoY)</span></div></div></div>
+        <div class="card ebitda-story-card" data-company="amber" style="display:none"><div class="ebitda-left"><h4>Amber Enterprises India</h4><div class="ebitda-trend-line"><span class="trend-year">FY23</span> <span class="trend-val">6.9%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY24</span> <span class="trend-val improving">7.7%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY25</span> <span class="trend-val improving">8.0%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">9M FY26</span> <span class="trend-val declining">7.6%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">Q3 FY26</span> <span class="trend-val improving">8.4%</span></div><div class="ebitda-narrative">Consolidated EBITDA margin improving from 6.9% (FY23) to 8.4% (Q3 FY26) driven by: backward integration reducing RMC from 84.7% to 80.3%, Electronics Division at inflection (EBITDA 4.2% to 10.5% as PCB and box-build scale), and operating leverage (other expenses 7.0% to 5.5%). However, Consumer Durables (67% of revenue) saw margin compress 7.7% to 6.9% in 9MFY26. Below EBITDA, rising D&amp;A (Rs 228 Cr, +22%) and finance cost (Rs 220 Cr, +32%) squeeze PAT to 2.5%. Rs 94 Cr exceptional impairment pushed Q3 PAT negative. Rs 4,200 Cr PCB capex will further increase D&amp;A before revenue materializes. RAC CBU share reduced 72% (FY18) to ~40% (FY25) &mdash; correct mix strategy, but must accelerate to 10%+ consolidated EBITDA for viable profit base.</div><div><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Transcript Intel Analysis</span> &middot; Q3 FY26, Q4 FY25, Q3 FY25, Q4 FY24 Investor Presentations + 35th AGM + CRISIL Nov 2025</div></div><div class="ebitda-right"><div class="ebitda-drivers"><span class="ebitda-driver up">Other expenses 7.0% &rarr; 5.5% (operating leverage)</span><span class="ebitda-driver up">Electronics EBITDA 4.2% &rarr; 10.5% (Q3 new high)</span><span class="ebitda-driver up">Gross margin 15.3% &rarr; 19.7% (Q3 FY26)</span><span class="ebitda-driver down">Consumer Durables EBITDA 7.7% &rarr; 6.9% (9MFY26)</span><span class="ebitda-driver down">Employee cost 3.2% &rarr; 4.0% (acquisitions)</span><span class="ebitda-driver down">PAT margin 2.5% &mdash; razor thin</span><span class="ebitda-driver down">Rs 94 Cr Shivalik impairment &rarr; Q3 PAT negative</span></div></div></div>
+        <div class="card ebitda-story-card" data-company="butterfly" style="display:none"><div class="ebitda-left"><h4>Butterfly Gandhimathi</h4><div class="ebitda-trend-line"><span class="trend-year">FY17</span> <span class="trend-val declining">&ndash;4%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY18</span> <span class="trend-val improving">7%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY21</span> <span class="trend-val improving">9%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY24</span> <span class="trend-val declining">2.94%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY25</span> <span class="trend-val improving">7.55%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">Q2 FY26</span> <span class="trend-val improving">9.5%</span></div><div class="ebitda-narrative">EBITDA margin collapsed from 9%+ (FY21) to 2.94% (FY24) &mdash; driven by commodity inflation (+73% material cost 9M FY22), pricing disruption, and deliberate channel restructuring post-Crompton acquisition (March 2022). Recovery executed via: ROI-led A&amp;P restructuring, pricing corrections, SNOP-driven inventory normalization, plant consolidation, and Project Munnetram savings (Rs 1.5 Cr). EBITDA recovered 651 bps in 6 quarters to 9.5% (Q2 FY26). However, revenue is 18% below FY23 peak &mdash; margin improvement is partly a function of denominator contraction and auxiliary category pruning. Material margin restored to 41% (Q1 FY26) but Q2 showed 37.8% &mdash; volatility remains. Steel single-sourcing and no commodity hedging policy are structural risks. Q2 FY26 revenue +14% YoY described as &ldquo;industry-leading&rdquo; suggests top-line recovery may be accelerating.</div><div><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Transcript Intel Analysis</span> &middot; AR FY21, AR FY22-23, AR FY24-25, Q3 FY22 Investor Presentation, Q1/Q2 FY26 Results</div></div><div class="ebitda-right"><div class="ebitda-drivers"><span class="ebitda-driver down">Material cost structural floor 58&ndash;62% of revenue</span><span class="ebitda-driver down">Steel single-source &mdash; no alternate vendor</span><span class="ebitda-driver down">Revenue 18% below FY23 peak (Rs 865 Cr vs Rs 1,057 Cr)</span><span class="ebitda-driver up">A&amp;P ROI discipline +351 bps EBITDA (FY25)</span><span class="ebitda-driver up">Material margin recovered 41% Q1 FY26 (+320 bps YoY)</span><span class="ebitda-driver up">Finance cost near-zero (D/E 0.04x)</span><span class="ebitda-driver up">Slow-moving inventory reduced 86%</span></div></div></div>
       </div>
 
-      <h3 class="sub-header">Signal Ranking</h3>
+      <!-- Signal Distribution Bar -->
+      <div class="signal-dist-wrap" id="signalDist"></div>
 
-      <div id="intelSummary" class="stat-row"></div>
-
-      <div class="filter-row">
-        <span class="filter-label">Severity:</span>
-        <button class="filter-btn active" data-sev="all">All</button>
-        <button class="filter-btn" data-sev="Critical">Critical</button>
-        <button class="filter-btn" data-sev="High">High</button>
-        <button class="filter-btn" data-sev="Medium">Medium</button>
-        <button class="filter-btn" data-sev="Low">Low</button>
-        <button class="filter-btn" data-sev="Informational">Informational</button>
+      <!-- Top Signal Cards (Critical + High) -->
+      <div>
+        <h3 class="sub-header" style="margin-bottom:10px">Top Signals</h3>
+        <div class="top-signals-grid" id="topSignals"></div>
       </div>
 
-      <div class="signal-count" id="signalCount"></div>
+      <!-- Expandable Full Signal Table -->
+      <div>
+        <button class="signal-table-toggle" id="signalTableToggle">
+          <span class="toggle-arrow">&#9654;</span> All Signals <span class="signal-count" id="signalCount" style="font-weight:400;color:var(--text-muted);font-size:12px"></span>
+        </button>
+        <div class="signal-table-wrap collapsed" id="signalTableWrap">
+          <div class="filter-row" style="margin-top:8px">
+            <span class="filter-label">Severity:</span>
+            <button class="filter-btn active" data-sev="all">All</button>
+            <button class="filter-btn" data-sev="Critical">Critical</button>
+            <button class="filter-btn" data-sev="High">High</button>
+            <button class="filter-btn" data-sev="Medium">Medium</button>
+            <button class="filter-btn" data-sev="Low">Low</button>
+            <button class="filter-btn" data-sev="Informational">Informational</button>
+          </div>
+          <table class="signal-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Severity</th>
+                <th>Indicator</th>
+                <th>Signal &amp; Rationale</th>
+                <th>Status</th>
+                <th>Period</th>
+              </tr>
+            </thead>
+            <tbody id="signalBody"></tbody>
+          </table>
+        </div>
+      </div>
 
-      <table class="signal-table">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Severity</th>
-            <th>Indicator</th>
-            <th>Signal &amp; Rationale</th>
-            <th>Status</th>
-            <th>Period</th>
-          </tr>
-        </thead>
-        <tbody id="signalBody"></tbody>
-      </table>
       <div class="section-footer"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Transcript Intel Analysis</span> &middot; Annual Reports FY23-FY25</div>
+
+      </div><!-- /.intel-main -->
+      </div><!-- /.intel-layout -->
     </div>
 
   </div>
@@ -3452,10 +3670,10 @@
         revTrend: [1580,1890,2143,2943], ebitdaTrend: [9.2,10.1,10.8,11.2],
         perf: "outperform",
         latestQ: "Q3 FY2026", qSales: 2943, qNetProfit: -9,
-        variance: "Revenue surged 37.9% YoY to INR 2,943 Cr in Q3 FY2026. EBITDA margin at 11.2%. Net loss of INR 9 Cr due to seasonal factors in RAC OEM segment.",
-        source: "Company Filings (AMBER/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025",
-        productMix: [{segment:"Room AC Components",pct:60},{segment:"Mobility",pct:15},{segment:"Electronics",pct:15},{segment:"Other",pct:10}],
-        premiumMix: {premium:15,mass:60,economy:25}
+        variance: "Q3 FY26 revenue Rs 2,943 Cr (+38% YoY). Consolidated EBITDA margin 8.4% (Q3 FY26) vs 8.0% (FY25) \u2014 operating leverage visible as other expenses fell from 7.0% to 5.5% of revenue. Reported PAT negative at Rs -9 Cr due to Rs 94 Cr Shivalik investment impairment (exceptional item). Adjusted PAT Rs 84 Cr. Consumer Durables div 67% of revenue, EBITDA margin 7.2%; Electronics div 28%, EBITDA margin hit 10.5% (new high); Railway div 5%, EBITDA margin 19.7%. Gross margin at 19.7% (Q3 FY26) \u2014 highest in series. RAC CBU share reduced from 72% (FY18) to ~40% (FY25). 26\u201327% RAC outsourced manufacturing market share. NWC days improved 13\u21929 days despite 48% FY25 revenue growth. Rs 4,200 Cr PCB capex pipeline (Hosur + Jewar). CRISIL AA-/Positive. D/E at 1.32x (FY25). Finance cost Rs 220 Cr (FY25, +32% YoY). 3 acquisitions in 12 months (Power One, Unitronics, Shogini). BEE rating norms change (Jan 2026) creates RAC refresh cycle. Railway order book Rs 2,600+ Cr. Structural risk: OEM brands taking RAC assembly in-house validated in FY24 (-7% Consumer Durables revenue).",
+        source: "Q3 FY26 Investor Presentation (Feb 2026) | Q4 FY25 Investor Presentation (May 2025) | Q3 FY25 Investor Presentation (Jan 2025) | Q4 FY24 Investor Presentation (May 2024) | 35th AGM Proceedings (Aug 2025) | CRISIL Credit Rating (Nov 2025)",
+        productMix: [{segment:"Consumer Durables (RAC+Components)",pct:67},{segment:"Electronics (PCB+Box Build)",pct:28},{segment:"Railway & Defense",pct:5}],
+        premiumMix: {premium:10,mass:65,economy:25}
       },
       {
         id: "bajaj", name: "Bajaj Electricals", ticker: "BAJAJELEC", subSector: "Electrical", amSignal: "turnaround",
@@ -3464,10 +3682,10 @@
         revTrend: [1350,1290,1310,1051], ebitdaTrend: [7.1,5.8,5.2,4.1],
         perf: "underperform",
         latestQ: "Q3 FY2026", qSales: 1051, qNetProfit: -34,
-        variance: "Revenue declined 18.5% YoY to INR 1,051 Cr in Q3 FY2026. EBITDA margin compressed to 4.1%. Net loss of INR 34 Cr.",
-        source: "Company Filings (BAJAJELEC/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025",
-        productMix: [{segment:"Consumer Products",pct:55},{segment:"Lighting",pct:25},{segment:"EPC",pct:20}],
-        premiumMix: {premium:15,mass:50,economy:35}
+        variance: "Q3 FY26 PBT before exceptional: -Rs 20.28 Cr (vs +Rs 20.27 Cr Q3 FY25). 9MFY26 revenue -9.7% YoY to Rs 3,210 Cr. Board pre-authorized minimum director remuneration for FY26 \u2014 admission of anticipated full-year losses. CP capacity utilization at 43% (10.8 Mn installed vs 4.6 Mn produced). Exceptional Rs 28.89 Cr gratuity/leave encashment signals workforce restructuring. Other expenses surged +17.5% in Q3 despite -5% revenue decline. Interest coverage deteriorated 3.7x \u2192 3.1x. EBITDA margin flat at 7.5% (FY24-FY25) but now in loss territory. Retailer base -15% (2L \u2192 1.7L); channel partner retention only 81%. Surplus funds Rs 509 Cr provides liquidity buffer. New MD Sanjay Sachdeva (Mar 2025) \u2014 strategy transition during operating stress.",
+        source: "Annual Report FY2024-25 (86th AR) | Annual Report FY2023-24 (85th AR) | Board Meeting Outcome Q3 FY26 (Feb 9, 2026) | 85th AGM Proceedings (Aug 2024)",
+        productMix: [{segment:"Consumer Products",pct:79},{segment:"Lighting Solutions",pct:21}],
+        premiumMix: {premium:20,mass:55,economy:25}
       },
       {
         id: "bluestar", name: "Blue Star", ticker: "BLUESTARCO", subSector: "Cooling", amSignal: "monitor",
@@ -3488,9 +3706,9 @@
         revTrend: [220,228,238,245], ebitdaTrend: [9.5,10.0,10.3,10.6],
         perf: "inline",
         latestQ: "Q3 FY2026", qSales: 245, qNetProfit: 11,
-        variance: "Revenue grew 2.9% YoY to INR 245 Cr in Q3 FY2026. EBITDA margin at 10.6%. Net profit: INR 11 Cr. Near debt-free with D/E of 0.03x.",
-        source: "Company Filings (BUTTERFLY/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025",
-        productMix: [{segment:"Kitchen Appliances",pct:70},{segment:"Home Appliances",pct:30}],
+        variance: "EBITDA margin recovered 651 bps in 6 quarters: 2.94% (FY24) \u2192 7.55% (FY25) \u2192 9.5% (Q2 FY26). Revenue 18% below FY23 peak (Rs 865 Cr vs Rs 1,057 Cr) amid deliberate volume-for-margin trade-off. Material margin recovered to 41% (Q1 FY26, +320 bps YoY). ~80% in-house manufacturing. Steel single-source risk (no alternate vendor). Plant consolidated; capex cut 60% (Rs 2,125L \u2192 Rs 853L). Slow-moving inventory reduced 86%. Finance cost near-zero (D/E 0.04x). Q2 FY26: 14% YoY revenue growth described as \u2018industry-leading\u2019. 590+ distributors, 24,000+ retail outlets, 280+ service centres. Pan-India share ~5% vs ~15% South India. Crompton merger rejected by shareholders (72.6% against). Idea First Series (40+ SKUs) gaining traction on e-com and modern trade.",
+        source: "AR FY21 \u00b7 AR FY22-23 \u00b7 AR FY24-25 \u00b7 Q3 FY22 Investor Presentation \u00b7 Q1/Q2 FY26 Quarterly Results | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025",
+        productMix: [{segment:"LPG Stoves (#1 India)",pct:35},{segment:"Mixer Grinders (Top 3)",pct:25},{segment:"Pressure Cookers",pct:20},{segment:"Table-Top Wet Grinders (#1 India)",pct:10},{segment:"Other (Flasks, Fans, etc.)",pct:10}],
         premiumMix: {premium:20,mass:55,economy:25}
       },
       {
@@ -3500,10 +3718,10 @@
         revTrend: [1680,1750,1770,1898], ebitdaTrend: [9.5,9.8,10.0,10.3],
         perf: "inline",
         latestQ: "Q3 FY2026", qSales: 1898, qNetProfit: 101,
-        variance: "Revenue grew 7.3% YoY to INR 1,898 Cr in Q3 FY2026. EBITDA margin at 10.3%. Net profit: INR 101 Cr. Negative WC days indicate strong cash cycle.",
-        source: "Company Filings (CROMPTON/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025",
-        productMix: [{segment:"Fans",pct:35},{segment:"Lighting",pct:25},{segment:"Pumps",pct:20},{segment:"Consumer Appliances",pct:20}],
-        premiumMix: {premium:25,mass:50,economy:25}
+        variance: "Q3 FY26 consolidated revenue INR 1,898 Cr (+7.3% YoY); EBITDA 10.3% (+18.5% QoQ recovery from Q2 trough of 8.3%). Standalone material margin compressed 150 bps YoY (31.1% vs 32.6%) due to copper/aluminium/steel inflation. Zero-net-debt achieved Q1 FY26 (last Rs 300 Cr NCD repaid); interest coverage 27.01x. BLDC fans growing 50%+ QoQ; Nucleus BLDC PCB platform sold 1 lakh+ units since Nov 2025 launch. Water heaters reached #2 GT nationally. 9M FY26 EBITDA compressed to 9.6% vs FY25 peak of 11.66%. Price increases of 1-1.5% implemented Jan 2026 with more in Q4/Q1. Butterfly (75% sub) EBITDA improving: 8.2% Q3 FY26 (+100 bps YoY), net profit +44% YoY. Solar rooftop order book Rs 500 Cr; residential wires (Rs 36,000 Cr TAM) announced. Greenfield plant Rs 350 Cr capex over 2-3 years for domestic + export. Project UNNATI multi-sourcing +10%. Baroda VRS Rs 20.36 Cr (payback <2 yrs). Employee cost +13.6% YoY vs revenue +7.3% is a watch signal.",
+        source: "Q3 FY26 Earnings Call Transcript (BSE) | Q3 FY26 Investor Presentation | Q1 FY26 Earnings Call (BSE) | Q2 FY26 Investor Presentation | MD&A FY25 | BRSR FY25 | Q3 FY25 Press Release",
+        productMix: [{segment:"ECD (Fans/Pumps/Water Heaters/Coolers/SDA)",pct:75},{segment:"Lighting",pct:13},{segment:"Butterfly (Kitchen)",pct:12}],
+        premiumMix: {premium:30,mass:50,economy:20}
       },
       {
         id: "dixon", name: "Dixon Technologies", ticker: "DIXON", subSector: "EMS/OEM", amSignal: "monitor",
@@ -3560,10 +3778,10 @@
         revTrend: [310,280,242,179], ebitdaTrend: [18.5,17.8,17.5,17.3],
         perf: "underperform",
         latestQ: "Q3 FY2026", qSales: 179, qNetProfit: 20,
-        variance: "Revenue declined 26% YoY to INR 179 Cr in Q3 FY2026. Despite top-line decline, EBITDA margin remains best-in-class at 17.3%. ROCE of 36.8% is sector-leading.",
-        source: "Company Filings (SYMPHONY/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025",
-        productMix: [{segment:"Air Coolers",pct:85},{segment:"Climate Control",pct:15}],
-        premiumMix: {premium:20,mass:55,economy:25}
+        variance: "FY25 landmark year: standalone revenue crossed Rs 1,000 Cr (Rs 1,182 Cr, +49% YoY), EBITDA margin expanded 404 bps to 24.25%. FY26 sharp reversal: 9M FY26 standalone revenue down 30% to Rs 566 Cr (rain-disrupted summer), EBITDA margin compressed to 14.4%. 100% asset-light model (zero manufacturing) with 486 employees; core India capital employed negative Rs 32 Cr (ROCE infinite). Q3 FY26 standalone: Rs 182 Cr revenue, 17.2% EBITDA margin, 45.2% gross margin. Diversification underway: RTY portfolio (water heaters, tower fans, LSV, kitchen cooling fans) = 26% of 9M FY26 revenue (up from <10%). Pathways Retail Rs 58 Cr bad debt (forensic fraud confirmed). CT Australia divestiture rolled back Jan 2026 after 10 NDAs; losses ongoing (9M FY26 EBITDA -Rs 8 Cr). Consolidated EBITDA margin 9.5% vs standalone 14.4% due to subsidiary drag. Treasury Rs 460 Cr, debt-free, 84% PAT payout ratio. Market leader by significant margin: domestic air cooler revenue Rs 1,065 Cr vs No.2 at ~Rs 250 Cr. 2 out of 3 Google air cooler searches are for Symphony.",
+        source: "Integrated Annual Report FY2024-25 | Q3 FY26 Earnings Call Transcript Jan 29, 2026 | Q4 FY25 Earnings Call Transcript May 8, 2025 | Q1 FY26 Earnings Call Transcript Aug 1, 2025 | Corporate Presentation Feb 2026 | Q3 FY25 Earnings Call Transcript Feb 5, 2025",
+        productMix: [{segment:"Household Air Coolers (India)",pct:74},{segment:"RTY Portfolio (Tower Fans/LSV/Water Heaters/Kitchen Cooling)",pct:10},{segment:"Exports (India)",pct:6},{segment:"Subsidiaries (Mexico/Australia/China/Brazil)",pct:10}],
+        premiumMix: {premium:30,mass:50,economy:20}
       },
       {
         id: "ttk", name: "TTK Prestige", ticker: "TTKPRESTIG", subSector: "Kitchen", amSignal: "monitor",
@@ -4354,8 +4572,138 @@
           {r:34,ind:"Operational Intelligence",sig:"191 new SKUs launched FY25 + 118 more planned Q1 FY26. Innovation cadence accelerating",st:"Positive",per:"FY25",sev:"Informational",rat:"Active portfolio diversification. Also raises SKU proliferation and inventory complexity risk."},
           {r:35,ind:"Retail Footprint",sig:"GramyaHaat Rs 5 Cr CCD investment for rural market recovery. Early stage",st:"Positive",per:"FY25",sev:"Informational",rat:"Early-stage strategic investment. At Rs 5 Cr, impact on Rs 2,530 Cr revenue negligible near-term."}
         ]
-      }
+      },
+      symphony: {
+        name: "Symphony Limited", ticker: "SYMPHONY",
+        signals: [
+          {r:1,ind:"Subsidiary Intelligence",sig:"CT Australia: further impairment of full investment guided by management for March 31, 2026 \u2014 on top of \u20b950.15 Cr taken in FY25. Divestiture process failed (10 NDAs, no acceptable bid).",st:"Critical",per:"FY25\u201326",sev:"Critical",rat:"Active guidance of a pending write-down of remaining investment in a persistently loss-making subsidiary constitutes a balance-sheet event of the highest severity. Turnaround lens requires immediate accounting crystallisation."},
+          {r:2,ind:"Financial Performance",sig:"FY25-26 revenue shock: standalone revenue down 30% YoY to \u20b9566 Cr in 9M FY26; EBITDA down 57% to \u20b981 Cr; EBITDA margin compressed to 14.4%",st:"Critical",per:"9M FY25\u201326",sev:"Critical",rat:"A 30% revenue decline and 57% EBITDA collapse within a single fiscal year signals extreme earnings volatility and structural overdependence on one seasonal category."},
+          {r:3,ind:"Subsidiary Intelligence",sig:"CT Australia: 11+ consecutive quarters of operating losses; 9M FY26 EBITDA -\u20b98 Cr, cash loss -\u20b915 Cr; divestiture rolled back with no turnaround path articulated",st:"Critical",per:"9M FY25\u201326",sev:"Critical",rat:"Chronic subsidiary losses sustained for 11+ quarters without a credible turnaround or exit plan represent a capital destruction event. 50%+ overhead reduction executed but losses persist."},
+          {r:4,ind:"Retail / Distribution",sig:"Pathways Retail: \u20b958 Cr bad debt (\u20b912 Cr FY24 + \u20b946 Cr Q3 FY25); forensic fraud confirmed (record falsification, forgery, fund diversion); only \u20b98.5 Cr recovered in 9M FY26",st:"Negative",per:"FY24 through 9M FY26",sev:"High",rat:"A \u20b958 Cr credit loss from a 13-year distributor relationship signals systemic credit monitoring failure. Recovery at 15% confirms near-total impairment."},
+          {r:5,ind:"Industry Volume / Seasonality",sig:"Single product category seasonality: >74% of standalone revenue from summer-dependent household air coolers; RTY portfolio still only 26% of 9M FY26 revenue",st:"Negative",per:"9M FY25\u201326",sev:"High",rat:"A business deriving >74% of revenue from a product with a 90-day effective selling season carries extreme earnings volatility. FY26 results: subdued summer caused 30% revenue collapse."},
+          {r:6,ind:"Financial Performance (Consolidated)",sig:"Consolidated EBITDA margin 9.5% in 9M FY26 vs standalone 14.4%; CT Australia subsidiary drag of ~490 bps on consolidated margin; structural not cyclical",st:"Negative",per:"9M FY25\u201326",sev:"High",rat:"A 490 bps gap between standalone and consolidated EBITDA margin is a material structural drag. With CT Australia divestiture abandoned, this gap is now permanent."},
+          {r:7,ind:"Retail / Distribution",sig:"Channel inventory overhang: record March 2025 trade stocking \u2192 elevated channel inventory suppressing FY26 primary demand recovery",st:"Negative",per:"FY25\u201326",sev:"High",rat:"Record stocking in March 2025 effectively pulled forward FY26 demand into FY25, making FY26 recovery slower than weather normalisation alone would suggest."},
+          {r:8,ind:"Subsidiary Intelligence",sig:"IMPCO Mexico: 9M FY26 revenue \u20b9101 Cr vs \u20b9135 Cr (-25%); EBITDA collapsed from \u20b917 Cr to \u20b95 Cr; PAT turned negative at -\u20b91 Cr",st:"Negative",per:"9M FY25\u201326",sev:"High",rat:"IMPCO Mexico was a turnaround success (2021\u20132024) but 9M FY26 EBITDA -71% YoY shows it inherits the same seasonal vulnerability as India standalone."},
+          {r:9,ind:"Subsidiary / Governance",sig:"CT Australia divestiture rollback: IB-led process abandoned January 2026 after 10 NDAs with no acceptable bid; Symphony now trapped in loss-making market",st:"Negative",per:"January 2026",sev:"High",rat:"A failed divestiture process \u2014 10 NDAs signed, all bids rejected \u2014 signals either unrealistic seller valuation or structurally impaired asset economics. Eliminates the most plausible capital allocation fix."},
+          {r:10,ind:"Cost Structure / A&P",sig:"Water heater A&P burn: >90% of \u20b911 Cr Q3 FY26 A&P spend allocated to water heaters; payback timeline and market share gain not disclosed",st:"Watch",per:"Q3 FY25\u201326",sev:"Medium",rat:"Allocating 90%+ of A&P budget to a nascent category in the off-season creates margin drag with undefined return in a segment dominated by Racold, A.O. Smith, Venus."},
+          {r:11,ind:"Gross Margin Strategy",sig:"Q3 FY26 gross margin declined to 45.2% (vs 45.7% Q3 FY25 and 49.75% FY25 peak); 9M FY26 gross margin 48.3% \u2014 down 1.8 ppt YoY",st:"Negative",per:"Q3 FY25\u201326",sev:"Medium",rat:"Gross margin compression of 450+ bps from FY25 peak signals pricing headroom or product mix erosion. Sustained below-50% gross margins constrain operating leverage capacity."},
+          {r:12,ind:"Contract Manufacturing",sig:"OEM vendor concentration: full OEM vendor list undisclosed; only EPACK Durables named; concentration risk and single-OEM dependency cannot be assessed",st:"Watch",per:"FY25\u201326",sev:"Medium",rat:"Symphony\u2019s 100% outsourced production model creates critical OEM dependency. Without visibility into OEM concentration, single-source risk to production continuity and IP cannot be quantified."},
+          {r:13,ind:"Retail / Governance",sig:"Credit governance failure: Pathways Retail had 13-year relationship before fraud detected; Chairman acknowledged lapse in credit management judgment at operating level",st:"Negative",per:"FY24 through Q3 FY25",sev:"Medium",rat:"Fraud undetected across a 13-year distributor relationship points to inadequate credit monitoring and field-level audit processes. Post-event credit insurance is remedial but does not address root-cause credit culture failure."},
+          {r:14,ind:"Subsidiary Intelligence",sig:"GSK China: EBITDA declining in 9M FY26 (\u20b98 Cr vs \u20b914 Cr, -43% YoY); inter-company loan of \u20b926 Cr outstanding from Symphony",st:"Watch",per:"9M FY25\u201326",sev:"Medium",rat:"GSK China EBITDA declining 43% YoY despite stable revenue (\u20b980 Cr vs \u20b975 Cr) suggests cost inflation or product mix erosion. Turnaround sustainability must be stress-tested."},
+          {r:15,ind:"After-Sales Service",sig:"After-sales service costs not separately disclosed; embedded in Other Expenses (\u20b9136 Cr, 11.5% of revenue FY25); no warranty provision quantum available",st:"Watch",per:"FY24\u201325",sev:"Medium",rat:"In a consumer durables business, after-sales cost opacity limits assessment of product quality trends and warranty reserve adequacy."},
+          {r:16,ind:"Retail / Distribution",sig:"Channel revenue split (GT vs MT vs e-commerce vs D2C) not disclosed; management states GT is vast majority but no quantification",st:"Watch",per:"FY25\u201326",sev:"Medium",rat:"Without channel-wise revenue disaggregation, impossible to quantify share of revenue exposed to credit risk (MT + e-com = credit-bearing channels)."},
+          {r:17,ind:"Capital Efficiency",sig:"STRENGTH: Infinite ROCE \u2014 core India standalone capital employed = -\u20b932 Cr (monthly avg FY25); treasury \u20b9460 Cr growing; debt-free",st:"Positive",per:"FY24\u201325",sev:"Informational",rat:"Negative capital employed in core India business is a structural competitive advantage of the highest order. Business self-funds growth, returns 84% of consolidated PAT, and builds treasury simultaneously."},
+          {r:18,ind:"Market Share",sig:"STRENGTH: Domestic air cooler revenue \u20b91,065 Cr (FY25) > combined revenue of next 3\u20134 players; No. 2 player ~\u20b9250 Cr; 2 of 3 Google air cooler searches are for Symphony",st:"Positive",per:"FY24\u201325",sev:"Informational",rat:"Market leadership of 4x the No. 2 player provides durable pricing power, channel leverage, and OEM scale advantages. Brand preference dominance confirmed by Google Analytics and GfK 2025."},
+          {r:19,ind:"RTY Portfolio / Distribution",sig:"STRENGTH: RTY portfolio (LSV + tower fans + kitchen cooling fans + water heaters + exports) now 26% of 9M FY26 revenue; growing at 50%+ CAGR over 3\u20134 years",st:"Positive",per:"9M FY25\u201326",sev:"Informational",rat:"RTY growing from <10% to 26% of revenue in 3\u20134 years demonstrates successful category diversification. If RTY reaches 40%+, seasonal weather risk diminishes materially."},
+          {r:20,ind:"Export / US Opportunity",sig:"STRENGTH: US export opportunity \u2014 no US tariff on India-origin air coolers; no tariff on Mexico-to-US; large US retailers actively making inquiries",st:"Positive",per:"FY25\u201326",sev:"Informational",rat:"A tariff-free corridor to the US at a time when Chinese competitors face 145%+ US tariffs. Symphony\u2019s India + Mexico manufacturing bases are uniquely positioned."},
+          {r:21,ind:"Pricing Strategy / Brand",sig:"STRENGTH: 10\u201315% price premium vs national competitors; 4.8/5 rating from 34,000+ reviews; most preferred brand (Kantar 2025); 2/3 Google searches",st:"Positive",per:"FY25\u201326",sev:"Informational",rat:"Brand pricing power of 10\u201315% premium with no evidence of erosion, combined with dominant search intent ownership, indicates a structurally defensible moat."},
+          {r:22,ind:"Operational Intelligence",sig:"STRENGTH: OEM supply chain agility \u2014 doubled production and supply within 60 days during June 2024 bumper summer; no fixed capacity constraint",st:"Positive",per:"Q1 FY24\u201325",sev:"Informational",rat:"Ability to scale production 2x in 60 days without capex demonstrates structural advantage of asset-light OEM model. Eliminates capacity bottleneck risk in high-demand scenarios."},
+          {r:23,ind:"Retail / Distribution",sig:"STRENGTH: D2C channel profitable \u2014 EBITDA margin equal to conventional GT channel; PAT-level profitable since FY24",st:"Positive",per:"FY24\u201325",sev:"Informational",rat:"D2C profitability at GT-equivalent margin disproves the typical concern that direct digital channels cannibilise trade margins. Enables Symphony to expand digital footprint without margin dilution."},
+          {r:24,ind:"Subsidiary Intelligence",sig:"STRENGTH: GSK China turnaround complete in FY25 \u2014 revenue \u20b9100 Cr (+126% YoY); EBITDA \u20b920 Cr (+337%); PAT \u20b915 Cr",st:"Positive",per:"FY24\u201325",sev:"Informational",rat:"GSK China represents a completed turnaround \u2014 from loss-maker to \u20b920 Cr EBITDA contributor. Intersubsidiary supply chain synergy (GSK China supplying IMPCO Mexico) is being extracted."},
+          {r:25,ind:"Governance / Credit Risk",sig:"STRENGTH / MITIGANT: Credit insurance implemented for all modern trade post-Pathways fraud; first-ever credit insurance policy",st:"Positive",per:"Post-Q3 FY25",sev:"Informational",rat:"Credit insurance for modern trade converts counterparty credit risk to insurable risk, capping future single-distributor loss severity."}
+        ]
+      },
+      bajaj: {name:"Bajaj Electricals",ticker:"BAJAJELEC",signals:[
+{r:1,ind:"Industry vs Company Growth",sig:"Board pre-authorized minimum director remuneration in case of absence/inadequacy of profits for FY 2025-26",st:"Negative",per:"FY26 (full year)",sev:"Critical",rat:"Explicit Board-level admission that the company expects full-year FY26 losses or inadequate profits. Governance-level distress signal."},
+{r:2,ind:"Cost Structure",sig:"Q3 FY26 standalone operating loss: PBT before exceptional -Rs 20.28 Cr (vs +Rs 20.27 Cr in Q3 FY25)",st:"Negative",per:"Q3 FY26",sev:"Critical",rat:"Revenue below break-even cost structure. Quarterly operating loss in a business previously generating Rs 170 Cr annual PBT signals fundamental P&L deterioration."},
+{r:3,ind:"Cost Structure",sig:"9MFY26 standalone PBT before exceptional: -Rs 35.57 Cr vs +Rs 98.43 Cr in 9MFY25 \u2014 swing of Rs 134 Cr",st:"Negative",per:"9M FY26",sev:"Critical",rat:"Rs 134 Cr PBT reversal sustained across three quarters confirms structural deterioration."},
+{r:4,ind:"Industry vs Company Growth",sig:"9MFY26 revenue -9.7% YoY: Rs 3,210 Cr vs Rs 3,553 Cr in 9MFY25",st:"Negative",per:"9M FY26",sev:"Critical",rat:"Revenue destruction at -9.7% in a company with thin margins (<3% PAT) is existential \u2014 fixed costs do not compress proportionately."},
+{r:5,ind:"Governance & Leadership",sig:"MD & CEO departed and COO Consumer Products departed simultaneously; new MD Sanjay Sachdeva appointed March 2025",st:"Negative",per:"FY25\u2013FY26",sev:"Critical",rat:"Dual senior leadership exit during business stress. CP (Rs 3,806 Cr) lost both segment head and CEO \u2014 maximum execution risk."},
+{r:6,ind:"Capacity Utilization",sig:"Consumer Products capacity utilization at 43%: 10.8 Mn installed vs 4.6 Mn produced; likely below 40% in FY26",st:"Negative",per:"FY25\u2013FY26",sev:"Critical",rat:"43% utilization creates severe fixed-cost absorption failures. Manufacturing overhead destroying value. Classic turnaround trigger."},
+{r:7,ind:"Operational Intelligence",sig:"Exceptional item Rs 28.89 Cr for gratuity and leave encashment in Q3 FY26 \u2014 silent workforce restructuring",st:"Negative",per:"Q3 FY26",sev:"Critical",rat:"Exceptional provisioning without public announcement indicates covert headcount reduction or field force rationalization."},
+{r:8,ind:"Cost Structure",sig:"Other expenses surged +17.5% in Q3 FY26 (Rs 215.4 Cr vs Rs 183.2 Cr) despite -5% revenue decline",st:"Negative",per:"Q3 FY26",sev:"High",rat:"Cost escalation opposite to revenue is the classic fixed-cost spiral. Rs 32 Cr incremental expense against Rs 55 Cr revenue decline."},
+{r:9,ind:"Retail Footprint",sig:"Retailer base declined -15%: from 2 lakh+ (FY24) to ~1.7 lakh (FY25)",st:"Negative",per:"FY24\u2013FY25",sev:"High",rat:"30,000-outlet decline is structural market share erosion. Fewer touchpoints means reduced availability."},
+{r:10,ind:"Retail Footprint",sig:"Channel partner retention at 81%: 1 in 5 partners did not renew in FY25",st:"Negative",per:"FY25",sev:"High",rat:"81% retention indicates channel dissatisfaction \u2014 margin pressure, competitive alternatives, or execution failures."},
+{r:11,ind:"Cost Structure",sig:"Interest coverage deteriorated 3.7x (FY24) to 3.1x (FY25); likely below 1x annualized FY26",st:"Negative",per:"FY24\u2013FY26",sev:"High",rat:"Near debt serviceability boundary. FY26 operating losses imply negative interest coverage \u2014 covenant breach risk."},
+{r:12,ind:"Gross Margin Strategy",sig:"CP PBIT collapsed Rs 247 Cr (FY23) to Rs 114 Cr (FY24) = -54%; partial recovery to Rs 253 Cr EBITDA FY25",st:"Negative",per:"FY23\u2013FY25",sev:"High",rat:"-54% collapse; recovery using EBITDA (not PBIT) metric suggests underlying margin still structurally impaired."},
+{r:13,ind:"Industry vs Company Growth",sig:"Q3 FY26 revenue -5% YoY (Rs 1,048 Cr vs Rs 1,103 Cr) \u2014 reverses FY25 recovery",st:"Negative",per:"Q3 FY26",sev:"High",rat:"FY25 recovery (+4%) fully negated. Pattern of instability suggests structural demand issues."},
+{r:14,ind:"Cost Structure",sig:"Finance costs flat Rs 12.78 Cr (Q3 FY26) vs Rs 12.69 Cr (Q3 FY25) \u2014 no deleveraging",st:"Watch",per:"Q3 FY26",sev:"High",rat:"Operating losses but no debt reduction. Debt-to-operating-income ratio worsening every quarter."},
+{r:15,ind:"Governance & Leadership",sig:"Asset monetization: Sion office sold for Rs 26.53 Cr in Q3 FY26",st:"Negative",per:"Q3 FY26",sev:"High",rat:"Non-core asset disposal for liquidity during operating losses \u2014 classic cash preservation under stress."},
+{r:16,ind:"Capacity Utilization",sig:"Overall utilization declining: 57% (FY23) \u2192 50% (FY24) \u2192 53% (FY25); LS 60% vs CP 43%",st:"Negative",per:"FY23\u2013FY25",sev:"High",rat:"Three-year decline. 4 plants and 31.5L sq.ft. warehouse for volume levels not materializing \u2014 stranded asset risk."},
+{r:17,ind:"Cost Structure",sig:"EBIT margin declining 5.1% (FY24) to 4.5% (FY25) despite flat EBITDA 7.5% \u2014 D&A load increasing",st:"Negative",per:"FY24\u2013FY25",sev:"High",rat:"Depreciation consuming increasing earnings share. Fixed asset base too large for current revenue."},
+{r:18,ind:"Governance & Leadership",sig:"JV loss Rs 10.39 Cr in 9MFY26 (Rs 4.89 Cr in Q3 alone) \u2014 escalating consolidated drag",st:"Negative",per:"9M FY26",sev:"High",rat:"JV losses escalating without visibility. Consolidated losses higher than standalone."},
+{r:19,ind:"Industry vs Company Growth",sig:"Revenue -4.9% in FY24: Rs 4,641 Cr vs Rs 4,889 Cr",st:"Negative",per:"FY24",sev:"Medium",rat:"FY24 contraction suggests limited competitive resilience in industry headwind year."},
+{r:20,ind:"Cost Structure",sig:"Cash flow from ops declining: Rs 450 Cr (FY23) \u2192 Rs 354 Cr (FY24) \u2192 Rs 347 Cr (FY25)",st:"Negative",per:"FY23\u2013FY25",sev:"Medium",rat:"Three-year consecutive decline signals losing underlying cash generation capacity."},
+{r:21,ind:"Operational Intelligence",sig:"Employee headcount: 1,958 (FY24) \u2192 1,743 (FY25) = -11% reduction",st:"Watch",per:"FY24\u2013FY25",sev:"Medium",rat:"11% cut combined with Q3 FY26 exceptional gratuity suggests unannounced restructuring."},
+{r:22,ind:"Pricing Strategy",sig:"Core BAJAJ brand under pressure; Morphy Richards and coolers (+65%) outperform \u2014 portfolio bifurcation",st:"Watch",per:"FY25",sev:"Medium",rat:"Mass brand volume bulk underperforming; niche outperformance insufficient to offset."},
+{r:23,ind:"Contract Manufacturing",sig:"Traded goods ~73% of material cost in Q3 FY26 \u2014 high outsourced dependency",st:"Watch",per:"Q3 FY26",sev:"Medium",rat:"Procurement cost without margin leverage. Volume downturns squeeze from both directions."},
+{r:24,ind:"Operational Intelligence",sig:"R&D team declining: 184 (FY23) \u2192 176 (FY24) \u2192 170 (FY25)",st:"Watch",per:"FY23\u2013FY25",sev:"Medium",rat:"Under-investment in innovation when competitive pressure requires differentiated development."},
+{r:25,ind:"Gross Margin Strategy",sig:"EBITDA flat at 7.5% FY24 and FY25 despite revenue recovery",st:"Watch",per:"FY24\u2013FY25",sev:"Medium",rat:"Structural pricing pressure absorbing efficiency gains. No operating leverage."},
+{r:26,ind:"Retail Footprint",sig:"Dealer base growing: 700+ (FY24) \u2192 850+ (FY25) = ~21%",st:"Positive",per:"FY24\u2013FY25",sev:"Informational",rat:"Positive but read alongside -15% retailer decline."},
+{r:27,ind:"Retail Footprint",sig:"Modern trade (NFR + RFR) growing +15%; ~13% of CP revenue",st:"Positive",per:"FY25",sev:"Informational",rat:"Strongest channel signal but insufficient scale for turnaround alone."},
+{r:28,ind:"Industry vs Company Growth",sig:"Air cooler category +65% in FY25",st:"Positive",per:"FY25",sev:"Informational",rat:"Strong but seasonal/weather-dependent. Small base."},
+{r:29,ind:"Localization Strategy",sig:"CP domestic sourcing >90%; LS >99%",st:"Positive",per:"FY25",sev:"Informational",rat:"De-risks FX and import disruptions. Nashik automation creates lower-cost LS supply chain."},
+{r:30,ind:"Operational Intelligence",sig:"Nashik LED assembly line fully automated",st:"Positive",per:"FY25",sev:"Informational",rat:"Reduces per-unit labor cost. Defensive margin protection."},
+{r:31,ind:"Cost Structure",sig:"Inventory turnover improved 3.8x (FY24) to 4.5x (FY25)",st:"Positive",per:"FY24\u2013FY25",sev:"Informational",rat:"Working capital efficiency gain."},
+{r:32,ind:"Cost Structure",sig:"Surplus funds Rs 509 Cr as of FY25",st:"Positive",per:"FY25",sev:"Informational",rat:"At current loss rate, buffer sustains ~17 quarters."}
+]},
+      amber: {
+        name: "Amber Enterprises India", ticker: "AMBER",
+        signals: [
+          {r:1,ind:"Contract Mfg Strategy",sig:"RAC brands taking assembly in-house caused Consumer Durables revenue -7% in FY24. Management acknowledged as known structural risk.",st:"Negative",per:"FY24 (ongoing)",sev:"Critical",rat:"Existential risk to primary revenue source (Consumer Durables = 67% of revenue). If 2\u20133 large OEM customers self-manufacture, Amber faces Rs 1,000\u20132,000 Cr+ revenue cliff."},
+          {r:2,ind:"Governance / Exceptional Items",sig:"Rs 94 Cr Shivalik investment impairment (Sidwal\u2019s Titagarh-Firema alliance) in Q3FY26. Failed JV execution.",st:"Negative",per:"Q3 FY26",sev:"Critical",rat:"On Rs 64 Cr reported 9MFY26 PAT, the Rs 94 Cr write-off exceeds total 9-month profit \u2014 material capital misallocation."},
+          {r:3,ind:"Profitability",sig:"PAT negative Rs -9 Cr in Q3FY26; Rs 64 Cr (0.8%) for 9MFY26. Structural PAT margin 2.5% on Rs 9,973 Cr FY25 revenue.",st:"Negative",per:"Q3 FY26; FY25",sev:"Critical",rat:"2.5% PAT margin on near-Rs 10,000 Cr base leaves zero cushion. D&A + finance cost growing faster than EBITDA."},
+          {r:4,ind:"Acquisition Integration",sig:"3 acquisitions in 12 months: Power One (UPS/solar), Unitronics (Israel, automation), Shogini (PCBs).",st:"Negative",per:"FY26",sev:"Critical",rat:"Multi-geography acquisitions including cross-border Israeli company creates execution overstretch. Integration failures could impair Electronics margin."},
+          {r:5,ind:"Cost Structure / Leverage",sig:"Finance cost Rs 167 Cr \u2192 Rs 220 Cr (+32%). D/E 1.09x \u2192 1.32x. Interest coverage 3.87x. Rs 4,200 Cr capex ahead.",st:"Negative",per:"FY24\u2013FY25",sev:"Critical",rat:"Finance cost growing 2x EBITDA on 2.5% PAT margin. Further debt-funded capex will compress interest coverage."},
+          {r:6,ind:"PCB Capex Execution",sig:"Rs 4,200 Cr PCB capex: Hosur (Rs 991 Cr, trial Q2FY27); Jewar HDI (Rs 3,200 Cr, TBD).",st:"Negative",per:"FY26\u2013FY28",sev:"High",rat:"Largest capex in Amber history (~42% of FY25 assets). Jewar timeline TBD is material gap."},
+          {r:7,ind:"Seasonal Concentration",sig:"60%+ revenue in H2 from seasonal RAC demand. Structural cash flow unevenness.",st:"Negative",per:"FY24\u2013FY26",sev:"High",rat:"H1 cash-flow deficits require heavy WC borrowing. Diversification has not reduced H1/H2 skew."},
+          {r:8,ind:"Working Capital Intensity",sig:"Inventory +97% vs revenue +48%. Inventory 67d + receivables 66d = 133 combined days.",st:"Negative",per:"Mar-25",sev:"High",rat:"Inventory growing 2x revenue. 133 combined days excessive for contract manufacturer."},
+          {r:9,ind:"Railway Division",sig:"Railway revenue -6% FY25 (Rs 450 Cr); flat FY24. Metro and Vande Bharat delays.",st:"Negative",per:"FY24\u2013FY25",sev:"High",rat:"Highest-margin division (18\u201325%) dependent on government timelines."},
+          {r:10,ind:"Customer Concentration",sig:"Customer concentration NOT DISCLOSED. Top 3\u20135 brands likely majority of revenue.",st:"Watch",per:"FY24\u2013FY26",sev:"High",rat:"Hidden risk. With brands in-sourcing, undisclosed concentration = unknown cliff-risk."},
+          {r:11,ind:"Raw Material Dependency",sig:"RMC 80\u201385% of revenue. No hedging disclosed.",st:"Negative",per:"FY23\u2013FY26",sev:"High",rat:"Only 15\u201320% gross margin for all costs + profit. Spikes compress profitability to zero."},
+          {r:12,ind:"Plant Utilization",sig:"Utilization NOT DISCLOSED for 33 facilities despite Rs 4,200 Cr new capacity.",st:"Watch",per:"FY24\u2013FY26",sev:"High",rat:"Governance gap. Hidden under-utilization + capex = potential misallocation."},
+          {r:13,ind:"Gross Margin / Volume",sig:"Gross margin 18.3% (FY24) \u2192 17.9% (FY25) despite +48% revenue. FY23 low: 15.3%.",st:"Negative",per:"FY23; FY25",sev:"Medium",rat:"Volume growth dilutes margin when weighted toward lower-margin CBU."},
+          {r:14,ind:"Consumer Durables EBITDA",sig:"Consumer Durables EBITDA: 7.7% (FY25) \u2192 6.9% (9MFY26), -80 bps.",st:"Negative",per:"9M FY26",sev:"Medium",rat:"Compression in largest division (67%) impacts blended margins disproportionately."},
+          {r:15,ind:"Unitronics Minority Stake",sig:"~45.5% controlling stake in Israel-based Unitronics. Revenue ~55% USA / ~40% EU.",st:"Watch",per:"Oct 2025+",sev:"Medium",rat:"Cross-border minority control with USD/EUR exposure."},
+          {r:16,ind:"Rising Depreciation",sig:"D&A Rs 187 Cr \u2192 Rs 228 Cr (+22%). Rising with Rs 4,200 Cr capex.",st:"Negative",per:"FY24\u2013FY25",sev:"Medium",rat:"On 2.5% PAT margin, incremental D&A directly absorbs profit."},
+          {r:17,ind:"Employee Cost",sig:"Employee cost 3.2% (FY25) \u2192 4.0% (Q3FY26) from acquisition headcount.",st:"Negative",per:"FY25\u2013Q3FY26",sev:"Medium",rat:"80 bps = ~Rs 80 Cr annualised. Offsets Electronics margin gains if permanent."},
+          {r:18,ind:"RAC Market Share",sig:"RAC share 27.3% \u2192 26\u201327%. Outsourced market contracting.",st:"Watch",per:"FY24\u2013FY25",sev:"Medium",rat:"Marginal erosion. Contracting denominator = declining absolute potential."},
+          {r:19,ind:"JV Losses",sig:"JV losses Rs 23 Cr (9MFY26) = ~36% of Rs 64 Cr reported PAT.",st:"Negative",per:"9M FY26",sev:"Medium",rat:"Material drag. Investments not yet returning."},
+          {r:20,ind:"Revenue Recovery",sig:"Revenue Rs 9,973 Cr FY25 (+48%); 9MFY26 Rs 8,039 Cr (+29%).",st:"Positive",per:"FY25; 9M FY26",sev:"Informational",rat:"Strong recovery but demand-led, not structural fix."},
+          {r:21,ind:"EBITDA Trend",sig:"EBITDA 6.9% \u2192 7.7% \u2192 8.0% \u2192 8.4% (Q3FY26).",st:"Positive",per:"FY23\u2013Q3FY26",sev:"Informational",rat:"Positive trend. Must reach 10%+ for meaningful buffer."},
+          {r:22,ind:"Electronics Inflection",sig:"Electronics +79% YoY Q3FY26. EBITDA 10.5% (new high). Double-digit guided FY27.",st:"Positive",per:"Q3 FY26",sev:"Informational",rat:"Inflection point. Historical sub-6% means durability must be proven."},
+          {r:23,ind:"CRISIL Rating",sig:"AA-/Positive. Bank facilities Rs 3,252 Cr. Rs 2,750 Cr equity raised.",st:"Positive",per:"Nov 2025",sev:"Informational",rat:"Low borrowing cost. Contingent on leverage discipline."},
+          {r:24,ind:"Backward Integration",sig:"9 acquisitions since 2013: motors, PCBs, HVAC, UPS/solar, automation.",st:"Positive",per:"FY13\u2013FY26",sev:"Informational",rat:"Correct strategic response. 3 in 12 months creates complexity."},
+          {r:25,ind:"Gross Margin Peak",sig:"Q3FY26 gross margin 19.7% \u2014 highest in series.",st:"Positive",per:"Q3 FY26",sev:"Informational",rat:"Backward integration benefits visible."},
+          {r:26,ind:"BEE Rating Norms",sig:"Higher BEE norms from Jan 2026 creates RAC product refresh cycle.",st:"Positive",per:"Q3 FY26+",sev:"Informational",rat:"Volume tailwind. Risk: may accelerate in-sourcing."},
+          {r:27,ind:"Railway Order Book",sig:"Order book Rs 2,600+ Cr. Wallet share expanding ~10% to 18\u201320% per AC coach.",st:"Positive",per:"FY25\u2013FY26",sev:"Informational",rat:"Large order book. Execution depends on government timelines."}
+        ]
+      },
+      crompton:{name:"Crompton Greaves Consumer",ticker:"CROMPTON",signals:[
+{r:1,ind:"Cost Structure",sig:"Commodity inflation \u2014 standalone material margin -150 bps YoY (31.1% vs 32.6%); consol -100 bps. 9M EBITDA 9.6% vs 10.9%",st:"Negative",per:"Q3 FY26",sev:"High",rat:"150 bps compression not offset by 1-1.5% pricing. EBITDA recovery to 11%+ at risk if commodities stay elevated."},
+{r:2,ind:"Industry Volume Growth",sig:"Fan channel overhang \u2014 Q1 industry -11%, Crompton -8%. Shared channel constrains adjacent categories",st:"Negative",per:"Q1 FY26",sev:"High",rat:"Multi-category revenue risk from channel blockage. Weather-driven, may recur."},
+{r:3,ind:"Industry Volume Growth",sig:"PM-KUSUM expiry March 2026 \u2014 solar pump revenue subsidy-driven. 2-4 quarter gap risk",st:"Negative",per:"FY26\u2013FY27",sev:"High",rat:"Solar pump revenue (top-3) faces potential correction post-subsidy."},
+{r:4,ind:"Gross Margin Strategy",sig:"9M FY26 EBITDA Rs 557 Cr (9.6%) vs 10.9% \u2014 130 bps decline. Revenue flat +0.2%",st:"Negative",per:"9M FY26",sev:"High",rat:"Revenue stagnation + margin compression triggers structured intervention."},
+{r:5,ind:"Capacity Utilization",sig:"BLDC demand > supply \u2014 Nucleus 1L+ units; 50%+ QoQ but not pan-India. Premium revenue leakage",st:"Negative",per:"Q1\u2013Q3 FY26",sev:"High",rat:"Premium segment constraints risk share loss to Havells/Atomberg."},
+{r:6,ind:"Operational Intelligence",sig:"Butterfly +3% YoY vs double-digit guide. EBITDA 8.2% improving but revenue insufficient",st:"Negative",per:"Q3 FY26",sev:"High",rat:"4th year post-acquisition. National expansion proving structurally difficult."},
+{r:7,ind:"Cost Structure",sig:"Employee cost +13.6% vs revenue +7.3% in Q3 FY26",st:"Negative",per:"Q3 FY26",sev:"Medium",rat:"New categories adding headcount before revenue."},
+{r:8,ind:"Operational Intelligence",sig:"Solar rooftop Rs 2K Cr target vs Rs 19 Cr Q3. Order book Rs 500 Cr. 25x scale-up",st:"Watch",per:"Q3 FY26+",sev:"Medium",rat:"Enormous gap. Govt payment risk. Solar pump track record provides credibility."},
+{r:9,ind:"Pricing Strategy",sig:"Lighting B2C erosion in #3 position. B2B EBIT 15.5% Q2 but transition takes years",st:"Negative",per:"FY25\u2013FY26",sev:"Medium",rat:"Structural segment erosion. B2B pivot right but slow."},
+{r:10,ind:"Operational Intelligence",sig:"Category proliferation \u2014 rooftop, wires, pumps, BEE, Butterfly, Baroda, GTM, greenfield simultaneously",st:"Watch",per:"FY26",sev:"Medium",rat:"Fragmentation risk. Category gating recommended."},
+{r:11,ind:"Retail Footprint",sig:"BCG GTM restructuring risks 6-18 month disruption across 236K+ retailers",st:"Watch",per:"FY26\u2013FY27",sev:"Medium",rat:"Can unlock 150-250 bps but transition softness likely."},
+{r:12,ind:"Capacity Utilization",sig:"Baroda VRS Rs 20.36 Cr. Payback <2 yrs. Multi-PL transition risk",st:"Watch",per:"Q3 FY26",sev:"Medium",rat:"Quality monitoring needed during restructuring."},
+{r:13,ind:"Operational Intelligence",sig:"Greenfield Rs 350 Cr capex. ~63% of 9M EBITDA. Details undisclosed",st:"Watch",per:"FY26\u2013FY28",sev:"Medium",rat:"Large capex in compressed year. Export ambition unproven."},
+{r:14,ind:"Industry Volume Growth",sig:"Wires Rs 36-37K Cr TAM. Outsourced. Havells/Polycab/Finolex dominate",st:"Watch",per:"Q3 FY26",sev:"Medium",rat:"30+ year incumbents with electrician loyalty."},
+{r:15,ind:"Pricing Strategy",sig:"1-1.5% price increase Jan 2026 + more Q4/Q1. ~Rs 118-157 Cr incremental",st:"Positive",per:"Q3 FY26+",sev:"Low",rat:"Fastest EBITDA lever. Pricing discipline demonstrated."},
+{r:16,ind:"Capacity Utilization",sig:"BEE 2.0 via XTECH. Structural moat. BLDC 50%+ QoQ",st:"Positive",per:"Q3 FY26",sev:"Low",rat:"Regulatory transition creates competitive moat."},
+{r:17,ind:"Cost Structure",sig:"Zero-net-debt Q1 FY26. Finance cost 0.61%. Coverage 27x",st:"Positive",per:"Q1 FY26",sev:"Low",rat:"~Rs 48 Cr savings. Maximum financial flexibility."},
+{r:18,ind:"Cost Structure",sig:"UNNATI multi-sourcing +10%. Baroda VRS ~Rs 10 Cr/yr savings",st:"Positive",per:"FY25\u2013FY26",sev:"Low",rat:"Structural cost programs for stabilisation."},
+{r:19,ind:"Market Share",sig:"BLDC #2 targeting #1. Nucleus in-house Baddi; 1L+ units. ASP Rs 3-8K+",st:"Positive",per:"Q3 FY26",sev:"Low",rat:"Reinforces world #1 fan position at premium end."},
+{r:20,ind:"Gross Margin Strategy",sig:"Butterfly EBITDA 7.2% to 8.2% (+100 bps). Net profit +44%",st:"Positive",per:"Q3 FY25\u2013Q3 FY26",sev:"Low",rat:"Consistent 100 bps/year turnaround signal."},
+{r:21,ind:"Industry Volume Growth",sig:"Solar pumps top 3, 100%+ growth. EBIT ~company margins. Rs 372 Cr cumulative",st:"Positive",per:"FY25\u2013FY26",sev:"Low",rat:"Most significant category success."},
+{r:22,ind:"Market Share",sig:"World #1 fans. India #1 pumps. #1 e-com. #2 GT water heaters",st:"Positive",per:"FY25\u2013FY26",sev:"Informational",rat:"Market leadership validates brand resilience."},
+{r:23,ind:"Gross Margin Strategy",sig:"FY25 EBITDA 11.66% best. Rev Rs 7,864 Cr. RONW 16.54%",st:"Positive",per:"FY25",sev:"Informational",rat:"FY25 peak demonstrates Crompton 2.0 delivery."},
+{r:24,ind:"Operational Intelligence",sig:"R&D >Rs 80 Cr. 170 products. New product rev Rs 710.6 Cr",st:"Positive",per:"FY25",sev:"Informational",rat:"Effective innovation pipeline."},
+{r:25,ind:"Gross Margin Strategy",sig:"Lighting EBIT 15.5% Q2 (+480 bps). Panels largest segment",st:"Positive",per:"Q2 FY26",sev:"Informational",rat:"Most significant positive surprise."},
+{r:26,ind:"Retail Footprint",sig:"Alt channel 20%. 860+ centres. 236K+ retailers. Top-10 = 6.24%",st:"Positive",per:"FY25\u2013FY26",sev:"Informational",rat:"Fragmented distribution provides resilience."},
+{r:27,ind:"Gross Margin Strategy",sig:"Q2 trough 8% to Q3 10.3% (+200 bps QoQ recovery)",st:"Positive",per:"Q2\u2013Q3 FY26",sev:"Informational",rat:"Recovery confirms improving trajectory."},
+{r:28,ind:"Localization Strategy",sig:"Nucleus BLDC PCB + XTECH in-house. Multi-sourcing +10%. 7 plants",st:"Positive",per:"FY25\u2013FY26",sev:"Informational",rat:"In-house tech creates advantage."},
+{r:29,ind:"Industry Volume Growth",sig:"TAM Rs 75-80K Cr to Rs 1.5-2.0L Cr via solar, wires, kitchen",st:"Positive",per:"Long Term",sev:"Informational",rat:"2x TAM expansion. Top-3 per category is key."},
+{r:30,ind:"Gross Margin Strategy",sig:"ESG S&P CSA 71/100 #2 globally. DJSI 61. 50% GHG by 2035",st:"Positive",per:"FY25",sev:"Informational",rat:"ESG leadership for sustainable financing."}
+]}
     };
+
+    SIGNAL_DATA.butterfly={name:"Butterfly Gandhimathi",ticker:"BUTTERFLY",signals:[{r:1,ind:"Gross Margin Strategy",sig:"EBITDA margin collapsed to 2.94% in FY24 \u2014 down from 9%+ in FY21 \u2014 before recovery to 7.55% (FY25) and 9.5% (Q2 FY26)",st:"Negative",per:"FY24",sev:"Critical",rat:"Near-breakeven EBITDA on Rs 931 Cr revenue. 651 bps recovery in 6 quarters encouraging but fragile."},{r:2,ind:"Cost Structure \u2013 Commodity",sig:"Steel \u2014 largest direct material \u2014 has NO alternate vendor; single-source risk with no remediation timeline",st:"Negative",per:"FY23\u2013FY25",sev:"Critical",rat:"Largest direct cost with zero supply chain redundancy."},{r:3,ind:"Industry vs Company Growth",sig:"Revenue declined from FY23 peak Rs 1,057 Cr to Rs 865 Cr (FY25) \u2014 cumulative 18% decline over 2 years",st:"Negative",per:"FY23\u2013FY25",sev:"Critical",rat:"Sustained revenue contraction erodes scale economics and channel confidence."},{r:4,ind:"Geographic Concentration",sig:"~75-76% revenue from South India; pan-India share ~5% vs ~15% South",st:"Watch",per:"FY23 onwards",sev:"High",rat:"Single-region dependency magnifies regional demand shocks."},{r:5,ind:"Governance \u2013 Integration",sig:"Crompton merger rejected by shareholders (72.6% against, non-institutional 97%). Integration complexity ongoing",st:"Watch",per:"FY23\u2013FY26",sev:"High",rat:"Concurrent turnaround and integration increases failure probability."},{r:6,ind:"Commodity Vulnerability",sig:"Material costs surged 73% in 9M FY22 (Rs 233 Cr to Rs 403 Cr); no hedging policy disclosed",st:"Negative",per:"FY22",sev:"High",rat:"Structural vulnerability to commodity cycles. Cascaded into FY24 EBITDA collapse."},{r:7,ind:"Rural Demand Risk",sig:"MFI channel demand suppressed in FY25; no structural alternative identified",st:"Negative",per:"FY25",sev:"High",rat:"MFI-linked rural demand headwind outside management control."},{r:8,ind:"Portfolio Risk",sig:"Auxiliary categories deliberately declined in FY25; revenue diversification buffer eliminated",st:"Negative",per:"FY25",sev:"High",rat:"4-category concentration increases volatility if core growth decelerates."},{r:9,ind:"Pan-India Gap",sig:"Pan-India share only ~5% despite #1 in SS LPG Stoves and TTWGs",st:"Watch",per:"FY23",sev:"High",rat:"Sub-5% pan-India share signals underscaled distribution nationally."},{r:10,ind:"Capacity \u2013 Excess",sig:"Plant consolidated (one into main) in FY25; underutilization vs revenue 18% below peak",st:"Watch",per:"FY25",sev:"Medium",rat:"Excess capacity stranded on lower revenue base."},{r:11,ind:"Capex Decline",sig:"Capex declined 60%: Rs 2125L (FY24) to Rs 853L (FY25)",st:"Watch",per:"FY25",sev:"Medium",rat:"Drastic compression risks deferred maintenance."},{r:12,ind:"After-Sales Leakage",sig:"ASC payout identified as revenue drainage; cost quantum not disclosed",st:"Negative",per:"FY23 onwards",sev:"Medium",rat:"Unquantified ASC revenue drain is hidden cost leak."},{r:13,ind:"Warranty Trend",sig:"Warranty provision Rs 255.81L (FY25); H1 FY26 already Rs 80.73L",st:"Watch",per:"FY25-H1 FY26",sev:"Medium",rat:"Growing provisions signal potential quality deterioration."},{r:14,ind:"Outlet Decline",sig:"Retail outlets 25000+ (FY23) to 24000+ (FY25); shrinkage during expansion",st:"Watch",per:"FY21-FY25",sev:"Medium",rat:"Shrinking footprint risks shelf presence loss."},{r:15,ind:"Employee Cost",sig:"Employee benefits +4.6% YoY in H1 FY26; fixed cost expanding during flat revenue",st:"Watch",per:"H1 FY26",sev:"Medium",rat:"Fixed cost inflation compresses operating leverage."},{r:16,ind:"No Hedging Policy",sig:"No commodity hedging despite steel/aluminium exposure and FY22 vulnerability",st:"Watch",per:"All periods",sev:"Medium",rat:"Unhedged commodity exposure is significant financial risk."},{r:17,ind:"Online Competition",sig:"Targeting 20-25% online mix; faces strong competition requiring sustained A&P",st:"Watch",per:"FY23-FY26",sev:"Medium",rat:"E-commerce investment resource-intensive during recovery."},{r:18,ind:"EBITDA Recovery",sig:"EBITDA: 2.94% (FY24) to 7.55% (FY25) to 9.5% (Q2 FY26); 651 bps in 6 quarters",st:"Positive",per:"FY24-Q2 FY26",sev:"Informational",rat:"Management executing cost and pricing interventions successfully."},{r:19,ind:"Material Margin",sig:"Material margin 41.0% (Q1 FY26, +320 bps YoY) and 37.8% (Q2 FY26, +50 bps YoY)",st:"Positive",per:"Q1-Q2 FY26",sev:"Informational",rat:"Pricing power restoration post FY22 commodity shock."},{r:20,ind:"Core Category Gains",sig:"Market share gains in core categories (Q1 FY26); double-digit growth all cores (Q2 FY26)",st:"Positive",per:"Q1-Q2 FY26",sev:"Informational",rat:"Positive competitive recovery on depressed base."},{r:21,ind:"Historical Growth",sig:"21% Revenue CAGR FY17-FY21 vs industry 5.65%",st:"Positive",per:"FY17-FY21",sev:"Informational",rat:"Structural competitive capability as recovery benchmark."},{r:22,ind:"Localization",sig:"~80% in-house mfg; Rs 45L localization savings (FY25); no technology imported",st:"Positive",per:"FY21-FY25",sev:"Informational",rat:"Strong domestic manufacturing reduces import dependency."},{r:23,ind:"Finance Cost",sig:"Finance costs Rs 519L (FY25) vs Rs 23 Cr (FY17); D/E 0.04x",st:"Positive",per:"FY21-FY25",sev:"Informational",rat:"Zero debt eliminates distress risk."},{r:24,ind:"Working Capital",sig:"Debtors days 77 to 30; WC days 106 to 36; slow-moving inventory -86%",st:"Positive",per:"FY18-FY25",sev:"Informational",rat:"Significant working capital optimization."},{r:25,ind:"Pan-India Opportunity",sig:"Crompton distribution synergies; ~5% vs ~15% South; network for North/West",st:"Positive",per:"FY23-FY26",sev:"Informational",rat:"Largest growth opportunity if integration executed."},{r:26,ind:"Service Scale",sig:"280+ service centres, 700+ technicians, CRM, WhatsApp chatbot",st:"Positive",per:"FY23-FY25",sev:"Informational",rat:"Service network is competitive moat."},{r:27,ind:"Cost Optimization",sig:"Munnetram Rs 1.5 Cr savings; SNOP; A&P ROI-led (+351 bps); procurement 0.6%",st:"Positive",per:"FY23-FY25",sev:"Informational",rat:"Cost optimization capacity demonstrated."}]};
 
     // ========== TRANSCRIPT INTEL STATE & RENDERING ==========
     var currentIntelCompany = 'dixon';
@@ -4384,26 +4732,104 @@
       return 'badge-low';
     }
 
-    function renderIntelSummary() {
-      var data = SIGNAL_DATA[currentIntelCompany];
-      var s = data.signals;
-      var crit = countBySeverity(s, 'Critical');
-      var high = countBySeverity(s, 'High');
-      var med = countBySeverity(s, 'Medium');
-      var neg = s.filter(function(x){ return x.st.indexOf('Negative') >= 0 || x.st.indexOf('Critical') >= 0; }).length;
-      var pos = s.filter(function(x){ return x.st.indexOf('Positive') >= 0; }).length;
-      var el = document.getElementById('intelSummary');
-      el.innerHTML =
-        '<div class="stat-box"><div class="stat-value">' + s.length + '</div><div class="stat-label">Total Signals</div></div>' +
-        '<div class="stat-box"><div class="stat-value val-negative">' + crit + '</div><div class="stat-label">Critical</div></div>' +
-        '<div class="stat-box"><div class="stat-value" style="color:var(--warning)">' + high + '</div><div class="stat-label">High</div></div>' +
-        '<div class="stat-box"><div class="stat-value">' + med + '</div><div class="stat-label">Medium</div></div>' +
-        '<div class="stat-box"><div class="stat-value val-negative">' + neg + '</div><div class="stat-label">Negative/Watch</div></div>' +
-        '<div class="stat-box"><div class="stat-value val-positive">' + pos + '</div><div class="stat-label">Positive</div></div>';
-      // Update tab counts
-      Object.keys(SIGNAL_DATA).forEach(function(k) {
-        var el = document.getElementById(k + '-count');
-        if (el) el.textContent = SIGNAL_DATA[k].signals.length;
+    function renderIntelSidebar() {
+      var sidebar = document.getElementById('intelSidebar');
+      sidebar.innerHTML = '';
+      Object.keys(SIGNAL_DATA).forEach(function(key) {
+        var d = SIGNAL_DATA[key];
+        var s = d.signals;
+        var crit = countBySeverity(s,'Critical'), high = countBySeverity(s,'High'),
+            med = countBySeverity(s,'Medium'), low = countBySeverity(s,'Low'),
+            info = countBySeverity(s,'Informational');
+        var total = s.length;
+        var item = document.createElement('div');
+        item.className = 'intel-company-item' + (key === currentIntelCompany ? ' active' : '');
+        item.setAttribute('data-company', key);
+        item.innerHTML =
+          '<div class="intel-company-name">' + esc(d.name) + ' <span class="intel-company-count">' + total + '</span></div>' +
+          '<div class="intel-severity-bar">' +
+            (crit ? '<div class="sev-seg sev-seg-critical" style="flex:'+crit+'"></div>' : '') +
+            (high ? '<div class="sev-seg sev-seg-high" style="flex:'+high+'"></div>' : '') +
+            (med ? '<div class="sev-seg sev-seg-medium" style="flex:'+med+'"></div>' : '') +
+            (low ? '<div class="sev-seg sev-seg-low" style="flex:'+low+'"></div>' : '') +
+            (info ? '<div class="sev-seg sev-seg-info" style="flex:'+info+'"></div>' : '') +
+          '</div>';
+        item.addEventListener('click', function() {
+          document.querySelectorAll('.intel-company-item').forEach(function(i){ i.classList.remove('active'); });
+          this.classList.add('active');
+          currentIntelCompany = key;
+          currentSevFilter = 'all';
+          document.querySelectorAll('.filter-btn').forEach(function(b){ b.classList.remove('active'); });
+          var allBtn = document.querySelector('.filter-btn[data-sev="all"]');
+          if (allBtn) allBtn.classList.add('active');
+          renderIntelContent();
+        });
+        sidebar.appendChild(item);
+      });
+    }
+
+    function renderRiskScorecard() {
+      var s = SIGNAL_DATA[currentIntelCompany].signals;
+      var crit = countBySeverity(s,'Critical'), high = countBySeverity(s,'High');
+      var neg = s.filter(function(x){ return x.st.indexOf('Negative')>=0||x.st.indexOf('Critical')>=0; }).length;
+      var pos = s.filter(function(x){ return x.st.indexOf('Positive')>=0; }).length;
+      document.getElementById('riskScorecard').innerHTML =
+        '<div class="risk-metric critical"><div class="risk-metric-value">'+crit+'</div><div class="risk-metric-label">Critical</div></div>' +
+        '<div class="risk-metric high"><div class="risk-metric-value">'+high+'</div><div class="risk-metric-label">High Priority</div></div>' +
+        '<div class="risk-metric negative"><div class="risk-metric-value">'+neg+'</div><div class="risk-metric-label">Negative / Watch</div></div>' +
+        '<div class="risk-metric positive"><div class="risk-metric-value">'+pos+'</div><div class="risk-metric-label">Positive</div></div>';
+    }
+
+    function renderSignalDistribution() {
+      var s = SIGNAL_DATA[currentIntelCompany].signals;
+      var crit = countBySeverity(s,'Critical'), high = countBySeverity(s,'High'),
+          med = countBySeverity(s,'Medium'), low = countBySeverity(s,'Low'),
+          info = countBySeverity(s,'Informational');
+      var wrap = document.getElementById('signalDist');
+      wrap.innerHTML =
+        '<div class="signal-dist-bar">' +
+          '<div class="dist-seg dist-seg-critical" style="flex:'+crit+'" data-sev="Critical" title="Critical: '+crit+'"></div>' +
+          '<div class="dist-seg dist-seg-high" style="flex:'+high+'" data-sev="High" title="High: '+high+'"></div>' +
+          '<div class="dist-seg dist-seg-medium" style="flex:'+med+'" data-sev="Medium" title="Medium: '+med+'"></div>' +
+          '<div class="dist-seg dist-seg-low" style="flex:'+low+'" data-sev="Low" title="Low: '+low+'"></div>' +
+          '<div class="dist-seg dist-seg-info" style="flex:'+info+'" data-sev="Informational" title="Info: '+info+'"></div>' +
+        '</div>' +
+        '<div class="signal-dist-legend">' +
+          '<span class="legend-critical" data-sev="Critical">Critical '+crit+'</span>' +
+          '<span class="legend-high" data-sev="High">High '+high+'</span>' +
+          '<span class="legend-medium" data-sev="Medium">Medium '+med+'</span>' +
+          '<span class="legend-low" data-sev="Low">Low '+low+'</span>' +
+          '<span class="legend-info" data-sev="Informational">Info '+info+'</span>' +
+        '</div>';
+      // Click on legend or bar segment to filter
+      wrap.querySelectorAll('[data-sev]').forEach(function(el) {
+        el.addEventListener('click', function() {
+          var sev = this.getAttribute('data-sev');
+          currentSevFilter = (currentSevFilter === sev) ? 'all' : sev;
+          // Sync filter buttons
+          document.querySelectorAll('.filter-btn').forEach(function(b){ b.classList.remove('active'); });
+          var btn = document.querySelector('.filter-btn[data-sev="'+currentSevFilter+'"]');
+          if (btn) btn.classList.add('active');
+          renderSignalTable();
+          renderTopSignals();
+        });
+      });
+    }
+
+    function renderTopSignals() {
+      var s = SIGNAL_DATA[currentIntelCompany].signals;
+      var top = s.filter(function(x){ return x.sev === 'Critical' || x.sev === 'High'; });
+      if (currentSevFilter !== 'all') top = top.filter(function(x){ return x.sev === currentSevFilter; });
+      var grid = document.getElementById('topSignals');
+      grid.innerHTML = '';
+      top.slice(0, 6).forEach(function(sig) {
+        grid.innerHTML +=
+          '<div class="top-signal-card' + (sig.sev === 'High' ? ' sev-high' : '') + '">' +
+            '<div class="tsc-header"><span class="tsc-indicator">' + esc(sig.ind) + '</span><span class="badge ' + sevBadgeClass(sig.sev) + '">' + sig.sev + '</span></div>' +
+            '<div class="tsc-signal">' + esc(sig.sig) + '</div>' +
+            '<div class="tsc-rationale">' + esc(sig.rat) + '</div>' +
+            '<div class="tsc-meta"><span class="badge ' + statusBadgeClass(sig.st) + '">' + esc(sig.st) + '</span><span class="mono" style="font-size:11px;color:var(--text-muted)">' + esc(sig.per) + '</span></div>' +
+          '</div>';
       });
     }
 
@@ -4416,6 +4842,7 @@
       tbody.innerHTML = '';
       filtered.forEach(function(s) {
         var tr = document.createElement('tr');
+        tr.className = (s.sev === 'Critical' ? 'row-critical' : (s.sev === 'High' ? 'row-high' : ''));
         tr.innerHTML =
           '<td class="rank-cell">' + s.r + '</td>' +
           '<td class="sev-cell"><span class="badge ' + sevBadgeClass(s.sev) + '">' + esc(s.sev) + '</span></td>' +
@@ -4427,36 +4854,37 @@
       });
     }
 
-    // Company tab click
-    document.querySelectorAll('#intelTabs .company-tab').forEach(function(tab) {
-      tab.addEventListener('click', function() {
-        document.querySelectorAll('#intelTabs .company-tab').forEach(function(t){ t.classList.remove('active'); });
-        this.classList.add('active');
-        currentIntelCompany = this.getAttribute('data-company');
-        document.querySelectorAll('.ebitda-story-card[data-company]').forEach(function(c){ c.style.display = 'none'; });
-        var eCard = document.querySelector('.ebitda-story-card[data-company="'+currentIntelCompany+'"]');
-        if(eCard) eCard.style.display = '';
-        currentSevFilter = 'all';
-        document.querySelectorAll('.filter-btn').forEach(function(b){ b.classList.remove('active'); });
-        document.querySelector('.filter-btn[data-sev="all"]').classList.add('active');
-        renderIntelSummary();
-        renderSignalTable();
-      });
+    function renderIntelContent() {
+      // Show correct EBITDA card
+      document.querySelectorAll('.ebitda-story-card[data-company]').forEach(function(c){ c.style.display = 'none'; });
+      var eCard = document.querySelector('.ebitda-story-card[data-company="'+currentIntelCompany+'"]');
+      if(eCard) eCard.style.display = '';
+      renderRiskScorecard();
+      renderSignalDistribution();
+      renderTopSignals();
+      renderSignalTable();
+    }
+
+    // Signal table toggle
+    document.getElementById('signalTableToggle').addEventListener('click', function() {
+      this.classList.toggle('open');
+      document.getElementById('signalTableWrap').classList.toggle('collapsed');
     });
 
-    // Severity filter click
+    // Severity filter clicks
     document.querySelectorAll('.filter-btn').forEach(function(btn) {
       btn.addEventListener('click', function() {
         document.querySelectorAll('.filter-btn').forEach(function(b){ b.classList.remove('active'); });
         this.classList.add('active');
         currentSevFilter = this.getAttribute('data-sev');
         renderSignalTable();
+        renderTopSignals();
       });
     });
 
-    // Initial intel render
-    renderIntelSummary();
-    renderSignalTable();
+    // Initial render
+    renderIntelSidebar();
+    renderIntelContent();
 
     // ========== DEAL TYPE FILTER ==========
     function filterDeals(type) {
@@ -4646,8 +5074,11 @@
       {company:"Blue Star",type:"Product",desc:"150 new Room AC models launched — Smart WiFi & Heavy Duty segments across varied price points.",impact:"High",source:"Company Filing (BSE)",tier:"verified",date:"2025-02-25"},
       {company:"Blue Star",type:"Capacity",desc:"New Room AC assembly line commissioned at Sri City through subsidiary Blue Star Climatech.",impact:"Medium",source:"Company Filing (BSE)",tier:"verified",date:"2025-02-25"},
       // Crompton
-      {company:"Crompton Greaves",type:"M&A",desc:"Zero-debt: retired Rs 2,125 Cr Butterfly acquisition NCDs. Now net cash positive. M&A firepower restored.",impact:"High",source:"Business Standard",tier:"verified",date:"2025-07-23"},
-      {company:"Crompton Greaves",type:"Pricing",desc:"2 rounds of price hikes planned (Q4 + Q1) to combat raw material inflation. ECD +100bps margin expansion.",impact:"Medium",source:"Crompton concall",tier:"guidance",date:"2025-12-01"},
+      {company:"Crompton Greaves",type:"M&A",desc:"Zero-debt: repaid last Rs 300 Cr NCD in Q1 FY26. Debt-equity 0.08x. Interest coverage 27.01x. Financial flexibility restored for Rs 350 Cr greenfield and new category investments.",impact:"High",source:"Q1 FY26 Earnings Call + MD&A FY25",tier:"verified",date:"2025-07-23"},
+      {company:"Crompton Greaves",type:"Pricing",desc:"Net price increase 1-1.5% implemented Jan 2026. Further increases planned Q4 FY26 and Q1 FY27 to offset copper/aluminium/steel inflation. Material margin -150 bps YoY standalone.",impact:"Medium",source:"Q3 FY26 Earnings Call",tier:"verified",date:"2026-01-15"},
+      {company:"Crompton Greaves",type:"Product",desc:"Nucleus BLDC PCB platform launched Nov 2025 (in-house at Baddi). 1 lakh+ units sold. 50%+ QoQ growth. #2 in BLDC targeting #1. BEE 2.0 managed via XTECH platform.",impact:"High",source:"Q3 FY26 Investor Presentation",tier:"verified",date:"2025-11-01"},
+      {company:"Crompton Greaves",type:"Capacity",desc:"Solar rooftop Rs 500 Cr order book (AP Rs 445 Cr + Telangana Rs 52 Cr). Revenue target ~Rs 2,000 Cr in 18-24 months. Residential wires (Rs 36K Cr TAM) entry announced. Greenfield Rs 350 Cr plant for domestic + export.",impact:"High",source:"Q3 FY26 Earnings Call + Q2 FY26 Investor Presentation",tier:"verified",date:"2026-02-11"},
+      {company:"Crompton Greaves",type:"Distribution",desc:"Alternate channel saliency reached 20% of revenue. #1 e-commerce in all segments. BCG GTM strategic study underway. Project Udaan for SDA distribution channel.",impact:"Medium",source:"Q2 FY26 Investor Presentation",tier:"verified",date:"2025-11-06"},
       // Bajaj Electricals
       {company:"Bajaj Electricals",type:"M&A",desc:"Bajel Projects demerger listed — Rs 1,260 Cr entity. EPC/Power T&D separated. Now pure-play consumer electricals.",impact:"High",source:"Bajaj Electricals IR",tier:"verified",date:"2025-02-01"},
       {company:"Bajaj Electricals",type:"Product",desc:"Bajaj Secura Wires — new business line launch. High-performance residential wiring under Lighting Solutions segment.",impact:"High",source:"Company Filing (BSE)",tier:"verified",date:"2026-01-20"},
@@ -4669,8 +5100,10 @@
       {company:"Havells India",type:"Product",desc:"Lloyd Luxuria Collection — StunnAir, Stellar, Stylus ACs, Mini LED TV, Novante Washing Machine. 3M AC capacity.",impact:"Medium",source:"Company Filing (BSE)",tier:"verified",date:"2025-04-07"},
       {company:"Havells India",type:"Product",desc:"EV Charger (EVSE) business launch — Rs 7-10 Cr investment in estimated Rs 1,500 Cr market.",impact:"High",source:"Company Filing (BSE)",tier:"verified",date:"2025-05-21"},
       // Symphony
-      {company:"Symphony",type:"M&A",desc:"Australia + Mexico divestiture plans shelved. No buyers at valuation for neg-EBITDA Climate Technologies Australia.",impact:"Medium",source:"TipRanks",tier:"verified",date:"2025-04-01"},
-      {company:"Symphony",type:"Product",desc:"Water heater SKU expansion — new growth vertical beyond air coolers.",impact:"Medium",source:"Company Filing (BSE)",tier:"verified",date:"2025-12-01"},
+      {company:"Symphony",type:"M&A",desc:"CT Australia + IMPCO Mexico divestiture rolled back January 2026. IB-led process: 10 NDAs signed, no proposal met valuation expectations. Symphony now retaining all subsidiaries. CT Australia investment to be 'suitably treated in the book by end of current FY' (March 2026).",impact:"High",source:"Corporate Presentation Feb 2026 (p.52); Q3 FY26 Earnings Call Transcript Jan 29, 2026",tier:"verified",date:"2026-01-29"},
+      {company:"Symphony",type:"Product",desc:"Water heater SKU expansion: new growth vertical. Expanding from 3 South Indian states to 8 states nationally. >90% of Q3 FY26 A&P spend (Rs 11 Cr) allocated to water heaters. RTY portfolio now 26% of 9M FY26 standalone revenue.",impact:"Medium",source:"Q3 FY26 Earnings Call Transcript Jan 29, 2026",tier:"verified",date:"2026-01-29"},
+      {company:"Symphony",type:"Product",desc:"EPACK Durables added as new OEM/contract manufacturer. Symphony owns all product designs and moulds. Air Force range launched targeting 65% unorganised metal cooler market. BLDC versions at 10-15% premium.",impact:"Medium",source:"Q3 FY25 Earnings Call Feb 5, 2025; AR FY25",tier:"verified",date:"2025-02-05"},
+      {company:"Symphony",type:"Distribution",desc:"Pathways Retail Rs 58 Cr fraud write-off (forensic audit: falsification, forgery, fund diversion). Credit insurance now taken for all modern trade. Rs 8.5 Cr recovered in 9M FY26.",impact:"High",source:"Q3 FY25 Earnings Call Feb 5, 2025",tier:"verified",date:"2025-02-05"},
       // Orient Electric
       {company:"Orient Electric",type:"M&A",desc:"CK Birla sold Orient Cement (Rs 8,100 Cr) to Ambuja/Adani. Capital reallocated to consumer businesses.",impact:"High",source:"Business Standard",tier:"verified",date:"2024-10-22"},
       // Dixon
