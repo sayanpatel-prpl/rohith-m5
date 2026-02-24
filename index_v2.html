@@ -1465,9 +1465,6 @@
         <span class="data-tag">Feb 2026 &middot; Demand, Costs &amp; Channels</span>
       </div>
 
-      <h3 class="sub-header">Q3 FY26 Earnings Snapshot</h3>
-      <div id="earningsGrid" class="card-grid cols-4"></div>
-
       <h3 class="sub-header">Demand Signals</h3>
       <div class="card-grid cols-3">
         <div class="signal-card">
@@ -1621,8 +1618,52 @@
         <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-estimated">Estimated</span> Industry analysis, BEE norms</span></div>
       </div>
 
-      <h3 class="sub-header">EBITDA Margin Bands</h3>
-      <div id="marginBandsContainer" class="card" style="margin-bottom:24px"></div>
+      <h3 class="sub-header">Supply Chain Disruptions</h3>
+      <div class="card-grid cols-2">
+        <div class="alert-card alert-critical">
+          <div class="alert-title">Red Sea Crisis &mdash; Structural, Not Temporary</div>
+          <div class="alert-body">
+            Major shipping companies continue favoring Cape of Good Hope route. Adds ~4,000 miles and 17&ndash;20 days to Asia-Europe transit.
+            <br><br>
+            <strong>Freight rates:</strong> 25&ndash;35% above pre-crisis benchmarks<br>
+            <strong>War risk insurance:</strong> $10K &rarr; up to $500K per voyage<br>
+            <strong>Per-<span data-tip="Twenty-foot Equivalent Unit: Standard container size used in shipping logistics" class="tip-below">TEU</span> cost adder:</strong> $200&ndash;$400 (fuel, labor, positioning)
+          </div>
+          <div class="alert-meta"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> DocShipper, Freightos</span> &middot; Severity: Critical</div>
+        </div>
+        <div class="alert-card alert-critical">
+          <div class="alert-title">Copper Squeeze &mdash; AI Data Center Siphon</div>
+          <div class="alert-body">
+            Conventional data center: 5,000&ndash;15,000 tons of copper. Next-gen hyperscale AI facility: up to 50,000 tons per site. Global DC capacity doubling to ~122 GW by end-2026.
+            <br><br>
+            <strong>Shortfall:</strong> 150,000 tonnes refined copper (2026)<br>
+            <strong>JPMorgan target:</strong> $12,500/ton by Q2 2026<br>
+            <strong>UBS target:</strong> $13,000/ton by year-end<br>
+            <strong>Goldman Sachs:</strong> $10,000&ndash;$11,000 (moderating on China RE)
+          </div>
+          <div class="alert-meta"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> ICSG, JPM, UBS, Goldman</span> &middot; Severity: Critical</div>
+        </div>
+      </div>
+
+      <h3 class="sub-header">Procurement Signals</h3>
+      <div class="card-grid cols-2">
+        <div class="alert-card alert-warning">
+          <div class="alert-title">Strategic Procurement Shift Required</div>
+          <div class="alert-body">
+            Spot buying now prohibitively risky. Companies forced into 12&ndash;18 month blanket agreements at elevated prices. Lead times extending rapidly. Strategic stockpiling of metals becoming standard practice.
+          </div>
+          <div class="alert-meta"><span class="source-attr"><span class="source-tier tier-guidance">Mgmt Guidance</span> Concall transcripts</span></div>
+        </div>
+        <div class="alert-card alert-warning">
+          <div class="alert-title">Semiconductor Memory Super-Cycle</div>
+          <div class="alert-body">
+            <strong>DRAM:</strong> +90&ndash;95% QoQ &nbsp;|&nbsp; <strong>PC DRAM:</strong> &gt;100% &nbsp;|&nbsp; <strong>Mobile Memory:</strong> ~90%<br>
+            <strong>NAND Flash:</strong> +55&ndash;60% &nbsp;|&nbsp; <strong>Enterprise SSD:</strong> +53&ndash;58%<br>
+            Driven by HBM reallocation for AI servers. Impacts smart appliances and connected devices.
+          </div>
+          <div class="alert-meta"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> TrendForce</span> &middot; <a style="font-size:10px;color:var(--info-500);cursor:pointer" onclick="document.querySelector('[data-section=operations]').click()">Ops metrics in Operations &rarr;</a></div>
+        </div>
+      </div>
 
       <h3 class="sub-header" style="margin-top:32px">Policy Impact Tracker</h3>
       <div class="card" style="margin-bottom:24px">
@@ -1817,6 +1858,12 @@
 
       <h3 class="sub-header">Working Capital &amp; Efficiency Heatmap</h3>
       <div id="wcHeatmap" style="margin-bottom:24px"></div>
+
+      <h3 class="sub-header">Q3 FY26 Earnings Snapshot</h3>
+      <div id="earningsGrid" class="card-grid cols-4"></div>
+
+      <h3 class="sub-header">EBITDA Margin Bands</h3>
+      <div id="marginBandsContainer" class="card" style="margin-bottom:24px"></div>
 
       <div class="section-footer"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Company Filings, Q3 FY2026</span> &middot; Q3 FY2026</div>
     </div>
@@ -2045,33 +2092,6 @@
 
       <div class="stat-row" style="margin-bottom:24px" id="opsSummaryStats"></div>
 
-      <h3 class="sub-header">Supply Chain Disruptions</h3>
-      <div class="card-grid cols-2">
-        <div class="alert-card alert-critical">
-          <div class="alert-title">Red Sea Crisis &mdash; Structural, Not Temporary</div>
-          <div class="alert-body">
-            Major shipping companies continue favoring Cape of Good Hope route. Adds ~4,000 miles and 17&ndash;20 days to Asia-Europe transit.
-            <br><br>
-            <strong>Freight rates:</strong> 25&ndash;35% above pre-crisis benchmarks<br>
-            <strong>War risk insurance:</strong> $10K &rarr; up to $500K per voyage<br>
-            <strong>Per-<span data-tip="Twenty-foot Equivalent Unit: Standard container size used in shipping logistics" class="tip-below">TEU</span> cost adder:</strong> $200&ndash;$400 (fuel, labor, positioning)
-          </div>
-          <div class="alert-meta"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> DocShipper, Freightos</span> &middot; Severity: Critical</div>
-        </div>
-        <div class="alert-card alert-critical">
-          <div class="alert-title">Copper Squeeze &mdash; AI Data Center Siphon</div>
-          <div class="alert-body">
-            Conventional data center: 5,000&ndash;15,000 tons of copper. Next-gen hyperscale AI facility: up to 50,000 tons per site. Global DC capacity doubling to ~122 GW by end-2026.
-            <br><br>
-            <strong>Shortfall:</strong> 150,000 tonnes refined copper (2026)<br>
-            <strong>JPMorgan target:</strong> $12,500/ton by Q2 2026<br>
-            <strong>UBS target:</strong> $13,000/ton by year-end<br>
-            <strong>Goldman Sachs:</strong> $10,000&ndash;$11,000 (moderating on China RE)
-          </div>
-          <div class="alert-meta"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> ICSG, JPM, UBS, Goldman</span> &middot; Severity: Critical</div>
-        </div>
-      </div>
-
       <h3 class="sub-header">Manufacturing &amp; PLI Ecosystem</h3>
       <div class="stat-row">
         <div class="stat-box">
@@ -2111,25 +2131,6 @@
         </table>
       </div>
 
-      <h3 class="sub-header">Procurement Signals</h3>
-      <div class="card-grid cols-2">
-        <div class="alert-card alert-warning">
-          <div class="alert-title">Strategic Procurement Shift Required</div>
-          <div class="alert-body">
-            Spot buying now prohibitively risky. Companies forced into 12&ndash;18 month blanket agreements at elevated prices. Lead times extending rapidly. Strategic stockpiling of metals becoming standard practice.
-          </div>
-          <div class="alert-meta"><span class="source-attr"><span class="source-tier tier-guidance">Mgmt Guidance</span> Concall transcripts</span></div>
-        </div>
-        <div class="alert-card alert-warning">
-          <div class="alert-title">Semiconductor Memory Super-Cycle</div>
-          <div class="alert-body">
-            <strong>DRAM:</strong> +90&ndash;95% QoQ &nbsp;|&nbsp; <strong>PC DRAM:</strong> &gt;100% &nbsp;|&nbsp; <strong>Mobile Memory:</strong> ~90%<br>
-            <strong>NAND Flash:</strong> +55&ndash;60% &nbsp;|&nbsp; <strong>Enterprise SSD:</strong> +53&ndash;58%<br>
-            Driven by HBM reallocation for AI servers. Impacts smart appliances and connected devices.
-          </div>
-          <div class="alert-meta"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> TrendForce</span> &middot; <a style="font-size:10px;color:var(--info-500);cursor:pointer" onclick="document.querySelector('[data-section=market-pulse]').click()">Cost impact in Market Pulse &rarr;</a></div>
-        </div>
-      </div>
       <h3 class="sub-header" style="margin-top:32px">Operational Metrics Benchmark</h3>
       <p style="font-size:11px; color:var(--text-muted); margin:-8px 0 12px 0;">14-company operational KPI comparison &mdash; click column headers to sort. <span class="conf-icon verified" title="Verified: directly from filings">&#10003;</span> Verified &nbsp;<span class="conf-icon derived" title="Derived: calculated from source data">~</span> Derived &nbsp;<span class="conf-icon estimated" title="Estimated: proxy or estimate">?</span> Estimated</p>
       <div style="overflow-x:auto; margin-bottom:24px;">
@@ -2183,12 +2184,6 @@
         <div class="diag-value">WC: 43 days</div>
       </div>
       <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-derived">Derived</span> Company Filings Q3 FY26 financials</span></div>
-
-      <h3 class="sub-header">Product Mix by Company</h3>
-      <div id="productMixGrid" class="card" style="margin-bottom:24px;padding:20px"></div>
-
-      <h3 class="sub-header">Premiumization Mix (Premium / Mass / Economy)</h3>
-      <div id="premiumMixChart" class="card" style="margin-bottom:24px;padding:20px"></div>
 
       <div class="section-footer"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Industry reports, MoCI, DPIIT PLI Tracker</span> &middot; Feb 2026</div>
     </div>
@@ -2718,6 +2713,12 @@
       <h3 class="sub-header">Sub-Sector Breakdown</h3>
       <p style="font-size:11px; color:var(--text-muted); margin:-8px 0 12px 0;">Computed from 14-company Q3 FY26 data. Avg metrics per sub-sector with top/bottom performers.</p>
       <div class="subsector-grid" id="subsectorGrid"></div>
+
+      <h3 class="sub-header">Product Mix by Company</h3>
+      <div id="productMixGrid" class="card" style="margin-bottom:24px;padding:20px"></div>
+
+      <h3 class="sub-header">Premiumization Mix (Premium / Mass / Economy)</h3>
+      <div id="premiumMixChart" class="card" style="margin-bottom:24px;padding:20px"></div>
 
       <h3 class="sub-header">Scale vs. Profitability Matrix</h3>
       <div class="card">
