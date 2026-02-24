@@ -1,0 +1,247 @@
+Gather intelligence from company documents and populate the dashboard.
+
+**Argument**: `{{arg1}}` — Path to a company folder containing PDF source documents (earnings call transcripts, annual reports).
+
+---
+
+## Overview
+
+This skill reads source documents (quarterly earnings transcripts + annual reports) from a company folder, generates a structured intelligence report, and then populates the corresponding company's data in the dashboard (`/Users/prateekkurkanji/Kompete/rohith-m5/index_v2.html`).
+
+---
+
+## Phase 1: Document Ingestion
+
+1. **List all PDFs** in the folder at `{{arg1}}` using `ls`
+2. **Read each PDF** using the Read tool — classify each as:
+   - `QUARTERLY_TRANSCRIPT` — earnings call transcript (look for Q&A, analyst names, "earnings call")
+   - `ANNUAL_REPORT` — integrated annual report (look for "annual report", board of directors, financial statements)
+   - `OTHER` — any other document type
+3. **Log the document inventory** — record document name, date, type, and classification for the report header
+
+**IMPORTANT**: Read ALL documents thoroughly. Do not skim. The quality of intelligence depends on exhaustive extraction.
+
+---
+
+## Phase 2: Intelligence Extraction
+
+For each document, extract intelligence into these 11 sections. Use direct quotes as evidence. Note the source document for every data point.
+
+### Section 1: Industry Volume Growth vs Company Growth
+- Company revenue growth vs industry growth rates
+- Segment-wise growth rates (which segments outperform/underperform)
+- Market share signals (gained/lost/maintained)
+- Volume vs value growth dynamics
+
+### Section 2: Operational Intelligence from Management Commentary
+- Strategic initiatives mentioned across quarterly calls
+- Capacity expansion plans
+- New business verticals or investments
+- M&A appetite
+- Margin guidance (specific bps targets)
+- B2B vs B2C demand signals
+- Operating leverage signals
+
+### Section 3: Capacity Utilization / Plant Utilization
+- Utilization rates by segment/plant
+- Capacity expansion capex (current and planned)
+- Supply constraints or headroom
+- New land/facility acquisitions
+
+### Section 4: Pricing Strategy and Commodity Cost Impact
+- Commodity pass-through approach (immediate vs lagged)
+- Key commodity exposures and current prices
+- BEE/regulatory pricing impacts
+- Premium vs mass pricing dynamics
+- Deflationary or inflationary category trends
+
+### Section 5: Cost Structure Strategy
+Extract sub-sections:
+- **5a. Direct vs Indirect Costs** — segment margins, EBITDA bridge, unallocated overheads
+- **5b. Commodity Dependency** — key raw material exposures, import dependency %, localization
+- **5c. Employee Cost** — quarterly trend, headcount, attrition, R&D team size, operating leverage signals
+- **5d. Process Cost** — supply chain optimization, SKU rationalization, backward integration
+- **5e. Field Force / Sales Productivity** — distribution network size (dealers, retailers), rural vs urban, modern retail
+- **5f. Sustainability Cost** — renewable energy, patents, ESG-linked cost initiatives
+
+### Section 6: Gross Margin Strategy and Trade-offs
+- **6a. Volume vs Margin** — segment-differentiated strategy (which segments prioritize volume vs margin)
+- **6b. Sales Schemes** — promotional spend discipline, inventory clearance tactics
+- **6c. Channel Architecture** — multi-brand, multi-tier distribution structure, channel inventory
+- **6d. Revenue Management** — revenue mix diversification, fastest-growing segments, new revenue streams
+
+### Section 7: Localization Strategy (Import vs Domestic)
+- Import dependency percentage
+- Key localization initiatives (component tie-ups, backward integration)
+- Manufacturing unit count
+- Currency/tariff risk insulation
+
+### Section 8: Market Share Gain/Loss Trends
+- Explicit management claims on market share
+- Category-level share signals
+- Competitive dynamics (regional brands, price wars)
+
+### Section 9: Contract Manufacturing Strategy
+- % of production outsourced
+- Key contract manufacturing partners
+- Mark as "NOT DISCLOSED" if not mentioned
+
+### Section 10: After-Sales Service Cost Signals
+- Service resolution metrics
+- NPS or customer satisfaction scores
+- Service cost data (if available)
+- Mark undisclosed metrics explicitly
+
+### Section 11: Retail Footprint / Distribution / Manpower Scale
+- Dealer/retailer/channel partner counts
+- Brand portfolio and SKU count
+- Warehousing footprint
+- Rural penetration
+- International presence
+
+### Strategic Signals Summary
+After extracting all 11 sections, synthesize:
+- **Key Opportunities** (numbered, 5-10 items)
+- **Key Risks** (numbered, 5-10 items)
+- **Cost Strategy Direction** (1 paragraph)
+- **Market Position Direction** (1 paragraph)
+
+### Evidence Gaps
+List all indicators that are NOT DISCLOSED in the source documents as a table.
+
+### JSON Metadata Block
+End the report with a ```json block containing structured data:
+- `report_metadata` (company, date, documents analyzed)
+- `financial_summary` (key financial metrics)
+- `segment_performance` (array of segments with revenue, growth, margins)
+- `intelligence_sections` (condensed insights per section with confidence levels)
+- `strategic_signals` (opportunities, risks, cost/market direction)
+- `evidence_gaps` (array of undisclosed indicators)
+
+---
+
+## Phase 3: Write Intelligence Report
+
+Write the complete report to `{{arg1}}/{CompanyName}_Intelligence_Report.md` following the exact structure above. Use the Havells report as the gold-standard reference: `/Users/prateekkurkanji/Kompete/rohith-m5/Havells/Havells_Intelligence_Report.md`
+
+Each section MUST have:
+- **Insight**: Dense paragraph with specific numbers and quotes
+- **Evidence**: Bulleted list of direct quotes with source attribution
+- **Source**: Document names
+- **Confidence**: High / Medium / Low
+
+---
+
+## Phase 4: Dashboard Population
+
+Read the dashboard file: `/Users/prateekkurkanji/Kompete/rohith-m5/index_v2.html`
+
+Find the company in the COMPANIES JavaScript array and in each HTML section below. Use the Edit tool for all updates.
+
+### 4.1: COMPANIES Array Updates
+
+Locate the company object in the `COMPANIES` array (search for its `id` or `name`).
+
+Update these fields using intelligence report data:
+
+**productMix** — Use segment revenue shares from the annual report:
+```js
+productMix: [{segment:"SegmentName",pct:XX}, ...]
+```
+Percentages must sum to ~100. Use segment names as the company reports them.
+
+**premiumMix** — Estimate premium/mass/economy split from transcript intelligence:
+```js
+premiumMix: {premium:XX,mass:XX,economy:XX}
+```
+Look for BLDC penetration, premium product mentions, mass-market brand share. Must sum to 100.
+
+**variance** — Enrich with specific intelligence from transcripts:
+- Keep existing financial metrics (revenue growth, EBITDA margin, net profit)
+- ADD: operating leverage signals, margin guidance (bps), capacity utilization, key turnaround metrics, employee cost trends
+- Keep it dense but factual — every claim must come from the report
+
+**source** — Add transcript and annual report sources:
+```js
+source: "Company Filings (TICKER/consolidated/) | Q1-Q3 FYXX Earnings Transcripts | Annual Report FYXX | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025"
+```
+
+### 4.2: Talk vs Walk Card
+
+Find the company's `<div class="tvw-card">` in the Executive Snapshot section (search for the company name inside a tvw-card).
+
+Update:
+- **Management Says**: Use 3-4 direct management quotes/claims from transcripts showing their narrative. Use `&ldquo;` and `&rdquo;` for quotes.
+- **Data Shows**: Contrast with actual data points that reveal the reality. Include specific numbers (revenue growth, margin trends, cost stability, capacity constraints, cash reserves). Use `&rarr;` for trend arrows, `&lt;` for less-than.
+- **Source attribution**: Change tier to `tier-verified` and source to transcript + annual report references.
+- **Badge**: Keep existing badge (Disconnect/Stealth Signal/Aligned) or update based on the gap between management narrative and data reality:
+  - `tvw-badge-disconnect` — Management overpromises vs data underdelivers
+  - `tvw-badge-stealth` — Management is conservative but data shows outperformance
+  - `tvw-badge-aligned` — Management claims match data closely
+
+### 4.3: Scale vs Profitability Matrix Row
+
+Find the company's `<tr>` in the Scale Matrix table (search for the company name in a `<strong>` tag near the matrix).
+
+Update the last `<td>` (description column) with verified business model data:
+- Distribution scale (dealers, retailers, channel partners)
+- Brand/SKU count
+- Import dependency
+- Cash reserves
+- Key capacity or strategic signals
+- Use `&lt;` for less-than in HTML
+
+### 4.4: A&M Value-Add Kanban Card
+
+Find the company's `<div class="kanban-card">` in the A&M Value-Add section.
+
+Update:
+- **kanban-card-type**: Change from generic to specific advisory angle (e.g., "Multi-Front Growth Advisory", "Margin Turnaround Play", "Capacity Unlock Strategy")
+- **kanban-card-points**: Replace with 3-4 specific, actionable advisory angles derived from the intelligence report. Each `<li>` should be a concrete opportunity with numbers.
+- **Source**: Change tier to `tier-verified` with transcript + annual report references.
+
+### 4.5: Watchlist Entry
+
+Find the company's `<div class="q-entry">` in the Watchlist section.
+
+Update:
+- **q-entry-signal**: Replace with specific margin/growth thesis from transcripts. Include management guidance, operating leverage evidence, key financial metrics. Change source tier badge to `tier-verified`.
+- **q-entry-detail**: Replace with specific catalysts (capacity, margin normalization, premium mix, new revenue streams) with numbers.
+- **severity-dots**: Upgrade to 5/5 if transcript evidence is direct and strong. Use this HTML for 5/5:
+  ```html
+  <span class="severity-dots" title="Severity: 5/5"><span class="dot filled high"></span><span class="dot filled high"></span><span class="dot filled high"></span><span class="dot filled high"></span><span class="dot filled high"></span></span>
+  ```
+- **Source**: Change to `tier-verified` with transcript + annual report references.
+
+---
+
+## Phase 5: Verification Checklist
+
+After all edits, report to the user:
+
+1. **Intelligence Report**: Path to the generated report, document count, section count
+2. **Dashboard Updates Made**:
+   - COMPANIES array: productMix, premiumMix, variance, source
+   - Talk vs Walk card: management says / data shows
+   - Scale Matrix row: description
+   - Kanban card: type + advisory points
+   - Watchlist entry: signal + catalysts + severity
+3. **Sections to verify in browser**:
+   - Financial Performance table (click company row)
+   - Executive Snapshot > Talk vs Walk
+   - Sub-Sector Deep Dive > Product Mix chart
+   - Sub-Sector Deep Dive > Premiumization chart
+   - Sub-Sector Deep Dive > Scale Matrix
+   - A&M Value-Add kanban
+   - Watchlist quadrant
+
+---
+
+## Important Rules
+
+- **Never fabricate data**. If something is not in the source documents, mark it as "NOT DISCLOSED" in the report and do not put it in the dashboard.
+- **Use direct quotes** as evidence. Wrap management quotes in proper HTML entities (&ldquo; &rdquo;) in the dashboard.
+- **Preserve existing financial metrics** in the COMPANIES array (revGrowth, ebitdaMargin, wcDays, roce, de, pe, netProfit, etc.) — only update the narrative/mix fields.
+- **Source tier**: Use `tier-verified` for data directly from transcripts/annual reports. Use `tier-derived` only for calculated/inferred data.
+- **HTML entities**: Use `&rarr;` for arrows, `&lt;` for less-than, `&mdash;` for em-dash, `&ndash;` for en-dash, `&ldquo;`/`&rdquo;` for smart quotes in HTML sections. In JavaScript strings, use regular characters.
+- If the company does NOT exist in the dashboard yet, inform the user — do not add new companies to the COMPANIES array without explicit instruction.
