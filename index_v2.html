@@ -351,6 +351,31 @@
     .dark .perf-tag.inline { background: rgba(59,130,246,0.12); color: var(--info-500); }
     .dark .perf-tag.underperform { background: rgba(239,68,68,0.12); color: var(--danger-500); }
 
+    /* === A&M Signal Dot + Sub-Category Badge === */
+    .am-signal-cell { display: flex; align-items: center; gap: 7px; white-space: nowrap; }
+    .am-signal-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .am-signal-dot.monitor { background: var(--intelligence-blue); }
+    .am-signal-dot.perf-improve { background: var(--amber); }
+    .am-signal-dot.turnaround { background: var(--red); }
+    .am-signal-dot.transaction { background: var(--green); }
+    .am-signal-label { font-size: 11px; font-weight: 500; color: var(--text-secondary); }
+    .subsector-badge {
+      display: inline-block; font-size: 10px; font-weight: 600; padding: 3px 10px;
+      border-radius: var(--radius-full); white-space: nowrap;
+    }
+    .subsector-badge.cooling { background: rgba(59,130,246,0.1); color: var(--info-700); }
+    .subsector-badge.appliances { background: rgba(124,58,237,0.1); color: var(--purple); }
+    .subsector-badge.electrical { background: rgba(245,158,11,0.1); color: var(--warning-700); }
+    .subsector-badge.kitchen { background: rgba(236,72,153,0.1); color: #DB2777; }
+    .subsector-badge.ems-oem { background: rgba(16,185,129,0.1); color: var(--success-700); }
+    .subsector-badge.diversified { background: rgba(100,116,139,0.1); color: var(--slate-600); }
+    .dark .subsector-badge.cooling { background: rgba(59,130,246,0.15); color: var(--info-500); }
+    .dark .subsector-badge.appliances { background: rgba(124,58,237,0.15); color: #A78BFA; }
+    .dark .subsector-badge.electrical { background: rgba(245,158,11,0.15); color: var(--warning-500); }
+    .dark .subsector-badge.kitchen { background: rgba(236,72,153,0.15); color: #F472B6; }
+    .dark .subsector-badge.ems-oem { background: rgba(16,185,129,0.15); color: var(--success-500); }
+    .dark .subsector-badge.diversified { background: rgba(100,116,139,0.15); color: var(--slate-400); }
+
     /* === Value Colors === */
     .val-positive { color: var(--positive); }
     .val-negative { color: var(--negative); }
@@ -1760,16 +1785,18 @@
       <table class="metrics-table" id="financialTable">
         <thead>
           <tr>
+            <th data-sort="amSignal" data-tip="A&amp;M advisory classification: Monitor, Perf. Improve, Turnaround, Transaction">A&amp;M Signal <span class="sort-arrow">&#9670;</span></th>
             <th data-sort="name" class="active">Company <span class="sort-arrow">&#9650;</span></th>
-            <th data-sort="revGrowth" class="right" data-tip="Revenue Growth Year-over-Year: % change vs same quarter last year">Rev. Growth YoY <span class="sort-arrow">&#9670;</span></th>
-            <th data-sort="ebitdaMargin" class="right" data-tip="Earnings Before Interest, Tax, Depreciation &amp; Amortisation as % of revenue">EBITDA Margin <span class="sort-arrow">&#9670;</span></th>
+            <th data-sort="subSector">Sub-Category <span class="sort-arrow">&#9670;</span></th>
+            <th data-sort="qSales" class="right" data-tip="Quarterly revenue in INR Crores from latest reported quarter">Revenue (&#8377;Cr) <span class="sort-arrow">&#9670;</span></th>
+            <th data-sort="revGrowth" class="right" data-tip="Revenue Growth Year-over-Year: % change vs same quarter last year">YoY Growth <span class="sort-arrow">&#9670;</span></th>
+            <th data-sort="ebitdaMargin" class="right" data-tip="Earnings Before Interest, Tax, Depreciation &amp; Amortisation as % of revenue">EBITDA % <span class="sort-arrow">&#9670;</span></th>
             <th data-sort="wcDays" class="right" data-tip="Working Capital Days: (Current Assets - Current Liabilities) / (Revenue/365). Negative = cash-generative">WC Days <span class="sort-arrow">&#9670;</span></th>
-            <th data-sort="roce" class="right" data-tip="Return on Capital Employed: EBIT / Capital Employed">ROCE <span class="sort-arrow">&#9670;</span></th>
+            <th data-sort="invDays" class="right" data-tip="Inventory Days: Average inventory / (COGS/365). Lower = faster inventory turnover">Inv. Days <span class="sort-arrow">&#9670;</span></th>
             <th data-sort="de" class="right" data-tip="Debt-to-Equity: Total borrowings / shareholders equity. Above 1.0x = more debt than equity">D/E <span class="sort-arrow">&#9670;</span></th>
-            <th data-tip="Top A&amp;M signal from Transcript Intel analysis. Click row for full company detail.">A&amp;M Signal</th>
-            <th data-sort="pe" class="right derived-col" data-tip="Price-to-Earnings ratio: Market price per share / Earnings per share. Source: Company filings">P/E <span class="sort-arrow">&#9670;</span></th>
-            <th data-sort="netProfit" class="right derived-col" data-tip="Net Profit in Crores after tax. Source: Company filings">Net Profit (Cr) <span class="sort-arrow">&#9670;</span></th>
-            <th data-sort="invDays" class="right derived-col" data-tip="Inventory Days: Average inventory / (COGS/365). Lower = faster inventory turnover">Inv Days <span class="sort-arrow">&#9670;</span></th>
+            <th data-sort="roce" class="right" data-tip="Return on Capital Employed: EBIT / Capital Employed">ROCE % <span class="sort-arrow">&#9670;</span></th>
+            <th data-sort="pe" class="right derived-col" data-tip="Price-to-Earnings ratio: Market price per share / Earnings per share">P/E <span class="sort-arrow">&#9670;</span></th>
+            <th data-sort="netProfit" class="right derived-col" data-tip="Net Profit in Crores after tax">Net Profit (Cr) <span class="sort-arrow">&#9670;</span></th>
             <th data-sort="debtorDays" class="right derived-col" data-tip="Debtor Days: Average receivables / (Revenue/365). Lower = faster cash collection">Debtor Days <span class="sort-arrow">&#9670;</span></th>
             <th data-sort="ccc" class="right derived-col" data-tip="Cash Conversion Cycle = Inv Days + Debtor Days - Days Payable. Lower/negative = more efficient">CCC <span class="sort-arrow">&#9670;</span></th>
             <th style="width:32px"></th>
@@ -3359,7 +3386,7 @@
     // ========== REAL FINANCIAL DATA (Source: Company filings, Q3 FY2026) ==========
     var COMPANIES = [
       {
-        id: "amber", name: "Amber Enterprises India", ticker: "AMBER", subSector: "EMS/OEM",
+        id: "amber", name: "Amber Enterprises India", ticker: "AMBER", subSector: "EMS/OEM", amSignal: "transaction",
         revGrowth: 37.9, ebitdaMargin: 11.17, wcDays: -28, roce: 14.5, de: 0.77, pe: 72.3,
         netProfit: -9, invDays: 45, debtorDays: 52, ccc: 69,
         revTrend: [1580,1890,2143,2943], ebitdaTrend: [9.2,10.1,10.8,11.2],
@@ -3371,7 +3398,7 @@
         premiumMix: {premium:15,mass:60,economy:25}
       },
       {
-        id: "bajaj", name: "Bajaj Electricals", ticker: "BAJAJELEC", subSector: "Electrical",
+        id: "bajaj", name: "Bajaj Electricals", ticker: "BAJAJELEC", subSector: "Electrical", amSignal: "turnaround",
         revGrowth: -18.5, ebitdaMargin: 4.09, wcDays: 35, roce: 11.6, de: 0.13, pe: null,
         netProfit: -34, invDays: 38, debtorDays: 62, ccc: 65,
         revTrend: [1350,1290,1310,1051], ebitdaTrend: [7.1,5.8,5.2,4.1],
@@ -3383,7 +3410,7 @@
         premiumMix: {premium:15,mass:50,economy:35}
       },
       {
-        id: "bluestar", name: "Blue Star", ticker: "BLUESTARCO", subSector: "Cooling",
+        id: "bluestar", name: "Blue Star", ticker: "BLUESTARCO", subSector: "Cooling", amSignal: "monitor",
         revGrowth: 4.2, ebitdaMargin: 7.5, wcDays: 16, roce: 26.2, de: 0.33, pe: 61.5,
         netProfit: 81, invDays: 28, debtorDays: 55, ccc: 47,
         revTrend: [2450,2680,2810,2925], ebitdaTrend: [6.8,7.0,7.2,7.5],
@@ -3395,7 +3422,7 @@
         premiumMix: {premium:35,mass:50,economy:15}
       },
       {
-        id: "butterfly", name: "Butterfly Gandhimathi", ticker: "BUTTERFLY", subSector: "Kitchen",
+        id: "butterfly", name: "Butterfly Gandhimathi", ticker: "BUTTERFLY", subSector: "Kitchen", amSignal: "monitor",
         revGrowth: 2.9, ebitdaMargin: 10.61, wcDays: 30, roce: 15.0, de: 0.03, pe: 38.2,
         netProfit: 11, invDays: 42, debtorDays: 35, ccc: 47,
         revTrend: [220,228,238,245], ebitdaTrend: [9.5,10.0,10.3,10.6],
@@ -3407,7 +3434,7 @@
         premiumMix: {premium:20,mass:55,economy:25}
       },
       {
-        id: "crompton", name: "Crompton Greaves Consumer", ticker: "CROMPTON", subSector: "Electrical",
+        id: "crompton", name: "Crompton Greaves Consumer", ticker: "CROMPTON", subSector: "Electrical", amSignal: "transaction",
         revGrowth: 7.3, ebitdaMargin: 10.3, wcDays: -16, roce: 19.0, de: 0.05, pe: 45.1,
         netProfit: 101, invDays: 22, debtorDays: 18, ccc: 24,
         revTrend: [1680,1750,1770,1898], ebitdaTrend: [9.5,9.8,10.0,10.3],
@@ -3419,7 +3446,7 @@
         premiumMix: {premium:25,mass:50,economy:25}
       },
       {
-        id: "dixon", name: "Dixon Technologies", ticker: "DIXON", subSector: "EMS/OEM",
+        id: "dixon", name: "Dixon Technologies", ticker: "DIXON", subSector: "EMS/OEM", amSignal: "monitor",
         revGrowth: 2.1, ebitdaMargin: 4.81, wcDays: 2, roce: 40.0, de: 0.34, pe: 97.4,
         netProfit: 321, invDays: 15, debtorDays: 52, ccc: -7,
         revTrend: [5200,8400,10450,10673], ebitdaTrend: [5.2,4.8,4.6,4.8],
@@ -3431,7 +3458,7 @@
         premiumMix: {premium:10,mass:60,economy:30}
       },
       {
-        id: "havells", name: "Havells India", ticker: "HAVELLS", subSector: "Diversified",
+        id: "havells", name: "Havells India", ticker: "HAVELLS", subSector: "Diversified", amSignal: "transaction",
         revGrowth: 14.3, ebitdaMargin: 9.2, wcDays: 12, roce: 25.3, de: 0.03, pe: 68.9,
         netProfit: 300, invDays: 30, debtorDays: 28, ccc: 46,
         revTrend: [4200,4650,4890,5588], ebitdaTrend: [8.4,8.7,9.0,9.2],
@@ -3443,7 +3470,7 @@
         premiumMix: {premium:35,mass:50,economy:15}
       },
       {
-        id: "ifb", name: "IFB Industries", ticker: "IFBIND", subSector: "Appliances",
+        id: "ifb", name: "IFB Industries", ticker: "IFBIND", subSector: "Appliances", amSignal: "perf-improve",
         revGrowth: 8.3, ebitdaMargin: 7.43, wcDays: -2, roce: 17.4, de: 0.18, pe: 52.8,
         netProfit: 24, invDays: 32, debtorDays: 25, ccc: 55,
         revTrend: [1150,1220,1270,1375], ebitdaTrend: [5.8,6.2,6.8,7.4],
@@ -3455,7 +3482,7 @@
         premiumMix: {premium:40,mass:45,economy:15}
       },
       {
-        id: "orient", name: "Orient Electric", ticker: "ORIENTELEC", subSector: "Electrical",
+        id: "orient", name: "Orient Electric", ticker: "ORIENTELEC", subSector: "Electrical", amSignal: "monitor",
         revGrowth: 10.9, ebitdaMargin: 9.60, wcDays: 23, roce: 17.9, de: 0.17, pe: 58.3,
         netProfit: 26, invDays: 35, debtorDays: 40, ccc: 52,
         revTrend: [760,800,817,906], ebitdaTrend: [8.2,8.8,9.1,9.6],
@@ -3467,7 +3494,7 @@
         premiumMix: {premium:30,mass:50,economy:20}
       },
       {
-        id: "symphony", name: "Symphony", ticker: "SYMPHONY", subSector: "Cooling",
+        id: "symphony", name: "Symphony", ticker: "SYMPHONY", subSector: "Cooling", amSignal: "monitor",
         revGrowth: -26.0, ebitdaMargin: 17.32, wcDays: -14, roce: 36.8, de: 0.01, pe: 44.6,
         netProfit: 20, invDays: 18, debtorDays: 22, ccc: 26,
         revTrend: [310,280,242,179], ebitdaTrend: [18.5,17.8,17.5,17.3],
@@ -3479,7 +3506,7 @@
         premiumMix: {premium:20,mass:55,economy:25}
       },
       {
-        id: "ttk", name: "TTK Prestige", ticker: "TTKPRESTIG", subSector: "Kitchen",
+        id: "ttk", name: "TTK Prestige", ticker: "TTKPRESTIG", subSector: "Kitchen", amSignal: "monitor",
         revGrowth: 10.2, ebitdaMargin: 11.49, wcDays: 69, roce: 11.6, de: 0.10, pe: 51.7,
         netProfit: 32, invDays: 72, debtorDays: 38, ccc: 79,
         revTrend: [710,730,728,801], ebitdaTrend: [11.8,11.5,11.2,11.5],
@@ -3491,7 +3518,7 @@
         premiumMix: {premium:40,mass:45,economy:15}
       },
       {
-        id: "vguard", name: "V-Guard Industries", ticker: "VGUARD", subSector: "Electrical",
+        id: "vguard", name: "V-Guard Industries", ticker: "VGUARD", subSector: "Electrical", amSignal: "transaction",
         revGrowth: 10.6, ebitdaMargin: 10.68, wcDays: 43, roce: 19.5, de: 0.07, pe: 55.2,
         netProfit: 57, invDays: 40, debtorDays: 48, ccc: 45,
         revTrend: [1180,1250,1270,1404], ebitdaTrend: [9.8,10.1,10.3,10.7],
@@ -3503,7 +3530,7 @@
         premiumMix: {premium:20,mass:55,economy:25}
       },
       {
-        id: "voltas", name: "Voltas", ticker: "VOLTAS", subSector: "Cooling",
+        id: "voltas", name: "Voltas", ticker: "VOLTAS", subSector: "Cooling", amSignal: "perf-improve",
         revGrowth: -1.1, ebitdaMargin: 5.41, wcDays: 43, roce: 17.6, de: 0.28, pe: 63.1,
         netProfit: 84, invDays: 35, debtorDays: 58, ccc: 50,
         revTrend: [2800,2950,3105,3071], ebitdaTrend: [4.8,5.0,5.2,5.4],
@@ -3515,7 +3542,7 @@
         premiumMix: {premium:25,mass:55,economy:20}
       },
       {
-        id: "whirlpool", name: "Whirlpool of India", ticker: "WHIRLPOOL", subSector: "Appliances",
+        id: "whirlpool", name: "Whirlpool of India", ticker: "WHIRLPOOL", subSector: "Appliances", amSignal: "monitor",
         revGrowth: 4.0, ebitdaMargin: 8.00, wcDays: -5, roce: 12.6, de: 0.02, pe: 42.1,
         netProfit: 27, invDays: 28, debtorDays: 15, ccc: 38,
         revTrend: [1580,1620,1705,1774], ebitdaTrend: [6.5,7.0,7.5,8.0],
@@ -3593,15 +3620,6 @@
       });
     }
 
-    function getTopSignal(companyId) {
-      var data = typeof SIGNAL_DATA !== 'undefined' && SIGNAL_DATA[companyId];
-      if (!data || !data.signals || !data.signals.length) return null;
-      // Find highest severity signal (Critical > High > Medium > Low > Informational)
-      var sevOrder = {Critical:0, High:1, Medium:2, Low:3, Informational:4};
-      var top = data.signals.slice().sort(function(a,b){ return (sevOrder[a.sev]||5) - (sevOrder[b.sev]||5) || a.r - b.r; })[0];
-      return top;
-    }
-
     function renderTable() {
       var filtered = COMPANIES.filter(function(c) {
         if (companyDropdownId && c.id !== companyDropdownId) return false;
@@ -3626,7 +3644,7 @@
       tbody.innerHTML = '';
 
       var showDerived = document.getElementById('financialTable').classList.contains('show-derived');
-      var colSpan = showDerived ? 13 : 8;
+      var colSpan = showDerived ? 15 : 11;
 
       if (sorted.length === 0) {
         var emptyRow = document.createElement('tr');
@@ -3644,17 +3662,21 @@
 
         tr.style.cursor = 'pointer';
         tr.onclick = (function(company) { return function(e) { if (e.target.tagName === 'BUTTON') return; openCompanyModal(company); }; })(c);
+        var amLabel = {monitor:'Monitor','perf-improve':'Perf. Improve',turnaround:'Turnaround',transaction:'Transaction'}[c.amSignal] || 'Monitor';
+        var subCls = c.subSector.toLowerCase().replace(/[\/\s]+/g,'-');
         tr.innerHTML =
-          '<td>' + esc(c.name) + ' <span class="perf-tag ' + c.perf + '">' + perfLabel + '</span></td>' +
+          '<td><div class="am-signal-cell"><span class="am-signal-dot ' + (c.amSignal||'monitor') + '"></span><span class="am-signal-label">' + amLabel + '</span></div></td>' +
+          '<td style="font-weight:600">' + esc(c.name) + '</td>' +
+          '<td><span class="subsector-badge ' + subCls + '">' + esc(c.subSector) + '</span></td>' +
+          '<td class="right mono">&#8377;' + c.qSales.toLocaleString('en-IN') + '<br><span style="font-size:10px;color:var(--text-muted)">Cr</span></td>' +
           '<td class="right"><div class="sparkline-cell">' + sparklineSVG(c.revTrend, c.revGrowth >= 0 ? 'var(--success-500)' : 'var(--danger-500)') + '<span class="mono ' + growthClass + '">' + growthSign + c.revGrowth.toFixed(1) + '%</span></div></td>' +
           '<td class="right"><div class="sparkline-cell">' + sparklineSVG(c.ebitdaTrend) + '<span class="mono">' + c.ebitdaMargin.toFixed(1) + '%</span></div></td>' +
-          '<td class="right mono">' + (c.wcDays != null ? c.wcDays + ' days' : 'NA') + '</td>' +
-          '<td class="right mono">' + (c.roce != null ? c.roce.toFixed(1) + '%' : 'NA') + '</td>' +
+          '<td class="right mono">' + (c.wcDays != null ? c.wcDays : 'NA') + '</td>' +
+          '<td class="right mono">' + (c.invDays != null ? c.invDays : 'NA') + '</td>' +
           '<td class="right mono">' + (c.de != null ? c.de.toFixed(2) + 'x' : 'NA') + '</td>' +
-          (function(){ var sig = getTopSignal(c.id); if (!sig) return '<td style="font-size:11px;color:var(--text-muted);text-align:center">&mdash;</td>'; return '<td style="font-size:10px;max-width:160px;line-height:1.35"><span class="badge ' + sevBadgeClass(sig.sev) + '" style="margin-right:4px">' + esc(sig.sev) + '</span>' + esc(sig.ind) + '</td>'; })() +
+          '<td class="right mono">' + (c.roce != null ? c.roce.toFixed(1) + '%' : 'NA') + '</td>' +
           '<td class="right mono derived-col">' + (c.pe != null ? c.pe.toFixed(1) + 'x' : 'NA') + '</td>' +
           '<td class="right mono derived-col ' + profitClass + '">' + (c.netProfit != null ? c.netProfit.toLocaleString('en-IN') : 'NA') + '</td>' +
-          '<td class="right mono derived-col">' + (c.invDays != null ? c.invDays : 'NA') + '</td>' +
           '<td class="right mono derived-col">' + (c.debtorDays != null ? c.debtorDays : 'NA') + '</td>' +
           '<td class="right mono derived-col">' + (c.ccc != null ? c.ccc : 'NA') + '</td>' +
           '<td><button class="expand-btn" onclick="event.stopPropagation();toggleExpand(this, \'' + c.id + '\')" title="Show details">&#9654;</button></td>';
