@@ -6,7 +6,7 @@ Gather intelligence from company documents and populate the dashboard.
 
 ## Overview
 
-This skill reads source documents (quarterly earnings transcripts + annual reports) from a company folder, generates a structured intelligence report, and then populates the corresponding company's data in the dashboard (`/Users/prateekkurkanji/Kompete/rohith-m5/index_v2.html`).
+This skill reads source documents (quarterly earnings transcripts + annual reports) from a company folder, generates a structured intelligence report, produces a severity-ranked pain point CSV for A&M turnaround consulting evaluation, and then populates the corresponding company's data in the dashboard (`/Users/prateekkurkanji/Kompete/rohith-m5/index_v2.html`).
 
 ---
 
@@ -132,7 +132,76 @@ Each section MUST have:
 
 ---
 
-## Phase 4: Dashboard Population
+## Phase 4: Pain Point Severity Ranking (CSV)
+
+After writing the intelligence report, generate a severity-ranked CSV of all signals for A&M turnaround consulting evaluation.
+
+### Input
+Use the intelligence report generated in Phase 3 as the sole input. Extract every discrete signal from all 11 sections + Strategic Signals Summary. Each insight, evidence bullet, risk, and opportunity is a signal.
+
+### Evaluation Criteria
+Assess each signal through A&M's turnaround consulting lens across these dimensions:
+- Financial impact (margin, cost, profitability)
+- Operational risk
+- Structural business risk
+- Strategic risk
+- Governance risk
+- Growth risk
+- Market competitiveness
+- Sustainability of performance
+
+### Severity Priority Order (highest to lowest)
+1. Structural risks (ownership, technology dependency, governance)
+2. Margin deterioration or cost escalation
+3. Operational disruptions
+4. Industry underperformance vs company
+5. Strategic execution gaps
+6. Watch signals
+7. Positive signals
+8. Informational signals
+
+### CSV Output Format
+
+Write to `{{arg1}}/{CompanyName}_Pain_Points_Ranked.csv` with these columns:
+
+```
+Rank,Indicator,Signal,Status,Time Period,Severity Level,Severity Rationale,Evidence (Verbatim),Source Document,Line Reference
+```
+
+Column rules:
+- **Rank**: 1 = highest severity (strongest A&M consulting opportunity)
+- **Indicator**: Section name or sub-section from the intelligence report (e.g., "Capacity Utilization", "Cost Structure — Employee Cost", "Market Share")
+- **Signal**: The business signal — use original wording from the intelligence report
+- **Status**: `positive` / `negative` / `watch` / `structural_risk` / `informational` / `not_disclosed`
+- **Time Period**: The fiscal period the signal refers to (e.g., "Q3 FY26", "FY25", "FY24-FY27")
+- **Severity Level**: `Critical` / `High` / `Medium` / `Low` / `Informational`
+- **Severity Rationale**: 1-2 lines explaining why this matters from a turnaround consulting perspective
+- **Evidence (Verbatim)**: Exact quotes from the intelligence report evidence bullets. Copy verbatim — do NOT summarize, paraphrase, shorten, or modify. If multiple evidence lines exist, join with ` | `. If no evidence was provided, write `Not Provided`
+- **Source Document**: Exact source document name as written in the intelligence report
+- **Line Reference**: Section number from the intelligence report (e.g., "Section 3", "Section 5c", "Strategic Signals — Key Risks #2")
+
+### Strict Rules
+- **One row per signal** — do not merge signals
+- **Every signal from the report must appear** — no omissions
+- **No external knowledge** — use ONLY data from the intelligence report
+- **No fabrication** — if data was "NOT DISCLOSED", still include and rank it (typically Low/Informational severity)
+- **Evidence must be verbatim** — this is non-negotiable
+- **Positive signals get ranked too** — but lower severity (they indicate less A&M opportunity)
+- Structural risks outrank short-term fluctuations
+- Escape commas in CSV fields with double quotes
+
+### Self-Verification (before writing CSV)
+Before producing the final file, internally verify:
+- All signals from all 11 sections + Strategic Signals are included
+- No duplicates
+- Ranking order follows severity priority logic
+- Sources preserved exactly
+- Evidence is verbatim (not summarized)
+- No hallucinated signals
+
+---
+
+## Phase 5: Dashboard Population
 
 Read the dashboard file: `/Users/prateekkurkanji/Kompete/rohith-m5/index_v2.html`
 
@@ -215,12 +284,13 @@ Update:
 
 ---
 
-## Phase 5: Verification Checklist
+## Phase 6: Verification Checklist
 
 After all edits, report to the user:
 
 1. **Intelligence Report**: Path to the generated report, document count, section count
-2. **Dashboard Updates Made**:
+2. **Pain Points CSV**: Path to the ranked CSV, total signal count, critical/high/medium/low breakdown
+3. **Dashboard Updates Made**:
    - COMPANIES array: productMix, premiumMix, variance, source
    - Talk vs Walk card: management says / data shows
    - Scale Matrix row: description
