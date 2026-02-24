@@ -1029,9 +1029,9 @@
     .opp-summary { background: linear-gradient(135deg, rgba(59,130,246,0.06), rgba(59,130,246,0.02)); border: 1px solid rgba(59,130,246,0.2); border-radius: 10px; padding: 18px 22px; margin-bottom: 24px; }
     .dark .opp-summary { background: linear-gradient(135deg, rgba(59,130,246,0.08), rgba(59,130,246,0.03)); border-color: rgba(59,130,246,0.2); }
     .opp-summary-title { font-size: 14px; font-weight: 700; color: var(--intelligence-blue); margin-bottom: 12px; font-family: var(--font-display); }
-    .opp-summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-    @media (max-width: 900px) { .opp-summary-grid { grid-template-columns: repeat(2, 1fr); } }
-    .opp-summary-stat { text-align: center; }
+    .opp-summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    @media (max-width: 900px) { .opp-summary-grid { grid-template-columns: 1fr; } }
+    .opp-summary-stat { text-align: center; padding: 12px 8px; background: rgba(59,130,246,0.04); border-radius: 8px; }
     .opp-summary-value { font-size: 22px; font-weight: 800; font-family: var(--font-display); color: var(--text-primary); }
     .opp-summary-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; margin-top: 4px; }
 
@@ -1497,6 +1497,9 @@
           </div>
         </div>
       </div>
+      <h3 class="sub-header" style="margin-top:28px">Q3 FY26 Earnings Snapshot</h3>
+      <div id="earningsGrid" class="card-grid cols-4"></div>
+
       <h3 class="sub-header" style="margin-top:28px">Talk vs Walk &mdash; Narrative Disconnects</h3>
       <p style="font-size:11px; color:var(--text-muted); margin:-8px 0 14px 0;">Where management narrative diverges from financial reality (cross-referencing concall themes vs Q3 FY26 data)</p>
 
@@ -2084,12 +2087,6 @@
       <h3 class="sub-header">Working Capital &amp; Efficiency Heatmap</h3>
       <div id="wcHeatmap" style="margin-bottom:24px"></div>
 
-      <h3 class="sub-header">Q3 FY26 Earnings Snapshot</h3>
-      <div id="earningsGrid" class="card-grid cols-4"></div>
-
-      <h3 class="sub-header">EBITDA Margin Bands</h3>
-      <div id="marginBandsContainer" class="card" style="margin-bottom:24px"></div>
-
       <div class="section-footer"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Company Filings, Q3 FY2026</span> &middot; Q3 FY2026</div>
     </div>
 
@@ -2425,7 +2422,7 @@
         <input type="text" id="compCompanyFilter" class="company-filter-input" placeholder="Filter by company..." />
       </div>
 
-      <h3 class="sub-header">Competitive Intensity Heatmap</h3>
+      <h3 class="sub-header">Strategic Activity Heatmap <span style="font-size:11px;font-weight:400;color:var(--text-muted)">(Q3 FY2026)</span></h3>
       <p style="font-size:10px;color:var(--text-muted);margin:-8px 0 10px 0">Click any colored cell to see detailed moves for that company and type</p>
       <div id="compHeatmap" style="overflow-x:auto;margin-bottom:24px"></div>
 
@@ -2435,7 +2432,7 @@
         <strong>4 companies</strong> have moves with operational implications &mdash; <a onclick="document.querySelector('[data-section=operations]').click()">see Operational Intelligence section</a>
       </div>
 
-      <h3 class="sub-header">Strategic Moves</h3>
+      <h3 class="sub-header">Strategic Moves <span style="font-size:11px;font-weight:400;color:var(--text-muted)">(Q3 FY2026)</span></h3>
       <div class="filter-bar" id="moveFilterBar">
         <span class="filter-label">Filter:</span>
         <button class="type-filter active" onclick="filterMoves('all')">All <span class="count">(14)</span></button>
@@ -5790,7 +5787,6 @@
     renderSubSectorCards();
     renderSummaryStats();
     renderEarningsSnapshot();
-    renderMarginBands();
     renderProductMixGrid();
     renderRevenueTrendChart();
     renderEbitdaTrendChart();
