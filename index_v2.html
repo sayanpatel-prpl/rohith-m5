@@ -240,8 +240,10 @@
     .main {
       margin-left: 260px;
       flex: 1;
+      width: calc(100% - 260px);
       padding: 80px 32px 32px;
       max-width: 1440px;
+      box-sizing: border-box;
     }
 
     /* === Section Header === */
@@ -264,7 +266,7 @@
     }
 
     /* === Section Visibility === */
-    .section-panel { display: none; }
+    .section-panel { display: none; max-width: 100%; overflow: hidden; }
     .section-panel.active { display: block; animation: fadeSlideIn 0.3s ease-out; }
     @keyframes fadeSlideIn {
       from { opacity: 0; transform: translateY(8px); }
@@ -601,8 +603,8 @@
     .signal-table-toggle { padding: 10px 0; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: var(--text-secondary); border: none; background: none; font-family: var(--font-body); }
     .signal-table-toggle .toggle-arrow { transition: transform 0.2s; display: inline-block; }
     .signal-table-toggle.open .toggle-arrow { transform: rotate(90deg); }
-    .signal-table-wrap { overflow: hidden; }
-    .signal-table-wrap.collapsed { max-height: 0; }
+    .signal-table-wrap { overflow: hidden; overflow-x: auto; }
+    .signal-table-wrap.collapsed { max-height: 0; overflow: hidden; }
 
     /* Table severity row tinting */
     .signal-table tr.row-critical { background: rgba(239,68,68,0.04); }
@@ -1076,9 +1078,9 @@
     .opp-filter-row { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
     .opp-filter-row .filter-label { font-size: 11px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; }
     .opp-table-wrap { overflow-x: auto; }
-    .opp-table { width: 100%; border-collapse: collapse; font-size: 12px; }
-    .opp-table thead th { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-muted); padding: 8px 10px; border-bottom: 2px solid var(--surface-overlay); text-align: left; white-space: nowrap; position: sticky; top: 0; background: var(--surface); z-index: 2; }
-    .opp-table tbody td { padding: 7px 10px; border-bottom: 1px solid var(--surface-overlay); vertical-align: top; line-height: 1.45; }
+    .opp-table { width: 100%; border-collapse: collapse; font-size: 12px; table-layout: fixed; }
+    .opp-table thead th { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-muted); padding: 8px 10px; border-bottom: 2px solid var(--surface-overlay); text-align: left; position: sticky; top: 0; background: var(--surface); z-index: 2; }
+    .opp-table tbody td { padding: 7px 10px; border-bottom: 1px solid var(--surface-overlay); vertical-align: top; line-height: 1.45; overflow-wrap: break-word; word-break: break-word; }
     .opp-table .opp-account-cell { font-weight: 700; color: var(--text-primary); white-space: nowrap; }
     .opp-table .opp-stage-badge { display: inline-block; font-size: 9px; font-weight: 600; padding: 2px 7px; border-radius: 8px; margin-left: 6px; vertical-align: middle; }
     .opp-stage-badge.identified { background: rgba(234,179,8,0.12); color: #b45309; }
@@ -6112,11 +6114,11 @@
 
       var tierLabel = { verified: 'Verified', derived: 'Derived', guidance: 'Mgmt Guidance' };
       var html = '<table class="opp-table"><thead><tr>';
-      html += '<th style="min-width:140px">Account</th>';
-      html += '<th style="min-width:170px">Opportunity</th>';
-      html += '<th style="min-width:150px">A&amp;M Services / Offerings</th>';
-      html += '<th style="min-width:200px">Signals</th>';
-      html += '<th style="min-width:160px">Source</th>';
+      html += '<th style="width:15%">Account</th>';
+      html += '<th style="width:22%">Opportunity</th>';
+      html += '<th style="width:20%">A&amp;M Services / Offerings</th>';
+      html += '<th style="width:28%">Signals</th>';
+      html += '<th style="width:15%">Source</th>';
       html += '</tr></thead><tbody>';
 
       filtered.forEach(function(d) {
