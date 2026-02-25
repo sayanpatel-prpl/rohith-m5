@@ -141,6 +141,7 @@
       overflow-y: auto;
       display: flex;
       flex-direction: column;
+      z-index: 50;
     }
     .sidebar-brand {
       padding: 20px 24px;
@@ -581,11 +582,14 @@
     .legend-info::before { background: var(--intelligence-blue) !important; opacity: 0.3; }
 
     /* === Top Signal Cards === */
-    .top-signals-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .top-signals-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; overflow: hidden; }
     .top-signal-card {
       padding: 14px 16px; border-radius: var(--radius-md); background: var(--card-bg);
       border: 1px solid var(--surface-overlay); border-left: 3px solid var(--negative);
+      min-width: 0; overflow: hidden;
     }
+    .top-signal-card .tsc-signal,
+    .top-signal-card .tsc-rationale { overflow-wrap: break-word; word-break: break-word; }
     .top-signal-card.sev-high { border-left-color: var(--warning); }
     .top-signal-card .tsc-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; }
     .top-signal-card .tsc-indicator { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.03em; }
@@ -1273,6 +1277,13 @@
     .dark .heat-cool { background: rgba(59,130,246,0.08); }
     .dark .heat-warm { background: rgba(245,158,11,0.14); color: var(--warning-500); }
     .dark .heat-hot { background: rgba(239,68,68,0.18); color: var(--danger-500); }
+
+    /* === WC Heatmap compact layout === */
+    .wc-heatmap-table { table-layout: fixed; }
+    .wc-heatmap-table th, .wc-heatmap-table td { padding: 10px 10px; }
+    .wc-heatmap-table th:nth-child(1) { width: 18%; }
+    .wc-heatmap-table th:nth-child(2) { width: 14%; }
+    .wc-heatmap-table th:nth-child(n+3) { width: auto; }
 
     /* === Leadership & Governance === */
     .lead-trigger { background: var(--surface); border: 1px solid var(--surface-overlay); border-radius: 8px; padding: 14px 16px; position: relative; }
@@ -5812,21 +5823,21 @@
       function hCcc(v) { if (v <= 30) return 'heat-cold'; if (v <= 45) return 'heat-cool'; if (v <= 55) return 'heat-neutral'; if (v <= 70) return 'heat-warm'; return 'heat-hot'; }
       function hDe(v) { if (v <= 0.05) return 'heat-cold'; if (v <= 0.15) return 'heat-cool'; if (v <= 0.30) return 'heat-neutral'; if (v <= 0.50) return 'heat-warm'; return 'heat-hot'; }
 
-      var html = '<div style="overflow-x:auto"><table class="comparison-table"><thead><tr>';
-      html += '<th>Company</th><th>Sub-Sector</th><th class="right">WC Days</th><th class="right">Inv Days</th><th class="right">Debtor Days</th><th class="right">CCC</th><th class="right">D/E</th>';
+      var html = '<table class="comparison-table wc-heatmap-table"><thead><tr>';
+      html += '<th>Company</th><th>Sub-Sector</th><th style="text-align:center">WC Days</th><th style="text-align:center">Inv Days</th><th style="text-align:center">Debtor Days</th><th style="text-align:center">CCC</th><th style="text-align:center">D/E</th>';
       html += '</tr></thead><tbody>';
       sorted.forEach(function(c) {
         html += '<tr>';
         html += '<td style="font-weight:600;white-space:nowrap">' + esc(c.name) + '</td>';
-        html += '<td style="font-size:11px;color:var(--text-muted)">' + esc(c.subSector) + '</td>';
-        html += '<td class="right mono ' + hWc(c.wcDays) + '">' + c.wcDays + '</td>';
-        html += '<td class="right mono ' + hInv(c.invDays) + '">' + c.invDays + '</td>';
-        html += '<td class="right mono ' + hDeb(c.debtorDays) + '">' + c.debtorDays + '</td>';
-        html += '<td class="right mono ' + hCcc(c.ccc) + '">' + c.ccc + '</td>';
-        html += '<td class="right mono ' + hDe(c.de) + '">' + c.de.toFixed(2) + '</td>';
+        html += '<td style="font-size:11px;color:var(--text-muted);white-space:nowrap">' + esc(c.subSector) + '</td>';
+        html += '<td class="mono ' + hWc(c.wcDays) + '" style="text-align:center">' + c.wcDays + '</td>';
+        html += '<td class="mono ' + hInv(c.invDays) + '" style="text-align:center">' + c.invDays + '</td>';
+        html += '<td class="mono ' + hDeb(c.debtorDays) + '" style="text-align:center">' + c.debtorDays + '</td>';
+        html += '<td class="mono ' + hCcc(c.ccc) + '" style="text-align:center">' + c.ccc + '</td>';
+        html += '<td class="mono ' + hDe(c.de) + '" style="text-align:center">' + c.de.toFixed(2) + '</td>';
         html += '</tr>';
       });
-      html += '</tbody></table></div>';
+      html += '</tbody></table>';
       el.innerHTML = html;
     }
 
