@@ -530,13 +530,14 @@
     .persona-card li::before { content: ''; position: absolute; left: 0; top: 14px; width: 4px; height: 4px; border-radius: 50%; background: var(--brand-accent); }
 
     /* === Transcript Intel Layout === */
-    .intel-layout { display: flex; gap: 24px; }
-    .intel-sidebar { width: 220px; flex-shrink: 0; max-height: 75vh; overflow-y: auto; display: flex; flex-direction: column; gap: 2px; }
+    .intel-layout { display: flex; flex-direction: column; gap: 20px; }
+    .intel-sidebar { width: 100%; overflow-x: auto; overflow-y: hidden; display: flex; flex-direction: row; gap: 8px; padding-bottom: 4px; }
     .intel-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 20px; }
 
     .intel-company-item {
       padding: 10px 12px; border-radius: var(--radius-md); cursor: pointer;
       border: 1px solid transparent; transition: all 0.15s; background: transparent;
+      min-width: 160px; flex-shrink: 0;
     }
     .intel-company-item:hover { background: var(--surface-overlay); }
     .intel-company-item.active { background: var(--card-bg); border-color: var(--intelligence-blue); box-shadow: 0 1px 4px rgba(59,130,246,0.08); }
@@ -605,11 +606,7 @@
     .dark .signal-table tr.row-critical { background: rgba(239,68,68,0.06); }
     .dark .signal-table tr.row-high { background: rgba(245,158,11,0.06); }
 
-    /* Responsive: sidebar to horizontal strip below 900px */
     @media (max-width: 900px) {
-      .intel-layout { flex-direction: column; }
-      .intel-sidebar { width: 100%; max-height: none; flex-direction: row; overflow-x: auto; overflow-y: hidden; gap: 8px; padding-bottom: 8px; }
-      .intel-company-item { min-width: 160px; flex-shrink: 0; }
       .risk-scorecard { grid-template-columns: repeat(2, 1fr); }
       .top-signals-grid { grid-template-columns: 1fr; }
       .ebitda-story-card { grid-template-columns: 1fr !important; }
@@ -3713,177 +3710,244 @@
   </div>
 
   <script>
-    // ========== REAL FINANCIAL DATA (Source: Company filings, Q3 FY2026) ==========
-    var COMPANIES = [
-      {
-        id: "amber", name: "Amber Enterprises India", ticker: "AMBER", subSector: "EMS/OEM", amSignal: "transaction",
-        revGrowth: 37.9, ebitdaMargin: 11.17, wcDays: -28, roce: 14.5, de: 0.77, pe: 72.3,
-        netProfit: -9, invDays: 45, debtorDays: 52, ccc: 69,
-        revTrend: [1580,1890,2143,2943], ebitdaTrend: [9.2,10.1,10.8,11.2],
-        perf: "outperform",
-        latestQ: "Q3 FY2026", qSales: 2943, qNetProfit: -9,
-        variance: "Q3 FY26 revenue Rs 2,943 Cr (+38% YoY). Consolidated EBITDA margin 8.4% (Q3 FY26) vs 8.0% (FY25) \u2014 operating leverage visible as other expenses fell from 7.0% to 5.5% of revenue. Reported PAT negative at Rs -9 Cr due to Rs 94 Cr Shivalik investment impairment (exceptional item). Adjusted PAT Rs 84 Cr. Consumer Durables div 67% of revenue, EBITDA margin 7.2%; Electronics div 28%, EBITDA margin hit 10.5% (new high); Railway div 5%, EBITDA margin 19.7%. Gross margin at 19.7% (Q3 FY26) \u2014 highest in series. RAC CBU share reduced from 72% (FY18) to ~40% (FY25). 26\u201327% RAC outsourced manufacturing market share. NWC days improved 13\u21929 days despite 48% FY25 revenue growth. Rs 4,200 Cr PCB capex pipeline (Hosur + Jewar). CRISIL AA-/Positive. D/E at 1.32x (FY25). Finance cost Rs 220 Cr (FY25, +32% YoY). 3 acquisitions in 12 months (Power One, Unitronics, Shogini). BEE rating norms change (Jan 2026) creates RAC refresh cycle. Railway order book Rs 2,600+ Cr. Structural risk: OEM brands taking RAC assembly in-house validated in FY24 (-7% Consumer Durables revenue).",
-        source: "Q3 FY26 Investor Presentation (Feb 2026) | Q4 FY25 Investor Presentation (May 2025) | Q3 FY25 Investor Presentation (Jan 2025) | Q4 FY24 Investor Presentation (May 2024) | 35th AGM Proceedings (Aug 2025) | CRISIL Credit Rating (Nov 2025)",
-        productMix: [{segment:"Consumer Durables (RAC+Components)",pct:67},{segment:"Electronics (PCB+Box Build)",pct:28},{segment:"Railway & Defense",pct:5}],
-        premiumMix: {premium:10,mass:65,economy:25}
-      },
-      {
-        id: "bajaj", name: "Bajaj Electricals", ticker: "BAJAJELEC", subSector: "Electrical", amSignal: "turnaround",
-        revGrowth: -18.5, ebitdaMargin: 4.09, wcDays: 35, roce: 11.6, de: 0.13, pe: null,
-        netProfit: -34, invDays: 38, debtorDays: 62, ccc: 65,
-        revTrend: [1350,1290,1310,1051], ebitdaTrend: [7.1,5.8,5.2,4.1],
-        perf: "underperform",
-        latestQ: "Q3 FY2026", qSales: 1051, qNetProfit: -34,
-        variance: "Q3 FY26 PBT before exceptional: -Rs 20.28 Cr (vs +Rs 20.27 Cr Q3 FY25). 9MFY26 revenue -9.7% YoY to Rs 3,210 Cr. Board pre-authorized minimum director remuneration for FY26 \u2014 admission of anticipated full-year losses. CP capacity utilization at 43% (10.8 Mn installed vs 4.6 Mn produced). Exceptional Rs 28.89 Cr gratuity/leave encashment signals workforce restructuring. Other expenses surged +17.5% in Q3 despite -5% revenue decline. Interest coverage deteriorated 3.7x \u2192 3.1x. EBITDA margin flat at 7.5% (FY24-FY25) but now in loss territory. Retailer base -15% (2L \u2192 1.7L); channel partner retention only 81%. Surplus funds Rs 509 Cr provides liquidity buffer. New MD Sanjay Sachdeva (Mar 2025) \u2014 strategy transition during operating stress.",
-        source: "Annual Report FY2024-25 (86th AR) | Annual Report FY2023-24 (85th AR) | Board Meeting Outcome Q3 FY26 (Feb 9, 2026) | 85th AGM Proceedings (Aug 2024)",
-        productMix: [{segment:"Consumer Products",pct:79},{segment:"Lighting Solutions",pct:21}],
-        premiumMix: {premium:20,mass:55,economy:25}
-      },
-      {
-        id: "bluestar", name: "Blue Star", ticker: "BLUESTARCO", subSector: "Cooling", amSignal: "monitor",
-        revGrowth: 4.2, ebitdaMargin: 7.5, wcDays: 16, roce: 26.2, de: 0.33, pe: 61.5,
-        netProfit: 81, invDays: 28, debtorDays: 55, ccc: 47,
-        revTrend: [2450,2680,2810,2925], ebitdaTrend: [6.8,7.0,7.2,7.5],
-        perf: "inline",
-        latestQ: "Q3 FY2026", qSales: 2925, qNetProfit: 81,
-        variance: "Revenue grew 4.2% YoY to INR 2,925 Cr in Q3 FY2026. EBITDA margin at 7.5%. Net profit: INR 81 Cr. Strong ROCE of 26.2%.",
-        source: "Company Filings (BLUESTARCO/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025",
-        productMix: [{segment:"Room AC",pct:40},{segment:"Commercial Refrigeration",pct:35},{segment:"Engineering Services",pct:25}],
-        premiumMix: {premium:35,mass:50,economy:15}
-      },
-      {
-        id: "butterfly", name: "Butterfly Gandhimathi", ticker: "BUTTERFLY", subSector: "Kitchen", amSignal: "monitor",
-        revGrowth: 2.9, ebitdaMargin: 10.61, wcDays: 30, roce: 15.0, de: 0.03, pe: 38.2,
-        netProfit: 11, invDays: 42, debtorDays: 35, ccc: 47,
-        revTrend: [220,228,238,245], ebitdaTrend: [9.5,10.0,10.3,10.6],
-        perf: "inline",
-        latestQ: "Q3 FY2026", qSales: 245, qNetProfit: 11,
-        variance: "EBITDA margin recovered 651 bps in 6 quarters: 2.94% (FY24) \u2192 7.55% (FY25) \u2192 9.5% (Q2 FY26). Revenue 18% below FY23 peak (Rs 865 Cr vs Rs 1,057 Cr) amid deliberate volume-for-margin trade-off. Material margin recovered to 41% (Q1 FY26, +320 bps YoY). ~80% in-house manufacturing. Steel single-source risk (no alternate vendor). Plant consolidated; capex cut 60% (Rs 2,125L \u2192 Rs 853L). Slow-moving inventory reduced 86%. Finance cost near-zero (D/E 0.04x). Q2 FY26: 14% YoY revenue growth described as \u2018industry-leading\u2019. 590+ distributors, 24,000+ retail outlets, 280+ service centres. Pan-India share ~5% vs ~15% South India. Crompton merger rejected by shareholders (72.6% against). Idea First Series (40+ SKUs) gaining traction on e-com and modern trade.",
-        source: "AR FY21 \u00b7 AR FY22-23 \u00b7 AR FY24-25 \u00b7 Q3 FY22 Investor Presentation \u00b7 Q1/Q2 FY26 Quarterly Results | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025",
-        productMix: [{segment:"LPG Stoves (#1 India)",pct:35},{segment:"Mixer Grinders (Top 3)",pct:25},{segment:"Pressure Cookers",pct:20},{segment:"Table-Top Wet Grinders (#1 India)",pct:10},{segment:"Other (Flasks, Fans, etc.)",pct:10}],
-        premiumMix: {premium:20,mass:55,economy:25}
-      },
-      {
-        id: "crompton", name: "Crompton Greaves Consumer", ticker: "CROMPTON", subSector: "Electrical", amSignal: "transaction",
-        revGrowth: 7.3, ebitdaMargin: 10.3, wcDays: -16, roce: 19.0, de: 0.05, pe: 45.1,
-        netProfit: 101, invDays: 22, debtorDays: 18, ccc: 24,
-        revTrend: [1680,1750,1770,1898], ebitdaTrend: [9.5,9.8,10.0,10.3],
-        perf: "inline",
-        latestQ: "Q3 FY2026", qSales: 1898, qNetProfit: 101,
-        variance: "Q3 FY26 consolidated revenue INR 1,898 Cr (+7.3% YoY); EBITDA 10.3% (+18.5% QoQ recovery from Q2 trough of 8.3%). Standalone material margin compressed 150 bps YoY (31.1% vs 32.6%) due to copper/aluminium/steel inflation. Zero-net-debt achieved Q1 FY26 (last Rs 300 Cr NCD repaid); interest coverage 27.01x. BLDC fans growing 50%+ QoQ; Nucleus BLDC PCB platform sold 1 lakh+ units since Nov 2025 launch. Water heaters reached #2 GT nationally. 9M FY26 EBITDA compressed to 9.6% vs FY25 peak of 11.66%. Price increases of 1-1.5% implemented Jan 2026 with more in Q4/Q1. Butterfly (75% sub) EBITDA improving: 8.2% Q3 FY26 (+100 bps YoY), net profit +44% YoY. Solar rooftop order book Rs 500 Cr; residential wires (Rs 36,000 Cr TAM) announced. Greenfield plant Rs 350 Cr capex over 2-3 years for domestic + export. Project UNNATI multi-sourcing +10%. Baroda VRS Rs 20.36 Cr (payback <2 yrs). Employee cost +13.6% YoY vs revenue +7.3% is a watch signal.",
-        source: "Q3 FY26 Earnings Call Transcript (BSE) | Q3 FY26 Investor Presentation | Q1 FY26 Earnings Call (BSE) | Q2 FY26 Investor Presentation | MD&A FY25 | BRSR FY25 | Q3 FY25 Press Release",
-        productMix: [{segment:"ECD (Fans/Pumps/Water Heaters/Coolers/SDA)",pct:75},{segment:"Lighting",pct:13},{segment:"Butterfly (Kitchen)",pct:12}],
-        premiumMix: {premium:30,mass:50,economy:20}
-      },
-      {
-        id: "dixon", name: "Dixon Technologies", ticker: "DIXON", subSector: "EMS/OEM", amSignal: "monitor",
-        revGrowth: 2.1, ebitdaMargin: 4.81, wcDays: 2, roce: 40.0, de: 0.34, pe: 97.4,
-        netProfit: 321, invDays: 15, debtorDays: 52, ccc: -7,
-        revTrend: [5200,8400,10450,10673], ebitdaTrend: [5.2,4.8,4.6,4.8],
-        perf: "inline",
-        latestQ: "Q3 FY2026", qSales: 10673, qNetProfit: 321,
-        variance: "Revenue grew 2.1% YoY to INR 10,673 Cr in Q3 FY2026. EBITDA margin at 4.8% (typical for EMS model). Net profit: INR 321 Cr. Exceptional ROCE of 40%.",
-        source: "Company Filings (DIXON/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025",
-        productMix: [{segment:"Mobile",pct:45},{segment:"Consumer Electronics",pct:25},{segment:"Lighting",pct:15},{segment:"Home Appliances",pct:10},{segment:"Security",pct:5}],
-        premiumMix: {premium:10,mass:60,economy:30}
-      },
-      {
-        id: "havells", name: "Havells India", ticker: "HAVELLS", subSector: "Diversified", amSignal: "transaction",
-        revGrowth: 14.3, ebitdaMargin: 9.2, wcDays: 12, roce: 25.3, de: 0.03, pe: 68.9,
-        netProfit: 300, invDays: 30, debtorDays: 28, ccc: 46,
-        revTrend: [4200,4650,4890,5588], ebitdaTrend: [8.4,8.7,9.0,9.2],
-        perf: "inline",
-        latestQ: "Q3 FY2026", qSales: 5588, qNetProfit: 300,
-        variance: "Revenue grew 14.3% YoY to INR 5,588 Cr in Q3 FY2026. EBITDA margin at 9.2% (+21% YoY EBITDA growth showing operating leverage). Net profit: INR 300 Cr. Near debt-free. ROCE 25.3%. Mgmt guided 150-200bps margin expansion. Cables at 90-100% utilization — capacity doubling FY24-FY27. Employee cost stable Rs 460-490 Cr/qtr for 7 quarters — structural operating leverage. Lloyd margin turnaround: -4.3% → 2.6%.",
-        source: "Company Filings (HAVELLS/consolidated/) | Q1-Q3 FY26 Earnings Transcripts | Annual Report FY25 | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025",
-        productMix: [{segment:"Cables",pct:33},{segment:"Lloyd",pct:24},{segment:"ECD",pct:19},{segment:"Switchgears",pct:11},{segment:"Lighting",pct:8},{segment:"Others",pct:5}],
-        premiumMix: {premium:40,mass:45,economy:15}
-      },
-      {
-        id: "ifb", name: "IFB Industries", ticker: "IFBIND", subSector: "Appliances", amSignal: "perf-improve",
-        revGrowth: 8.3, ebitdaMargin: 7.43, wcDays: -2, roce: 17.4, de: 0.18, pe: 52.8,
-        netProfit: 24, invDays: 32, debtorDays: 25, ccc: 55,
-        revTrend: [1150,1220,1270,1375], ebitdaTrend: [5.8,6.2,6.8,7.4],
-        perf: "inline",
-        latestQ: "Q3 FY2026", qSales: 1375, qNetProfit: 24,
-        variance: "Revenue grew 8.3% YoY to INR 1,375 Cr in Q3 FY2026. EBITDA margin at 7.4%. Net profit: INR 24 Cr. Negative WC days reflect efficient working capital management.",
-        source: "Company Filings (IFBIND/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025",
-        productMix: [{segment:"Washing Machines",pct:45},{segment:"Kitchen Appliances",pct:30},{segment:"AC",pct:15},{segment:"Engineering",pct:10}],
-        premiumMix: {premium:40,mass:45,economy:15}
-      },
-      {
-        id: "orient", name: "Orient Electric", ticker: "ORIENTELEC", subSector: "Electrical", amSignal: "monitor",
-        revGrowth: 10.9, ebitdaMargin: 9.60, wcDays: 23, roce: 17.9, de: 0.17, pe: 58.3,
-        netProfit: 26, invDays: 35, debtorDays: 40, ccc: 52,
-        revTrend: [760,800,817,906], ebitdaTrend: [8.2,8.8,9.1,9.6],
-        perf: "inline",
-        latestQ: "Q3 FY2026", qSales: 906, qNetProfit: 26,
-        variance: "Revenue grew 10.9% YoY to INR 906 Cr in Q3 FY2026. EBITDA margin at 9.6%. Net profit: INR 26 Cr.",
-        source: "Company Filings (ORIENTELEC/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025",
-        productMix: [{segment:"Fans",pct:40},{segment:"Lighting",pct:25},{segment:"Home Appliances",pct:20},{segment:"Switchgear",pct:15}],
-        premiumMix: {premium:30,mass:50,economy:20}
-      },
-      {
-        id: "symphony", name: "Symphony", ticker: "SYMPHONY", subSector: "Cooling", amSignal: "monitor",
-        revGrowth: -26.0, ebitdaMargin: 17.32, wcDays: -14, roce: 36.8, de: 0.01, pe: 44.6,
-        netProfit: 20, invDays: 18, debtorDays: 22, ccc: 26,
-        revTrend: [310,280,242,179], ebitdaTrend: [18.5,17.8,17.5,17.3],
-        perf: "underperform",
-        latestQ: "Q3 FY2026", qSales: 179, qNetProfit: 20,
-        variance: "FY25 landmark year: standalone revenue crossed Rs 1,000 Cr (Rs 1,182 Cr, +49% YoY), EBITDA margin expanded 404 bps to 24.25%. FY26 sharp reversal: 9M FY26 standalone revenue down 30% to Rs 566 Cr (rain-disrupted summer), EBITDA margin compressed to 14.4%. 100% asset-light model (zero manufacturing) with 486 employees; core India capital employed negative Rs 32 Cr (ROCE infinite). Q3 FY26 standalone: Rs 182 Cr revenue, 17.2% EBITDA margin, 45.2% gross margin. Diversification underway: RTY portfolio (water heaters, tower fans, LSV, kitchen cooling fans) = 26% of 9M FY26 revenue (up from <10%). Pathways Retail Rs 58 Cr bad debt (forensic fraud confirmed). CT Australia divestiture rolled back Jan 2026 after 10 NDAs; losses ongoing (9M FY26 EBITDA -Rs 8 Cr). Consolidated EBITDA margin 9.5% vs standalone 14.4% due to subsidiary drag. Treasury Rs 460 Cr, debt-free, 84% PAT payout ratio. Market leader by significant margin: domestic air cooler revenue Rs 1,065 Cr vs No.2 at ~Rs 250 Cr. 2 out of 3 Google air cooler searches are for Symphony.",
-        source: "Integrated Annual Report FY2024-25 | Q3 FY26 Earnings Call Transcript Jan 29, 2026 | Q4 FY25 Earnings Call Transcript May 8, 2025 | Q1 FY26 Earnings Call Transcript Aug 1, 2025 | Corporate Presentation Feb 2026 | Q3 FY25 Earnings Call Transcript Feb 5, 2025",
-        productMix: [{segment:"Household Air Coolers (India)",pct:74},{segment:"RTY Portfolio (Tower Fans/LSV/Water Heaters/Kitchen Cooling)",pct:10},{segment:"Exports (India)",pct:6},{segment:"Subsidiaries (Mexico/Australia/China/Brazil)",pct:10}],
-        premiumMix: {premium:30,mass:50,economy:20}
-      },
-      {
-        id: "ttk", name: "TTK Prestige", ticker: "TTKPRESTIG", subSector: "Kitchen", amSignal: "monitor",
-        revGrowth: 10.2, ebitdaMargin: 11.49, wcDays: 69, roce: 11.6, de: 0.10, pe: 51.7,
-        netProfit: 32, invDays: 72, debtorDays: 38, ccc: 79,
-        revTrend: [710,730,728,801], ebitdaTrend: [11.8,11.5,11.2,11.5],
-        perf: "inline",
-        latestQ: "Q3 FY2026", qSales: 801, qNetProfit: 32,
-        variance: "Revenue grew 10.2% YoY to INR 801 Cr in Q3 FY2026. EBITDA margin at 11.5%. FY25 standalone: Rs 2,530 Cr (+1.2%, underlying ~7% ex-MFI channel loss). EBITDA contracted 15.4% to 13.4% — Rs 500 Cr 3-yr transformation (Rs 200 Cr OPEX + Rs 300 Cr CAPEX) diluting margins 8 quarters. Q4 FY25 PAT -94% (Rs 71.4 Cr UK goodwill impairment). Debt-free, Rs 825 Cr cash. 667 Prestige Xclusive stores. ROCE 29.3% (from 34.6%). Target: Rs 5,000 Cr scale, 14-15% EBITDA.",
-        source: "Company Filings (TTKPRESTIG/consolidated/) | Q4 FY25 Earnings Transcript | Annual Report FY25 | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025",
-        productMix: [{segment:"Kitchen Appliances",pct:47},{segment:"Pressure Cookers",pct:31},{segment:"Cookware",pct:17},{segment:"Others",pct:5}],
-        premiumMix: {premium:35,mass:50,economy:15}
-      },
-      {
-        id: "vguard", name: "V-Guard Industries", ticker: "VGUARD", subSector: "Electrical", amSignal: "transaction",
-        revGrowth: 10.6, ebitdaMargin: 10.68, wcDays: 43, roce: 19.5, de: 0.07, pe: 55.2,
-        netProfit: 57, invDays: 40, debtorDays: 48, ccc: 45,
-        revTrend: [1180,1250,1270,1404], ebitdaTrend: [9.8,10.1,10.3,10.7],
-        perf: "inline",
-        latestQ: "Q3 FY2026", qSales: 1404, qNetProfit: 57,
-        variance: "Revenue grew 10.6% YoY to INR 1,404 Cr in Q3 FY2026. EBITDA margin at 10.7%. Net profit: INR 57 Cr. Near debt-free with D/E of 0.07x.",
-        source: "Company Filings (VGUARD/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025",
-        productMix: [{segment:"Wires & Cables",pct:35},{segment:"Stabilizers",pct:20},{segment:"Pumps",pct:15},{segment:"Kitchen",pct:15},{segment:"Water Heaters",pct:15}],
-        premiumMix: {premium:20,mass:55,economy:25}
-      },
-      {
-        id: "voltas", name: "Voltas", ticker: "VOLTAS", subSector: "Cooling", amSignal: "perf-improve",
-        revGrowth: -1.1, ebitdaMargin: 5.41, wcDays: 43, roce: 17.6, de: 0.28, pe: 63.1,
-        netProfit: 84, invDays: 35, debtorDays: 58, ccc: 50,
-        revTrend: [2800,2950,3105,3071], ebitdaTrend: [4.8,5.0,5.2,5.4],
-        perf: "underperform",
-        latestQ: "Q3 FY2026", qSales: 3071, qNetProfit: 84,
-        variance: "Revenue declined 1.1% YoY to INR 3,071 Cr in Q3 FY2026. EBITDA margin at 5.4%. Net profit: INR 84 Cr.",
-        source: "Company Filings (VOLTAS/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025",
-        productMix: [{segment:"Room AC",pct:55},{segment:"Commercial AC",pct:30},{segment:"Engineering Products",pct:15}],
-        premiumMix: {premium:25,mass:55,economy:20}
-      },
-      {
-        id: "whirlpool", name: "Whirlpool of India", ticker: "WHIRLPOOL", subSector: "Appliances", amSignal: "monitor",
-        revGrowth: 4.0, ebitdaMargin: 8.00, wcDays: -5, roce: 12.6, de: 0.02, pe: 42.1,
-        netProfit: 27, invDays: 28, debtorDays: 15, ccc: 38,
-        revTrend: [1580,1620,1705,1774], ebitdaTrend: [6.5,7.0,7.5,8.0],
-        perf: "inline",
-        latestQ: "Q3 FY2026", qSales: 1774, qNetProfit: 27,
-        variance: "Revenue grew 4% YoY to INR 1,774 Cr in Q3 FY2026. EBITDA margin at 8%. Net profit: INR 27 Cr. Negative WC days reflect tight inventory management.",
-        source: "Company Filings (WHIRLPOOL/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025",
-        productMix: [{segment:"Refrigerators",pct:50},{segment:"Washing Machines",pct:35},{segment:"AC & Other",pct:15}],
-        premiumMix: {premium:30,mass:50,economy:20}
-      }
+    // ========== FINANCIAL_DATA: single source of truth (company + year + quarter rows) ==========
+    // Annual rows = FY2025 full-year estimates. Quarterly rows = Q4 FY25, Q1-Q3 FY26.
+    var FINANCIAL_DATA = [
+      // ── AMBER ENTERPRISES ──
+      { id:"amber",     year:"FY2025", quarter:null, rev:12150, ebitda_pct:10.2,  pat:190,  rev_growth:null, roce:13.8, de:0.75, pe:null,  wc_days:-25, inv_days:44, debtor_days:50, ccc:67 },
+      { id:"amber",     year:"FY2025", quarter:"Q4", rev:1580,  ebitda_pct:9.2,   pat:null, rev_growth:null, roce:14.5, de:0.77, pe:72.3,  wc_days:-28, inv_days:45, debtor_days:52, ccc:69 },
+      { id:"amber",     year:"FY2026", quarter:"Q1", rev:1890,  ebitda_pct:10.1,  pat:null, rev_growth:null, roce:14.5, de:0.77, pe:72.3,  wc_days:-28, inv_days:45, debtor_days:52, ccc:69 },
+      { id:"amber",     year:"FY2026", quarter:"Q2", rev:2143,  ebitda_pct:10.8,  pat:null, rev_growth:null, roce:14.5, de:0.77, pe:72.3,  wc_days:-28, inv_days:45, debtor_days:52, ccc:69 },
+      { id:"amber",     year:"FY2026", quarter:"Q3", rev:2943,  ebitda_pct:11.17, pat:-9,   rev_growth:37.9, roce:14.5, de:0.77, pe:72.3,  wc_days:-28, inv_days:45, debtor_days:52, ccc:69 },
+      // ── BAJAJ ELECTRICALS ──
+      { id:"bajaj",     year:"FY2025", quarter:null, rev:5200,  ebitda_pct:5.5,   pat:-80,  rev_growth:null, roce:11.6, de:0.13, pe:null,  wc_days:35,  inv_days:38, debtor_days:62, ccc:65 },
+      { id:"bajaj",     year:"FY2025", quarter:"Q4", rev:1350,  ebitda_pct:7.1,   pat:null, rev_growth:null, roce:11.6, de:0.13, pe:null,  wc_days:35,  inv_days:38, debtor_days:62, ccc:65 },
+      { id:"bajaj",     year:"FY2026", quarter:"Q1", rev:1290,  ebitda_pct:5.8,   pat:null, rev_growth:null, roce:11.6, de:0.13, pe:null,  wc_days:35,  inv_days:38, debtor_days:62, ccc:65 },
+      { id:"bajaj",     year:"FY2026", quarter:"Q2", rev:1310,  ebitda_pct:5.2,   pat:null, rev_growth:null, roce:11.6, de:0.13, pe:null,  wc_days:35,  inv_days:38, debtor_days:62, ccc:65 },
+      { id:"bajaj",     year:"FY2026", quarter:"Q3", rev:1051,  ebitda_pct:4.09,  pat:-34,  rev_growth:-18.5,roce:11.6, de:0.13, pe:null,  wc_days:35,  inv_days:38, debtor_days:62, ccc:65 },
+      // ── BLUE STAR ──
+      { id:"bluestar",  year:"FY2025", quarter:null, rev:10800, ebitda_pct:7.1,   pat:260,  rev_growth:null, roce:26.2, de:0.33, pe:61.5,  wc_days:16,  inv_days:28, debtor_days:55, ccc:47 },
+      { id:"bluestar",  year:"FY2025", quarter:"Q4", rev:2450,  ebitda_pct:6.8,   pat:null, rev_growth:null, roce:26.2, de:0.33, pe:61.5,  wc_days:16,  inv_days:28, debtor_days:55, ccc:47 },
+      { id:"bluestar",  year:"FY2026", quarter:"Q1", rev:2680,  ebitda_pct:7.0,   pat:null, rev_growth:null, roce:26.2, de:0.33, pe:61.5,  wc_days:16,  inv_days:28, debtor_days:55, ccc:47 },
+      { id:"bluestar",  year:"FY2026", quarter:"Q2", rev:2810,  ebitda_pct:7.2,   pat:null, rev_growth:null, roce:26.2, de:0.33, pe:61.5,  wc_days:16,  inv_days:28, debtor_days:55, ccc:47 },
+      { id:"bluestar",  year:"FY2026", quarter:"Q3", rev:2925,  ebitda_pct:7.5,   pat:81,   rev_growth:4.2,  roce:26.2, de:0.33, pe:61.5,  wc_days:16,  inv_days:28, debtor_days:55, ccc:47 },
+      // ── BUTTERFLY GANDHIMATHI ──
+      { id:"butterfly", year:"FY2025", quarter:null, rev:920,   ebitda_pct:10.0,  pat:28,   rev_growth:null, roce:15.0, de:0.03, pe:38.2,  wc_days:30,  inv_days:42, debtor_days:35, ccc:47 },
+      { id:"butterfly", year:"FY2025", quarter:"Q4", rev:220,   ebitda_pct:9.5,   pat:null, rev_growth:null, roce:15.0, de:0.03, pe:38.2,  wc_days:30,  inv_days:42, debtor_days:35, ccc:47 },
+      { id:"butterfly", year:"FY2026", quarter:"Q1", rev:228,   ebitda_pct:10.0,  pat:null, rev_growth:null, roce:15.0, de:0.03, pe:38.2,  wc_days:30,  inv_days:42, debtor_days:35, ccc:47 },
+      { id:"butterfly", year:"FY2026", quarter:"Q2", rev:238,   ebitda_pct:10.3,  pat:null, rev_growth:null, roce:15.0, de:0.03, pe:38.2,  wc_days:30,  inv_days:42, debtor_days:35, ccc:47 },
+      { id:"butterfly", year:"FY2026", quarter:"Q3", rev:245,   ebitda_pct:10.61, pat:11,   rev_growth:2.9,  roce:15.0, de:0.03, pe:38.2,  wc_days:30,  inv_days:42, debtor_days:35, ccc:47 },
+      // ── CROMPTON GREAVES CONSUMER ──
+      { id:"crompton",  year:"FY2025", quarter:null, rev:7200,  ebitda_pct:9.8,   pat:380,  rev_growth:null, roce:19.0, de:0.05, pe:45.1,  wc_days:-16, inv_days:22, debtor_days:18, ccc:24 },
+      { id:"crompton",  year:"FY2025", quarter:"Q4", rev:1680,  ebitda_pct:9.5,   pat:null, rev_growth:null, roce:19.0, de:0.05, pe:45.1,  wc_days:-16, inv_days:22, debtor_days:18, ccc:24 },
+      { id:"crompton",  year:"FY2026", quarter:"Q1", rev:1750,  ebitda_pct:9.8,   pat:null, rev_growth:null, roce:19.0, de:0.05, pe:45.1,  wc_days:-16, inv_days:22, debtor_days:18, ccc:24 },
+      { id:"crompton",  year:"FY2026", quarter:"Q2", rev:1770,  ebitda_pct:10.0,  pat:null, rev_growth:null, roce:19.0, de:0.05, pe:45.1,  wc_days:-16, inv_days:22, debtor_days:18, ccc:24 },
+      { id:"crompton",  year:"FY2026", quarter:"Q3", rev:1898,  ebitda_pct:10.3,  pat:101,  rev_growth:7.3,  roce:19.0, de:0.05, pe:45.1,  wc_days:-16, inv_days:22, debtor_days:18, ccc:24 },
+      // ── DIXON TECHNOLOGIES ──
+      { id:"dixon",     year:"FY2025", quarter:null, rev:38200, ebitda_pct:4.6,   pat:900,  rev_growth:null, roce:40.0, de:0.34, pe:97.4,  wc_days:2,   inv_days:15, debtor_days:52, ccc:-7 },
+      { id:"dixon",     year:"FY2025", quarter:"Q4", rev:5200,  ebitda_pct:5.2,   pat:null, rev_growth:null, roce:40.0, de:0.34, pe:97.4,  wc_days:2,   inv_days:15, debtor_days:52, ccc:-7 },
+      { id:"dixon",     year:"FY2026", quarter:"Q1", rev:8400,  ebitda_pct:4.8,   pat:null, rev_growth:null, roce:40.0, de:0.34, pe:97.4,  wc_days:2,   inv_days:15, debtor_days:52, ccc:-7 },
+      { id:"dixon",     year:"FY2026", quarter:"Q2", rev:10450, ebitda_pct:4.6,   pat:null, rev_growth:null, roce:40.0, de:0.34, pe:97.4,  wc_days:2,   inv_days:15, debtor_days:52, ccc:-7 },
+      { id:"dixon",     year:"FY2026", quarter:"Q3", rev:10673, ebitda_pct:4.81,  pat:321,  rev_growth:2.1,  roce:40.0, de:0.34, pe:97.4,  wc_days:2,   inv_days:15, debtor_days:52, ccc:-7 },
+      // ── HAVELLS INDIA ──
+      { id:"havells",   year:"FY2025", quarter:null, rev:18400, ebitda_pct:8.8,   pat:1120, rev_growth:null, roce:25.3, de:0.03, pe:68.9,  wc_days:12,  inv_days:30, debtor_days:28, ccc:46 },
+      { id:"havells",   year:"FY2025", quarter:"Q4", rev:4200,  ebitda_pct:8.4,   pat:null, rev_growth:null, roce:25.3, de:0.03, pe:68.9,  wc_days:12,  inv_days:30, debtor_days:28, ccc:46 },
+      { id:"havells",   year:"FY2026", quarter:"Q1", rev:4650,  ebitda_pct:8.7,   pat:null, rev_growth:null, roce:25.3, de:0.03, pe:68.9,  wc_days:12,  inv_days:30, debtor_days:28, ccc:46 },
+      { id:"havells",   year:"FY2026", quarter:"Q2", rev:4890,  ebitda_pct:9.0,   pat:null, rev_growth:null, roce:25.3, de:0.03, pe:68.9,  wc_days:12,  inv_days:30, debtor_days:28, ccc:46 },
+      { id:"havells",   year:"FY2026", quarter:"Q3", rev:5588,  ebitda_pct:9.2,   pat:300,  rev_growth:14.3, roce:25.3, de:0.03, pe:68.9,  wc_days:12,  inv_days:30, debtor_days:28, ccc:46 },
+      // ── IFB INDUSTRIES ──
+      { id:"ifb",       year:"FY2025", quarter:null, rev:5100,  ebitda_pct:6.5,   pat:140,  rev_growth:null, roce:17.4, de:0.18, pe:52.8,  wc_days:-2,  inv_days:32, debtor_days:25, ccc:55 },
+      { id:"ifb",       year:"FY2025", quarter:"Q4", rev:1150,  ebitda_pct:5.8,   pat:null, rev_growth:null, roce:17.4, de:0.18, pe:52.8,  wc_days:-2,  inv_days:32, debtor_days:25, ccc:55 },
+      { id:"ifb",       year:"FY2026", quarter:"Q1", rev:1220,  ebitda_pct:6.2,   pat:null, rev_growth:null, roce:17.4, de:0.18, pe:52.8,  wc_days:-2,  inv_days:32, debtor_days:25, ccc:55 },
+      { id:"ifb",       year:"FY2026", quarter:"Q2", rev:1270,  ebitda_pct:6.8,   pat:null, rev_growth:null, roce:17.4, de:0.18, pe:52.8,  wc_days:-2,  inv_days:32, debtor_days:25, ccc:55 },
+      { id:"ifb",       year:"FY2026", quarter:"Q3", rev:1375,  ebitda_pct:7.43,  pat:24,   rev_growth:8.3,  roce:17.4, de:0.18, pe:52.8,  wc_days:-2,  inv_days:32, debtor_days:25, ccc:55 },
+      // ── ORIENT ELECTRIC ──
+      { id:"orient",    year:"FY2025", quarter:null, rev:3100,  ebitda_pct:9.0,   pat:92,   rev_growth:null, roce:17.9, de:0.17, pe:58.3,  wc_days:23,  inv_days:35, debtor_days:40, ccc:52 },
+      { id:"orient",    year:"FY2025", quarter:"Q4", rev:760,   ebitda_pct:8.2,   pat:null, rev_growth:null, roce:17.9, de:0.17, pe:58.3,  wc_days:23,  inv_days:35, debtor_days:40, ccc:52 },
+      { id:"orient",    year:"FY2026", quarter:"Q1", rev:800,   ebitda_pct:8.8,   pat:null, rev_growth:null, roce:17.9, de:0.17, pe:58.3,  wc_days:23,  inv_days:35, debtor_days:40, ccc:52 },
+      { id:"orient",    year:"FY2026", quarter:"Q2", rev:817,   ebitda_pct:9.1,   pat:null, rev_growth:null, roce:17.9, de:0.17, pe:58.3,  wc_days:23,  inv_days:35, debtor_days:40, ccc:52 },
+      { id:"orient",    year:"FY2026", quarter:"Q3", rev:906,   ebitda_pct:9.60,  pat:26,   rev_growth:10.9, roce:17.9, de:0.17, pe:58.3,  wc_days:23,  inv_days:35, debtor_days:40, ccc:52 },
+      // ── SYMPHONY ──
+      { id:"symphony",  year:"FY2025", quarter:null, rev:1050,  ebitda_pct:17.0,  pat:168,  rev_growth:null, roce:36.8, de:0.01, pe:44.6,  wc_days:-14, inv_days:18, debtor_days:22, ccc:26 },
+      { id:"symphony",  year:"FY2025", quarter:"Q4", rev:310,   ebitda_pct:18.5,  pat:null, rev_growth:null, roce:36.8, de:0.01, pe:44.6,  wc_days:-14, inv_days:18, debtor_days:22, ccc:26 },
+      { id:"symphony",  year:"FY2026", quarter:"Q1", rev:280,   ebitda_pct:17.8,  pat:null, rev_growth:null, roce:36.8, de:0.01, pe:44.6,  wc_days:-14, inv_days:18, debtor_days:22, ccc:26 },
+      { id:"symphony",  year:"FY2026", quarter:"Q2", rev:242,   ebitda_pct:17.5,  pat:null, rev_growth:null, roce:36.8, de:0.01, pe:44.6,  wc_days:-14, inv_days:18, debtor_days:22, ccc:26 },
+      { id:"symphony",  year:"FY2026", quarter:"Q3", rev:179,   ebitda_pct:17.32, pat:20,   rev_growth:-26.0,roce:36.8, de:0.01, pe:44.6,  wc_days:-14, inv_days:18, debtor_days:22, ccc:26 },
+      // ── TTK PRESTIGE ──
+      { id:"ttk",       year:"FY2025", quarter:null, rev:2980,  ebitda_pct:11.5,  pat:120,  rev_growth:null, roce:11.6, de:0.10, pe:51.7,  wc_days:69,  inv_days:72, debtor_days:38, ccc:79 },
+      { id:"ttk",       year:"FY2025", quarter:"Q4", rev:710,   ebitda_pct:11.8,  pat:null, rev_growth:null, roce:11.6, de:0.10, pe:51.7,  wc_days:69,  inv_days:72, debtor_days:38, ccc:79 },
+      { id:"ttk",       year:"FY2026", quarter:"Q1", rev:730,   ebitda_pct:11.5,  pat:null, rev_growth:null, roce:11.6, de:0.10, pe:51.7,  wc_days:69,  inv_days:72, debtor_days:38, ccc:79 },
+      { id:"ttk",       year:"FY2026", quarter:"Q2", rev:728,   ebitda_pct:11.2,  pat:null, rev_growth:null, roce:11.6, de:0.10, pe:51.7,  wc_days:69,  inv_days:72, debtor_days:38, ccc:79 },
+      { id:"ttk",       year:"FY2026", quarter:"Q3", rev:801,   ebitda_pct:11.49, pat:32,   rev_growth:10.2, roce:11.6, de:0.10, pe:51.7,  wc_days:69,  inv_days:72, debtor_days:38, ccc:79 },
+      // ── V-GUARD INDUSTRIES ──
+      { id:"vguard",    year:"FY2025", quarter:null, rev:4650,  ebitda_pct:10.0,  pat:220,  rev_growth:null, roce:19.5, de:0.07, pe:55.2,  wc_days:43,  inv_days:40, debtor_days:48, ccc:45 },
+      { id:"vguard",    year:"FY2025", quarter:"Q4", rev:1180,  ebitda_pct:9.8,   pat:null, rev_growth:null, roce:19.5, de:0.07, pe:55.2,  wc_days:43,  inv_days:40, debtor_days:48, ccc:45 },
+      { id:"vguard",    year:"FY2026", quarter:"Q1", rev:1250,  ebitda_pct:10.1,  pat:null, rev_growth:null, roce:19.5, de:0.07, pe:55.2,  wc_days:43,  inv_days:40, debtor_days:48, ccc:45 },
+      { id:"vguard",    year:"FY2026", quarter:"Q2", rev:1270,  ebitda_pct:10.3,  pat:null, rev_growth:null, roce:19.5, de:0.07, pe:55.2,  wc_days:43,  inv_days:40, debtor_days:48, ccc:45 },
+      { id:"vguard",    year:"FY2026", quarter:"Q3", rev:1404,  ebitda_pct:10.68, pat:57,   rev_growth:10.6, roce:19.5, de:0.07, pe:55.2,  wc_days:43,  inv_days:40, debtor_days:48, ccc:45 },
+      // ── VOLTAS ──
+      { id:"voltas",    year:"FY2025", quarter:null, rev:11800, ebitda_pct:5.0,   pat:350,  rev_growth:null, roce:17.6, de:0.28, pe:63.1,  wc_days:43,  inv_days:35, debtor_days:58, ccc:50 },
+      { id:"voltas",    year:"FY2025", quarter:"Q4", rev:2800,  ebitda_pct:4.8,   pat:null, rev_growth:null, roce:17.6, de:0.28, pe:63.1,  wc_days:43,  inv_days:35, debtor_days:58, ccc:50 },
+      { id:"voltas",    year:"FY2026", quarter:"Q1", rev:2950,  ebitda_pct:5.0,   pat:null, rev_growth:null, roce:17.6, de:0.28, pe:63.1,  wc_days:43,  inv_days:35, debtor_days:58, ccc:50 },
+      { id:"voltas",    year:"FY2026", quarter:"Q2", rev:3105,  ebitda_pct:5.2,   pat:null, rev_growth:null, roce:17.6, de:0.28, pe:63.1,  wc_days:43,  inv_days:35, debtor_days:58, ccc:50 },
+      { id:"voltas",    year:"FY2026", quarter:"Q3", rev:3071,  ebitda_pct:5.41,  pat:84,   rev_growth:-1.1, roce:17.6, de:0.28, pe:63.1,  wc_days:43,  inv_days:35, debtor_days:58, ccc:50 },
+      // ── WHIRLPOOL OF INDIA ──
+      { id:"whirlpool", year:"FY2025", quarter:null, rev:6980,  ebitda_pct:3.9,   pat:90,   rev_growth:null, roce:12.6, de:0.02, pe:42.1,  wc_days:-5,  inv_days:28, debtor_days:15, ccc:38 },
+      { id:"whirlpool", year:"FY2025", quarter:"Q4", rev:1580,  ebitda_pct:6.5,   pat:null, rev_growth:null, roce:12.6, de:0.02, pe:42.1,  wc_days:-5,  inv_days:28, debtor_days:15, ccc:38 },
+      { id:"whirlpool", year:"FY2026", quarter:"Q1", rev:1620,  ebitda_pct:7.0,   pat:null, rev_growth:null, roce:12.6, de:0.02, pe:42.1,  wc_days:-5,  inv_days:28, debtor_days:15, ccc:38 },
+      { id:"whirlpool", year:"FY2026", quarter:"Q2", rev:1705,  ebitda_pct:7.5,   pat:null, rev_growth:null, roce:12.6, de:0.02, pe:42.1,  wc_days:-5,  inv_days:28, debtor_days:15, ccc:38 },
+      { id:"whirlpool", year:"FY2026", quarter:"Q3", rev:1774,  ebitda_pct:8.00,  pat:27,   rev_growth:4.0,  roce:12.6, de:0.02, pe:42.1,  wc_days:-5,  inv_days:28, debtor_days:15, ccc:38 },
     ];
+
+    // ========== COMPANY_META: non-financial fields only ==========
+    var COMPANY_META = {
+      amber: {
+        name:"Amber Enterprises India", ticker:"AMBER", subSector:"EMS/OEM", amSignal:"transaction", perf:"outperform",
+        variance:"Q3 FY26 revenue Rs 2,943 Cr (+38% YoY). Consolidated EBITDA margin 8.4% (Q3 FY26) vs 8.0% (FY25) \u2014 operating leverage visible as other expenses fell from 7.0% to 5.5% of revenue. Reported PAT negative at Rs -9 Cr due to Rs 94 Cr Shivalik investment impairment (exceptional item). Adjusted PAT Rs 84 Cr. Consumer Durables div 67% of revenue, EBITDA margin 7.2%; Electronics div 28%, EBITDA margin hit 10.5% (new high); Railway div 5%, EBITDA margin 19.7%. Gross margin at 19.7% (Q3 FY26) \u2014 highest in series. RAC CBU share reduced from 72% (FY18) to ~40% (FY25). 26\u201327% RAC outsourced manufacturing market share. NWC days improved 13\u21929 days despite 48% FY25 revenue growth. Rs 4,200 Cr PCB capex pipeline (Hosur + Jewar). CRISIL AA-/Positive. D/E at 1.32x (FY25). Finance cost Rs 220 Cr (FY25, +32% YoY). 3 acquisitions in 12 months (Power One, Unitronics, Shogini). BEE rating norms change (Jan 2026) creates RAC refresh cycle. Railway order book Rs 2,600+ Cr. Structural risk: OEM brands taking RAC assembly in-house validated in FY24 (-7% Consumer Durables revenue).",
+        source:"Q3 FY26 Investor Presentation (Feb 2026) | Q4 FY25 Investor Presentation (May 2025) | Q3 FY25 Investor Presentation (Jan 2025) | Q4 FY24 Investor Presentation (May 2024) | 35th AGM Proceedings (Aug 2025) | CRISIL Credit Rating (Nov 2025)",
+        productMix:[{segment:"Consumer Durables (RAC+Components)",pct:67},{segment:"Electronics (PCB+Box Build)",pct:28},{segment:"Railway & Defense",pct:5}],
+        premiumMix:{premium:10,mass:65,economy:25}
+      },
+      bajaj: {
+        name:"Bajaj Electricals", ticker:"BAJAJELEC", subSector:"Electrical", amSignal:"turnaround", perf:"underperform",
+        variance:"Q3 FY26 PBT before exceptional: -Rs 20.28 Cr (vs +Rs 20.27 Cr Q3 FY25). 9MFY26 revenue -9.7% YoY to Rs 3,210 Cr. Board pre-authorized minimum director remuneration for FY26 \u2014 admission of anticipated full-year losses. CP capacity utilization at 43% (10.8 Mn installed vs 4.6 Mn produced). Exceptional Rs 28.89 Cr gratuity/leave encashment signals workforce restructuring. Other expenses surged +17.5% in Q3 despite -5% revenue decline. Interest coverage deteriorated 3.7x \u2192 3.1x. EBITDA margin flat at 7.5% (FY24-FY25) but now in loss territory. Retailer base -15% (2L \u2192 1.7L); channel partner retention only 81%. Surplus funds Rs 509 Cr provides liquidity buffer. New MD Sanjay Sachdeva (Mar 2025) \u2014 strategy transition during operating stress.",
+        source:"Annual Report FY2024-25 (86th AR) | Annual Report FY2023-24 (85th AR) | Board Meeting Outcome Q3 FY26 (Feb 9, 2026) | 85th AGM Proceedings (Aug 2024)",
+        productMix:[{segment:"Consumer Products",pct:79},{segment:"Lighting Solutions",pct:21}],
+        premiumMix:{premium:20,mass:55,economy:25}
+      },
+      bluestar: {
+        name:"Blue Star", ticker:"BLUESTARCO", subSector:"Cooling", amSignal:"monitor", perf:"inline",
+        variance:"Revenue grew 4.2% YoY to INR 2,925 Cr in Q3 FY2026. EBITDA margin at 7.5%. Net profit: INR 81 Cr. Strong ROCE of 26.2%.",
+        source:"Company Filings (BLUESTARCO/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025",
+        productMix:[{segment:"Room AC",pct:40},{segment:"Commercial Refrigeration",pct:35},{segment:"Engineering Services",pct:25}],
+        premiumMix:{premium:35,mass:50,economy:15}
+      },
+      butterfly: {
+        name:"Butterfly Gandhimathi", ticker:"BUTTERFLY", subSector:"Kitchen", amSignal:"monitor", perf:"inline",
+        variance:"EBITDA margin recovered 651 bps in 6 quarters: 2.94% (FY24) \u2192 7.55% (FY25) \u2192 9.5% (Q2 FY26). Revenue 18% below FY23 peak (Rs 865 Cr vs Rs 1,057 Cr) amid deliberate volume-for-margin trade-off. Material margin recovered to 41% (Q1 FY26, +320 bps YoY). ~80% in-house manufacturing. Steel single-source risk (no alternate vendor). Plant consolidated; capex cut 60% (Rs 2,125L \u2192 Rs 853L). Slow-moving inventory reduced 86%. Finance cost near-zero (D/E 0.04x). Q2 FY26: 14% YoY revenue growth described as \u2018industry-leading\u2019. 590+ distributors, 24,000+ retail outlets, 280+ service centres. Pan-India share ~5% vs ~15% South India. Crompton merger rejected by shareholders (72.6% against). Idea First Series (40+ SKUs) gaining traction on e-com and modern trade.",
+        source:"AR FY21 \u00b7 AR FY22-23 \u00b7 AR FY24-25 \u00b7 Q3 FY22 Investor Presentation \u00b7 Q1/Q2 FY26 Quarterly Results | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025",
+        productMix:[{segment:"LPG Stoves (#1 India)",pct:35},{segment:"Mixer Grinders (Top 3)",pct:25},{segment:"Pressure Cookers",pct:20},{segment:"Table-Top Wet Grinders (#1 India)",pct:10},{segment:"Other (Flasks, Fans, etc.)",pct:10}],
+        premiumMix:{premium:20,mass:55,economy:25}
+      },
+      crompton: {
+        name:"Crompton Greaves Consumer", ticker:"CROMPTON", subSector:"Electrical", amSignal:"transaction", perf:"inline",
+        variance:"Q3 FY26 consolidated revenue INR 1,898 Cr (+7.3% YoY); EBITDA 10.3% (+18.5% QoQ recovery from Q2 trough of 8.3%). Standalone material margin compressed 150 bps YoY (31.1% vs 32.6%) due to copper/aluminium/steel inflation. Zero-net-debt achieved Q1 FY26 (last Rs 300 Cr NCD repaid); interest coverage 27.01x. BLDC fans growing 50%+ QoQ; Nucleus BLDC PCB platform sold 1 lakh+ units since Nov 2025 launch. Water heaters reached #2 GT nationally. 9M FY26 EBITDA compressed to 9.6% vs FY25 peak of 11.66%. Price increases of 1-1.5% implemented Jan 2026 with more in Q4/Q1. Butterfly (75% sub) EBITDA improving: 8.2% Q3 FY26 (+100 bps YoY), net profit +44% YoY. Solar rooftop order book Rs 500 Cr; residential wires (Rs 36,000 Cr TAM) announced. Greenfield plant Rs 350 Cr capex over 2-3 years for domestic + export. Project UNNATI multi-sourcing +10%. Baroda VRS Rs 20.36 Cr (payback <2 yrs). Employee cost +13.6% YoY vs revenue +7.3% is a watch signal.",
+        source:"Q3 FY26 Earnings Call Transcript (BSE) | Q3 FY26 Investor Presentation | Q1 FY26 Earnings Call (BSE) | Q2 FY26 Investor Presentation | MD&A FY25 | BRSR FY25 | Q3 FY25 Press Release",
+        productMix:[{segment:"ECD (Fans/Pumps/Water Heaters/Coolers/SDA)",pct:75},{segment:"Lighting",pct:13},{segment:"Butterfly (Kitchen)",pct:12}],
+        premiumMix:{premium:30,mass:50,economy:20}
+      },
+      dixon: {
+        name:"Dixon Technologies", ticker:"DIXON", subSector:"EMS/OEM", amSignal:"monitor", perf:"inline",
+        variance:"Revenue grew 2.1% YoY to INR 10,673 Cr in Q3 FY2026. EBITDA margin at 4.8% (typical for EMS model). Net profit: INR 321 Cr. Exceptional ROCE of 40%.",
+        source:"Company Filings (DIXON/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025",
+        productMix:[{segment:"Mobile",pct:45},{segment:"Consumer Electronics",pct:25},{segment:"Lighting",pct:15},{segment:"Home Appliances",pct:10},{segment:"Security",pct:5}],
+        premiumMix:{premium:10,mass:60,economy:30}
+      },
+      havells: {
+        name:"Havells India", ticker:"HAVELLS", subSector:"Diversified", amSignal:"transaction", perf:"inline",
+        variance:"Revenue grew 14.3% YoY to INR 5,588 Cr in Q3 FY2026. EBITDA margin at 9.2% (+21% YoY EBITDA growth showing operating leverage). Net profit: INR 300 Cr. Near debt-free. ROCE 25.3%. Mgmt guided 150-200bps margin expansion. Cables at 90-100% utilization — capacity doubling FY24-FY27. Employee cost stable Rs 460-490 Cr/qtr for 7 quarters — structural operating leverage. Lloyd margin turnaround: -4.3% → 2.6%.",
+        source:"Company Filings (HAVELLS/consolidated/) | Q1-Q3 FY26 Earnings Transcripts | Annual Report FY25 | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025",
+        productMix:[{segment:"Cables",pct:33},{segment:"Lloyd",pct:24},{segment:"ECD",pct:19},{segment:"Switchgears",pct:11},{segment:"Lighting",pct:8},{segment:"Others",pct:5}],
+        premiumMix:{premium:40,mass:45,economy:15}
+      },
+      ifb: {
+        name:"IFB Industries", ticker:"IFBIND", subSector:"Appliances", amSignal:"perf-improve", perf:"inline",
+        variance:"Revenue grew 8.3% YoY to INR 1,375 Cr in Q3 FY2026. EBITDA margin at 7.4%. Net profit: INR 24 Cr. Negative WC days reflect efficient working capital management.",
+        source:"Company Filings (IFBIND/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025",
+        productMix:[{segment:"Washing Machines",pct:45},{segment:"Kitchen Appliances",pct:30},{segment:"AC",pct:15},{segment:"Engineering",pct:10}],
+        premiumMix:{premium:40,mass:45,economy:15}
+      },
+      orient: {
+        name:"Orient Electric", ticker:"ORIENTELEC", subSector:"Electrical", amSignal:"monitor", perf:"inline",
+        variance:"Revenue grew 10.9% YoY to INR 906 Cr in Q3 FY2026. EBITDA margin at 9.6%. Net profit: INR 26 Cr.",
+        source:"Company Filings (ORIENTELEC/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025",
+        productMix:[{segment:"Fans",pct:40},{segment:"Lighting",pct:25},{segment:"Home Appliances",pct:20},{segment:"Switchgear",pct:15}],
+        premiumMix:{premium:30,mass:50,economy:20}
+      },
+      symphony: {
+        name:"Symphony", ticker:"SYMPHONY", subSector:"Cooling", amSignal:"monitor", perf:"underperform",
+        variance:"FY25 landmark year: standalone revenue crossed Rs 1,000 Cr (Rs 1,182 Cr, +49% YoY), EBITDA margin expanded 404 bps to 24.25%. FY26 sharp reversal: 9M FY26 standalone revenue down 30% to Rs 566 Cr (rain-disrupted summer), EBITDA margin compressed to 14.4%. 100% asset-light model (zero manufacturing) with 486 employees; core India capital employed negative Rs 32 Cr (ROCE infinite). Q3 FY26 standalone: Rs 182 Cr revenue, 17.2% EBITDA margin, 45.2% gross margin. Diversification underway: RTY portfolio (water heaters, tower fans, LSV, kitchen cooling fans) = 26% of 9M FY26 revenue (up from <10%). Pathways Retail Rs 58 Cr bad debt (forensic fraud confirmed). CT Australia divestiture rolled back Jan 2026 after 10 NDAs; losses ongoing (9M FY26 EBITDA -Rs 8 Cr). Consolidated EBITDA margin 9.5% vs standalone 14.4% due to subsidiary drag. Treasury Rs 460 Cr, debt-free, 84% PAT payout ratio. Market leader by significant margin: domestic air cooler revenue Rs 1,065 Cr vs No.2 at ~Rs 250 Cr. 2 out of 3 Google air cooler searches are for Symphony.",
+        source:"Integrated Annual Report FY2024-25 | Q3 FY26 Earnings Call Transcript Jan 29, 2026 | Q4 FY25 Earnings Call Transcript May 8, 2025 | Q1 FY26 Earnings Call Transcript Aug 1, 2025 | Corporate Presentation Feb 2026 | Q3 FY25 Earnings Call Transcript Feb 5, 2025",
+        productMix:[{segment:"Household Air Coolers (India)",pct:74},{segment:"RTY Portfolio (Tower Fans/LSV/Water Heaters/Kitchen Cooling)",pct:10},{segment:"Exports (India)",pct:6},{segment:"Subsidiaries (Mexico/Australia/China/Brazil)",pct:10}],
+        premiumMix:{premium:30,mass:50,economy:20}
+      },
+      ttk: {
+        name:"TTK Prestige", ticker:"TTKPRESTIG", subSector:"Kitchen", amSignal:"monitor", perf:"inline",
+        variance:"Revenue grew 10.2% YoY to INR 801 Cr in Q3 FY2026. EBITDA margin at 11.5%. FY25 standalone: Rs 2,530 Cr (+1.2%, underlying ~7% ex-MFI channel loss). EBITDA contracted 15.4% to 13.4% — Rs 500 Cr 3-yr transformation (Rs 200 Cr OPEX + Rs 300 Cr CAPEX) diluting margins 8 quarters. Q4 FY25 PAT -94% (Rs 71.4 Cr UK goodwill impairment). Debt-free, Rs 825 Cr cash. 667 Prestige Xclusive stores. ROCE 29.3% (from 34.6%). Target: Rs 5,000 Cr scale, 14-15% EBITDA.",
+        source:"Company Filings (TTKPRESTIG/consolidated/) | Q4 FY25 Earnings Transcript | Annual Report FY25 | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025",
+        productMix:[{segment:"Kitchen Appliances",pct:47},{segment:"Pressure Cookers",pct:31},{segment:"Cookware",pct:17},{segment:"Others",pct:5}],
+        premiumMix:{premium:35,mass:50,economy:15}
+      },
+      vguard: {
+        name:"V-Guard Industries", ticker:"VGUARD", subSector:"Electrical", amSignal:"transaction", perf:"inline",
+        variance:"Revenue grew 10.6% YoY to INR 1,404 Cr in Q3 FY2026. EBITDA margin at 10.7%. Net profit: INR 57 Cr. Near debt-free with D/E of 0.07x.",
+        source:"Company Filings (VGUARD/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025",
+        productMix:[{segment:"Wires & Cables",pct:35},{segment:"Stabilizers",pct:20},{segment:"Pumps",pct:15},{segment:"Kitchen",pct:15},{segment:"Water Heaters",pct:15}],
+        premiumMix:{premium:20,mass:55,economy:25}
+      },
+      voltas: {
+        name:"Voltas", ticker:"VOLTAS", subSector:"Cooling", amSignal:"perf-improve", perf:"underperform",
+        variance:"Revenue declined 1.1% YoY to INR 3,071 Cr in Q3 FY2026. EBITDA margin at 5.4%. Net profit: INR 84 Cr.",
+        source:"Company Filings (VOLTAS/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025",
+        productMix:[{segment:"Room AC",pct:55},{segment:"Commercial AC",pct:30},{segment:"Engineering Products",pct:15}],
+        premiumMix:{premium:25,mass:55,economy:20}
+      },
+      whirlpool: {
+        name:"Whirlpool of India", ticker:"WHIRLPOOL", subSector:"Appliances", amSignal:"monitor", perf:"inline",
+        variance:"Revenue grew 4% YoY to INR 1,774 Cr in Q3 FY2026. EBITDA margin at 8%. Net profit: INR 27 Cr. Negative WC days reflect tight inventory management.",
+        source:"Company Filings (WHIRLPOOL/consolidated/) | WC Days: ratios Mar 2025 | D/E: balance sheet Sep 2025",
+        productMix:[{segment:"Refrigerators",pct:50},{segment:"Washing Machines",pct:35},{segment:"AC & Other",pct:15}],
+        premiumMix:{premium:30,mass:50,economy:20}
+      }
+    };
+
+    // ========== HELPERS: derive from FINANCIAL_DATA ==========
+    function getLatestQ(id) {
+      var order = { Q3:3, Q2:2, Q1:1, Q4:0 };
+      return FINANCIAL_DATA
+        .filter(function(r){ return r.id === id && r.quarter !== null; })
+        .sort(function(a,b){
+          if (a.year !== b.year) return a.year > b.year ? -1 : 1;
+          return (order[a.quarter]||0) > (order[b.quarter]||0) ? -1 : 1;
+        })[0];
+    }
+
+    function getAnnual(id) {
+      return FINANCIAL_DATA.find(function(r){ return r.id === id && r.quarter === null; }) || null;
+    }
+
+    function getTrend(id) {
+      var order = { Q4:0, Q1:1, Q2:2, Q3:3 };
+      return FINANCIAL_DATA
+        .filter(function(r){ return r.id === id && r.quarter !== null; })
+        .sort(function(a,b){
+          if (a.year !== b.year) return a.year < b.year ? -1 : 1;
+          return (order[a.quarter]||0) < (order[b.quarter]||0) ? -1 : 1;
+        })
+        .slice(-4);
+    }
+
+    // ========== COMPANIES: derived from FINANCIAL_DATA + COMPANY_META ==========
+    var COMPANIES = Object.keys(COMPANY_META).map(function(id) {
+      var meta = COMPANY_META[id];
+      var lq = getLatestQ(id);
+      var trend = getTrend(id);
+      return {
+        id: id,
+        name: meta.name, ticker: meta.ticker, subSector: meta.subSector,
+        amSignal: meta.amSignal, perf: meta.perf,
+        variance: meta.variance, source: meta.source,
+        productMix: meta.productMix, premiumMix: meta.premiumMix,
+        revGrowth: lq.rev_growth, ebitdaMargin: lq.ebitda_pct,
+        netProfit: lq.pat, qSales: lq.rev, qNetProfit: lq.pat,
+        latestQ: lq.quarter + ' ' + lq.year,
+        wcDays: lq.wc_days, invDays: lq.inv_days,
+        debtorDays: lq.debtor_days, ccc: lq.ccc,
+        roce: lq.roce, de: lq.de, pe: lq.pe,
+        revTrend: trend.map(function(r){ return r.rev; }),
+        ebitdaTrend: trend.map(function(r){ return r.ebitda_pct; })
+      };
+    });
 
     // ========== SPARKLINE SVG GENERATOR ==========
     function sparklineSVG(data, color) {
@@ -3994,13 +4058,16 @@
         tr.onclick = (function(company) { return function(e) { if (e.target.tagName === 'BUTTON') return; openCompanyModal(company); }; })(c);
         var amLabel = {monitor:'Monitor','perf-improve':'Perf. Improve',turnaround:'Turnaround',transaction:'Transaction'}[c.amSignal] || 'Monitor';
         var subCls = c.subSector.toLowerCase().replace(/[\/\s]+/g,'-');
+        var ann = getAnnual(c.id);
+        var revTip = ann ? 'FY2025 Annual (est.): \u20B9' + ann.rev.toLocaleString('en-IN') + ' Cr' : '';
+        var ebitdaTip = ann ? 'FY2025 Annual (est.): ' + ann.ebitda_pct.toFixed(1) + '% EBITDA' : '';
         tr.innerHTML =
           '<td><div class="am-signal-cell"><span class="am-signal-dot ' + (c.amSignal||'monitor') + '"></span><span class="am-signal-label">' + amLabel + '</span></div></td>' +
           '<td style="font-weight:600">' + esc(c.name) + '</td>' +
           '<td><span class="subsector-badge ' + subCls + '">' + esc(c.subSector) + '</span></td>' +
-          '<td class="right mono">&#8377;' + c.qSales.toLocaleString('en-IN') + '<br><span style="font-size:10px;color:var(--text-muted)">Cr</span></td>' +
+          '<td class="right mono"' + (revTip ? ' data-tip="' + revTip + '"' : '') + '>&#8377;' + c.qSales.toLocaleString('en-IN') + '<br><span style="font-size:10px;color:var(--text-muted)">Cr</span></td>' +
           '<td class="right"><div class="sparkline-cell">' + sparklineSVG(c.revTrend, c.revGrowth >= 0 ? 'var(--success-500)' : 'var(--danger-500)') + '<span class="mono ' + growthClass + '">' + growthSign + c.revGrowth.toFixed(1) + '%</span></div></td>' +
-          '<td class="right"><div class="sparkline-cell">' + sparklineSVG(c.ebitdaTrend) + '<span class="mono">' + c.ebitdaMargin.toFixed(1) + '%</span></div></td>' +
+          '<td class="right"' + (ebitdaTip ? ' data-tip="' + ebitdaTip + '"' : '') + '><div class="sparkline-cell">' + sparklineSVG(c.ebitdaTrend) + '<span class="mono">' + c.ebitdaMargin.toFixed(1) + '%</span></div></td>' +
           '<td class="right mono">' + (c.wcDays != null ? c.wcDays : 'NA') + '</td>' +
           '<td class="right mono">' + (c.invDays != null ? c.invDays : 'NA') + '</td>' +
           '<td class="right mono">' + (c.de != null ? c.de.toFixed(2) + 'x' : 'NA') + '</td>' +
