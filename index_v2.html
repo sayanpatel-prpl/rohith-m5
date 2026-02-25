@@ -829,22 +829,43 @@
     .sparkline-cell { display: flex; align-items: center; gap: 8px; justify-content: flex-end; }
     .sparkline-cell .mono { min-width: 48px; text-align: right; }
 
-    /* === Company Modal === */
-    .company-modal { border: none; border-radius: 12px; max-width: 640px; width: 90vw; max-height: 80vh; padding: 0; background: var(--surface); color: var(--text-primary); box-shadow: 0 8px 32px rgba(0,0,0,0.18); }
-    .company-modal::backdrop { background: rgba(0,0,0,0.45); }
-    .dark .company-modal { background: var(--slate-800); box-shadow: 0 8px 32px rgba(0,0,0,0.5); }
-    .modal-header { display: flex; justify-content: space-between; align-items: center; padding: 20px 24px 12px; border-bottom: 1px solid var(--surface-overlay); }
-    .modal-header h3 { margin: 0; font-size: 16px; }
-    .modal-close { background: none; border: none; font-size: 20px; cursor: pointer; color: var(--text-muted); padding: 4px 8px; border-radius: var(--radius); }
-    .modal-close:hover { background: var(--surface-overlay); color: var(--text-primary); }
-    .modal-body { padding: 20px 24px; overflow-y: auto; max-height: calc(80vh - 60px); }
-    .modal-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
-    .modal-stat { background: var(--surface-raised); border: 1px solid var(--surface-overlay); border-radius: var(--radius); padding: 12px; text-align: center; }
-    .modal-stat .stat-value { font-size: 18px; font-weight: 700; font-family: var(--font-display); }
-    .modal-stat .stat-label { font-size: 10px; color: var(--text-muted); margin-top: 2px; }
-    .modal-table { width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 16px; }
-    .modal-table th { font-size: 10px; text-transform: uppercase; color: var(--text-muted); padding: 6px 8px; border-bottom: 2px solid var(--surface-overlay); text-align: left; }
-    .modal-table td { padding: 6px 8px; border-bottom: 1px solid var(--surface-overlay); }
+    /* === Company Drawer (right slide-in) === */
+    .company-drawer-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.3);
+      z-index: 99; opacity: 0; pointer-events: none;
+      transition: opacity var(--transition-base);
+    }
+    .company-drawer-overlay.open { opacity: 1; pointer-events: auto; }
+    .company-drawer {
+      position: fixed; top: 0; right: 0; bottom: 0;
+      width: 480px; background: var(--surface);
+      border-left: 1px solid var(--border);
+      box-shadow: -4px 0 24px rgba(15,31,61,0.12);
+      z-index: 100; transform: translateX(100%);
+      transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+      display: flex; flex-direction: column;
+      overflow: hidden;
+    }
+    .company-drawer.open { transform: translateX(0); }
+    .drawer-header { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; border-bottom: 1px solid var(--border); flex-shrink: 0; }
+    .drawer-header h3 { margin: 0; font-size: 15px; font-weight: 700; color: var(--text-primary); }
+    .drawer-close {
+      background: none; border: none; font-size: 20px; cursor: pointer;
+      color: var(--text-muted); padding: 4px 8px; border-radius: var(--radius-sm);
+      transition: all 0.15s ease;
+    }
+    .drawer-close:hover { color: var(--text-primary); background: var(--surface-overlay); }
+    .drawer-body { flex: 1; overflow-y: auto; padding: 20px; }
+    .drawer-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 20px; }
+    .drawer-stat { background: var(--surface-raised); border: 1px solid var(--surface-overlay); border-radius: var(--radius); padding: 12px; text-align: center; }
+    .drawer-stat .stat-value { font-size: 18px; font-weight: 700; font-family: var(--font-display); }
+    .drawer-stat .stat-label { font-size: 10px; color: var(--text-muted); margin-top: 2px; }
+    .drawer-table { width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 16px; }
+    .drawer-table th { font-size: 10px; text-transform: uppercase; color: var(--text-muted); padding: 6px 8px; border-bottom: 2px solid var(--surface-overlay); text-align: left; }
+    .drawer-table td { padding: 6px 8px; border-bottom: 1px solid var(--surface-overlay); }
+    @media (max-width: 600px) {
+      .company-drawer { width: 100%; }
+    }
 
     /* === Talk vs Walk === */
     .tvw-card { padding: 14px; border-radius: var(--radius); border: 1px solid var(--surface-overlay); background: var(--surface-raised); margin-bottom: 12px; }
@@ -939,7 +960,7 @@
     .dark .subsector-tag { background: rgba(59,130,246,0.12); color: var(--info-500); }
 
     /* === Derived Columns Toggle === */
-    .derived-toggle { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 500; padding: 6px 14px; border: 1px solid var(--surface-overlay); border-radius: 6px; background: var(--surface); color: var(--text-secondary); cursor: pointer; margin-bottom: 14px; transition: all 0.2s ease; }
+    .derived-toggle { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 500; padding: 6px 14px; border: 1px solid var(--surface-overlay); border-radius: 6px; background: var(--surface); color: var(--text-secondary); cursor: pointer; transition: all 0.2s ease; }
     .derived-toggle:hover { border-color: var(--intelligence-blue); color: var(--intelligence-blue); }
     .derived-toggle.active { background: rgba(59,130,246,0.06); border-color: var(--intelligence-blue); color: var(--intelligence-blue); }
     .dark .derived-toggle.active { background: rgba(59,130,246,0.06); border-color: var(--intelligence-blue); color: var(--intelligence-blue); }
@@ -1031,6 +1052,52 @@
     .opp-summary-stat { text-align: center; padding: 12px 8px; background: rgba(59,130,246,0.04); border-radius: 8px; }
     .opp-summary-value { font-size: 22px; font-weight: 800; font-family: var(--font-display); color: var(--text-primary); }
     .opp-summary-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; margin-top: 4px; }
+
+    /* === Opportunity Pipeline Table === */
+    .opp-dropdown-wrap { position: relative; display: inline-block; }
+    .opp-dropdown-btn { font-size: 12px; padding: 6px 14px; border-radius: 8px; border: 1px solid var(--surface-overlay); background: var(--surface); color: var(--text-primary); cursor: pointer; font-family: var(--font-body); font-weight: 500; display: flex; align-items: center; gap: 6px; min-width: 180px; }
+    .opp-dropdown-btn:hover { border-color: var(--intelligence-blue); }
+    .opp-dropdown-btn .dd-arrow { font-size: 9px; margin-left: auto; opacity: 0.5; transition: transform 0.15s; }
+    .opp-dropdown-btn.open .dd-arrow { transform: rotate(180deg); }
+    .opp-dropdown-list { position: absolute; top: calc(100% + 4px); left: 0; min-width: 240px; max-height: 320px; overflow-y: auto; background: var(--surface-raised); border: 1px solid var(--surface-overlay); border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); z-index: 100; display: none; padding: 4px 0; }
+    .dark .opp-dropdown-list { box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+    .opp-dropdown-list.open { display: block; }
+    .opp-dropdown-list label { display: flex; align-items: center; gap: 8px; padding: 6px 14px; font-size: 12px; color: var(--text-primary); cursor: pointer; transition: background 0.1s; }
+    .opp-dropdown-list label:hover { background: rgba(59,130,246,0.05); }
+    .opp-dropdown-list label input[type="checkbox"] { accent-color: var(--intelligence-blue); width: 14px; height: 14px; cursor: pointer; }
+    .opp-dropdown-list .dd-divider { border-top: 1px solid var(--surface-overlay); margin: 4px 0; }
+    .opp-dropdown-list .dd-actions { display: flex; gap: 8px; padding: 6px 14px; }
+    .opp-dropdown-list .dd-actions button { font-size: 10px; padding: 3px 10px; border-radius: 6px; border: 1px solid var(--surface-overlay); background: transparent; color: var(--intelligence-blue); cursor: pointer; font-family: var(--font-body); font-weight: 500; }
+    .opp-dropdown-list .dd-actions button:hover { background: rgba(59,130,246,0.06); }
+    .opp-filter-row { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+    .opp-filter-row .filter-label { font-size: 11px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; }
+    .opp-table-wrap { overflow-x: auto; }
+    .opp-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    .opp-table thead th { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-muted); padding: 8px 10px; border-bottom: 2px solid var(--surface-overlay); text-align: left; white-space: nowrap; position: sticky; top: 0; background: var(--surface); z-index: 2; }
+    .opp-table tbody td { padding: 7px 10px; border-bottom: 1px solid var(--surface-overlay); vertical-align: top; line-height: 1.45; }
+    .opp-table .opp-account-cell { font-weight: 700; color: var(--text-primary); white-space: nowrap; }
+    .opp-table .opp-stage-badge { display: inline-block; font-size: 9px; font-weight: 600; padding: 2px 7px; border-radius: 8px; margin-left: 6px; vertical-align: middle; }
+    .opp-stage-badge.identified { background: rgba(234,179,8,0.12); color: #b45309; }
+    .dark .opp-stage-badge.identified { background: rgba(234,179,8,0.15); color: #fbbf24; }
+    .opp-stage-badge.qualified { background: rgba(59,130,246,0.1); color: #2563eb; }
+    .dark .opp-stage-badge.qualified { background: rgba(59,130,246,0.15); color: #60a5fa; }
+    .opp-stage-badge.outreach { background: rgba(34,197,94,0.1); color: #16a34a; }
+    .dark .opp-stage-badge.outreach { background: rgba(34,197,94,0.15); color: #4ade80; }
+    .opp-table .opp-service-pill { display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 10px; background: rgba(59,130,246,0.06); color: var(--intelligence-blue); font-weight: 500; white-space: nowrap; }
+    .opp-table .opp-signals { font-size: 11px; color: var(--text-secondary); }
+    .opp-table .opp-source-tag { display: inline-block; font-size: 9px; padding: 1px 6px; border-radius: 6px; margin-top: 4px; font-weight: 500; }
+    .opp-source-tag.src-verified { background: rgba(34,197,94,0.08); color: #16a34a; }
+    .dark .opp-source-tag.src-verified { background: rgba(34,197,94,0.12); color: #4ade80; }
+    .opp-source-tag.src-derived { background: rgba(234,179,8,0.08); color: #b45309; }
+    .dark .opp-source-tag.src-derived { background: rgba(234,179,8,0.12); color: #fbbf24; }
+    .opp-source-tag.src-guidance { background: rgba(168,85,247,0.08); color: #7c3aed; }
+    .dark .opp-source-tag.src-guidance { background: rgba(168,85,247,0.12); color: #a78bfa; }
+    .opp-table .opp-group-first td { border-top: 2px solid rgba(59,130,246,0.15); }
+    .opp-table tbody tr:hover { background: rgba(59,130,246,0.03); }
+    .dark .opp-table tbody tr:hover { background: rgba(59,130,246,0.06); }
+    .opp-stats-row { display: flex; gap: 16px; margin-bottom: 14px; flex-wrap: wrap; }
+    .opp-stat-chip { font-size: 11px; color: var(--text-secondary); }
+    .opp-stat-chip strong { color: var(--text-primary); font-weight: 700; font-family: var(--font-display); }
 
     /* === A&M Benchmark Callout === */
     .benchmark-callout { background: var(--surface-raised); border: 1px solid var(--surface-overlay); border-radius: 10px; padding: 18px 22px; margin-bottom: 16px; border-left: 4px solid var(--intelligence-blue); }
@@ -1136,7 +1203,7 @@
     /* === Fade animation (replaced by fadeSlideIn above) === */
     /* === Print === */
     @media print {
-      .sidebar, .topbar, .theme-toggle, .font-size-control, .source-panel, .source-panel-overlay, .sidebar-toggle { display: none !important; }
+      .sidebar, .topbar, .theme-toggle, .font-size-control, .source-panel, .source-panel-overlay, .evidence-drawer, .evidence-drawer-overlay, .company-drawer, .company-drawer-overlay, .sidebar-toggle { display: none !important; }
       .main { margin-left: 0 !important; padding: 16px !important; max-width: 100% !important; }
       .card { break-inside: avoid; box-shadow: none !important; border: 1px solid #ddd !important; }
       body { background: white !important; color: black !important; }
@@ -1316,6 +1383,91 @@
       .source-panel { width: 100%; }
     }
 
+    /* === Evidence Drawer === */
+    .evidence-drawer-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.3);
+      z-index: 99; opacity: 0; pointer-events: none;
+      transition: opacity var(--transition-base);
+    }
+    .evidence-drawer-overlay.open { opacity: 1; pointer-events: auto; }
+    .evidence-drawer {
+      position: fixed; top: 0; right: 0; bottom: 0;
+      width: 440px; background: var(--surface);
+      border-left: 1px solid var(--border);
+      box-shadow: -4px 0 24px rgba(15,31,61,0.12);
+      z-index: 100; transform: translateX(100%);
+      transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+      display: flex; flex-direction: column;
+      overflow: hidden;
+    }
+    .evidence-drawer.open { transform: translateX(0); }
+    .evidence-drawer-header {
+      padding: 16px 20px; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      flex-shrink: 0;
+    }
+    .evidence-drawer-header h3 { font-size: 15px; font-weight: 700; color: var(--text-primary); margin: 0; }
+    .evidence-drawer-close {
+      background: none; border: none; font-size: 20px; cursor: pointer;
+      color: var(--text-muted); padding: 4px 8px; border-radius: var(--radius-sm);
+      transition: all 0.15s ease;
+    }
+    .evidence-drawer-close:hover { color: var(--text-primary); background: var(--surface-overlay); }
+    .evidence-drawer-body { flex: 1; overflow-y: auto; padding: 20px; }
+    .evidence-theme-tag {
+      display: inline-block; font-size: 9px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.6px; color: var(--intelligence-blue); background: rgba(59,130,246,0.08);
+      padding: 3px 8px; border-radius: 4px; margin-bottom: 8px;
+    }
+    .evidence-company-name { font-size: 16px; font-weight: 700; color: var(--text-primary); margin: 0 0 2px; }
+    .evidence-metric-summary { font-size: 11px; color: var(--text-muted); margin-bottom: 16px; font-weight: 500; }
+    .evidence-text {
+      font-size: 12.5px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 16px;
+      padding: 14px; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: var(--radius);
+    }
+    .evidence-text strong { color: var(--text-primary); }
+    .evidence-source-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 11px; font-weight: 600; color: var(--intelligence-blue);
+      text-decoration: none; padding: 8px 14px;
+      border-radius: var(--radius-sm); background: rgba(59,130,246,0.06);
+      border: 1px solid rgba(59,130,246,0.15);
+      transition: all 0.2s ease;
+    }
+    .evidence-source-link:hover { background: rgba(59,130,246,0.14); border-color: rgba(59,130,246,0.3); text-decoration: none; }
+    .evidence-source-link::before { content: '\1F517'; font-size: 12px; }
+    .evidence-others-title {
+      font-size: 10px; font-weight: 600; color: var(--text-muted); text-transform: uppercase;
+      letter-spacing: 0.5px; margin-bottom: 10px;
+    }
+    .evidence-other-card {
+      padding: 12px 14px; border-radius: var(--radius);
+      border: 1px solid var(--card-border); background: var(--card-bg);
+      margin-bottom: 8px; cursor: pointer;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .evidence-other-card:hover { border-color: rgba(59,130,246,0.3); box-shadow: var(--shadow-sm); }
+    .evidence-other-card .eo-name { font-size: 12px; font-weight: 600; color: var(--text-primary); }
+    .evidence-other-card .eo-metric { font-size: 10px; color: var(--text-muted); }
+
+    /* === Evidence Company Chips (in cards) === */
+    .evidence-companies { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+    .evidence-co {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 10px; padding: 4px 10px; border-radius: 12px;
+      background: rgba(59,130,246,0.06); border: 1px solid rgba(59,130,246,0.15);
+      color: var(--intelligence-blue); cursor: pointer;
+      font-weight: 500; transition: all 0.2s ease;
+      text-decoration: none; line-height: 1.3;
+    }
+    .evidence-co:hover { background: rgba(59,130,246,0.16); border-color: rgba(59,130,246,0.35); box-shadow: 0 1px 4px rgba(59,130,246,0.12); }
+    .evidence-co .eco-name { font-weight: 600; }
+    .evidence-co .eco-metric { color: var(--text-secondary); font-size: 9px; border-left: 1px solid rgba(59,130,246,0.2); padding-left: 5px; }
+    .evidence-co .eco-arrow { font-size: 9px; opacity: 0.5; margin-left: 1px; }
+    @media (max-width: 600px) {
+      .evidence-drawer { width: 100%; }
+    }
+
     /* === Sidebar Collapse === */
     .sidebar-toggle {
       background: none; border: none; cursor: pointer;
@@ -1446,13 +1598,26 @@
             <h3>Big Themes</h3>
             <ul>
               <li><strong>Margin vs. Volume struggle</strong> &mdash; BEE compliance costs + copper/aluminum inflation forcing unpopular price hikes during peak summer.
-                <div class="affected-companies"><span class="affected-co">Voltas</span><span class="affected-co">Blue Star</span><span class="affected-co">Crompton</span><span class="affected-co">Havells</span></div>
+                <div class="evidence-companies">
+                  <span class="evidence-co" onclick="openEvidenceDrawer('margin-volume',0)"><span class="eco-name">Voltas</span><span class="eco-metric">EBITDA 5.4%, Rev -1.1%</span><span class="eco-arrow">&rarr;</span></span>
+                  <span class="evidence-co" onclick="openEvidenceDrawer('margin-volume',1)"><span class="eco-name">Blue Star</span><span class="eco-metric">EBITDA 7.5%, Rev +4.2%</span><span class="eco-arrow">&rarr;</span></span>
+                  <span class="evidence-co" onclick="openEvidenceDrawer('margin-volume',2)"><span class="eco-name">Crompton</span><span class="eco-metric">9M EBITDA 9.6% &darr;</span><span class="eco-arrow">&rarr;</span></span>
+                  <span class="evidence-co" onclick="openEvidenceDrawer('margin-volume',3)"><span class="eco-name">Havells</span><span class="eco-metric">Lloyd margin 2.6%</span><span class="eco-arrow">&rarr;</span></span>
+                </div>
               </li>
               <li><strong>Premiumization curve flattening</strong> &mdash; Not a straight line but a curve. Pulls back when price-to-value feels stretched. Episodic, not perpetual.
-                <div class="affected-companies"><span class="affected-co">Havells</span><span class="affected-co">Blue Star</span><span class="affected-co">TTK Prestige</span></div>
+                <div class="evidence-companies">
+                  <span class="evidence-co" onclick="openEvidenceDrawer('premiumization',0)"><span class="eco-name">Havells</span><span class="eco-metric">Premium mix under test</span><span class="eco-arrow">&rarr;</span></span>
+                  <span class="evidence-co" onclick="openEvidenceDrawer('premiumization',1)"><span class="eco-name">Blue Star</span><span class="eco-metric">35% premium stalling</span><span class="eco-arrow">&rarr;</span></span>
+                  <span class="evidence-co" onclick="openEvidenceDrawer('premiumization',2)"><span class="eco-name">TTK Prestige</span><span class="eco-metric">EBITDA 15.4%&rarr;13.4%</span><span class="eco-arrow">&rarr;</span></span>
+                </div>
               </li>
               <li><strong>Backward integration imperative</strong> &mdash; Import-reliant brands becoming structurally uncompetitive. PLI + ECMS decisively favor deep localization.
-                <div class="affected-companies"><span class="affected-co">Amber</span><span class="affected-co">Dixon</span><span class="affected-co">Godrej</span></div>
+                <div class="evidence-companies">
+                  <span class="evidence-co" onclick="openEvidenceDrawer('backward-integration',0)"><span class="eco-name">Amber</span><span class="eco-metric">RAC share 26-27%</span><span class="eco-arrow">&rarr;</span></span>
+                  <span class="evidence-co" onclick="openEvidenceDrawer('backward-integration',1)"><span class="eco-name">Dixon</span><span class="eco-metric">ROCE 40%, WC -7d</span><span class="eco-arrow">&rarr;</span></span>
+                  <span class="evidence-co" onclick="openEvidenceDrawer('backward-integration',2)"><span class="eco-name">Havells</span><span class="eco-metric">Import dep &lt;8%</span><span class="eco-arrow">&rarr;</span></span>
+                </div>
               </li>
             </ul>
             <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-derived">Derived</span> Cross-section synthesis</span></div>
@@ -1465,18 +1630,41 @@
               <li>
                 <span class="severity-dots" title="Severity: 5/5" style="float:right"><span class="dot filled high"></span><span class="dot filled high"></span><span class="dot filled high"></span><span class="dot filled high"></span><span class="dot filled high"></span></span>
                 <strong>Peak season margin collapse risk</strong> &mdash; Operating margins could stay below 5% in Q4 FY26 summer.
+                <div class="evidence-companies">
+                  <span class="evidence-co" onclick="openEvidenceDrawer('margin-collapse',0)"><span class="eco-name">Bajaj Elec</span><span class="eco-metric">PBT -Rs 20 Cr</span><span class="eco-arrow">&rarr;</span></span>
+                  <span class="evidence-co" onclick="openEvidenceDrawer('margin-collapse',1)"><span class="eco-name">Whirlpool</span><span class="eco-metric">OPM 3.86%</span><span class="eco-arrow">&rarr;</span></span>
+                  <span class="evidence-co" onclick="openEvidenceDrawer('margin-collapse',2)"><span class="eco-name">Symphony</span><span class="eco-metric">EBITDA -57%</span><span class="eco-arrow">&rarr;</span></span>
+                  <span class="evidence-co" onclick="openEvidenceDrawer('margin-collapse',3)"><span class="eco-name">Crompton</span><span class="eco-metric">9M EBITDA 9.6%</span><span class="eco-arrow">&rarr;</span></span>
+                </div>
               </li>
               <li>
                 <span class="severity-dots" title="Severity: 4/5" style="float:right"><span class="dot filled high"></span><span class="dot filled high"></span><span class="dot filled high"></span><span class="dot filled high"></span><span class="dot"></span></span>
                 <strong>Market share attrition</strong> &mdash; Legacy players losing ground to aggressive incumbents and PLI-backed entrants.
+                <div class="evidence-companies">
+                  <span class="evidence-co" onclick="openEvidenceDrawer('market-attrition',0)"><span class="eco-name">Bajaj Elec</span><span class="eco-metric">Retailers -15%</span><span class="eco-arrow">&rarr;</span></span>
+                  <span class="evidence-co" onclick="openEvidenceDrawer('market-attrition',1)"><span class="eco-name">Butterfly</span><span class="eco-metric">Rev -18% vs peak</span><span class="eco-arrow">&rarr;</span></span>
+                  <span class="evidence-co" onclick="openEvidenceDrawer('market-attrition',2)"><span class="eco-name">Orient</span><span class="eco-metric">Fan share pressured</span><span class="eco-arrow">&rarr;</span></span>
+                  <span class="evidence-co" onclick="openEvidenceDrawer('market-attrition',3)"><span class="eco-name">Whirlpool</span><span class="eco-metric">99% dealer dep.</span><span class="eco-arrow">&rarr;</span></span>
+                </div>
               </li>
               <li>
                 <span class="severity-dots" title="Severity: 4/5" style="float:right"><span class="dot filled mid"></span><span class="dot filled mid"></span><span class="dot filled mid"></span><span class="dot filled mid"></span><span class="dot"></span></span>
                 <strong>Institutional capital exodus</strong> &mdash; Sustained FII + domestic MF selling signals lack of faith in navigating inflation.
+                <div class="evidence-companies">
+                  <span class="evidence-co" onclick="openEvidenceDrawer('capital-exodus',0)"><span class="eco-name">BSE CD Index</span><span class="eco-metric">8 sell sessions</span><span class="eco-arrow">&rarr;</span></span>
+                  <span class="evidence-co" onclick="openEvidenceDrawer('capital-exodus',1)"><span class="eco-name">Bajaj Elec</span><span class="eco-metric">Pre-approved losses</span><span class="eco-arrow">&rarr;</span></span>
+                  <span class="evidence-co" onclick="openEvidenceDrawer('capital-exodus',2)"><span class="eco-name">IFB</span><span class="eco-metric">EBITDA -260bps vs target</span><span class="eco-arrow">&rarr;</span></span>
+                  <span class="evidence-co" onclick="openEvidenceDrawer('capital-exodus',3)"><span class="eco-name">Amber</span><span class="eco-metric">D/E 1.32x</span><span class="eco-arrow">&rarr;</span></span>
+                </div>
               </li>
               <li>
                 <span class="severity-dots" title="Severity: 3/5" style="float:right"><span class="dot filled mid"></span><span class="dot filled mid"></span><span class="dot filled mid"></span><span class="dot"></span><span class="dot"></span></span>
                 <strong>M&amp;A governance risk</strong> &mdash; Crompton-Butterfly merger collapsed due to shareholder disapproval.
+                <div class="evidence-companies">
+                  <span class="evidence-co" onclick="openEvidenceDrawer('ma-governance',0)"><span class="eco-name">Crompton</span><span class="eco-metric">Merger rejected 72.6%</span><span class="eco-arrow">&rarr;</span></span>
+                  <span class="evidence-co" onclick="openEvidenceDrawer('ma-governance',1)"><span class="eco-name">Butterfly</span><span class="eco-metric">Expansion stalled</span><span class="eco-arrow">&rarr;</span></span>
+                  <span class="evidence-co" onclick="openEvidenceDrawer('ma-governance',2)"><span class="eco-name">Amber</span><span class="eco-metric">3 M&amp;As in 12 months</span><span class="eco-arrow">&rarr;</span></span>
+                </div>
               </li>
             </ul>
             <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-derived">Derived</span> Risk assessment</span></div>
@@ -2038,10 +2226,11 @@
       </div>
 
       <div style="margin-bottom:12px; display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
-        <select id="companyDropdown" class="company-filter-input" style="width:220px;cursor:pointer">
-          <option value="">All Companies</option>
-        </select>
-        <input type="text" id="companyFilter" class="company-filter-input" placeholder="Search by name..." style="width:180px" />
+        <span class="filter-label" style="font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.04em">Filter by Account:</span>
+        <div class="opp-dropdown-wrap" id="acctWrap_financial" style="position:relative">
+          <button class="opp-dropdown-btn" id="acctBtn_financial" onclick="toggleAcctDD('financial')"><span id="acctLabel_financial">All Accounts</span><span class="dd-arrow">&#9660;</span></button>
+          <div class="opp-dropdown-list" id="acctList_financial"></div>
+        </div>
         <button class="derived-toggle" id="derivedToggle" onclick="toggleDerived()">
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><rect x="1" y="1" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M4 7h6M7 4v6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
           Show Market Intelligence
@@ -2122,8 +2311,12 @@
         </div>
       </div>
 
-      <div class="company-filter-wrap">
-        <input type="text" id="dealsCompanyFilter" class="company-filter-input" placeholder="Filter by company..." />
+      <div class="opp-filter-row" id="acctFilterRow_deals">
+        <span class="filter-label">Filter by Account:</span>
+        <div class="opp-dropdown-wrap" id="acctWrap_deals">
+          <button class="opp-dropdown-btn" id="acctBtn_deals" onclick="toggleAcctDD('deals')"><span id="acctLabel_deals">All Accounts</span><span class="dd-arrow">&#9660;</span></button>
+          <div class="opp-dropdown-list" id="acctList_deals"></div>
+        </div>
       </div>
 
       <h3 class="sub-header">Key Sector Deals</h3>
@@ -2305,8 +2498,12 @@
         <span class="data-tag">Feb 2026 &middot; Supply Chain, Manufacturing, Procurement</span>
       </div>
 
-      <div class="company-filter-wrap">
-        <input type="text" id="opsCompanyFilter" class="company-filter-input" placeholder="Filter by company..." />
+      <div class="opp-filter-row" id="acctFilterRow_ops">
+        <span class="filter-label">Filter by Account:</span>
+        <div class="opp-dropdown-wrap" id="acctWrap_ops">
+          <button class="opp-dropdown-btn" id="acctBtn_ops" onclick="toggleAcctDD('ops')"><span id="acctLabel_ops">All Accounts</span><span class="dd-arrow">&#9660;</span></button>
+          <div class="opp-dropdown-list" id="acctList_ops"></div>
+        </div>
       </div>
 
       <div class="stat-row" style="margin-bottom:24px" id="opsSummaryStats"></div>
@@ -2415,8 +2612,12 @@
         <span class="data-tag">Feb 2026 &middot; 50 verified moves</span>
       </div>
 
-      <div class="company-filter-wrap">
-        <input type="text" id="compCompanyFilter" class="company-filter-input" placeholder="Filter by company..." />
+      <div class="opp-filter-row" id="acctFilterRow_comp">
+        <span class="filter-label">Filter by Account:</span>
+        <div class="opp-dropdown-wrap" id="acctWrap_comp">
+          <button class="opp-dropdown-btn" id="acctBtn_comp" onclick="toggleAcctDD('comp')"><span id="acctLabel_comp">All Accounts</span><span class="dd-arrow">&#9660;</span></button>
+          <div class="opp-dropdown-list" id="acctList_comp"></div>
+        </div>
       </div>
 
       <h3 class="sub-header">Strategic Activity Heatmap <span style="font-size:11px;font-weight:400;color:var(--text-muted)">(Q3 FY2026)</span></h3>
@@ -2629,8 +2830,12 @@
         </div>
       </div>
 
-      <div class="company-filter-wrap">
-        <input type="text" id="leadCompanyFilter" class="company-filter-input" placeholder="Filter by company..." />
+      <div class="opp-filter-row" id="acctFilterRow_lead">
+        <span class="filter-label">Filter by Account:</span>
+        <div class="opp-dropdown-wrap" id="acctWrap_lead">
+          <button class="opp-dropdown-btn" id="acctBtn_lead" onclick="toggleAcctDD('lead')"><span id="acctLabel_lead">All Accounts</span><span class="dd-arrow">&#9660;</span></button>
+          <div class="opp-dropdown-list" id="acctList_lead"></div>
+        </div>
       </div>
 
       <h3 class="sub-header">CXO Changes &amp; Leadership Transitions</h3>
@@ -3044,204 +3249,20 @@
         <span class="data-tag">Feb 2026 &middot; Pipeline: Identified &rarr; Qualified &rarr; Outreach-Ready</span>
       </div>
 
-      <div class="stat-row" style="margin-bottom:16px">
-        <div class="stat-box">
-          <div class="stat-value">13</div>
-          <div class="stat-label">Total Opportunities</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-value">4 / 6 / 3</div>
-          <div class="stat-label">Identified / Qualified / Outreach</div>
+      <div id="oppStatsRow" class="opp-stats-row" style="margin-bottom:16px"></div>
+
+      <div class="opp-filter-row">
+        <span class="filter-label">Filter by Account:</span>
+        <div class="opp-dropdown-wrap" id="oppDropdownWrap">
+          <button class="opp-dropdown-btn" id="oppDropdownBtn" onclick="toggleOppDropdown()">
+            <span id="oppDropdownLabel">All Accounts (12)</span>
+            <span class="dd-arrow">&#9660;</span>
+          </button>
+          <div class="opp-dropdown-list" id="oppDropdownList"></div>
         </div>
       </div>
 
-      <div class="pipeline-bar">
-        <span class="pipeline-pill identified">M&amp;A Advisory (3)</span>
-        <span class="pipeline-pill identified">Operations (3)</span>
-        <span class="pipeline-pill qualified">Finance Transformation (2)</span>
-        <span class="pipeline-pill qualified">Strategy (2)</span>
-        <span class="pipeline-pill outreach">Digital (1)</span>
-        <span class="pipeline-pill outreach">Procurement (1)</span>
-      </div>
-
-      <div class="kanban-grid">
-        <!-- Identified Column -->
-        <div class="kanban-column">
-          <div class="kanban-col-header">
-            <span class="kanban-col-title">Identified</span>
-            <span class="kanban-col-count">5</span>
-          </div>
-          <div class="kanban-card identified">
-            <div class="kanban-card-company">Bajaj Electricals</div>
-            <div class="kanban-card-type">Turnaround &amp; Restructuring</div>
-            <ul class="kanban-card-points">
-              <li>Q3 FY26 operating loss: PBT -Rs 20.28 Cr; 9MFY26 PBT -Rs 35.57 Cr</li>
-              <li>Board pre-approved min. remuneration &mdash; FY26 full-year loss anticipated</li>
-              <li>CP capacity utilization 43% &mdash; fixed cost absorption crisis</li>
-              <li>Dual CEO + COO exit; new MD Mar 2025 &mdash; strategy transition window</li>
-              <li>Retailer base -15%; channel partner retention 81%</li>
-              <li>Exceptional Rs 28.89 Cr gratuity &mdash; silent workforce restructuring</li>
-            </ul>
-            <div class="kanban-card-source"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> AR FY24-25, Board Outcome Q3 FY26</span></div>
-          </div>
-          <div class="kanban-card identified">
-            <div class="kanban-card-company">IFB Industries</div>
-            <div class="kanban-card-type">Margin Improvement</div>
-            <ul class="kanban-card-points">
-              <li>EBITDA 7.4% vs 10%+ target (260 bps gap)</li>
-              <li>Chairman admits &ldquo;sales process weak&rdquo;</li>
-            </ul>
-            <div class="kanban-card-source"><span class="source-attr"><span class="source-tier tier-derived">Derived</span> Transcript Intel + Financial</span></div>
-          </div>
-          <div class="kanban-card identified">
-            <div class="kanban-card-company">Mid-tier Brand Targets</div>
-            <div class="kanban-card-type">M&amp;A Due Diligence</div>
-            <ul class="kanban-card-points">
-              <li>Kelvinator-pattern acquisitions likely</li>
-              <li>Brands without deep distribution at risk</li>
-            </ul>
-            <div class="kanban-card-source"><span class="source-attr"><span class="source-tier tier-derived">Derived</span> Watchlist + Deals</span></div>
-          </div>
-          <div class="kanban-card identified">
-            <div class="kanban-card-company">Symphony</div>
-            <div class="kanban-card-type">Subsidiary Restructuring + Seasonal Risk Advisory</div>
-            <ul class="kanban-card-points">
-              <li>CT Australia: 11+ qtrs losses, divestiture failed (10 NDAs). Further impairment guided by Mar 2026.</li>
-              <li>9M FY26 standalone revenue -30%, EBITDA -57% (weather + channel overhang)</li>
-              <li>Consolidated EBITDA 9.5% vs standalone 14.4% &mdash; 490 bps subsidiary drag</li>
-              <li>Pathways Retail Rs 58 Cr fraud write-off; credit governance remediation underway</li>
-            </ul>
-            <div class="kanban-card-more">+3 more data points (IMPCO Mexico, GSK China, RTY portfolio)</div>
-            <div class="kanban-card-source"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Transcript Intel + AR FY25 + Corporate Presentation Feb 2026</span></div>
-          </div>
-          <div class="kanban-card identified">
-            <div class="kanban-card-company">Butterfly Gandhimathi</div>
-            <div class="kanban-card-type">Turnaround / Cost Structure Advisory</div>
-            <ul class="kanban-card-points">
-              <li>EBITDA margin collapsed to 2.94% (FY24); recovering to 9.5% (Q2 FY26)</li>
-              <li>Revenue 18% below FY23 peak &mdash; 651 bps margin recovery on contracted base</li>
-              <li>Steel single-source risk (no alternate vendor); no commodity hedging</li>
-              <li>~75% South India concentration; pan-India share only ~5%</li>
-            </ul>
-            <div class="kanban-card-more">+4 more: Crompton merger rejected, MFI channel suppressed, plant consolidated, retail outlets declining</div>
-            <div class="kanban-card-source"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Transcript Intel + AR FY21-FY25 + Q1/Q2 FY26</span></div>
-          </div>
-        </div>
-
-        <!-- Qualified Column -->
-        <div class="kanban-column">
-          <div class="kanban-col-header">
-            <span class="kanban-col-title">Qualified</span>
-            <span class="kanban-col-count">5</span>
-          </div>
-          <div class="kanban-card qualified">
-            <div class="kanban-card-company">Whirlpool of India</div>
-            <div class="kanban-card-type">Transaction Advisory / Divestiture</div>
-            <ul class="kanban-card-points">
-              <li>Parent 51% &rarr; ~20% stake reduction</li>
-              <li>BLA/TLA renegotiation critical</li>
-              <li>TP litigation (INR 10,568 lacs exposure)</li>
-            </ul>
-            <div class="kanban-card-more">+2 more data points</div>
-            <div class="kanban-card-source"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Transcript Intel + BSE</span></div>
-          </div>
-          <div class="kanban-card qualified">
-            <div class="kanban-card-company">Amber Enterprises</div>
-            <div class="kanban-card-type">Post-Acquisition Integration + Cost Structure Advisory</div>
-            <ul class="kanban-card-points">
-              <li>3 acquisitions in 12 months (Power One, Unitronics Israel, Shogini) &mdash; integration overstretch risk across UPS/solar, industrial automation, PCBs</li>
-              <li>Rs 94 Cr Shivalik investment impairment (Q3 FY26) &mdash; failed JV execution precedent for current acquisition wave</li>
-              <li>Finance cost +32% YoY (Rs 220 Cr FY25); D/E at 1.32x; Rs 4,200 Cr PCB capex pipeline with Jewar timeline TBD</li>
-              <li>PAT margin structurally thin at 2.5% on Rs 9,973 Cr revenue &mdash; D&amp;A + interest cost squeezing below-EBITDA returns</li>
-              <li>Consumer Durables EBITDA compressed 7.7% &rarr; 6.9% (9MFY26) despite 19% revenue growth &mdash; largest division margin erosion</li>
-            </ul>
-            <div class="kanban-card-more">+4 more data points (RAC in-sourcing risk, Railway delays, employee cost escalation, working capital intensity)</div>
-            <div class="kanban-card-source"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Transcript Intel + CRISIL Nov 2025 + Investor Presentations</span></div>
-          </div>
-          <div class="kanban-card qualified">
-            <div class="kanban-card-company">Crompton Greaves</div>
-            <div class="kanban-card-type">Margin Improvement + New Category Strategy</div>
-            <ul class="kanban-card-points">
-              <li>9M FY26 EBITDA compressed to 9.6% (from 11.66% FY25 peak) &mdash; 200+ bps recovery needed</li>
-              <li>Material margin -150 bps; commodity cost pass-through incomplete despite 1-1.5% pricing</li>
-              <li>New category proliferation risk: solar rooftop, wires, pumps simultaneously without phased gating</li>
-              <li>Butterfly (75%) revenue +3% vs double-digit guidance &mdash; turnaround below aspiration</li>
-              <li>BLDC capacity constraint: demand outpacing supply, revenue leakage in premium segment</li>
-            </ul>
-            <div class="kanban-card-more">+3 more: BCG GTM restructuring, Baroda VRS integration, greenfield Rs 350 Cr capex</div>
-            <div class="kanban-card-source"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Transcript Intel + Q3/Q2/Q1 FY26 Presentations + MD&amp;A FY25</span></div>
-          </div>
-          <div class="kanban-card qualified">
-            <div class="kanban-card-company">Industry PLI Beneficiaries</div>
-            <div class="kanban-card-type">Manufacturing Strategy</div>
-            <ul class="kanban-card-points">
-              <li>85 companies under White Goods PLI</li>
-              <li>Component localization 150&ndash;250 bps margin lever <span class="source-tier tier-estimated">Estimated</span></li>
-            </ul>
-            <div class="kanban-card-source"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Operations</span> &middot; <a style="font-size:10px;color:var(--info-500);cursor:pointer" onclick="document.querySelector('[data-section=operations]').click()">Full PLI data &rarr;</a></div>
-          </div>
-          <div class="kanban-card qualified">
-            <div class="kanban-card-company">Havells India</div>
-            <div class="kanban-card-type">Multi-Front Growth Advisory</div>
-            <ul class="kanban-card-points">
-              <li>Lloyd margin turnaround (-4.3% &rarr; 2.6%) — pathway to industry-norm margins</li>
-              <li>Cables capacity doubling (90-100% util.) unlocking supply-constrained share</li>
-              <li>Solar ecosystem: Rs 600 Cr Goldi bet, targeting Rs 1,000-1,500 Cr revenue</li>
-              <li>Operating leverage: stable employee costs (7 qtrs) + 150-200bps margin guidance</li>
-            </ul>
-            <div class="kanban-card-source"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Q1-Q3 FY26 Transcripts + Annual Report FY25</span></div>
-          </div>
-          <div class="kanban-card qualified">
-            <div class="kanban-card-company">TTK Prestige</div>
-            <div class="kanban-card-type">Margin Turnaround &amp; Transformation Advisory</div>
-            <ul class="kanban-card-points">
-              <li>EBITDA 15.4% &rarr; 13.4% with 8-quarter dilution committed &mdash; Rs 500 Cr program oversight</li>
-              <li>UK subsidiary review: Horwood Rs 71.4 Cr impairment, ongoing operating losses &mdash; retain/divest analysis</li>
-              <li>Ultrafresh restructuring: EBITDA Rs (9.3) Cr, auditor-flagged fund misapplication</li>
-              <li>Supply chain: 52% traded goods &mdash; make-vs-buy optimization, China indigenization roadmap</li>
-            </ul>
-            <div class="kanban-card-source"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Q4 FY25 Transcript + Annual Report FY25</span></div>
-          </div>
-        </div>
-
-        <!-- Outreach-Ready Column -->
-        <div class="kanban-column">
-          <div class="kanban-col-header">
-            <span class="kanban-col-title">Outreach-Ready</span>
-            <span class="kanban-col-count">3</span>
-          </div>
-          <div class="kanban-card outreach">
-            <div class="kanban-card-company">Dixon Technologies</div>
-            <div class="kanban-card-type">Growth Strategy / IT Hardware</div>
-            <ul class="kanban-card-points">
-              <li>IT hardware Rs 1,500 Cr &rarr; Rs 4,000 Cr pivot</li>
-              <li>HKC display JV integration</li>
-              <li>Camera module 5x capacity expansion</li>
-            </ul>
-            <div class="kanban-card-source"><span class="source-attr"><span class="source-tier tier-guidance">Mgmt Guidance</span> Competitive + Deals</span></div>
-          </div>
-          <div class="kanban-card outreach">
-            <div class="kanban-card-company">Voltas</div>
-            <div class="kanban-card-type">Working Capital Optimization</div>
-            <ul class="kanban-card-points">
-              <li>17.9% RAC market share maintained</li>
-              <li>International exposure reduction model</li>
-              <li>B2B digital platform opportunity</li>
-            </ul>
-            <div class="kanban-card-source"><span class="source-attr"><span class="source-tier tier-derived">Derived</span> Financial + Competitive</span></div>
-          </div>
-          <div class="kanban-card outreach">
-            <div class="kanban-card-company">Blue Star</div>
-            <div class="kanban-card-type">Cost Transformation</div>
-            <ul class="kanban-card-points">
-              <li>&ldquo;Draconian cost-control&rdquo; measures initiated</li>
-              <li>B2B + B2C dual-channel optimization</li>
-              <li>26.2% ROCE &mdash; strong capital efficiency</li>
-            </ul>
-            <div class="kanban-card-source"><span class="source-attr"><span class="source-tier tier-guidance">Mgmt Guidance</span> Concall + Financial</span></div>
-          </div>
-        </div>
-      </div>
+      <div id="oppTableWrap" class="opp-table-wrap"></div>
 
       <div style="margin-top:16px"><span class="source-attr"><span class="source-tier tier-derived">Derived</span> Cross-Section Analysis (Executive, Financial, Deals, Watchlist, Operations, Competitive)</span></div>
       <div class="section-footer"><span class="source-attr"><span class="source-tier tier-derived">Derived</span> Cross-Section Intelligence Synthesis</span> &middot; Feb 2026</div>
@@ -3380,8 +3401,12 @@
         <span class="data-tag">Next 90 Days &middot; Q4 FY26 &amp; Beyond</span>
       </div>
 
-      <div class="company-filter-wrap">
-        <input type="text" id="watchCompanyFilter" class="company-filter-input" placeholder="Filter by company..." />
+      <div class="opp-filter-row" id="acctFilterRow_watch">
+        <span class="filter-label">Filter by Account:</span>
+        <div class="opp-dropdown-wrap" id="acctWrap_watch">
+          <button class="opp-dropdown-btn" id="acctBtn_watch" onclick="toggleAcctDD('watch')"><span id="acctLabel_watch">All Accounts</span><span class="dd-arrow">&#9660;</span></button>
+          <div class="opp-dropdown-list" id="acctList_watch"></div>
+        </div>
       </div>
 
       <div class="quadrant-grid">
@@ -3690,14 +3715,15 @@
 
   </div>
 
-  <!-- Company Detail Modal -->
-  <dialog id="companyModal" class="company-modal">
-    <div class="modal-header">
-      <h3 id="modalTitle"></h3>
-      <button class="modal-close" onclick="document.getElementById('companyModal').close()">&times;</button>
+  <!-- Company Detail Drawer -->
+  <div class="company-drawer-overlay" id="companyDrawerOverlay" onclick="closeCompanyDrawer()"></div>
+  <div class="company-drawer" id="companyDrawer">
+    <div class="drawer-header">
+      <h3 id="drawerTitle"></h3>
+      <button class="drawer-close" onclick="closeCompanyDrawer()">&times;</button>
     </div>
-    <div class="modal-body" id="modalBody"></div>
-  </dialog>
+    <div class="drawer-body" id="drawerBody"></div>
+  </div>
 
   <!-- Source Methodology Panel -->
   <div class="source-panel-overlay" id="sourcePanelOverlay" onclick="closeSourcePanel()"></div>
@@ -3707,6 +3733,16 @@
       <button class="source-panel-close" onclick="closeSourcePanel()">&times;</button>
     </div>
     <div class="source-panel-body" id="sourcePanelBody"></div>
+  </div>
+
+  <!-- Evidence Drawer (for Big Themes / Red Flags company evidence) -->
+  <div class="evidence-drawer-overlay" id="evidenceDrawerOverlay" onclick="closeEvidenceDrawer()"></div>
+  <div class="evidence-drawer" id="evidenceDrawer">
+    <div class="evidence-drawer-header">
+      <h3 id="evidenceDrawerTitle">Evidence</h3>
+      <button class="evidence-drawer-close" onclick="closeEvidenceDrawer()">&times;</button>
+    </div>
+    <div class="evidence-drawer-body" id="evidenceDrawerBody"></div>
   </div>
 
   <script>
@@ -3995,32 +4031,123 @@
       });
     }
 
-    var companyFilterValue = '';
-    var companyDropdownId = '';
-    var opsFilterValue = '';
-    var compFilterValue = '';
-    var leadFilterValue = '';
-    var dealsFilterValue = '';
-    var watchFilterValue = '';
 
-    // Shared helper: filter COMPANIES array by a search term (+ optional dropdown id)
-    function filterCompanies(term, dropdownId) {
+    // ========== SHARED ACCOUNT DROPDOWN FILTER ==========
+    var ACCT_SEL = {};  // sectionId -> { companyName: true/false }
+    var ACCT_DD_OPEN = {}; // sectionId -> boolean
+    var SECTION_IDS = ['financial','deals','ops','comp','lead','watch'];
+
+    SECTION_IDS.forEach(function(sid) {
+      ACCT_SEL[sid] = {};
+      ACCT_DD_OPEN[sid] = false;
+      COMPANIES.forEach(function(c){ ACCT_SEL[sid][c.name] = true; });
+    });
+
+    function isAcctSelected(sid, displayName) {
+      if (!displayName) return true;
+      var sel = ACCT_SEL[sid];
+      var dn = displayName.toLowerCase();
+      for (var i = 0; i < COMPANIES.length; i++) {
+        var cn = COMPANIES[i].name.toLowerCase();
+        if (cn === dn || cn.indexOf(dn) === 0 || dn.indexOf(cn) === 0) {
+          return sel[COMPANIES[i].name] !== false;
+        }
+      }
+      return true; // non-tracked company — always show
+    }
+
+    function getAcctFiltered(sid, dropdownId) {
       return COMPANIES.filter(function(c) {
         if (dropdownId && c.id !== dropdownId) return false;
-        if (!term) return true;
-        return c.name.toLowerCase().indexOf(term) !== -1 ||
-               c.ticker.toLowerCase().indexOf(term) !== -1 ||
-               (c.subSector && c.subSector.toLowerCase().indexOf(term) !== -1);
+        return ACCT_SEL[sid][c.name] !== false;
       });
     }
 
-    function renderTable() {
-      var filtered = COMPANIES.filter(function(c) {
-        if (companyDropdownId && c.id !== companyDropdownId) return false;
-        if (!companyFilterValue) return true;
-        return c.name.toLowerCase().indexOf(companyFilterValue) !== -1 ||
-               c.ticker.toLowerCase().indexOf(companyFilterValue) !== -1;
+    // Legacy wrapper — used by Ops table, charts, etc.
+    function filterCompanies(sid, dropdownId) {
+      return getAcctFiltered(sid, dropdownId);
+    }
+
+    function toggleAcctDD(sid) {
+      // Close all other dropdowns first
+      SECTION_IDS.forEach(function(s) {
+        if (s !== sid && ACCT_DD_OPEN[s]) {
+          ACCT_DD_OPEN[s] = false;
+          var l = document.getElementById('acctList_' + s);
+          var b = document.getElementById('acctBtn_' + s);
+          if (l) l.classList.remove('open');
+          if (b) b.classList.remove('open');
+        }
       });
+      ACCT_DD_OPEN[sid] = !ACCT_DD_OPEN[sid];
+      document.getElementById('acctList_' + sid).classList.toggle('open', ACCT_DD_OPEN[sid]);
+      document.getElementById('acctBtn_' + sid).classList.toggle('open', ACCT_DD_OPEN[sid]);
+    }
+
+    function acctToggle(sid, name) {
+      ACCT_SEL[sid][name] = !ACCT_SEL[sid][name];
+      updateAcctLabel(sid);
+      acctCallbacks[sid]();
+    }
+
+    function acctSelectAll(sid) {
+      COMPANIES.forEach(function(c){ ACCT_SEL[sid][c.name] = true; });
+      renderAcctList(sid);
+      updateAcctLabel(sid);
+      acctCallbacks[sid]();
+    }
+
+    function acctClearAll(sid) {
+      COMPANIES.forEach(function(c){ ACCT_SEL[sid][c.name] = false; });
+      renderAcctList(sid);
+      updateAcctLabel(sid);
+      acctCallbacks[sid]();
+    }
+
+    function updateAcctLabel(sid) {
+      var count = COMPANIES.filter(function(c){ return ACCT_SEL[sid][c.name]; }).length;
+      var total = COMPANIES.length;
+      var el = document.getElementById('acctLabel_' + sid);
+      if (el) el.textContent = count === total ? 'All Accounts (' + total + ')' : count + ' of ' + total + ' Accounts';
+    }
+
+    function renderAcctList(sid) {
+      var list = document.getElementById('acctList_' + sid);
+      if (!list) return;
+      var html = '<div class="dd-actions"><button onclick="acctSelectAll(\'' + sid + '\')">Select All</button><button onclick="acctClearAll(\'' + sid + '\')">Clear All</button></div>';
+      html += '<div class="dd-divider"></div>';
+      COMPANIES.forEach(function(c) {
+        var chk = ACCT_SEL[sid][c.name] ? ' checked' : '';
+        html += '<label><input type="checkbox"' + chk + ' onchange="acctToggle(\'' + sid + '\',\'' + c.name.replace(/'/g, "\\'") + '\')">' + c.name + '</label>';
+      });
+      list.innerHTML = html;
+    }
+
+    // Close dropdowns on outside click
+    document.addEventListener('click', function(e) {
+      SECTION_IDS.forEach(function(sid) {
+        if (!ACCT_DD_OPEN[sid]) return;
+        var wrap = document.getElementById('acctWrap_' + sid);
+        if (wrap && !wrap.contains(e.target)) {
+          ACCT_DD_OPEN[sid] = false;
+          document.getElementById('acctList_' + sid).classList.remove('open');
+          document.getElementById('acctBtn_' + sid).classList.remove('open');
+        }
+      });
+    });
+
+    // Callbacks invoked when account selection changes per section
+    var acctCallbacks = {
+      financial: function() { renderTable(); renderRevenueTrendChart(); renderEbitdaTrendChart(); renderRoceComparison(); renderWcHeatmap(); },
+      deals: function() { filterDealsCompany(); },
+      ops: function() { renderOpsTable(); renderProductMixGrid(); renderPremiumMixChart(); },
+      comp: function() { renderCompHeatmap(); filterMovesCompany(); },
+      lead: function() { filterLeadershipCards(); },
+      watch: function() { filterWatchlistEntries(); }
+    };
+
+    function renderTable() {
+      var filtered = getAcctFiltered('financial');
 
       var sorted = filtered.slice().sort(function(a, b) {
         var av = a[currentSort.field];
@@ -4305,7 +4432,7 @@
     var competitiveMoveCompanies = ['Dixon Technologies', 'Samsung India', 'Crompton Greaves', 'Blue Star', 'Voltas', 'Godrej & Boyce'];
 
     function renderOpsTable() {
-      var rows = filterCompanies(opsFilterValue);
+      var rows = filterCompanies('ops');
       var f = opsSort.field;
       rows.sort(function(a, b) {
         var av, bv;
@@ -4377,22 +4504,29 @@
       }
     }
 
-    // ========== COMPANY MODAL ==========
+    // ========== COMPANY DRAWER ==========
+    function openCompanyDrawer() {
+      document.getElementById('companyDrawer').classList.add('open');
+      document.getElementById('companyDrawerOverlay').classList.add('open');
+    }
+    function closeCompanyDrawer() {
+      document.getElementById('companyDrawer').classList.remove('open');
+      document.getElementById('companyDrawerOverlay').classList.remove('open');
+    }
     function openCompanyModal(c) {
-      var modal = document.getElementById('companyModal');
-      document.getElementById('modalTitle').innerHTML = esc(c.name) + ' <span class="perf-tag ' + c.perf + '" style="font-size:10px">' + (c.perf === 'outperform' ? 'Outperform' : c.perf === 'underperform' ? 'Underperform' : 'Inline') + '</span>';
+      document.getElementById('drawerTitle').innerHTML = esc(c.name) + ' <span class="perf-tag ' + c.perf + '" style="font-size:10px">' + (c.perf === 'outperform' ? 'Outperform' : c.perf === 'underperform' ? 'Underperform' : 'Inline') + '</span>';
       var growthClass = c.revGrowth >= 0 ? 'val-positive' : 'val-negative';
       var profitClass = c.qNetProfit >= 0 ? 'val-positive' : 'val-negative';
-      var body = '<div class="modal-stats">' +
-        '<div class="modal-stat"><div class="stat-value">&#8377;' + c.qSales.toLocaleString('en-IN') + '</div><div class="stat-label">Revenue (Cr)</div></div>' +
-        '<div class="modal-stat"><div class="stat-value">' + c.ebitdaMargin.toFixed(1) + '%</div><div class="stat-label">EBITDA Margin</div></div>' +
-        '<div class="modal-stat"><div class="stat-value">' + (c.roce != null ? c.roce.toFixed(1) + '%' : 'NA') + '</div><div class="stat-label">ROCE</div></div>' +
-        '<div class="modal-stat"><div class="stat-value">' + (c.de != null ? c.de.toFixed(2) + 'x' : 'NA') + '</div><div class="stat-label">D/E</div></div>' +
+      var body = '<div class="drawer-stats">' +
+        '<div class="drawer-stat"><div class="stat-value">&#8377;' + c.qSales.toLocaleString('en-IN') + '</div><div class="stat-label">Revenue (Cr)</div></div>' +
+        '<div class="drawer-stat"><div class="stat-value">' + c.ebitdaMargin.toFixed(1) + '%</div><div class="stat-label">EBITDA Margin</div></div>' +
+        '<div class="drawer-stat"><div class="stat-value">' + (c.roce != null ? c.roce.toFixed(1) + '%' : 'NA') + '</div><div class="stat-label">ROCE</div></div>' +
+        '<div class="drawer-stat"><div class="stat-value">' + (c.de != null ? c.de.toFixed(2) + 'x' : 'NA') + '</div><div class="stat-label">D/E</div></div>' +
         '</div>';
 
       // Quarterly trend mini-table
       body += '<h4 style="font-size:12px;margin:0 0 8px">Quarterly Revenue Trend</h4>';
-      body += '<table class="modal-table"><thead><tr><th>Period</th><th style="text-align:right">Revenue (Cr)</th><th style="text-align:right">EBITDA %</th></tr></thead><tbody>';
+      body += '<table class="drawer-table"><thead><tr><th>Period</th><th style="text-align:right">Revenue (Cr)</th><th style="text-align:right">EBITDA %</th></tr></thead><tbody>';
       var periods = ['Q4 FY25','Q1 FY26','Q2 FY26','Q3 FY26'];
       for (var i = 0; i < c.revTrend.length; i++) {
         body += '<tr><td class="mono">' + periods[i] + '</td><td class="mono" style="text-align:right">&#8377;' + c.revTrend[i].toLocaleString('en-IN') + '</td><td class="mono" style="text-align:right">' + c.ebitdaTrend[i].toFixed(1) + '%</td></tr>';
@@ -4433,13 +4567,13 @@
         body += '<div style="margin-top:14px"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> ' + esc(_cSrc) + '</span></div>';
       }
 
-      document.getElementById('modalBody').innerHTML = body;
-      modal.showModal();
+      document.getElementById('drawerBody').innerHTML = body;
+      openCompanyDrawer();
     }
 
-    // Close modal on backdrop click
-    document.getElementById('companyModal').addEventListener('click', function(e) {
-      if (e.target === this) this.close();
+    // Close drawer on Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeCompanyDrawer();
     });
 
     // ========== FONT SIZE TOGGLE ==========
@@ -4506,36 +4640,7 @@
       });
     });
 
-    // Populate company dropdown
-    (function() {
-      var dd = document.getElementById('companyDropdown');
-      COMPANIES.slice().sort(function(a,b){ return a.name.localeCompare(b.name); }).forEach(function(c) {
-        var opt = document.createElement('option');
-        opt.value = c.id;
-        opt.textContent = c.name;
-        dd.appendChild(opt);
-      });
-    })();
-
-    // Company dropdown change (Financial section — filters table + all charts)
-    document.getElementById('companyDropdown').addEventListener('change', function() {
-      companyDropdownId = this.value;
-      renderTable();
-      renderRevenueTrendChart();
-      renderEbitdaTrendChart();
-      renderRoceComparison();
-      renderWcHeatmap();
-    });
-
-    // Company text filter (Financial section — filters table + charts)
-    document.getElementById('companyFilter').addEventListener('input', function() {
-      companyFilterValue = this.value.toLowerCase().trim();
-      renderTable();
-      renderRevenueTrendChart();
-      renderEbitdaTrendChart();
-      renderRoceComparison();
-      renderWcHeatmap();
-    });
+    // (Financial account filter handled via shared acctCallbacks)
 
     // ========== TRANSCRIPT INTEL DATA (Transcript Intel Analysis) ==========
     var SIGNAL_DATA = {
@@ -5223,7 +5328,7 @@
         var typeMatch = (type === 'all') || c.getAttribute('data-deal-type') === type;
         var companyEl = c.querySelector('.move-card-company');
         var companyName = companyEl ? companyEl.textContent.toLowerCase() : '';
-        var companyMatch = !dealsFilterValue || companyName.indexOf(dealsFilterValue) !== -1;
+        var companyMatch = isAcctSelected('deals', companyEl ? companyEl.textContent.trim() : '');
         c.style.display = (typeMatch && companyMatch) ? '' : 'none';
       });
       var btns = document.querySelectorAll('#dealFilterBar .type-filter');
@@ -5238,7 +5343,7 @@
         var typeMatch = (type === 'all') || c.getAttribute('data-move-type') === type;
         var companyEl = c.querySelector('.move-card-company');
         var companyName = companyEl ? companyEl.textContent.toLowerCase() : '';
-        var companyMatch = !compFilterValue || companyName.indexOf(compFilterValue) !== -1;
+        var companyMatch = isAcctSelected('comp', companyEl ? companyEl.textContent.trim() : '');
         c.style.display = (typeMatch && companyMatch) ? '' : 'none';
       });
       var btns = document.querySelectorAll('#moveFilterBar .type-filter');
@@ -5367,7 +5472,7 @@
     function renderProductMixGrid() {
       var el = document.getElementById('productMixGrid');
       if (!el) return;
-      var sorted = filterCompanies(opsFilterValue).sort(function(a, b) { return (b.qSales || 0) - (a.qSales || 0); });
+      var sorted = filterCompanies('ops').sort(function(a, b) { return (b.qSales || 0) - (a.qSales || 0); });
       var html = '';
       sorted.forEach(function(c) {
         if (!c.productMix || c.productMix.length === 0) return;
@@ -5465,9 +5570,10 @@
       var el = document.getElementById('compHeatmap');
       if (!el) return;
       // Build matrix: company → type → [moves]
-      var filteredMoves = compFilterValue ? COMP_MOVES.filter(function(m) {
-        return m.company.toLowerCase().indexOf(compFilterValue) !== -1;
-      }) : COMP_MOVES;
+      var allSelected = COMPANIES.every(function(c){ return ACCT_SEL['comp'][c.name]; });
+      var filteredMoves = allSelected ? COMP_MOVES : COMP_MOVES.filter(function(m) {
+        return isAcctSelected('comp', m.company);
+      });
       var matrix = {};
       filteredMoves.forEach(function(m) {
         if (!matrix[m.company]) matrix[m.company] = {};
@@ -5532,8 +5638,8 @@
     function showHeatmapDrilldown(company, type) {
       var moves = COMP_MOVES.filter(function(m) { return m.company === company && m.type === type; });
       if (!moves.length) return;
-      var title = document.getElementById('modalTitle');
-      var body = document.getElementById('modalBody');
+      var title = document.getElementById('drawerTitle');
+      var body = document.getElementById('drawerBody');
       title.textContent = company + ' \u2014 ' + type;
       var html = '';
       // Sort by date descending
@@ -5556,7 +5662,7 @@
         html += '</div>';
       });
       body.innerHTML = html;
-      document.getElementById('companyModal').showModal();
+      openCompanyDrawer();
     }
 
     // ========== CHART PALETTE (14 distinct colors) ==========
@@ -5569,7 +5675,7 @@
     function renderRevenueTrendChart() {
       var el = document.getElementById('revenueTrendChart');
       if (!el) return;
-      var filteredCos = filterCompanies(companyFilterValue, companyDropdownId);
+      var filteredCos = filterCompanies('financial');
       var quarters = ['Q4 FY25','Q1 FY26','Q2 FY26','Q3 FY26'];
       var W = 700, H = 220, padL = 60, padR = 20, padT = 16, padB = 36;
       var allVals = [];
@@ -5618,7 +5724,7 @@
     function renderEbitdaTrendChart() {
       var el = document.getElementById('ebitdaTrendChart');
       if (!el) return;
-      var filteredCos = filterCompanies(companyFilterValue, companyDropdownId);
+      var filteredCos = filterCompanies('financial');
       var quarters = ['Q4 FY25','Q1 FY26','Q2 FY26','Q3 FY26'];
       var W = 700, H = 220, padL = 50, padR = 20, padT = 16, padB = 36;
       var allVals = [];
@@ -5662,7 +5768,7 @@
     function renderRoceComparison() {
       var el = document.getElementById('roceComparison');
       if (!el) return;
-      var sorted = filterCompanies(companyFilterValue, companyDropdownId).sort(function(a, b) { return (b.roce || 0) - (a.roce || 0); });
+      var sorted = filterCompanies('financial').sort(function(a, b) { return (b.roce || 0) - (a.roce || 0); });
       var maxRoce = Math.max.apply(null, sorted.map(function(c) { return c.roce || 0; }));
       var avgRoce = sorted.reduce(function(s, c) { return s + (c.roce || 0); }, 0) / sorted.length;
 
@@ -5698,7 +5804,7 @@
     function renderWcHeatmap() {
       var el = document.getElementById('wcHeatmap');
       if (!el) return;
-      var sorted = filterCompanies(companyFilterValue, companyDropdownId).sort(function(a, b) { return (a.wcDays || 0) - (b.wcDays || 0); });
+      var sorted = filterCompanies('financial').sort(function(a, b) { return (a.wcDays || 0) - (b.wcDays || 0); });
 
       function hWc(v) { if (v <= 0) return 'heat-cold'; if (v <= 20) return 'heat-cool'; if (v <= 40) return 'heat-neutral'; if (v <= 60) return 'heat-warm'; return 'heat-hot'; }
       function hInv(v) { if (v <= 20) return 'heat-cold'; if (v <= 30) return 'heat-cool'; if (v <= 40) return 'heat-neutral'; if (v <= 55) return 'heat-warm'; return 'heat-hot'; }
@@ -5729,7 +5835,7 @@
     function renderPremiumMixChart() {
       var el = document.getElementById('premiumMixChart');
       if (!el) return;
-      var sorted = filterCompanies(opsFilterValue).sort(function(a, b) {
+      var sorted = filterCompanies('ops').sort(function(a, b) {
         return (b.premiumMix ? b.premiumMix.premium : 0) - (a.premiumMix ? a.premiumMix.premium : 0);
       });
       var html = '';
@@ -5767,88 +5873,268 @@
       var cards = document.querySelectorAll('#dealCardsGrid .move-card-item[data-deal-type]');
       cards.forEach(function(c) {
         var companyEl = c.querySelector('.move-card-company');
-        var name = companyEl ? companyEl.textContent.toLowerCase() : '';
-        var companyMatch = !dealsFilterValue || name.indexOf(dealsFilterValue) !== -1;
+        var name = companyEl ? companyEl.textContent.trim() : '';
+        var companyMatch = isAcctSelected('deals', name);
         var typeMatch = activeType === 'All' || c.getAttribute('data-deal-type') === activeType;
         c.style.display = (companyMatch && typeMatch) ? '' : 'none';
       });
     }
 
-    // Competitive: filter move cards by company name (respecting active type filter)
+    // Competitive: filter move cards by account selection (respecting active type filter)
     function filterMovesCompany() {
       var activeBtn = document.querySelector('#moveFilterBar .type-filter.active');
       var activeType = activeBtn ? activeBtn.textContent.trim().split(' ')[0] : 'All';
       var cards = document.querySelectorAll('#moveCardsGrid .move-card-item');
       cards.forEach(function(c) {
         var companyEl = c.querySelector('.move-card-company');
-        var name = companyEl ? companyEl.textContent.toLowerCase() : '';
-        var companyMatch = !compFilterValue || name.indexOf(compFilterValue) !== -1;
+        var name = companyEl ? companyEl.textContent.trim() : '';
+        var companyMatch = isAcctSelected('comp', name);
         var typeMatch = activeType === 'All' || c.getAttribute('data-move-type') === activeType;
         c.style.display = (companyMatch && typeMatch) ? '' : 'none';
       });
     }
 
-    // Leadership: filter cards + governance rows by company name
+    // Leadership: filter cards + governance rows by account selection
     function filterLeadershipCards() {
-      // Filter trigger cards
       document.querySelectorAll('#section-leadership .lead-trigger').forEach(function(card) {
         var company = card.querySelector('.lead-trigger-company');
-        var name = company ? company.textContent.toLowerCase() : '';
-        card.style.display = (!leadFilterValue || name.indexOf(leadFilterValue) !== -1) ? '' : 'none';
+        var name = company ? company.textContent.trim() : '';
+        card.style.display = isAcctSelected('lead', name) ? '' : 'none';
       });
-      // Filter governance risk rows
       document.querySelectorAll('#section-leadership .gov-risk-row').forEach(function(row) {
         var company = row.querySelector('.gov-risk-company');
-        var name = company ? company.textContent.toLowerCase() : '';
-        row.style.display = (!leadFilterValue || name.indexOf(leadFilterValue) !== -1) ? '' : 'none';
+        var name = company ? company.textContent.trim() : '';
+        row.style.display = isAcctSelected('lead', name) ? '' : 'none';
       });
     }
 
-    // Watchlist: filter quadrant entries by company name
+    // Watchlist: filter quadrant entries by account selection
     function filterWatchlistEntries() {
       document.querySelectorAll('#section-watchlist .q-entry').forEach(function(entry) {
         var company = entry.querySelector('.q-entry-company');
-        var name = company ? company.textContent.toLowerCase() : '';
-        entry.style.display = (!watchFilterValue || name.indexOf(watchFilterValue) !== -1) ? '' : 'none';
+        var name = company ? company.textContent.trim() : '';
+        entry.style.display = isAcctSelected('watch', name) ? '' : 'none';
       });
     }
 
-    // ========== SECTION FILTER EVENT LISTENERS ==========
+    // ========== OPPORTUNITY PIPELINE TABLE ==========
+    var OPPORTUNITY_DATA = [
+      {
+        account: "Bajaj Electricals", stage: "Identified",
+        subs: [
+          { opp: "Operational turnaround", service: "Turnaround & Restructuring", signals: "Q3 FY26 PBT -Rs 20.28 Cr; 9MFY26 PBT -Rs 35.57 Cr; board pre-approved min remuneration for FY26 losses", source: "AR FY24-25, Board Outcome Q3 FY26", tier: "verified" },
+          { opp: "Capacity utilization improvement", service: "Performance Improvement", signals: "CP utilization 43%; fixed cost absorption crisis; other expenses +17.5% in loss quarter", source: "AR FY24-25", tier: "verified" },
+          { opp: "Channel restructuring", service: "Strategy", signals: "Retailer base -15% (2L\u21921.7L); channel partner retention 81%; new MD Mar 2025", source: "AR FY24-25, 85th AGM", tier: "verified" },
+          { opp: "Workforce cost rationalization", service: "Cost Optimization", signals: "Rs 28.89 Cr exceptional gratuity charge; dual CEO + COO exit", source: "Board Outcome Q3 FY26", tier: "verified" }
+        ]
+      },
+      {
+        account: "IFB Industries", stage: "Identified",
+        subs: [
+          { opp: "Margin recovery program", service: "Performance Improvement", signals: "EBITDA 7.4% vs 10%+ target (260 bps gap); material cost outpacing revenue (+19.7% vs +14.6%)", source: "Transcript Intel + Financial Performance", tier: "derived" },
+          { opp: "Sales process overhaul", service: "Strategy", signals: "Chairman admits \u2018sales process weak\u2019 for multiple years", source: "Transcript Intel (Earnings Call)", tier: "derived" }
+        ]
+      },
+      {
+        account: "Symphony", stage: "Identified",
+        subs: [
+          { opp: "Subsidiary divestiture / restructuring", service: "M&A Advisory", signals: "CT Australia: 11+ qtrs losses, divestiture failed (10 NDAs); further impairment guided by Mar 2026", source: "Q3 FY26 Earnings Call, AR FY25", tier: "verified" },
+          { opp: "Seasonal demand risk mitigation", service: "Strategy", signals: "9M FY26 standalone revenue -30% YoY; EBITDA collapsed -57% to Rs 81 Cr", source: "Q3 FY26 Earnings Call Jan 2026", tier: "verified" },
+          { opp: "Credit governance remediation", service: "Corporate Finance", signals: "Pathways Retail Rs 58 Cr fraud write-off; only 15% recovered", source: "AR FY25, Corporate Presentation Feb 2026", tier: "verified" },
+          { opp: "International portfolio rationalization", service: "Turnaround & Restructuring", signals: "IMPCO Mexico PAT negative; consolidated EBITDA 490 bps below standalone due to subsidiary drag", source: "Transcript Intel + AR FY25", tier: "verified" }
+        ]
+      },
+      {
+        account: "Butterfly Gandhimathi", stage: "Identified",
+        subs: [
+          { opp: "Margin turnaround program", service: "Turnaround & Restructuring", signals: "EBITDA 2.94% (FY24); revenue 18% below FY23 peak (Rs 865 Cr vs Rs 1,057 Cr)", source: "AR FY24-25, Q1/Q2 FY26 Results", tier: "verified" },
+          { opp: "Supply chain de-risking", service: "Procurement", signals: "Steel single-source risk (no alternate vendor); no commodity hedging; plant consolidated", source: "AR FY21-FY25", tier: "verified" },
+          { opp: "Geographic expansion strategy", service: "Strategy", signals: "~75% South India concentration; pan-India share only ~5%; Crompton merger rejected (72.6% against)", source: "Transcript Intel + Q3 FY22 Investor Presentation", tier: "verified" }
+        ]
+      },
+      {
+        account: "Whirlpool of India", stage: "Qualified",
+        subs: [
+          { opp: "Parent stake divestiture advisory", service: "M&A Advisory", signals: "Parent stake 51%\u2192~20% reduction; OPM 3.86% near-zero margin of safety", source: "BSE Filings, Transcript Intel", tier: "verified" },
+          { opp: "Commercial agreement renegotiation", service: "Transaction Advisory", signals: "BLA/TLA renegotiation critical post-exit; brand licensing terms at risk", source: "Transcript Intel (Concall)", tier: "verified" },
+          { opp: "Transfer pricing resolution", service: "Corporate Finance", signals: "TP litigation INR 10,568 lacs exposure; dealer dependency 99.33%", source: "BSE Filings, Annual Report", tier: "verified" }
+        ]
+      },
+      {
+        account: "Amber Enterprises", stage: "Qualified",
+        subs: [
+          { opp: "Post-acquisition integration", service: "M&A Advisory", signals: "3 acquisitions in 12 months (Power One, Unitronics, Shogini); Rs 94 Cr Shivalik impairment", source: "Q3 FY26 Investor Presentation, CRISIL Nov 2025", tier: "verified" },
+          { opp: "Cost structure optimization", service: "Performance Improvement", signals: "PAT margin 2.5% on Rs 9,973 Cr revenue; finance cost +32% YoY; D/E at 1.32x", source: "Investor Presentations, CRISIL Nov 2025", tier: "verified" },
+          { opp: "Consumer Durables margin recovery", service: "Performance Improvement", signals: "EBITDA compressed 7.7%\u21926.9% (9MFY26) despite 19% revenue growth", source: "Q3 FY26 Investor Presentation", tier: "verified" },
+          { opp: "Capex execution oversight", service: "Strategy", signals: "Rs 4,200 Cr PCB capex pipeline (Hosur + Jewar); timeline TBD", source: "35th AGM, Investor Presentations", tier: "verified" }
+        ]
+      },
+      {
+        account: "Crompton Greaves Consumer", stage: "Qualified",
+        subs: [
+          { opp: "Margin improvement program", service: "Performance Improvement", signals: "9M EBITDA 9.6% (from 10.9%); material margin -150 bps; pricing pass-through incomplete", source: "Q3 FY26 Earnings Call, Investor Presentations", tier: "verified" },
+          { opp: "New category entry strategy", service: "Strategy", signals: "Solar rooftop Q3 Rs 19 Cr vs Rs 2,000 Cr aspiration; simultaneous wires, pumps entry", source: "Q1 FY26 Earnings Call, Q3 FY26 Presentation", tier: "verified" },
+          { opp: "Butterfly subsidiary turnaround", service: "Turnaround & Restructuring", signals: "Revenue +3% vs double-digit guidance; BLDC supply constraint; employee cost at 2x revenue growth", source: "Q3/Q2 FY26 Presentations, MD&A FY25", tier: "verified" }
+        ]
+      },
+      {
+        account: "Havells India", stage: "Qualified",
+        subs: [
+          { opp: "Lloyd margin improvement", service: "Performance Improvement", signals: "Lloyd margin -4.3%\u21922.6%; pathway to industry-norm margins needed", source: "Q1-Q3 FY26 Earnings Transcripts", tier: "verified" },
+          { opp: "Capacity expansion strategy", service: "Strategy", signals: "Cables at 90-100% utilization; capacity doubling FY24-FY27", source: "Q1-Q3 FY26 Transcripts, AR FY25", tier: "verified" },
+          { opp: "Solar ecosystem entry", service: "Strategy", signals: "Rs 600 Cr Goldi Solar bet; targeting Rs 1,000-1,500 Cr revenue", source: "Annual Report FY25", tier: "verified" },
+          { opp: "Operating leverage monetization", service: "Performance Improvement", signals: "Employee cost flat 7 qtrs; revenue +14.3%, EBITDA +21%; 150-200bps margin guidance", source: "Q1-Q3 FY26 Transcripts", tier: "verified" }
+        ]
+      },
+      {
+        account: "TTK Prestige", stage: "Qualified",
+        subs: [
+          { opp: "Rs 500 Cr transformation oversight", service: "Transformation", signals: "EBITDA 15.4%\u219213.4%; 8-quarter margin dilution committed; Rs 200 Cr OPEX + Rs 300 Cr CAPEX", source: "Q4 FY25 Earnings Transcript, AR FY25", tier: "verified" },
+          { opp: "UK subsidiary retain/divest analysis", service: "M&A Advisory", signals: "Horwood Rs 71.4 Cr goodwill impairment; ongoing operating losses", source: "Q4 FY25 Transcript, AR FY25", tier: "verified" },
+          { opp: "Ultrafresh restructuring", service: "Turnaround & Restructuring", signals: "EBITDA Rs (9.3) Cr; auditor-flagged fund misapplication", source: "Annual Report FY25 (Auditor Notes)", tier: "verified" },
+          { opp: "Supply chain make-vs-buy optimization", service: "Procurement", signals: "52% traded goods; China indigenization roadmap needed", source: "Q4 FY25 Transcript", tier: "verified" }
+        ]
+      },
+      {
+        account: "Dixon Technologies", stage: "Outreach",
+        subs: [
+          { opp: "IT hardware growth strategy", service: "Strategy", signals: "Rs 1,500 Cr\u2192Rs 4,000 Cr IT hardware pivot; ROCE 40% (sector-leading)", source: "Competitive Intelligence + Deals", tier: "guidance" },
+          { opp: "JV integration support", service: "M&A Advisory", signals: "HKC display JV integration; camera module 5x capacity expansion", source: "Deals & Transactions", tier: "guidance" },
+          { opp: "New vertical scale-up", service: "Operations", signals: "IT hardware +481% growth; negative working capital (-7 days)", source: "Financial Performance + Competitive", tier: "guidance" }
+        ]
+      },
+      {
+        account: "Voltas", stage: "Outreach",
+        subs: [
+          { opp: "Working capital optimization", service: "Corporate Finance", signals: "17.9% RAC market share; revenue -1.1% YoY; EBITDA 5.4%", source: "Financial Performance", tier: "derived" },
+          { opp: "International exposure rationalization", service: "Strategy", signals: "International portfolio reduction model; focus on core RAC business", source: "Financial + Competitive Intel", tier: "derived" },
+          { opp: "B2B digital platform", service: "Digital & Technology", signals: "B2B digital platform opportunity; dual B2B+B2C channel structure", source: "Competitive Intelligence", tier: "derived" }
+        ]
+      },
+      {
+        account: "Blue Star", stage: "Outreach",
+        subs: [
+          { opp: "Cost transformation program", service: "Performance Improvement", signals: "\u2018Draconian cost-control\u2019 measures initiated by management", source: "Concall Transcript", tier: "guidance" },
+          { opp: "Channel optimization", service: "Strategy", signals: "B2B + B2C dual-channel optimization; EBITDA 7.5%", source: "Concall + Financial Performance", tier: "guidance" },
+          { opp: "Capital efficiency enhancement", service: "Corporate Finance", signals: "26.2% ROCE; strong capital efficiency with room for WC improvement", source: "Financial Performance", tier: "guidance" }
+        ]
+      }
+    ];
 
-    // Operations filter
-    document.getElementById('opsCompanyFilter').addEventListener('input', function() {
-      opsFilterValue = this.value.toLowerCase().trim();
-      renderOpsTable();
-      renderProductMixGrid();
-      renderPremiumMixChart();
+    var oppSelectedAccounts = {};
+    OPPORTUNITY_DATA.forEach(function(d){ oppSelectedAccounts[d.account] = true; });
+    var oppDropdownOpen = false;
+
+    function toggleOppDropdown() {
+      oppDropdownOpen = !oppDropdownOpen;
+      document.getElementById('oppDropdownList').classList.toggle('open', oppDropdownOpen);
+      document.getElementById('oppDropdownBtn').classList.toggle('open', oppDropdownOpen);
+    }
+
+    // Close dropdown on outside click
+    document.addEventListener('click', function(e) {
+      var wrap = document.getElementById('oppDropdownWrap');
+      if (wrap && !wrap.contains(e.target) && oppDropdownOpen) {
+        oppDropdownOpen = false;
+        document.getElementById('oppDropdownList').classList.remove('open');
+        document.getElementById('oppDropdownBtn').classList.remove('open');
+      }
     });
 
-    // Competitive filter
-    document.getElementById('compCompanyFilter').addEventListener('input', function() {
-      compFilterValue = this.value.toLowerCase().trim();
-      renderCompHeatmap();
-      filterMovesCompany();
-    });
+    function oppToggleAccount(account) {
+      oppSelectedAccounts[account] = !oppSelectedAccounts[account];
+      renderOppPipeline();
+    }
 
-    // Leadership filter
-    document.getElementById('leadCompanyFilter').addEventListener('input', function() {
-      leadFilterValue = this.value.toLowerCase().trim();
-      filterLeadershipCards();
-    });
+    function oppSelectAll() {
+      OPPORTUNITY_DATA.forEach(function(d){ oppSelectedAccounts[d.account] = true; });
+      renderOppPipeline();
+    }
 
-    // Deals filter
-    document.getElementById('dealsCompanyFilter').addEventListener('input', function() {
-      dealsFilterValue = this.value.toLowerCase().trim();
-      filterDealsCompany();
-    });
+    function oppClearAll() {
+      OPPORTUNITY_DATA.forEach(function(d){ oppSelectedAccounts[d.account] = false; });
+      renderOppPipeline();
+    }
 
-    // Watchlist filter
-    document.getElementById('watchCompanyFilter').addEventListener('input', function() {
-      watchFilterValue = this.value.toLowerCase().trim();
-      filterWatchlistEntries();
+    function renderOppPipeline() {
+      var statsRow = document.getElementById('oppStatsRow');
+      var ddList = document.getElementById('oppDropdownList');
+      var ddLabel = document.getElementById('oppDropdownLabel');
+      var wrap = document.getElementById('oppTableWrap');
+
+      // Dropdown list
+      var selCount = OPPORTUNITY_DATA.filter(function(d){ return oppSelectedAccounts[d.account]; }).length;
+      var total = OPPORTUNITY_DATA.length;
+      ddLabel.textContent = selCount === total ? 'All Accounts (' + total + ')' : selCount + ' of ' + total + ' Accounts';
+
+      var dhtml = '<div class="dd-actions"><button onclick="oppSelectAll()">Select All</button><button onclick="oppClearAll()">Clear All</button></div>';
+      dhtml += '<div class="dd-divider"></div>';
+      OPPORTUNITY_DATA.forEach(function(d) {
+        var chk = oppSelectedAccounts[d.account] ? ' checked' : '';
+        dhtml += '<label><input type="checkbox"' + chk + ' onchange="oppToggleAccount(\'' + d.account.replace(/'/g, "\\'") + '\')">' + d.account + '</label>';
+      });
+      ddList.innerHTML = dhtml;
+
+      // Filtered data
+      var filtered = OPPORTUNITY_DATA.filter(function(d){ return oppSelectedAccounts[d.account]; });
+
+      // Stats
+      var totalSubs = 0, services = {}, stages = { Identified:0, Qualified:0, Outreach:0 };
+      filtered.forEach(function(d) {
+        stages[d.stage] = (stages[d.stage] || 0) + 1;
+        d.subs.forEach(function(s) {
+          totalSubs++;
+          services[s.service] = (services[s.service] || 0) + 1;
+        });
+      });
+      var practiceCount = Object.keys(services).length;
+      statsRow.innerHTML =
+        '<span class="opp-stat-chip"><strong>' + filtered.length + '</strong> Accounts</span>' +
+        '<span class="opp-stat-chip"><strong>' + totalSubs + '</strong> Sub-Opportunities</span>' +
+        '<span class="opp-stat-chip"><strong>' + practiceCount + '</strong> Practice Areas</span>';
+
+      // Table
+      if (filtered.length === 0) {
+        wrap.innerHTML = '<p style="color:var(--text-muted);font-size:12px;padding:12px 0;">No accounts selected. Use the dropdown above to select accounts.</p>';
+        return;
+      }
+
+      var tierLabel = { verified: 'Verified', derived: 'Derived', guidance: 'Mgmt Guidance' };
+      var html = '<table class="opp-table"><thead><tr>';
+      html += '<th style="min-width:140px">Account</th>';
+      html += '<th style="min-width:170px">Opportunity</th>';
+      html += '<th style="min-width:150px">A&amp;M Services / Offerings</th>';
+      html += '<th style="min-width:200px">Signals</th>';
+      html += '<th style="min-width:160px">Source</th>';
+      html += '</tr></thead><tbody>';
+
+      filtered.forEach(function(d) {
+        d.subs.forEach(function(sub, i) {
+          var rowCls = i === 0 ? ' class="opp-group-first"' : '';
+          html += '<tr' + rowCls + '>';
+          if (i === 0) {
+            html += '<td class="opp-account-cell" rowspan="' + d.subs.length + '">' + d.account + '</td>';
+          }
+          html += '<td>' + sub.opp + '</td>';
+          html += '<td><span class="opp-service-pill">' + sub.service + '</span></td>';
+          html += '<td class="opp-signals">' + sub.signals + '</td>';
+          html += '<td><span class="opp-source-tag src-' + sub.tier + '" style="cursor:pointer" onclick="openSourcePanel(\'' + sub.tier + '\')">' + tierLabel[sub.tier] + '</span><br><span style="font-size:10px;color:var(--text-muted)">' + sub.source + '</span></td>';
+          html += '</tr>';
+        });
+      });
+
+      html += '</tbody></table>';
+      wrap.innerHTML = html;
+    }
+
+    // Initialize account dropdown filters
+    SECTION_IDS.forEach(function(sid) {
+      renderAcctList(sid);
+      updateAcctLabel(sid);
     });
 
     // Initial render
+    renderOppPipeline();
     renderTable();
     renderOpsTable();
     renderSubSectorCards();
@@ -5920,6 +6206,260 @@
       document.getElementById('sourcePanelOverlay').classList.remove('open');
     }
 
+    // ========== THEME EVIDENCE DATA ==========
+    var THEME_EVIDENCE = {
+      'margin-volume': {
+        title: 'Margin vs. Volume Struggle',
+        companies: [
+          {
+            name: 'Voltas',
+            metric: 'EBITDA 5.4%, Revenue -1.1% YoY',
+            evidence: 'Q3 FY26 revenue declined <strong>1.1% YoY</strong> to Rs 3,071 Cr. EBITDA margin compressed to <strong>5.4%</strong>. UCP segment facing dual pressure from BEE-mandated star rating upgrade costs and copper prices at $9,500+/ton. Price hikes of 3\u20135% implemented but insufficient to offset <strong>7\u201310% cost inflation</strong> from BEE transition.',
+            source: 'Q3 FY26 Quarterly Results \u2014 BSE Filing',
+            url: 'https://www.bseindia.com/corporates/ann.html'
+          },
+          {
+            name: 'Blue Star',
+            metric: 'EBITDA 7.5%, Revenue +4.2% YoY',
+            evidence: 'Q3 FY26 revenue grew only <strong>4.2% YoY</strong> to Rs 2,925 Cr \u2014 significantly below 15%+ historical growth rates. EBITDA margin at <strong>7.5%</strong> despite being the peak cooling season ramp-up quarter. Raw material costs (copper, aluminum) compressing room AC margins. BEE norm upgrade forcing AC price hikes of <strong>7\u201310%</strong> into a price-sensitive market.',
+            source: 'Q3 FY26 Company Filings \u2014 BSE',
+            url: 'https://www.bluestarindia.com/investor-relations.aspx'
+          },
+          {
+            name: 'Crompton',
+            metric: '9M FY26 EBITDA 9.6% (from 10.9%)',
+            evidence: '9M FY26 EBITDA compressed to <strong>9.6%</strong> (vs 10.9% FY25 peak). Standalone material margin compressed <strong>150 bps YoY</strong> (31.1% vs 32.6%) due to copper/aluminium/steel inflation. Price increases of only 1\u20131.5% implemented Jan 2026 \u2014 insufficient to offset input cost inflation. Employee cost growing at <strong>2x revenue rate</strong> (+13.6% vs +7.3%).',
+            source: 'Q3 FY26 Earnings Call Transcript \u2014 BSE',
+            url: 'https://www.crompton.co.in/investor-relations/'
+          },
+          {
+            name: 'Havells',
+            metric: 'Lloyd AC margin still only 2.6%',
+            evidence: 'Lloyd (AC/washing machine) segment margin recovered from <strong>-4.3% to 2.6%</strong> \u2014 still sub-optimal for peak season. BEE norm transition forcing 7\u201310% AC price hikes. Cables segment at <strong>90\u2013100% utilization</strong> with copper as primary input \u2014 directly exposed to $12,500/ton copper forecasts. Revenue +14.3% but margins expanding only due to operating leverage, not pricing power.',
+            source: 'Q1\u2013Q3 FY26 Earnings Transcripts + Annual Report FY25',
+            url: 'https://www.havells.com/en/investor-relations.html'
+          }
+        ]
+      },
+      'premiumization': {
+        title: 'Premiumization Curve Flattening',
+        companies: [
+          {
+            name: 'Havells',
+            metric: 'Premium mix positioning under test',
+            evidence: 'Premium positioning (<strong>40% revenue mix</strong>) under pressure as BEE-driven price hikes stack on top of premium pricing. Management guided only "measured premiumization" and "calibrated price hikes" \u2014 signaling awareness that premium elasticity has limits. Lloyd AC still only <strong>2.6% margin</strong> despite premium push.',
+            source: 'Q3 FY26 Earnings Transcript \u2014 BSE',
+            url: 'https://www.havells.com/en/investor-relations.html'
+          },
+          {
+            name: 'Blue Star',
+            metric: '35% premium mix, growth decelerating',
+            evidence: 'Premium revenue mix at <strong>35%</strong> with room AC growth decelerating. Only 4.2% revenue growth \u2014 significantly below historical trajectory. Premium RAC segment facing consumer pushback as BEE-upgraded models push prices <strong>7\u201310% higher</strong>. The price-value gap is widening \u2014 premium adoption curve flattening in current inflationary environment.',
+            source: 'Q3 FY26 Company Filings \u2014 BSE',
+            url: 'https://www.bluestarindia.com/investor-relations.aspx'
+          },
+          {
+            name: 'TTK Prestige',
+            metric: 'EBITDA contracted 15.4% \u2192 13.4%',
+            evidence: 'EBITDA contracted from <strong>15.4% to 13.4%</strong> despite Rs 500 Cr transformation investment. Q4 FY25 PAT collapsed <strong>94%</strong> to Rs 3.9 Cr. Rs 71.4 Cr UK goodwill impairment. 667 Prestige Xclusive stores pushing premium but headline growth only <strong>1.2%</strong>. Premiumization investment diluting margins for 8 quarters with uncertain payback.',
+            source: 'Q4 FY25 Earnings Transcript + Annual Report FY25',
+            url: 'https://www.ttkprestige.com/investors'
+          }
+        ]
+      },
+      'backward-integration': {
+        title: 'Backward Integration Imperative',
+        companies: [
+          {
+            name: 'Amber Enterprises',
+            metric: '26\u201327% outsourced RAC market share',
+            evidence: 'Holds <strong>26\u201327%</strong> of India\'s outsourced RAC manufacturing market. But structural vulnerability exposed: when brands took RAC assembly in-house in FY24, Consumer Durables revenue <strong>fell 7%</strong>. Rs 4,200 Cr PCB capex pipeline (Hosur + Jewar) signals aggressive backward integration into components. 3 acquisitions in 12 months to build vertical capability.',
+            source: 'Q3 FY26 Investor Presentation + 35th AGM Proceedings',
+            url: 'https://www.amberenterprises.com/investors/'
+          },
+          {
+            name: 'Dixon Technologies',
+            metric: 'ROCE 40%, negative working capital (-7 days)',
+            evidence: 'ROCE at <strong>40%</strong> (sector-leading) with negative working capital (<strong>-7 days</strong>) \u2014 the gold standard of backward integration economics. IT hardware segment grew <strong>481%</strong>. Camera module scale-up on track. Rs 40,000 Cr ECMS scheme directly benefits deeply localized EMS players. Structural advantage over import-dependent competitors widening with every PLI round.',
+            source: 'Q3 FY26 Company Filings \u2014 BSE',
+            url: 'https://www.dixoninfo.com/investor-relations.php'
+          },
+          {
+            name: 'Havells India',
+            metric: 'Import dependency <8%',
+            evidence: 'Import dependency under <strong>8%</strong> \u2014 lowest among diversified electrical players. Cables at 90\u2013100% utilization with capacity doubling program. Rs 600 Cr <strong>Goldi Solar investment</strong> signals forward integration into renewables. Rs 3,353 Cr cash reserves for further backward integration capex. PLI benefits accruing to localized manufacturers vs import-dependent peers.',
+            source: 'Annual Report FY25 + Q1\u2013Q3 FY26 Earnings Transcripts',
+            url: 'https://www.havells.com/en/investor-relations.html'
+          }
+        ]
+      },
+      'margin-collapse': {
+        title: 'Peak Season Margin Collapse Risk',
+        companies: [
+          {
+            name: 'Bajaj Electricals',
+            metric: 'EBITDA 4.09%, PBT -Rs 20.28 Cr',
+            evidence: 'Q3 FY26 PBT before exceptional: <strong>-Rs 20.28 Cr</strong> (vs +Rs 20.27 Cr Q3 FY25). EBITDA margin at <strong>4.09%</strong>. 9M FY26 revenue down 9.7% YoY to Rs 3,210 Cr. CP capacity utilization at just <strong>43%</strong>. Board pre-authorized minimum director remuneration \u2014 admission of anticipated full-year losses. Other expenses surged +17.5% despite -5% revenue.',
+            source: 'Board Meeting Outcome Q3 FY26 + Annual Report FY24-25',
+            url: 'https://www.bajajelectricals.com/investor-relation/'
+          },
+          {
+            name: 'Whirlpool of India',
+            metric: 'OPM 3.86% \u2014 near-zero margin of safety',
+            evidence: 'Operating profit margin at <strong>3.86%</strong> \u2014 near-zero margin of safety heading into a quarter where input costs are rising. <strong>99.15%</strong> dealer dependency with zero D2C infrastructure. Ad spend surged <strong>+62% YoY</strong> to support "market share gains" narrative. Any further copper/steel inflation in Q4 FY26 could push OPM negative.',
+            source: 'Q3 FY26 Quarterly Results \u2014 BSE Filing',
+            url: 'https://www.bseindia.com/corporates/ann.html'
+          },
+          {
+            name: 'Symphony',
+            metric: '9M EBITDA collapsed 57% to Rs 81 Cr',
+            evidence: '9M FY26 standalone revenue collapsed <strong>30%</strong> to Rs 566 Cr. EBITDA crashed <strong>57%</strong> to Rs 81 Cr (14.4% margin vs 24.25% FY25). CT Australia divestiture failed \u2014 10 NDAs, zero bids accepted. Rs 58 Cr Pathways fraud write-off. Consolidated EBITDA margin just <strong>9.5%</strong> due to subsidiary drag. IMPCO Mexico PAT turned negative.',
+            source: 'Q3 FY26 Earnings Call Jan 29, 2026 + Corporate Presentation',
+            url: 'https://www.symphonylimited.com/investors'
+          },
+          {
+            name: 'Crompton',
+            metric: '9M EBITDA 9.6%, material margin -150bps',
+            evidence: '9M FY26 EBITDA compressed to <strong>9.6%</strong> from FY25 peak of 10.9%. Standalone material margin down <strong>150 bps YoY</strong>. Revenue nearly flat (+0.2% for 9 months). Simultaneously entering wires, solar rooftop while managing BEE transition, Baroda VRS, BCG GTM overhaul \u2014 bandwidth risk on Rs 557 Cr EBITDA base. Employee cost growing at <strong>2x revenue rate</strong>.',
+            source: 'Q3 FY26 Earnings Call + Investor Presentation',
+            url: 'https://www.crompton.co.in/investor-relations/'
+          }
+        ]
+      },
+      'market-attrition': {
+        title: 'Market Share Attrition',
+        companies: [
+          {
+            name: 'Bajaj Electricals',
+            metric: 'Retailer base contracted 15%',
+            evidence: 'Retailer base contracted <strong>15%</strong> (2 lakh \u2192 1.7 lakh). Channel partner retention only <strong>81%</strong>. CP capacity utilization at 43% (10.8 Mn installed vs 4.6 Mn produced). Revenue declining 9.7% YoY while competitors are growing. Market position eroding in both fans and lighting as Crompton, Havells, and Orient gain share.',
+            source: 'Annual Report FY24-25 + Board Meeting Outcome Q3 FY26',
+            url: 'https://www.bajajelectricals.com/investor-relation/'
+          },
+          {
+            name: 'Butterfly Gandhimathi',
+            metric: 'Revenue 18% below FY23 peak',
+            evidence: 'Revenue at Rs 865 Cr \u2014 still <strong>18% below FY23 peak</strong> of Rs 1,057 Cr. Retail outlets declined from 25,000+ to <strong>24,000+</strong>. ~75% revenue concentrated in South India with minimal pan-India traction. Crompton merger (the expansion strategy) rejected by 72.6% shareholders. Recovery happening on a contracted base \u2014 structural market share loss.',
+            source: 'Annual Report FY24-25 + Q1/Q2 FY26 Quarterly Results',
+            url: 'https://www.bseindia.com/corporates/ann.html'
+          },
+          {
+            name: 'Orient Electric',
+            metric: 'Fan segment share under pressure',
+            evidence: 'Market share under pressure in core fans segment from Crompton\'s BLDC push (Nucleus platform selling <strong>1 lakh+ units</strong>) and Havells\' premium positioning. Revenue growing 10.9% but slower than aggressive competitors. BLDC transition requiring heavy investment. Fans segment (<strong>40% of revenue</strong>) facing pricing compression from mass-market entrants.',
+            source: 'Q3 FY26 Company Filings \u2014 BSE',
+            url: 'https://www.orientelectric.com/investor-relations'
+          },
+          {
+            name: 'Whirlpool of India',
+            metric: '99.33% dealer dependency, zero D2C',
+            evidence: 'Dealer dependency increased from 99.15% to <strong>99.33%</strong> \u2014 zero D2C infrastructure in an era of rapid D2C growth. Ad spend surging <strong>+62% YoY</strong> to defend market position rather than expand it. Claims "growing market shares substantially" but OPM at <strong>3.86%</strong> suggests share is being bought through margin sacrifice.',
+            source: 'Q3 FY26 Quarterly Results \u2014 BSE Filing',
+            url: 'https://www.bseindia.com/corporates/ann.html'
+          }
+        ]
+      },
+      'capital-exodus': {
+        title: 'Institutional Capital Exodus',
+        companies: [
+          {
+            name: 'BSE Consumer Durables Index',
+            metric: '8 consecutive selling sessions',
+            evidence: 'BSE Consumer Durables Index saw <strong>8 consecutive sessions</strong> of institutional selling in Jan\u2013Feb 2026. Institutional anxiety over incoming BEE-driven price hikes and commodity inflation across the sector. FII selling intensified as copper price forecasts rose to <strong>$12,500/ton</strong>. Sector-wide de-rating reflecting structural margin concerns.',
+            source: 'BSE Market Data \u2014 Jan\u2013Feb 2026',
+            url: 'https://www.bseindia.com'
+          },
+          {
+            name: 'Bajaj Electricals',
+            metric: 'Board pre-approved for FY26 losses',
+            evidence: 'Board pre-authorized minimum director remuneration for anticipated <strong>FY26 full-year losses</strong> \u2014 a governance signal that insiders expect sustained underperformance. 9M FY26 revenue -9.7%. Interest coverage deteriorated from <strong>3.7x to 3.1x</strong>. Institutional investors repricing terminal value on persistent operating losses.',
+            source: 'Board Meeting Outcome Q3 FY26 \u2014 BSE Filing',
+            url: 'https://www.bajajelectricals.com/investor-relation/'
+          },
+          {
+            name: 'IFB Industries',
+            metric: 'EBITDA 7.4% \u2014 260bps below target',
+            evidence: 'EBITDA at <strong>7.4%</strong> \u2014 260 bps below management\'s own 10%+ target. Material costs outpacing revenue growth (<strong>+19.7% vs +14.6%</strong>). Chairman admits "sales process is weak" for multiple years running. A&M engagement retained for cost optimization but margin recovery lagging, undermining institutional confidence.',
+            source: 'Q3 FY26 Earnings Call Transcript',
+            url: 'https://www.ifbindustries.com/investor-relations'
+          },
+          {
+            name: 'Amber Enterprises',
+            metric: 'D/E 1.32x, finance cost +32% YoY',
+            evidence: 'Debt-to-equity at <strong>1.32x</strong> with finance cost surging <strong>+32% YoY</strong> to Rs 220 Cr. 3 acquisitions in 12 months raising integration complexity concerns. Rs 94 Cr Shivalik impairment hit PAT. Q3 FY26 PAT negative at <strong>Rs -9 Cr</strong>. Structural PAT margin only 2.5% despite strong topline growth.',
+            source: 'Q3 FY26 Investor Presentation + CRISIL Credit Rating',
+            url: 'https://www.amberenterprises.com/investors/'
+          }
+        ]
+      },
+      'ma-governance': {
+        title: 'M&A Governance Risk',
+        companies: [
+          {
+            name: 'Crompton Greaves Consumer',
+            metric: 'Butterfly merger rejected by 72.6%',
+            evidence: 'Crompton-Butterfly merger rejected by shareholders with <strong>72.6% voting against</strong>. Merger was a key strategic pillar of "Crompton 2.0" \u2014 its failure leaves kitchen appliance expansion strategy in limbo. Simultaneously entering wires and solar rooftop while managing BEE transition, Baroda VRS, and BCG GTM overhaul \u2014 bandwidth risk on a <strong>Rs 557 Cr EBITDA base</strong>.',
+            source: 'Q3 FY26 Earnings Call + Q1 FY26 Transcript \u2014 BSE',
+            url: 'https://www.crompton.co.in/investor-relations/'
+          },
+          {
+            name: 'Butterfly Gandhimathi',
+            metric: '75% South India, expansion stalled',
+            evidence: '~75% revenue still concentrated in <strong>South India</strong>. Crompton merger \u2014 the primary vehicle for pan-India expansion \u2014 rejected by shareholders. Retail outlets declining (25,000+ \u2192 24,000+). <strong>Steel has NO alternate vendor</strong>. Revenue still 18% below FY23 peak. Without the merger, Butterfly faces structural geographic limitation with no clear expansion pathway.',
+            source: 'Annual Report FY24-25 + Q2 FY26 Quarterly Results',
+            url: 'https://www.bseindia.com/corporates/ann.html'
+          },
+          {
+            name: 'Amber Enterprises',
+            metric: '3 acquisitions in 12 months, Rs 94 Cr impairment',
+            evidence: '3 acquisitions in 12 months: Power One Microsystems (PCB), Unitronics (defense electronics), Shogini (PCB/components). <strong>Rs 94 Cr Shivalik impairment</strong> in Q3 FY26 \u2014 already a write-down on a recent investment. Integration complexity rising with D/E at <strong>1.32x</strong>. Consumer Durables EBITDA compressed 7.7% \u2192 6.9% despite 19% revenue growth \u2014 acquisitions adding revenue but diluting margins.',
+            source: 'Q3 FY26 + Q4 FY25 Investor Presentations + 35th AGM',
+            url: 'https://www.amberenterprises.com/investors/'
+          }
+        ]
+      }
+    };
+
+    function openEvidenceDrawer(themeId, companyIndex) {
+      var theme = THEME_EVIDENCE[themeId];
+      if (!theme) return;
+      var co = theme.companies[companyIndex];
+      if (!co) return;
+
+      var html = '';
+      html += '<div class="evidence-theme-tag">' + theme.title + '</div>';
+      html += '<div class="evidence-company-name">' + co.name + '</div>';
+      html += '<div class="evidence-metric-summary">' + co.metric + '</div>';
+      html += '<div class="evidence-text">' + co.evidence + '</div>';
+      html += '<a href="' + co.url + '" target="_blank" rel="noopener" class="evidence-source-link">' + co.source + '</a>';
+
+      // Other companies in this theme
+      if (theme.companies.length > 1) {
+        html += '<div style="margin-top:24px;padding-top:16px;border-top:1px solid var(--border)">';
+        html += '<div class="evidence-others-title">Also under this theme</div>';
+        for (var i = 0; i < theme.companies.length; i++) {
+          if (i === companyIndex) continue;
+          var other = theme.companies[i];
+          html += '<div class="evidence-other-card" onclick="openEvidenceDrawer(\'' + themeId + '\',' + i + ')">';
+          html += '<div style="display:flex;justify-content:space-between;align-items:center">';
+          html += '<span class="eo-name">' + other.name + '</span>';
+          html += '<span class="eo-metric">' + other.metric + '</span>';
+          html += '</div></div>';
+        }
+        html += '</div>';
+      }
+
+      document.getElementById('evidenceDrawerTitle').textContent = co.name;
+      document.getElementById('evidenceDrawerBody').innerHTML = html;
+      document.getElementById('evidenceDrawer').classList.add('open');
+      document.getElementById('evidenceDrawerOverlay').classList.add('open');
+    }
+
+    function closeEvidenceDrawer() {
+      document.getElementById('evidenceDrawer').classList.remove('open');
+      document.getElementById('evidenceDrawerOverlay').classList.remove('open');
+    }
+
     // Event delegation: clicking any .source-tier badge opens the panel
     document.addEventListener('click', function(e) {
       var badge = e.target.closest('.source-tier');
@@ -5935,9 +6475,12 @@
       openSourcePanel(tier);
     });
 
-    // Escape key closes panel
+    // Escape key closes panels
     document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') closeSourcePanel();
+      if (e.key === 'Escape') {
+        closeSourcePanel();
+        closeEvidenceDrawer();
+      }
     });
 
     // === Sidebar Collapse ===
