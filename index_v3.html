@@ -1361,9 +1361,10 @@
     /* === WC Heatmap compact layout === */
     .wc-heatmap-table { table-layout: fixed; }
     .wc-heatmap-table th, .wc-heatmap-table td { padding: 10px 10px; }
-    .wc-heatmap-table th:nth-child(1) { width: 18%; }
-    .wc-heatmap-table th:nth-child(2) { width: 14%; }
+    .wc-heatmap-table th:nth-child(1) { width: 22%; }
+    .wc-heatmap-table th:nth-child(2) { width: 12%; }
     .wc-heatmap-table th:nth-child(n+3) { width: auto; }
+    .wc-heatmap-table td:first-child { overflow: hidden; text-overflow: ellipsis; }
 
     /* === Leadership & Governance === */
     .lead-trigger { background: var(--surface); border: 1px solid var(--surface-overlay); border-radius: 8px; padding: 14px 16px; position: relative; }
@@ -6061,7 +6062,7 @@
       html += '</tr></thead><tbody>';
       sorted.forEach(function(c) {
         html += '<tr>';
-        html += '<td style="font-weight:600;white-space:nowrap">' + esc(c.name) + '</td>';
+        html += '<td style="font-weight:600">' + esc(c.name) + '</td>';
         html += '<td style="font-size:11px;color:var(--text-muted);white-space:nowrap">' + esc(c.subSector) + '</td>';
         html += '<td class="mono ' + hWc(c.wcDays) + '" style="text-align:center">' + c.wcDays + '</td>';
         html += '<td class="mono ' + hInv(c.invDays) + '" style="text-align:center">' + c.invDays + '</td>';
