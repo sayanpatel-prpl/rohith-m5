@@ -3811,16 +3811,7 @@
           <span class="toggle-arrow">&#9654;</span> All Signals <span class="signal-count" id="signalCount" style="font-weight:400;color:var(--text-muted);font-size:12px"></span>
         </button>
         <div class="signal-table-wrap collapsed" id="signalTableWrap">
-          <div class="filter-row" style="margin-top:8px">
-            <span class="filter-label">Severity:</span>
-            <button class="filter-btn active" data-sev="all">All</button>
-            <button class="filter-btn" data-sev="Critical">Critical</button>
-            <button class="filter-btn" data-sev="High">High</button>
-            <button class="filter-btn" data-sev="Medium">Medium</button>
-            <button class="filter-btn" data-sev="Low">Low</button>
-            <button class="filter-btn" data-sev="Informational">Informational</button>
-          </div>
-          <table class="signal-table">
+          <table class="signal-table" style="margin-top:8px">
             <thead>
               <tr>
                 <th>#</th>
@@ -5368,9 +5359,6 @@
     }
 
     function syncFilters() {
-      document.querySelectorAll('#signalTableWrap .filter-btn').forEach(function(b){ b.classList.remove('active'); });
-      var btn = document.querySelector('#signalTableWrap .filter-btn[data-sev="'+currentSevFilter+'"]');
-      if (btn) btn.classList.add('active');
       var scrollY = window.scrollY;
       renderRiskScorecard();
       renderTopSignals();
@@ -5427,8 +5415,12 @@
 
     function renderTopSignals() {
       var s = SIGNAL_DATA[currentIntelCompany].signals;
+      var sevOrder = {Critical:0,High:1,Medium:2,Low:3,Informational:4};
       var top = s.filter(function(x){ return (x.sev === 'Critical' || x.sev === 'High') && matchesSentiment(x); });
       if (currentSevFilter !== 'all') top = top.filter(function(x){ return x.sev === currentSevFilter; });
+      if (!top.length) {
+        top = s.filter(matchesSentiment).slice().sort(function(a,b){ return (sevOrder[a.sev]||9) - (sevOrder[b.sev]||9); });
+      }
       var grid = document.getElementById('topSignals');
       grid.innerHTML = '';
       top.slice(0, 6).forEach(function(sig, idx) {
@@ -5446,7 +5438,7 @@
         }
         grid.innerHTML +=
           '<div class="top-signal-card' + (sig.sev === 'High' ? ' sev-high' : '') + '">' +
-            '<div class="tsc-header"><span class="tsc-indicator">' + esc(sig.ind) + '</span><span class="badge ' + sevBadgeClass(sig.sev) + '">' + sig.sev + '</span>' + confHtml + evCountHtml + '</div>' +
+            '<div class="tsc-header"><span class="tsc-indicator">' + esc(sig.ind) + '</span><span style="display:flex;gap:5px;align-items:center;margin-left:auto"><span class="badge ' + sevBadgeClass(sig.sev) + '">' + sig.sev + '</span>' + confHtml + evCountHtml + '</span></div>' +
             '<div class="tsc-signal">' + esc(sig.sig) + '</div>' +
             '<div class="tsc-rationale">' + esc(sig.rat) + '</div>' +
             evExpandHtml +
@@ -5577,18 +5569,6 @@
     document.getElementById('signalTableToggle').addEventListener('click', function() {
       this.classList.toggle('open');
       document.getElementById('signalTableWrap').classList.toggle('collapsed');
-    });
-
-    // Severity filter clicks
-    document.querySelectorAll('.filter-btn').forEach(function(btn) {
-      btn.addEventListener('click', function(e) {
-        e.preventDefault();
-        document.querySelectorAll('.filter-btn').forEach(function(b){ b.classList.remove('active'); });
-        this.classList.add('active');
-        currentSevFilter = this.getAttribute('data-sev');
-        currentSentimentFilter = 'all';
-        syncFilters();
-      });
     });
 
     // Initial render
