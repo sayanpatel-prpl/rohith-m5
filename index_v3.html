@@ -647,6 +647,15 @@
       display: inline-flex; align-items: center; gap: 4px;
       font-size: 10px; color: var(--text-muted);
     }
+    .source-links {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 4px;
+      font-size: 10px; color: var(--text-muted); margin-top: 6px;
+    }
+    .source-links a {
+      color: var(--info-500); text-decoration: none; white-space: nowrap;
+    }
+    .source-links a:hover { text-decoration: underline; text-underline-offset: 2px; }
+    .source-links a::after { content: '\2197'; font-size: 8px; margin-left: 1px; opacity: 0.5; }
     .source-tier {
       display: inline-flex; align-items: center;
       font-size: 9px; font-weight: 600; padding: 1px 6px;
@@ -1274,30 +1283,40 @@
       background: var(--card-bg); border: 1px solid var(--card-border);
       border-radius: var(--radius-lg); padding: 14px 16px;
       box-shadow: var(--shadow-sm); transition: border-color 0.2s ease, box-shadow 0.2s ease;
-      position: relative; overflow: hidden;
+      position: relative; overflow: hidden; min-height: 160px;
+      display: flex; flex-direction: column;
     }
     .earnings-card:hover { border-color: rgba(59,130,246,0.3); box-shadow: var(--shadow-md); }
-    .earnings-card .ec-name { font-size: 12px; font-weight: 600; color: var(--text-primary); margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
-    .earnings-card .ec-revenue { font-size: 18px; font-weight: 700; color: var(--text-primary); font-family: var(--font-mono); margin-bottom: 2px; }
+    .earnings-card .ec-name {
+      font-size: 12px; font-weight: 600; color: var(--text-primary); margin-bottom: 6px;
+      display: flex; align-items: baseline; gap: 6px; line-height: 1.3;
+    }
+    .earnings-card .ec-name-text { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .earnings-card .ec-revenue {
+      font-size: 18px; font-weight: 700; color: var(--text-primary); font-family: var(--font-mono); margin-bottom: 2px;
+      display: flex; align-items: center; gap: 6px;
+    }
     .earnings-card .ec-row { display: flex; align-items: center; gap: 8px; margin-top: 4px; font-size: 11px; color: var(--text-secondary); }
-    .earnings-card .ec-tag { font-size: 10px; padding: 2px 8px; border-radius: var(--radius-full); font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
+    .earnings-card .ec-tag { font-size: 9px; padding: 2px 7px; border-radius: var(--radius-full); font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; white-space: nowrap; flex-shrink: 0; }
     .ec-tag.outperform { background: var(--success-100); color: var(--success-700); }
     .ec-tag.inline { background: var(--info-100); color: var(--info-700); }
     .ec-tag.underperform { background: var(--danger-100); color: var(--danger-700); }
     .dark .ec-tag.outperform { background: rgba(16,185,129,0.15); }
     .dark .ec-tag.inline { background: rgba(59,130,246,0.15); }
     .dark .ec-tag.underperform { background: rgba(239,68,68,0.15); }
-    .earnings-card .ec-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 12px; margin-top: 6px; }
+    .earnings-card .ec-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 12px; margin-top: auto; padding-top: 6px; }
     .earnings-card .ec-metric { font-size: 10px; color: var(--text-muted); }
     .earnings-card .ec-metric strong { color: var(--text-secondary); font-family: var(--font-mono); font-size: 11px; }
     .earnings-card .ec-annual-overlay {
-      position: absolute; inset: 0; background: var(--card-bg); border-radius: var(--radius-lg);
-      padding: 14px 16px; opacity: 0; pointer-events: none; transition: opacity 0.2s ease;
+      position: absolute; inset: 0; background: var(--card-bg); border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg); padding: 14px 16px;
+      opacity: 0; pointer-events: none; transition: opacity 0.2s ease;
       display: flex; flex-direction: column; justify-content: center;
+      overflow-y: auto; z-index: 2;
     }
     .earnings-card:hover .ec-annual-overlay { opacity: 1; pointer-events: auto; }
-    .earnings-card .ec-annual-overlay .ec-annual-title { font-size: 10px; font-weight: 700; color: var(--info-500); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
-    .earnings-card .ec-annual-overlay .ec-annual-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 12px; }
+    .earnings-card .ec-annual-overlay .ec-annual-title { font-size: 10px; font-weight: 700; color: var(--info-500); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
+    .earnings-card .ec-annual-overlay .ec-annual-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 12px; }
     .earnings-card .ec-annual-overlay .ec-annual-item { font-size: 11px; color: var(--text-secondary); }
     .earnings-card .ec-annual-overlay .ec-annual-item strong { color: var(--text-primary); font-family: var(--font-mono); }
 
@@ -1671,10 +1690,6 @@
         <span class="data-tag">Feb 2026 &middot; Consumer Durables</span>
       </div>
 
-      <div class="opp-summary">
-        <div class="opp-summary-title">Opportunity Summary</div>
-        <div class="opp-summary-grid" id="execOppSummary"></div>
-      </div>
 
       <div class="section-2col">
         <div>
@@ -1704,7 +1719,7 @@
                 </div>
               </li>
             </ul>
-            <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Q3 FY26 Earnings Transcripts, Annual Reports FY25, BSE Filings, CRISIL Reports</span></div>
+            <div style="margin-top:8px"><span class="source-attr" style="color:var(--text-muted);font-style:italic">Sources &amp; verbatim transcript extracts &mdash; Coming Soon</span></div>
           </div>
         </div>
         <div>
@@ -1751,7 +1766,7 @@
                 </div>
               </li>
             </ul>
-            <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Q3 FY26 Results, BSE Board Outcomes, Annual Reports FY25, Investor Presentations</span></div>
+            <div style="margin-top:8px"><span class="source-attr" style="color:var(--text-muted);font-style:italic">Sources &amp; verbatim transcript extracts &mdash; Coming Soon</span></div>
           </div>
         </div>
       </div>
@@ -1759,7 +1774,7 @@
       <div id="earningsGrid" class="card-grid cols-4"></div>
 
       <h3 class="sub-header" style="margin-top:28px">Talk vs Walk &mdash; Narrative Disconnects</h3>
-      <p style="font-size:11px; color:var(--text-muted); margin:-8px 0 14px 0;">Where management narrative diverges from financial reality (cross-referencing concall themes vs Q3 FY26 data)</p>
+      <p style="font-size:11px; color:var(--text-muted); margin:-8px 0 14px 0;">Bottom line up front: where the numbers contradict the boardroom narrative. Cross-referenced across concall transcripts, filings, and Q3 FY26 actuals.</p>
 
       <div class="tvw-card">
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
@@ -1768,12 +1783,12 @@
         </div>
         <div class="tvw-columns">
           <div>
-            <div class="tvw-col-label">Management Says</div>
+            <div class="tvw-col-label">The Narrative</div>
             <div class="tvw-col-text">&ldquo;Improvement in gross margins&rdquo; (MD letter FY25). &ldquo;Built for Life&rdquo; premiumisation drive with extended warranty on 23 SKUs. FY25 recovery narrative: trade channel +6%, air coolers +65%, dealer base +21% to 850+.</div>
           </div>
           <div>
-            <div class="tvw-col-label">Data Shows</div>
-            <div class="tvw-col-text"><strong>Operating loss in Q3 despite &ldquo;recovery&rdquo; narrative.</strong><ul style="margin:4px 0 0 16px;padding:0;font-size:inherit"><li>9MFY26 revenue &minus;9.7% YoY to Rs 3,210 Cr</li><li>Q3 FY26 PBT: &minus;Rs 20.28 Cr (operating loss)</li><li>Board pre-approved minimum remuneration for FY26 losses</li><li>CP utilization at 43%</li><li>Retailer base &minus;15% (2L &rarr; 1.7L)</li><li>Exceptional Rs 28.89 Cr restructuring charge</li><li>Other expenses +17.5% in loss quarter</li></ul></div>
+            <div class="tvw-col-label">What the Numbers Say</div>
+            <div class="tvw-col-text"><strong style="color:var(--danger-500)">The company is in operating loss territory &mdash; the recovery narrative has no financial foundation.</strong><ul style="margin:6px 0 0 16px;padding:0;font-size:inherit"><li><strong>Q3 FY26 PBT: &minus;Rs 20.28 Cr</strong> &mdash; operating loss, not recovery</li><li><strong>9MFY26 revenue &minus;9.7% YoY</strong> to Rs 3,210 Cr &mdash; top-line shrinking</li><li><strong>Board pre-approved minimum remuneration</strong> for anticipated FY26 full-year losses</li><li><strong>CP utilization at 43%</strong> &mdash; over half capacity idle</li><li><strong>Retailer base &minus;15%</strong> (2L &rarr; 1.7L) &mdash; channel contracting, not expanding</li><li><strong>Other expenses +17.5%</strong> in a loss quarter &mdash; no cost discipline</li><li><strong>Rs 28.89 Cr exceptional</strong> restructuring charge &mdash; workforce downsizing underway</li></ul></div>
           </div>
         </div>
         <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> AR FY24-25, Board Outcome Q3 FY26</span></div>
@@ -1786,12 +1801,12 @@
         </div>
         <div class="tvw-columns">
           <div>
-            <div class="tvw-col-label">Management Says</div>
+            <div class="tvw-col-label">The Narrative</div>
             <div class="tvw-col-text">&ldquo;Target EBITDA margin of 10%+ as material cost improvements and A&amp;M engagement deliver savings&rdquo;</div>
           </div>
           <div>
-            <div class="tvw-col-label">Data Shows</div>
-            <div class="tvw-col-text"><strong>Margin target missed by 260 bps; cost outpacing revenue.</strong><ul style="margin:4px 0 0 16px;padding:0;font-size:inherit"><li>EBITDA at 7.4% &mdash; 260 bps below 10% target</li><li>Material cost outpacing revenue (+19.7% vs +14.6%)</li><li>Chairman admits &ldquo;sales process is weak&rdquo; for multiple years</li></ul></div>
+            <div class="tvw-col-label">What the Numbers Say</div>
+            <div class="tvw-col-text"><strong style="color:var(--danger-500)">Margin target missed by 260 bps &mdash; costs are rising faster than revenue, and the Chairman concedes the sales engine is broken.</strong><ul style="margin:6px 0 0 16px;padding:0;font-size:inherit"><li><strong>EBITDA at 7.4%</strong> &mdash; 260 bps gap to 10% target, not closing</li><li><strong>Material cost +19.7% vs revenue +14.6%</strong> &mdash; input inflation outrunning growth</li><li><strong>Chairman admits &ldquo;sales process is weak&rdquo;</strong> for multiple years &mdash; structural, not cyclical</li></ul></div>
           </div>
         </div>
         <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Q3 FY26 Earnings Call + Annual Report FY25</span></div>
@@ -1804,12 +1819,12 @@
         </div>
         <div class="tvw-columns">
           <div>
-            <div class="tvw-col-label">Management Says</div>
+            <div class="tvw-col-label">The Narrative</div>
             <div class="tvw-col-text">&ldquo;Growing market shares substantially in refrigerators and laundry. D2C business to grow ahead of industry.&rdquo;</div>
           </div>
           <div>
-            <div class="tvw-col-label">Data Shows</div>
-            <div class="tvw-col-text"><strong>Near-zero operating margin with no D2C infrastructure.</strong><ul style="margin:4px 0 0 16px;padding:0;font-size:inherit"><li>OPM at 3.86% &mdash; near-zero margin of safety</li><li>Dealer dependency increased (99.15% &rarr; 99.33%)</li><li>Zero D2C infrastructure built</li><li>Ad spend +62% YoY to support &ldquo;share gains&rdquo;</li></ul></div>
+            <div class="tvw-col-label">What the Numbers Say</div>
+            <div class="tvw-col-text"><strong style="color:var(--danger-500)">Share gains are being bought with ad spend on near-zero margins, while the promised D2C channel does not exist.</strong><ul style="margin:6px 0 0 16px;padding:0;font-size:inherit"><li><strong>OPM at 3.86%</strong> &mdash; near-zero margin of safety; one bad quarter away from losses</li><li><strong>Dealer dependency 99.33%</strong> (up from 99.15%) &mdash; moving away from D2C, not toward it</li><li><strong>Zero D2C infrastructure built</strong> &mdash; no platform, no fulfilment, no progress</li><li><strong>Ad spend +62% YoY</strong> &mdash; buying awareness on a margin base that cannot sustain it</li></ul></div>
           </div>
         </div>
         <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Q3 FY26 Results + Annual Report FY25</span></div>
@@ -1822,12 +1837,12 @@
         </div>
         <div class="tvw-columns">
           <div>
-            <div class="tvw-col-label">Management Says</div>
+            <div class="tvw-col-label">The Narrative</div>
             <div class="tvw-col-text">Conservative guidance: &ldquo;measured premiumization&rdquo;, &ldquo;calibrated price hikes&rdquo;. Guides only 150-200bps margin expansion. Describes Lloyd as &ldquo;structurally on right path&rdquo;. Says employee cost growth &ldquo;in line with revenue&rdquo;.</div>
           </div>
           <div>
-            <div class="tvw-col-label">Data Shows</div>
-            <div class="tvw-col-text"><strong>Strongest sector execution &mdash; operating leverage evident across all metrics.</strong><ul style="margin:4px 0 0 16px;padding:0;font-size:inherit"><li>Revenue +14.3%, EBITDA +21% (operating leverage)</li><li>Employee cost flat at Rs 460&ndash;490 Cr/qtr for 7 quarters vs 14&ndash;17% revenue growth</li><li>Cables at 90&ndash;100% utilization &mdash; capacity doubling</li><li>Lloyd margin: &minus;4.3% &rarr; 2.6%</li><li>Rs 600 Cr Goldi Solar bet</li><li>Import dependency &lt;8%; Rs 3,353 Cr cash reserves</li></ul></div>
+            <div class="tvw-col-label">What the Numbers Say</div>
+            <div class="tvw-col-text"><strong style="color:var(--success-500)">Management is under-promising and over-delivering &mdash; this is the strongest execution story in the sector.</strong><ul style="margin:6px 0 0 16px;padding:0;font-size:inherit"><li><strong>Revenue +14.3%, EBITDA +21%</strong> &mdash; clear operating leverage kicking in</li><li><strong>Employee cost flat 7 quarters</strong> at Rs 460&ndash;490 Cr while revenue grew 14&ndash;17% &mdash; real scale benefits</li><li><strong>Cables at 90&ndash;100% utilization</strong> &mdash; capacity doubling FY24-FY27 to meet demand</li><li><strong>Lloyd margin turnaround: &minus;4.3% &rarr; 2.6%</strong> &mdash; inflecting, not just &ldquo;on right path&rdquo;</li><li><strong>Rs 600 Cr Goldi Solar bet</strong> &mdash; new growth vector not reflected in guidance</li><li><strong>Import dependency &lt;8%; Rs 3,353 Cr cash</strong> &mdash; structurally insulated from commodity risk</li></ul></div>
           </div>
         </div>
         <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Q1-Q3 FY26 Earnings Transcripts + Annual Report FY25</span></div>
@@ -1840,12 +1855,12 @@
         </div>
         <div class="tvw-columns">
           <div>
-            <div class="tvw-col-label">Management Says</div>
+            <div class="tvw-col-label">The Narrative</div>
             <div class="tvw-col-text">&ldquo;Growth with a fair long-term return on capital employed.&rdquo; Guides return to &ldquo;mid-teen margins&rdquo; (14-15%). Rs 500 Cr transformation will deliver &ldquo;double-digit growth.&rdquo; Describes underlying growth as &ldquo;exactly equal to the industrial, little better.&rdquo;</div>
           </div>
           <div>
-            <div class="tvw-col-label">Data Shows</div>
-            <div class="tvw-col-text"><strong>Margin erosion, PAT collapse, and UK impairment contradict growth narrative.</strong><ul style="margin:4px 0 0 16px;padding:0;font-size:inherit"><li>EBITDA contracted 15.4% &rarr; 13.4%</li><li>Q4 PAT collapsed &minus;94% (Rs 3.9 Cr)</li><li>ROCE fell 530 bps (34.6% &rarr; 29.3%)</li><li>Rs 71.4 Cr UK goodwill impairment</li><li>Ultrafresh subsidiary EBITDA worsened to Rs (9.3) Cr</li><li>8-quarter forward margin dilution committed</li><li>Headline growth only 1.2%</li></ul></div>
+            <div class="tvw-col-label">What the Numbers Say</div>
+            <div class="tvw-col-text"><strong style="color:var(--danger-500)">The Rs 500 Cr transformation is destroying returns, not building them &mdash; every key metric is moving in the wrong direction.</strong><ul style="margin:6px 0 0 16px;padding:0;font-size:inherit"><li><strong>EBITDA 15.4% &rarr; 13.4%</strong> &mdash; margin eroding, not expanding toward 14-15% target</li><li><strong>Q4 PAT collapsed &minus;94%</strong> to Rs 3.9 Cr &mdash; near-zero profitability</li><li><strong>ROCE fell 530 bps</strong> (34.6% &rarr; 29.3%) &mdash; capital employed rising faster than returns</li><li><strong>Rs 71.4 Cr UK goodwill impairment</strong> &mdash; international expansion write-off</li><li><strong>Ultrafresh EBITDA: Rs (9.3) Cr</strong> &mdash; subsidiary burning cash, auditor flagged fund misapplication</li><li><strong>8-quarter margin dilution committed</strong> &mdash; pain extends into FY27</li><li><strong>Headline growth only 1.2%</strong> &mdash; not &ldquo;double-digit&rdquo; by any measure</li></ul></div>
           </div>
         </div>
         <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Q4 FY25 Earnings Transcript + Annual Report FY25</span></div>
@@ -1858,12 +1873,12 @@
         </div>
         <div class="tvw-columns">
           <div>
-            <div class="tvw-col-label">Management Says</div>
+            <div class="tvw-col-label">The Narrative</div>
             <div class="tvw-col-text">Focused on margin compression as &ldquo;structural <span data-tip="Electronics Manufacturing Services: Contract manufacturing for electronic products on behalf of brand owners" class="tip-below">EMS</span> ceiling&rdquo;; highlights risks in mobile concentration</div>
           </div>
           <div>
-            <div class="tvw-col-label">Data Shows</div>
-            <div class="tvw-col-text"><strong>Management under-selling execution &mdash; sector-leading ROCE and capital efficiency.</strong><ul style="margin:4px 0 0 16px;padding:0;font-size:inherit"><li>ROCE at 40% (sector-leading)</li><li>Negative working capital (&minus;7 days CCC)</li><li>IT hardware revenue +481% growth</li><li>Camera module scale-up on track</li></ul></div>
+            <div class="tvw-col-label">What the Numbers Say</div>
+            <div class="tvw-col-text"><strong style="color:var(--success-500)">Management is sandbagging &mdash; execution is sector-leading across every capital efficiency metric.</strong><ul style="margin:6px 0 0 16px;padding:0;font-size:inherit"><li><strong>ROCE at 40%</strong> &mdash; highest in the sector, contradicts &ldquo;margin ceiling&rdquo; framing</li><li><strong>Working capital: &minus;7 days CCC</strong> &mdash; negative cycle means suppliers fund operations</li><li><strong>IT hardware revenue +481%</strong> &mdash; explosive diversification beyond mobile concentration</li><li><strong>Camera module scale-up on track</strong> &mdash; vertical integration deepening</li></ul></div>
           </div>
         </div>
         <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Q3 FY26 Earnings Call + BSE Filing + Investor Presentation</span></div>
@@ -1876,12 +1891,12 @@
         </div>
         <div class="tvw-columns">
           <div>
-            <div class="tvw-col-label">Management Says</div>
+            <div class="tvw-col-label">The Narrative</div>
             <div class="tvw-col-text">&ldquo;Market share has been fairly stable within a percent or two kind of band over last 3&ndash;4 years.&rdquo; Guides RTY portfolio diversification &ldquo;growing at 50%+ CAGR.&rdquo; Calls FY25 standalone EBITDA of 24.25% as the new benchmark. Presents CT Australia as &ldquo;strategically important given shifting geopolitical conditions.&rdquo;</div>
           </div>
           <div>
-            <div class="tvw-col-label">Data Shows</div>
-            <div class="tvw-col-text"><strong>Revenue collapsed 30%, subsidiaries dragging consolidated margins 490 bps below standalone.</strong><ul style="margin:4px 0 0 16px;padding:0;font-size:inherit"><li>9M FY26 standalone revenue &minus;30% YoY (&rarr; Rs 566 Cr)</li><li>EBITDA collapsed 57% to Rs 81 Cr (14.4% margin)</li><li>CT Australia: 11+ quarters consecutive losses, divestiture failed (10 NDAs, zero bids accepted)</li><li>Rs 58 Cr Pathways fraud write-off (15% recovered)</li><li>Consolidated EBITDA margin 9.5% &mdash; 490 bps below standalone</li><li>IMPCO Mexico PAT turned negative</li></ul></div>
+            <div class="tvw-col-label">What the Numbers Say</div>
+            <div class="tvw-col-text"><strong style="color:var(--danger-500)">The FY25 &ldquo;benchmark&rdquo; was a one-year anomaly. Core business collapsed 30%, and international subsidiaries are an unresolved cash drain.</strong><ul style="margin:6px 0 0 16px;padding:0;font-size:inherit"><li><strong>9M FY26 revenue &minus;30% YoY</strong> (&rarr; Rs 566 Cr) &mdash; demand evaporated, not &ldquo;stable share&rdquo;</li><li><strong>EBITDA collapsed 57%</strong> to Rs 81 Cr (14.4% margin) &mdash; FY25&rsquo;s 24.25% was the outlier</li><li><strong>CT Australia: 11+ quarters losses</strong>, divestiture failed (10 NDAs, zero bids) &mdash; &ldquo;strategic&rdquo; = unsellable</li><li><strong>Rs 58 Cr Pathways fraud</strong> write-off (only 15% recovered) &mdash; governance gap</li><li><strong>Consolidated EBITDA 9.5%</strong> &mdash; 490 bps below standalone due to subsidiary drag</li><li><strong>IMPCO Mexico PAT negative</strong> &mdash; second international market now loss-making</li></ul></div>
           </div>
         </div>
         <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Q3 FY26 Earnings Call Jan 29, 2026 + AR FY25 + Corporate Presentation Feb 2026</span></div>
@@ -1894,12 +1909,12 @@
         </div>
         <div class="tvw-columns">
           <div>
-            <div class="tvw-col-label">Management Says</div>
+            <div class="tvw-col-label">The Narrative</div>
             <div class="tvw-col-text">&ldquo;Remain optimistic that the division will outperform the industry.&rdquo; Guides Consumer Durables +13&ndash;15% FY26. Claims &ldquo;forward-looking strategy built on strengthening backward integration, boosting R&amp;D and innovation.&rdquo; Electronics Division &ldquo;double-digit EBITDA margins by FY27.&rdquo; Railway Division &ldquo;doubling revenue over the next two financial years.&rdquo;</div>
           </div>
           <div>
-            <div class="tvw-col-label">Data Shows</div>
-            <div class="tvw-col-text"><strong>Margin compression despite revenue growth; acquisition integration risk mounting.</strong><ul style="margin:4px 0 0 16px;padding:0;font-size:inherit"><li>Consumer Durables EBITDA compressed 7.7% &rarr; 6.9% (9MFY26) despite +19% revenue</li><li>Structural PAT margin only 2.5%</li><li>Rs 94 Cr Shivalik impairment &mdash; Q3 PAT negative (Rs &minus;9 Cr)</li><li>Railway revenue &minus;6% FY25 (flat in FY24)</li><li>3 acquisitions in 12 months with integration complexity</li><li>Finance cost +32% YoY; D/E at 1.32x</li><li>FY24 CD revenue &minus;7% when brands took assembly in-house &mdash; validates structural risk</li></ul></div>
+            <div class="tvw-col-label">What the Numbers Say</div>
+            <div class="tvw-col-text"><strong style="color:var(--danger-500)">Revenue is growing but margins are compressing &mdash; three acquisitions in 12 months on a 2.5% PAT base is a recipe for integration failure.</strong><ul style="margin:6px 0 0 16px;padding:0;font-size:inherit"><li><strong>CD EBITDA 7.7% &rarr; 6.9%</strong> (9MFY26) despite +19% revenue &mdash; scale without profitability</li><li><strong>PAT margin only 2.5%</strong> &mdash; paper-thin buffer for any execution misstep</li><li><strong>Rs 94 Cr Shivalik impairment</strong> &mdash; Q3 PAT negative at Rs &minus;9 Cr (exceptional)</li><li><strong>Railway revenue &minus;6% FY25</strong> (flat in FY24) &mdash; &ldquo;doubling&rdquo; from a declining base</li><li><strong>3 acquisitions in 12 months</strong> (Power One, Unitronics, Shogini) &mdash; integration overstretch across 3 geographies</li><li><strong>Finance cost +32% YoY; D/E at 1.32x</strong> &mdash; leverage rising to fund acquisition spree</li><li><strong>FY24: CD revenue &minus;7%</strong> when brands took assembly in-house &mdash; structural customer concentration risk validated</li></ul></div>
           </div>
         </div>
         <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Q3 FY26, Q4 FY25, Q3 FY25, Q4 FY24 Investor Presentations + 35th AGM</span></div>
@@ -1912,12 +1927,12 @@
         </div>
         <div class="tvw-columns">
           <div>
-            <div class="tvw-col-label">Management Says</div>
+            <div class="tvw-col-label">The Narrative</div>
             <div class="tvw-col-text">&ldquo;Crompton 2.0 strategy anchored on consumer need-led innovation, premiumization, TAM expansion.&rdquo; Solar rooftop revenue target ~Rs 2,000 Cr in 18-24 months. Butterfly guided &ldquo;double-digit growth this year.&rdquo; BLDC &ldquo;endeavor is to become #1.&rdquo; Category entry criteria: &ldquo;can we become a top 3 player.&rdquo;</div>
           </div>
           <div>
-            <div class="tvw-col-label">Data Shows</div>
-            <div class="tvw-col-text"><strong>Revenue flat, margins compressing, multiple new bets straining a thin EBITDA base.</strong><ul style="margin:4px 0 0 16px;padding:0;font-size:inherit"><li>9M FY26 EBITDA compressed to 9.6% (from 10.9%)</li><li>Revenue nearly flat +0.2% YoY for 9 months</li><li>Butterfly revenue +3% (not the guided double-digit)</li><li>Solar rooftop Q3 revenue only Rs 19 Cr vs Rs 2,000 Cr aspiration</li><li>Material margin &minus;150 bps standalone</li><li>Employee cost growing at 2x revenue</li><li>Bandwidth risk: wires, solar, BEE 2.0, Baroda VRS, BCG GTM &mdash; all on Rs 557 Cr EBITDA base</li></ul></div>
+            <div class="tvw-col-label">What the Numbers Say</div>
+            <div class="tvw-col-text"><strong style="color:var(--danger-500)">Flat revenue, compressing margins, and too many simultaneous bets on a Rs 557 Cr EBITDA base &mdash; strategic ambition is outrunning financial capacity.</strong><ul style="margin:6px 0 0 16px;padding:0;font-size:inherit"><li><strong>9M EBITDA 9.6%</strong> (from 10.9%) &mdash; margin compressing under cost inflation</li><li><strong>Revenue +0.2% YoY for 9 months</strong> &mdash; effectively flat, not &ldquo;growing&rdquo;</li><li><strong>Butterfly revenue +3%</strong> &mdash; missed &ldquo;double-digit growth&rdquo; guidance by a wide margin</li><li><strong>Solar rooftop Q3: Rs 19 Cr</strong> vs Rs 2,000 Cr aspiration &mdash; &lt;1% of target achieved</li><li><strong>Material margin &minus;150 bps</strong> standalone &mdash; commodity pass-through failing</li><li><strong>Employee cost at 2x revenue growth</strong> &mdash; operating deleverage</li><li><strong>Simultaneous initiatives:</strong> wires, solar, BEE 2.0, Baroda VRS, BCG GTM &mdash; all competing for bandwidth on a thin EBITDA base</li></ul></div>
           </div>
         </div>
         <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Q3 FY26 Earnings Call + Q1 FY26 Transcript + Q3/Q2 FY26 Investor Presentations + MD&amp;A FY25</span></div>
@@ -1930,12 +1945,12 @@
         </div>
         <div class="tvw-columns">
           <div>
-            <div class="tvw-col-label">Management Says</div>
+            <div class="tvw-col-label">The Narrative</div>
             <div class="tvw-col-text">&ldquo;Strategic interventions aimed at driving business revival &mdash; revised pricing structure, improved management of trade spends.&rdquo; &ldquo;Industry-leading revenue growth at 14% YoY&rdquo; (Q2 FY26). Targets pan-India expansion via Crompton synergies. &ldquo;Celebrating Change&rdquo; brand repositioning with 40+ SKU Idea First Series.</div>
           </div>
           <div>
-            <div class="tvw-col-label">Data Shows</div>
-            <div class="tvw-col-text"><strong>Revenue still 18% below FY23 peak; near-breakeven margins with structural concentration.</strong><ul style="margin:4px 0 0 16px;padding:0;font-size:inherit"><li>Revenue 18% below FY23 peak (Rs 865 Cr vs Rs 1,057 Cr)</li><li>EBITDA margin at 2.94% in FY24 &mdash; near-breakeven</li><li>~75% revenue still South India concentrated</li><li>Retail outlets declined 25,000+ to 24,000+</li><li>Crompton merger rejected by shareholders (72.6% against)</li><li>Steel has NO alternate vendor</li><li>MFI/rural demand suppressed; auxiliary categories deliberately cut</li><li>Recovery on a contracted base</li></ul></div>
+            <div class="tvw-col-label">What the Numbers Say</div>
+            <div class="tvw-col-text"><strong style="color:var(--danger-500)">The &ldquo;revival&rdquo; is growth off a contracted base with no path to geographic diversification after merger rejection.</strong><ul style="margin:6px 0 0 16px;padding:0;font-size:inherit"><li><strong>Revenue 18% below FY23 peak</strong> (Rs 865 Cr vs Rs 1,057 Cr) &mdash; &ldquo;growth&rdquo; is still recovery</li><li><strong>EBITDA 2.94% in FY24</strong> &mdash; near-breakeven, margin buffer remains thin</li><li><strong>~75% revenue South India</strong> &mdash; structural geographic concentration unchanged</li><li><strong>Retail outlets 25,000+ &rarr; 24,000+</strong> &mdash; distribution shrinking, not expanding</li><li><strong>Crompton merger rejected</strong> (72.6% against) &mdash; pan-India expansion vehicle eliminated</li><li><strong>Steel: NO alternate vendor</strong> &mdash; single-source input risk, no hedging</li><li><strong>MFI/rural suppressed</strong>; auxiliary categories deliberately cut &mdash; base is artificially contracted</li></ul></div>
           </div>
         </div>
         <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> AR FY21, AR FY22-23, AR FY24-25, Q3 FY22 Investor Presentation, Q1/Q2 FY26 Results</span></div>
@@ -1944,11 +1959,21 @@
       <h3 class="sub-header" style="margin-top:28px">Month in 5 Bullets</h3>
       <div class="card" style="margin-bottom:24px">
         <ul>
-          <li><strong><span data-tip="Bureau of Energy Efficiency: Government body that sets energy performance standards for appliances" class="tip-below">BEE</span> norm transition (Jan 1, 2026)</strong> &mdash; Upgraded star ratings force AC prices up 7&ndash;10%, refrigerators up 3&ndash;5%. Wiping out gains from late-2025 GST cuts. <span class="badge badge-high">High</span> <span class="source-attr"><span class="source-tier tier-verified">Verified</span> BEE</span></li>
-          <li><strong>Copper squeeze from AI data centers</strong> &mdash; Global refined copper shortfall of 150K tonnes projected for 2026. JPMorgan targets $12,500/ton by Q2. Hyperscale AI facilities demand up to 50,000 tons each. <span class="badge badge-high">High</span> <span class="source-attr"><span class="source-tier tier-verified">Verified</span> JPM, ICSG</span></li>
-          <li><strong>Union Budget 2026 <span data-tip="Production-Linked Incentive: Government scheme offering financial incentives for domestic manufacturing" class="tip-below">PLI</span> boost</strong> &mdash; Rs 40,000 Cr for electronics component manufacturing (ECMS). 85 companies under White Goods PLI with Rs 11,198 Cr cumulative investment. 5 new firms added in Round 4. <span class="badge badge-high">High</span> <span class="source-attr"><span class="source-tier tier-verified">Verified</span> <span data-tip="Department for Promotion of Industry and Internal Trade" class="tip-below">DPIIT</span></span></li>
-          <li><strong>Historic festive season</strong> &mdash; Total festive trade reached Rs 5.4 trillion (+25% YoY). Consumer durables &amp; electronics ~15% of total. Rural/semi-urban contributed 28% of sales. <span class="badge badge-medium">Medium</span> <span class="source-attr"><span class="source-tier tier-verified">Verified</span> CAIT</span></li>
-          <li><strong>BSE Consumer Durables index tumble</strong> &mdash; 8 consecutive sessions of selling in Jan&ndash;Feb 2026. Institutional anxiety over incoming price hikes and commodity inflation. FII/MF selling intensified. <span class="badge badge-high">High</span> <span class="source-attr"><span class="source-tier tier-verified">Verified</span> BSE</span></li>
+          <li><strong><span data-tip="Bureau of Energy Efficiency: Government body that sets energy performance standards for appliances" class="tip-below">BEE</span> norm transition (Jan 1, 2026)</strong> &mdash; Upgraded star ratings force AC prices up 7&ndash;10%, refrigerators up 3&ndash;5%. Wiping out gains from late-2025 GST cuts. <span class="badge badge-high">High</span>
+            <div class="source-links"><span class="source-tier tier-verified">Verified</span> <a href="https://www.business-standard.com/industry/news/bee-new-star-ratings-to-push-ac-prices-up-10-pc-refrigerators-by-5-pc-from-jan-125123100931_1.html" target="_blank" rel="noopener">Business Standard, Dec 2025</a> &middot; <a href="https://www.beestarlabel.com/" target="_blank" rel="noopener">BEE Star Label Portal</a> &middot; <a href="https://www.thermalcontrolmagazine.com/energy-efficiency/energy-efficiency-star-ratings-mandatory-for-cooling-appliances-from-january-1-2026/" target="_blank" rel="noopener">Thermal Control Magazine</a></div>
+          </li>
+          <li><strong>Copper squeeze from AI data centers</strong> &mdash; Global refined copper shortfall of 150K tonnes projected for 2026. JPMorgan targets $12,500/ton by Q2. Hyperscale AI facilities demand up to 50,000 tons each. <span class="badge badge-high">High</span>
+            <div class="source-links"><span class="source-tier tier-verified">Verified</span> <a href="https://www.jpmorgan.com/insights/global-research/commodities/copper-outlook" target="_blank" rel="noopener">J.P. Morgan Global Research &mdash; Copper Outlook</a> &middot; <a href="https://www.investing.com/analysis/copper-outlook-2026-institutional-rotation-supply-deficits-technical-analysis-200673451" target="_blank" rel="noopener">Investing.com &mdash; ICSG Deficit Data</a> &middot; <a href="https://finance.yahoo.com/news/jp-morgan-sees-copper-prices-124713112.html" target="_blank" rel="noopener">Yahoo Finance &mdash; JPM Forecast</a></div>
+          </li>
+          <li><strong>Union Budget 2026 <span data-tip="Production-Linked Incentive: Government scheme offering financial incentives for domestic manufacturing" class="tip-below">PLI</span> boost</strong> &mdash; Rs 40,000 Cr for electronics component manufacturing (ECMS). 85 companies under White Goods PLI with Rs 11,198 Cr cumulative investment. 5 new firms added in Round 4. <span class="badge badge-high">High</span>
+            <div class="source-links"><span class="source-tier tier-verified">Verified</span> <a href="https://www.pib.gov.in/PressReleasePage.aspx?PRID=2217743&amp;reg=3&amp;lang=1" target="_blank" rel="noopener">PIB/DPIIT &mdash; Round 4 Selection (2025)</a> &middot; <a href="https://www.pib.gov.in/PressReleasePage.aspx?PRID=2189520" target="_blank" rel="noopener">PIB/DPIIT &mdash; 13 New Applications, Rs 1,914 Cr</a> &middot; <a href="https://pib.gov.in/PressReleasePage.aspx?PRID=1769229" target="_blank" rel="noopener">PIB &mdash; Original 42 Companies Selected</a></div>
+          </li>
+          <li><strong>Historic festive season</strong> &mdash; Total festive trade reached Rs 5.4 trillion (+25% YoY). Consumer durables &amp; electronics ~15% of total. Rural/semi-urban contributed 28% of sales. <span class="badge badge-medium">Medium</span>
+            <div class="source-links"><span class="source-tier tier-verified">Verified</span> <a href="https://www.tribuneindia.com/news/aatmanirbhar-bharat/indias-festive-spending-peaks-with-rs-5-40-lakh-crore-in-goods-rs-65000-crore-in-services-sales-cait" target="_blank" rel="noopener">Tribune India &mdash; CAIT Survey, Oct 2025</a> &middot; <a href="https://www.businesstoday.in/india/story/diwali-2025-sales-hit-rs-605-lakh-crore-87-of-consumers-chose-indian-made-products-cait-report-499067-2025-10-21" target="_blank" rel="noopener">BusinessToday &mdash; CAIT Report</a> &middot; <a href="https://www.business-standard.com/economy/news/diwali-sales-2025-record-high-cait-report-vocal-for-local-125102100617_1.html" target="_blank" rel="noopener">Business Standard &mdash; Diwali 2025 Sales</a></div>
+          </li>
+          <li><strong>BSE Consumer Durables index tumble</strong> &mdash; 8 consecutive sessions of selling in Jan&ndash;Feb 2026. Institutional anxiety over incoming price hikes and commodity inflation. FII/MF selling intensified. <span class="badge badge-high">High</span>
+            <div class="source-links"><span class="source-tier tier-verified">Verified</span> <a href="https://www.business-standard.com/markets/capital-market-news/barometers-trade-with-sharp-losses-consumer-durables-shares-skid-126012000478_1.html" target="_blank" rel="noopener">Business Standard &mdash; 8-Session Decline, Jan 20 2026</a> &middot; <a href="https://www.business-standard.com/markets/capital-market-news/indices-trade-lower-consumer-durables-shares-decline-126012900543_1.html" target="_blank" rel="noopener">Business Standard &mdash; Continued Decline, Jan 29 2026</a> &middot; <a href="https://finance.yahoo.com/quote/BSE-CD.BO/history/" target="_blank" rel="noopener">Yahoo Finance &mdash; BSE-CD Historical Data</a></div>
+          </li>
         </ul>
       </div>
 
@@ -2319,7 +2344,7 @@
         </div>
         <button class="derived-toggle" id="derivedToggle" onclick="toggleDerived()">
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><rect x="1" y="1" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M4 7h6M7 4v6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
-          Show Additional Metrics
+          Show Market Intelligence
         </button>
       </div>
       <div style="overflow-x:auto">
@@ -4332,7 +4357,7 @@
       btn.classList.toggle('active', isActive);
       btn.innerHTML = isActive
         ? '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><rect x="1" y="1" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M4 7h6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg> Hide Additional Metrics'
-        : '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><rect x="1" y="1" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M4 7h6M7 4v6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg> Show Additional Metrics';
+        : '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><rect x="1" y="1" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M4 7h6M7 4v6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg> Show Market Intelligence';
       renderTable();
     }
 
@@ -5594,7 +5619,7 @@
         var annDe = ann ? ann.de : null;
         var annWc = ann ? ann.wc_days : null;
         html += '<div class="earnings-card">' +
-          '<div class="ec-name">' + esc(c.name) + ' <span class="ec-tag ' + perfClass + '">' + perfClass + '</span></div>' +
+          '<div class="ec-name"><span class="ec-name-text">' + esc(c.name) + '</span><span class="ec-tag ' + perfClass + '">' + perfClass + '</span></div>' +
           '<div class="ec-revenue">' + sparklineSVG(c.revTrend, growthColor) + ' &#8377;' + (c.qSales || 0).toLocaleString('en-IN') + ' Cr</div>' +
           '<div class="ec-row">' +
             '<span style="color:' + growthColor + ';font-weight:600;font-family:var(--font-mono)">' + growthSign + c.revGrowth.toFixed(1) + '% YoY</span>' +
@@ -6373,21 +6398,6 @@
       }
     })();
 
-    // Initial render
-    renderOppPipeline();
-    renderTable();
-    renderOpsTable();
-    renderSubSectorCards();
-    renderSummaryStats();
-    renderEarningsSnapshot();
-    renderProductMixGrid();
-    renderRevenueTrendChart();
-    renderEbitdaTrendChart();
-    renderRoceComparison();
-    renderWcHeatmap();
-    renderPremiumMixChart();
-    renderCompHeatmap();
-
     // === Source Methodology Panel ===
     var SOURCE_METHODOLOGY = {
       verified: {
@@ -6420,20 +6430,14 @@
       }
     };
 
-    // Initial render
-    renderOppPipeline();
-    renderTable();
-    renderOpsTable();
-    renderSubSectorCards();
-    renderSummaryStats();
-    renderEarningsSnapshot();
-    renderProductMixGrid();
-    renderRevenueTrendChart();
-    renderEbitdaTrendChart();
-    renderRoceComparison();
-    renderWcHeatmap();
-    renderPremiumMixChart();
-    renderCompHeatmap();
+    // Initial render — each wrapped so one failure doesn't block the rest
+    var _initFns = [
+      renderOppPipeline, renderTable, renderOpsTable, renderSubSectorCards,
+      renderSummaryStats, renderEarningsSnapshot, renderProductMixGrid,
+      renderRevenueTrendChart, renderEbitdaTrendChart, renderRoceComparison,
+      renderWcHeatmap, renderPremiumMixChart, renderCompHeatmap
+    ];
+    _initFns.forEach(function(fn) { try { fn(); } catch(e) { console.error('Init error in ' + fn.name + ':', e); } });
 
     // Initialize source-tier tooltips
     (function() {
