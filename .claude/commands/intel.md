@@ -207,6 +207,32 @@ Read the dashboard file: `/Users/prateekkurkanji/Kompete/rohith-m5/index_v2.html
 
 Find the company in the COMPANIES JavaScript array and in each HTML section below. Use the Edit tool for all updates.
 
+### 4.0: SIGNAL_DATA — Evidence Vault Fields
+
+When generating each signal object in the `SIGNAL_DATA` entry for this company, include `conf` and `ev` fields alongside the existing `r`, `ind`, `sig`, `st`, `per`, `sev`, `rat` fields:
+
+```js
+{r:1, ind:"...", sig:"...", st:"...", per:"...", sev:"...", rat:"...",
+ conf:"direct",
+ ev:[{q:"Verbatim quote from transcript or report", src:"Q3 FY26 Transcript", ref:"Section 3"}]}
+```
+
+**Mapping from CSV columns:**
+- `Evidence (Verbatim)` → `ev[].q` — If multiple quotes separated by ` | `, create multiple `ev` entries
+- `Source Document` → `ev[].src`
+- `Line Reference` → `ev[].ref`
+
+**Confidence classification (`conf`):**
+- `"direct"` — Verbatim management quotes (contains quotation marks, "said", "stated", or direct dialogue attribution)
+- `"calculated"` — Derived from disclosed financials (contains percentages, growth rates, Rs/INR amounts, computed ratios)
+- `"inferred"` — Synthesized across multiple sources, or evidence is "Not Provided"
+
+**Rules:**
+- Every signal MUST have `conf` and `ev` fields
+- Truncate `ev[].q` to 200 characters max (add "..." if truncated)
+- If no verbatim evidence exists for a signal, use the signal text as the quote and set `conf:"inferred"`
+- Escape single quotes in strings with `\'`
+
 ### 4.1: COMPANIES Array Updates
 
 Locate the company object in the `COMPANIES` array (search for its `id` or `name`).

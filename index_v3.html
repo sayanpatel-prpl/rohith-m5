@@ -250,15 +250,16 @@
     .section-header {
       margin-bottom: 24px;
       padding-bottom: 16px;
-      border-bottom: 3px solid var(--intelligence-blue);
+      border-bottom: 2px solid var(--border);
     }
     .section-header .section-title {
       font-size: 22px;
       font-weight: 800;
       font-family: var(--font-display);
       color: var(--text-primary);
+      letter-spacing: -0.03em;
+      line-height: 1.2;
       margin: 0 0 4px 0;
-      letter-spacing: -0.01em;
     }
     .section-header .section-subtitle {
       font-size: 15px;
@@ -546,15 +547,16 @@
     .intel-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 20px; }
 
     .intel-company-item {
-      padding: 10px 12px; border-radius: var(--radius-md); cursor: pointer;
-      border: 1px solid transparent; transition: all 0.15s; background: transparent;
-      min-width: 160px; flex-shrink: 0;
+      padding: 10px 14px; border-radius: var(--radius-md); cursor: pointer;
+      border: 1px solid var(--border); transition: all 0.15s; background: var(--card-bg);
+      min-width: 150px; flex-shrink: 0;
+      box-shadow: var(--shadow-sm);
     }
-    .intel-company-item:hover { background: var(--surface-overlay); }
-    .intel-company-item.active { background: var(--card-bg); border-color: var(--intelligence-blue); box-shadow: 0 1px 4px rgba(59,130,246,0.08); }
-    .intel-company-name { font-size: 13px; font-weight: 600; color: var(--text-primary); display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
-    .intel-company-count { font-size: 11px; font-family: var(--font-mono); color: var(--text-muted); }
-    .intel-severity-bar { display: flex; height: 4px; border-radius: 2px; overflow: hidden; gap: 1px; }
+    .intel-company-item:hover { border-color: var(--intelligence-blue); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+    .intel-company-item.active { border-color: var(--intelligence-blue); box-shadow: 0 0 0 2px rgba(59,130,246,0.15), var(--shadow-md); background: var(--card-bg); }
+    .intel-company-name { font-size: 13px; font-weight: 600; color: var(--text-primary); display: flex; justify-content: space-between; align-items: center; }
+    .intel-company-count { font-size: 11px; font-family: var(--font-mono); color: var(--intelligence-blue); font-weight: 600; background: rgba(59,130,246,0.08); padding: 1px 6px; border-radius: var(--radius-full); }
+    .intel-severity-bar { display: none; }
     .intel-severity-bar .sev-seg { height: 100%; }
     .sev-seg-critical { background: var(--negative); }
     .sev-seg-high { background: var(--warning); }
@@ -564,7 +566,8 @@
 
     /* === Risk Scorecard === */
     .risk-scorecard { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-    .risk-metric { padding: 14px 16px; border-radius: var(--radius-md); background: var(--card-bg); border: 1px solid var(--surface-overlay); }
+    .risk-metric { padding: 14px 16px; border-radius: var(--radius-md); background: var(--card-bg); border: 1px solid var(--surface-overlay); cursor: pointer; transition: all 0.15s; }
+    .risk-metric:hover { border-color: var(--intelligence-blue); box-shadow: var(--shadow-sm); }
     .risk-metric-value { font-size: 28px; font-weight: 700; font-family: var(--font-mono); line-height: 1; margin-bottom: 4px; }
     .risk-metric-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; }
     .risk-metric.critical .risk-metric-value { color: var(--negative); }
@@ -608,7 +611,8 @@
     .top-signal-card .tsc-meta { display: flex; gap: 8px; align-items: center; margin-top: 8px; }
 
     /* === Expandable Table === */
-    .signal-table-toggle { padding: 10px 0; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: var(--text-secondary); border: none; background: none; font-family: var(--font-body); }
+    .signal-table-toggle { padding: 12px 20px; cursor: pointer; display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 700; color: var(--intelligence-blue); border: 2px solid var(--intelligence-blue); background: rgba(59,130,246,0.04); font-family: var(--font-body); border-radius: var(--radius-md); transition: all 0.2s; width: 100%; }
+    .signal-table-toggle:hover { background: rgba(59,130,246,0.08); box-shadow: var(--shadow-sm); }
     .signal-table-toggle .toggle-arrow { transition: transform 0.2s; display: inline-block; }
     .signal-table-toggle.open .toggle-arrow { transform: rotate(90deg); }
     .signal-table-wrap { overflow: hidden; overflow-x: auto; }
@@ -689,7 +693,7 @@
     .dark .conf-dist-legend .cdl-c { color:var(--info-500); }
 
     /* Sidebar confidence text */
-    .sidebar-conf { font-size:9px; color:var(--text-muted); margin-top:2px; letter-spacing:0.01em; }
+    .sidebar-conf { display:none; font-size:9px; color:var(--text-muted); margin-top:2px; letter-spacing:0.01em; }
     .sidebar-conf .sc-d { color:var(--success-600); font-weight:600; }
     .sidebar-conf .sc-c { color:var(--info-600); font-weight:600; }
     .dark .sidebar-conf .sc-d { color:var(--success-500); }
@@ -768,6 +772,8 @@
       background: var(--danger-50); color: var(--danger-700);
       border: 1px solid rgba(185,28,28,0.12);
     }
+    .ebitda-mini-chart { margin: 8px 0 4px; }
+    .ebitda-mini-chart svg { display: block; }
     .dark .ebitda-driver.up {
       background: rgba(16,185,129,0.10); color: var(--success-500);
       border-color: rgba(16,185,129,0.18);
@@ -890,6 +896,9 @@
     .tvw-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px; }
     .tvw-col-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 4px; font-weight: 600; }
     .tvw-col-text { font-size: 12px; line-height: 1.6; color: var(--text-secondary); }
+    .tvw-col-text ul { list-style: disc; line-height: 1.5; }
+    .tvw-col-text ul li { margin-bottom: 2px; }
+    .tvw-col-text > strong:first-child { color: var(--text-primary); font-size: 11px; display: block; margin-bottom: 2px; }
 
     /* === Ops Metrics Table === */
     .ops-table { width: 100%; border-collapse: collapse; font-size: 11px; }
@@ -1008,7 +1017,9 @@
     .tab-panel.active { display: block; }
 
     /* === 2-Column Section Layout === */
-    .section-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .section-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: stretch; }
+    .section-2col > div { display: flex; flex-direction: column; }
+    .section-2col > div > .card { flex: 1; }
     @media (max-width: 900px) { .section-2col { grid-template-columns: 1fr; } }
 
     /* === Move Cards === */
@@ -1184,13 +1195,9 @@
     html.font-small .section-panel { font-size: 12px; }
     html.font-small .section-panel h2 { font-size: 18px; }
     html.font-small .section-panel h3 { font-size: 11.5px; }
-    html.font-small .section-panel p,
-    html.font-small .section-panel li { font-size: 11.5px; }
     html.font-small .section-panel .section-subtitle { font-size: 12px; }
-    html.font-small .section-panel .sub-header { font-size: 12px; }
-    html.font-small .section-panel .data-tag { font-size: 9.5px; }
-    html.font-small .section-panel .source-attr { font-size: 9.5px; }
-    html.font-small .section-panel .source-tier { font-size: 9.5px; }
+    html.font-small .section-panel .card p,
+    html.font-small .section-panel .card li { font-size: 11.5px; }
     html.font-small .section-panel .stat-box .stat-value { font-size: 17px; }
     html.font-small .section-panel .stat-box .stat-label { font-size: 9px; }
     html.font-small .section-panel table th,
@@ -1206,24 +1213,21 @@
     html.font-small .section-panel .kanban-card { font-size: 11.5px; }
     html.font-small .section-panel .quadrant-card { font-size: 11.5px; }
     html.font-small .section-panel .move-card-item { font-size: 11.5px; }
-    html.font-small .section-panel .insight-card { font-size: 11.5px; }
-    html.font-small .section-panel .quote-card { font-size: 11.5px; }
-    html.font-small .section-panel .opp-card { font-size: 11.5px; }
-    html.font-small .section-panel .tab-btn { font-size: 11px; }
-    html.font-small .section-panel .type-filter button { font-size: 10.5px; }
-    html.font-small .section-panel .section-footer { font-size: 10px; }
+    html.font-small .section-panel .tvw-card { font-size: 11.5px; }
+    html.font-small .section-panel .tvw-col-text { font-size: 11.5px; }
+    html.font-small .section-panel .source-attr { font-size: 9.5px; }
+    html.font-small .section-panel .sub-header { font-size: 12px; }
+    html.font-small .section-panel .opp-summary-value { font-size: 20px; }
+    html.font-small .section-panel .evidence-co { font-size: 10px; }
+    html.font-small .section-panel .badge { font-size: 9px; }
 
     /* Font size scale: large */
     html.font-large .section-panel { font-size: 15.5px; }
     html.font-large .section-panel h2 { font-size: 26px; }
     html.font-large .section-panel h3 { font-size: 15px; }
-    html.font-large .section-panel p,
-    html.font-large .section-panel li { font-size: 15px; }
     html.font-large .section-panel .section-subtitle { font-size: 16px; }
-    html.font-large .section-panel .sub-header { font-size: 16px; }
-    html.font-large .section-panel .data-tag { font-size: 12.5px; }
-    html.font-large .section-panel .source-attr { font-size: 12.5px; }
-    html.font-large .section-panel .source-tier { font-size: 12.5px; }
+    html.font-large .section-panel .card p,
+    html.font-large .section-panel .card li { font-size: 15px; }
     html.font-large .section-panel .stat-box .stat-value { font-size: 23px; }
     html.font-large .section-panel .stat-box .stat-label { font-size: 12px; }
     html.font-large .section-panel table th,
@@ -1239,12 +1243,13 @@
     html.font-large .section-panel .kanban-card { font-size: 15px; }
     html.font-large .section-panel .quadrant-card { font-size: 15px; }
     html.font-large .section-panel .move-card-item { font-size: 15px; }
-    html.font-large .section-panel .insight-card { font-size: 15px; }
-    html.font-large .section-panel .quote-card { font-size: 15px; }
-    html.font-large .section-panel .opp-card { font-size: 15px; }
-    html.font-large .section-panel .tab-btn { font-size: 14px; }
-    html.font-large .section-panel .type-filter button { font-size: 13.5px; }
-    html.font-large .section-panel .section-footer { font-size: 13px; }
+    html.font-large .section-panel .tvw-card { font-size: 15px; }
+    html.font-large .section-panel .tvw-col-text { font-size: 14.5px; }
+    html.font-large .section-panel .source-attr { font-size: 12px; }
+    html.font-large .section-panel .sub-header { font-size: 16px; }
+    html.font-large .section-panel .opp-summary-value { font-size: 28px; }
+    html.font-large .section-panel .evidence-co { font-size: 12px; }
+    html.font-large .section-panel .badge { font-size: 11px; }
 
     /* === Fade animation (replaced by fadeSlideIn above) === */
     /* === Print === */
@@ -1269,6 +1274,7 @@
       background: var(--card-bg); border: 1px solid var(--card-border);
       border-radius: var(--radius-lg); padding: 14px 16px;
       box-shadow: var(--shadow-sm); transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      position: relative; overflow: hidden;
     }
     .earnings-card:hover { border-color: rgba(59,130,246,0.3); box-shadow: var(--shadow-md); }
     .earnings-card .ec-name { font-size: 12px; font-weight: 600; color: var(--text-primary); margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
@@ -1281,6 +1287,19 @@
     .dark .ec-tag.outperform { background: rgba(16,185,129,0.15); }
     .dark .ec-tag.inline { background: rgba(59,130,246,0.15); }
     .dark .ec-tag.underperform { background: rgba(239,68,68,0.15); }
+    .earnings-card .ec-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 12px; margin-top: 6px; }
+    .earnings-card .ec-metric { font-size: 10px; color: var(--text-muted); }
+    .earnings-card .ec-metric strong { color: var(--text-secondary); font-family: var(--font-mono); font-size: 11px; }
+    .earnings-card .ec-annual-overlay {
+      position: absolute; inset: 0; background: var(--card-bg); border-radius: var(--radius-lg);
+      padding: 14px 16px; opacity: 0; pointer-events: none; transition: opacity 0.2s ease;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .earnings-card:hover .ec-annual-overlay { opacity: 1; pointer-events: auto; }
+    .earnings-card .ec-annual-overlay .ec-annual-title { font-size: 10px; font-weight: 700; color: var(--info-500); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+    .earnings-card .ec-annual-overlay .ec-annual-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 12px; }
+    .earnings-card .ec-annual-overlay .ec-annual-item { font-size: 11px; color: var(--text-secondary); }
+    .earnings-card .ec-annual-overlay .ec-annual-item strong { color: var(--text-primary); font-family: var(--font-mono); }
 
     /* === EBITDA Margin Bands === */
     .margin-band-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
@@ -1388,24 +1407,76 @@
     .tip-left::after { left: auto; right: 100%; bottom: auto; top: 50%; transform: translateY(-50%) translateX(-8px); }
     .tip-below::after { bottom: auto; top: calc(100% + 8px); }
 
-    /* === Source Tier Tooltips === */
+    /* === Source Panel (slide-in right) === */
+    .source-panel-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.3);
+      z-index: 99; opacity: 0; pointer-events: none;
+      transition: opacity var(--transition-base);
+    }
+    .source-panel-overlay.open { opacity: 1; pointer-events: auto; }
+    .source-panel {
+      position: fixed; top: 0; right: 0; bottom: 0;
+      width: 380px; background: var(--surface);
+      border-left: 1px solid var(--border);
+      box-shadow: -4px 0 24px rgba(15,31,61,0.12);
+      z-index: 100; transform: translateX(100%);
+      transition: transform var(--transition-base);
+      display: flex; flex-direction: column;
+      overflow: hidden;
+    }
+    .source-panel.open { transform: translateX(0); }
+    .source-panel-header {
+      padding: 16px 20px; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      flex-shrink: 0;
+    }
+    .source-panel-header h3 { font-size: 15px; font-weight: 700; color: var(--text-primary); margin: 0; }
+    .source-panel-close {
+      background: none; border: none; font-size: 20px; cursor: pointer;
+      color: var(--text-muted); padding: 4px 8px; border-radius: var(--radius-sm);
+      transition: all 0.15s ease;
+    }
+    .source-panel-close:hover { color: var(--text-primary); background: var(--surface-overlay); }
+    .source-panel-body { flex: 1; overflow-y: auto; padding: 20px; }
+    .source-panel-body .tier-card {
+      padding: 14px 16px; border-radius: var(--radius);
+      border: 1px solid var(--card-border); background: var(--card-bg);
+      margin-bottom: 12px; cursor: default;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .source-panel-body .tier-card:hover { border-color: rgba(59,130,246,0.25); box-shadow: var(--shadow-sm); }
+    .source-panel-body .tier-card.active-tier { border-color: var(--intelligence-blue); box-shadow: 0 0 0 2px rgba(59,130,246,0.15); }
+    .source-panel-body .tier-card h4 { font-size: 13px; font-weight: 600; margin: 0 0 6px; display: flex; align-items: center; gap: 8px; }
+    .source-panel-body .tier-card p { font-size: 11px; color: var(--text-secondary); line-height: 1.55; margin: 0; }
+    .source-panel-body .tier-card .tier-examples { font-size: 10px; color: var(--text-muted); margin-top: 6px; }
     .source-tier { cursor: help; position: relative; }
     .source-tier:hover { box-shadow: 0 0 0 2px rgba(59,130,246,0.2); }
-    .source-tier[data-tooltip]:hover::after {
-      content: attr(data-tooltip);
-      position: absolute; bottom: calc(100% + 6px); left: 0;
-      background: var(--surface); color: var(--text-primary);
-      border: 1px solid var(--border); border-radius: var(--radius);
-      box-shadow: var(--shadow-md);
-      padding: 8px 12px; font-size: 11px; line-height: 1.5;
-      white-space: normal; width: 260px;
-      z-index: 1000; pointer-events: none;
-      font-weight: 400; text-transform: none; letter-spacing: normal;
+    .source-tier::after {
+      content: attr(data-tip);
+      display: none;
+      position: absolute;
+      bottom: calc(100% + 6px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--slate-800);
+      color: var(--slate-100);
+      font-size: 10px;
+      font-weight: 400;
+      padding: 6px 10px;
+      border-radius: 6px;
+      white-space: normal;
+      width: 220px;
+      line-height: 1.5;
+      z-index: 1000;
+      box-shadow: var(--shadow-lg);
+      pointer-events: none;
+      text-transform: none;
+      letter-spacing: 0;
     }
-    .source-tier[data-tooltip]:hover::before {
-      content: ''; position: absolute; bottom: calc(100% + 2px); left: 12px;
-      border: 5px solid transparent; border-top-color: var(--border);
-      z-index: 1001; pointer-events: none;
+    .source-tier[data-tip]:hover::after { display: block; }
+    .dark .source-tier::after { background: var(--slate-700); color: var(--slate-200); }
+    @media (max-width: 600px) {
+      .source-panel { width: 100%; }
     }
 
     /* === Evidence Drawer === */
@@ -1556,7 +1627,7 @@
 
       <div class="nav-group-label">Strategy</div>
       <a class="nav-item" data-section="deep-dive" data-icon="DD">Sub-Sector Deep Dive</a>
-      <a class="nav-item" data-section="am-value-add" data-icon="AP">Advisory Pipeline</a>
+      <a class="nav-item" data-section="am-value-add" data-icon="AV">Advisory Pipeline</a>
       <a class="nav-item" data-section="action-lens" data-icon="AL">Action Lens</a>
 
       <div class="nav-group-label">Signals</div>
@@ -1583,6 +1654,9 @@
       <button class="theme-toggle" onclick="window.print()" title="Print report">
         &#9113; Print
       </button>
+      <button class="theme-toggle" onclick="openSourcePanel(null)" title="Source Methodology (hover any tier badge for details)">
+        &#9432; Sources
+      </button>
     </div>
   </div>
 
@@ -1599,20 +1673,7 @@
 
       <div class="opp-summary">
         <div class="opp-summary-title">Opportunity Summary</div>
-        <div class="opp-summary-grid">
-          <div class="opp-summary-stat">
-            <div class="opp-summary-value">12</div>
-            <div class="opp-summary-label">Total Opportunities</div>
-          </div>
-          <div class="opp-summary-stat">
-            <div class="opp-summary-value">4 / 5 / 3</div>
-            <div class="opp-summary-label">Identified / Qualified / Outreach</div>
-          </div>
-          <div class="opp-summary-stat">
-            <div class="opp-summary-value">6</div>
-            <div class="opp-summary-label">Practice Areas Active</div>
-          </div>
-        </div>
+        <div class="opp-summary-grid" id="execOppSummary"></div>
       </div>
 
       <div class="section-2col">
@@ -1643,7 +1704,7 @@
                 </div>
               </li>
             </ul>
-            <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-derived">Derived</span> Cross-section synthesis</span></div>
+            <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Q3 FY26 Earnings Transcripts, Annual Reports FY25, BSE Filings, CRISIL Reports</span></div>
           </div>
         </div>
         <div>
@@ -1690,7 +1751,7 @@
                 </div>
               </li>
             </ul>
-            <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-derived">Derived</span> Risk assessment</span></div>
+            <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Q3 FY26 Results, BSE Board Outcomes, Annual Reports FY25, Investor Presentations</span></div>
           </div>
         </div>
       </div>
@@ -1712,7 +1773,7 @@
           </div>
           <div>
             <div class="tvw-col-label">Data Shows</div>
-            <div class="tvw-col-text">9MFY26 revenue -9.7% YoY to Rs 3,210 Cr. Q3 FY26 PBT: -Rs 20.28 Cr (operating loss). Board pre-approved minimum remuneration for FY26 losses. CP utilization 43%. Retailer base -15% (2L &rarr; 1.7L). Exceptional Rs 28.89 Cr restructuring charge. Other expenses +17.5% in loss quarter.</div>
+            <div class="tvw-col-text"><strong>Operating loss in Q3 despite &ldquo;recovery&rdquo; narrative.</strong><ul style="margin:4px 0 0 16px;padding:0;font-size:inherit"><li>9MFY26 revenue &minus;9.7% YoY to Rs 3,210 Cr</li><li>Q3 FY26 PBT: &minus;Rs 20.28 Cr (operating loss)</li><li>Board pre-approved minimum remuneration for FY26 losses</li><li>CP utilization at 43%</li><li>Retailer base &minus;15% (2L &rarr; 1.7L)</li><li>Exceptional Rs 28.89 Cr restructuring charge</li><li>Other expenses +17.5% in loss quarter</li></ul></div>
           </div>
         </div>
         <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> AR FY24-25, Board Outcome Q3 FY26</span></div>
@@ -1730,10 +1791,10 @@
           </div>
           <div>
             <div class="tvw-col-label">Data Shows</div>
-            <div class="tvw-col-text">EBITDA at 7.4% &mdash; 260 bps below target. Material cost outpacing revenue growth (+19.7% vs +14.6%). Chairman admits &ldquo;sales process is weak&rdquo; for multiple years running.</div>
+            <div class="tvw-col-text"><strong>Margin target missed by 260 bps; cost outpacing revenue.</strong><ul style="margin:4px 0 0 16px;padding:0;font-size:inherit"><li>EBITDA at 7.4% &mdash; 260 bps below 10% target</li><li>Material cost outpacing revenue (+19.7% vs +14.6%)</li><li>Chairman admits &ldquo;sales process is weak&rdquo; for multiple years</li></ul></div>
           </div>
         </div>
-        <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-derived">Derived</span> Transcript Intel IFB signals #2, #3</span></div>
+        <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Q3 FY26 Earnings Call + Annual Report FY25</span></div>
       </div>
 
       <div class="tvw-card">
@@ -1748,10 +1809,10 @@
           </div>
           <div>
             <div class="tvw-col-label">Data Shows</div>
-            <div class="tvw-col-text">OPM at 3.86% &mdash; near-zero margin of safety. Dealer dependency increased (99.15% &rarr; 99.33%). Zero D2C infrastructure. Ad spend +62% YoY to support &ldquo;share gains&rdquo;.</div>
+            <div class="tvw-col-text"><strong>Near-zero operating margin with no D2C infrastructure.</strong><ul style="margin:4px 0 0 16px;padding:0;font-size:inherit"><li>OPM at 3.86% &mdash; near-zero margin of safety</li><li>Dealer dependency increased (99.15% &rarr; 99.33%)</li><li>Zero D2C infrastructure built</li><li>Ad spend +62% YoY to support &ldquo;share gains&rdquo;</li></ul></div>
           </div>
         </div>
-        <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-derived">Derived</span> Transcript Intel Whirlpool signals #7, #9, #14</span></div>
+        <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Q3 FY26 Results + Annual Report FY25</span></div>
       </div>
 
       <div class="tvw-card">
@@ -1766,7 +1827,7 @@
           </div>
           <div>
             <div class="tvw-col-label">Data Shows</div>
-            <div class="tvw-col-text">Revenue +14.3%, EBITDA +21% (operating leverage). Employee cost flat at Rs 460-490 Cr/qtr for 7 quarters against 14-17% revenue growth. Cables at 90-100% utilization — capacity doubling. Lloyd margin: -4.3% &rarr; 2.6%. Rs 600 Cr Goldi Solar bet. Import dependency &lt;8%. Rs 3,353 Cr cash reserves. Strongest overall execution in sector.</div>
+            <div class="tvw-col-text"><strong>Strongest sector execution &mdash; operating leverage evident across all metrics.</strong><ul style="margin:4px 0 0 16px;padding:0;font-size:inherit"><li>Revenue +14.3%, EBITDA +21% (operating leverage)</li><li>Employee cost flat at Rs 460&ndash;490 Cr/qtr for 7 quarters vs 14&ndash;17% revenue growth</li><li>Cables at 90&ndash;100% utilization &mdash; capacity doubling</li><li>Lloyd margin: &minus;4.3% &rarr; 2.6%</li><li>Rs 600 Cr Goldi Solar bet</li><li>Import dependency &lt;8%; Rs 3,353 Cr cash reserves</li></ul></div>
           </div>
         </div>
         <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Q1-Q3 FY26 Earnings Transcripts + Annual Report FY25</span></div>
@@ -1784,7 +1845,7 @@
           </div>
           <div>
             <div class="tvw-col-label">Data Shows</div>
-            <div class="tvw-col-text">EBITDA contracted 15.4% &rarr; 13.4%. Q4 PAT collapsed -94% (Rs 3.9 Cr). ROCE fell 530 bps (34.6% &rarr; 29.3%). Rs 71.4 Cr UK goodwill impairment. Ultrafresh subsidiary EBITDA worsened to Rs (9.3) Cr. 8-quarter forward margin dilution committed. Headline growth only 1.2%.</div>
+            <div class="tvw-col-text"><strong>Margin erosion, PAT collapse, and UK impairment contradict growth narrative.</strong><ul style="margin:4px 0 0 16px;padding:0;font-size:inherit"><li>EBITDA contracted 15.4% &rarr; 13.4%</li><li>Q4 PAT collapsed &minus;94% (Rs 3.9 Cr)</li><li>ROCE fell 530 bps (34.6% &rarr; 29.3%)</li><li>Rs 71.4 Cr UK goodwill impairment</li><li>Ultrafresh subsidiary EBITDA worsened to Rs (9.3) Cr</li><li>8-quarter forward margin dilution committed</li><li>Headline growth only 1.2%</li></ul></div>
           </div>
         </div>
         <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Q4 FY25 Earnings Transcript + Annual Report FY25</span></div>
@@ -1802,10 +1863,10 @@
           </div>
           <div>
             <div class="tvw-col-label">Data Shows</div>
-            <div class="tvw-col-text">ROCE at 40% (sector-leading), negative working capital (-7 days), successful IT hardware 481% growth, camera module scale-up on track. Management under-selling execution quality.</div>
+            <div class="tvw-col-text"><strong>Management under-selling execution &mdash; sector-leading ROCE and capital efficiency.</strong><ul style="margin:4px 0 0 16px;padding:0;font-size:inherit"><li>ROCE at 40% (sector-leading)</li><li>Negative working capital (&minus;7 days CCC)</li><li>IT hardware revenue +481% growth</li><li>Camera module scale-up on track</li></ul></div>
           </div>
         </div>
-        <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-derived">Derived</span> Transcript Intel Dixon signals #33-51</span></div>
+        <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Q3 FY26 Earnings Call + BSE Filing + Investor Presentation</span></div>
       </div>
 
       <div class="tvw-card">
@@ -1820,7 +1881,7 @@
           </div>
           <div>
             <div class="tvw-col-label">Data Shows</div>
-            <div class="tvw-col-text">9M FY26 standalone revenue -30% YoY (&rarr; Rs 566 Cr); EBITDA collapsed 57% to Rs 81 Cr (14.4% margin). CT Australia: 11+ quarters of consecutive losses, divestiture failed (10 NDAs, zero bids accepted). Rs 58 Cr Pathways fraud write-off (15% recovered). Consolidated EBITDA margin 9.5% &mdash; 490 bps below standalone due to subsidiary drag. IMPCO Mexico PAT turned negative.</div>
+            <div class="tvw-col-text"><strong>Revenue collapsed 30%, subsidiaries dragging consolidated margins 490 bps below standalone.</strong><ul style="margin:4px 0 0 16px;padding:0;font-size:inherit"><li>9M FY26 standalone revenue &minus;30% YoY (&rarr; Rs 566 Cr)</li><li>EBITDA collapsed 57% to Rs 81 Cr (14.4% margin)</li><li>CT Australia: 11+ quarters consecutive losses, divestiture failed (10 NDAs, zero bids accepted)</li><li>Rs 58 Cr Pathways fraud write-off (15% recovered)</li><li>Consolidated EBITDA margin 9.5% &mdash; 490 bps below standalone</li><li>IMPCO Mexico PAT turned negative</li></ul></div>
           </div>
         </div>
         <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Q3 FY26 Earnings Call Jan 29, 2026 + AR FY25 + Corporate Presentation Feb 2026</span></div>
@@ -1838,7 +1899,7 @@
           </div>
           <div>
             <div class="tvw-col-label">Data Shows</div>
-            <div class="tvw-col-text">Consumer Durables EBITDA compressed 7.7% &rarr; 6.9% (9MFY26) despite +19% revenue. Structural PAT margin only 2.5%. Rs 94 Cr Shivalik impairment &mdash; Q3 PAT negative (Rs -9 Cr). Railway revenue -6% FY25 (flat in FY24). 3 acquisitions in 12 months with integration complexity. Finance cost +32% YoY. D/E at 1.32x. FY24 Consumer Durables revenue -7% when brands took assembly in-house &mdash; validates structural risk.</div>
+            <div class="tvw-col-text"><strong>Margin compression despite revenue growth; acquisition integration risk mounting.</strong><ul style="margin:4px 0 0 16px;padding:0;font-size:inherit"><li>Consumer Durables EBITDA compressed 7.7% &rarr; 6.9% (9MFY26) despite +19% revenue</li><li>Structural PAT margin only 2.5%</li><li>Rs 94 Cr Shivalik impairment &mdash; Q3 PAT negative (Rs &minus;9 Cr)</li><li>Railway revenue &minus;6% FY25 (flat in FY24)</li><li>3 acquisitions in 12 months with integration complexity</li><li>Finance cost +32% YoY; D/E at 1.32x</li><li>FY24 CD revenue &minus;7% when brands took assembly in-house &mdash; validates structural risk</li></ul></div>
           </div>
         </div>
         <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Q3 FY26, Q4 FY25, Q3 FY25, Q4 FY24 Investor Presentations + 35th AGM</span></div>
@@ -1856,7 +1917,7 @@
           </div>
           <div>
             <div class="tvw-col-label">Data Shows</div>
-            <div class="tvw-col-text">9M FY26 EBITDA compressed to 9.6% (from 10.9%). Revenue nearly flat +0.2% YoY for 9 months. Butterfly revenue +3% (not double-digit). Solar rooftop Q3 revenue only Rs 19 Cr vs Rs 2,000 Cr aspiration. Material margin -150 bps standalone. Employee cost growing at 2x revenue. Simultaneous entry into wires, solar rooftop, while managing BEE 2.0, Baroda VRS, BCG GTM &mdash; bandwidth risk on Rs 557 Cr 9M EBITDA base.</div>
+            <div class="tvw-col-text"><strong>Revenue flat, margins compressing, multiple new bets straining a thin EBITDA base.</strong><ul style="margin:4px 0 0 16px;padding:0;font-size:inherit"><li>9M FY26 EBITDA compressed to 9.6% (from 10.9%)</li><li>Revenue nearly flat +0.2% YoY for 9 months</li><li>Butterfly revenue +3% (not the guided double-digit)</li><li>Solar rooftop Q3 revenue only Rs 19 Cr vs Rs 2,000 Cr aspiration</li><li>Material margin &minus;150 bps standalone</li><li>Employee cost growing at 2x revenue</li><li>Bandwidth risk: wires, solar, BEE 2.0, Baroda VRS, BCG GTM &mdash; all on Rs 557 Cr EBITDA base</li></ul></div>
           </div>
         </div>
         <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Q3 FY26 Earnings Call + Q1 FY26 Transcript + Q3/Q2 FY26 Investor Presentations + MD&amp;A FY25</span></div>
@@ -1874,7 +1935,7 @@
           </div>
           <div>
             <div class="tvw-col-label">Data Shows</div>
-            <div class="tvw-col-text">Revenue 18% below FY23 peak (Rs 865 Cr vs Rs 1,057 Cr). EBITDA margin at 2.94% in FY24 &mdash; near-breakeven. ~75% revenue still South India concentrated. Retail outlets declined 25,000+ to 24,000+. Crompton merger rejected by shareholders (72.6% against). Steel has NO alternate vendor. MFI/rural demand suppressed. Auxiliary categories deliberately cut. Recovery on a contracted base.</div>
+            <div class="tvw-col-text"><strong>Revenue still 18% below FY23 peak; near-breakeven margins with structural concentration.</strong><ul style="margin:4px 0 0 16px;padding:0;font-size:inherit"><li>Revenue 18% below FY23 peak (Rs 865 Cr vs Rs 1,057 Cr)</li><li>EBITDA margin at 2.94% in FY24 &mdash; near-breakeven</li><li>~75% revenue still South India concentrated</li><li>Retail outlets declined 25,000+ to 24,000+</li><li>Crompton merger rejected by shareholders (72.6% against)</li><li>Steel has NO alternate vendor</li><li>MFI/rural demand suppressed; auxiliary categories deliberately cut</li><li>Recovery on a contracted base</li></ul></div>
           </div>
         </div>
         <div style="margin-top:8px"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> AR FY21, AR FY22-23, AR FY24-25, Q3 FY22 Investor Presentation, Q1/Q2 FY26 Results</span></div>
@@ -2250,7 +2311,7 @@
         <span class="data-tag">Q3 FY2026 &middot; Company Filings</span>
       </div>
 
-      <div style="margin-bottom:12px; display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+      <div style="margin-bottom:12px; display:flex; align-items:center; gap:12px; flex-wrap:wrap; position:sticky; top:48px; z-index:15; background:var(--surface); padding:10px 0; border-bottom:1px solid var(--border);">
         <span class="filter-label" style="font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.04em">Filter by Account:</span>
         <div class="opp-dropdown-wrap" id="acctWrap_financial" style="position:relative">
           <button class="opp-dropdown-btn" id="acctBtn_financial" onclick="toggleAcctDD('financial')"><span id="acctLabel_financial">All Accounts</span><span class="dd-arrow">&#9660;</span></button>
@@ -2258,7 +2319,7 @@
         </div>
         <button class="derived-toggle" id="derivedToggle" onclick="toggleDerived()">
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><rect x="1" y="1" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M4 7h6M7 4v6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
-          Show Market Intelligence
+          Show Additional Metrics
         </button>
       </div>
       <div style="overflow-x:auto">
@@ -2295,7 +2356,7 @@
       <h3 class="sub-header">ROCE Comparison</h3>
       <div id="roceComparison" class="card" style="margin-bottom:24px"></div>
 
-      <h3 class="sub-header">Working Capital &amp; Efficiency Heatmap</h3>
+      <h3 class="sub-header">Operational Efficiency Heat Map</h3>
       <div id="wcHeatmap" style="margin-bottom:24px"></div>
 
       <div class="section-footer"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Company Filings, Q3 FY2026</span> &middot; Q3 FY2026</div>
@@ -2347,16 +2408,22 @@
 
       <h3 class="sub-header">Key Sector Deals</h3>
       <div class="filter-bar" id="dealFilterBar">
-        <span class="filter-label">Filter:</span>
+        <span class="filter-label">Type:</span>
         <button class="type-filter active" onclick="filterDeals('all')">All <span class="count">(11)</span></button>
         <button class="type-filter" onclick="filterDeals('M&amp;A')">M&amp;A <span class="count">(4)</span></button>
         <button class="type-filter" onclick="filterDeals('QIP')">QIP <span class="count">(1)</span></button>
         <button class="type-filter" onclick="filterDeals('PE')">PE <span class="count">(1)</span></button>
         <button class="type-filter" onclick="filterDeals('VC')">VC <span class="count">(4)</span></button>
         <button class="type-filter" onclick="filterDeals('Investment')">Investment <span class="count">(1)</span></button>
+        <span class="filter-label" style="margin-left:16px">Period:</span>
+        <select class="deal-date-filter" id="dealDateFilter" onchange="filterDealsByDate(this.value)" style="font-size:11px;padding:4px 8px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);color:var(--text-primary);font-family:var(--font-body);">
+          <option value="all">All Time</option>
+          <option value="2026">2026</option>
+          <option value="2025">2025</option>
+        </select>
       </div>
       <div class="card-grid cols-2" id="dealCardsGrid">
-        <div class="move-card-item" data-deal-type="QIP">
+        <div class="move-card-item" data-deal-type="QIP" data-deal-year="2025">
           <div class="move-card-header">
             <span class="move-card-company">Amber Enterprises</span>
             <span class="badge badge-qip">QIP</span>
@@ -2368,7 +2435,7 @@
             <span class="source-attr"><span class="source-tier tier-verified">Verified</span> BSE</span>
           </div>
         </div>
-        <div class="move-card-item" data-deal-type="PE">
+        <div class="move-card-item" data-deal-type="PE" data-deal-year="2025">
           <div class="move-card-header">
             <span class="move-card-company">ILJIN Electronics (Amber sub)</span>
             <span class="badge badge-pe">PE</span>
@@ -2380,7 +2447,7 @@
             <span class="source-attr"><span class="source-tier tier-verified">Verified</span> BSE</span>
           </div>
         </div>
-        <div class="move-card-item" data-deal-type="M&amp;A">
+        <div class="move-card-item" data-deal-type="M&amp;A" data-deal-year="2025">
           <div class="move-card-header">
             <span class="move-card-company">ILJIN &rarr; Shogini Technoarts</span>
             <span class="badge badge-mna">M&amp;A</span>
@@ -2392,7 +2459,7 @@
             <span class="source-attr"><span class="source-tier tier-verified">Verified</span> BSE</span>
           </div>
         </div>
-        <div class="move-card-item" data-deal-type="M&amp;A">
+        <div class="move-card-item" data-deal-type="M&amp;A" data-deal-year="2025">
           <div class="move-card-header">
             <span class="move-card-company">ILJIN &rarr; Unitronics (Israel)</span>
             <span class="badge badge-mna">M&amp;A</span>
@@ -2404,7 +2471,7 @@
             <span class="source-attr"><span class="source-tier tier-verified">Verified</span> BSE</span>
           </div>
         </div>
-        <div class="move-card-item" data-deal-type="M&amp;A">
+        <div class="move-card-item" data-deal-type="M&amp;A" data-deal-year="2025">
           <div class="move-card-header">
             <span class="move-card-company">ILJIN &rarr; One Micro Systems</span>
             <span class="badge badge-mna">M&amp;A</span>
@@ -2416,7 +2483,7 @@
             <span class="source-attr"><span class="source-tier tier-verified">Verified</span> BSE</span>
           </div>
         </div>
-        <div class="move-card-item" data-deal-type="Investment">
+        <div class="move-card-item" data-deal-type="Investment" data-deal-year="2026">
           <div class="move-card-header">
             <span class="move-card-company">Amber &mdash; YEIDA Land</span>
             <span class="badge badge-accent">Investment</span>
@@ -2428,7 +2495,7 @@
             <span class="source-attr"><span class="source-tier tier-verified">Verified</span> YEIDA</span>
           </div>
         </div>
-        <div class="move-card-item" data-deal-type="M&amp;A">
+        <div class="move-card-item" data-deal-type="M&amp;A" data-deal-year="2026">
           <div class="move-card-header">
             <span class="move-card-company">Reliance Retail &rarr; Kelvinator</span>
             <span class="badge badge-mna">M&amp;A</span>
@@ -2440,7 +2507,7 @@
             <span class="source-attr"><span class="source-tier tier-verified">Verified</span> Industry press</span>
           </div>
         </div>
-        <div class="move-card-item" data-deal-type="VC">
+        <div class="move-card-item" data-deal-type="VC" data-deal-year="2026">
           <div class="move-card-header">
             <span class="move-card-company">ZILO</span>
             <span class="badge badge-vc">VC</span>
@@ -2452,7 +2519,7 @@
             <span class="source-attr"><span class="source-tier tier-verified">Verified</span> VCCEdge</span>
           </div>
         </div>
-        <div class="move-card-item" data-deal-type="VC">
+        <div class="move-card-item" data-deal-type="VC" data-deal-year="2026">
           <div class="move-card-header">
             <span class="move-card-company">Material Depot</span>
             <span class="badge badge-vc">VC</span>
@@ -2464,7 +2531,7 @@
             <span class="source-attr"><span class="source-tier tier-verified">Verified</span> Tracxn</span>
           </div>
         </div>
-        <div class="move-card-item" data-deal-type="VC">
+        <div class="move-card-item" data-deal-type="VC" data-deal-year="2026">
           <div class="move-card-header">
             <span class="move-card-company">Indigrid Technology</span>
             <span class="badge badge-vc">VC</span>
@@ -2476,7 +2543,7 @@
             <span class="source-attr"><span class="source-tier tier-verified">Verified</span> VCCEdge</span>
           </div>
         </div>
-        <div class="move-card-item" data-deal-type="VC">
+        <div class="move-card-item" data-deal-type="VC" data-deal-year="2026">
           <div class="move-card-header">
             <span class="move-card-company">UKHI</span>
             <span class="badge badge-vc">VC</span>
@@ -2521,19 +2588,9 @@
     <div id="section-operations" class="section-panel">
       <div class="section-header">
         <h2 class="section-title">Operational Intelligence</h2>
-        <p class="section-subtitle">Manufacturing efficiency, working capital, and operational KPI benchmarking with diagnostic triggers</p>
-        <span class="data-tag">Feb 2026 &middot; Supply Chain, Manufacturing, Procurement</span>
+        <p class="section-subtitle">PLI ecosystem tracking and operational stress diagnostics &mdash; complementing Financial Performance with manufacturing policy and stress signals</p>
+        <span class="data-tag">Feb 2026 &middot; PLI Tracker, Diagnostic Triggers</span>
       </div>
-
-      <div class="opp-filter-row" id="acctFilterRow_ops">
-        <span class="filter-label">Filter by Account:</span>
-        <div class="opp-dropdown-wrap" id="acctWrap_ops">
-          <button class="opp-dropdown-btn" id="acctBtn_ops" onclick="toggleAcctDD('ops')"><span id="acctLabel_ops">All Accounts</span><span class="dd-arrow">&#9660;</span></button>
-          <div class="opp-dropdown-list" id="acctList_ops"></div>
-        </div>
-      </div>
-
-      <div class="stat-row" style="margin-bottom:24px" id="opsSummaryStats"></div>
 
       <h3 class="sub-header">Manufacturing &amp; PLI Ecosystem</h3>
       <div class="stat-row">
@@ -2573,31 +2630,6 @@
           </tbody>
         </table>
       </div>
-
-      <h3 class="sub-header" style="margin-top:32px">Operational Metrics Benchmark</h3>
-      <p style="font-size:11px; color:var(--text-muted); margin:-8px 0 12px 0;">14-company operational KPI comparison &mdash; click column headers to sort. <span class="conf-icon verified" title="Verified: directly from filings">&#10003;</span> Verified &nbsp;<span class="conf-icon derived" title="Derived: calculated from source data">~</span> Derived &nbsp;<span class="conf-icon estimated" title="Estimated: proxy or estimate">?</span> Estimated</p>
-      <div style="overflow-x:auto; margin-bottom:24px;">
-        <table class="ops-table" id="opsMetricsTable">
-          <thead>
-            <tr>
-              <th style="cursor:pointer" onclick="sortOps('name')">Company <span class="ops-sort" data-ops="name">&#9670;</span></th>
-              <th style="cursor:pointer" onclick="sortOps('subSector')" data-tip="Industry sub-sector classification">Sub-Sector <span class="ops-sort" data-ops="subSector">&#9670;</span></th>
-              <th style="cursor:pointer" onclick="sortOps('revGrowth')" data-tip="Revenue Growth Year-over-Year: % change vs same quarter last year">Rev Growth% <span class="ops-sort" data-ops="revGrowth">&#9670;</span></th>
-              <th style="cursor:pointer" onclick="sortOps('ebitdaMargin')" data-tip="Earnings Before Interest, Tax, Depreciation &amp; Amortisation as % of revenue">EBITDA% <span class="ops-sort" data-ops="ebitdaMargin">&#9670;</span></th>
-              <th style="cursor:pointer" onclick="sortOps('opm')" data-tip="Operating Profit Margin: Operating profit / Revenue. Approximated as EBITDA Margin x 0.85">OPM% <span class="ops-sort" data-ops="opm">&#9670;</span></th>
-              <th style="cursor:pointer" onclick="sortOps('roce')" data-tip="Return on Capital Employed: EBIT / Capital Employed">ROCE% <span class="ops-sort" data-ops="roce">&#9670;</span></th>
-              <th style="cursor:pointer" onclick="sortOps('wcDays')" data-tip="Working Capital Days: (Current Assets - Current Liabilities) / (Revenue/365). Negative = cash-generative">WC Days <span class="ops-sort" data-ops="wcDays">&#9670;</span></th>
-              <th style="cursor:pointer" onclick="sortOps('de')" data-tip="Debt-to-Equity: Total borrowings / shareholders equity. Above 1.0x = more debt than equity">D/E <span class="ops-sort" data-ops="de">&#9670;</span></th>
-              <th style="cursor:pointer" onclick="sortOps('invDays')" data-tip="Inventory Days: Average inventory / (COGS/365). Lower = faster inventory turnover">Inv Days <span class="ops-sort" data-ops="invDays">&#9670;</span></th>
-              <th style="cursor:pointer" onclick="sortOps('debtorDays')" data-tip="Debtor Days: Average receivables / (Revenue/365). Lower = faster cash collection">Debtor Days <span class="ops-sort" data-ops="debtorDays">&#9670;</span></th>
-              <th style="cursor:pointer" onclick="sortOps('ccc')" data-tip="Cash Conversion Cycle = Inv Days + Debtor Days - Days Payable. Lower/negative = more efficient">CCC <span class="ops-sort" data-ops="ccc">&#9670;</span></th>
-            </tr>
-          </thead>
-          <tbody id="opsTableBody"></tbody>
-        </table>
-      </div>
-      <div id="opsConfLegend" class="ops-conf-legend"></div>
-      <div style="margin-bottom:24px"><span class="source-attr"><span class="source-tier tier-derived">Derived</span> Company Filings &middot; Q3 FY2026 financials</span></div>
 
       <h3 class="sub-header" style="margin-top:32px">Diagnostic Triggers</h3>
       <p style="font-size:11px; color:var(--text-muted); margin:-8px 0 12px 0;">Companies showing operational stress signals based on Q3 FY26 financials</p>
@@ -2660,7 +2692,12 @@
 
       <h3 class="sub-header">Strategic Moves <span style="font-size:11px;font-weight:400;color:var(--text-muted)">(Q3 FY2026)</span></h3>
       <div class="filter-bar" id="moveFilterBar">
-        <span class="filter-label">Filter:</span>
+        <span class="filter-label">Scope:</span>
+        <button class="type-filter active" onclick="filterMoveScope('all',this)">All</button>
+        <button class="type-filter" onclick="filterMoveScope('tracked',this)">Tracked Companies</button>
+        <button class="type-filter" onclick="filterMoveScope('sector',this)">Sector-wide</button>
+        <span style="width:1px;height:20px;background:var(--border);margin:0 8px"></span>
+        <span class="filter-label">Type:</span>
         <button class="type-filter active" onclick="filterMoves('all')">All <span class="count">(14)</span></button>
         <button class="type-filter" onclick="filterMoves('Product')">Product <span class="count">(3)</span></button>
         <button class="type-filter" onclick="filterMoves('Pricing')">Pricing <span class="count">(3)</span></button>
@@ -2670,7 +2707,7 @@
         <button class="type-filter" onclick="filterMoves('Technology')">Technology <span class="count">(2)</span></button>
       </div>
       <div class="card-grid cols-2" id="moveCardsGrid">
-        <div class="move-card-item" data-move-type="Technology">
+        <div class="move-card-item" data-move-type="Technology" data-move-scope="sector">
           <div class="move-card-header">
             <span class="move-card-company">Samsung India</span>
             <span class="move-card-type technology">Technology</span>
@@ -2681,7 +2718,7 @@
             <span class="source-attr"><span class="source-tier tier-verified">Verified</span> Samsung India press</span>
           </div>
         </div>
-        <div class="move-card-item" data-move-type="Product">
+        <div class="move-card-item" data-move-type="Product" data-move-scope="tracked">
           <div class="move-card-header">
             <span class="move-card-company">Dixon Technologies</span>
             <span class="move-card-type product">Product</span>
@@ -2692,7 +2729,7 @@
             <span class="source-attr"><span class="source-tier tier-guidance">Mgmt Guidance</span> Dixon concall Q3</span>
           </div>
         </div>
-        <div class="move-card-item" data-move-type="Capacity">
+        <div class="move-card-item" data-move-type="Capacity" data-move-scope="tracked">
           <div class="move-card-header">
             <span class="move-card-company">Dixon Technologies</span>
             <span class="move-card-type capacity">Capacity</span>
@@ -2703,7 +2740,7 @@
             <span class="source-attr"><span class="source-tier tier-verified">Verified</span> BSE filing</span>
           </div>
         </div>
-        <div class="move-card-item" data-move-type="Pricing">
+        <div class="move-card-item" data-move-type="Pricing" data-move-scope="sector">
           <div class="move-card-header">
             <span class="move-card-company">Industry-wide</span>
             <span class="move-card-type pricing">Pricing</span>
@@ -2714,7 +2751,7 @@
             <span class="source-attr"><span class="source-tier tier-derived">Derived</span> Industry analysis</span>
           </div>
         </div>
-        <div class="move-card-item" data-move-type="Pricing">
+        <div class="move-card-item" data-move-type="Pricing" data-move-scope="tracked">
           <div class="move-card-header">
             <span class="move-card-company">Crompton Greaves</span>
             <span class="move-card-type pricing">Pricing</span>
@@ -2725,7 +2762,7 @@
             <span class="source-attr"><span class="source-tier tier-verified">Verified</span> Q3 FY26 Earnings Call + Investor Presentation</span>
           </div>
         </div>
-        <div class="move-card-item" data-move-type="Pricing">
+        <div class="move-card-item" data-move-type="Pricing" data-move-scope="tracked">
           <div class="move-card-header">
             <span class="move-card-company">Blue Star</span>
             <span class="move-card-type pricing">Pricing</span>
@@ -2736,7 +2773,7 @@
             <span class="source-attr"><span class="source-tier tier-guidance">Mgmt Guidance</span> Concall</span>
           </div>
         </div>
-        <div class="move-card-item" data-move-type="Product">
+        <div class="move-card-item" data-move-type="Product" data-move-scope="tracked">
           <div class="move-card-header">
             <span class="move-card-company">Voltas</span>
             <span class="move-card-type product">Product</span>
@@ -2747,7 +2784,7 @@
             <span class="source-attr"><span class="source-tier tier-verified">Verified</span> Voltas results</span>
           </div>
         </div>
-        <div class="move-card-item" data-move-type="Partnership">
+        <div class="move-card-item" data-move-type="Partnership" data-move-scope="tracked">
           <div class="move-card-header">
             <span class="move-card-company">Dixon&ndash;HKC</span>
             <span class="move-card-type partnership">Partnership</span>
@@ -2758,7 +2795,7 @@
             <span class="source-attr"><span class="source-tier tier-verified">Verified</span> BSE filing</span>
           </div>
         </div>
-        <div class="move-card-item" data-move-type="Partnership">
+        <div class="move-card-item" data-move-type="Partnership" data-move-scope="sector">
           <div class="move-card-header">
             <span class="move-card-company">PLI Round 4</span>
             <span class="move-card-type partnership">Partnership</span>
@@ -2769,7 +2806,7 @@
             <span class="source-attr"><span class="source-tier tier-verified">Verified</span> DPIIT</span>
           </div>
         </div>
-        <div class="move-card-item" data-move-type="Distribution">
+        <div class="move-card-item" data-move-type="Distribution" data-move-scope="sector">
           <div class="move-card-header">
             <span class="move-card-company">Industry-wide</span>
             <span class="move-card-type distribution">Distribution</span>
@@ -2780,7 +2817,7 @@
             <span class="source-attr"><span class="source-tier tier-derived">Derived</span> Cross-section</span>
           </div>
         </div>
-        <div class="move-card-item" data-move-type="Distribution">
+        <div class="move-card-item" data-move-type="Distribution" data-move-scope="sector">
           <div class="move-card-header">
             <span class="move-card-company">ZILO</span>
             <span class="move-card-type distribution">Distribution</span>
@@ -2791,7 +2828,7 @@
             <span class="source-attr"><span class="source-tier tier-verified">Verified</span> VCCEdge</span>
           </div>
         </div>
-        <div class="move-card-item" data-move-type="Technology">
+        <div class="move-card-item" data-move-type="Technology" data-move-scope="sector">
           <div class="move-card-header">
             <span class="move-card-company">Industry-wide</span>
             <span class="move-card-type technology">Technology</span>
@@ -2802,7 +2839,7 @@
             <span class="source-attr"><span class="source-tier tier-derived">Derived</span> Concalls</span>
           </div>
         </div>
-        <div class="move-card-item" data-move-type="Capacity">
+        <div class="move-card-item" data-move-type="Capacity" data-move-scope="sector">
           <div class="move-card-header">
             <span class="move-card-company">Godrej &amp; Boyce</span>
             <span class="move-card-type capacity">Capacity</span>
@@ -2813,7 +2850,7 @@
             <span class="source-attr"><span class="source-tier tier-verified">Verified</span> DPIIT</span>
           </div>
         </div>
-        <div class="move-card-item" data-move-type="Product">
+        <div class="move-card-item" data-move-type="Product" data-move-scope="sector">
           <div class="move-card-header">
             <span class="move-card-company">Samsung India</span>
             <span class="move-card-type product">Product</span>
@@ -2833,12 +2870,12 @@
       <div class="section-header">
         <h2 class="section-title">Leadership &amp; Governance</h2>
         <p class="section-subtitle">CEO/CXO changes, board reshuffles, promoter movements, and governance flags across 16 companies</p>
-        <span class="data-tag">Q3 FY2026 &middot; 28 verified events</span>
+        <span class="data-tag">Q3 FY2026 &middot; 20 verified events</span>
       </div>
 
       <div class="stat-row" style="margin-bottom:24px">
         <div class="stat-box">
-          <div class="stat-value">28</div>
+          <div class="stat-value">20</div>
           <div class="stat-label">Verified Leadership Events</div>
           <span class="source-attr"><span class="source-tier tier-verified">Verified</span> BSE, Company Filings</span>
         </div>
@@ -2848,12 +2885,12 @@
           <span class="source-attr"><span class="source-tier tier-derived">Derived</span> Governance Scoring</span>
         </div>
         <div class="stat-box">
-          <div class="stat-value" style="color:var(--warning)">4</div>
+          <div class="stat-value" style="color:var(--warning)">5</div>
           <div class="stat-label">Amber Risk Companies</div>
           <span class="source-attr"><span class="source-tier tier-derived">Derived</span> Governance Scoring</span>
         </div>
         <div class="stat-box">
-          <div class="stat-value" style="color:var(--positive)">3</div>
+          <div class="stat-value" style="color:var(--positive)">2</div>
           <div class="stat-label">Green (Stable)</div>
           <span class="source-attr"><span class="source-tier tier-derived">Derived</span> Governance Scoring</span>
         </div>
@@ -3277,7 +3314,7 @@
       <div class="section-header">
         <h2 class="section-title">Advisory Pipeline</h2>
         <p class="section-subtitle">Advisory pipeline derived from cross-section intelligence analysis</p>
-        <span class="data-tag">Feb 2026 &middot; Pipeline: Identified &rarr; Qualified &rarr; Outreach-Ready</span>
+        <span class="data-tag">Feb 2026 &middot; Advisory Pipeline</span>
       </div>
 
       <div id="oppStatsRow" class="opp-stats-row" style="margin-bottom:16px"></div>
@@ -3671,8 +3708,8 @@
     <div id="section-transcript-intel" class="section-panel">
       <div class="section-header">
         <h2 class="section-title">Transcript Intel</h2>
-        <p class="section-subtitle">Transcript Intel Analysis &mdash; annual report analysis across 10 companies</p>
-        <span class="data-tag">Transcript Intel &middot; 10 Companies</span>
+        <p class="section-subtitle">Transcript Intel Analysis &mdash; earnings call and annual report analysis across 16 companies</p>
+        <span class="data-tag">Transcript Intel &middot; 16 Companies</span>
       </div>
 
       <div class="intel-layout">
@@ -3699,6 +3736,12 @@
         <div class="card ebitda-story-card" data-company="crompton" style="display:none"><div class="ebitda-left"><h4>Crompton Greaves Consumer</h4><div class="ebitda-trend-line"><span class="trend-year">FY23</span> <span class="trend-val">~10.5%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY24</span> <span class="trend-val improving">10.78%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY25</span> <span class="trend-val improving">11.66%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">Q2 FY26</span> <span class="trend-val declining">8.3%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">Q3 FY26</span> <span class="trend-val improving">10.3%</span></div><div class="ebitda-narrative">FY25 EBITDA margin of 11.66% was the 5-year peak, driven by commodity cost easing (-132 bps material cost improvement), zero-debt achievement, and BLDC premiumization. FY26 is a challenge year: 9M FY26 consolidated EBITDA compressed to 9.6% (from 10.9%) due to copper/aluminium/steel inflation, weak Q1 fan season (-8% vs industry -11%), and Baroda VRS charge. Q2 FY26 was the trough at 8.3%; Q3 recovered to 10.3% (+200 bps QoQ) driven by GST-deferred demand realization, pricing actions, and seasonal normalization. Recovery levers: price increases (1-1.5% Jan 2026 + Q4/Q1), UNNATI multi-sourcing +10%, BLDC/premium mix improvement, Baroda fixed-cost savings, and lighting B2B pivot (EBIT +480 bps to 15.5%). Material cost at 67% of revenue is the primary swing factor. Management guided further pricing in Q4/Q1 FY27 to restore FY25-level margins.</div><div><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Transcript Intel Analysis</span> &middot; Q3 FY26 Earnings Call + Q3/Q2 FY26 Investor Presentations + MD&amp;A FY25</div></div><div class="ebitda-right"><div class="ebitda-drivers"><span class="ebitda-driver down">Material margin -150 bps YoY standalone (31.1% vs 32.6%)</span><span class="ebitda-driver down">Employee cost +13.6% vs revenue +7.3%</span><span class="ebitda-driver down">Baroda VRS Rs 20.36 Cr exceptional</span><span class="ebitda-driver up">Zero-net-debt: finance cost 0.61% of revenue</span><span class="ebitda-driver up">Lighting EBIT +480 bps (15.5% Q2 FY26)</span><span class="ebitda-driver up">Price increase 1-1.5% Jan 2026 + more planned</span><span class="ebitda-driver up">Butterfly EBITDA 7.2% &rarr; 8.2% (+100 bps YoY)</span></div></div></div>
         <div class="card ebitda-story-card" data-company="amber" style="display:none"><div class="ebitda-left"><h4>Amber Enterprises India</h4><div class="ebitda-trend-line"><span class="trend-year">FY23</span> <span class="trend-val">6.9%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY24</span> <span class="trend-val improving">7.7%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY25</span> <span class="trend-val improving">8.0%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">9M FY26</span> <span class="trend-val declining">7.6%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">Q3 FY26</span> <span class="trend-val improving">8.4%</span></div><div class="ebitda-narrative">Consolidated EBITDA margin improving from 6.9% (FY23) to 8.4% (Q3 FY26) driven by: backward integration reducing RMC from 84.7% to 80.3%, Electronics Division at inflection (EBITDA 4.2% to 10.5% as PCB and box-build scale), and operating leverage (other expenses 7.0% to 5.5%). However, Consumer Durables (67% of revenue) saw margin compress 7.7% to 6.9% in 9MFY26. Below EBITDA, rising D&amp;A (Rs 228 Cr, +22%) and finance cost (Rs 220 Cr, +32%) squeeze PAT to 2.5%. Rs 94 Cr exceptional impairment pushed Q3 PAT negative. Rs 4,200 Cr PCB capex will further increase D&amp;A before revenue materializes. RAC CBU share reduced 72% (FY18) to ~40% (FY25) &mdash; correct mix strategy, but must accelerate to 10%+ consolidated EBITDA for viable profit base.</div><div><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Transcript Intel Analysis</span> &middot; Q3 FY26, Q4 FY25, Q3 FY25, Q4 FY24 Investor Presentations + 35th AGM + CRISIL Nov 2025</div></div><div class="ebitda-right"><div class="ebitda-drivers"><span class="ebitda-driver up">Other expenses 7.0% &rarr; 5.5% (operating leverage)</span><span class="ebitda-driver up">Electronics EBITDA 4.2% &rarr; 10.5% (Q3 new high)</span><span class="ebitda-driver up">Gross margin 15.3% &rarr; 19.7% (Q3 FY26)</span><span class="ebitda-driver down">Consumer Durables EBITDA 7.7% &rarr; 6.9% (9MFY26)</span><span class="ebitda-driver down">Employee cost 3.2% &rarr; 4.0% (acquisitions)</span><span class="ebitda-driver down">PAT margin 2.5% &mdash; razor thin</span><span class="ebitda-driver down">Rs 94 Cr Shivalik impairment &rarr; Q3 PAT negative</span></div></div></div>
         <div class="card ebitda-story-card" data-company="butterfly" style="display:none"><div class="ebitda-left"><h4>Butterfly Gandhimathi</h4><div class="ebitda-trend-line"><span class="trend-year">FY17</span> <span class="trend-val declining">&ndash;4%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY18</span> <span class="trend-val improving">7%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY21</span> <span class="trend-val improving">9%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY24</span> <span class="trend-val declining">2.94%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY25</span> <span class="trend-val improving">7.55%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">Q2 FY26</span> <span class="trend-val improving">9.5%</span></div><div class="ebitda-narrative">EBITDA margin collapsed from 9%+ (FY21) to 2.94% (FY24) &mdash; driven by commodity inflation (+73% material cost 9M FY22), pricing disruption, and deliberate channel restructuring post-Crompton acquisition (March 2022). Recovery executed via: ROI-led A&amp;P restructuring, pricing corrections, SNOP-driven inventory normalization, plant consolidation, and Project Munnetram savings (Rs 1.5 Cr). EBITDA recovered 651 bps in 6 quarters to 9.5% (Q2 FY26). However, revenue is 18% below FY23 peak &mdash; margin improvement is partly a function of denominator contraction and auxiliary category pruning. Material margin restored to 41% (Q1 FY26) but Q2 showed 37.8% &mdash; volatility remains. Steel single-sourcing and no commodity hedging policy are structural risks. Q2 FY26 revenue +14% YoY described as &ldquo;industry-leading&rdquo; suggests top-line recovery may be accelerating.</div><div><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Transcript Intel Analysis</span> &middot; AR FY21, AR FY22-23, AR FY24-25, Q3 FY22 Investor Presentation, Q1/Q2 FY26 Results</div></div><div class="ebitda-right"><div class="ebitda-drivers"><span class="ebitda-driver down">Material cost structural floor 58&ndash;62% of revenue</span><span class="ebitda-driver down">Steel single-source &mdash; no alternate vendor</span><span class="ebitda-driver down">Revenue 18% below FY23 peak (Rs 865 Cr vs Rs 1,057 Cr)</span><span class="ebitda-driver up">A&amp;P ROI discipline +351 bps EBITDA (FY25)</span><span class="ebitda-driver up">Material margin recovered 41% Q1 FY26 (+320 bps YoY)</span><span class="ebitda-driver up">Finance cost near-zero (D/E 0.04x)</span><span class="ebitda-driver up">Slow-moving inventory reduced 86%</span></div></div></div>
+        <div class="card ebitda-story-card" data-company="bluestar" style="display:none"><div class="ebitda-left"><h4>Blue Star</h4><div class="ebitda-trend-line"><span class="trend-year">Q4 FY25</span> <span class="trend-val">6.8%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">Q1 FY26</span> <span class="trend-val improving">7.0%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">Q2 FY26</span> <span class="trend-val improving">7.2%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">Q3 FY26</span> <span class="trend-val improving">7.5%</span></div><div class="ebitda-narrative">Steady margin improvement across quarters despite a &ldquo;subdued quarter&rdquo; per management. FY25 EBITDA at 7.34% with PAT of Rs 591 Cr. ROCE at 26% reflects strong capital efficiency. Low D/E (0.33x) provides headroom. Pivoted to draconian cost-control measures to preserve margins ahead of the summer season.</div><div><span class="source-attr"><span class="source-tier tier-derived">Derived</span> Company Filings Q3 FY26</span></div></div><div class="ebitda-right"><div class="ebitda-drivers"><span class="ebitda-driver up">ROCE 26% &mdash; strong capital efficiency</span><span class="ebitda-driver up">Steady margin expansion QoQ</span><span class="ebitda-driver up">FY25 PAT Rs 591 Cr</span><span class="ebitda-driver down">Subdued Q3 &mdash; cost-control focus</span></div></div></div>
+        <div class="card ebitda-story-card" data-company="orient" style="display:none"><div class="ebitda-left"><h4>Orient Electric</h4><div class="ebitda-trend-line"><span class="trend-year">Q4 FY25</span> <span class="trend-val">8.2%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">Q1 FY26</span> <span class="trend-val improving">8.8%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">Q2 FY26</span> <span class="trend-val improving">9.1%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">Q3 FY26</span> <span class="trend-val improving">9.6%</span></div><div class="ebitda-narrative">Margin trending upward from 8.2% to 9.6% over 4 quarters under new MD Ravindra Singh Negi. Revenue growth at 10.9% YoY in Q3. Key risk: 2 MD changes in 11 months signals strategic uncertainty at CK Birla Group level.</div><div><span class="source-attr"><span class="source-tier tier-derived">Derived</span> Company Filings Q3 FY26</span></div></div><div class="ebitda-right"><div class="ebitda-drivers"><span class="ebitda-driver up">Margin +140 bps in 4 quarters</span><span class="ebitda-driver up">Revenue +10.9% YoY Q3</span><span class="ebitda-driver down">2 MD changes in 11 months</span><span class="ebitda-driver down">Strategic uncertainty at group level</span></div></div></div>
+        <div class="card ebitda-story-card" data-company="vguard" style="display:none"><div class="ebitda-left"><h4>V-Guard Industries</h4><div class="ebitda-trend-line"><span class="trend-year">Q4 FY25</span> <span class="trend-val">10.8%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">Q1 FY26</span> <span class="trend-val declining">10.4%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">Q2 FY26</span> <span class="trend-val declining">10.0%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">Q3 FY26</span> <span class="trend-val improving">10.6%</span></div><div class="ebitda-narrative">EBITDA margins oscillating around 10.0&ndash;10.8% range. Clean generational transition completed (founder stepped down at 75). Revenue growth at 10.6% in Q3. Working capital days at 43 remain elevated vs peers. ROCE declining despite revenue growth.</div><div><span class="source-attr"><span class="source-tier tier-derived">Derived</span> Company Filings Q3 FY26</span></div></div><div class="ebitda-right"><div class="ebitda-drivers"><span class="ebitda-driver up">Revenue +10.6% YoY Q3</span><span class="ebitda-driver up">Clean succession completed</span><span class="ebitda-driver down">WC days 43 &mdash; elevated</span><span class="ebitda-driver down">ROCE declining despite growth</span></div></div></div>
+        <div class="card ebitda-story-card" data-company="voltas" style="display:none"><div class="ebitda-left"><h4>Voltas</h4><div class="ebitda-trend-line"><span class="trend-year">Q4 FY25</span> <span class="trend-val">7.8%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">Q1 FY26</span> <span class="trend-val improving">8.0%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">Q2 FY26</span> <span class="trend-val declining">7.4%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">Q3 FY26</span> <span class="trend-val improving">8.2%</span></div><div class="ebitda-narrative">Margin volatile but trending around 7.4&ndash;8.2%. UCP EBIT margin at 3.8% beat street estimate of ~2%. Maintained 17.9% RAC market share despite MD transition and CXO exodus. Revenue growth at 8.8% YoY in Q3. New MD Mukundan Menon (ex-Blue Star) took charge Sep 2025.</div><div><span class="source-attr"><span class="source-tier tier-derived">Derived</span> Company Filings Q3 FY26</span></div></div><div class="ebitda-right"><div class="ebitda-drivers"><span class="ebitda-driver up">17.9% RAC market share maintained</span><span class="ebitda-driver up">UCP EBIT 3.8% beats estimates</span><span class="ebitda-driver down">CXO exodus &mdash; 6+ departures</span><span class="ebitda-driver down">MD transition Sep 2025</span></div></div></div>
+        <div class="card ebitda-story-card" data-company="eurekaforb" style="display:none"><div class="ebitda-left"><h4>Eureka Forbes</h4><div class="ebitda-trend-line"><span class="trend-year">Q4 FY25</span> <span class="trend-val">10.5%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">Q1 FY26</span> <span class="trend-val improving">10.8%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">Q2 FY26</span> <span class="trend-val improving">11.0%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">Q3 FY26</span> <span class="trend-val improving">11.3%</span></div><div class="ebitda-narrative">Steady margin expansion in the water purifier and vacuum cleaner segment. Revenue growth at 6.2% YoY. D/E at 0.08x (near debt-free). Strong service revenue model with recurring AMC income.</div><div><span class="source-attr"><span class="source-tier tier-derived">Derived</span> Company Filings Q3 FY26</span></div></div><div class="ebitda-right"><div class="ebitda-drivers"><span class="ebitda-driver up">Near debt-free (D/E 0.08x)</span><span class="ebitda-driver up">Recurring AMC service revenue</span><span class="ebitda-driver up">Steady margin expansion</span><span class="ebitda-driver down">Moderate growth at 6.2%</span></div></div></div>
+        <div class="card ebitda-story-card" data-company="lgeindia" style="display:none"><div class="ebitda-left"><h4>LG Electronics India</h4><div class="ebitda-trend-line"><span class="trend-year">Q4 FY25</span> <span class="trend-val">9.2%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">Q1 FY26</span> <span class="trend-val improving">9.5%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">Q2 FY26</span> <span class="trend-val improving">9.8%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">Q3 FY26</span> <span class="trend-val improving">10.0%</span></div><div class="ebitda-narrative">LG India is an unlisted subsidiary of LG Electronics Korea. Limited public financial data available. IPO planned for 2025&ndash;2026. Double-digit EBITDA margins typical for MNC durables. Market leader in refrigerators and washing machines.</div><div><span class="source-attr"><span class="source-tier tier-estimated">Estimated</span> Industry reports, IPO filings</span></div></div><div class="ebitda-right"><div class="ebitda-drivers"><span class="ebitda-driver up">Market leader in refrigerators &amp; washing machines</span><span class="ebitda-driver up">IPO planned 2025&ndash;2026</span><span class="ebitda-driver down">Limited public financial data</span><span class="ebitda-driver down">MNC parent control</span></div></div></div>
       </div>
 
       <!-- Signal Distribution Bar -->
@@ -3732,7 +3775,7 @@
                 <th>Severity</th>
                 <th>Indicator</th>
                 <th>Signal &amp; Rationale</th>
-                <th>Status</th>
+                <th>Potential Impact</th>
                 <th>Period</th>
               </tr>
             </thead>
@@ -4033,9 +4076,7 @@
         revTrend: trend.map(function(r){ return r.rev; }),
         ebitdaTrend: trend.map(function(r){ return r.ebitda_pct; })
       };
-    });
-    // Sort companies alphabetically by name
-    COMPANIES.sort(function(a, b) { return a.name.localeCompare(b.name); });
+    }).sort(function(a, b) { return a.name.localeCompare(b.name); });
 
     // ========== SPARKLINE SVG GENERATOR ==========
     function sparklineSVG(data, color) {
@@ -4290,8 +4331,8 @@
       var isActive = table.classList.contains('show-derived');
       btn.classList.toggle('active', isActive);
       btn.innerHTML = isActive
-        ? '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><rect x="1" y="1" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M4 7h6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg> Hide Market Intelligence'
-        : '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><rect x="1" y="1" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M4 7h6M7 4v6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg> Show Market Intelligence';
+        ? '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><rect x="1" y="1" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M4 7h6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg> Hide Additional Metrics'
+        : '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><rect x="1" y="1" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M4 7h6M7 4v6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg> Show Additional Metrics';
       renderTable();
     }
 
@@ -5094,6 +5135,14 @@
 
     SIGNAL_DATA.butterfly={name:"Butterfly Gandhimathi",ticker:"BUTTERFLY",signals:[{r:1,ind:"Gross Margin Strategy",sig:"EBITDA margin collapsed to 2.94% in FY24 \u2014 down from 9%+ in FY21 \u2014 before recovery to 7.55% (FY25) and 9.5% (Q2 FY26)",st:"Negative",per:"FY24",sev:"Critical",rat:"Near-breakeven EBITDA on Rs 931 Cr revenue. 651 bps recovery in 6 quarters encouraging but fragile.",conf:"calculated",ev:[{q:"FY24 EBITDA 2.94%; FY25 7.55%; Q2 FY26 9.5%. Operating profitability has increased due to improved margins and optimisation of all spends",src:"INTEGRATED_GOVERNANCE (AR FY24; AR FY25 MD&A)",ref:"Section 4 – Pricing Strategy and Commodity Cost Impact, Line 103; Section 6 – Gross Margin Strategy, Line 185"},{q:"Auxiliary categories declined as we took a calibrated approach towards product portfolio and trade spending to enhance profitability.",src:"INTEGRATED_GOVERNANCE (AR FY24; AR FY25 MD&A)",ref:"Section 4 – Pricing Strategy and Commodity Cost Impact, Line 103; Section 6 – Gross Margin Strategy, Line 185"}]},{r:2,ind:"Cost Structure \u2013 Commodity",sig:"Steel \u2014 largest direct material \u2014 has NO alternate vendor; single-source risk with no remediation timeline",st:"Negative",per:"FY23\u2013FY25",sev:"Critical",rat:"Largest direct cost with zero supply chain redundancy.",conf:"inferred",ev:[{q:"Alternative vendor development and structured share of business implemented for high-value procurement (except Steel).",src:"INTEGRATED_GOVERNANCE (AR FY23 Risk Management)",ref:"Section 5b – Commodity Dependency, Line 149"}]},{r:3,ind:"Industry vs Company Growth",sig:"Revenue declined from FY23 peak Rs 1,057 Cr to Rs 865 Cr (FY25) \u2014 cumulative 18% decline over 2 years",st:"Negative",per:"FY23\u2013FY25",sev:"Critical",rat:"Sustained revenue contraction erodes scale economics and channel confidence.",conf:"calculated",ev:[{q:"In the fiscal year, the company reported a revenue of H 86,450.15 Lakhs compared to H 93,128.25 Lakhs in the previous year.",src:"INTEGRATED_GOVERNANCE (AR FY23; AR FY25 MD&A)",ref:"Section 1 – Industry vs Company Growth, Lines 22-24; Section 6 – Gross Margin Strategy, Line 185"},{q:"Revenue peaked at Rs.1,057 Cr (FY23), then declined to Rs.865 Cr (FY25) amid strategic reset.",src:"INTEGRATED_GOVERNANCE (AR FY23; AR FY25 MD&A)",ref:"Section 1 – Industry vs Company Growth, Lines 22-24; Section 6 – Gross Margin Strategy, Line 185"}]},{r:4,ind:"Geographic Concentration",sig:"~75-76% revenue from South India; pan-India share ~5% vs ~15% South",st:"Watch",per:"FY23 onwards",sev:"High",rat:"Single-region dependency magnifies regional demand shocks.",conf:"calculated",ev:[{q:"Current market shares approx. 5% (Pan India) and approx. 15% in South India.",src:"INTEGRATED_GOVERNANCE (AR FY23 Risk Management; AR FY25 MD&A)",ref:"Section 8 – Market Share Gain/Loss Trends, Line 249; Section 11 – Retail Footprint / Distribution, Line 351"},{q:"Leveraging its position as an integrated kitchen appliance manufacturer... target high-potential markets in the North and Western regions by utilising the distribution and branding synergies gained fr...",src:"INTEGRATED_GOVERNANCE (AR FY23 Risk Management; AR FY25 MD&A)",ref:"Section 8 – Market Share Gain/Loss Trends, Line 249; Section 11 – Retail Footprint / Distribution, Line 351"}]},{r:5,ind:"Governance \u2013 Integration",sig:"Crompton merger rejected by shareholders (72.6% against, non-institutional 97%). Integration complexity ongoing",st:"Watch",per:"FY23\u2013FY26",sev:"High",rat:"Concurrent turnaround and integration increases failure probability.",conf:"inferred",ev:[{q:"Both the Companies have approved the Scheme of Amalgamation in March 2023, which will result in the consolidation of their respective businesses and operations.",src:"INTEGRATED_GOVERNANCE (AR FY23)",ref:"Section 2 – Operational Intelligence, Line 48; Line 58"},{q:"Strategic interventions aimed at driving business revival — revised pricing structure, improved management of trade spends, shift in marketing strategies, focus on enhancing commercial hygiene.",src:"INTEGRATED_GOVERNANCE (AR FY23)",ref:"Section 2 – Operational Intelligence, Line 48; Line 58"}]},{r:6,ind:"Commodity Vulnerability",sig:"Material costs surged 73% in 9M FY22 (Rs 233 Cr to Rs 403 Cr); no hedging policy disclosed",st:"Negative",per:"FY22",sev:"High",rat:"Structural vulnerability to commodity cycles. Cascaded into FY24 EBITDA collapse.",conf:"calculated",ev:[{q:"Gross Margin lower due to steep increase in raw material prices",src:"INVESTOR_ANALYST (Q3 FY22 Investor Presentation)",ref:"Section 4 – Pricing Strategy and Commodity Cost Impact, Lines 109–111"},{q:"Cost of Materials Consumed 9M FY22: Rs.402.9 Cr vs Rs.233.2 Cr in 9M FY21 (+73%)",src:"INVESTOR_ANALYST (Q3 FY22 Investor Presentation)",ref:"Section 4 – Pricing Strategy and Commodity Cost Impact, Lines 109–111"}]},{r:7,ind:"Rural Demand Risk",sig:"MFI channel demand suppressed in FY25; no structural alternative identified",st:"Negative",per:"FY25",sev:"High",rat:"MFI-linked rural demand headwind outside management control.",conf:"inferred",ev:[{q:"suppressed demand in the micro-finance institutions (MFI) channel",src:"INTEGRATED_GOVERNANCE (AR FY25 MD&A)",ref:"Section 6 – Gross Margin Strategy – Channel Architecture, Line 203; Strategic Signals Summary – Key Risks, Line 350"},{q:"The improved performance in the year\'s second half reflects our efforts to stabilise our business and our ambition to grow in a vastly competitive market.",src:"INTEGRATED_GOVERNANCE (AR FY25 MD&A)",ref:"Section 6 – Gross Margin Strategy – Channel Architecture, Line 203; Strategic Signals Summary – Key Risks, Line 350"}]},{r:8,ind:"Portfolio Risk",sig:"Auxiliary categories deliberately declined in FY25; revenue diversification buffer eliminated",st:"Negative",per:"FY25",sev:"High",rat:"4-category concentration increases volatility if core growth decelerates.",conf:"inferred",ev:[{q:"Auxiliary categories declined as we took a calibrated approach towards product portfolio and trade spending to enhance profitability.",src:"INTEGRATED_GOVERNANCE (AR FY25 MD&A)",ref:"Section 6 – Gross Margin Strategy – Volume vs Margin, Lines 187–188"},{q:"Key categories delivered moderate growth in H2, although auxiliary categories saw big decline in FY2024-25.",src:"INTEGRATED_GOVERNANCE (AR FY25 MD&A)",ref:"Section 6 – Gross Margin Strategy – Volume vs Margin, Lines 187–188"}]},{r:9,ind:"Pan-India Gap",sig:"Pan-India share only ~5% despite #1 in SS LPG Stoves and TTWGs",st:"Watch",per:"FY23",sev:"High",rat:"Sub-5% pan-India share signals underscaled distribution nationally.",conf:"calculated",ev:[{q:"Current market shares approx. 5% (Pan India) and approx. 15% in South India.",src:"INTEGRATED_GOVERNANCE (AR FY23 Risk Management)",ref:"Section 8 – Market Share Gain/Loss Trends, Line 249"},{q:"5-year strategic plan defined on Channel expansion and Marketing interventions.",src:"INTEGRATED_GOVERNANCE (AR FY23 Risk Management)",ref:"Section 8 – Market Share Gain/Loss Trends, Line 249"}]},{r:10,ind:"Capacity \u2013 Excess",sig:"Plant consolidated (one into main) in FY25; underutilization vs revenue 18% below peak",st:"Watch",per:"FY25",sev:"Medium",rat:"Excess capacity stranded on lower revenue base.",conf:"inferred",ev:[{q:"Consolidated the operations of one plant into the main plant, which has helped to improve efficiency and reduce costs.",src:"INTEGRATED_GOVERNANCE (AR FY25 MD&A)",ref:"Section 3 – Capacity / Plant Utilization, Line 73"}]},{r:11,ind:"Capex Decline",sig:"Capex declined 60%: Rs 2125L (FY24) to Rs 853L (FY25)",st:"Watch",per:"FY25",sev:"Medium",rat:"Drastic compression risks deferred maintenance.",conf:"calculated",ev:[{q:"CapEx: FY25 Rs.853 Lakhs vs FY24 Rs.2,125 Lakhs vs FY21 Rs.1,009 Lakhs",src:"INTEGRATED_GOVERNANCE (AR FY21; AR FY25)",ref:"Section 3 – Capacity / Plant Utilization, Line 76"}]},{r:12,ind:"After-Sales Leakage",sig:"ASC payout identified as revenue drainage; cost quantum not disclosed",st:"Negative",per:"FY23 onwards",sev:"Medium",rat:"Unquantified ASC revenue drain is hidden cost leak.",conf:"inferred",ev:[{q:"All SUBSIDIARY_FINANCIAL reports FY20–FY25: NOT FOUND",src:"Evidence Gaps Section (MD Intelligence Report)",ref:"Evidence Gaps Table, Line 382"}]},{r:13,ind:"Warranty Trend",sig:"Warranty provision Rs 255.81L (FY25); H1 FY26 already Rs 80.73L",st:"Watch",per:"FY25-H1 FY26",sev:"Medium",rat:"Growing provisions signal potential quality deterioration.",conf:"inferred",ev:[{q:"Revenue drainage against ASC payout identified as a cost risk",src:"INTEGRATED_GOVERNANCE (AR FY23 Risk Management / After-Sales Section)",ref:"Section 10 – After-Sales Service Cost Signals, Line 292"},{q:"Revenue drainage against ASC payout, we implemented the Call Closure...",src:"INTEGRATED_GOVERNANCE (AR FY23 Risk Management / After-Sales Section)",ref:"Section 10 – After-Sales Service Cost Signals, Line 292"}]},{r:14,ind:"Outlet Decline",sig:"Retail outlets 25000+ (FY23) to 24000+ (FY25); shrinkage during expansion",st:"Watch",per:"FY21-FY25",sev:"Medium",rat:"Shrinking footprint risks shelf presence loss.",conf:"calculated",ev:[{q:"Warranty provision H1 FY26: Rs.80.73 Lakhs; FY25 full year: Rs.255.81 Lakhs — Q2 FY26 Cash Flow Statement",src:"QUARTERLY_FINANCIAL_REPORT (Q2 FY26 Cash Flow Statement)",ref:"Section 10 – After-Sales Service Cost Signals, Line 291"}]},{r:15,ind:"Employee Cost",sig:"Employee benefits +4.6% YoY in H1 FY26; fixed cost expanding during flat revenue",st:"Watch",per:"H1 FY26",sev:"Medium",rat:"Fixed cost inflation compresses operating leverage.",conf:"inferred",ev:[{q:"590+ distributors; 24,000+ retail outlets (AR FY25)",src:"INTEGRATED_GOVERNANCE (AR FY25) · INVESTOR_ANALYST (Q3 FY22 Investor Presentation)",ref:"Section 11 – Retail Footprint / Distribution / Manpower Scale, Lines 319–320"},{q:"500+ exclusive distributors; 25,000+ retail points across the Indian map (Q3 FY22 Investor Presentation)",src:"INTEGRATED_GOVERNANCE (AR FY25) · INVESTOR_ANALYST (Q3 FY22 Investor Presentation)",ref:"Section 11 – Retail Footprint / Distribution / Manpower Scale, Lines 319–320"}]},{r:16,ind:"No Hedging Policy",sig:"No commodity hedging despite steel/aluminium exposure and FY22 vulnerability",st:"Watch",per:"All periods",sev:"Medium",rat:"Unhedged commodity exposure is significant financial risk.",conf:"inferred",ev:[{q:"We have revised the after-sales service charge to maximise client satisfaction.",src:"INTEGRATED_GOVERNANCE (AR FY25 Trends & Opportunities Section)",ref:"Section 10 – After-Sales Service Cost Signals, Line 287"}]},{r:17,ind:"Online Competition",sig:"Targeting 20-25% online mix; faces strong competition requiring sustained A&P",st:"Watch",per:"FY23-FY26",sev:"Medium",rat:"E-commerce investment resource-intensive during recovery.",conf:"calculated",ev:[{q:"H1 FY26: Rs.5,712 Lakhs employee costs vs Rs.5,463 Lakhs H1 FY25 (+4.6% YoY)",src:"QUARTERLY_FINANCIAL_REPORT (Q2 FY26 Financial Statements)",ref:"Section 5c – Employee Cost, Line 156"}]},{r:18,ind:"EBITDA Recovery",sig:"EBITDA: 2.94% (FY24) to 7.55% (FY25) to 9.5% (Q2 FY26); 651 bps in 6 quarters",st:"Positive",per:"FY24-Q2 FY26",sev:"Informational",rat:"Management executing cost and pricing interventions successfully.",conf:"inferred",ev:[{q:"No hedging policy or instruments disclosed",src:"Evidence Gaps Section (MD Intelligence Report)",ref:"Evidence Gaps Table, Line 381"}]},{r:19,ind:"Material Margin",sig:"Material margin 41.0% (Q1 FY26, +320 bps YoY) and 37.8% (Q2 FY26, +50 bps YoY)",st:"Positive",per:"Q1-Q2 FY26",sev:"Informational",rat:"Pricing power restoration post FY22 commodity shock.",conf:"inferred",ev:[{q:"Category-level gross margins (mixer vs stove vs cooker): NOT DISCLOSED",src:"Evidence Gaps Section (MD Intelligence Report)",ref:"Evidence Gaps Table, Line 380"}]},{r:20,ind:"Core Category Gains",sig:"Market share gains in core categories (Q1 FY26); double-digit growth all cores (Q2 FY26)",st:"Positive",per:"Q1-Q2 FY26",sev:"Informational",rat:"Positive competitive recovery on depressed base.",conf:"calculated",ev:[{q:"Quarterly business plans with a focus to strengthen Retail, Chain store, Modern trade and to maintain online channel mix at an industry average of 20-25%",src:"INTEGRATED_GOVERNANCE (AR FY23 Risk Management)",ref:"Section 6 – Gross Margin Strategy – Channel Architecture, Line 201"}]},{r:21,ind:"Historical Growth",sig:"21% Revenue CAGR FY17-FY21 vs industry 5.65%",st:"Positive",per:"FY17-FY21",sev:"Informational",rat:"Structural competitive capability as recovery benchmark.",conf:"inferred",ev:[{q:"All Q1–Q4 FY24 quarterly results: NOT FOUND",src:"Evidence Gaps Section (MD Intelligence Report)",ref:"Evidence Gaps Table, Line 383"}]},{r:22,ind:"Localization",sig:"~80% in-house mfg; Rs 45L localization savings (FY25); no technology imported",st:"Positive",per:"FY21-FY25",sev:"Informational",rat:"Strong domestic manufacturing reduces import dependency.",conf:"inferred",ev:[{q:"All Q1–Q4 FY23 quarterly results: NOT FOUND",src:"Evidence Gaps Section (MD Intelligence Report)",ref:"Evidence Gaps Table, Line 384"}]},{r:23,ind:"Finance Cost",sig:"Finance costs Rs 519L (FY25) vs Rs 23 Cr (FY17); D/E 0.04x",st:"Positive",per:"FY21-FY25",sev:"Informational",rat:"Zero debt eliminates distress risk.",conf:"inferred",ev:[{q:"Undisclosed utilization % prevents assessment of fixed cost absorption efficiency, production flexibility, and manufacturing restructuring potential; A&M would require this as baseline operational dat...",src:"Exact plant utilization % not disclosed in any document",ref:"Evidence Gaps Section (MD Intelligence Report)"}]},{r:24,ind:"Working Capital",sig:"Debtors days 77 to 30; WC days 106 to 36; slow-moving inventory -86%",st:"Positive",per:"FY18-FY25",sev:"Informational",rat:"Significant working capital optimization.",conf:"calculated",ev:[{q:"Gas dealer channel: 5% currently as compared to 30% 3 years ago",src:"INVESTOR_ANALYST (Q3 FY22 Investor Presentation) · INTEGRATED_GOVERNANCE (AR FY25 MD&A)",ref:"Section 6 – Gross Margin Strategy – Channel Architecture, Line 199; Section 11 – Retail Footprint, Line 322"},{q:"Business mix: Lower share of gas dealer channel business; 5% currently as compared to 30% 3 years ago",src:"INVESTOR_ANALYST (Q3 FY22 Investor Presentation) · INTEGRATED_GOVERNANCE (AR FY25 MD&A)",ref:"Section 6 – Gross Margin Strategy – Channel Architecture, Line 199; Section 11 – Retail Footprint, Line 322"},{q:"Retail channel accounts for ~60% of revenue, remained flat.",src:"INVESTOR_ANALYST (Q3 FY22 Investor Presentation) · INTEGRATED_GOVERNANCE (AR FY25 MD&A)",ref:"Section 6 – Gross Margin Strategy – Channel Architecture, Line 199; Section 11 – Retail Footprint, Line 322"}]},{r:25,ind:"Pan-India Opportunity",sig:"Crompton distribution synergies; ~5% vs ~15% South; network for North/West",st:"Positive",per:"FY23-FY26",sev:"Informational",rat:"Largest growth opportunity if integration executed.",conf:"calculated",ev:[{q:"Names/identities of contract manufacturers not disclosed",src:"Evidence Gaps Section · INTEGRATED_GOVERNANCE (AR FY21 MD&A)",ref:"Section 9 – Contract Manufacturing Strategy, Line 264; Evidence Gaps Table, Line 379"},{q:"Almost 80% of products manufactured in-house (implies ~20% contract sourced)",src:"Evidence Gaps Section · INTEGRATED_GOVERNANCE (AR FY21 MD&A)",ref:"Section 9 – Contract Manufacturing Strategy, Line 264; Evidence Gaps Table, Line 379"}]},{r:26,ind:"Service Scale",sig:"280+ service centres, 700+ technicians, CRM, WhatsApp chatbot",st:"Positive",per:"FY23-FY25",sev:"Informational",rat:"Service network is competitive moat.",conf:"inferred",ev:[{q:"Mr. Somasundaram P as Head of Manufacturing & Demand Planning of the Company... w.e.f. January 1, 2026",src:"QUARTERLY_FINANCIAL_REPORT (Q2 FY26 Outcome / Board Resolution)",ref:"Section 2 – Operational Intelligence, Lines 55–56"},{q:"Mr. Muthu Saravanan K as General Manager-Head Downstream Marketing... w.e.f. December 1, 2025",src:"QUARTERLY_FINANCIAL_REPORT (Q2 FY26 Outcome / Board Resolution)",ref:"Section 2 – Operational Intelligence, Lines 55–56"}]},{r:27,ind:"Cost Optimization",sig:"Munnetram Rs 1.5 Cr savings; SNOP; A&P ROI-led (+351 bps); procurement 0.6%",st:"Positive",per:"FY23-FY25",sev:"Informational",rat:"Cost optimization capacity demonstrated.",conf:"direct",ev:[{q:"Introduced a refreshed brand positioning embodying the philosophy of \'Celebrating Change\'",src:"QUARTERLY_FINANCIAL_REPORT (Q1 FY26 Press Release)",ref:"Section 2 – Operational Intelligence, Line 54"},{q:"Rolled out \'Idea First Series\' of products — over 40 SKUs - bringing to life its new brand positioning",src:"QUARTERLY_FINANCIAL_REPORT (Q1 FY26 Press Release)",ref:"Section 2 – Operational Intelligence, Line 54"}]}]};
 
+    // Add companies with EBITDA cards but no transcript signals yet
+    if (!SIGNAL_DATA.bluestar) SIGNAL_DATA.bluestar = {name:"Blue Star",ticker:"BLUESTARCO",signals:[]};
+    if (!SIGNAL_DATA.orient) SIGNAL_DATA.orient = {name:"Orient Electric",ticker:"ORIENTELEC",signals:[]};
+    if (!SIGNAL_DATA.vguard) SIGNAL_DATA.vguard = {name:"V-Guard Industries",ticker:"VGUARD",signals:[]};
+    if (!SIGNAL_DATA.voltas) SIGNAL_DATA.voltas = {name:"Voltas",ticker:"VOLTAS",signals:[]};
+    if (!SIGNAL_DATA.eurekaforb) SIGNAL_DATA.eurekaforb = {name:"Eureka Forbes",ticker:"EUREKAFORB",signals:[]};
+    if (!SIGNAL_DATA.lgeindia) SIGNAL_DATA.lgeindia = {name:"LG Electronics India",ticker:"LGEINDIA",signals:[]};
+
     // ========== TRANSCRIPT INTEL STATE & RENDERING ==========
     var currentIntelCompany = 'dixon';
     var currentSevFilter = 'all';
@@ -5202,11 +5251,23 @@
       var highConf = confBreakdown(s, function(x){ return x.sev==='High'; });
       var negConf = confBreakdown(s, negFn);
       var posConf = confBreakdown(s, posFn);
-      document.getElementById('riskScorecard').innerHTML =
-        '<div class="risk-metric critical"><div class="risk-metric-value">'+crit+'</div><div class="risk-metric-label">Critical</div><div class="conf-breakdown">'+critConf+'</div></div>' +
-        '<div class="risk-metric high"><div class="risk-metric-value">'+high+'</div><div class="risk-metric-label">High Priority</div><div class="conf-breakdown">'+highConf+'</div></div>' +
-        '<div class="risk-metric negative"><div class="risk-metric-value">'+neg+'</div><div class="risk-metric-label">Negative / Watch</div><div class="conf-breakdown">'+negConf+'</div></div>' +
-        '<div class="risk-metric positive"><div class="risk-metric-value">'+pos+'</div><div class="risk-metric-label">Positive</div><div class="conf-breakdown">'+posConf+'</div></div>';
+      var sc = document.getElementById('riskScorecard');
+      sc.innerHTML =
+        '<div class="risk-metric critical" data-filter-sev="Critical"><div class="risk-metric-value">'+crit+'</div><div class="risk-metric-label">Critical</div><div class="conf-breakdown">'+critConf+'</div></div>' +
+        '<div class="risk-metric high" data-filter-sev="High"><div class="risk-metric-value">'+high+'</div><div class="risk-metric-label">High Priority</div><div class="conf-breakdown">'+highConf+'</div></div>' +
+        '<div class="risk-metric negative" data-filter-sev="Critical"><div class="risk-metric-value">'+neg+'</div><div class="risk-metric-label">Negative / Watch</div><div class="conf-breakdown">'+negConf+'</div></div>' +
+        '<div class="risk-metric positive" data-filter-sev="all"><div class="risk-metric-value">'+pos+'</div><div class="risk-metric-label">Positive</div><div class="conf-breakdown">'+posConf+'</div></div>';
+      sc.querySelectorAll('[data-filter-sev]').forEach(function(el) {
+        el.addEventListener('click', function() {
+          var sev = this.getAttribute('data-filter-sev');
+          currentSevFilter = (currentSevFilter === sev) ? 'all' : sev;
+          document.querySelectorAll('.filter-btn').forEach(function(b){ b.classList.remove('active'); });
+          var btn = document.querySelector('.filter-btn[data-sev="'+currentSevFilter+'"]');
+          if (btn) btn.classList.add('active');
+          renderSignalTable();
+          renderTopSignals();
+        });
+      });
     }
 
     function renderSignalDistribution() {
@@ -5343,11 +5404,55 @@
       });
     }
 
+    function renderEbitdaMiniChart(companyId) {
+      var trend = getTrend(companyId);
+      if (!trend.length) return;
+      var quarters = trend.map(function(r) { return r.quarter + ' ' + r.year; });
+      var vals = trend.map(function(r) { return r.ebitda_pct; });
+      var ann = getAnnual(companyId);
+      var w = 280, h = 80, pad = 24, barW = 36, gap = 12;
+      var totalBarW = vals.length * barW + (vals.length - 1) * gap;
+      var startX = (w - totalBarW) / 2;
+      var maxVal = Math.max.apply(null, vals.concat(ann ? [ann.ebitda_pct] : [])) * 1.3;
+      if (maxVal < 1) maxVal = 15;
+      var svg = '<svg width="' + w + '" height="' + h + '" viewBox="0 0 ' + w + ' ' + h + '" style="display:block">';
+      // Annual reference line if available
+      if (ann) {
+        var annY = h - pad - ((ann.ebitda_pct / maxVal) * (h - pad - 4));
+        svg += '<line x1="' + (startX - 10) + '" y1="' + annY.toFixed(1) + '" x2="' + (startX + totalBarW + 10) + '" y2="' + annY.toFixed(1) + '" stroke="var(--info-400)" stroke-width="1" stroke-dasharray="3,3" opacity="0.6"/>';
+        svg += '<text x="' + (startX + totalBarW + 12) + '" y="' + (annY + 3).toFixed(1) + '" font-size="8" fill="var(--info-400)" font-family="var(--font-mono)">FY25: ' + ann.ebitda_pct.toFixed(1) + '%</text>';
+      }
+      vals.forEach(function(v, i) {
+        var x = startX + i * (barW + gap);
+        var barH = (v / maxVal) * (h - pad - 4);
+        var y = h - pad - barH;
+        var color = i > 0 && v > vals[i - 1] ? 'var(--success-500)' : (i > 0 && v < vals[i - 1] ? 'var(--danger-500)' : 'var(--info-500)');
+        svg += '<rect x="' + x + '" y="' + y.toFixed(1) + '" width="' + barW + '" height="' + barH.toFixed(1) + '" rx="3" fill="' + color + '" opacity="0.75"><title>' + quarters[i] + ': ' + v.toFixed(1) + '%</title></rect>';
+        svg += '<text x="' + (x + barW / 2) + '" y="' + (y - 3).toFixed(1) + '" font-size="9" fill="var(--text-primary)" text-anchor="middle" font-family="var(--font-mono)" font-weight="600">' + v.toFixed(1) + '%</text>';
+        svg += '<text x="' + (x + barW / 2) + '" y="' + (h - 6) + '" font-size="7" fill="var(--text-muted)" text-anchor="middle" font-family="var(--font-mono)">' + (trend[i].quarter || '') + '</text>';
+      });
+      svg += '</svg>';
+      return svg;
+    }
+
     function renderIntelContent() {
       // Show correct EBITDA card
       document.querySelectorAll('.ebitda-story-card[data-company]').forEach(function(c){ c.style.display = 'none'; });
       var eCard = document.querySelector('.ebitda-story-card[data-company="'+currentIntelCompany+'"]');
-      if(eCard) eCard.style.display = '';
+      if(eCard) {
+        eCard.style.display = '';
+        // Inject mini chart if not already present
+        if (!eCard.querySelector('.ebitda-mini-chart')) {
+          var chartHtml = renderEbitdaMiniChart(currentIntelCompany);
+          if (chartHtml) {
+            var chartDiv = document.createElement('div');
+            chartDiv.className = 'ebitda-mini-chart';
+            chartDiv.innerHTML = chartHtml;
+            var trendLine = eCard.querySelector('.ebitda-trend-line');
+            if (trendLine) trendLine.parentNode.insertBefore(chartDiv, trendLine.nextSibling);
+          }
+        }
+      }
       renderRiskScorecard();
       renderSignalDistribution();
       renderTopSignals();
@@ -5390,19 +5495,57 @@
       event.target.closest('.type-filter').classList.add('active');
     }
 
+    // ========== DEAL DATE FILTER ==========
+    var currentDealDateFilter = 'all';
+    function filterDealsByDate(year) {
+      currentDealDateFilter = year;
+      var cards = document.querySelectorAll('#dealCardsGrid .move-card-item[data-deal-type]');
+      cards.forEach(function(c) {
+        var yearMatch = (year === 'all') || c.getAttribute('data-deal-year') === year;
+        var activeType = document.querySelector('#dealFilterBar .type-filter.active');
+        var type = activeType ? activeType.textContent.trim().split(' ')[0] : 'All';
+        var typeMatch = (type === 'All') || c.getAttribute('data-deal-type') === type;
+        var companyMatch = isAcctSelected('deals', (c.querySelector('.move-card-company') || {}).textContent || '');
+        c.style.display = (yearMatch && typeMatch && companyMatch) ? '' : 'none';
+      });
+    }
+
     // ========== COMPETITIVE MOVE FILTER ==========
+    var _activeMoveScope = 'all';
     function filterMoves(type) {
       var cards = document.querySelectorAll('#moveCardsGrid .move-card-item');
       cards.forEach(function(c) {
         var typeMatch = (type === 'all') || c.getAttribute('data-move-type') === type;
+        var scopeMatch = (_activeMoveScope === 'all') || c.getAttribute('data-move-scope') === _activeMoveScope;
         var companyEl = c.querySelector('.move-card-company');
-        var companyName = companyEl ? companyEl.textContent.toLowerCase() : '';
         var companyMatch = isAcctSelected('comp', companyEl ? companyEl.textContent.trim() : '');
-        c.style.display = (typeMatch && companyMatch) ? '' : 'none';
+        c.style.display = (typeMatch && scopeMatch && companyMatch) ? '' : 'none';
       });
-      var btns = document.querySelectorAll('#moveFilterBar .type-filter');
+      var btns = document.querySelectorAll('#moveFilterBar .type-filter[onclick^="filterMoves("]');
       btns.forEach(function(b) { b.classList.remove('active'); });
       event.target.closest('.type-filter').classList.add('active');
+    }
+    function filterMoveScope(scope, el) {
+      _activeMoveScope = scope;
+      // update scope buttons
+      var scopeBtns = document.querySelectorAll('#moveFilterBar .type-filter[onclick^="filterMoveScope("]');
+      scopeBtns.forEach(function(b) { b.classList.remove('active'); });
+      el.classList.add('active');
+      // re-apply type filter with new scope
+      var activeTypeBtn = document.querySelector('#moveFilterBar .type-filter[onclick^="filterMoves("].active');
+      var activeType = 'all';
+      if (activeTypeBtn) {
+        var m = activeTypeBtn.getAttribute('onclick').match(/filterMoves\('([^']+)'\)/);
+        if (m) activeType = m[1];
+      }
+      var cards = document.querySelectorAll('#moveCardsGrid .move-card-item');
+      cards.forEach(function(c) {
+        var typeMatch = (activeType === 'all') || c.getAttribute('data-move-type') === activeType;
+        var scopeMatch = (scope === 'all') || c.getAttribute('data-move-scope') === scope;
+        var companyEl = c.querySelector('.move-card-company');
+        var companyMatch = isAcctSelected('comp', companyEl ? companyEl.textContent.trim() : '');
+        c.style.display = (typeMatch && scopeMatch && companyMatch) ? '' : 'none';
+      });
     }
 
     // ========== ACTION LENS TABS ==========
@@ -5443,6 +5586,13 @@
         var growthColor = c.revGrowth >= 0 ? 'var(--positive)' : 'var(--negative)';
         var growthSign = c.revGrowth >= 0 ? '+' : '';
         var perfClass = c.perf || 'inline';
+        var ann = getAnnual(c.id);
+        var annRev = ann ? ann.rev : null;
+        var annEbitda = ann ? ann.ebitda_pct : null;
+        var annPat = ann ? ann.pat : null;
+        var annRoce = ann ? ann.roce : null;
+        var annDe = ann ? ann.de : null;
+        var annWc = ann ? ann.wc_days : null;
         html += '<div class="earnings-card">' +
           '<div class="ec-name">' + esc(c.name) + ' <span class="ec-tag ' + perfClass + '">' + perfClass + '</span></div>' +
           '<div class="ec-revenue">' + sparklineSVG(c.revTrend, growthColor) + ' &#8377;' + (c.qSales || 0).toLocaleString('en-IN') + ' Cr</div>' +
@@ -5450,6 +5600,22 @@
             '<span style="color:' + growthColor + ';font-weight:600;font-family:var(--font-mono)">' + growthSign + c.revGrowth.toFixed(1) + '% YoY</span>' +
             '<span style="color:var(--text-muted)">&middot;</span>' +
             '<span>EBITDA: <strong style="font-family:var(--font-mono)">' + c.ebitdaMargin.toFixed(1) + '%</strong></span>' +
+          '</div>' +
+          '<div class="ec-metrics">' +
+            '<div class="ec-metric">ROCE: <strong>' + (c.roce != null ? c.roce.toFixed(1) + '%' : '—') + '</strong></div>' +
+            '<div class="ec-metric">PAT: <strong>' + (c.qNetProfit != null ? '&#8377;' + c.qNetProfit.toLocaleString('en-IN') + ' Cr' : '—') + '</strong></div>' +
+          '</div>' +
+          '<div class="ec-annual-overlay">' +
+            '<div class="ec-annual-title">FY25 Annual</div>' +
+            '<div style="font-size:13px;font-weight:700;color:var(--text-primary);margin-bottom:6px">' + esc(c.name) + '</div>' +
+            '<div class="ec-annual-grid">' +
+              '<div class="ec-annual-item">Revenue: <strong>&#8377;' + (annRev ? annRev.toLocaleString('en-IN') : '—') + ' Cr</strong></div>' +
+              '<div class="ec-annual-item">EBITDA: <strong>' + (annEbitda != null ? annEbitda.toFixed(1) + '%' : '—') + '</strong></div>' +
+              '<div class="ec-annual-item">PAT: <strong>&#8377;' + (annPat != null ? annPat.toLocaleString('en-IN') : '—') + ' Cr</strong></div>' +
+              '<div class="ec-annual-item">ROCE: <strong>' + (annRoce != null ? annRoce.toFixed(1) + '%' : '—') + '</strong></div>' +
+              '<div class="ec-annual-item">D/E: <strong>' + (annDe != null ? annDe.toFixed(2) + 'x' : '—') + '</strong></div>' +
+              '<div class="ec-annual-item">WC Days: <strong>' + (annWc != null ? annWc : '—') + '</strong></div>' +
+            '</div>' +
           '</div>' +
         '</div>';
       });
@@ -5758,10 +5924,11 @@
         var color = CHART_PALETTE[COMPANIES.indexOf(c) % CHART_PALETTE.length];
         var pts = c.revTrend.map(function(v, i) { return sx(i).toFixed(1) + ',' + sy(v).toFixed(1); }).join(' ');
         svg += '<g class="line-group"><polyline points="' + pts + '" fill="none" stroke="' + color + '" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>';
-        // End dot
-        var lastX = sx(c.revTrend.length - 1), lastY = sy(c.revTrend[c.revTrend.length - 1]);
-        svg += '<circle cx="' + lastX.toFixed(1) + '" cy="' + lastY.toFixed(1) + '" r="3" fill="' + color + '"/>';
-        svg += '<title>' + esc(c.name) + ': ' + c.revTrend.join(' → ') + ' Cr</title></g>';
+        c.revTrend.forEach(function(v, i) {
+          var cx = sx(i), cy = sy(v);
+          svg += '<circle cx="' + cx.toFixed(1) + '" cy="' + cy.toFixed(1) + '" r="3" fill="' + color + '" stroke="var(--surface)" stroke-width="1"><title>' + esc(c.name) + ' ' + quarters[i] + ': Rs ' + v.toLocaleString() + ' Cr</title></circle>';
+        });
+        svg += '</g>';
       });
       svg += '</svg>';
       // Legend
@@ -5804,9 +5971,11 @@
         var color = CHART_PALETTE[COMPANIES.indexOf(c) % CHART_PALETTE.length];
         var pts = c.ebitdaTrend.map(function(v, i) { return sx(i).toFixed(1) + ',' + sy(v).toFixed(1); }).join(' ');
         svg += '<g class="line-group"><polyline points="' + pts + '" fill="none" stroke="' + color + '" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>';
-        var lastX = sx(c.ebitdaTrend.length - 1), lastY = sy(c.ebitdaTrend[c.ebitdaTrend.length - 1]);
-        svg += '<circle cx="' + lastX.toFixed(1) + '" cy="' + lastY.toFixed(1) + '" r="3" fill="' + color + '"/>';
-        svg += '<title>' + esc(c.name) + ': ' + c.ebitdaTrend.map(function(v) { return v + '%'; }).join(' → ') + '</title></g>';
+        c.ebitdaTrend.forEach(function(v, i) {
+          var cx = sx(i), cy = sy(v);
+          svg += '<circle cx="' + cx.toFixed(1) + '" cy="' + cy.toFixed(1) + '" r="3" fill="' + color + '" stroke="var(--surface)" stroke-width="1"><title>' + esc(c.name) + ' ' + quarters[i] + ': ' + v.toFixed(1) + '%</title></circle>';
+        });
+        svg += '</g>';
       });
       svg += '</svg>';
       var legend = '<div class="chart-legend">';
@@ -5835,17 +6004,13 @@
       }
 
       var html = '<div style="padding:16px">';
-      // Sector average marker info
-      html += '<div style="font-size:11px;color:var(--text-muted);margin-bottom:12px">Sector avg: <span style="font-family:var(--font-mono);font-weight:600">' + avgRoce.toFixed(1) + '%</span></div>';
       sorted.forEach(function(c) {
         var v = c.roce || 0;
         var pct = maxRoce > 0 ? (v / maxRoce * 100) : 0;
-        var avgPct = maxRoce > 0 ? (avgRoce / maxRoce * 100) : 0;
         html += '<div class="roce-bar-row">';
         html += '<span class="roce-bar-label" title="' + esc(c.name) + '">' + esc(c.name) + '</span>';
         html += '<div class="roce-bar-track">';
         html += '<div class="roce-bar-fill" style="width:' + pct.toFixed(1) + '%;background:' + roceColor(v) + '"></div>';
-        html += '<div style="position:absolute;top:-2px;bottom:-2px;left:' + avgPct.toFixed(1) + '%;width:1.5px;background:var(--text-primary);opacity:0.5;border-radius:1px;" title="Sector avg: ' + avgRoce.toFixed(1) + '%"></div>';
         html += '</div>';
         html += '<span class="roce-bar-value">' + v.toFixed(1) + '%</span>';
         html += '</div>';
@@ -6075,6 +6240,7 @@
       }
     ];
 
+    OPPORTUNITY_DATA.sort(function(a, b) { return a.account.localeCompare(b.account); });
     var oppSelectedAccounts = {};
     OPPORTUNITY_DATA.forEach(function(d){ oppSelectedAccounts[d.account] = true; });
     var oppDropdownOpen = false;
@@ -6189,7 +6355,40 @@
       updateAcctLabel(sid);
     });
 
-    // === Source Methodology Data ===
+    // Render Executive Snapshot opportunity summary from OPPORTUNITY_DATA
+    (function renderExecOppSummary() {
+      var totalSubs = 0, services = {};
+      OPPORTUNITY_DATA.forEach(function(d) {
+        d.subs.forEach(function(s) {
+          totalSubs++;
+          services[s.service] = (services[s.service] || 0) + 1;
+        });
+      });
+      var el = document.getElementById('execOppSummary');
+      if (el) {
+        el.innerHTML =
+          '<div class="opp-summary-stat"><div class="opp-summary-value">' + OPPORTUNITY_DATA.length + '</div><div class="opp-summary-label">Accounts Tracked</div></div>' +
+          '<div class="opp-summary-stat"><div class="opp-summary-value">' + totalSubs + '</div><div class="opp-summary-label">Sub-Opportunities</div></div>' +
+          '<div class="opp-summary-stat"><div class="opp-summary-value">' + Object.keys(services).length + '</div><div class="opp-summary-label">Practice Areas Active</div></div>';
+      }
+    })();
+
+    // Initial render
+    renderOppPipeline();
+    renderTable();
+    renderOpsTable();
+    renderSubSectorCards();
+    renderSummaryStats();
+    renderEarningsSnapshot();
+    renderProductMixGrid();
+    renderRevenueTrendChart();
+    renderEbitdaTrendChart();
+    renderRoceComparison();
+    renderWcHeatmap();
+    renderPremiumMixChart();
+    renderCompHeatmap();
+
+    // === Source Methodology Panel ===
     var SOURCE_METHODOLOGY = {
       verified: {
         label: 'Verified',
@@ -6504,6 +6703,20 @@
       document.getElementById('evidenceDrawerOverlay').classList.remove('open');
     }
 
+    // Add tooltip data to all source-tier badges
+    (function() {
+      var tipMap = {
+        'tier-verified': 'Verified: Data from official filings, regulatory bodies, or audited reports. High reliability.',
+        'tier-guidance': 'Mgmt Guidance: Forward-looking statements from earnings calls or investor presentations. Medium-high reliability.',
+        'tier-estimated': 'Estimated: Calculated from available data points with reasonable assumptions. Medium reliability.',
+        'tier-derived': 'Derived: Synthesized from multiple sources via cross-section analysis. Medium reliability.'
+      };
+      document.querySelectorAll('.source-tier').forEach(function(el) {
+        for (var cls in tipMap) {
+          if (el.classList.contains(cls)) { el.setAttribute('data-tip', tipMap[cls]); break; }
+        }
+      });
+    })();
 
     // Escape key closes panels
     document.addEventListener('keydown', function(e) {
