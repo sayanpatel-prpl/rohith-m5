@@ -6,7 +6,7 @@ Gather intelligence from company documents and populate the dashboard.
 
 ## Overview
 
-This skill reads source documents (quarterly earnings transcripts + annual reports) from a company folder, generates a structured intelligence report, produces a severity-ranked pain point CSV for A&M turnaround consulting evaluation, and then populates the corresponding company's data in the dashboard (`/Users/prateekkurkanji/Kompete/rohith-m5/index_v2.html`).
+This skill reads source documents (quarterly earnings transcripts + annual reports) from a company folder, generates a structured intelligence report, produces a severity-ranked pain point CSV for A&M turnaround consulting evaluation, and then populates the corresponding company's data in the dashboard (`/Users/prateekkurkanji/Kompete/rohith-m5/index_v3.html`).
 
 ---
 
@@ -132,6 +132,72 @@ Each section MUST have:
 
 ---
 
+## Phase 3.5: Engagement Thesis
+
+After writing the intelligence report, generate a structured engagement thesis at the end of the report file. This is the "so what" — it translates intelligence into an actionable advisory perspective.
+
+### Structure
+
+Append the following to the intelligence report file:
+
+```markdown
+---
+
+## Engagement Thesis
+
+### Situation
+{What is happening — factual, from the data. 2-3 sentences with specific numbers.}
+
+### Complication
+{Why this matters now — what makes the timing critical. 2-3 sentences.}
+
+### Implication for Advisory
+{What specific advisory service lines apply and why. 2-3 sentences. Reference A&M service lines: Turnaround, PEPI, CDD, Transaction Advisory, Interim Management, Disputes.}
+
+### Recommended Approach
+{Specific entry point — who to talk to (CFO, CEO, PE sponsor), what to lead with. 2-3 sentences.}
+
+### Key Evidence
+{3-5 strongest data points with direct quotes from the intelligence report}
+
+### Signal Classification
+- **Primary Signal Type**: {performance | transition | friction | ecosystem}
+  - performance = margin deterioration, cost escalation, revenue decline
+  - transition = leadership change, M&A, restructuring, IPO
+  - friction = narrative drift, undisclosed metrics, analyst skepticism
+  - ecosystem = regulatory change, channel disruption, commodity shock
+- **Sub-signals**: {comma-separated list of specific signals detected}
+- **Matched Service Lines**: {which A&M service lines this maps to}
+- **Urgency**: {high | medium | watch}
+- **Confidence**: {High | Medium | Low}
+```
+
+### Rules
+- Every claim must trace back to the intelligence report — no external knowledge
+- The thesis should be professional and evidence-grounded, not alarmist
+- Use Situation-Complication-Implication structure (standard consulting framework)
+- The signal classification will be used to populate the dashboard's `signalTaxonomy` field in `COMPANY_META`
+
+### Dashboard Integration
+
+After generating the thesis, update the company's `signalTaxonomy` field in `COMPANY_META` (in `index_v3.html`):
+
+```js
+signalTaxonomy: {
+  primary: "{primary signal type from thesis}",
+  signals: ["{sub-signal-1}", "{sub-signal-2}", ...],
+  serviceLines: ["{matched-service-line-1}", ...],
+  urgency: "{urgency from thesis}",
+  thesis: {
+    situation: "{situation text}",
+    complication: "{complication text}",
+    implication: "{implication text}"
+  }
+}
+```
+
+---
+
 ## Phase 4: Pain Point Severity Ranking (CSV)
 
 After writing the intelligence report, generate a severity-ranked CSV of all signals for A&M turnaround consulting evaluation.
@@ -203,7 +269,7 @@ Before producing the final file, internally verify:
 
 ## Phase 5: Dashboard Population
 
-Read the dashboard file: `/Users/prateekkurkanji/Kompete/rohith-m5/index_v2.html`
+Read the dashboard file: `/Users/prateekkurkanji/Kompete/rohith-m5/index_v3.html`
 
 Find the company in the COMPANIES JavaScript array and in each HTML section below. Use the Edit tool for all updates.
 
@@ -330,6 +396,97 @@ After all edits, report to the user:
    - Sub-Sector Deep Dive > Scale Matrix
    - A&M Value-Add kanban
    - Watchlist quadrant
+
+---
+
+## Phase 6.5: Cross-Company Synthesis (Run After Multiple Companies Processed)
+
+This phase is NOT run during individual company processing. It runs separately after intelligence reports exist for multiple companies. Invoke it manually when 3+ company reports are available.
+
+### Trigger
+
+Run this phase when the user asks for cross-company analysis, sector-level synthesis, or when processing the last company in a batch.
+
+### Input
+
+Read ALL existing intelligence reports in the `rohith-m5/` company subfolders:
+- Look for `*_Intelligence_Report.md` files in each company folder
+- Also check `Kompete - Industry Intel 2/` subfolder
+
+### Output
+
+Write to `/Users/prateekkurkanji/Kompete/rohith-m5/Cross_Company_Synthesis.md`
+
+### Structure
+
+```markdown
+# Cross-Company Synthesis — Consumer Durables Sector
+*Generated: {date} | Companies Analyzed: {count} | Source: Individual Intelligence Reports*
+
+## 1. Product-Market Peer Comparison
+
+### Room AC
+| Company | Revenue | EBITDA % | Market Share Signal | Key Differentiator |
+(Compare: Voltas, Blue Star, Havells Lloyd, LG, Crompton coolers)
+
+### Fans
+(Compare: Crompton, Havells, Orient, Bajaj)
+
+### Kitchen Appliances
+(Compare: TTK Prestige, Butterfly, Crompton SDA)
+
+### Washing/Laundry
+(Compare: IFB, Whirlpool, LG)
+
+### Wires & Cables
+(Compare: Havells, V-Guard, Crompton)
+
+### EMS/OEM
+(Compare: Amber, Dixon)
+
+## 2. Cross-Company Signal Patterns
+
+### Capacity Signals
+Which companies expanding vs underutilized? Map capacity utilization across sector.
+
+### Margin Convergence/Divergence
+Are margins compressing sector-wide or company-specific? Identify outliers.
+
+### Channel Disruption
+Modern trade, e-commerce, quick commerce impact across companies.
+
+### Commodity Exposure
+Common raw material risks (copper, aluminum, steel) — who is hedged vs exposed.
+
+### Operating Leverage
+Employee cost vs revenue growth ratio across companies.
+
+## 3. Sector-Level Engagement Map
+
+### By Service Line
+- **Turnaround**: {companies with active turnaround signals}
+- **PEPI**: {companies where performance improvement is viable}
+- **CDD**: {companies likely to be PE/M&A targets}
+- **Transaction Advisory**: {companies with active deal signals}
+- **Disputes**: {companies with governance/fraud signals}
+
+### By Urgency
+- **Engage Now**: {high urgency companies with strong evidence}
+- **Qualify Further**: {medium urgency — need more data}
+- **Monitor**: {watch list — signals emerging but not actionable yet}
+
+## 4. Competitive Dynamics
+Which companies are winning share from which? Map the competitive flows.
+
+## 5. Missing Intelligence
+What do we NOT know? List companies with thin reports, undisclosed segments, or limited transcript access.
+```
+
+### Rules
+- Use ONLY data from existing intelligence reports — no external research
+- Mark confidence level for each comparison (High if both companies have verified data, Medium if one is derived)
+- This synthesis should surface insights that are invisible in individual reports
+- Focus on patterns that create advisory opportunities
 
 ---
 
