@@ -1881,7 +1881,71 @@
     body.sb-collapsed .nav-item.active::before { color: var(--intelligence-blue); }
     body.sb-collapsed .nav-item.active { border-left: none; background: rgba(59,130,246,0.08); border-radius: 6px; margin: 0 8px; }
     body.sb-collapsed .sidebar-toggle { transform: rotate(180deg); }
-  </style>
+  
+    /* === Narrative Drift Detection === */
+    .drift-summary, .absence-summary { display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-bottom:16px; padding:10px 14px; background:var(--surface-raised); border:1px solid var(--card-border); border-radius:var(--radius); }
+    .drift-stat, .absence-stat { font-size:12px; color:var(--text-secondary); }
+    .drift-stat-num, .absence-stat-num { font-weight:700; font-size:14px; color:var(--text-primary); margin-right:3px; }
+    .drift-stat-num.neg, .absence-stat-num.neg { color:var(--red-500); }
+    .drift-chip { font-size:10px; padding:2px 8px; border-radius:10px; background:var(--surface-overlay); color:var(--text-secondary); }
+    .drift-chip-retreat { border-left:2px solid var(--red-500); }
+    .drift-chip-pivot { border-left:2px solid var(--amber-500); }
+    .drift-chip-silence { border-left:2px solid var(--text-muted); }
+    .drift-chip-reframe { border-left:2px solid var(--info-500); }
+    .drift-chip-stall { border-left:2px solid var(--amber-400); }
+    .drift-chip-contradiction { border-left:2px solid var(--red-600); }
+    .drift-chip-escalation { border-left:2px solid var(--red-400); }
+    .drift-company-block, .absence-company-block { margin-bottom:20px; }
+    .drift-company-header, .absence-company-header { font-size:13px; font-weight:700; color:var(--text-primary); margin-bottom:8px; padding-bottom:4px; border-bottom:1px solid var(--surface-overlay); }
+    .drift-count, .absence-count { font-weight:400; font-size:11px; color:var(--text-muted); margin-left:6px; }
+    .drift-card { padding:12px; margin-bottom:8px; border-radius:var(--radius); border:1px solid var(--card-border); background:var(--card-bg); border-left:3px solid var(--text-muted); }
+    .drift-retreat { border-left-color:var(--red-500); }
+    .drift-pivot { border-left-color:var(--amber-500); }
+    .drift-silence { border-left-color:var(--text-muted); }
+    .drift-reframe { border-left-color:var(--info-500); }
+    .drift-stall { border-left-color:var(--amber-400); }
+    .drift-contradiction { border-left-color:var(--red-600); }
+    .drift-escalation { border-left-color:var(--red-400); }
+    .drift-card-header { display:flex; align-items:center; gap:8px; margin-bottom:8px; flex-wrap:wrap; }
+    .drift-topic { font-weight:600; font-size:12px; color:var(--text-primary); }
+    .drift-shift-badge { font-size:9px; padding:2px 6px; border-radius:8px; font-weight:600; text-transform:uppercase; letter-spacing:0.3px; }
+    .drift-badge-retreat { background:rgba(239,68,68,0.15); color:var(--red-500); }
+    .drift-badge-pivot { background:rgba(245,158,11,0.15); color:var(--amber-500); }
+    .drift-badge-silence { background:rgba(100,100,100,0.15); color:var(--text-muted); }
+    .drift-badge-reframe { background:rgba(59,130,246,0.15); color:var(--info-500); }
+    .drift-badge-stall { background:rgba(245,158,11,0.1); color:var(--amber-400); }
+    .drift-badge-contradiction { background:rgba(220,38,38,0.15); color:var(--red-600); }
+    .drift-badge-escalation { background:rgba(248,113,113,0.15); color:var(--red-400); }
+    .drift-comparison { display:grid; grid-template-columns:1fr auto 1fr; gap:8px; align-items:start; margin-bottom:8px; }
+    .drift-before, .drift-after { padding:8px; border-radius:6px; font-size:11px; line-height:1.5; color:var(--text-secondary); }
+    .drift-before { background:rgba(239,68,68,0.05); border:1px solid rgba(239,68,68,0.12); }
+    .drift-after { background:rgba(59,130,246,0.05); border:1px solid rgba(59,130,246,0.12); }
+    .drift-label { font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:4px; }
+    .drift-before .drift-label { color:var(--text-muted); }
+    .drift-after .drift-label { color:var(--info-500); }
+    .drift-arrow { font-size:16px; color:var(--text-muted); align-self:center; }
+    .drift-evidence, .drift-implication { font-size:10.5px; color:var(--text-muted); line-height:1.5; margin-top:4px; }
+    .drift-implication { color:var(--text-secondary); padding-left:8px; border-left:2px solid var(--intelligence-blue); }
+
+    /* === Absence Detection === */
+    .absence-cat-chip { font-size:10px; padding:2px 8px; border-radius:10px; background:var(--surface-overlay); color:var(--text-secondary); }
+    .absence-card { padding:12px; margin-bottom:8px; border-radius:var(--radius); border:1px solid var(--card-border); background:var(--card-bg); }
+    .absence-critical { border-left:3px solid var(--red-500); }
+    .absence-high { border-left:3px solid var(--amber-500); }
+    .absence-medium { border-left:3px solid var(--text-muted); }
+    .absence-card-header { display:flex; align-items:center; gap:8px; margin-bottom:6px; flex-wrap:wrap; }
+    .absence-topic { font-weight:600; font-size:12px; color:var(--text-primary); }
+    .absence-cat { font-size:9px; padding:2px 6px; border-radius:8px; background:var(--surface-overlay); color:var(--text-muted); text-transform:uppercase; letter-spacing:0.3px; }
+    .absence-context { font-size:11px; color:var(--text-secondary); line-height:1.5; margin-bottom:6px; }
+    .absence-implication { font-size:10.5px; color:var(--text-secondary); line-height:1.5; padding-left:8px; border-left:2px solid var(--amber-400); }
+
+    /* Drift/Absence filter bar */
+    .drift-filter-bar { display:flex; gap:4px; flex-wrap:wrap; margin-bottom:12px; }
+    .drift-filter-btn { font-size:10px; padding:3px 10px; border:1px solid var(--card-border); border-radius:12px; background:var(--surface-raised); color:var(--text-secondary); cursor:pointer; transition:all 0.15s; }
+    .drift-filter-btn:hover { border-color:var(--intelligence-blue); color:var(--intelligence-blue); }
+    .drift-filter-btn.active { background:var(--intelligence-blue); color:#fff; border-color:var(--intelligence-blue); }
+
+    </style>
 </head>
 <body>
 
@@ -1956,7 +2020,7 @@
           <div class="ai-briefing-title">Intelligence Briefing</div>
         </div>
         <div class="ai-briefing-meta">
-          Synthesized from <span id="aiBriefingReportCount">8</span> intelligence reports &middot; <span id="aiBriefingCoCount">17</span> companies tracked &middot; Last analysis: <span>Feb 2026</span>
+          Synthesized from <span id="aiBriefingReportCount">13</span> intelligence reports &middot; <span id="aiBriefingCoCount">17</span> companies tracked &middot; Last analysis: <span>Feb 2026</span>
         </div>
         <div class="ai-briefing-body">
           <div class="ai-briefing-text" id="aiBriefingText"></div>
@@ -4351,6 +4415,46 @@
       </div>
 
       <div class="section-footer"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Transcript Intel Analysis</span> &middot; Annual Reports FY23-FY25</div>
+      <!-- Narrative Drift Detection -->
+      <div style="margin-top:24px">
+        <h3 class="sub-header" style="margin-bottom:4px">Narrative Drift Detection</h3>
+        <p style="font-size:11px; color:var(--text-muted); margin:0 0 10px 0;">Quarter-over-quarter shifts in management narrative \u2014 where the story changed, pivoted, or went silent.</p>
+        <div class="drift-filter-bar" id="driftFilterBar">
+          <button class="drift-filter-btn active" onclick="renderNarrativeDrift('all');driftFilterActive(this)">All Companies</button>
+          <button class="drift-filter-btn" onclick="renderNarrativeDrift('voltas');driftFilterActive(this)">Voltas</button>
+          <button class="drift-filter-btn" onclick="renderNarrativeDrift('orient');driftFilterActive(this)">Orient</button>
+          <button class="drift-filter-btn" onclick="renderNarrativeDrift('vguard');driftFilterActive(this)">V-Guard</button>
+          <button class="drift-filter-btn" onclick="renderNarrativeDrift('bajaj');driftFilterActive(this)">Bajaj</button>
+          <button class="drift-filter-btn" onclick="renderNarrativeDrift('symphony');driftFilterActive(this)">Symphony</button>
+          <button class="drift-filter-btn" onclick="renderNarrativeDrift('crompton');driftFilterActive(this)">Crompton</button>
+          <button class="drift-filter-btn" onclick="renderNarrativeDrift('havells');driftFilterActive(this)">Havells</button>
+          <button class="drift-filter-btn" onclick="renderNarrativeDrift('whirlpool');driftFilterActive(this)">Whirlpool</button>
+          <button class="drift-filter-btn" onclick="renderNarrativeDrift('dixon');driftFilterActive(this)">Dixon</button>
+        </div>
+        <div id="driftContainer"></div>
+      </div>
+
+      <!-- Absence Detection -->
+      <div style="margin-top:24px">
+        <h3 class="sub-header" style="margin-bottom:4px">Absence Detection \u2014 What They\u2019re Not Saying</h3>
+        <p style="font-size:11px; color:var(--text-muted); margin:0 0 10px 0;">Critical data points conspicuously absent from management disclosures. What\u2019s NOT said is often more revealing than what is.</p>
+        <div class="drift-filter-bar" id="absenceFilterBar">
+          <button class="drift-filter-btn active" onclick="renderAbsenceSignals('all');absenceFilterActive(this)">All Companies</button>
+          <button class="drift-filter-btn" onclick="renderAbsenceSignals('voltas');absenceFilterActive(this)">Voltas</button>
+          <button class="drift-filter-btn" onclick="renderAbsenceSignals('orient');absenceFilterActive(this)">Orient</button>
+          <button class="drift-filter-btn" onclick="renderAbsenceSignals('vguard');absenceFilterActive(this)">V-Guard</button>
+          <button class="drift-filter-btn" onclick="renderAbsenceSignals('bajaj');absenceFilterActive(this)">Bajaj</button>
+          <button class="drift-filter-btn" onclick="renderAbsenceSignals('symphony');absenceFilterActive(this)">Symphony</button>
+          <button class="drift-filter-btn" onclick="renderAbsenceSignals('crompton');absenceFilterActive(this)">Crompton</button>
+          <button class="drift-filter-btn" onclick="renderAbsenceSignals('havells');absenceFilterActive(this)">Havells</button>
+          <button class="drift-filter-btn" onclick="renderAbsenceSignals('whirlpool');absenceFilterActive(this)">Whirlpool</button>
+          <button class="drift-filter-btn" onclick="renderAbsenceSignals('dixon');absenceFilterActive(this)">Dixon</button>
+        </div>
+        <div id="absenceContainer"></div>
+      </div>
+
+      <div class="section-footer"><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Narrative Drift & Absence Analysis</span> &middot; Earnings Calls FY25-FY26 &middot; Annual Reports FY24-FY25</div>
+
 
       </div><!-- /.intel-main -->
       </div><!-- /.intel-layout -->
@@ -5733,13 +5837,408 @@
 
     SIGNAL_DATA.butterfly={name:"Butterfly Gandhimathi",ticker:"BUTTERFLY",signals:[{r:1,ind:"Gross Margin Strategy",sig:"EBITDA margin collapsed to 2.94% in FY24 \u2014 down from 9%+ in FY21 \u2014 before recovery to 7.55% (FY25) and 9.5% (Q2 FY26)",st:"Negative",per:"FY24",sev:"Critical",rat:"Near-breakeven EBITDA on Rs 931 Cr revenue. 651 bps recovery in 6 quarters encouraging but fragile.",conf:"calculated",ev:[{q:"FY24 EBITDA 2.94%; FY25 7.55%; Q2 FY26 9.5%. Operating profitability has increased due to improved margins and optimisation of all spends",src:"INTEGRATED_GOVERNANCE (AR FY24; AR FY25 MD&A)",ref:"Section 4 – Pricing Strategy and Commodity Cost Impact, Line 103; Section 6 – Gross Margin Strategy, Line 185"},{q:"Auxiliary categories declined as we took a calibrated approach towards product portfolio and trade spending to enhance profitability.",src:"INTEGRATED_GOVERNANCE (AR FY24; AR FY25 MD&A)",ref:"Section 4 – Pricing Strategy and Commodity Cost Impact, Line 103; Section 6 – Gross Margin Strategy, Line 185"}]},{r:2,ind:"Cost Structure \u2013 Commodity",sig:"Steel \u2014 largest direct material \u2014 has NO alternate vendor; single-source risk with no remediation timeline",st:"Negative",per:"FY23\u2013FY25",sev:"Critical",rat:"Largest direct cost with zero supply chain redundancy.",conf:"inferred",ev:[{q:"Alternative vendor development and structured share of business implemented for high-value procurement (except Steel).",src:"INTEGRATED_GOVERNANCE (AR FY23 Risk Management)",ref:"Section 5b – Commodity Dependency, Line 149"}]},{r:3,ind:"Industry vs Company Growth",sig:"Revenue declined from FY23 peak Rs 1,057 Cr to Rs 865 Cr (FY25) \u2014 cumulative 18% decline over 2 years",st:"Negative",per:"FY23\u2013FY25",sev:"Critical",rat:"Sustained revenue contraction erodes scale economics and channel confidence.",conf:"calculated",ev:[{q:"In the fiscal year, the company reported a revenue of H 86,450.15 Lakhs compared to H 93,128.25 Lakhs in the previous year.",src:"INTEGRATED_GOVERNANCE (AR FY23; AR FY25 MD&A)",ref:"Section 1 – Industry vs Company Growth, Lines 22-24; Section 6 – Gross Margin Strategy, Line 185"},{q:"Revenue peaked at Rs.1,057 Cr (FY23), then declined to Rs.865 Cr (FY25) amid strategic reset.",src:"INTEGRATED_GOVERNANCE (AR FY23; AR FY25 MD&A)",ref:"Section 1 – Industry vs Company Growth, Lines 22-24; Section 6 – Gross Margin Strategy, Line 185"}]},{r:4,ind:"Geographic Concentration",sig:"~75-76% revenue from South India; pan-India share ~5% vs ~15% South",st:"Watch",per:"FY23 onwards",sev:"High",rat:"Single-region dependency magnifies regional demand shocks.",conf:"calculated",ev:[{q:"Current market shares approx. 5% (Pan India) and approx. 15% in South India.",src:"INTEGRATED_GOVERNANCE (AR FY23 Risk Management; AR FY25 MD&A)",ref:"Section 8 – Market Share Gain/Loss Trends, Line 249; Section 11 – Retail Footprint / Distribution, Line 351"},{q:"Leveraging its position as an integrated kitchen appliance manufacturer... target high-potential markets in the North and Western regions by utilising the distribution and branding synergies gained fr...",src:"INTEGRATED_GOVERNANCE (AR FY23 Risk Management; AR FY25 MD&A)",ref:"Section 8 – Market Share Gain/Loss Trends, Line 249; Section 11 – Retail Footprint / Distribution, Line 351"}]},{r:5,ind:"Governance \u2013 Integration",sig:"Crompton merger rejected by shareholders (72.6% against, non-institutional 97%). Integration complexity ongoing",st:"Watch",per:"FY23\u2013FY26",sev:"High",rat:"Concurrent turnaround and integration increases failure probability.",conf:"inferred",ev:[{q:"Both the Companies have approved the Scheme of Amalgamation in March 2023, which will result in the consolidation of their respective businesses and operations.",src:"INTEGRATED_GOVERNANCE (AR FY23)",ref:"Section 2 – Operational Intelligence, Line 48; Line 58"},{q:"Strategic interventions aimed at driving business revival — revised pricing structure, improved management of trade spends, shift in marketing strategies, focus on enhancing commercial hygiene.",src:"INTEGRATED_GOVERNANCE (AR FY23)",ref:"Section 2 – Operational Intelligence, Line 48; Line 58"}]},{r:6,ind:"Commodity Vulnerability",sig:"Material costs surged 73% in 9M FY22 (Rs 233 Cr to Rs 403 Cr); no hedging policy disclosed",st:"Negative",per:"FY22",sev:"High",rat:"Structural vulnerability to commodity cycles. Cascaded into FY24 EBITDA collapse.",conf:"calculated",ev:[{q:"Gross Margin lower due to steep increase in raw material prices",src:"INVESTOR_ANALYST (Q3 FY22 Investor Presentation)",ref:"Section 4 – Pricing Strategy and Commodity Cost Impact, Lines 109–111"},{q:"Cost of Materials Consumed 9M FY22: Rs.402.9 Cr vs Rs.233.2 Cr in 9M FY21 (+73%)",src:"INVESTOR_ANALYST (Q3 FY22 Investor Presentation)",ref:"Section 4 – Pricing Strategy and Commodity Cost Impact, Lines 109–111"}]},{r:7,ind:"Rural Demand Risk",sig:"MFI channel demand suppressed in FY25; no structural alternative identified",st:"Negative",per:"FY25",sev:"High",rat:"MFI-linked rural demand headwind outside management control.",conf:"inferred",ev:[{q:"suppressed demand in the micro-finance institutions (MFI) channel",src:"INTEGRATED_GOVERNANCE (AR FY25 MD&A)",ref:"Section 6 – Gross Margin Strategy – Channel Architecture, Line 203; Strategic Signals Summary – Key Risks, Line 350"},{q:"The improved performance in the year\'s second half reflects our efforts to stabilise our business and our ambition to grow in a vastly competitive market.",src:"INTEGRATED_GOVERNANCE (AR FY25 MD&A)",ref:"Section 6 – Gross Margin Strategy – Channel Architecture, Line 203; Strategic Signals Summary – Key Risks, Line 350"}]},{r:8,ind:"Portfolio Risk",sig:"Auxiliary categories deliberately declined in FY25; revenue diversification buffer eliminated",st:"Negative",per:"FY25",sev:"High",rat:"4-category concentration increases volatility if core growth decelerates.",conf:"inferred",ev:[{q:"Auxiliary categories declined as we took a calibrated approach towards product portfolio and trade spending to enhance profitability.",src:"INTEGRATED_GOVERNANCE (AR FY25 MD&A)",ref:"Section 6 – Gross Margin Strategy – Volume vs Margin, Lines 187–188"},{q:"Key categories delivered moderate growth in H2, although auxiliary categories saw big decline in FY2024-25.",src:"INTEGRATED_GOVERNANCE (AR FY25 MD&A)",ref:"Section 6 – Gross Margin Strategy – Volume vs Margin, Lines 187–188"}]},{r:9,ind:"Pan-India Gap",sig:"Pan-India share only ~5% despite #1 in SS LPG Stoves and TTWGs",st:"Watch",per:"FY23",sev:"High",rat:"Sub-5% pan-India share signals underscaled distribution nationally.",conf:"calculated",ev:[{q:"Current market shares approx. 5% (Pan India) and approx. 15% in South India.",src:"INTEGRATED_GOVERNANCE (AR FY23 Risk Management)",ref:"Section 8 – Market Share Gain/Loss Trends, Line 249"},{q:"5-year strategic plan defined on Channel expansion and Marketing interventions.",src:"INTEGRATED_GOVERNANCE (AR FY23 Risk Management)",ref:"Section 8 – Market Share Gain/Loss Trends, Line 249"}]},{r:10,ind:"Capacity \u2013 Excess",sig:"Plant consolidated (one into main) in FY25; underutilization vs revenue 18% below peak",st:"Watch",per:"FY25",sev:"Medium",rat:"Excess capacity stranded on lower revenue base.",conf:"inferred",ev:[{q:"Consolidated the operations of one plant into the main plant, which has helped to improve efficiency and reduce costs.",src:"INTEGRATED_GOVERNANCE (AR FY25 MD&A)",ref:"Section 3 – Capacity / Plant Utilization, Line 73"}]},{r:11,ind:"Capex Decline",sig:"Capex declined 60%: Rs 2125L (FY24) to Rs 853L (FY25)",st:"Watch",per:"FY25",sev:"Medium",rat:"Drastic compression risks deferred maintenance.",conf:"calculated",ev:[{q:"CapEx: FY25 Rs.853 Lakhs vs FY24 Rs.2,125 Lakhs vs FY21 Rs.1,009 Lakhs",src:"INTEGRATED_GOVERNANCE (AR FY21; AR FY25)",ref:"Section 3 – Capacity / Plant Utilization, Line 76"}]},{r:12,ind:"After-Sales Leakage",sig:"ASC payout identified as revenue drainage; cost quantum not disclosed",st:"Negative",per:"FY23 onwards",sev:"Medium",rat:"Unquantified ASC revenue drain is hidden cost leak.",conf:"inferred",ev:[{q:"All SUBSIDIARY_FINANCIAL reports FY20–FY25: NOT FOUND",src:"Evidence Gaps Section (MD Intelligence Report)",ref:"Evidence Gaps Table, Line 382"}]},{r:13,ind:"Warranty Trend",sig:"Warranty provision Rs 255.81L (FY25); H1 FY26 already Rs 80.73L",st:"Watch",per:"FY25-H1 FY26",sev:"Medium",rat:"Growing provisions signal potential quality deterioration.",conf:"inferred",ev:[{q:"Revenue drainage against ASC payout identified as a cost risk",src:"INTEGRATED_GOVERNANCE (AR FY23 Risk Management / After-Sales Section)",ref:"Section 10 – After-Sales Service Cost Signals, Line 292"},{q:"Revenue drainage against ASC payout, we implemented the Call Closure...",src:"INTEGRATED_GOVERNANCE (AR FY23 Risk Management / After-Sales Section)",ref:"Section 10 – After-Sales Service Cost Signals, Line 292"}]},{r:14,ind:"Outlet Decline",sig:"Retail outlets 25000+ (FY23) to 24000+ (FY25); shrinkage during expansion",st:"Watch",per:"FY21-FY25",sev:"Medium",rat:"Shrinking footprint risks shelf presence loss.",conf:"calculated",ev:[{q:"Warranty provision H1 FY26: Rs.80.73 Lakhs; FY25 full year: Rs.255.81 Lakhs — Q2 FY26 Cash Flow Statement",src:"QUARTERLY_FINANCIAL_REPORT (Q2 FY26 Cash Flow Statement)",ref:"Section 10 – After-Sales Service Cost Signals, Line 291"}]},{r:15,ind:"Employee Cost",sig:"Employee benefits +4.6% YoY in H1 FY26; fixed cost expanding during flat revenue",st:"Watch",per:"H1 FY26",sev:"Medium",rat:"Fixed cost inflation compresses operating leverage.",conf:"inferred",ev:[{q:"590+ distributors; 24,000+ retail outlets (AR FY25)",src:"INTEGRATED_GOVERNANCE (AR FY25) · INVESTOR_ANALYST (Q3 FY22 Investor Presentation)",ref:"Section 11 – Retail Footprint / Distribution / Manpower Scale, Lines 319–320"},{q:"500+ exclusive distributors; 25,000+ retail points across the Indian map (Q3 FY22 Investor Presentation)",src:"INTEGRATED_GOVERNANCE (AR FY25) · INVESTOR_ANALYST (Q3 FY22 Investor Presentation)",ref:"Section 11 – Retail Footprint / Distribution / Manpower Scale, Lines 319–320"}]},{r:16,ind:"No Hedging Policy",sig:"No commodity hedging despite steel/aluminium exposure and FY22 vulnerability",st:"Watch",per:"All periods",sev:"Medium",rat:"Unhedged commodity exposure is significant financial risk.",conf:"inferred",ev:[{q:"We have revised the after-sales service charge to maximise client satisfaction.",src:"INTEGRATED_GOVERNANCE (AR FY25 Trends & Opportunities Section)",ref:"Section 10 – After-Sales Service Cost Signals, Line 287"}]},{r:17,ind:"Online Competition",sig:"Targeting 20-25% online mix; faces strong competition requiring sustained A&P",st:"Watch",per:"FY23-FY26",sev:"Medium",rat:"E-commerce investment resource-intensive during recovery.",conf:"calculated",ev:[{q:"H1 FY26: Rs.5,712 Lakhs employee costs vs Rs.5,463 Lakhs H1 FY25 (+4.6% YoY)",src:"QUARTERLY_FINANCIAL_REPORT (Q2 FY26 Financial Statements)",ref:"Section 5c – Employee Cost, Line 156"}]},{r:18,ind:"EBITDA Recovery",sig:"EBITDA: 2.94% (FY24) to 7.55% (FY25) to 9.5% (Q2 FY26); 651 bps in 6 quarters",st:"Positive",per:"FY24-Q2 FY26",sev:"Informational",rat:"Management executing cost and pricing interventions successfully.",conf:"inferred",ev:[{q:"No hedging policy or instruments disclosed",src:"Evidence Gaps Section (MD Intelligence Report)",ref:"Evidence Gaps Table, Line 381"}]},{r:19,ind:"Material Margin",sig:"Material margin 41.0% (Q1 FY26, +320 bps YoY) and 37.8% (Q2 FY26, +50 bps YoY)",st:"Positive",per:"Q1-Q2 FY26",sev:"Informational",rat:"Pricing power restoration post FY22 commodity shock.",conf:"inferred",ev:[{q:"Category-level gross margins (mixer vs stove vs cooker): NOT DISCLOSED",src:"Evidence Gaps Section (MD Intelligence Report)",ref:"Evidence Gaps Table, Line 380"}]},{r:20,ind:"Core Category Gains",sig:"Market share gains in core categories (Q1 FY26); double-digit growth all cores (Q2 FY26)",st:"Positive",per:"Q1-Q2 FY26",sev:"Informational",rat:"Positive competitive recovery on depressed base.",conf:"calculated",ev:[{q:"Quarterly business plans with a focus to strengthen Retail, Chain store, Modern trade and to maintain online channel mix at an industry average of 20-25%",src:"INTEGRATED_GOVERNANCE (AR FY23 Risk Management)",ref:"Section 6 – Gross Margin Strategy – Channel Architecture, Line 201"}]},{r:21,ind:"Historical Growth",sig:"21% Revenue CAGR FY17-FY21 vs industry 5.65%",st:"Positive",per:"FY17-FY21",sev:"Informational",rat:"Structural competitive capability as recovery benchmark.",conf:"inferred",ev:[{q:"All Q1–Q4 FY24 quarterly results: NOT FOUND",src:"Evidence Gaps Section (MD Intelligence Report)",ref:"Evidence Gaps Table, Line 383"}]},{r:22,ind:"Localization",sig:"~80% in-house mfg; Rs 45L localization savings (FY25); no technology imported",st:"Positive",per:"FY21-FY25",sev:"Informational",rat:"Strong domestic manufacturing reduces import dependency.",conf:"inferred",ev:[{q:"All Q1–Q4 FY23 quarterly results: NOT FOUND",src:"Evidence Gaps Section (MD Intelligence Report)",ref:"Evidence Gaps Table, Line 384"}]},{r:23,ind:"Finance Cost",sig:"Finance costs Rs 519L (FY25) vs Rs 23 Cr (FY17); D/E 0.04x",st:"Positive",per:"FY21-FY25",sev:"Informational",rat:"Zero debt eliminates distress risk.",conf:"inferred",ev:[{q:"Undisclosed utilization % prevents assessment of fixed cost absorption efficiency, production flexibility, and manufacturing restructuring potential; A&M would require this as baseline operational dat...",src:"Exact plant utilization % not disclosed in any document",ref:"Evidence Gaps Section (MD Intelligence Report)"}]},{r:24,ind:"Working Capital",sig:"Debtors days 77 to 30; WC days 106 to 36; slow-moving inventory -86%",st:"Positive",per:"FY18-FY25",sev:"Informational",rat:"Significant working capital optimization.",conf:"calculated",ev:[{q:"Gas dealer channel: 5% currently as compared to 30% 3 years ago",src:"INVESTOR_ANALYST (Q3 FY22 Investor Presentation) · INTEGRATED_GOVERNANCE (AR FY25 MD&A)",ref:"Section 6 – Gross Margin Strategy – Channel Architecture, Line 199; Section 11 – Retail Footprint, Line 322"},{q:"Business mix: Lower share of gas dealer channel business; 5% currently as compared to 30% 3 years ago",src:"INVESTOR_ANALYST (Q3 FY22 Investor Presentation) · INTEGRATED_GOVERNANCE (AR FY25 MD&A)",ref:"Section 6 – Gross Margin Strategy – Channel Architecture, Line 199; Section 11 – Retail Footprint, Line 322"},{q:"Retail channel accounts for ~60% of revenue, remained flat.",src:"INVESTOR_ANALYST (Q3 FY22 Investor Presentation) · INTEGRATED_GOVERNANCE (AR FY25 MD&A)",ref:"Section 6 – Gross Margin Strategy – Channel Architecture, Line 199; Section 11 – Retail Footprint, Line 322"}]},{r:25,ind:"Pan-India Opportunity",sig:"Crompton distribution synergies; ~5% vs ~15% South; network for North/West",st:"Positive",per:"FY23-FY26",sev:"Informational",rat:"Largest growth opportunity if integration executed.",conf:"calculated",ev:[{q:"Names/identities of contract manufacturers not disclosed",src:"Evidence Gaps Section · INTEGRATED_GOVERNANCE (AR FY21 MD&A)",ref:"Section 9 – Contract Manufacturing Strategy, Line 264; Evidence Gaps Table, Line 379"},{q:"Almost 80% of products manufactured in-house (implies ~20% contract sourced)",src:"Evidence Gaps Section · INTEGRATED_GOVERNANCE (AR FY21 MD&A)",ref:"Section 9 – Contract Manufacturing Strategy, Line 264; Evidence Gaps Table, Line 379"}]},{r:26,ind:"Service Scale",sig:"280+ service centres, 700+ technicians, CRM, WhatsApp chatbot",st:"Positive",per:"FY23-FY25",sev:"Informational",rat:"Service network is competitive moat.",conf:"inferred",ev:[{q:"Mr. Somasundaram P as Head of Manufacturing & Demand Planning of the Company... w.e.f. January 1, 2026",src:"QUARTERLY_FINANCIAL_REPORT (Q2 FY26 Outcome / Board Resolution)",ref:"Section 2 – Operational Intelligence, Lines 55–56"},{q:"Mr. Muthu Saravanan K as General Manager-Head Downstream Marketing... w.e.f. December 1, 2025",src:"QUARTERLY_FINANCIAL_REPORT (Q2 FY26 Outcome / Board Resolution)",ref:"Section 2 – Operational Intelligence, Lines 55–56"}]},{r:27,ind:"Cost Optimization",sig:"Munnetram Rs 1.5 Cr savings; SNOP; A&P ROI-led (+351 bps); procurement 0.6%",st:"Positive",per:"FY23-FY25",sev:"Informational",rat:"Cost optimization capacity demonstrated.",conf:"direct",ev:[{q:"Introduced a refreshed brand positioning embodying the philosophy of \'Celebrating Change\'",src:"QUARTERLY_FINANCIAL_REPORT (Q1 FY26 Press Release)",ref:"Section 2 – Operational Intelligence, Line 54"},{q:"Rolled out \'Idea First Series\' of products — over 40 SKUs - bringing to life its new brand positioning",src:"QUARTERLY_FINANCIAL_REPORT (Q1 FY26 Press Release)",ref:"Section 2 – Operational Intelligence, Line 54"}]}]};
 
+    SIGNAL_DATA.voltas = {
+      name: 'Voltas', ticker: 'VOLTAS',
+      signals: [
+          {r:1,ind:'Profitability Collapse',sig:'9M FY26 PBT declined 56% on only 12.3% revenue decline — extreme operating deleverage',st:'Negative',per:'9M FY26',sev:'Critical',rat:'FY26 PBT crash of 56% on a mere 12.3% revenue decline reveals extreme operating leverage working in reverse — every rupee of lost revenue destroys disproportionate profit, signaling structural cost inefficiencies that backward integration has not yet corrected',conf:'verified',ev:[{q:'9M FY26 PBT Rs 373 Cr vs Rs 848 Cr (-56%)',src:'Q3 FY26 Transcript',ref:'Section 5a / Strategic Signals'}]},
+          {r:2,ind:'RAC Market Share Erosion',sig:'RAC market share fell 3.3 percentage points from 21.2% (June 2024) to 17.9% (December 2025) in 18 months — India\'s #1 AC brand losing ground during industry boom',st:'Negative',per:'FY25–FY26',sev:'Critical',rat:'India\'s #1 AC brand ceding 3.3pp of market share in 18 months in its flagship category during an industry expansion with 65+ brands — a structural competitive threat requiring urgent commercial intervention',conf:'verified',ev:[{q:'Exit market share RAC: 21.2% June 2024, 21% September 2024, 20.5% December 2024 | RAC YTD market share 17.9%, exit December 17.9%; gained 2.1pp over last 12 months from 15.8%',src:'Q1/Q2/Q3 FY25 Transcripts; Q3 FY26 Transcript',ref:'Section 1 / Section 8 / Strategic Signals'}]},
+          {r:3,ind:'Negative Operating Cash Flow',sig:'Operating cash flow turned negative at -Rs 224 Cr in FY25 vs +Rs 762 Cr in FY24 — Rs 986 Cr adverse swing driven by inventory and receivables buildup',st:'Negative',per:'FY25',sev:'Critical',rat:'A Rs 986 Cr adverse swing in operating cash flow in a single year, driven by inventory and receivables buildup, signals a working capital crisis despite record revenue — this is unsustainable and exposes the company to liquidity risk',conf:'verified',ev:[{q:'Operating cash flow: -Rs 224 Cr FY25 vs +Rs 762 Cr FY24 (Rs 986 Cr adverse swing from inventory and receivables buildup)',src:'Financial Results March 2025; Engagement Thesis',ref:'Section Engagement Thesis / Strategic Signals'}]},
+          {r:4,ind:'Leadership Triple-Change',sig:'Simultaneous replacement of MD (September 2025) + CFO (April 2025) + Head of RAC (January 2026) during the most critical transition period in the company\'s recent history',st:'Negative',per:'FY26',sev:'Critical',rat:'Near-complete executive team overhaul during a period of BEE regulatory disruption, commodity headwinds, and market share erosion — new leadership team has no institutional familiarity with the company\'s challenges at the worst possible time',conf:'verified',ev:[{q:'Pradeep Bakshi stepping down August 31, 2025; Mukundan Menon appointed MD from September 1, 2025 | New CFO K.V. Sridhar from April 1, 2025 | Head of RAC Business: Mr. Jayant Balan from January 1, 2026',src:'Sovrenn MD Compilation',ref:'Section 2 / Strategic Signals'}]},
+          {r:5,ind:'No Margin Recovery Timeline',sig:'New management team explicitly stated it is \'too soon to sort of quantify\' margin recovery — no guidance on when profitability normalizes',st:'Negative',per:'FY26',sev:'Critical',rat:'Absence of any quantified margin recovery timeline or target from newly appointed management is the starkest signal of operational uncertainty — investors and advisors cannot plan around an unquantified recovery',conf:'verified',ev:[{q:'The recovery would be sequential... there are too many moving parts unfortunately... commodity inflation, the currency depreciation... it will be maybe too soon to sort of quantify',src:'K.V. Sridhar; Q3 FY26 Transcript',ref:'Section 6a / Strategic Signals'}]},
+          {r:6,ind:'BEE + Commodity + Currency Triple Headwind',sig:'BEE star label transition prohibiting manufacturing of old-table products from January 2026 simultaneously with BOM cost up 8-9% and copper + dollar on upward trend',st:'Negative',per:'FY26',sev:'Critical',rat:'Three simultaneous margin-compressing forces: regulatory inventory disruption (BEE table change) + input cost inflation (8-9% BOM increase) + currency depreciation — converging in the same quarter when new management is finding its footing',conf:'verified',ev:[{q:'BEE norms: there was a Gazette which came in a year ago, which none of us had even noticed... it prohibits you from manufacturing the new products from 1st of January 2026 | Cost as a percentage of BOM is actually increasing by 8%-9% | Copper is the big sort of item on the BOM... commodity and dollar, actually both of them are on an upward trend',src:'Q3 FY26 Transcript',ref:'Section 4 / Strategic Signals'}]},
+          {r:7,ind:'Q1 FY26 Revenue Collapse',sig:'UCP revenue fell 25% to Rs 2,868 Cr in Q1 FY26 due to weak summer and delayed season onset — single-quarter demand destruction in core category',st:'Negative',per:'Q1 FY26',sev:'Critical',rat:'A 25% single-quarter revenue decline in the UCP segment — which represents 69% of consolidated revenue — due to weather-related demand destruction reveals dangerous concentration risk in summer-dependent consumer cooling',conf:'verified',ev:[{q:'Q1 FY26: UCP revenue Rs 2,868 Cr (vs Rs 3,802 Cr); delayed summer, mild temperatures, early monsoon',src:'Q1 FY26 Investor Presentation',ref:''}]},
+          {r:8,ind:'Qatar Litigation Contingent Liability',sig:'QAR 771.632 million claim with bank guarantee contingent liability of Rs 390 Cr — unresolved international legal exposure',st:'Negative',per:'FY25–FY26',sev:'Critical',rat:'Rs 390 Cr contingent liability from a single international project dispute is material relative to the company\'s FY26 compressed profitability — a worst-case outcome would devastate the balance sheet at a time when cash flow is already negative',conf:'verified',ev:[{q:'Qatar litigation: QAR 771.632 million claim with bank guarantee contingent liability of Rs 390 Cr',src:'Strategic Signals / Engagement Thesis',ref:'Section Strategic Signals'}]},
+          {r:9,ind:'Voltbek JV Still Loss-Making',sig:'Rs 1,500 Cr capital deployed in Voltbek JV which remains pre-EBITDA-breakeven — continued cash drain with no confirmed timeline',st:'Negative',per:'FY25–FY26',sev:'High',rat:'Rs 1,500 Cr of capital tied up in a loss-making JV with EBITDA breakeven \'target\' at ~Rs 2,500 Cr turnover — no confirmed timeline, and the JV\'s standalone losses are not separately disclosed, masking the true cash burn',conf:'verified',ev:[{q:'Voltbek EBITDA breakeven target at approximately Rs 2,500 Cr turnover',src:'Q2 FY25 Transcript; Strategic Signals',ref:''}]},
+          {r:10,ind:'BEE Pricing Asymmetry by Star Rating',sig:'5-Star ACs face \'far more sharper increase\' under BEE table change vs 3-Star — asymmetric pricing impact creating portfolio mix risk',st:'Negative',per:'FY26',sev:'High',rat:'The differential pricing impact across star ratings creates strategic risk: if consumers downgrade from 5-Star to 3-Star to avoid price shock, the mix shift reduces margin per unit; if Voltas leads 5-Star pricing aggressively, it risks volume share to competitors who clear old inventory slower',conf:'verified',ev:[{q:'The 3-Star has a different impact. The 5-Star has a far more sharper increase impact',src:'Mukundan Menon; Q3 FY26 Transcript',ref:'Section 4'}]},
+          {r:11,ind:'Channel Inventory Clearance via Margin-Dilutive Schemes',sig:'5-6 weeks of old-table channel inventory requiring trade schemes to accelerate clearance before mid-March — margin pressure in Q4 FY26',st:'Negative',per:'Q4 FY26',sev:'High',rat:'Schemes deployed to liquidate old BEE-table inventory are directly margin-dilutive; in a quarter already compressed by commodity/currency headwinds, channel inventory clearance via trade promotion is a double margin hit',conf:'verified',ev:[{q:'Channel inventory 5-6 weeks, expected to deplete by mid-March | Schemes given to channel partners to clear inventory',src:'Q3 FY26 Transcript',ref:'Section 4 / Section 6b'}]},
+          {r:12,ind:'9M FY26 Total Revenue Decline of 12.3%',sig:'9-month FY26 consolidated total income fell 12.3% to Rs 9,552 Cr from Rs 10,890 Cr — meaningful top-line contraction in a growing market',st:'Negative',per:'9M FY26',sev:'High',rat:'A 12.3% revenue decline in a market that continues to grow (India RAC industry expanding driven by urbanization and heat waves) indicates Voltas is losing relative competitive position — not just a market cycle story',conf:'verified',ev:[{q:'9M FY26: Total income Rs 9,552 Cr vs Rs 10,890 Cr (-12.3%)',src:'',ref:''}]},
+          {r:13,ind:'Copper and Dollar Both Trending Upward',sig:'Copper (largest BOM item) and USD/INR both on upward trends simultaneously — compounding commodity cost pressure with no natural hedge disclosed',st:'Negative',per:'FY26',sev:'High',rat:'Copper is the dominant BOM component for AC compressors and heat exchangers; a simultaneous rise in copper price and USD against INR (for imported components) creates a compounding cost headwind with no disclosed hedging mechanism',conf:'verified',ev:[{q:'Copper is the big sort of item on the BOM... commodity and dollar, actually both of them are on an upward trend',src:'Mukundan Menon; Q3 FY26 Transcript',ref:'Section 5b'}]},
+          {r:14,ind:'BOM Cost Increase of 8-9% Translating to ~6% on Selling Price',sig:'Input cost inflation of 8-9% on BOM translating to ~6% on selling price — significant if price increases cannot be fully passed through in a competitive 65+ brand market',st:'Negative',per:'FY26',sev:'High',rat:'In a market with 65+ brands, passing through a 6% selling price increase requires all competitors to move simultaneously; if even a few brands defer (e.g., those with lower copper-content inverters or larger old-table inventory buffers), Voltas faces volume-margin trade-off',conf:'verified',ev:[{q:'Cost as a percentage of BOM is actually increasing by 8%-9%. As a percentage of selling price, if we see, it will be somewhere around 6%',src:'Q3 FY26 Transcript (Tavishi Mehta question)',ref:'Section 4 / Section 5b'}]},
+          {r:15,ind:'Employee Cost Growth of 14.2% in FY25',sig:'Employee costs rose 14.2% to Rs 890 Cr from Rs 779 Cr — faster than revenue growth on a per-employee basis given the scale of workforce expansion',st:'Negative',per:'FY25',sev:'High',rat:'Employee cost growing 14.2% while scaling across Chennai, Waghodia, and Voltbek Sanand suggests the workforce is scaling with capacity additions rather than achieving operating leverage — a structural cost build-up with deleverage risk if revenue softens',conf:'verified',ev:[{q:'Employee cost FY25 Rs 890 Cr vs Rs 779 Cr FY24',src:'Financial Results March 2025',ref:'Section 5c'}]},
+          {r:16,ind:'Labor Code One-Time Provision Impact in Q3 FY26',sig:'One-time labor code provision impacted Q3 FY26 PBT — exact quantum not separately disclosed',st:'Negative',per:'Q3 FY26',sev:'High',rat:'A PBT-level impact from labor code provisioning in an already severely compressed quarter adds to the opacity around true underlying profitability; the non-disclosure of the quantum prevents investors from separating recurring from one-time earnings drag',conf:'verified',ev:[{q:'Labor code impact in Q3 FY26 on PBT',src:'Q3 FY26 Transcript',ref:'Section 5c'}]},
+          {r:17,ind:'Compressor Backward Integration Stalled',sig:'Rs 250 Cr compressor capex earmarked but awaiting technology partnership — the most import-dependent AC component remains unresolved',st:'Negative',per:'FY25–FY26',sev:'High',rat:'The compressor is the most expensive and technically complex AC component; remaining import-dependent on this item means BOM exposure to currency risk cannot be fully managed through backward integration, and the technology partner search adds execution uncertainty',conf:'verified',ev:[{q:'Compressor capex Rs 250 Cr pending, awaiting technology partnership | Compressor capex Rs 250 Cr awaiting tech partnership',src:'Q3 FY25 Transcript',ref:'Section 3 / Section 5b / Section 7'}]},
+          {r:18,ind:'EMPS Historical Loss of -Rs 328 Cr Now Turned Around — Fragile Recovery',sig:'EMPS segment went from -Rs 328 Cr loss to +Rs 169 Cr result — a remarkable swing but driven partly by one-time arbitration outcomes, raising durability questions',st:'Watch',per:'FY25',sev:'High',rat:'A Rs 497 Cr swing from -Rs 328 Cr to +Rs 169 Cr in a single year is exceptional, but if any portion was driven by favorable arbitration settlements (one-time in nature), the sustainable run-rate margin could be significantly lower — a risk worth monitoring closely',conf:'verified',ev:[{q:'EMPS: Revenue Rs 4,157 Cr, Segment Result Rs 169 Cr; prior year result was -Rs 328 Cr',src:'Financial Results March 2025',ref:''}]},
+          {r:19,ind:'Voltbek Revenue Concentration Risk — Still Below Breakeven',sig:'Voltbek needs ~Rs 2,500 Cr turnover for EBITDA breakeven; FY25 volume of ~1M units each in Ref/WM suggests turnover well below target — cash drain continues',st:'Negative',per:'FY25–FY26',sev:'High',rat:'With 1M units each in refrigerators and washing machines at average price points likely generating Rs 1,200-1,800 Cr in revenue, Voltbek remains meaningfully below its Rs 2,500 Cr EBITDA breakeven — making the loss-making JV a continuing cash drain for both Voltas and Arçelik',conf:'verified',ev:[{q:'Voltbek EBITDA breakeven target at approximately Rs 2,500 Cr turnover | Voltbek 54% volume growth H1 FY25, 56% 9M, 57% full year; crossed 1 million units each in Refrigerators and Washing Machines',src:'Q2/Q3 FY25 Transcripts; Annual Report',ref:''}]},
+          {r:20,ind:'PP&E Doubled to Rs 820 Cr — High Capex with Compressed Returns',sig:'PP&E doubled from Rs 390 Cr to Rs 820 Cr in FY25 — massive capital deployment with FY26 return on assets declining sharply',st:'Negative',per:'FY25',sev:'High',rat:'Doubling of fixed assets in one year while FY26 profitability collapses by 56% implies a severe decline in return on capital employed; the Chennai and Waghodia investments are not yet generating the margin improvement needed to justify the capex scale',conf:'verified',ev:[{q:'PP&E Rs 820 Cr (vs Rs 390 Cr prior year)',src:'Financial Results March 2025',ref:'Section 3'}]},
+          {r:21,ind:'Price Increase Quantum Undisclosed — Execution Risk',sig:'Management confirmed prices will increase due to BEE transition but stated \'too early to say\' on quantum — no pricing guidance for investors or channel partners',st:'Negative',per:'FY26',sev:'High',rat:'The inability or unwillingness to disclose a pricing strategy for the BEE new-table product launch creates channel uncertainty; dealers unsure of pricing may defer orders, and competitors who move first with clear pricing can capture early season demand',conf:'verified',ev:[{q:'The overall price will increase. Obviously, it will increase, actually. The numbers are a little early to say as of now',src:'Mukundan Menon; Q3 FY26 Transcript',ref:'Section 4'}]},
+          {r:22,ind:'65+ Brand Competitive Landscape in RAC',sig:'Indian RAC market has 65+ competing brands — Voltas is losing share to aggressive Japanese/Korean/domestic brands simultaneously',st:'Negative',per:'FY25–FY26',sev:'High',rat:'The proliferation of 65+ brands (including Daikin, LG, Samsung at premium end and Blue Star, Havells Lloyd, Godrej at mid-market) in a market where Voltas was at 21.2% share means competitive pressure is structural, not cyclical',conf:'verified',ev:[{q:'65+ brands in India AC market',src:'Q1 FY25 Transcript',ref:'Section 1 / Market Position Direction'}]},
+          {r:23,ind:'Cost Optimization Program Initiated — Signals Structural Cost Problem',sig:'New CFO explicitly disclosed a \'clear cost optimization program\' — indicating the cost structure is acknowledged to be misaligned with the revenue reality',st:'Watch',per:'FY26',sev:'High',rat:'A newly appointed CFO announcing a \'clear cost optimization program\' in his first major public communication is a strong signal that the inherited cost structure is too high — the program\'s scope, timeline, and targeted savings are unknown, creating uncertainty around the magnitude of the fix needed',conf:'verified',ev:[{q:'We also are working on a clear cost optimization program also',src:'K.V. Sridhar; Q3 FY26 Transcript',ref:'Section 2 / Engagement Thesis'}]},
+          {r:24,ind:'Volume vs Margin Strategy Lacking Clarity',sig:'\'Balanced\' volume-vs-margin stance from new CFO with no quantified targets — strategic ambiguity during a critical transition',st:'Negative',per:'FY26',sev:'High',rat:'The new management team\'s \'it\'s both\' answer to the volume-vs-margin priority question, while philosophically correct, provides no actionable signal to investors or the organization on which lever to pull when trade-offs arise — a clarity gap that advisory can address',conf:'verified',ev:[{q:'Whether it\'s market share or margins, I think it\'s never quite possible to sort of give either or answer to be fair. I think it\'s both has to be sort of balanced',src:'K.V. Sridhar; Q3 FY26 Transcript',ref:'Section 6a'}]},
+          {r:25,ind:'Import Dependency Percentage — Not Disclosed',sig:'Overall import dependency percentage for the AC business not disclosed — cannot quantify currency risk exposure or localization gap vs competitors',st:'Watch',per:'FY25–FY26',sev:'High',rat:'Without a disclosed import dependency percentage, it is impossible to model the INR depreciation impact on BOM costs or compare Voltas\'s localization progress against peers like Havells (which disclosed <8% import dependency) — a critical gap for cost structure analysis',conf:'verified',ev:[{q:'Import dependency percentage (overall) — NOT DISCLOSED | Critical for understanding cost structure vulnerability',src:'Evidence Gaps Table',ref:'Section Evidence Gaps'}]},
+          {r:26,ind:'Pantnagar Plant at 100% Utilization — No Room for Upside',sig:'Legacy Pantnagar facility at 100% utilization with lower backward integration vs Chennai — any demand spike must route through OEMs or Chennai',st:'Watch',per:'FY26',sev:'Medium',rat:'A 100%-utilized plant that is less backward integrated than Chennai limits the company\'s cost-efficient production capacity; demand surge scenarios in a strong summer require OEM sourcing at potentially worse unit economics, limiting margin recovery potential',conf:'verified',ev:[{q:'We have two plants, one in Pantnagar, which is operating at, I think, 100%.',src:'Mukundan Menon; Q3 FY26 Transcript',ref:'Section 3'}]},
+          {r:27,ind:'Chennai Expansion Timing Risk — 1.5M Units in 1-2 Months',sig:'Chennai capacity expansion from 1M to 1.5M units expected in 1-2 months (from January 2026) — tight timeline ahead of summer season',st:'Watch',per:'Q4 FY26',sev:'Medium',rat:'A critical capacity expansion completing just 1-2 months before the summer peak season (April-June) leaves almost no time for operational ramp-up, quality validation, and workforce training — a timing execution risk if the expansion slips even by a few weeks',conf:'verified',ev:[{q:'The Chennai plant, we have built a capacity of 1 million units, which we are in the process of expanding to 1.5 million capacity in another 1-2 months',src:'Mukundan Menon; Q3 FY26 Transcript',ref:'Section 3'}]},
+          {r:28,ind:'UCP Segment Margin of 8.4% — Below High-End Guidance',sig:'UCP segment margin of 8.4% in FY25 despite 36% volume growth — management had guided for high single-digit profitability; at lower end of range',st:'Watch',per:'FY25',sev:'Medium',rat:'An 8.4% UCP segment result margin in the best volume year in company history suggests the structural margin ceiling for the business — under the FY26 volume environment, this baseline margin will be significantly lower, validating the 56% PBT decline',conf:'verified',ev:[{q:'UCP: Revenue Rs 10,614 Cr, Segment Result Rs 892 Cr | High single-digit profitability guidance for FY25',src:'Financial Results March 2025; Q1 FY25 Transcript',ref:'Section 5a / Section 6a'}]},
+          {r:29,ind:'LTIS Scheme Extended — Retention Cost Signal',sig:'LTIS (Long Term Incentive Scheme) 2024 extended to FY 2027-28 with Rs 24 Cr provision in H1 FY25 — signals competitive pressure for talent retention',st:'Watch',per:'FY25',sev:'Medium',rat:'Extending a long-term incentive scheme through FY28 during a period of leadership triple-change suggests the company is concerned about broader talent stability beyond just the top 3 positions — a Rs 24 Cr visible provision with potentially larger future accruals',conf:'verified',ev:[{q:'LTIS Scheme 2024 extended to FY 2027-28; provision Rs 24 Cr for H1 FY25',src:'Q2 FY25 Transcript; Sovrenn MD',ref:'Section 2 / Section 5c'}]},
+          {r:30,ind:'Voltbek Losses Not Separately Disclosed — Opacity Risk',sig:'Voltbek standalone EBITDA and losses not disclosed separately — true cash drain on Voltas balance sheet hidden in JV consolidation',st:'Watch',per:'FY25–FY26',sev:'Medium',rat:'With Rs 1,500 Cr of capital deployed and the JV still pre-breakeven, the absence of standalone Voltbek P&L disclosure makes it impossible to calculate the actual return on invested capital or project the cash drain timeline — a significant analytical gap',conf:'verified',ev:[{q:'Voltbek standalone EBITDA/losses — NOT DISCLOSED separately. JV P&L consolidated in parent; true cash burn hidden',src:'Evidence Gaps Table',ref:'Section Evidence Gaps'}]}
+      ]
+    };
+    SIGNAL_DATA.orient = {
+      name: 'Orient Electric', ticker: 'ORIENTELEC',
+      signals: [
+          {r:1,ind:'Market Dynamics',sig:'Fan market structural volume decline',st:'Negative',per:'2026-01-22',sev:'Critical',rat:'Fan market structural volume decline',conf:'verified',ev:[{q:'Industry ceiling fan volumes declining 9M FY26; Orient gaining share but off lower base. Domestic market under 15-20M units/year (estimated).',src:'Q3 FY26 Earnings Call',ref:''}]},
+          {r:2,ind:'Profitability',sig:'BLDC transition margin headwinds',st:'Negative',per:'2026-01-22',sev:'Critical',rat:'BLDC transition margin headwinds',conf:'verified',ev:[{q:'Gross margin 29.8% vs 32-34% guidance (300+ bps pressure); driven by commodity cost and transition cost. PCB electronics ~50% of BLDC cost delta.',src:'Q3 FY26 Earnings Call',ref:''}]},
+          {r:3,ind:'Profitability',sig:'Fan segment commoditization & price pressure',st:'Negative',per:'2026-01-22',sev:'Critical',rat:'Fan segment commoditization & price pressure',conf:'verified',ev:[{q:'Pricing power erosion in commodity fan segment; BLDC premiumization required but margin accretion uncertain. Price increases (3-3.5% Jan) insufficient if commodities remain elevated.',src:'Q3 & Q2 FY26 Earnings Calls',ref:''}]},
+          {r:4,ind:'Cost Structure',sig:'Copper commodity spike impact',st:'Negative',per:'2026-01-22',sev:'High',rat:'Copper commodity spike impact',conf:'verified',ev:[{q:'Q3 FY26 copper prices elevated; direct impact on induction fan production (copper-intensive). 3-3.5% price increase Jan 2026 insufficient; contingent further hikes considered.',src:'Q3 FY26 Earnings Call',ref:''}]},
+          {r:5,ind:'Inventory & Channel',sig:'BEE Star ratcheting channel destocking',st:'Negative',per:'2026-01-22',sev:'High',rat:'BEE Star ratcheting channel destocking',conf:'verified',ev:[{q:'BEE norm change Jan 1 2026 triggered widespread channel destocking of old induction models; short-term trade dislocation and margin pressure in Q3-Q4.',src:'Q3 FY26 Earnings Call',ref:''}]},
+          {r:6,ind:'Cash Flow',sig:'Working capital deterioration',st:'Negative',per:'2026-01-22',sev:'High',rat:'Working capital deterioration',conf:'verified',ev:[{q:'Working capital days increased 18 to 31 days YTD (13-day spike) due to inventory buildup for summer season; pressure on cash conversion and liquidity.',src:'Q3 FY26 Earnings Call',ref:''}]},
+          {r:7,ind:'Regulatory & Tax',sig:'GST demand orders (multiple jurisdictions)',st:'Watch',per:'2025-08-23',sev:'High',rat:'GST demand orders (multiple jurisdictions)',conf:'verified',ev:[{q:'Aggregate GST disputes ~₹60-70 Cr across Amravati (₹5.73 Cr), Tamil Nadu (₹51.59 Cr, reduced to ₹0.032 Cr), Indore, North Chennai, West Bengal, Thane. Pending appeals; risk of adverse ruling.',src:'Sovrenn MD',ref:''}]},
+          {r:8,ind:'Competitive Dynamics',sig:'Competitive BLDC scaling (Crompton & Havells)',st:'Negative',per:'2025-10-17',sev:'High',rat:'Competitive BLDC scaling (Crompton & Havells)',conf:'verified',ev:[{q:'Crompton CGCE and Havells aggressively scaling BLDC and premium fan portfolios; pricing competition intensifying. Risk of BLDC commoditization faster than expected.',src:'Q3 & Q2 FY26 Earnings Calls',ref:''}]},
+          {r:9,ind:'Guidance & Execution',sig:'Double-digit EBITDA margin target at risk',st:'Watch',per:'2026-01-22',sev:'High',rat:'Double-digit EBITDA margin target at risk',conf:'verified',ev:[{q:'Medium-term guidance of double-digit EBITDA margins dependent on BLDC mix (45% by 2 years), commodity normalization, and Sanchay program run-rate (₹80-100 Cr target vs ₹43 Cr YTD achieved).',src:'Q3 FY26 Earnings Call',ref:''}]},
+          {r:10,ind:'Channel Strategy',sig:'E-commerce penetration low (3-5% estimated)',st:'Negative',per:'2025-10-17',sev:'High',rat:'E-commerce penetration low (3-5% estimated)',conf:'verified',ev:[{q:'E-commerce growing high double-digits but still estimated 3-5% of revenue; competitive gap vs peers. Requires sustained investment and platform optimization.',src:'Q3 & Q2 FY26 Earnings Calls',ref:''}]},
+          {r:11,ind:'Brand & Positioning',sig:'Brand differentiation erosion in premium segment',st:'Negative',per:'2026-01-22',sev:'High',rat:'Brand differentiation erosion in premium segment',conf:'verified',ev:[{q:'As BLDC becomes standardized and online-first brands offer cheaper alternatives, brand differentiation at risk. Elevated marketing spend (4.2-4.5%) needed to maintain positioning.',src:'Q3 FY26 Earnings Call',ref:''}]},
+          {r:12,ind:'Operational',sig:'DTM transition execution risk',st:'Negative',per:'2025-10-17',sev:'High',rat:'DTM transition execution risk',conf:'verified',ev:[{q:'12 states + Pune transitioned from MD to DTM; further pipeline expansion pending. 45-60 day transition period high-risk; requires capital for service centers and inventory.',src:'Q2 FY26 Earnings Call',ref:''}]},
+          {r:13,ind:'Demand',sig:'Unseasonal monsoons & weather volatility',st:'Watch',per:'2025-09-30',sev:'High',rat:'Unseasonal monsoons & weather volatility',conf:'verified',ev:[{q:'Q1 FY26: Unseasonal rains dampened demand (1.9% growth). East/West regions suffered poor monsoons. Climate volatility (El Niño/La Niña) creating unpredictable demand.',src:'Q1 FY26 & Q2 FY26',ref:''}]},
+          {r:14,ind:'Operational',sig:'Hyderabad TPW facility utilization risk',st:'Negative',per:'2026-01-22',sev:'High',rat:'Hyderabad TPW facility utilization risk',conf:'verified',ev:[{q:'Hyderabad TPW facility (cooling products) showed low utilization in FY25; now ramping Q1-Q3 FY26 but dependent on summer season strength. Capex sunk; ROI dependent on volume.',src:'Q3 FY26 Earnings Call',ref:''}]},
+          {r:15,ind:'Profitability',sig:'Lighting segment margin decline (Q-o-Q)',st:'Negative',per:'2025-10-17',sev:'High',rat:'Lighting segment margin decline (Q-o-Q)',conf:'verified',ev:[{q:'Lighting margin pressure due to price erosion and competitive discounting post-Diwali. Revenue growth (18.6% YoY) not translating to margin expansion; mix shift to commoditized SKUs evident.',src:'Q2 FY26 Earnings Call',ref:''}]},
+          {r:16,ind:'Demand',sig:'Cooler segment seasonal washout',st:'Watch',per:'2025-10-17',sev:'High',rat:'Cooler segment seasonal washout',conf:'verified',ev:[{q:'Cooler segment showed ~80% decline in Q2 FY26 (monsoon impact). Recovery expected Q3-Q4 but trajectory uncertain. Inventory buildup for summer season carrying execution risk.',src:'Q2 FY26 Earnings Call',ref:''}]},
+          {r:17,ind:'Operational',sig:'Heating appliance category integration challenges',st:'Negative',per:'2026-01-22',sev:'High',rat:'Heating appliance category integration challenges',conf:'verified',ev:[{q:'Water heaters and room heaters showing strong growth (20% YoY heating) but category still nascent. Supply chain, distribution, and service infrastructure build-out incomplete.',src:'Q3 FY26 Earnings Call',ref:''}]},
+          {r:18,ind:'Pipeline',sig:'Lighting B2B project pipeline execution',st:'Negative',per:'2025-10-17',sev:'High',rat:'Lighting B2B project pipeline execution',conf:'verified',ev:[{q:'Professional lighting (B2B) showing strong project pipeline but first-time execution with city corporations and government. Margin realization and timeline risk high.',src:'Q2 FY26 Earnings Call',ref:''}]},
+          {r:19,ind:'Strategic',sig:'Switchgear & Wires revenue contribution small',st:'Positive',per:'2025-10-17',sev:'High',rat:'Switchgear & Wires revenue contribution small',conf:'verified',ev:[{q:'Wires doubled YoY (very small base); Switchgear ~5% of segment revenue (per management). Scale-up requires significant distribution and supply chain investment.',src:'Q3 & Q2 FY26',ref:''}]},
+          {r:20,ind:'Commercial',sig:'Pricing pass-through elasticity by category',st:'Negative',per:'2026-01-22',sev:'High',rat:'Pricing pass-through elasticity by category',conf:'verified',ev:[{q:'3-3.5% price increase Jan 2026 passed through with varying elasticity by category. Fans and lighting showing resistance; premium categories more inelastic. Further hikes contingent on market acceptance.',src:'Q3 FY26 Earnings Call',ref:''}]},
+          {r:21,ind:'Brand & Marketing',sig:'Marketing spend ROI uncertain',st:'Negative',per:'2026-01-22',sev:'High',rat:'Marketing spend ROI uncertain',conf:'verified',ev:[{q:'Marketing spend elevated at 4.2-4.5% of revenue (vs 4% baseline); double-digit spend increase on digital. ROI metrics and attribution unclear; risk of oversell relative to impact.',src:'Q3 FY26 Earnings Call',ref:''}]},
+          {r:22,ind:'Operational',sig:'Sanchay program phase-2 savings target',st:'Watch',per:'2025-10-17',sev:'High',rat:'Sanchay program phase-2 savings target',conf:'verified',ev:[{q:'Sanchay program saved ₹43 Cr YTD in H1 FY26; management guidance ₹80-100 Cr annual target. Phase-2 initiatives unclear; execution risk on aggressive target.',src:'Q2 FY26 Earnings Call',ref:''}]},
+          {r:23,ind:'Compliance',sig:'Labor law compliance and headcount planning',st:'Watch',per:'2026-01-22',sev:'High',rat:'Labor law compliance and headcount planning',conf:'verified',ev:[{q:'Q3 FY26 exceptional item of ₹8.7 Cr related to new labor code implementation. One-time impact but signals HR/compliance complexity; future liability risk if additional adjustments required.',src:'Q3 FY26 Earnings Call',ref:''}]},
+          {r:24,ind:'Talent & Organization',sig:'New leadership team capability (post-departures)',st:'Negative',per:'2025-11-04',sev:'High',rat:'New leadership team capability (post-departures)',conf:'verified',ev:[{q:'Departures: Jyotsana Balasubramanian (Head-IA), Bhagirath Galgat (Head-ME), Dipti Mishra (Compliance). Recent hires: Aadarsh Rohira (CDIO), Ajay Saraf (Switchgear), Rakesh Sorout (Mfg). Organizational depth below Negi unclear.',src:'Sovrenn MD',ref:''}]},
+          {r:25,ind:'International',sig:'Export growth sustainability',st:'Positive',per:'2026-01-22',sev:'Medium',rat:'Export growth sustainability',conf:'verified',ev:[{q:'Exports growing 40% YoY but still 10-15% of revenue (estimated). SAARC, Middle East, Africa markets nascent. Tariff and trade policy risks (e.g., tariff issues on fans) constraining.',src:'Q3 FY26 Earnings Call',ref:''}]},
+          {r:26,ind:'Market Dynamics',sig:'Geogaphic market concentration (North/East/West/South)',st:'Negative',per:'2025-10-17',sev:'Medium',rat:'Geogaphic market concentration (North/East/West/South)',conf:'verified',ev:[{q:'South India (Tamil Nadu especially) and key metros showing regional strength variations. DTM expansion concentrated in select high-opportunity states; geographic diversification incomplete.',src:'Q2 FY26 Earnings Call',ref:''}]},
+          {r:27,ind:'Supply Chain',sig:'BLDC component supplier concentration risk',st:'Negative',per:'2026-01-22',sev:'Medium',rat:'BLDC component supplier concentration risk',conf:'verified',ev:[{q:'BLDC transition dependent on PCB electronics sourcing (50% of cost delta). Supplier landscape limited; over-reliance on few vendors creating pricing and supply risk.',src:'Q3 FY26 Earnings Call',ref:''}]},
+          {r:28,ind:'Channel Strategy',sig:'Distribution channel margin compression',st:'Negative',per:'2025-10-17',sev:'Medium',rat:'Distribution channel margin compression',conf:'verified',ev:[{q:'Hybrid MD/DTM model creating channel conflict and margin compression in MD markets. Mission Orange retail program expanding but outlet margin sustainability uncertain.',src:'Q3 & Q2 FY26',ref:''}]},
+          {r:29,ind:'Innovation & IP',sig:'Decorative BLDC design patent risk',st:'Negative',per:'2026-01-22',sev:'Medium',rat:'Decorative BLDC design patent risk',conf:'verified',ev:[{q:'Decorative BLDC models (new colors, designs) driving differentiation; ~40 new colors introduced last year. IP protection and design knockoff risk in unorganized sector.',src:'Q3 FY26 Earnings Call',ref:''}]},
+          {r:30,ind:'Product Innovation',sig:'IoT & smart product scale-up timelines',st:'Negative',per:'2026-01-22',sev:'Medium',rat:'IoT & smart product scale-up timelines',conf:'verified',ev:[{q:'Smart, IoT-enabled BLDC and lighting under development. Launch timelines not specified. Risk of product delay impacting premiumization timeline.',src:'Q3 FY26 Earnings Call',ref:''}]}
+      ]
+    };
+    SIGNAL_DATA.vguard = {
+      name: 'V-Guard Industries', ticker: 'VGUARD',
+      signals: [
+          {r:1,ind:'Operational Integration',sig:'Sunflame integration execution delays impacting margin recovery',st:'Negative',per:'2026-01-29',sev:'Critical',rat:'Sunflame integration execution delays impacting margin recovery',conf:'verified',ev:[{q:'CSD channel weakness, product refresh 18-month timeline with delays, e-commerce channel requiring separate stabilization (3-6 months). Current EBIT margin 3-7% vs 12% target in 2-3 years',src:'Q3 FY26 Earnings Call',ref:''}]},
+          {r:2,ind:'Geographic Concentration',sig:'South India concentration limiting growth potential',st:'Negative',per:'2026-02-28',sev:'Critical',rat:'South India concentration limiting growth potential',conf:'verified',ev:[{q:'South market contributed 51.6% of H1 FY26 revenue with only 0.8% YoY growth; stabilizer market (core South strength) facing structural decline due to grid reliability improvements',src:'Investor Presentations',ref:''}]},
+          {r:3,ind:'Market Dynamics',sig:'Stabilizer market structural decline undermining core category growth',st:'Negative',per:'2026-01-29',sev:'Critical',rat:'Stabilizer market structural decline undermining core category growth',conf:'verified',ev:[{q:'AC Stabilizer (50-55% of market) facing headwind; grid reliability improvements reducing stabilizer relevance; management expects continued pressure and diversification critical',src:'MD Commentary Q1-Q3',ref:''}]},
+          {r:4,ind:'Cost Management',sig:'Gross margin vulnerability to copper price volatility',st:'Negative',per:'2025-12-31',sev:'High',rat:'Gross margin vulnerability to copper price volatility',conf:'verified',ev:[{q:'House Wires business faces 20-30% price increase requirement from copper inflation; volume impact potential if pricing too aggressive; 40-50% of HWC cost is copper',src:'Q3 FY26 Presentation',ref:''}]},
+          {r:5,ind:'Cost Structure',sig:'Labour code implementation increasing fixed costs',st:'Watch',per:'2026-01-29',sev:'High',rat:'Labour code implementation increasing fixed costs',conf:'verified',ev:[{q:'₹22.11 Cr one-time charge in Q3 FY26 for gratuity and leave encashment; ongoing labour costs incrementally higher post-implementation (estimated 0.2-0.5% of revenue annually)',src:'Q3 FY26 Earnings Call',ref:''}]},
+          {r:6,ind:'Growth Trajectory',sig:'Revenue growth deceleration in FY26 vs historical guidance',st:'Negative',per:'2026-02-28',sev:'High',rat:'Revenue growth deceleration in FY26 vs historical guidance',conf:'verified',ev:[{q:'9M FY26 revenue growth only 4.2% YoY vs earlier 14-15% FY26 guidance withdrawn; Q1 showed 0.7% decline; weak summer season and GST transition cited',src:'Investor Presentations',ref:''}]},
+          {r:7,ind:'Profitability',sig:'Profitability margin compression in 9M FY26 vs prior year',st:'Negative',per:'2026-01-29',sev:'High',rat:'Profitability margin compression in 9M FY26 vs prior year',conf:'verified',ev:[{q:'9M FY26 EBITDA margin 8.5% vs 9.2% in 9M FY25 (-70 bps); PAT margin 4.7% vs 5.5% prior year (-80 bps); labour code charge and operational deleverage cited',src:'Financial Results',ref:''}]},
+          {r:8,ind:'Segment Performance',sig:'Weak Consumer Durables segment performance impacting profitability',st:'Negative',per:'2025-12-31',sev:'High',rat:'Weak Consumer Durables segment performance impacting profitability',conf:'verified',ev:[{q:'Consumer Durables revenue 9M FY26 down 7.9% YoY; segment margin only 1-4%; Fans heavily weather-dependent; Air Coolers segment (~₹140 Cr) hit hard by summer weakness',src:'Q2-Q3 FY26 Results',ref:''}]},
+          {r:9,ind:'Competitive Dynamics',sig:'Competitive intensity increasing in core categories',st:'Negative',per:'2026-01-29',sev:'High',rat:'Competitive intensity increasing in core categories',conf:'verified',ev:[{q:'Water Heaters: 20-30 entrants; Wires: Polycab and Finolex larger; Fans: Havells and Crompton expanding; private label (Amazon Basics, Flipkart) disrupting commodity segments',src:'MD Commentary & Market Overview',ref:''}]},
+          {r:10,ind:'Regulatory Risk',sig:'GST audit demands totaling ₹40+ Cr creating financial uncertainty',st:'Negative',per:'2026-02-28',sev:'High',rat:'GST audit demands totaling ₹40+ Cr creating financial uncertainty',conf:'verified',ev:[{q:'Haldwani: ₹17.76 Cr; Gurgaon: ₹77.20 Cr; Gangtok: ₹20.70 Cr (dropped); Others: ₹1-2 Cr each. Company challenging based on \'strong grounds\' but outcome uncertain',src:'SEBI Filings',ref:''}]},
+          {r:11,ind:'Distribution',sig:'CSD channel weakness for Sunflame kitchen appliances',st:'Negative',per:'2025-12-31',sev:'High',rat:'CSD channel weakness for Sunflame kitchen appliances',conf:'verified',ev:[{q:'Canteen Stores Department (CSD) showing weakness due to budget constraints; Sunflame shifting focus to GT (General Trade) and MT (Modern Trade); noted as \'challenge\'',src:'Q2-Q3 FY26 Calls',ref:''}]},
+          {r:12,ind:'Product Innovation',sig:'Product portfolio refresh delays impacting competitiveness',st:'Negative',per:'2025-07-30',sev:'High',rat:'Product portfolio refresh delays impacting competitiveness',conf:'verified',ev:[{q:'Sunflame kitchen appliances product refresh 18-month timeline; delays noted in Q1 call; e-commerce channel refresh requiring 3-6 months stabilization',src:'Q1 FY26 Earnings Call',ref:''}]},
+          {r:13,ind:'Market Expansion',sig:'Pan-India expansion facing competitive barriers in non-South markets',st:'Negative',per:'2026-01-29',sev:'High',rat:'Pan-India expansion facing competitive barriers in non-South markets',conf:'verified',ev:[{q:'Non-South markets contribution increasing but growth (2.8% YoY in Q2) lag South (4.3%); Havells, Crompton, Bajaj stronger in non-South; V-Guard facing customer reach constraints',src:'MD Commentary',ref:''}]},
+          {r:14,ind:'Operations',sig:'Manufacturing capacity utilization lower than industry standard',st:'Negative',per:'2026-01-29',sev:'High',rat:'Manufacturing capacity utilization lower than industry standard',conf:'verified',ev:[{q:'Current in-house manufacturing at 40-50% of sales; target 70-80% over 2 years; implies current excess capacity or outsourcing bias; capex plan (₹100 Cr Fan factory) to improve',src:'MD Commentary & Capex Plans',ref:''}]},
+          {r:15,ind:'Cash Flow',sig:'Working capital intensity increasing with revenue expansion',st:'Negative',per:'2025-12-31',sev:'High',rat:'Working capital intensity increasing with revenue expansion',conf:'verified',ev:[{q:'Working capital turnover 53 days (9/30/25) though improved from 68 days (6/30/25); inventory 97 days, debtor 23 days, creditor 67 days - typical for distributor model',src:'Balance Sheet Metrics',ref:''}]},
+          {r:16,ind:'Product Category',sig:'BLDC fan market share shift creating pricing pressure',st:'Negative',per:'2026-01-29',sev:'High',rat:'BLDC fan market share shift creating pricing pressure',conf:'verified',ev:[{q:'BLDC fans gaining share; induction motors declining; BEE norms driving transition; V-Guard management expects \'steady increasing\' BLDC adoption but \'not 100%\' migration; margin pressure in transition',src:'Q3 FY26 Call & Market Overview',ref:''}]},
+          {r:17,ind:'Integration Risk',sig:'Sunflame margin target ambitious requiring significant operational improvements',st:'Negative',per:'2026-01-29',sev:'Medium',rat:'Sunflame margin target ambitious requiring significant operational improvements',conf:'verified',ev:[{q:'12% EBIT margin target in 2-3 years requires 400-500 bps improvement from 3-7% current; needs CSD stabilization, product refresh completion, cost synergies, and sales scaling',src:'Q1-Q3 FY26 Calls',ref:''}]},
+          {r:18,ind:'Competitive Threat',sig:'Private label competition disrupting traditional appliance distribution',st:'Negative',per:'2026-01-29',sev:'Medium',rat:'Private label competition disrupting traditional appliance distribution',conf:'verified',ev:[{q:'Amazon Basics, Flipkart Smart Furnish gaining share in fans, coolers, commodity segments; traditional brands facing margin pressure; differentiation through design and features critical',src:'MD Commentary',ref:''}]},
+          {r:19,ind:'Cost Structure',sig:'Employee cost inflation from ESOS grants impacting bottom line',st:'Negative',per:'2025-12-31',sev:'Medium',rat:'Employee cost inflation from ESOS grants impacting bottom line',conf:'verified',ev:[{q:'Multiple ESOS grants issued in FY26 (213K, 345K, 78K options); dilution to EPS but long-term talent retention benefit; annual ESOS dilution ~1-2% of share capital',src:'ESOS Allotments',ref:''}]},
+          {r:20,ind:'Market Dynamics',sig:'Water Heater category attracting 20-30 new entrants eroding margins',st:'Negative',per:'2025-10-30',sev:'Medium',rat:'Water Heater category attracting 20-30 new entrants eroding margins',conf:'verified',ev:[{q:'Water Heaters market (₹3-4 Cr) seeing intense competition from new entrants; V-Guard 14-16% share but margin pressure evident; differentiation through premium positioning (Luxecube) in progress',src:'MD Commentary',ref:''}]},
+          {r:21,ind:'Strategic Investment',sig:'Gegadyne battery technology investment execution uncertain',st:'Negative',per:'2026-01-29',sev:'Medium',rat:'Gegadyne battery technology investment execution uncertain',conf:'verified',ev:[{q:'V-Guard invested in Gegadyne for battery storage opportunity; technology in commercialization phase; only small-quantity supplies starting (proof of concept); timeline uncertain; market viability unproven',src:'Q3 FY26 Call',ref:''}]},
+          {r:22,ind:'Digital Strategy',sig:'E-commerce channel development lagging vs competitors',st:'Negative',per:'2026-01-29',sev:'Medium',rat:'E-commerce channel development lagging vs competitors',conf:'verified',ev:[{q:'Sunflame e-commerce channel refresh ongoing (3-6 month timeline); direct-to-consumer initiatives limited; competitors (Havells, Bajaj, Crompton) have more mature e-commerce platforms',src:'Q1 FY26 Call & Sunflame Commentary',ref:''}]},
+          {r:23,ind:'Brand Strategy',sig:'Sunflame brand positioning decision still pending',st:'Watch',per:'2026-01-29',sev:'Medium',rat:'Sunflame brand positioning decision still pending',conf:'verified',ev:[{q:'Management evaluating \'point of view\' on Sunflame brand positioning; possibility of rebranding as \'Sunflame by V-Guard\' or sub-brand still under discussion; no final decision communicated',src:'Q1 FY26 & Q3 FY26 Calls',ref:''}]},
+          {r:24,ind:'Capex Execution',sig:'Capacity additions timeline (18-24 months) creating execution risk',st:'Negative',per:'2026-01-29',sev:'Medium',rat:'Capacity additions timeline (18-24 months) creating execution risk',conf:'verified',ev:[{q:'Fan manufacturing facility (Hyderabad): 18-month timeline from Jan 2025 approval (expected Q3 FY27); Battery Phase 2: 24-month timeline (expected Q1 FY28); delays could impact margin targets',src:'Board Approvals',ref:''}]},
+          {r:25,ind:'Channel Management',sig:'Sunflame CSD channel integration into GT/MT channels incomplete',st:'Negative',per:'2025-12-31',sev:'Medium',rat:'Sunflame CSD channel integration into GT/MT channels incomplete',conf:'verified',ev:[{q:'CSD channel weakness forcing shift to GT and MT channels; integration of Sunflame distribution into V-Guard network still in early stages; sales integration timeline unclear',src:'Q2-Q3 FY26 Calls',ref:''}]},
+          {r:26,ind:'Cost Volatility',sig:'Raw material commodity exposure creating EBITDA volatility',st:'Negative',per:'2026-01-29',sev:'Medium',rat:'Raw material commodity exposure creating EBITDA volatility',conf:'verified',ev:[{q:'Copper (Wires), Aluminium (Fans), Steel (Switches) exposure; recent copper spike requiring 20-30% price increases; volume impact uncertainty; margin bridge dependent on cost management',src:'MD Commentary',ref:''}]},
+          {r:27,ind:'Seasonality',sig:'Seasonality in core product categories limiting growth consistency',st:'Negative',per:'2026-01-29',sev:'Medium',rat:'Seasonality in core product categories limiting growth consistency',conf:'verified',ev:[{q:'60-70% of CD segment sales seasonal (Fans Q1-Q3; Water Heaters Q4-Q1); Weather dependency high (monsoons weak Q1 FY26, summer weakness); visibility limited',src:'Q1-Q3 Performance & MD Commentary',ref:''}]},
+          {r:28,ind:'Operations',sig:'Regional distributor complexity managing 1500+ branches',st:'Negative',per:'2026-01-29',sev:'Medium',rat:'Regional distributor complexity managing 1500+ branches',conf:'verified',ev:[{q:'Distribution network deep but complex; managing 1,500+ branches across diverse geographies, regulatory environments, and customer types; integration of Sunflame into network ongoing',src:'Management Commentary',ref:''}]},
+          {r:29,ind:'Strategy Risk',sig:'New category expansion (Lighting, Solar Pumps) requiring different GTM models',st:'Watch',per:'2026-01-29',sev:'Medium',rat:'New categories like Lighting and Solar Pumps require fundamentally different go-to-market models vs core electrical accessories; execution risk and resource diversion from core growth',conf:'verified',ev:[{q:'Lighting and Solar Pumps categories being developed with separate distribution and marketing strategies; early-stage traction but scale uncertain',src:'Q1-Q3 FY26 Calls',ref:''}]},
+          {r:30,ind:'Market Risk',sig:'Gegadyne battery storage market commercialization uncertain',st:'Watch',per:'2026-01-29',sev:'Medium',rat:'Gegadyne battery storage market commercialization uncertain',conf:'verified',ev:[{q:'Battery storage market emerging (₹1,000-2,000 Cr addressable by 2030); technology from Gegadyne not yet proven at commercial scale; competition from Exide, Luminous, Chinese entrants',src:'Q3 FY26 Call',ref:''}]}
+      ]
+    };
+
     // Add companies with EBITDA cards but no transcript signals yet
     if (!SIGNAL_DATA.bluestar) SIGNAL_DATA.bluestar = {name:"Blue Star",ticker:"BLUESTARCO",signals:[]};
-    if (!SIGNAL_DATA.orient) SIGNAL_DATA.orient = {name:"Orient Electric",ticker:"ORIENTELEC",signals:[]};
-    if (!SIGNAL_DATA.vguard) SIGNAL_DATA.vguard = {name:"V-Guard Industries",ticker:"VGUARD",signals:[]};
-    if (!SIGNAL_DATA.voltas) SIGNAL_DATA.voltas = {name:"Voltas",ticker:"VOLTAS",signals:[]};
     if (!SIGNAL_DATA.eurekaforb) SIGNAL_DATA.eurekaforb = {name:"Eureka Forbes",ticker:"EUREKAFORB",signals:[]};
     if (!SIGNAL_DATA.lgeindia) SIGNAL_DATA.lgeindia = {name:"LG Electronics India",ticker:"LGEINDIA",signals:[]};
+
+    
+    // ========== NARRATIVE DRIFT DETECTION ==========
+    var NARRATIVE_DRIFT = {
+      voltas: {
+        name: 'Voltas',
+        drifts: [
+          {topic:'Margin Recovery',q1:'Guided high single-digit UCP profitability with sequential improvement',q2:'Acknowledged "too many moving parts" \u2014 refused to quantify recovery timeline',shift:'retreat',severity:'critical',evidence:'Q1 FY25: "high single-digit profitability" vs Q3 FY26: "too soon to sort of quantify"',implication:'Management lost confidence in own margin guidance within 6 months'},
+          {topic:'Market Share Strategy',q1:'Positioned as India\u2019s #1 with 21.2% share; guided volume leadership',q2:'Share fell to 17.9%; pivoted to "balanced" volume-vs-margin stance',shift:'pivot',severity:'high',evidence:'Exit share: 21.2% (Jun 2024) \u2192 17.9% (Dec 2025)',implication:'Retreat from market leadership narrative signals structural competitive pressure'},
+          {topic:'Backward Integration Benefits',q1:'Chennai plant positioned as cost structure transformation \u2014 "significant" savings',q2:'No quantified savings disclosed; BOM costs up 8-9% despite backward integration',shift:'silence',severity:'high',evidence:'No specific backward integration savings quantified despite plant at 100% utilization',implication:'Capital deployed without visible margin benefit \u2014 execution gap or over-promise'},
+          {topic:'Leadership Transition',q1:'Pradeep Bakshi positioned as architect of growth strategy',q2:'Simultaneous MD + CFO + Head RAC replacement framed as "planned succession"',shift:'reframe',severity:'medium',evidence:'Triple leadership change within 6 months during worst performance period',implication:'Framing as "succession" masks urgency of performance-driven change'}
+        ]
+      },
+      orient: {
+        name: 'Orient Electric',
+        drifts: [
+          {topic:'EBITDA Margin Target',q1:'Guided double-digit EBITDA margins as medium-term target',q2:'Gross margin 29.8% vs 32-34% guidance; 300+ bps pressure acknowledged',shift:'retreat',severity:'critical',evidence:'Q2 FY26: "double-digit EBITDA" guidance vs Q3 FY26: GM 300 bps below own range',implication:'Margin target at risk before timeline even begins \u2014 credibility gap'},
+          {topic:'BLDC Transition',q1:'Positioned BLDC as premiumization and margin-accretive transition',q2:'Acknowledged PCB electronics = 50% of BLDC cost delta; margin accretion uncertain',shift:'pivot',severity:'high',evidence:'BLDC positioned as margin driver but cost structure reveals margin headwind',implication:'Premiumization narrative weakens if BLDC margins converge with induction'},
+          {topic:'Sanchay Savings Program',q1:'Guided Rs 80-100 Cr annual savings run-rate',q2:'Only Rs 43 Cr achieved in H1; Phase-2 initiatives unclear',shift:'retreat',severity:'medium',evidence:'50% run-rate shortfall at half-year mark; no Phase-2 specifics',implication:'Cost program underdelivering \u2014 management may need to reset targets'}
+        ]
+      },
+      vguard: {
+        name: 'V-Guard Industries',
+        drifts: [
+          {topic:'Revenue Growth Guidance',q1:'Guided 14-15% revenue growth for FY26 (beginning of year)',q2:'Withdrew guidance entirely; 9M growth only 4.2% \u2014 Q1 actually declined',shift:'retreat',severity:'critical',evidence:'FY26 guidance: 14-15% vs actual 9M: 4.2% YoY (Q1: -0.7%)',implication:'Guidance withdrawal is the strongest drift signal \u2014 management lost visibility'},
+          {topic:'Sunflame Integration',q1:'Positioned as transformational acquisition; 12% EBIT margin target',q2:'CSD channel weakness, product refresh delays, brand positioning still undecided',shift:'stall',severity:'high',evidence:'18+ months post-acquisition: EBIT 3-7% vs 12% target; brand decision pending',implication:'Integration stalling \u2014 target timeline may need 2x extension'},
+          {topic:'Stabilizer Market',q1:'Core category with 40-45% market share; steady revenue contributor',q2:'Acknowledged "structural decline" due to grid reliability improvements',shift:'pivot',severity:'high',evidence:'AC Stabilizer (50-55% of market) facing secular headwind',implication:'First time management acknowledged structural decline in flagship category'}
+        ]
+      },
+      bajaj: {
+        name: 'Bajaj Electricals',
+        drifts: [
+          {topic:'Turnaround Timeline',q1:'Post-EPC demerger positioned as clean consumer story with margin recovery path',q2:'Operating loss in Q3 FY26; Board pre-authorized minimum remuneration for anticipated losses',shift:'retreat',severity:'critical',evidence:'Q3 FY26 PBT: -Rs 20.28 Cr; Board resolution confirms full-year loss expectation',implication:'Turnaround narrative has completely collapsed \u2014 now in loss management mode'},
+          {topic:'Capacity Utilization',q1:'Invested in 10.8 Mn unit capacity for consumer products growth',q2:'Only 4.6 Mn produced \u2014 43% utilization creating fixed cost absorption crisis',shift:'silence',severity:'critical',evidence:'10.8 Mn installed vs 4.6 Mn produced = 57% idle capacity',implication:'Massive stranded assets \u2014 capex ROI near zero'},
+          {topic:'Retailer Network',q1:'Guided retailer base expansion as channel strategy',q2:'Retailer base declined 15% \u2014 channel shrinking during revenue decline',shift:'contradiction',severity:'high',evidence:'Retailer base declining 15% \u2014 opposite of guided expansion',implication:'Channel contraction amplifies revenue decline \u2014 vicious cycle risk'}
+        ]
+      },
+      symphony: {
+        name: 'Symphony Limited',
+        drifts: [
+          {topic:'Revenue Growth',q1:'Record FY25 with 24.3% standalone EBITDA margin; guided continued momentum',q2:'9M FY26 revenue down 30% YoY; margin collapsed to 14.4%',shift:'retreat',severity:'critical',evidence:'FY25 EBITDA 24.3% \u2192 9M FY26 14.4% (nearly 1000 bps decline)',implication:'Weather-dependent model creates extreme earnings volatility \u2014 structural issue'},
+          {topic:'International Portfolio',q1:'International subsidiaries positioned as growth diversification',q2:'CT Australia persistent losses; consolidated margin 490 bps below standalone',shift:'silence',severity:'high',evidence:'Consolidated EBITDA 490 bps below standalone = international value destruction',implication:'Management avoids discussing international losses \u2014 narrative omission'},
+          {topic:'Water Heater Expansion',q1:'Launched water heater category as seasonal hedge',q2:'90% of Rs 11 Cr Q3 marketing spend on water heaters; revenue contribution minimal',shift:'stall',severity:'medium',evidence:'Disproportionate A&P spend (90%) vs revenue contribution',implication:'New category consuming resources without proportional returns'}
+        ]
+      },
+      crompton: {
+        name: 'Crompton Greaves Consumer',
+        drifts: [
+          {topic:'EBITDA Margin Trajectory',q1:'FY25 margin of 11.66% positioned as sustainable baseline; guided expansion',q2:'9M FY26 margin compressed to 9.6%; acknowledged commodity headwinds',shift:'retreat',severity:'high',evidence:'FY25: 11.66% (peak) \u2192 9M FY26: 9.6% (-206 bps)',implication:'Peak margin was cyclical, not structural \u2014 reset expectations needed'},
+          {topic:'Butterfly Integration',q1:'Integration positioned as regional expansion play into South India',q2:'Butterfly EBITDA only 8.2%; still sub-scale after 2+ years',shift:'stall',severity:'medium',evidence:'Butterfly EBITDA improved 7.2% \u2192 8.2% but remains well below Crompton parent margins',implication:'Integration value creation slower than implied at acquisition'}
+        ]
+      },
+      havells: {
+        name: 'Havells India',
+        drifts: [
+          {topic:'Lloyd Segment',q1:'Lloyd positioned as high-growth engine; guided margin normalization to peers',q2:'Lloyd margin only 2.6% despite 35% growth \u2014 widening gap to segment average',shift:'stall',severity:'high',evidence:'Lloyd 23.6% of revenue at 2.6% margin vs segment average >8%',implication:'Fastest growing segment is margin-dilutive \u2014 structural mix problem'},
+          {topic:'Cables Capacity',q1:'Cables positioned as margin anchor with stable high utilization',q2:'Operating at 90-100% \u2014 supply-constrained, limiting growth of highest-margin segment',shift:'pivot',severity:'medium',evidence:'Cables at 90-100% utilization with no disclosed expansion timeline',implication:'Revenue cap on most profitable segment while investing in low-margin Lloyd'}
+        ]
+      },
+      whirlpool: {
+        name: 'Whirlpool of India',
+        drifts: [
+          {topic:'Parent Relationship',q1:'Parent (Whirlpool Corp) at 51% positioned as strategic anchor',q2:'Parent reduced to 40%, targeting ~20% \u2014 BLA/TLA renegotiation critical',shift:'pivot',severity:'critical',evidence:'51% \u2192 40% \u2192 ~20% parent equity dilution; brand license pivoted to 30-year deal',implication:'Autonomy narrative masks loss of parent operational support'},
+          {topic:'PBT Performance',q1:'Reported PBT decline of -44.5%',q2:'Underlying PBT actually +21% after Rs 39 Cr wage code provision stripped out',shift:'reframe',severity:'medium',evidence:'Reported -44.5% vs underlying +21% \u2014 one-time distortion',implication:'Management needs clearer disclosure of underlying vs reported performance'}
+        ]
+      },
+      dixon: {
+        name: 'Dixon Technologies',
+        drifts: [
+          {topic:'Margin Structure',q1:'Positioned as high-ROCE model despite thin margins; guided component mix shift',q2:'EBITDA declined from 5.2% (FY20) to 3.9% (Q3 FY26) \u2014 trend continuing',shift:'silence',severity:'high',evidence:'5 years of continuous margin compression positioned as "deliberate"',implication:'Deliberate or not, 3.9% EBITDA leaves near-zero margin of safety'},
+          {topic:'JV Strategy',q1:'Each JV announced individually as targeted capability addition',q2:'4 simultaneous JVs executing \u2014 bandwidth and capital allocation risk',shift:'escalation',severity:'high',evidence:'HKC display + Loncheer mobile + Q Tech camera + Inventec IT \u2014 all simultaneous',implication:'Each JV is individually sound; collectively they create execution concentration risk'}
+        ]
+      }
+    };
+
+    // ========== ABSENCE DETECTION (WHAT THEY'RE NOT SAYING) ==========
+    var ABSENCE_SIGNALS = {
+      voltas: {
+        name: 'Voltas',
+        absences: [
+          {topic:'Import Dependency %',category:'Cost Structure',significance:'critical',context:'Copper is the largest BOM item; INR depreciation directly impacts import-heavy components. No overall import dependency % disclosed.',implication:'Cannot model currency risk or compare localization progress vs competitors (Havells disclosed <8%)'},
+          {topic:'Voltbek Standalone Losses',category:'Subsidiary Performance',significance:'critical',context:'Rs 1,500 Cr capital deployed in Voltbek JV. JV P&L consolidated in parent \u2014 standalone EBITDA and losses never disclosed.',implication:'True cash drain masked \u2014 investors and advisors cannot calculate ROI on JV investment'},
+          {topic:'Backward Integration Savings Quantum',category:'Operational',significance:'high',context:'Chennai plant positioned as cost transformation anchor. No specific savings figure disclosed despite reaching 100% utilization.',implication:'Cannot validate capex ROI or benchmark against competitor manufacturing economics'}
+        ]
+      },
+      orient: {
+        name: 'Orient Electric',
+        absences: [
+          {topic:'Segment-wise EBITDA Margins',category:'Financial',significance:'critical',context:'Only consolidated EBITDA disclosed. No breakdown between ECD (Fans), Lighting, Switchgear, or Heating segments.',implication:'Impossible to identify which segments are margin-accretive vs dilutive \u2014 hidden cross-subsidization risk'},
+          {topic:'Market Share by Category',category:'Market Position',significance:'high',context:'No market share data for fans, lighting, switchgear, or heating disclosed individually.',implication:'Cannot assess competitive positioning in any single category \u2014 narrative of "gains" unverifiable'},
+          {topic:'Product-wise Revenue Mix',category:'Mix Analysis',significance:'high',context:'Ceiling fans vs TPW vs Lighting vs Heating \u2014 no percentage breakdowns provided.',implication:'Revenue concentration risk unquantifiable \u2014 critical for assessing category-specific vulnerability'}
+        ]
+      },
+      vguard: {
+        name: 'V-Guard Industries',
+        absences: [
+          {topic:'Product-level Margins',category:'Financial',significance:'critical',context:'Cannot determine which product categories are most profitable \u2014 only segment averages available.',implication:'Portfolio optimization blocked without category profitability data'},
+          {topic:'Sunflame Acquisition Price & Terms',category:'M&A',significance:'high',context:'Deal economics not disclosed; using performance metrics to infer valuation.',implication:'Cannot determine if integration value creation target is realistic relative to acquisition premium'},
+          {topic:'Capacity Utilization Rates',category:'Operational',significance:'high',context:'Not disclosed for any manufacturing facility. Only inferrable from "40-50% in-house manufacturing" statement.',implication:'Cannot assess operational leverage potential or identify excess capacity risk'}
+        ]
+      },
+      bajaj: {
+        name: 'Bajaj Electricals',
+        absences: [
+          {topic:'Category-wise Profitability',category:'Financial',significance:'critical',context:'Consumer Products at 43% utilization but no category-level margin data. Which products are profitable? Which are draining cash?',implication:'Turnaround prioritization impossible without category-level P&L'},
+          {topic:'Sales Process Transformation Plan',category:'Strategy',significance:'high',context:'Chairman acknowledged "sales process weak" for multiple years \u2014 but no remediation plan details disclosed.',implication:'The admission without a solution suggests structural organizational dysfunction'},
+          {topic:'Customer Acquisition Costs',category:'Digital',significance:'medium',context:'E-commerce growth mentioned but no CAC, LTV, or unit economics for online channel.',implication:'Online channel profitability unknown \u2014 may be growth at any cost'}
+        ]
+      },
+      symphony: {
+        name: 'Symphony Limited',
+        absences: [
+          {topic:'CT Australia Turnaround Plan',category:'International',significance:'critical',context:'CT Australia causing 490 bps consolidated EBITDA drag. No turnaround plan, timeline, or divestiture consideration discussed.',implication:'Management\u2019s silence on international losses suggests no viable turnaround strategy exists'},
+          {topic:'Rs 58 Cr Fraud Root Cause',category:'Governance',significance:'critical',context:'Rs 58 Cr fraud exposure at IMPCO Mexico \u2014 root cause analysis and control remediation not disclosed.',implication:'Governance gap in international operations; fraud risk in other subsidiaries unaddressed'},
+          {topic:'Seasonal Hedging Strategy',category:'Risk Management',significance:'high',context:'Revenue is entirely weather-dependent (100% asset-light cooler model) \u2014 no hedging, insurance, or seasonal risk management discussed.',implication:'Structural earnings volatility with no mitigation \u2014 annual results unpredictable'}
+        ]
+      },
+      crompton: {
+        name: 'Crompton Greaves Consumer',
+        absences: [
+          {topic:'Baroda Plant VRS Total Cost',category:'Restructuring',significance:'high',context:'VRS announced with Rs 20.36 Cr exceptional charge. Total program cost and expected annual savings not disclosed.',implication:'Cannot calculate payback period or validate restructuring economics'},
+          {topic:'UNNATI Program Savings Quantum',category:'Procurement',significance:'high',context:'Multi-sourcing program discussed qualitatively (+10% savings mentioned) but no absolute savings quantum disclosed.',implication:'Cannot benchmark procurement efficiency or track program ROI'},
+          {topic:'B2B Lighting Customer Pipeline',category:'Revenue Quality',significance:'medium',context:'Lighting B2B pivot (EBIT +480 bps to 15.5%) is margin positive but project pipeline and customer concentration not disclosed.',implication:'Revenue quality and sustainability of B2B lighting margin expansion unknown'}
+        ]
+      },
+      havells: {
+        name: 'Havells India',
+        absences: [
+          {topic:'Lloyd Path-to-Profitability',category:'Segment Strategy',significance:'critical',context:'Lloyd is 23.6% of revenue at 2.6% margin. No disclosed timeline for margin normalization to peer level (8%+).',implication:'Largest growth driver is largest margin drag \u2014 no visibility on when this resolves'},
+          {topic:'Cables Capacity Expansion Plan',category:'Capacity',significance:'high',context:'Cables at 90-100% utilization \u2014 highest-margin segment is supply-constrained. No expansion plan disclosed.',implication:'Revenue cap on most profitable segment; growth optionality blocked'},
+          {topic:'Switchgear Margin Decline Root Cause',category:'Profitability',significance:'high',context:'Switchgear EBIT margin declined 400 bps (26.5% to 22.5%) \u2014 no explanation provided.',implication:'Unexplained margin erosion in a traditionally high-margin segment \u2014 competitive or mix issue?'}
+        ]
+      },
+      whirlpool: {
+        name: 'Whirlpool of India',
+        absences: [
+          {topic:'TSA Transition Cost & Timeline',category:'Independence',significance:'critical',context:'Technology Services Agreement with parent expires 2028-29. No transition plan, cost estimate, or replacement strategy disclosed.',implication:'IT and supply chain independence deadline approaching with zero preparation visibility'},
+          {topic:'BLA/TLA Renegotiation Terms',category:'Brand License',significance:'critical',context:'30-year brand license secured but specific royalty rates, territory restrictions, and renegotiation triggers not disclosed.',implication:'Brand license economics are the most critical variable for standalone viability \u2014 completely opaque'},
+          {topic:'Elica Acquisition Integration Plan',category:'M&A',significance:'high',context:'100% Elica kitchen acquisition (Feb 2026) announced with no integration plan, synergy targets, or margin impact disclosed.',implication:'Strategic rationale unclear \u2014 acquiring while navigating parent exit adds complexity'}
+        ]
+      },
+      dixon: {
+        name: 'Dixon Technologies',
+        absences: [
+          {topic:'PLI Cliff Mitigation Strategy',category:'Revenue Risk',significance:'critical',context:'Mobile PLI expires Mar 2026 \u2014 Rs 150-200 Cr annual incentive at risk. No mitigation strategy or PLI renewal status disclosed.',implication:'Material earnings cliff approaching with no disclosed contingency'},
+          {topic:'JV Capital Requirements',category:'Capital Allocation',significance:'high',context:'4 simultaneous JVs (HKC, Loncheer, Q Tech, Inventec) \u2014 aggregate capital requirement and funding plan not disclosed.',implication:'Total JV capital commitment unknown \u2014 potential dilution or leverage increase risk'},
+          {topic:'Contract Manufacturing Customer Concentration',category:'Revenue Quality',significance:'high',context:'Top customer concentration for EMS contracts not disclosed. Mobile is 65-75% of revenue \u2014 likely high single-customer dependency.',implication:'Revenue concentration risk unquantified \u2014 loss of a single OEM contract could be existential'}
+        ]
+      }
+    };
+
+
+    
+
+    function driftFilterActive(btn) {
+      var bar = document.getElementById('driftFilterBar');
+      if (bar) bar.querySelectorAll('.drift-filter-btn').forEach(function(b){b.classList.remove('active');});
+      btn.classList.add('active');
+    }
+    function absenceFilterActive(btn) {
+      var bar = document.getElementById('absenceFilterBar');
+      if (bar) bar.querySelectorAll('.drift-filter-btn').forEach(function(b){b.classList.remove('active');});
+      btn.classList.add('active');
+    }
+
+    // ========== NARRATIVE DRIFT RENDERING ==========
+    var currentDriftCompany = 'all';
+    function renderNarrativeDrift(companyFilter) {
+      currentDriftCompany = companyFilter || 'all';
+      var container = document.getElementById('driftContainer');
+      if (!container) return;
+      
+      var companies = Object.keys(NARRATIVE_DRIFT);
+      if (companyFilter && companyFilter !== 'all') companies = [companyFilter];
+      
+      var shiftLabels = {retreat:'Narrative Retreat',pivot:'Strategic Pivot',silence:'Conspicuous Silence',reframe:'Data Reframing',stall:'Execution Stall',contradiction:'Direct Contradiction',escalation:'Risk Escalation'};
+      var shiftIcons = {retreat:'\u2B07',pivot:'\u21BB',silence:'\u2026',reframe:'\u2194',stall:'\u23F8',contradiction:'\u26A0',escalation:'\u2B06'};
+      
+      var html = '';
+      var totalDrifts = 0;
+      var critCount = 0;
+      var shiftCounts = {};
+      
+      companies.forEach(function(key) {
+        var d = NARRATIVE_DRIFT[key];
+        if (!d) return;
+        d.drifts.forEach(function(dr) {
+          totalDrifts++;
+          if (dr.severity === 'critical') critCount++;
+          shiftCounts[dr.shift] = (shiftCounts[dr.shift] || 0) + 1;
+        });
+      });
+      
+      // Summary bar
+      html += '<div class="drift-summary">';
+      html += '<span class="drift-stat"><span class="drift-stat-num">' + totalDrifts + '</span> narrative shifts detected</span>';
+      html += '<span class="drift-stat"><span class="drift-stat-num neg">' + critCount + '</span> critical</span>';
+      Object.keys(shiftCounts).forEach(function(s) {
+        html += '<span class="drift-chip drift-chip-' + s + '">' + (shiftIcons[s]||'') + ' ' + (shiftLabels[s]||s) + ' (' + shiftCounts[s] + ')</span>';
+      });
+      html += '</div>';
+      
+      companies.forEach(function(key) {
+        var d = NARRATIVE_DRIFT[key];
+        if (!d) return;
+        
+        html += '<div class="drift-company-block">';
+        html += '<div class="drift-company-header">' + d.name + ' <span class="drift-count">' + d.drifts.length + ' shifts</span></div>';
+        
+        d.drifts.forEach(function(dr) {
+          var sevClass = dr.severity === 'critical' ? 'badge-red' : dr.severity === 'high' ? 'badge-amber' : 'badge-low';
+          html += '<div class="drift-card drift-' + dr.shift + '">';
+          html += '<div class="drift-card-header">';
+          html += '<span class="drift-topic">' + dr.topic + '</span>';
+          html += '<span class="drift-shift-badge drift-badge-' + dr.shift + '">' + (shiftIcons[dr.shift]||'') + ' ' + (shiftLabels[dr.shift]||dr.shift) + '</span>';
+          html += '<span class="sev-badge ' + sevClass + '">' + dr.severity + '</span>';
+          html += '</div>';
+          html += '<div class="drift-comparison">';
+          html += '<div class="drift-before"><div class="drift-label">THEN</div><div class="drift-text">' + dr.q1 + '</div></div>';
+          html += '<div class="drift-arrow">\u2192</div>';
+          html += '<div class="drift-after"><div class="drift-label">NOW</div><div class="drift-text">' + dr.q2 + '</div></div>';
+          html += '</div>';
+          html += '<div class="drift-evidence"><strong>Evidence:</strong> ' + dr.evidence + '</div>';
+          html += '<div class="drift-implication"><strong>Implication:</strong> ' + dr.implication + '</div>';
+          html += '</div>';
+        });
+        html += '</div>';
+      });
+      
+      container.innerHTML = html;
+    }
+    
+    // ========== ABSENCE DETECTION RENDERING ==========
+    var currentAbsenceCompany = 'all';
+    function renderAbsenceSignals(companyFilter) {
+      currentAbsenceCompany = companyFilter || 'all';
+      var container = document.getElementById('absenceContainer');
+      if (!container) return;
+      
+      var companies = Object.keys(ABSENCE_SIGNALS);
+      if (companyFilter && companyFilter !== 'all') companies = [companyFilter];
+      
+      var html = '';
+      var totalAbsences = 0;
+      var critAbsences = 0;
+      var catCounts = {};
+      
+      companies.forEach(function(key) {
+        var a = ABSENCE_SIGNALS[key];
+        if (!a) return;
+        a.absences.forEach(function(ab) {
+          totalAbsences++;
+          if (ab.significance === 'critical') critAbsences++;
+          catCounts[ab.category] = (catCounts[ab.category] || 0) + 1;
+        });
+      });
+      
+      // Summary
+      html += '<div class="absence-summary">';
+      html += '<span class="absence-stat"><span class="absence-stat-num">' + totalAbsences + '</span> conspicuous silences</span>';
+      html += '<span class="absence-stat"><span class="absence-stat-num neg">' + critAbsences + '</span> critical gaps</span>';
+      var topCats = Object.entries(catCounts).sort(function(a,b){return b[1]-a[1];}).slice(0,4);
+      topCats.forEach(function(c) {
+        html += '<span class="absence-cat-chip">' + c[0] + ' (' + c[1] + ')</span>';
+      });
+      html += '</div>';
+      
+      companies.forEach(function(key) {
+        var a = ABSENCE_SIGNALS[key];
+        if (!a) return;
+        
+        html += '<div class="absence-company-block">';
+        html += '<div class="absence-company-header">' + a.name + ' <span class="absence-count">' + a.absences.length + ' gaps</span></div>';
+        
+        a.absences.forEach(function(ab) {
+          var sigClass = ab.significance === 'critical' ? 'absence-critical' : ab.significance === 'high' ? 'absence-high' : 'absence-medium';
+          html += '<div class="absence-card ' + sigClass + '">';
+          html += '<div class="absence-card-header">';
+          html += '<span class="absence-topic">' + ab.topic + '</span>';
+          html += '<span class="absence-cat">' + ab.category + '</span>';
+          html += '<span class="sev-badge ' + (ab.significance==='critical'?'badge-red':ab.significance==='high'?'badge-amber':'badge-low') + '">' + ab.significance + '</span>';
+          html += '</div>';
+          html += '<div class="absence-context">' + ab.context + '</div>';
+          html += '<div class="absence-implication"><strong>Why this matters:</strong> ' + ab.implication + '</div>';
+          html += '</div>';
+        });
+        html += '</div>';
+      });
+      
+      container.innerHTML = html;
+    }
+
 
     // ========== TRANSCRIPT INTEL STATE & RENDERING ==========
     var currentIntelCompany = 'dixon';
@@ -6076,6 +6575,8 @@
 
     // Initial render
     renderIntelSidebar();
+      renderNarrativeDrift('all');
+      renderAbsenceSignals('all');
     renderIntelContent();
 
     // ========== DEAL TYPE FILTER ==========
@@ -7053,7 +7554,7 @@
 
       // Count reports
       var reportCount = 0;
-      var reportCompanies = ['Havells','Bajaj','Amber','Crompton','Butterfly','Symphony','TTK Prestige','IFB'];
+      var reportCompanies = ['Havells','Bajaj','Amber','Crompton','Butterfly','Symphony','TTK Prestige','IFB','Voltas','Whirlpool','Dixon','Orient','V-Guard'];
       reportCount = reportCompanies.length;
 
       // Update meta
