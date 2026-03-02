@@ -126,7 +126,7 @@ This gap is **acceptable for the PoC** (static data is sufficient for A&M demo) 
 
 | Feature | Status | Notes |
 |---------|--------|-------|
-| Narrative drift detection | ⚠️ | NARRATIVE_DRIFT data exists for 7 companies; not yet surfaced as UI feature |
+| Narrative drift detection | ✅ | 10 companies, 28 shifts tracked; rendered in Transcript Intel section with filter buttons |
 | Absence detection | ❌ | Cross-company disclosure benchmarking |
 | Buyer-configurable matching | ❌ | Flexible service-line taxonomy mapping |
 | Multi-tier views (Partner/Director/Analyst) | ❌ | Separate dashboard modes |
@@ -175,7 +175,7 @@ This gap is **acceptable for the PoC** (static data is sufficient for A&M demo) 
 - ❌ Localization index benchmarking
 - ❌ Cost structure breakdown visualization
 - ❌ Multi-quarter trend analysis (only latest quarter + annual)
-- ❌ Narrative drift detection
+- ✅ Narrative drift detection (10 companies, 28 shifts in Transcript Intel)
 - ❌ Automated news/signal ingestion
 
 ---
@@ -201,7 +201,7 @@ This gap is **acceptable for the PoC** (static data is sufficient for A&M demo) 
 2. ~~**Backfill SIGNAL_DATA**~~ — ✅ Done (March 2, 2026) — Amber fixed, 14/16 rich
 3. ~~**Generate remaining intelligence reports**~~ — ✅ Done (March 2, 2026) — 14/16 in company folders
 4. ~~**Update CLAUDE.md**~~ — ✅ Done (March 2, 2026) — references index_v4.html
-5. **Surface narrative drift in UI** — NARRATIVE_DRIFT data exists for 7 companies but has no dedicated visualization
+5. ~~**Narrative drift in UI**~~ — ✅ Already built: 10 companies, 28 shifts, rendered in Transcript Intel with filters
 6. **Eureka Forbes & LG source documents** — Need transcripts/annual reports to generate intelligence reports
 7. **Backend integration** (Gap 5) — Only if moving beyond PoC to production
 8. **Advanced features** (Gap 6) — Absence detection, buyer-configurable matching, multi-tier views
