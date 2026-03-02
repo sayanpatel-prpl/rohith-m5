@@ -83,34 +83,27 @@ Blue Star, Voltas, Whirlpool, Dixon, Orient, V-Guard, Eureka Forbes, LG Electron
 ---
 
 ### Gap 2: SIGNAL_DATA Sparsity
-**Status**: ⚠️ Partially populated
-**Priority**: Medium
+**Status**: ✅ **CLOSED** (March 2, 2026)
 
-SIGNAL_DATA (the structured evidence vault with verbatim quotes, confidence levels, and source references) is only richly populated for ~6 companies. The remaining companies have empty or fallback-initialized signal arrays. This means the "View Evidence" button on opportunity cards shows nothing for ~10 companies.
-
-**Action**: Run `/intel` for remaining companies, or backfill SIGNAL_DATA from existing intelligence reports for the 8 companies that have reports.
+Investigation revealed 14/16 companies already had rich SIGNAL_DATA. Only Amber had malformed evidence fields (fixed — 27 entries replaced with verbatim quotes). Eureka Forbes and LG remain empty (no source documents available).
 
 ---
 
 ### Gap 3: Pain Point CSV Coverage
-**Status**: ⚠️ 2/8 companies
-**Priority**: Low
+**Status**: ✅ **CLOSED** (March 2, 2026)
 
-Only Havells and TTK Prestige have `*_Pain_Points_Ranked.csv` files. The other 6 companies with intelligence reports are missing this deliverable.
-
-**Action**: Re-run Phase 4 of `/intel` for Bajaj, Amber, Crompton, Butterfly, Symphony, IFB.
+All 14 companies with intelligence reports now have Pain Point CSVs in their company folders. The 8 primary companies had them under varying names (`*_Pain_Points_Ranked.csv`, `*_AM_severity_ranking.csv`, `*_AM_bizinterp_ranking.csv`). The 6 archived companies' CSVs were copied from the archive. Only Eureka Forbes and LG lack CSVs (no source documents).
 
 ---
 
 ### Gap 4: Intelligence Report Coverage
-**Status**: ⚠️ 8/16 companies
-**Priority**: Medium
+**Status**: ✅ **CLOSED** (March 2, 2026)
 
-8 companies lack deep intelligence reports. Their dashboard data (signalTaxonomy, SCI thesis, financials) was populated from lighter analysis, not full document ingestion.
+14/16 companies now have full intelligence reports in `rohith-m5/[Company]/` folders:
+- **8 primary**: Havells, Bajaj, Amber, Crompton, Butterfly, Symphony, TTK Prestige, IFB
+- **6 from archive**: Blue Star, Voltas, Whirlpool, Dixon, Orient, V-Guard (reports + pain point CSVs copied from archive to new company folders)
 
-**Missing reports**: Blue Star, Voltas, Whirlpool, Dixon, Orient, V-Guard, Eureka Forbes, LG Electronics India
-
-**Dependency**: Requires source documents (transcripts, annual reports) for each company. Some (LG) may have limited publicly available data.
+**Still missing** (no source documents available): Eureka Forbes, LG Electronics India
 
 ---
 
