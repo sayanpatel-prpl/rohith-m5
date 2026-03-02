@@ -126,7 +126,7 @@ This gap is **acceptable for the PoC** (static data is sufficient for A&M demo) 
 
 | Feature | Status | Notes |
 |---------|--------|-------|
-| Narrative drift detection | ❌ | Requires 6+ quarter transcript history per company |
+| Narrative drift detection | ⚠️ | NARRATIVE_DRIFT data exists for 7 companies; not yet surfaced as UI feature |
 | Absence detection | ❌ | Cross-company disclosure benchmarking |
 | Buyer-configurable matching | ❌ | Flexible service-line taxonomy mapping |
 | Multi-tier views (Partner/Director/Analyst) | ❌ | Separate dashboard modes |
@@ -187,35 +187,37 @@ This gap is **acceptable for the PoC** (static data is sufficient for A&M demo) 
 | **index_v4.html** | `rohith-m5/index_v4.html` | Active dashboard (869KB) |
 | **index_v3.html** | `rohith-m5/index_v3.html` | Previous version (682KB) — superseded |
 | **PLAN.md** | `rohith-m5/PLAN.md` | Phase 1 implementation roadmap — mostly complete |
-| **CLAUDE.md** | `rohith-m5/CLAUDE.md` | Architecture reference — **OUTDATED**, references index.html |
+| **CLAUDE.md** | `rohith-m5/CLAUDE.md` | Architecture reference — updated to reference index_v4.html |
 | **intel.md** (root) | `.claude/commands/intel.md` | Intel skill — references index_v4.html |
 | **intel.md** (project) | `rohith-m5/.claude/commands/intel.md` | Intel skill — references index_v4.html |
-| **Intelligence Reports** | `rohith-m5/[Company]/` | 8 companies have full reports |
+| **Intelligence Reports** | `rohith-m5/[Company]/` | 14 companies have full reports + pain point CSVs |
 | **requirements-v2.md** | `rohith-m5/../` | Strategic requirements & 10 KPIs |
 
 ---
 
 ## Recommended Next Actions (Priority Order)
 
-1. **Run Cross-Company Synthesis** (Gap 1) — Execute Phase 6.5 of `/intel` to generate `Cross_Company_Synthesis.md`. High impact, low effort.
-
-2. **Backfill SIGNAL_DATA** (Gap 2) — Populate evidence vault for the 8 companies that have intelligence reports but sparse SIGNAL_DATA.
-
-3. **Generate remaining intelligence reports** (Gap 4) — Run `/intel` for Blue Star, Voltas, Whirlpool, Dixon, Orient, V-Guard (source documents permitting).
-
-4. **Update CLAUDE.md** — Currently references `index.html` (v1). Should reference `index_v4.html`.
-
-5. **Backend integration** (Gap 5) — Only if moving beyond PoC to production.
+1. ~~**Run Cross-Company Synthesis**~~ — ✅ Done (March 2, 2026)
+2. ~~**Backfill SIGNAL_DATA**~~ — ✅ Done (March 2, 2026) — Amber fixed, 14/16 rich
+3. ~~**Generate remaining intelligence reports**~~ — ✅ Done (March 2, 2026) — 14/16 in company folders
+4. ~~**Update CLAUDE.md**~~ — ✅ Done (March 2, 2026) — references index_v4.html
+5. **Surface narrative drift in UI** — NARRATIVE_DRIFT data exists for 7 companies but has no dedicated visualization
+6. **Eureka Forbes & LG source documents** — Need transcripts/annual reports to generate intelligence reports
+7. **Backend integration** (Gap 5) — Only if moving beyond PoC to production
+8. **Advanced features** (Gap 6) — Absence detection, buyer-configurable matching, multi-tier views
 
 ---
 
 ## Summary
 
-The dashboard has successfully transformed from a **knowledge repository** to an **insight-first engagement discovery tool**. The A&M feedback that triggered the 8-step plan has been substantially addressed:
+The dashboard has successfully transformed from a **knowledge repository** to an **insight-first engagement discovery tool**. The A&M feedback that triggered the 8-step plan has been **fully addressed** as of March 2, 2026:
 
-- Users now land on signal-driven opportunity cards (not a data table)
+- Users land on signal-driven opportunity cards (not a data table)
 - Every company has a structured SCI engagement thesis
 - Signal taxonomy maps companies to A&M service lines
 - Product-market peer groups enable cross-category comparison
+- 14/16 companies have full intelligence reports, pain point CSVs, and rich SIGNAL_DATA
+- Cross-company synthesis generated from all 14 reports
+- CLAUDE.md updated to reflect v4 architecture
 
-**Remaining work is incremental**: executing the cross-company synthesis, filling data gaps, and expanding company coverage. The core architectural transformation is complete.
+**Phase 1 is complete.** Remaining work is Phase 2 (narrative drift UI, advanced features) or sourcing data for the 2 missing companies.
