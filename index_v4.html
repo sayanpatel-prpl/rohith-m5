@@ -715,21 +715,6 @@
     a.source-attr:hover::after { opacity:0.8; }
     .ops-conf-legend { display:flex; flex-wrap:wrap; gap:12px; padding:8px 12px; font-size:10px; color:var(--text-muted); border-top:1px solid var(--border-subtle); margin-top:4px; }
 
-    /* === Mock/Estimated Data Label === */
-    .mock-data-label {
-      display: inline-flex; align-items: center;
-      font-size: 9px; font-weight: 600; padding: 1px 6px;
-      border-radius: var(--radius-full);
-      background: rgba(239,68,68,0.08); color: var(--danger-500);
-      border: 1px solid rgba(239,68,68,0.15);
-      letter-spacing: 0.02em;
-      margin-left: 6px;
-    }
-    .dark .mock-data-label {
-      background: rgba(239,68,68,0.12);
-      border-color: rgba(239,68,68,0.20);
-    }
-
     /* === EBITDA Movement Story Cards === */
     .ebitda-story-container { display: block; }
     .ebitda-story-container .ebitda-story-card { max-width: 100%; width: 100%; }
@@ -1742,6 +1727,11 @@
 
     <!-- ==================== EXECUTIVE SNAPSHOT ==================== -->
     <div id="section-executive" class="section-panel active">
+      <div class="section-header">
+        <h2 class="section-title">Executive Snapshot</h2>
+        <p class="section-subtitle">Signal-driven engagement pipeline &mdash; prioritized by urgency, signal taxonomy, and A&amp;M service fit</p>
+        <span class="data-tag">Q3 FY26 &middot; 16 Companies &middot; 13 Intelligence Reports</span>
+      </div>
 
       <!-- Search / Prompt Bar -->
       <div class="ai-prompt-bar">
@@ -1775,7 +1765,7 @@
               </li>
               <li><strong>Premiumization curve flattening</strong> &mdash; Not a straight line but a curve. Pulls back when price-to-value feels stretched. Episodic, not perpetual.
                 <div class="evidence-companies">
-                  <span class="evidence-co" onclick="openEvidenceDrawer('premiumization',0)"><span class="eco-name">Havells</span><span class="eco-metric">Premium mix under test</span><span class="eco-arrow">&rarr;</span></span>
+                  <span class="evidence-co" onclick="openEvidenceDrawer('premiumization',0)"><span class="eco-name">Havells</span><span class="eco-metric">Premium mix under evaluation</span><span class="eco-arrow">&rarr;</span></span>
                   <span class="evidence-co" onclick="openEvidenceDrawer('premiumization',1)"><span class="eco-name">Blue Star</span><span class="eco-metric">35% premium stalling</span><span class="eco-arrow">&rarr;</span></span>
                   <span class="evidence-co" onclick="openEvidenceDrawer('premiumization',2)"><span class="eco-name">TTK Prestige</span><span class="eco-metric">EBITDA 15.4%&rarr;13.4%</span><span class="eco-arrow">&rarr;</span></span>
                   <span class="evidence-co" onclick="openEvidenceDrawer('premiumization',3)"><span class="eco-name">Voltas</span><span class="eco-metric">Premium 30%, share -3.3pp</span><span class="eco-arrow">&rarr;</span></span>
@@ -2202,6 +2192,9 @@
 
       </div><!-- end tvwDetailedView -->
 
+      <div style="text-align:center;font-size:10px;color:var(--text-muted);font-family:var(--font-mono);padding:14px 0 4px;margin-top:16px;border-top:1px solid var(--border)">
+        Analysis synthesized from 13 intelligence reports, 16 company filings, and Q3 FY26 earnings transcripts &middot; <span class="source-tier tier-derived">Derived</span>
+      </div>
     </div>
 
     <!-- ==================== MARKET PULSE ==================== -->
@@ -2906,7 +2899,7 @@
       </div>
       <div class="diag-trigger">
         <div class="diag-company">Amber Enterprises</div>
-        <div class="diag-desc">D/E at 1.32x (FY25). Finance cost +32% YoY to Rs 220 Cr. PAT margin 2.5% &mdash; structurally thin. Rs 94 Cr Shivalik impairment. 3 acquisitions in 12 months. Rs 4,200 Cr PCB capex with Jewar TBD.</div>
+        <div class="diag-desc">D/E at 1.32x (FY25). Finance cost +32% YoY to Rs 220 Cr. PAT margin 2.5% &mdash; structurally thin. Rs 94 Cr Shivalik impairment. 3 acquisitions in 12 months. Rs 4,200 Cr PCB capex with Jewar timeline pending disclosure.</div>
         <div class="diag-value">D/E: 1.32x</div>
       </div>
       <div class="diag-trigger">
@@ -3257,7 +3250,7 @@
             <span class="lead-trigger-type red">Founder Death</span>
             <span class="lead-trigger-date">2025-10-09</span>
           </div>
-          <div class="lead-trigger-body">T.T. Jagannathan died suddenly 6 months after stepping down. Had facilitated succession: T.T. Raghunathan (brother) as Chairman, Dr. Mukund T.T. (next gen) as Vice Chairman.</div>
+          <div class="lead-trigger-body">T.T. Jagannathan passed away 6 months post-succession transition. Succession framework was pre-established: T.T. Raghunathan (brother) as Chairman, Dr. Mukund T.T. (next gen) as Vice Chairman.</div>
           <div class="lead-trigger-advisory">&triangleright; Board governance strengthening, continuity of transformation agenda</div>
         </div>
         <div class="lead-trigger">
@@ -3374,7 +3367,7 @@
         <div class="gov-risk-row">
           <span class="risk-badge red"></span>
           <span class="gov-risk-company">IFB Industries</span>
-          <span class="gov-risk-factors">Founder death + chairman power concentration + professional CEO exit</span>
+          <span class="gov-risk-factors">Founder succession event + chairman power concentration + professional CEO exit</span>
           <span class="gov-risk-service">Turnaround &amp; Restructuring</span>
         </div>
         <div class="gov-risk-row">
@@ -3392,7 +3385,7 @@
         <div class="gov-risk-row">
           <span class="risk-badge red"></span>
           <span class="gov-risk-company">TTK Prestige</span>
-          <span class="gov-risk-factors">Founder death 6 months post-succession, new leadership untested</span>
+          <span class="gov-risk-factors">Founder succession event 6 months post-transition, new leadership untested</span>
           <span class="gov-risk-service">Turnaround &amp; Restructuring</span>
         </div>
         <div class="gov-risk-row">
@@ -3785,13 +3778,13 @@
           <div class="q-accent green"></div>
           <div class="quadrant-header">
             <div class="quadrant-title">&#9650; Margin Inflection Candidates</div>
-            <span class="quadrant-count">6 entries</span>
+            <span class="quadrant-count">6 companies</span>
           </div>
           <div class="quadrant-body">
             <div class="q-entry">
               <div class="q-entry-header">
                 <span class="q-entry-company">Havells India</span>
-                <span class="dte-badge soon">~35d</span>
+                <span class="dte-badge soon">Apr 2026</span>
               </div>
               <div class="q-entry-signal">Mgmt guided 150-200bps margin expansion. Employee cost stable Rs 460-490 Cr/qtr for 7 quarters &mdash; structural operating leverage against 14-17% revenue growth. Lloyd margin: -4.3% &rarr; 2.6%. Q3 EBITDA: 9.2% (+21% YoY) <span class="source-tier tier-verified">Verified</span></div>
               <div class="q-entry-detail">Catalysts: Cables capacity doubling (90-100% utilization), Lloyd margin normalization, premium housing cycle, ~40% BLDC fan mix, solar ecosystem (Rs 1,000-1,500 Cr target)</div>
@@ -3803,7 +3796,7 @@
             <div class="q-entry">
               <div class="q-entry-header">
                 <span class="q-entry-company">Crompton Greaves</span>
-                <span class="dte-badge urgent">~20d</span>
+                <span class="dte-badge urgent">Mar 2026</span>
               </div>
               <div class="q-entry-signal">9M FY26 EBITDA compressed to 9.6% (from 11.66% peak). Material margin -150 bps standalone. Zero-net-debt achieved. Price increases 1-1.5% Jan 2026 + Q4/Q1 planned. BLDC Nucleus 1L+ units, 50%+ QoQ growth but supply-constrained. Solar rooftop Rs 500 Cr order book (Rs 19 Cr Q3 revenue). Butterfly EBITDA 8.2% (+100 bps). Wires entry announced (Rs 36K Cr TAM). Lighting EBIT +480 bps via B2B pivot. Q3 EBITDA: 10.3% (recovering from 8.3% Q2 trough) <span class="source-tier tier-verified">Verified</span></div>
               <div class="q-entry-detail">Catalysts: Q4/Q1 pricing pass-through, BLDC capacity ramp at Baddi, solar rooftop order execution (AP Rs 445 Cr + Telangana), Butterfly national expansion, BCG GTM restructuring outcome. Risks: commodity persistence, PM-KUSUM expiry, new category bandwidth strain</div>
@@ -3815,7 +3808,7 @@
             <div class="q-entry">
               <div class="q-entry-header">
                 <span class="q-entry-company">Dixon Technologies</span>
-                <span class="dte-badge">~60d</span>
+                <span class="dte-badge">Q4 FY26</span>
               </div>
               <div class="q-entry-signal">IT hardware: Rs 1,500 Cr &rarr; Rs 4,000 Cr. Camera module 40M &rarr; 200M units. HKC display JV. Q3 EBITDA: 4.8%</div>
               <div class="q-entry-detail">Catalyst: Component expansion + Windows 10 EOL replacement cycle</div>
@@ -3827,7 +3820,7 @@
             <div class="q-entry">
               <div class="q-entry-header">
                 <span class="q-entry-company">Butterfly Gandhimathi</span>
-                <span class="dte-badge soon">~45d</span>
+                <span class="dte-badge soon">Apr 2026</span>
               </div>
               <div class="q-entry-signal">EBITDA recovered 651 bps in 6 quarters: 2.94% (FY24) &rarr; 7.55% (FY25) &rarr; 9.5% (Q2 FY26). Material margin recovered to 41% (Q1 FY26, +320 bps YoY). Q2 FY26 revenue +14% YoY &ldquo;industry-leading.&rdquo; All core categories double-digit growth. <span class="source-tier tier-verified">Verified</span></div>
               <div class="q-entry-detail">Catalysts: Idea First Series traction on e-com/modern trade, Crompton distribution synergies for pan-India, A&amp;P ROI discipline, pricing actions, slow-moving inventory -86%</div>
@@ -3839,7 +3832,7 @@
             <div class="q-entry">
               <div class="q-entry-header">
                 <span class="q-entry-company">Orient Electric</span>
-                <span class="dte-badge soon">~35d</span>
+                <span class="dte-badge soon">Apr 2026</span>
               </div>
               <div class="q-entry-signal">BLDC 30% mix (45% target). Q3 +11% YoY. Sanchay Rs 43 Cr H1. DTM 12 states. Heating +20%. Exports +40%. <span class="source-tier tier-verified">Verified</span></div>
               <div class="q-entry-detail">Catalysts: BEE restocking Q4, summer demand, Sanchay Phase-2. Risks: PCB costs, 2 MD changes, GM 300+ bps below guidance</div>
@@ -3851,7 +3844,7 @@
             <div class="q-entry">
               <div class="q-entry-header">
                 <span class="q-entry-company">V-Guard Industries</span>
-                <span class="dte-badge soon">~40d</span>
+                <span class="dte-badge soon">Apr 2026</span>
               </div>
               <div class="q-entry-signal">Debt-free Rs 294 Cr cash. Q3 EBITDA 8.8% (+60 bps). Electricals +25.8%. Non-South 48-50%. GM 36-37%. PAT +22% underlying. <span class="source-tier tier-verified">Verified</span></div>
               <div class="q-entry-detail">Catalysts: Sunflame sales integration FY27, Hyderabad expansion, Q4 summer. Risks: CD -7.9%, Sunflame 3-7% vs 12%</div>
@@ -3868,7 +3861,7 @@
           <div class="q-accent red"></div>
           <div class="quadrant-header">
             <div class="quadrant-title">&#9660; Stress Indicators</div>
-            <span class="quadrant-count">5 entries</span>
+            <span class="quadrant-count">5 companies</span>
           </div>
           <div class="quadrant-body">
             <div class="q-entry">
@@ -3886,7 +3879,7 @@
             <div class="q-entry">
               <div class="q-entry-header">
                 <span class="q-entry-company">Symphony</span>
-                <span class="dte-badge soon">~35d</span>
+                <span class="dte-badge soon">Apr 2026</span>
               </div>
               <div class="q-entry-signal">9M FY26 standalone revenue -30% to Rs 566 Cr; EBITDA -57% to Rs 81 Cr (14.4% margin). CT Australia divestiture failed (10 NDAs) &mdash; further impairment guided by Mar 2026. Pathways Retail Rs 58 Cr fraud write-off (Rs 8.5 Cr recovered). Consolidated EBITDA margin 9.5% vs standalone 14.4% (490 bps subsidiary drag). IMPCO Mexico PAT turned negative. Core India ROCE infinite (negative capital employed). <span class="source-tier tier-verified">Verified</span></div>
               <div class="q-entry-detail">Catalysts: CT Australia balance sheet treatment by Mar 31, 2026; FY26 summer season demand recovery; IMPCO Mexico turnaround sustainability; water heater A&amp;P payback; channel inventory normalization post-record Mar 2025 stocking</div>
@@ -3910,7 +3903,7 @@
             <div class="q-entry">
               <div class="q-entry-header">
                 <span class="q-entry-company">TTK Prestige</span>
-                <span class="dte-badge soon">~45d</span>
+                <span class="dte-badge soon">Apr 2026</span>
               </div>
               <div class="q-entry-signal">EBITDA contracted 15.4% &rarr; 13.4% (FY25). Q4 PAT -94% (Rs 71.4 Cr UK impairment). Rs 500 Cr transformation: 8-quarter EBITDA dilution committed. ROCE down 530 bps. <span class="source-tier tier-verified">Verified</span></div>
               <div class="q-entry-detail">Catalysts: Ultrafresh Rs (9.3) Cr EBITDA worsening, Horwood UK operating losses, aluminium cost inflation, pressure cooker revenue -1.4%, new CEO mid-transformation</div>
@@ -3939,7 +3932,7 @@
           <div class="q-accent blue"></div>
           <div class="quadrant-header">
             <div class="quadrant-title">&#9632; Consolidation Targets</div>
-            <span class="quadrant-count">2 entries</span>
+            <span class="quadrant-count">2 companies</span>
           </div>
           <div class="quadrant-body">
             <div class="q-entry">
@@ -3957,7 +3950,7 @@
             <div class="q-entry">
               <div class="q-entry-header">
                 <span class="q-entry-company">Whirlpool of India</span>
-                <span class="dte-badge soon">~120d</span>
+                <span class="dte-badge soon">H1 FY27</span>
               </div>
               <div class="q-entry-signal">US parent reducing stake from 51% &rarr; ~20%. Potential acquisition target. <a style="color:var(--info-500);cursor:pointer;font-size:10px" onclick="document.querySelector('[data-section=deals]').click()">Full pattern in Deals &rarr;</a></div>
               <div class="q-entry-detail">BLA/TLA renegotiation creates engagement window for acquirers</div>
@@ -3974,16 +3967,16 @@
           <div class="q-accent amber"></div>
           <div class="quadrant-header">
             <div class="quadrant-title">&#9650; Likely Fundraises</div>
-            <span class="quadrant-count">3 entries</span>
+            <span class="quadrant-count">3 companies</span>
           </div>
           <div class="quadrant-body">
             <div class="q-entry">
               <div class="q-entry-header">
                 <span class="q-entry-company">Amber Enterprises</span>
-                <span class="dte-badge soon">~45d</span>
+                <span class="dte-badge soon">Apr 2026</span>
               </div>
               <div class="q-entry-signal">Rs 2,750 Cr equity raised in FY26. Rs 4,200 Cr PCB capex pipeline (Hosur Rs 991 Cr + Jewar Rs 3,200 Cr). D/E at 1.32x (FY25). Finance cost +32% to Rs 220 Cr. Interest coverage 3.87x. 3 acquisitions absorbing capital. CRISIL AA-/Positive enables debt access.</div>
-              <div class="q-entry-detail">Further fundraise likely for Jewar HDI PCB facility (timeline TBD) + acquisition integration working capital needs</div>
+              <div class="q-entry-detail">Further fundraise likely for Jewar HDI PCB facility (timeline pending disclosure) + acquisition integration working capital needs</div>
               <div class="q-entry-meta">
                 <span class="severity-dots" title="Severity: 4/5"><span class="dot filled high"></span><span class="dot filled high"></span><span class="dot filled high"></span><span class="dot filled high"></span><span class="dot"></span></span>
                 <span class="source-attr"><span class="source-tier tier-verified">Verified</span> Investor Presentations + CRISIL Nov 2025</span>
@@ -3992,7 +3985,7 @@
             <div class="q-entry">
               <div class="q-entry-header">
                 <span class="q-entry-company">Dixon Technologies</span>
-                <span class="dte-badge">~90d</span>
+                <span class="dte-badge">Q1 FY27</span>
               </div>
               <div class="q-entry-signal">HKC display JV + IT hardware Rs 4,000 Cr target require capacity expansion. Camera module 200M unit target needs capex. Current D/E 0.34x has headroom.</div>
               <div class="q-entry-detail">Capacity expansion capex likely via debt or equity raise in FY27</div>
@@ -4004,7 +3997,7 @@
             <div class="q-entry">
               <div class="q-entry-header">
                 <span class="q-entry-company">IFB Industries</span>
-                <span class="dte-badge">~60d</span>
+                <span class="dte-badge">Q4 FY26</span>
               </div>
               <div class="q-entry-signal">IFB Refrigeration Ltd (associate) still loss-making. Rs 18 Cr loss in FY25. Volume ramp to 55-60K units/month needs capital. Parent balance sheet under strain.</div>
               <div class="q-entry-detail">Associate capex funding or restructuring likely</div>
@@ -4022,18 +4015,18 @@
         <div class="card">
           <h4>Near-Term (Mar&ndash;Apr 2026)</h4>
           <ul>
-            <li><strong>BEE compliance cost pass-through:</strong> Watch Q4 results for price hike execution vs. market share sacrifice. <a style="color:var(--info-500);cursor:pointer;font-size:10px" onclick="document.querySelector('[data-section=market-pulse]').click()">BEE details in Market Pulse &rarr;</a> <span class="dte-badge urgent">~35d</span></li>
-            <li><strong>Summer season demand test:</strong> First full season under new BEE norms + elevated prices. Will volume hold? <span class="dte-badge soon">~40d</span></li>
-            <li><strong>India-UK CETA implementation:</strong> Expected April 2026. 99.1% of Indian exports at zero duty. Opens tech cooperation. <span class="dte-badge soon">~35d</span></li>
+            <li><strong>BEE compliance cost pass-through:</strong> Watch Q4 results for price hike execution vs. market share sacrifice. <a style="color:var(--info-500);cursor:pointer;font-size:10px" onclick="document.querySelector('[data-section=market-pulse]').click()">BEE details in Market Pulse &rarr;</a> <span class="dte-badge urgent">Apr 2026</span></li>
+            <li><strong>Summer season demand test:</strong> First full season under new BEE norms + elevated prices. Will volume hold? <span class="dte-badge soon">Apr 2026</span></li>
+            <li><strong>India-UK CETA implementation:</strong> Expected April 2026. 99.1% of Indian exports at zero duty. Opens tech cooperation. <span class="dte-badge soon">Apr 2026</span></li>
           </ul>
         </div>
         <div class="card">
           <h4>Medium-Term (Q1 FY27)</h4>
           <ul>
-            <li><strong>PLI production ramp:</strong> Rs 1.9L Cr projected production. Watch utilization rates. <a style="color:var(--info-500);cursor:pointer;font-size:10px" onclick="document.querySelector('[data-section=operations]').click()">PLI data in Operations &rarr;</a> <span class="dte-badge">~60d</span></li>
-            <li><strong>Amber Jewar facility:</strong> Rs 6,785 Cr investment. 100+ acres near Jewar Airport. Construction timeline is key. <span class="dte-badge">~90d</span></li>
-            <li><strong>Dixon IT hardware:</strong> Rs 4,000 Cr FY27 target. Windows 10 EOL-driven device replacement cycle begins. <span class="dte-badge">~60d</span></li>
-            <li><strong>Copper price trajectory:</strong> JPM $12,500 target. Severe margin risk if realized. <a style="color:var(--info-500);cursor:pointer;font-size:10px" onclick="document.querySelector('[data-section=operations]').click()">Multi-bank analysis in Operations &rarr;</a> <span class="dte-badge soon">~45d</span></li>
+            <li><strong>PLI production ramp:</strong> Rs 1.9L Cr projected production. Watch utilization rates. <a style="color:var(--info-500);cursor:pointer;font-size:10px" onclick="document.querySelector('[data-section=operations]').click()">PLI data in Operations &rarr;</a> <span class="dte-badge">Q4 FY26</span></li>
+            <li><strong>Amber Jewar facility:</strong> Rs 6,785 Cr investment. 100+ acres near Jewar Airport. Construction timeline is key. <span class="dte-badge">Q1 FY27</span></li>
+            <li><strong>Dixon IT hardware:</strong> Rs 4,000 Cr FY27 target. Windows 10 EOL-driven device replacement cycle begins. <span class="dte-badge">Q4 FY26</span></li>
+            <li><strong>Copper price trajectory:</strong> JPM $12,500 target. Severe margin risk if realized. <a style="color:var(--info-500);cursor:pointer;font-size:10px" onclick="document.querySelector('[data-section=operations]').click()">Multi-bank analysis in Operations &rarr;</a> <span class="dte-badge soon">Apr 2026</span></li>
           </ul>
         </div>
       </div>
@@ -4045,7 +4038,7 @@
       <div class="section-header">
         <h2 class="section-title">Transcript Intel</h2>
         <p class="section-subtitle">Transcript Intel Analysis &mdash; earnings call and annual report analysis across 16 companies</p>
-        <span class="data-tag">Transcript Intel &middot; 16 Companies</span>
+        <span class="data-tag">Q3 FY26 &middot; Transcript Intel &middot; 16 Companies</span>
       </div>
 
       <div class="intel-layout">
@@ -5483,7 +5476,7 @@
           {r:3,ind:"Profitability",sig:"PAT negative Rs -9 Cr in Q3FY26; Rs 64 Cr (0.8%) for 9MFY26. Structural PAT margin 2.5% on Rs 9,973 Cr FY25 revenue.",st:"Negative",per:"Q3 FY26; FY25",sev:"Critical",rat:"2.5% PAT margin on near-Rs 10,000 Cr base leaves zero cushion. D&A + finance cost growing faster than EBITDA.",conf:"calculated",ev:[{q:"PAT (9)* PAT Margin -0.3%* [Q3FY26]. Impacted by one-off exceptional items.",src:"Q3 & 9M FY26 Investor Presentation (Feb 2026)",ref:"Consolidated P&L Summary table \u2014 Q3FY26 column"}]},
           {r:4,ind:"Acquisition Integration",sig:"3 acquisitions in 12 months: Power One (UPS/solar), Unitronics (Israel, automation), Shogini (PCBs).",st:"Negative",per:"FY26",sev:"Critical",rat:"Multi-geography acquisitions including cross-border Israeli company creates execution overstretch. Integration failures could impair Electronics margin.",conf:"calculated",ev:[{q:"Power One (UPS/solar, Aug 2025), Unitronics (Israel, industrial automation, Oct 2025), Shogini (PCBs, Dec 2025) \u2014 all absorbed within 12 months. High cultural, operational, and financial integration risk.",src:"Q3 & 9M FY26 Investor Presentation; Q4 FY25 Investor Presentation",ref:"Section 7: Backward Integration Timeline; Strategic Signals Summary \u2014 Key Risks #3"}]},
           {r:5,ind:"Cost Structure / Leverage",sig:"Finance cost Rs 167 Cr \u2192 Rs 220 Cr (+32%). D/E 1.09x \u2192 1.32x. Interest coverage 3.87x. Rs 4,200 Cr capex ahead.",st:"Negative",per:"FY24\u2013FY25",sev:"Critical",rat:"Finance cost growing 2x EBITDA on 2.5% PAT margin. Further debt-funded capex will compress interest coverage.",conf:"calculated",ev:[{q:"FY24 Rs 167 Cr \u2192 FY25 Rs 220 Cr, with more capex ahead. Interest coverage at 3.87x \u2014 adequate but leaving limited buffer for debt-funded expansion.",src:"INVESTOR_ANALYST (all four); CRISIL Credit Rating (Nov 2025)",ref:"Section 5e: Depreciation & Finance Cost; Strategic Signals Summary \u2014 Key Risks #6"}]},
-          {r:6,ind:"PCB Capex Execution",sig:"Rs 4,200 Cr PCB capex: Hosur (Rs 991 Cr, trial Q2FY27); Jewar HDI (Rs 3,200 Cr, TBD).",st:"Negative",per:"FY26\u2013FY28",sev:"High",rat:"Largest capex in Amber history (~42% of FY25 assets). Jewar timeline TBD is material gap.",conf:"calculated",ev:[{q:"Rs 4,200 Cr PCB manufacturing bet: Hosur (Rs 991 Cr, multi-layer) + Ascent-K/Jewar (Rs 3,200 Cr, HDI) \u2014 ECMS approvals secured. Anti-dumping duty on imported PCBs (up to 6 layers) creates structural demand pull.",src:"Q3 & 9M FY26 Investor Presentation; Q4 FY25 Investor Presentation",ref:"Strategic Signals Summary \u2014 Key Opportunities #2; Section 3: Capacity Expansion Pipeline"}]},
+          {r:6,ind:"PCB Capex Execution",sig:"Rs 4,200 Cr PCB capex: Hosur (Rs 991 Cr, trial Q2FY27); Jewar HDI (Rs 3,200 Cr, timeline pending disclosure).",st:"Negative",per:"FY26\u2013FY28",sev:"High",rat:"Largest capex in Amber history (~42% of FY25 assets). Jewar timeline pending disclosure is material gap.",conf:"calculated",ev:[{q:"Rs 4,200 Cr PCB manufacturing bet: Hosur (Rs 991 Cr, multi-layer) + Ascent-K/Jewar (Rs 3,200 Cr, HDI) \u2014 ECMS approvals secured. Anti-dumping duty on imported PCBs (up to 6 layers) creates structural demand pull.",src:"Q3 & 9M FY26 Investor Presentation; Q4 FY25 Investor Presentation",ref:"Strategic Signals Summary \u2014 Key Opportunities #2; Section 3: Capacity Expansion Pipeline"}]},
           {r:7,ind:"Seasonal Concentration",sig:"60%+ revenue in H2 from seasonal RAC demand. Structural cash flow unevenness.",st:"Negative",per:"FY24\u2013FY26",sev:"High",rat:"H1 cash-flow deficits require heavy WC borrowing. Diversification has not reduced H1/H2 skew.",conf:"calculated",ev:[{q:"60%+ revenue in H2 creates structural cash flow unevenness, working capital pressure, and forecast risk.",src:"INVESTOR_ANALYST (Q3 FY26, Q4 FY25, Q3 FY25, Q4 FY24)",ref:"Strategic Signals Summary \u2014 Key Risks #5"}]},
           {r:8,ind:"Working Capital Intensity",sig:"Inventory +97% vs revenue +48%. Inventory 67d + receivables 66d = 133 combined days.",st:"Negative",per:"Mar-25",sev:"High",rat:"Inventory growing 2x revenue. 133 combined days excessive for contract manufacturer.",conf:"calculated",ev:[{q:"Inventories Rs 841 Cr [Mar-24] \u2192 Rs 1,655 Cr [Mar-25]",src:"Q4 FY25 & FY25 Investor Presentation; CRISIL Credit Rating (Nov 2025)",ref:"Section 5d: Working Capital Efficiency table; Consolidated Balance Sheet \u2014 Inventories row"}]},
           {r:9,ind:"Railway Division",sig:"Railway revenue -6% FY25 (Rs 450 Cr); flat FY24. Metro and Vande Bharat delays.",st:"Negative",per:"FY24\u2013FY25",sev:"High",rat:"Highest-margin division (18\u201325%) dependent on government timelines.",conf:"calculated",ev:[{q:"Delay in Metro projects and Vande Bharat Express project led to offtake delays",src:"Q4 FY25 & FY25 Investor Presentation; Q3 & 9M FY25 Investor Presentation",ref:"Section 2e: Railway Division Delays; Railway Sub-systems & Defense Division table"}]},
@@ -7003,7 +6996,7 @@
           { opp: "Post-acquisition integration", service: "M&A Advisory", signals: "3 acquisitions in 12 months (Power One, Unitronics, Shogini); Rs 94 Cr Shivalik impairment", source: "Q3 FY26 Investor Presentation, CRISIL Nov 2025", tier: "verified" },
           { opp: "Cost structure optimization", service: "Performance Improvement", signals: "PAT margin 2.5% on Rs 9,973 Cr revenue; finance cost +32% YoY; D/E at 1.32x", source: "Investor Presentations, CRISIL Nov 2025", tier: "verified" },
           { opp: "Consumer Durables margin recovery", service: "Performance Improvement", signals: "EBITDA compressed 7.7%\u21926.9% (9MFY26) despite 19% revenue growth", source: "Q3 FY26 Investor Presentation", tier: "verified" },
-          { opp: "Capex execution oversight", service: "Strategy", signals: "Rs 4,200 Cr PCB capex pipeline (Hosur + Jewar); timeline TBD", source: "35th AGM, Investor Presentations", tier: "verified" }
+          { opp: "Capex execution oversight", service: "Strategy", signals: "Rs 4,200 Cr PCB capex pipeline (Hosur + Jewar); timeline pending disclosure", source: "35th AGM, Investor Presentations", tier: "verified" }
         ]
       },
       {
@@ -7509,7 +7502,7 @@
         companies: [
           {
             name: 'Havells',
-            metric: 'Premium mix positioning under test',
+            metric: 'Premium mix positioning under evaluation',
             evidence: 'Premium positioning (<strong>40% revenue mix</strong>) under pressure as BEE-driven price hikes stack on top of premium pricing. Management guided only "measured premiumization" and "calibrated price hikes" \u2014 signaling awareness that premium elasticity has limits. Lloyd AC still only <strong>2.6% margin</strong> despite premium push.',
             source: 'Q3 FY26 Earnings Transcript \u2014 BSE',
             url: 'https://www.havells.com/en/investor-relations.html'
