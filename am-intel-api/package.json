@@ -1,0 +1,22 @@
+{
+  "name": "am-intel-api",
+  "version": "1.0.0",
+  "description": "A&M Industry Intel API — Express 5 + Supabase backend for Consumer Durables dashboard",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js",
+    "db:schema": "node scripts/run-schema.js",
+    "migrate": "node scripts/migrate-data.js",
+    "validate": "node scripts/validate-migration.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.49.0",
+    "cheerio": "^1.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.0",
+    "express": "^5.1.0",
+    "pg": "^8.20.0"
+  }
+}

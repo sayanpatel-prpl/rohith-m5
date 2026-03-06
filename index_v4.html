@@ -248,8 +248,8 @@
 
     /* === Section Header === */
     .section-header {
-      margin-bottom: 24px;
-      padding-bottom: 16px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
       border-bottom: 2px solid var(--border);
     }
     .section-header .section-title {
@@ -496,11 +496,13 @@
 
     /* === Sub-section Headers === */
     .sub-header {
-      font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em;
-      margin-top: 28px; margin-bottom: 14px;
-      padding-bottom: 8px; color: var(--text-primary);
+      font-size: 18px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em;
+      margin-top: 20px; margin-bottom: 10px;
+      padding: 0 0 0 14px; color: var(--text-primary);
       font-family: var(--font-display);
-      border-bottom: 1px solid var(--surface-overlay);
+      border-bottom: none;
+      border-left: 3px solid var(--intelligence-blue);
+      line-height: 1.3;
     }
     .sub-header:first-child { margin-top: 0; }
 
@@ -866,6 +868,7 @@
 
     /* === Talk vs Walk === */
     .tvw-card { padding: 14px; border-radius: var(--radius); border: 1px solid var(--surface-overlay); background: var(--surface-raised); margin-bottom: 12px; }
+    .tvw-card.tvw-hidden { display: none; }
     .tvw-badge-disconnect { display: inline-flex; font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: var(--radius-full); background: var(--danger-50); color: var(--danger-700); }
     .tvw-badge-stealth { display: inline-flex; font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: var(--radius-full); background: var(--success-50); color: var(--success-700); }
     .dark .tvw-badge-disconnect { background: rgba(239,68,68,0.12); color: var(--danger-500); }
@@ -1026,43 +1029,67 @@
     .dark .move-card-impact.medium { background: rgba(245,158,11,0.12); color: var(--warning-500); }
 
     /* Opportunity Pipeline Cards */
-    .opp-pipeline { margin-bottom: 28px; }
-    .opp-pipeline-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
-    .opp-pipeline-title { font-size: 15px; font-weight: 700; font-family: var(--font-display); color: var(--text-primary); }
-    .opp-pipeline-filters { display: flex; gap: 6px; flex-wrap: wrap; }
-    .opp-filter-btn { padding: 4px 10px; font-size: 11px; border-radius: var(--radius-full); border: 1px solid var(--border); background: transparent; color: var(--text-secondary); cursor: pointer; transition: var(--transition-fast); font-family: var(--font-body); }
-    .opp-filter-btn:hover { border-color: var(--intelligence-blue); color: var(--intelligence-blue); }
-    .opp-filter-btn.active { background: var(--intelligence-blue); color: #fff; border-color: var(--intelligence-blue); }
-    .opp-pipeline-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 14px; }
-    .opp-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: var(--radius-lg); padding: 16px; transition: var(--transition-fast); cursor: default; position: relative; overflow: hidden; }
+    .opp-pipeline { margin-bottom: 16px; }
+    .opp-pipeline-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    @media (max-width: 800px) { .opp-pipeline-grid { grid-template-columns: 1fr; } }
+    .opp-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: var(--radius-lg); padding: 18px 20px; transition: var(--transition-fast); cursor: default; position: relative; overflow: hidden; display: flex; flex-direction: column; }
     .opp-card:hover { border-color: var(--intelligence-blue); box-shadow: var(--shadow-md); }
     .opp-card-urgency-high { border-left: 3px solid var(--red); }
     .opp-card-urgency-medium { border-left: 3px solid var(--amber); }
     .opp-card-urgency-watch { border-left: 3px solid var(--slate-400); }
     .opp-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
-    .opp-card-company { font-size: 13px; font-weight: 700; font-family: var(--font-display); color: var(--text-primary); }
-    .opp-card-badges { display: flex; gap: 4px; flex-wrap: wrap; }
-    .opp-signal-badge { padding: 2px 8px; font-size: 9px; border-radius: var(--radius-full); font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
+    .opp-card-company { font-size: 15px; font-weight: 700; font-family: var(--font-display); color: var(--text-primary); }
+    .opp-signal-badge { padding: 3px 10px; font-size: 10px; border-radius: var(--radius-full); font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
     .opp-signal-performance { background: rgba(239,68,68,0.1); color: var(--red); }
     .opp-signal-transition { background: rgba(124,58,237,0.1); color: var(--purple); }
     .opp-signal-friction { background: rgba(245,158,11,0.1); color: var(--amber); }
     .opp-signal-ecosystem { background: rgba(59,130,246,0.1); color: var(--intelligence-blue); }
-    .opp-card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); }
-    .opp-card-services { display: flex; gap: 4px; flex-wrap: wrap; }
-    .opp-service-tag { padding: 2px 7px; font-size: 9px; border-radius: var(--radius-sm); background: rgba(59,130,246,0.06); color: var(--intelligence-blue); font-weight: 600; font-family: var(--font-mono); }
+    .opp-card-body { flex: 1; }
     .opp-card-urgency { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
     .urgency-high { color: var(--red); }
     .urgency-medium { color: var(--amber); }
     .urgency-watch { color: var(--slate-400); }
 
+    /* === Urgency Segmented Control === */
+    .urgency-tab-bar {
+      display: inline-flex; margin-bottom: 14px;
+      border: 1px solid var(--border); border-radius: 10px;
+      background: var(--surface); overflow: hidden;
+    }
+    .urgency-tab {
+      padding: 9px 22px; font-size: 13px; font-weight: 500; font-family: var(--font-body);
+      background: transparent; color: var(--text-muted); cursor: pointer;
+      transition: all 0.15s ease; display: inline-flex; align-items: center; gap: 6px;
+      border: none; border-right: 1px solid var(--border); position: relative;
+    }
+    .urgency-tab:last-child { border-right: none; }
+    .urgency-tab:hover { color: var(--text-primary); background: var(--surface-raised); }
+    .urgency-tab.active {
+      background: var(--surface-raised); color: var(--text-primary);
+      font-weight: 700; box-shadow: inset 0 -2px 0 var(--text-primary);
+    }
+    .dark .urgency-tab.active { box-shadow: inset 0 -2px 0 var(--intelligence-blue); }
+    .urgency-tab .tab-count {
+      font-size: 11px; font-weight: 600; color: var(--text-muted);
+      font-family: var(--font-mono);
+    }
+    .urgency-tab.active .tab-count { color: var(--text-secondary); }
+
+    /* === Executive Section Divider === */
+    .exec-section-divider {
+      border: none; border-top: 1px solid var(--surface-overlay);
+      margin: 20px 0;
+    }
+
     /* === AI Narrative Blocks (Talk vs Walk) === */
     .ai-narrative-block {
-      position: relative; padding: 14px 16px 14px 20px;
-      margin-bottom: 14px; border-radius: var(--radius);
+      position: relative; padding: 16px 18px 16px 22px;
+      margin-bottom: 16px; border-radius: var(--radius);
       background: var(--surface-raised); border: 1px solid var(--card-border);
       font-size: 13px; line-height: 1.75; color: var(--text-secondary);
       transition: border-color 0.2s ease;
     }
+    .ai-narrative-block.tvw-hidden { display: none; }
     .ai-narrative-block:hover { border-color: rgba(59,130,246,0.25); }
     .ai-narrative-block.stealth { border-left: 3px solid var(--success-500); }
     .ai-narrative-block:not(.stealth) { border-left: 3px solid var(--danger-500); }
@@ -1081,6 +1108,39 @@
       border-top: 1px solid var(--border); margin-top: 8px;
     }
 
+    /* === Talk vs Walk View Toggle (ghost/secondary) === */
+    .tvw-view-toggle {
+      font-size: 12px; color: var(--intelligence-blue); cursor: pointer;
+      font-family: var(--font-body); font-weight: 600;
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 6px 14px; border: 1px solid rgba(59,130,246,0.3); background: transparent;
+      border-radius: 6px; transition: var(--transition-fast);
+    }
+    .tvw-view-toggle:hover { background: rgba(59,130,246,0.06); border-color: var(--intelligence-blue); }
+    .dark .tvw-view-toggle { border-color: rgba(59,130,246,0.25); }
+    .dark .tvw-view-toggle:hover { background: rgba(59,130,246,0.1); border-color: rgba(59,130,246,0.5); }
+
+    /* === Talk vs Walk Pagination === */
+    .tvw-pagination {
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      padding: 14px 0 4px;
+    }
+    .tvw-page-btn {
+      width: 34px; height: 34px; border-radius: 8px; border: 1px solid var(--border);
+      background: transparent; color: var(--text-secondary); cursor: pointer;
+      font-size: 13px; font-weight: 600; font-family: var(--font-body);
+      display: inline-flex; align-items: center; justify-content: center;
+      transition: var(--transition-fast);
+    }
+    .tvw-page-btn:hover { border-color: var(--intelligence-blue); color: var(--intelligence-blue); }
+    .tvw-page-btn.active { background: var(--intelligence-blue); color: #fff; border-color: var(--intelligence-blue); }
+    .tvw-page-btn:disabled { opacity: 0.35; cursor: default; pointer-events: none; }
+    .tvw-page-btn.tvw-nav-btn { width: auto; padding: 0 12px; font-size: 12px; }
+    .tvw-page-info {
+      font-size: 11px; color: var(--text-muted); font-family: var(--font-mono);
+      margin: 0 8px;
+    }
+
     /* === Global AI link/metric styles (for narrative blocks etc.) === */
     .ai-co-link {
       color: var(--intelligence-blue); font-weight: 600;
@@ -1092,74 +1152,29 @@
       border-bottom-color: var(--intelligence-blue);
       background: rgba(59,130,246,0.06); border-radius: 2px;
     }
-    /* === AI Prompt Bar === */
-    .ai-prompt-bar {
-      position: relative; margin-bottom: 24px;
-    }
-    .ai-prompt-input {
-      width: 100%; padding: 12px 16px 12px 40px;
-      border: 1px solid var(--card-border); border-radius: var(--radius-lg);
-      background: var(--card-bg); color: var(--text-primary);
-      font-size: 13px; font-family: var(--font-body);
-      transition: var(--transition-fast); box-sizing: border-box;
-    }
-    .ai-prompt-input:focus {
-      outline: none; border-color: var(--intelligence-blue);
-      box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
-    }
-    .ai-prompt-input::placeholder { color: var(--text-muted); }
-    .ai-prompt-icon {
-      position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
-      font-size: 14px; color: var(--text-muted); pointer-events: none;
-    }
 
-    /* === Reasoning Expand on Opp Cards === */
+
+    /* === Signal Card Styles === */
     .opp-card-headline {
-      font-size: 13px; line-height: 1.5; color: var(--text-primary);
-      margin-bottom: 8px;
-    }
-    .opp-card-reasoning {
-      max-height: 0; overflow: hidden; transition: max-height 0.35s ease, opacity 0.25s ease;
-      opacity: 0;
-    }
-    .opp-card.expanded .opp-card-reasoning {
-      max-height: 500px; opacity: 1;
+      font-size: 14px; line-height: 1.65; color: var(--text-secondary);
+      margin-bottom: 14px;
+      min-height: calc(3 * 14px * 1.65);
+      max-height: calc(4 * 14px * 1.65);
+      overflow: hidden;
+      display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical;
     }
     .reasoning-toggle {
-      font-size: 10px; color: var(--intelligence-blue); cursor: pointer;
-      font-family: var(--font-mono); font-weight: 600; letter-spacing: 0.02em;
-      display: inline-flex; align-items: center; gap: 4px;
-      padding: 3px 0; border: none; background: none;
-      transition: var(--transition-fast);
+      font-size: 13px; color: #fff; cursor: pointer;
+      font-family: var(--font-body); font-weight: 600; letter-spacing: 0.01em;
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 16px; border: none; background: var(--intelligence-blue);
+      border-radius: 8px; transition: all 0.2s ease;
     }
-    .reasoning-toggle:hover { color: var(--purple); }
+    .reasoning-toggle:hover { background: #2563EB; box-shadow: 0 2px 8px rgba(59,130,246,0.3); }
+    .dark .reasoning-toggle { background: var(--intelligence-blue); }
+    .dark .reasoning-toggle:hover { background: #60A5FA; box-shadow: 0 2px 8px rgba(59,130,246,0.4); }
     .reasoning-toggle .toggle-arrow {
-      display: inline-block; transition: transform 0.25s ease; font-size: 8px;
-    }
-    .opp-card.expanded .reasoning-toggle .toggle-arrow { transform: rotate(90deg); }
-    .reasoning-chain {
-      margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border);
-    }
-    .reasoning-step {
-      position: relative; padding-left: 16px; margin-bottom: 8px;
-    }
-    .reasoning-step::before {
-      content: ''; position: absolute; left: 4px; top: 6px;
-      width: 6px; height: 6px; border-radius: 50%;
-      background: var(--intelligence-blue); opacity: 0.5;
-    }
-    .reasoning-step::after {
-      content: ''; position: absolute; left: 6px; top: 14px;
-      width: 1px; height: calc(100% - 2px);
-      background: rgba(59,130,246,0.15);
-    }
-    .reasoning-step:last-child::after { display: none; }
-    .reasoning-step-label {
-      font-size: 9px; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 2px;
-    }
-    .reasoning-step-text {
-      font-size: 12px; line-height: 1.5; color: var(--text-secondary);
+      display: inline-block; font-size: 9px;
     }
 
     /* Peer Group Cards */
@@ -1273,61 +1288,13 @@
     .dark .font-btn { border-color: var(--slate-700); }
     .dark .font-btn:not(:first-child) { border-left: none; }
 
-    /* Font size scale: small */
-    html.font-small .section-panel { font-size: 12px; }
-    html.font-small .section-panel h2 { font-size: 18px; }
-    html.font-small .section-panel h3 { font-size: 11.5px; }
-    html.font-small .section-panel .section-subtitle { font-size: 12px; }
-    html.font-small .section-panel .card p,
-    html.font-small .section-panel .card li { font-size: 11.5px; }
-    html.font-small .section-panel .stat-box .stat-value { font-size: 17px; }
-    html.font-small .section-panel .stat-box .stat-label { font-size: 9px; }
-    html.font-small .section-panel table th,
-    html.font-small .section-panel table td { font-size: 10.5px; }
-    html.font-small .section-panel .alert-card { font-size: 11.5px; }
-    html.font-small .section-panel .signal-card { font-size: 11.5px; }
-    html.font-small .section-panel .signal-detail { font-size: 10.5px; }
-    html.font-small .section-panel .signal-value { font-size: 13px; }
-    html.font-small .section-panel .cost-change { font-size: 10.5px; }
-    html.font-small .section-panel .affected-co { font-size: 10px; }
-    html.font-small .section-panel .card h3 { font-size: 11.5px; }
-    html.font-small .section-panel .persona-card { font-size: 11.5px; }
-    html.font-small .section-panel .quadrant-card { font-size: 11.5px; }
-    html.font-small .section-panel .move-card-item { font-size: 11.5px; }
-    html.font-small .section-panel .tvw-card { font-size: 11.5px; }
-    html.font-small .section-panel .tvw-col-text { font-size: 11.5px; }
-    html.font-small .section-panel .source-attr { font-size: 9.5px; }
-    html.font-small .section-panel .sub-header { font-size: 12px; }
-    html.font-small .section-panel .evidence-co { font-size: 10px; }
-    html.font-small .section-panel .badge { font-size: 9px; }
-
-    /* Font size scale: large */
-    html.font-large .section-panel { font-size: 15.5px; }
-    html.font-large .section-panel h2 { font-size: 26px; }
-    html.font-large .section-panel h3 { font-size: 15px; }
-    html.font-large .section-panel .section-subtitle { font-size: 16px; }
-    html.font-large .section-panel .card p,
-    html.font-large .section-panel .card li { font-size: 15px; }
-    html.font-large .section-panel .stat-box .stat-value { font-size: 23px; }
-    html.font-large .section-panel .stat-box .stat-label { font-size: 12px; }
-    html.font-large .section-panel table th,
-    html.font-large .section-panel table td { font-size: 13.5px; }
-    html.font-large .section-panel .alert-card { font-size: 15px; }
-    html.font-large .section-panel .signal-card { font-size: 15px; }
-    html.font-large .section-panel .signal-detail { font-size: 14px; }
-    html.font-large .section-panel .signal-value { font-size: 17px; }
-    html.font-large .section-panel .cost-change { font-size: 14px; }
-    html.font-large .section-panel .affected-co { font-size: 13px; }
-    html.font-large .section-panel .card h3 { font-size: 15px; }
-    html.font-large .section-panel .persona-card { font-size: 15px; }
-    html.font-large .section-panel .quadrant-card { font-size: 15px; }
-    html.font-large .section-panel .move-card-item { font-size: 15px; }
-    html.font-large .section-panel .tvw-card { font-size: 15px; }
-    html.font-large .section-panel .tvw-col-text { font-size: 14.5px; }
-    html.font-large .section-panel .source-attr { font-size: 12px; }
-    html.font-large .section-panel .sub-header { font-size: 16px; }
-    html.font-large .section-panel .evidence-co { font-size: 12px; }
-    html.font-large .section-panel .badge { font-size: 11px; }
+    /* Font size scaling — zoom-based for uniform coverage */
+    html.font-small .section-panel { zoom: 0.88; }
+    html.font-large .section-panel { zoom: 1.12; }
+    html.font-small .evidence-drawer-body,
+    html.font-small .company-drawer { zoom: 0.88; }
+    html.font-large .evidence-drawer-body,
+    html.font-large .company-drawer { zoom: 1.12; }
 
     /* === Fade animation (replaced by fadeSlideIn above) === */
     /* === Print === */
@@ -1482,35 +1449,37 @@
 
     /* === Evidence Drawer === */
     .evidence-drawer-overlay {
-      position: fixed; inset: 0; background: rgba(0,0,0,0.3);
+      position: fixed; inset: 0; background: rgba(0,0,0,0.45);
       z-index: 99; opacity: 0; pointer-events: none;
       transition: opacity var(--transition-base);
+      display: flex; align-items: center; justify-content: center;
     }
     .evidence-drawer-overlay.open { opacity: 1; pointer-events: auto; }
     .evidence-drawer {
-      position: fixed; top: 0; right: 0; bottom: 0;
-      width: 440px; background: var(--surface);
-      border-left: 1px solid var(--border);
-      box-shadow: -4px 0 24px rgba(15,31,61,0.12);
-      z-index: 100; transform: translateX(100%);
-      transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+      position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.95);
+      width: 680px; max-width: 90vw; max-height: 85vh;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 20px 60px rgba(15,31,61,0.18), 0 4px 16px rgba(15,31,61,0.08);
+      z-index: 100; opacity: 0; pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.25s ease;
       display: flex; flex-direction: column;
       overflow: hidden;
     }
-    .evidence-drawer.open { transform: translateX(0); }
+    .evidence-drawer.open { opacity: 1; pointer-events: auto; transform: translate(-50%, -50%) scale(1); }
     .evidence-drawer-header {
-      padding: 16px 20px; border-bottom: 1px solid var(--border);
+      padding: 18px 24px; border-bottom: 1px solid var(--border);
       display: flex; align-items: center; justify-content: space-between;
       flex-shrink: 0;
     }
-    .evidence-drawer-header h3 { font-size: 15px; font-weight: 700; color: var(--text-primary); margin: 0; }
+    .evidence-drawer-header h3 { font-size: 16px; font-weight: 700; color: var(--text-primary); margin: 0; }
     .evidence-drawer-close {
       background: none; border: none; font-size: 20px; cursor: pointer;
       color: var(--text-muted); padding: 4px 8px; border-radius: var(--radius-sm);
       transition: all 0.15s ease;
     }
     .evidence-drawer-close:hover { color: var(--text-primary); background: var(--surface-overlay); }
-    .evidence-drawer-body { flex: 1; overflow-y: auto; padding: 20px; }
+    .evidence-drawer-body { flex: 1; overflow-y: auto; padding: 24px; }
     .evidence-theme-tag {
       display: inline-block; font-size: 9px; font-weight: 700; text-transform: uppercase;
       letter-spacing: 0.6px; color: var(--intelligence-blue); background: rgba(59,130,246,0.08);
@@ -1537,6 +1506,17 @@
       font-size: 10px; font-weight: 600; color: var(--text-muted); text-transform: uppercase;
       letter-spacing: 0.5px; margin-bottom: 10px;
     }
+    .signal-sev-group { margin-bottom: 20px; }
+    .signal-sev-group:last-child { margin-bottom: 0; }
+    .signal-sev-label {
+      font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
+      margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid var(--border);
+    }
+    .signal-sev-label.sev-critical { color: var(--red); }
+    .signal-sev-label.sev-high { color: var(--red); }
+    .signal-sev-label.sev-medium { color: var(--amber); }
+    .signal-sev-label.sev-low { color: var(--text-muted); }
+    .signal-sev-label.sev-informational { color: var(--intelligence-blue); }
     .evidence-other-card {
       padding: 12px 14px; border-radius: var(--radius);
       border: 1px solid var(--card-border); background: var(--card-bg);
@@ -1562,7 +1542,7 @@
     .evidence-co .eco-metric { color: var(--text-secondary); font-size: 9px; border-left: 1px solid rgba(59,130,246,0.2); padding-left: 5px; }
     .evidence-co .eco-arrow { font-size: 9px; opacity: 0.5; margin-left: 1px; }
     @media (max-width: 600px) {
-      .evidence-drawer { width: 100%; }
+      .evidence-drawer { width: 95vw; max-height: 90vh; }
     }
 
     /* === Sidebar Collapse === */
@@ -1730,23 +1710,23 @@
       <div class="section-header">
         <h2 class="section-title">Executive Snapshot</h2>
         <p class="section-subtitle">Signal-driven engagement pipeline &mdash; prioritized by urgency, signal taxonomy, and A&amp;M service fit</p>
-        <span class="data-tag">Q3 FY26 &middot; 16 Companies &middot; 13 Intelligence Reports</span>
-      </div>
-
-      <!-- Search / Prompt Bar -->
-      <div class="ai-prompt-bar">
-        <span class="ai-prompt-icon">&#9906;</span>
-        <input type="text" class="ai-prompt-input" id="aiPromptInput" placeholder="Filter signals by company, service line, or signal type..." oninput="filterSignalPipeline(this.value)">
+        <span class="data-tag">Q3 FY26 &middot; 16 Companies &middot; 14 Intelligence Reports</span>
       </div>
 
       <!-- Signal Pipeline -->
+      <h3 class="sub-header">Engagement-Ready Signals</h3>
+      <p style="font-size:12px; color:var(--text-muted); margin:2px 0 12px 14px;">Signal cards prioritized by urgency and signal taxonomy</p>
+
       <div class="opp-pipeline">
-        <div class="opp-pipeline-header">
-          <div class="opp-pipeline-title">Engagement-Ready Signals</div>
-          <div class="opp-pipeline-filters" id="oppPipelineFilters"></div>
-        </div>
+        <div id="urgencyTabBar" class="urgency-tab-bar"></div>
         <div class="opp-pipeline-grid" id="oppPipelineGrid"></div>
+        <div id="signalPagination" class="tvw-pagination"></div>
       </div>
+
+      <hr class="exec-section-divider">
+
+      <h3 class="sub-header">Sector Themes &amp; Red Flags</h3>
+      <p style="font-size:12px; color:var(--text-muted); margin:2px 0 12px 14px;">Cross-cutting patterns across the 16-company universe, with evidence links</p>
 
       <div class="section-2col">
         <div>
@@ -1836,11 +1816,14 @@
           </div>
         </div>
       </div>
-      <h3 class="sub-header" style="margin-top:28px;display:flex;align-items:center;justify-content:space-between">
-        <span>Talk vs Walk &mdash; Narrative Disconnects</span>
-        <button class="reasoning-toggle" style="font-size:10px;margin:0" onclick="toggleTvwView(this)" id="tvwViewToggle">Show detailed view</button>
-      </h3>
-      <p style="font-size:11px; color:var(--text-muted); margin:-8px 0 14px 0;">Where management narrative diverges from financial reality (cross-referencing concall themes vs Q3 FY26 data)</p>
+
+      <hr class="exec-section-divider">
+
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <h3 class="sub-header">Talk vs Walk &mdash; Narrative Disconnects</h3>
+        <button class="tvw-view-toggle" onclick="toggleTvwView(this)" id="tvwViewToggle">Show detailed view</button>
+      </div>
+      <p style="font-size:12px; color:var(--text-muted); margin:2px 0 12px 14px;">Where management narrative diverges from financial reality (cross-referencing concall themes vs Q3 FY26 data)</p>
 
       <!-- AI Narrative Mode (default) -->
       <div id="tvwNarrativeView" class="tvw-narrative-view">
@@ -1932,6 +1915,7 @@
           </div>
         </div>
 
+        <div id="tvwPagination" class="tvw-pagination"></div>
         <div class="ai-narrative-footer">Analysis synthesized from 12 verified intelligence reports &middot; Feb 2026</div>
       </div>
 
@@ -2190,10 +2174,11 @@
       </div>
 
 
+      <div id="tvwDetailedPagination" class="tvw-pagination"></div>
       </div><!-- end tvwDetailedView -->
 
       <div style="text-align:center;font-size:10px;color:var(--text-muted);font-family:var(--font-mono);padding:14px 0 4px;margin-top:16px;border-top:1px solid var(--border)">
-        Analysis synthesized from 13 intelligence reports, 16 company filings, and Q3 FY26 earnings transcripts &middot; <span class="source-tier tier-derived">Derived</span>
+        Analysis synthesized from 14 intelligence reports, 16 company filings, and Q3 FY26 earnings transcripts &middot; <span class="source-tier tier-derived">Derived</span>
       </div>
     </div>
 
@@ -2263,7 +2248,7 @@
       </div>
 
       <h3 class="sub-header">Input Cost Trends <span class="commodity-outlook-badge cautious">Outlook: Cautious</span></h3>
-      <p style="font-size:11px; color:var(--text-muted); margin:-8px 0 12px 0;">3 of 4 key commodities trending upward. Net BOM cost pressure estimated +4&ndash;7% for Q4 FY26.</p>
+      <p style="font-size:11px; color:var(--text-muted); margin:2px 0 12px 14px;">3 of 4 key commodities trending upward. Net BOM cost pressure estimated +4&ndash;7% for Q4 FY26.</p>
       <div class="card-grid cols-2">
         <div class="signal-card">
           <div class="signal-header">
@@ -2811,7 +2796,7 @@
       </div>
 
       <h3 class="sub-header" style="margin-top:32px">AI-Detected Deal Patterns</h3>
-      <p style="font-size:11px; color:var(--text-muted); margin:-8px 0 12px 0;">Cross-deal pattern analysis identifying structural themes across 207 Jan 2026 transactions</p>
+      <p style="font-size:11px; color:var(--text-muted); margin:2px 0 12px 14px;">Cross-deal pattern analysis identifying structural themes across 207 Jan 2026 transactions</p>
       <div class="pattern-grid">
         <div class="pattern-card">
           <div class="pattern-name">Backward Integration Acceleration <span class="pattern-conf high">High Confidence</span></div>
@@ -2885,7 +2870,7 @@
       </div>
 
       <h3 class="sub-header" style="margin-top:32px">Diagnostic Triggers</h3>
-      <p style="font-size:11px; color:var(--text-muted); margin:-8px 0 12px 0;">Companies showing operational stress signals based on Q3 FY26 financials</p>
+      <p style="font-size:11px; color:var(--text-muted); margin:2px 0 12px 14px;">Companies showing operational stress signals based on Q3 FY26 financials</p>
 
       <div class="diag-trigger">
         <div class="diag-company">Bajaj Electricals</div>
@@ -2934,7 +2919,7 @@
       </div>
 
       <h3 class="sub-header">Strategic Activity Heatmap <span style="font-size:11px;font-weight:400;color:var(--text-muted)">(Q3 FY2026)</span></h3>
-      <p style="font-size:10px;color:var(--text-muted);margin:-8px 0 10px 0">Click any colored cell to see detailed moves for that company and type</p>
+      <p style="font-size:10px;color:var(--text-muted);margin:2px 0 12px 14px">Click any colored cell to see detailed moves for that company and type</p>
       <div id="compHeatmap" style="overflow-x:auto;margin-bottom:24px"></div>
 
       <div class="stat-row" style="margin-bottom:24px" id="compStats"></div>
@@ -3456,11 +3441,11 @@
       </div>
 
       <h3 class="sub-header">Sub-Sector Breakdown</h3>
-      <p style="font-size:11px; color:var(--text-muted); margin:-8px 0 12px 0;">Computed from 14-company Q3 FY26 data. Avg metrics per sub-sector with top/bottom performers.</p>
+      <p style="font-size:11px; color:var(--text-muted); margin:2px 0 12px 14px;">Computed from 14-company Q3 FY26 data. Avg metrics per sub-sector with top/bottom performers.</p>
       <div class="subsector-grid" id="subsectorGrid"></div>
 
       <h3 class="sub-header">Product-Market Peer Groups</h3>
-      <p style="font-size:11px; color:var(--text-muted); margin:-8px 0 12px 0;">Companies grouped by overlapping product categories for like-for-like comparison. One company can appear in multiple groups.</p>
+      <p style="font-size:11px; color:var(--text-muted); margin:2px 0 12px 14px;">Companies grouped by overlapping product categories for like-for-like comparison. One company can appear in multiple groups.</p>
       <div id="peerGroupGrid" class="card-grid cols-2" style="margin-bottom:24px"></div>
 
       <h3 class="sub-header">Product Mix by Company</h3>
@@ -4053,7 +4038,7 @@
       <div class="risk-scorecard" id="riskScorecard"></div>
 
       <h3 class="sub-header" style="margin-bottom:4px">EBITDA Movement Story</h3>
-      <p style="font-size:11px; color:var(--text-muted); margin:0 0 14px 0;">Margin trajectory and key drivers extracted from annual reports and earnings transcripts.</p>
+      <p style="font-size:11px; color:var(--text-muted); margin:2px 0 12px 14px;">Margin trajectory and key drivers extracted from annual reports and earnings transcripts.</p>
       <div class="ebitda-story-container">
         <div class="card ebitda-story-card" data-company="dixon"><div class="ebitda-left"><h4>Dixon Technologies</h4><div class="ebitda-trend-line"><span class="trend-year">FY23</span> <span class="trend-val">4.3%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY24</span> <span class="trend-val declining">4.1%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY25</span> <span class="trend-val declining">3.9%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">Q2 FY26</span> <span class="trend-val declining">3.8%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">Q3 FY26</span> <span class="trend-val">3.9%</span></div><div class="ebitda-narrative">Structural EBITDA compression (5.2% FY20 &rarr; 3.9% Q3 FY26) is deliberate &mdash; Dixon sacrifices margin percentage for absolute EBITDA growth via volume scaling. Q3 FY26: Rs 10,678 Cr revenue, Rs 421 Cr EBITDA, PAT Rs 214 Cr (+48% YoY). ROCE at 45.1% with negative working capital (-7 days) proves capital efficiency compensates for thin margins. 4 simultaneous JVs (HKC display, Loncheer mobile export, Q Tech camera, Inventec IT hardware) are the margin inflection bet &mdash; component manufacturing at 6.5-7.5% margins vs 2% assembly. Telecom +250% YoY (Rs 1,410 Cr) and IT Hardware +481% emerging as diversification vectors. Mobile PLI expires Mar 2026 (Rs 150-200 Cr cliff).</div><div><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Transcript Intel Analysis</span> &middot; Q2 &amp; Q3 FY26 Earnings Transcripts + Sovrenn MD</div></div><div class="ebitda-right"><div class="ebitda-drivers"><span class="ebitda-driver down">PAT margin only 2% &mdash; structurally thin EMS</span><span class="ebitda-driver down">Mobile PLI expires Mar 2026 (Rs 150-200 Cr cliff)</span><span class="ebitda-driver down">4 JVs executing simultaneously &mdash; bandwidth risk</span><span class="ebitda-driver up">ROCE 45.1% &mdash; sector-leading capital efficiency</span><span class="ebitda-driver up">Telecom +250% YoY, IT Hardware +481% diversification</span><span class="ebitda-driver up">Home Appliances 11.5% OPM benchmark</span><span class="ebitda-driver up">Q Tech/HKC component margins 6.5-7.5% target</span></div></div></div>
         <div class="card ebitda-story-card" data-company="ifb" style="display:none"><div class="ebitda-left"><h4>IFB Industries</h4><div class="ebitda-trend-line"><span class="trend-year">FY23</span> <span class="trend-val declining">~5.5%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY24</span> <span class="trend-val declining">~5.7%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">FY25</span> <span class="trend-val improving">6.5%</span> <span class="trend-arrow">&rarr;</span> <span class="trend-year">Target</span> <span class="trend-val">10%+</span></div><div class="ebitda-narrative">PBDIT at 6.5% vs 10%+ internal target &mdash; a structural gap of 350+ bps representing INR 170+ Cr annual under-delivery. Material cost outpacing revenue growth is the primary suppressant. A&amp;M engaged Feb 2025 with INR 200+ Cr savings target over 18 months, confirming deeply embedded procurement inefficiency.</div><div><span class="source-attr"><span class="source-tier tier-verified">Verified</span> Transcript Intel Analysis</span> &middot; AR 2024-25, Q4 FY25 Transcript</div></div><div class="ebitda-right"><div class="ebitda-drivers"><span class="ebitda-driver down">Material cost +19.7% vs rev +14.6%</span><span class="ebitda-driver down">Channel schemes INR 1,500 Cr</span><span class="ebitda-driver down">FL washer stagnant 3 yrs</span><span class="ebitda-driver up">AC segment EBITDA+ (1.7%)</span><span class="ebitda-driver up">Engineering div 16.2% margin</span><span class="ebitda-driver down">Fixed cost INR 75 Cr/month</span></div></div></div>
@@ -4117,7 +4102,7 @@
       <!-- Narrative Drift Detection -->
       <div style="margin-top:24px">
         <h3 class="sub-header" style="margin-bottom:4px">Narrative Drift Detection</h3>
-        <p style="font-size:11px; color:var(--text-muted); margin:0 0 10px 0;">Quarter-over-quarter shifts in management narrative \u2014 where the story changed, pivoted, or went silent.</p>
+        <p style="font-size:11px; color:var(--text-muted); margin:2px 0 12px 14px;">Quarter-over-quarter shifts in management narrative \u2014 where the story changed, pivoted, or went silent.</p>
         <div class="drift-filter-bar" id="driftFilterBar">
           <button class="drift-filter-btn active" onclick="renderNarrativeDrift('all');driftFilterActive(this)">All Companies</button>
           <button class="drift-filter-btn" onclick="renderNarrativeDrift('voltas');driftFilterActive(this)">Voltas</button>
@@ -4136,7 +4121,7 @@
       <!-- Absence Detection -->
       <div style="margin-top:24px">
         <h3 class="sub-header" style="margin-bottom:4px">Absence Detection \u2014 What They\u2019re Not Saying</h3>
-        <p style="font-size:11px; color:var(--text-muted); margin:0 0 10px 0;">Critical data points conspicuously absent from management disclosures. What\u2019s NOT said is often more revealing than what is.</p>
+        <p style="font-size:11px; color:var(--text-muted); margin:2px 0 12px 14px;">Critical data points conspicuously absent from management disclosures. What\u2019s NOT said is often more revealing than what is.</p>
         <div class="drift-filter-bar" id="absenceFilterBar">
           <button class="drift-filter-btn active" onclick="renderAbsenceSignals('all');absenceFilterActive(this)">All Companies</button>
           <button class="drift-filter-btn" onclick="renderAbsenceSignals('voltas');absenceFilterActive(this)">Voltas</button>
@@ -7178,9 +7163,37 @@
     });
 
     function scrollToSignalCard(companyId) {
-      var cards = document.querySelectorAll('.opp-card');
-      cards.forEach(function(card) {
-        if (card.getAttribute('data-company-id') === companyId) {
+      // Find the company's urgency tab
+      var meta = COMPANY_META[companyId];
+      if (!meta || !meta.signalTaxonomy) return;
+      var targetTab = meta.signalTaxonomy.urgency;
+
+      // Switch urgency tab if needed
+      if (activeUrgencyTab !== targetTab) {
+        activeUrgencyTab = targetTab;
+        signalPage = 1;
+        renderUrgencyTabs();
+      }
+
+      // Find which page this company is on within its urgency tab
+      var tabCompanies = COMPANIES.filter(function(c) {
+        return c.signalTaxonomy && c.signalTaxonomy.urgency === targetTab;
+      });
+      var idx = -1;
+      for (var i = 0; i < tabCompanies.length; i++) {
+        if (tabCompanies[i].id === companyId) { idx = i; break; }
+      }
+      if (idx === -1) return;
+      var targetPage = Math.floor(idx / SIGNAL_PER_PAGE) + 1;
+      if (signalPage !== targetPage) {
+        signalPage = targetPage;
+      }
+      renderSignalPipeline();
+
+      // Scroll and highlight after DOM update
+      requestAnimationFrame(function() {
+        var card = document.querySelector('.opp-card[data-company-id="' + companyId + '"]');
+        if (card) {
           card.scrollIntoView({ behavior: 'smooth', block: 'center' });
           card.style.boxShadow = '0 0 0 2px var(--intelligence-blue), var(--shadow-lg)';
           setTimeout(function() { card.style.boxShadow = ''; }, 2000);
@@ -7188,7 +7201,63 @@
       });
     }
 
-    // ========== TALK VS WALK TOGGLE ==========
+    // ========== TALK VS WALK PAGINATION ==========
+    var tvwNarrativePage = 1;
+    var tvwDetailedPage = 1;
+    var TVW_PER_PAGE = 3;
+
+    function initTvwPagination() {
+      tvwNarrativePage = 1;
+      tvwDetailedPage = 1;
+      applyTvwPage('narrative');
+      applyTvwPage('detailed');
+    }
+
+    function applyTvwPage(mode) {
+      var isNarrative = mode === 'narrative';
+      var container = document.getElementById(isNarrative ? 'tvwNarrativeView' : 'tvwDetailedView');
+      var pagEl = document.getElementById(isNarrative ? 'tvwPagination' : 'tvwDetailedPagination');
+      if (!container) return;
+      var selector = isNarrative ? '.ai-narrative-block' : '.tvw-card';
+      var blocks = container.querySelectorAll(selector);
+      var currentPage = isNarrative ? tvwNarrativePage : tvwDetailedPage;
+      var total = blocks.length;
+      var totalPages = Math.ceil(total / TVW_PER_PAGE);
+      var start = (currentPage - 1) * TVW_PER_PAGE;
+      var end = start + TVW_PER_PAGE;
+
+      for (var i = 0; i < blocks.length; i++) {
+        if (i >= start && i < end) blocks[i].classList.remove('tvw-hidden');
+        else blocks[i].classList.add('tvw-hidden');
+      }
+
+      if (!pagEl) return;
+      if (totalPages <= 1) { pagEl.innerHTML = ''; return; }
+
+      var modeArg = "'" + mode + "'";
+      var html = '';
+      html += '<button class="tvw-page-btn tvw-nav-btn" onclick="goTvwPage(' + (currentPage - 1) + ',' + modeArg + ')"' + (currentPage <= 1 ? ' disabled' : '') + '>&larr; Prev</button>';
+      for (var p = 1; p <= totalPages; p++) {
+        html += '<button class="tvw-page-btn' + (p === currentPage ? ' active' : '') + '" onclick="goTvwPage(' + p + ',' + modeArg + ')">' + p + '</button>';
+      }
+      html += '<button class="tvw-page-btn tvw-nav-btn" onclick="goTvwPage(' + (currentPage + 1) + ',' + modeArg + ')"' + (currentPage >= totalPages ? ' disabled' : '') + '>Next &rarr;</button>';
+      html += '<span class="tvw-page-info">' + (start + 1) + '\u2013' + Math.min(end, total) + ' of ' + total + '</span>';
+      pagEl.innerHTML = html;
+    }
+
+    function goTvwPage(page, mode) {
+      var isNarrative = mode === 'narrative';
+      var container = document.getElementById(isNarrative ? 'tvwNarrativeView' : 'tvwDetailedView');
+      if (!container) return;
+      var selector = isNarrative ? '.ai-narrative-block' : '.tvw-card';
+      var total = container.querySelectorAll(selector).length;
+      var totalPages = Math.ceil(total / TVW_PER_PAGE);
+      if (page < 1 || page > totalPages) return;
+      if (isNarrative) tvwNarrativePage = page;
+      else tvwDetailedPage = page;
+      applyTvwPage(mode);
+    }
+
     function toggleTvwView(btn) {
       var narrative = document.getElementById('tvwNarrativeView');
       var detailed = document.getElementById('tvwDetailedView');
@@ -7197,10 +7266,12 @@
         narrative.style.display = '';
         detailed.style.display = 'none';
         btn.textContent = 'Show detailed view';
+        applyTvwPage('narrative');
       } else {
         narrative.style.display = 'none';
         detailed.style.display = '';
         btn.textContent = 'Show narrative view';
+        applyTvwPage('detailed');
       }
     }
 
@@ -7211,8 +7282,6 @@
       if (!sd || !co) return;
 
       var tax = co.signalTaxonomy || {};
-      var topSignals = sd.signals.filter(function(s) { return s.sev === 'Critical' || s.sev === 'High'; }).slice(0, 5);
-      if (topSignals.length === 0) topSignals = sd.signals.slice(0, 5);
 
       var html = '';
       // Signal classification header
@@ -7231,125 +7300,145 @@
         html += '</div>';
       }
 
-      // Evidence chain
+      // All signals grouped by severity
+      var sevOrder = ['Critical', 'High', 'Medium', 'Low', 'Informational'];
+      var grouped = {};
+      sd.signals.forEach(function(sig) {
+        var sev = sig.sev || 'Medium';
+        if (!grouped[sev]) grouped[sev] = [];
+        grouped[sev].push(sig);
+      });
+
       html += '<div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--border)">';
-      html += '<div class="evidence-others-title">Key Evidence (' + topSignals.length + ' of ' + sd.signals.length + ' signals)</div>';
-      topSignals.forEach(function(sig, idx) {
-        var confCls = sig.conf === 'direct' ? 'tier-verified' : (sig.conf === 'calculated' ? 'tier-derived' : 'tier-estimated');
-        var confLabel = sig.conf === 'direct' ? 'Verified' : (sig.conf === 'calculated' ? 'Calculated' : 'Inferred');
-        html += '<div style="margin-bottom:14px;padding:12px;border-radius:var(--radius);border:1px solid var(--card-border);background:var(--card-bg)">';
-        html += '<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px">';
-        html += '<span style="font-size:11px;font-weight:600;color:var(--text-primary);flex:1">' + sig.sig.substring(0, 80) + (sig.sig.length > 80 ? '...' : '') + '</span>';
-        html += '<span class="source-tier ' + confCls + '" style="margin-left:8px;flex-shrink:0">' + confLabel + '</span>';
-        html += '</div>';
-        if (sig.ev && sig.ev[0]) {
-          html += '<div style="font-size:11px;color:var(--text-muted);line-height:1.5;margin-top:6px;padding-left:10px;border-left:2px solid var(--intelligence-blue);font-style:italic">"' + sig.ev[0].q.substring(0, 200) + (sig.ev[0].q.length > 200 ? '...' : '') + '"</div>';
-          html += '<div style="font-size:9px;color:var(--text-muted);margin-top:4px;padding-left:10px">' + sig.ev[0].src + '</div>';
-        }
+      html += '<div class="evidence-others-title">All Signals (' + sd.signals.length + ')</div>';
+
+      sevOrder.forEach(function(sev) {
+        if (!grouped[sev] || grouped[sev].length === 0) return;
+        html += '<div class="signal-sev-group">';
+        html += '<div class="signal-sev-label sev-' + sev.toLowerCase() + '">' + sev + ' (' + grouped[sev].length + ')</div>';
+        grouped[sev].forEach(function(sig) {
+          var confCls = (sig.conf === 'direct' || sig.conf === 'verified') ? 'tier-verified' : (sig.conf === 'calculated' ? 'tier-derived' : 'tier-estimated');
+          var confLabel = (sig.conf === 'direct' || sig.conf === 'verified') ? 'Verified' : (sig.conf === 'calculated' ? 'Calculated' : 'Inferred');
+          html += '<div style="margin-bottom:10px;padding:12px;border-radius:var(--radius);border:1px solid var(--card-border);background:var(--card-bg)">';
+          html += '<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px">';
+          html += '<span style="font-size:11px;font-weight:600;color:var(--text-primary);flex:1">' + sig.sig + '</span>';
+          html += '<span class="source-tier ' + confCls + '" style="margin-left:8px;flex-shrink:0">' + confLabel + '</span>';
+          html += '</div>';
+          if (sig.rat) {
+            html += '<div style="font-size:11px;color:var(--text-secondary);line-height:1.55;margin-top:6px">' + sig.rat + '</div>';
+          }
+          if (sig.ev && sig.ev[0]) {
+            html += '<div style="font-size:9px;color:var(--text-muted);margin-top:6px">' + sig.ev[0].src + (sig.ev[0].ref ? ' &middot; ' + sig.ev[0].ref : '') + '</div>';
+          }
+          html += '</div>';
+        });
         html += '</div>';
       });
       html += '</div>';
 
-      document.getElementById('evidenceDrawerTitle').textContent = co.name + ' — Intelligence';
+      document.getElementById('evidenceDrawerTitle').textContent = co.name + ' \u2014 Intel Brief';
       document.getElementById('evidenceDrawerBody').innerHTML = html;
       document.getElementById('evidenceDrawer').classList.add('open');
       document.getElementById('evidenceDrawerOverlay').classList.add('open');
     }
 
-    // ========== SIGNAL PIPELINE RENDERER (with reasoning expand) ==========
-    var activeSignalFilter = 'all';
-    var signalSearchQuery = '';
+    // ========== SIGNAL PIPELINE RENDERER (with urgency tabs + pagination) ==========
+    var activeUrgencyTab = 'high';
+    var signalPage = 1;
+    var SIGNAL_PER_PAGE = 4;
 
-    function filterSignalPipeline(query) {
-      signalSearchQuery = (query || '').toLowerCase().trim();
-      renderSignalPipeline(activeSignalFilter);
+    function renderUrgencyTabs() {
+      var tabBar = document.getElementById('urgencyTabBar');
+      if (!tabBar) return;
+      var counts = {high: 0, medium: 0, watch: 0};
+      COMPANIES.forEach(function(c) {
+        if (c.signalTaxonomy && c.signalTaxonomy.urgency) {
+          var u = c.signalTaxonomy.urgency;
+          if (counts[u] !== undefined) counts[u]++;
+        }
+      });
+      var tabs = [
+        {key: 'high', label: 'High Priority', count: counts.high},
+        {key: 'medium', label: 'Medium', count: counts.medium},
+        {key: 'watch', label: 'Watch', count: counts.watch}
+      ];
+      tabBar.innerHTML = tabs.map(function(t) {
+        return '<button class="urgency-tab' + (activeUrgencyTab === t.key ? ' active' : '') + '" onclick="switchUrgencyTab(\'' + t.key + '\')">' +
+          t.label + ' <span class="tab-count">(' + t.count + ')</span></button>';
+      }).join('');
     }
 
-    function toggleReasoning(btn) {
-      var card = btn.closest('.opp-card');
-      if (card) card.classList.toggle('expanded');
+    function switchUrgencyTab(tab) {
+      activeUrgencyTab = tab;
+      signalPage = 1;
+      renderUrgencyTabs();
+      renderSignalPipeline();
     }
 
-    function renderSignalPipeline(filter) {
-      activeSignalFilter = filter || 'all';
+    function goSignalPage(page) {
+      var sorted = COMPANIES.filter(function(c) {
+        return c.signalTaxonomy && c.signalTaxonomy.urgency === activeUrgencyTab;
+      });
+      var totalPages = Math.ceil(sorted.length / SIGNAL_PER_PAGE);
+      if (page < 1 || page > totalPages) return;
+      signalPage = page;
+      renderSignalPipeline();
+    }
+
+    function renderSignalPipeline() {
       var grid = document.getElementById('oppPipelineGrid');
-      var filtersEl = document.getElementById('oppPipelineFilters');
+      var pagEl = document.getElementById('signalPagination');
       if (!grid) return;
 
-      // Build filter buttons
-      var types = ['all','performance','transition','friction','ecosystem'];
-      var typeLabels = {all:'All',performance:'Performance',transition:'Transition',friction:'Friction',ecosystem:'Ecosystem'};
-      var typeColors = {performance:'opp-signal-performance',transition:'opp-signal-transition',friction:'opp-signal-friction',ecosystem:'opp-signal-ecosystem'};
-      if (filtersEl) {
-        filtersEl.innerHTML = types.map(function(t) {
-          return '<button class="opp-filter-btn' + (activeSignalFilter === t ? ' active' : '') + '" onclick="renderSignalPipeline(\'' + t + '\')">' + typeLabels[t] + '</button>';
-        }).join('');
-      }
-
-      // Filter and sort companies
+      // Filter by urgency tab
       var sorted = COMPANIES.filter(function(c) {
         if (!c.signalTaxonomy) return false;
-        if (activeSignalFilter !== 'all' && c.signalTaxonomy.primary !== activeSignalFilter) return false;
-        // Search filter
-        if (signalSearchQuery) {
-          var haystack = (c.name + ' ' + c.signalTaxonomy.primary + ' ' + (c.signalTaxonomy.serviceLines || []).join(' ') + ' ' + (c.signalTaxonomy.signals || []).join(' ')).toLowerCase();
-          if (haystack.indexOf(signalSearchQuery) < 0) return false;
-        }
+        if (c.signalTaxonomy.urgency !== activeUrgencyTab) return false;
         return true;
-      }).sort(function(a, b) {
-        var urgOrder = {high:0,medium:1,watch:2};
-        return (urgOrder[a.signalTaxonomy.urgency]||2) - (urgOrder[b.signalTaxonomy.urgency]||2);
       });
 
-      // Render cards with reasoning expand
-      var serviceLabels = {turnaround:'Turnaround',PEPI:'PEPI',CDD:'CDD',transaction:'Transaction',disputes:'Disputes','interim-mgmt':'Interim Mgmt'};
-      grid.innerHTML = sorted.map(function(c) {
+      // Paginate
+      var total = sorted.length;
+      var totalPages = Math.ceil(total / SIGNAL_PER_PAGE);
+      if (signalPage > totalPages) signalPage = totalPages || 1;
+      var start = (signalPage - 1) * SIGNAL_PER_PAGE;
+      var end = start + SIGNAL_PER_PAGE;
+      var pageItems = sorted.slice(start, end);
+
+      // Render cards
+      grid.innerHTML = pageItems.map(function(c) {
         var t = c.signalTaxonomy;
         var thesis = t.thesis || {};
         var urgClass = 'opp-card-urgency-' + t.urgency;
-        var badgeCls = typeColors[t.primary] || '';
-        var primaryLabel = typeLabels[t.primary] || t.primary;
-
-        var servicesHtml = (t.serviceLines || []).map(function(s) {
-          return '<span class="opp-service-tag">' + (serviceLabels[s] || s) + '</span>';
-        }).join('');
-
-        // Headline = implication (the "so what")
         var headline = thesis.implication || thesis.situation || '';
-
-        // Reasoning chain (hidden by default)
-        var reasoning = '';
-        if (thesis.situation || thesis.complication) {
-          reasoning = '<div class="opp-card-reasoning"><div class="reasoning-chain">';
-          if (thesis.situation) {
-            reasoning += '<div class="reasoning-step"><div class="reasoning-step-label">Situation</div><div class="reasoning-step-text">' + thesis.situation + '</div></div>';
-          }
-          if (thesis.complication) {
-            reasoning += '<div class="reasoning-step"><div class="reasoning-step-label">Complication</div><div class="reasoning-step-text">' + thesis.complication + '</div></div>';
-          }
-          if (thesis.implication) {
-            reasoning += '<div class="reasoning-step"><div class="reasoning-step-label">Implication</div><div class="reasoning-step-text">' + thesis.implication + '</div></div>';
-          }
-          reasoning += '</div></div>';
-        }
 
         return '<div class="opp-card ' + urgClass + '" data-company-id="' + c.id + '">' +
           '<div class="opp-card-header">' +
             '<span class="opp-card-company">' + c.name + '</span>' +
-            '<div class="opp-card-badges"><span class="opp-signal-badge ' + badgeCls + '">' + primaryLabel + '</span></div>' +
           '</div>' +
-          '<div class="opp-card-headline">' + headline + '</div>' +
-          (reasoning ? '<button class="reasoning-toggle" onclick="toggleReasoning(this)"><span class="toggle-arrow">&#9654;</span> Show reasoning</button>' : '') +
-          reasoning +
-          '<div class="opp-card-footer">' +
-            '<div class="opp-card-services">' + (servicesHtml || '<span style="font-size:10px;color:var(--text-muted)">Monitor only</span>') + '</div>' +
-            '<div style="display:flex;align-items:center;gap:8px">' +
-              (SIGNAL_DATA[c.id] ? '<button class="reasoning-toggle" style="margin:0;padding:2px 8px;font-size:9px" onclick="event.stopPropagation();openSignalEvidence(\'' + c.id + '\')">View evidence</button>' : '') +
-              '<span class="opp-card-urgency urgency-' + t.urgency + '">' + t.urgency + '</span>' +
-            '</div>' +
+          '<div class="opp-card-body">' +
+            '<div class="opp-card-headline">' + headline + '</div>' +
+            (SIGNAL_DATA[c.id] && SIGNAL_DATA[c.id].signals.length > 0 ? '<button class="reasoning-toggle" onclick="event.stopPropagation();openSignalEvidence(\'' + c.id + '\')"><span class="toggle-arrow">&#9654;</span> View intel brief</button>' : '') +
           '</div>' +
         '</div>';
       }).join('');
+
+      if (total === 0) {
+        grid.innerHTML = '<div style="text-align:center;padding:24px;color:var(--text-muted);font-size:13px">No signals match the current filters</div>';
+      }
+
+      // Render pagination
+      if (pagEl) {
+        if (totalPages <= 1) { pagEl.innerHTML = ''; return; }
+        var html = '';
+        html += '<button class="tvw-page-btn tvw-nav-btn" onclick="goSignalPage(' + (signalPage - 1) + ')"' + (signalPage <= 1 ? ' disabled' : '') + '>&larr; Prev</button>';
+        for (var p = 1; p <= totalPages; p++) {
+          html += '<button class="tvw-page-btn' + (p === signalPage ? ' active' : '') + '" onclick="goSignalPage(' + p + ')">' + p + '</button>';
+        }
+        html += '<button class="tvw-page-btn tvw-nav-btn" onclick="goSignalPage(' + (signalPage + 1) + ')"' + (signalPage >= totalPages ? ' disabled' : '') + '>Next &rarr;</button>';
+        html += '<span class="tvw-page-info">' + (start + 1) + '\u2013' + Math.min(end, total) + ' of ' + total + '</span>';
+        pagEl.innerHTML = html;
+      }
     }
 
     // ========== PRODUCT-MARKET PEER GROUPS ==========
@@ -7387,7 +7476,9 @@
     }
 
     // Initial render
+    renderUrgencyTabs();
     renderSignalPipeline();
+    initTvwPagination();
     renderPeerGroups();
     renderOppPipeline();
     renderTable();

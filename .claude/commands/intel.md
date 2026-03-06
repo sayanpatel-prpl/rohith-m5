@@ -6,7 +6,7 @@ Gather intelligence from company documents and populate the dashboard.
 
 ## Overview
 
-This skill reads source documents (quarterly earnings transcripts + annual reports) from a company folder, generates a structured intelligence report, produces a severity-ranked pain point CSV for A&M turnaround consulting evaluation, and then populates the corresponding company's data in the dashboard (`/Users/prateekkurkanji/Kompete/rohith-m5/index_v3.html`).
+This skill reads source documents (quarterly earnings transcripts + annual reports) from a company folder, generates a structured intelligence report, produces a severity-ranked pain point CSV for A&M turnaround consulting evaluation, and then populates the corresponding company's data in the dashboard (`/Users/prateekkurkanji/Kompete/rohith-m5/index_v4.html`).
 
 ---
 
@@ -180,7 +180,7 @@ Append the following to the intelligence report file:
 
 ### Dashboard Integration
 
-After generating the thesis, update the company's `signalTaxonomy` field in `COMPANY_META` (in `index_v3.html`):
+After generating the thesis, update the company's `signalTaxonomy` field in `COMPANY_META` (in `index_v4.html`):
 
 ```js
 signalTaxonomy: {
@@ -269,7 +269,7 @@ Before producing the final file, internally verify:
 
 ## Phase 5: Dashboard Population
 
-Read the dashboard file: `/Users/prateekkurkanji/Kompete/rohith-m5/index_v3.html`
+Read the dashboard file: `/Users/prateekkurkanji/Kompete/rohith-m5/index_v4.html`
 
 Find the company in the COMPANIES JavaScript array and in each HTML section below. Use the Edit tool for all updates.
 
