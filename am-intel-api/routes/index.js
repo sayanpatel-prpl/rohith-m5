@@ -13,6 +13,7 @@ import dealsRouter from './deals.js';
 import leadershipRouter from './leadership.js';
 import actionLensRouter from './actionLens.js';
 import dashboardRouter from './dashboard.js';
+import sectorSignalsRouter from './sectorSignals.js';
 
 const router = Router();
 
@@ -30,6 +31,9 @@ router.use('/watchlist', watchlistRouter);
 router.use('/deals', dealsRouter);
 router.use('/leadership', leadershipRouter);
 router.use('/action-lens', actionLensRouter);
+
+// Sector signal architecture routes
+router.use('/sector-signals', sectorSignalsRouter);
 
 // Composite dashboard routes
 router.use('/dashboard', dashboardRouter);
