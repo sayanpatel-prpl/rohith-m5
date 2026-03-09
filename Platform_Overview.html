@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Industry Intel Platform — Architecture Overview</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #3B82F6;
+    --blue-dark: #2563EB;
+    --green: #22C55E;
+    --red: #EF4444;
+    --amber: #F59E0B;
+    --purple: #7C3AED;
+    --bg: #0F172A;
+    --surface: #1E293B;
+    --surface-2: #334155;
+    --border: #475569;
+    --text: #F1F5F9;
+    --text-2: #94A3B8;
+    --text-3: #64748B;
+    --radius: 12px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+
+  .page { max-width: 1200px; margin: 0 auto; padding: 60px 40px; }
+
+  /* Header */
+  .hero { text-align: center; margin-bottom: 64px; }
+  .hero-badge { display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--blue); background: rgba(59,130,246,0.12); border: 1px solid rgba(59,130,246,0.25); padding: 6px 16px; border-radius: 20px; margin-bottom: 20px; }
+  .hero h1 { font-size: 42px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 12px; background: linear-gradient(135deg, #F1F5F9, #3B82F6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .hero p { font-size: 16px; color: var(--text-2); max-width: 600px; margin: 0 auto; }
+
+  /* Stats row */
+  .stats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-bottom: 56px; }
+  .stat { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; text-align: center; }
+  .stat-num { font-size: 32px; font-weight: 800; font-family: 'IBM Plex Mono', monospace; color: var(--blue); }
+  .stat-label { font-size: 11px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.8px; margin-top: 4px; }
+
+  /* Section headers */
+  .section-label { font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 12px; }
+  .section-label.blue { color: var(--blue); }
+  .section-label.green { color: var(--green); }
+  .section-label.red { color: var(--red); }
+  .section-label.amber { color: var(--amber); }
+  .section-label.purple { color: var(--purple); }
+  h2 { font-size: 26px; font-weight: 700; margin-bottom: 8px; }
+  .section-desc { font-size: 14px; color: var(--text-2); margin-bottom: 28px; }
+
+  /* Before/After comparison */
+  .comparison { display: grid; grid-template-columns: 1fr 60px 1fr; gap: 0; margin-bottom: 56px; align-items: stretch; }
+  .comp-col { padding: 28px; border-radius: var(--radius); }
+  .comp-before { background: rgba(239,68,68,0.06); border: 1px solid rgba(239,68,68,0.2); }
+  .comp-after { background: rgba(34,197,94,0.06); border: 1px solid rgba(34,197,94,0.2); }
+  .comp-arrow { display: flex; align-items: center; justify-content: center; font-size: 28px; color: var(--text-3); }
+  .comp-title { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
+  .comp-before .comp-title { color: var(--red); }
+  .comp-after .comp-title { color: var(--green); }
+  .comp-item { font-size: 13px; color: var(--text-2); padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: flex-start; gap: 8px; }
+  .comp-item:last-child { border-bottom: none; }
+  .comp-icon { flex-shrink: 0; font-size: 14px; margin-top: 1px; }
+  .comp-before .comp-icon { color: var(--red); }
+  .comp-after .comp-icon { color: var(--green); }
+
+  /* Architecture flow */
+  .flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 56px; }
+  .flow-step { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; position: relative; }
+  .flow-step::after { content: '\2192'; position: absolute; right: -14px; top: 50%; transform: translateY(-50%); font-size: 18px; color: var(--blue); z-index: 1; }
+  .flow-step:last-child::after { display: none; }
+  .flow-num { font-size: 11px; font-weight: 700; color: var(--blue); background: rgba(59,130,246,0.15); width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
+  .flow-title { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+  .flow-desc { font-size: 12px; color: var(--text-2); line-height: 1.6; }
+  .flow-tag { display: inline-block; font-size: 9px; font-weight: 600; padding: 2px 6px; border-radius: 4px; margin-top: 8px; }
+  .flow-tag.auto { background: rgba(59,130,246,0.15); color: var(--blue); }
+  .flow-tag.skill { background: rgba(124,58,237,0.15); color: var(--purple); }
+
+  /* Data layers */
+  .layers { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 56px; }
+  .layer { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; }
+  .layer-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .layer-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+  .layer-icon.data { background: rgba(59,130,246,0.15); color: var(--blue); }
+  .layer-icon.signal { background: rgba(239,68,68,0.15); color: var(--red); }
+  .layer-icon.news { background: rgba(124,58,237,0.15); color: var(--purple); }
+  .layer-icon.pitch { background: rgba(34,197,94,0.15); color: var(--green); }
+  .layer-name { font-size: 15px; font-weight: 700; }
+  .layer-count { font-size: 11px; color: var(--text-3); font-family: 'IBM Plex Mono', monospace; }
+  .layer-items { list-style: none; }
+  .layer-items li { font-size: 12px; color: var(--text-2); padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.04); display: flex; justify-content: space-between; }
+  .layer-items li:last-child { border-bottom: none; }
+  .layer-val { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--text); }
+
+  /* Evidence approach */
+  .evidence-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; margin-bottom: 56px; }
+  .evidence-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 20px; }
+  .ev-card { padding: 20px; border-radius: 8px; border-left: 3px solid; }
+  .ev-card.strong { border-color: var(--green); background: rgba(34,197,94,0.05); }
+  .ev-card.moderate { border-color: var(--amber); background: rgba(245,158,11,0.05); }
+  .ev-card.directional { border-color: var(--text-3); background: rgba(100,116,139,0.05); }
+  .ev-card h4 { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+  .ev-card.strong h4 { color: var(--green); }
+  .ev-card.moderate h4 { color: var(--amber); }
+  .ev-card.directional h4 { color: var(--text-3); }
+  .ev-card p { font-size: 12px; color: var(--text-2); line-height: 1.6; }
+  .ev-card .example { font-size: 11px; color: var(--text-3); margin-top: 8px; font-style: italic; font-family: 'IBM Plex Mono', monospace; }
+
+  /* News layer */
+  .news-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 56px; }
+  .news-cat { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; }
+  .news-cat-header { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+  .news-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .news-cat-title { font-size: 13px; font-weight: 700; }
+  .news-cat-count { font-size: 22px; font-weight: 800; font-family: 'IBM Plex Mono', monospace; margin-bottom: 4px; }
+  .news-cat-items { font-size: 11px; color: var(--text-2); line-height: 1.8; }
+  .news-tag { display: inline-block; font-size: 9px; font-weight: 600; padding: 1px 5px; border-radius: 3px; margin-left: 4px; }
+  .tag-headwind { background: rgba(239,68,68,0.15); color: var(--red); }
+  .tag-tailwind { background: rgba(34,197,94,0.15); color: var(--green); }
+  .tag-neutral { background: rgba(100,116,139,0.15); color: var(--text-3); }
+
+  /* Dashboard sections */
+  .sections-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 56px; }
+  .sec-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px; }
+  .sec-num { font-size: 10px; font-weight: 700; color: var(--blue); font-family: 'IBM Plex Mono', monospace; }
+  .sec-name { font-size: 12px; font-weight: 600; margin-top: 2px; }
+  .sec-desc { font-size: 10px; color: var(--text-3); margin-top: 3px; }
+
+  /* Coverage matrix */
+  .matrix { margin-bottom: 56px; overflow-x: auto; }
+  .matrix table { width: 100%; border-collapse: collapse; font-size: 11px; }
+  .matrix th { background: var(--surface); padding: 10px 8px; text-align: left; font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-3); border-bottom: 2px solid var(--border); position: sticky; top: 0; }
+  .matrix td { padding: 8px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .matrix tr:hover { background: rgba(59,130,246,0.04); }
+  .matrix .co-name { font-weight: 600; color: var(--text); white-space: nowrap; }
+  .dot { display: inline-block; width: 18px; height: 18px; border-radius: 50%; text-align: center; line-height: 18px; font-size: 10px; font-weight: 700; }
+  .dot.yes { background: rgba(34,197,94,0.2); color: var(--green); }
+  .dot.no { background: rgba(100,116,139,0.1); color: var(--text-3); }
+  .dot.partial { background: rgba(245,158,11,0.2); color: var(--amber); }
+  .urgency-badge { font-size: 9px; font-weight: 600; padding: 2px 6px; border-radius: 10px; }
+  .urgency-badge.high { background: rgba(239,68,68,0.15); color: var(--red); }
+  .urgency-badge.medium { background: rgba(245,158,11,0.15); color: var(--amber); }
+  .urgency-badge.watch { background: rgba(100,116,139,0.15); color: var(--text-3); }
+
+  /* Footer */
+  .footer { text-align: center; padding: 40px 0; border-top: 1px solid var(--border); margin-top: 20px; }
+  .footer p { font-size: 12px; color: var(--text-3); }
+
+  /* Dividers */
+  .divider { height: 1px; background: var(--border); margin: 56px 0; }
+
+  @media (max-width: 900px) {
+    .stats { grid-template-columns: repeat(3, 1fr); }
+    .comparison { grid-template-columns: 1fr; }
+    .comp-arrow { transform: rotate(90deg); padding: 8px 0; }
+    .flow { grid-template-columns: repeat(2, 1fr); }
+    .flow-step::after { display: none; }
+    .layers { grid-template-columns: 1fr; }
+    .evidence-grid { grid-template-columns: 1fr; }
+    .news-grid { grid-template-columns: repeat(2, 1fr); }
+    .sections-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-badge">Kompete &mdash; Industry Intel v3.0</div>
+    <h1>A&M Intelligence Platform</h1>
+    <p>Signal-driven consulting intelligence for the Indian Consumer Durables sector &mdash; 16 companies, 14 intelligence reports, 12 dashboard sections</p>
+  </div>
+
+  <!-- Key Stats -->
+  <div class="stats">
+    <div class="stat"><div class="stat-num">16</div><div class="stat-label">Companies Tracked</div></div>
+    <div class="stat"><div class="stat-num">14</div><div class="stat-label">Intelligence Reports</div></div>
+    <div class="stat"><div class="stat-num">12</div><div class="stat-label">Dashboard Sections</div></div>
+    <div class="stat"><div class="stat-num">31</div><div class="stat-label">News &amp; Regulatory Items</div></div>
+    <div class="stat"><div class="stat-num">8</div><div class="stat-label">A&amp;M Case Studies</div></div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Before/After -->
+  <div class="section-label red">What Changed</div>
+  <h2>Evidence-First Rebuild</h2>
+  <p class="section-desc">We replaced fabricated benchmarks and estimated impact numbers with a rigorous evidence-backed approach. Every claim traces to a source document.</p>
+
+  <div class="comparison">
+    <div class="comp-col comp-before">
+      <div class="comp-title">Before</div>
+      <div class="comp-item"><span class="comp-icon">&times;</span><span><strong>Fabricated bps impact</strong> &mdash; "+80 bps Procurement" with no underlying data. Numbers computed from "50% gap closure to sector median"</span></div>
+      <div class="comp-item"><span class="comp-icon">&times;</span><span><strong>Unreliable benchmarks</strong> &mdash; "Sector median EBITDA 9.8%" computed from 16-company sample. Some values were column-confusion errors</span></div>
+      <div class="comp-item"><span class="comp-icon">&times;</span><span><strong>Anonymous comparisons</strong> &mdash; "vs sector median" and "vs best-in-class" with no named peers</span></div>
+      <div class="comp-item"><span class="comp-icon">&times;</span><span><strong>Conceptually wrong levers</strong> &mdash; Working Capital treated as EBITDA lever (it affects ROCE). One-time items treated as recurring</span></div>
+      <div class="comp-item"><span class="comp-icon">&times;</span><span><strong>No external context</strong> &mdash; Intelligence derived solely from company filings with no market/regulatory overlay</span></div>
+    </div>
+    <div class="comp-arrow">&rarr;</div>
+    <div class="comp-col comp-after">
+      <div class="comp-title">After</div>
+      <div class="comp-item"><span class="comp-icon">&check;</span><span><strong>Evidence-graded findings</strong> &mdash; Every lever tagged STRONG / MODERATE / DIRECTIONAL with specific data points and source citations</span></div>
+      <div class="comp-item"><span class="comp-icon">&check;</span><span><strong>Named peer comparisons</strong> &mdash; "Crompton 9.8%, Havells 8.8%" from specific annual reports, not anonymous medians</span></div>
+      <div class="comp-item"><span class="comp-icon">&check;</span><span><strong>Investigation Areas, not claims</strong> &mdash; "Here's what to investigate with strong evidence" instead of "Here's exactly how many bps you'll gain"</span></div>
+      <div class="comp-item"><span class="comp-icon">&check;</span><span><strong>"Data Needed" per area</strong> &mdash; Each investigation area specifies what additional information validates the hypothesis</span></div>
+      <div class="comp-item"><span class="comp-icon">&check;</span><span><strong>31-item news intelligence layer</strong> &mdash; Regulatory events, industry trends, macro factors, and company news with sources and dates</span></div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Intelligence Pipeline -->
+  <div class="section-label blue">Intelligence Pipeline</div>
+  <h2>From Raw Documents to Engagement Brief</h2>
+  <p class="section-desc">Automated pipeline processes company transcripts and filings into actionable A&M engagement intelligence</p>
+
+  <div class="flow">
+    <div class="flow-step">
+      <div class="flow-num">1</div>
+      <div class="flow-title">Document Ingestion</div>
+      <div class="flow-desc">Read annual reports, earnings transcripts, BSE filings, investor presentations. Extract financial data, management quotes, strategic signals.</div>
+      <div class="flow-tag auto">Automated</div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">2</div>
+      <div class="flow-title">Intelligence Extraction</div>
+      <div class="flow-desc">11-section analysis: financial health, operational signals, leadership changes, narrative drift, competitive positioning, governance risk.</div>
+      <div class="flow-tag skill">/intel skill</div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">3</div>
+      <div class="flow-title">Signal Classification</div>
+      <div class="flow-desc">SCI engagement thesis (Situation-Complication-Implication). Signal taxonomy: Performance / Transition / Friction / Ecosystem. A&M lever mapping with evidence grading.</div>
+      <div class="flow-tag skill">/intel skill</div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">4</div>
+      <div class="flow-title">Engagement Brief</div>
+      <div class="flow-desc">MD-ready 1-2 page pitch: EBITDA vs peers, investigation areas, entry strategy, management quotes, risk factors, market context overlay.</div>
+      <div class="flow-tag skill">/pitch skill</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Data Architecture -->
+  <div class="section-label blue">Data Architecture</div>
+  <h2>Seven Interconnected Data Layers</h2>
+  <p class="section-desc">Each layer feeds into multiple dashboard sections. All data is embedded in a single static HTML file &mdash; no backend, no dependencies.</p>
+
+  <div class="layers">
+    <div class="layer">
+      <div class="layer-header">
+        <div class="layer-icon data">&#9632;</div>
+        <div><div class="layer-name">FINANCIAL_DATA</div><div class="layer-count">16 companies &times; 5 periods</div></div>
+      </div>
+      <ul class="layer-items">
+        <li><span>Revenue, EBITDA %, PAT, Growth</span><span class="layer-val">Quarterly</span></li>
+        <li><span>ROCE, D/E, P/E, WC Days</span><span class="layer-val">Latest</span></li>
+        <li><span>Inventory Days, Debtor Days, CCC</span><span class="layer-val">Derived</span></li>
+      </ul>
+    </div>
+    <div class="layer">
+      <div class="layer-header">
+        <div class="layer-icon signal">&#9650;</div>
+        <div><div class="layer-name">SIGNAL_DATA</div><div class="layer-count">Evidence vault per company</div></div>
+      </div>
+      <ul class="layer-items">
+        <li><span>Ranked signals with severity</span><span class="layer-val">Critical &rarr; Low</span></li>
+        <li><span>Confidence classification</span><span class="layer-val">Direct / Calc / Inferred</span></li>
+        <li><span>Verbatim evidence quotes</span><span class="layer-val">Source + Reference</span></li>
+      </ul>
+    </div>
+    <div class="layer">
+      <div class="layer-header">
+        <div class="layer-icon data">&#9632;</div>
+        <div><div class="layer-name">COMPANY_META</div><div class="layer-count">16 companies with full taxonomy</div></div>
+      </div>
+      <ul class="layer-items">
+        <li><span>Signal Taxonomy (4 types)</span><span class="layer-val">SCI Thesis</span></li>
+        <li><span>Lever Mapping (evidence-graded)</span><span class="layer-val">4 companies</span></li>
+        <li><span>Engagement Brief (pitch data)</span><span class="layer-val">4 companies</span></li>
+        <li><span>Product Mix, Premium Mix</span><span class="layer-val">16 companies</span></li>
+      </ul>
+    </div>
+    <div class="layer">
+      <div class="layer-header">
+        <div class="layer-icon news">&#9830;</div>
+        <div><div class="layer-name">NEWS_INTELLIGENCE</div><div class="layer-count">31 sourced items</div></div>
+      </div>
+      <ul class="layer-items">
+        <li><span>Regulatory events</span><span class="layer-val">8 items</span></li>
+        <li><span>Industry trends</span><span class="layer-val">7 items</span></li>
+        <li><span>Macro factors</span><span class="layer-val">4 items</span></li>
+        <li><span>Company-specific news</span><span class="layer-val">12 items</span></li>
+      </ul>
+    </div>
+    <div class="layer">
+      <div class="layer-header">
+        <div class="layer-icon data">&#9632;</div>
+        <div><div class="layer-name">OPPORTUNITY_DATA</div><div class="layer-count">12 accounts, 41 opportunities</div></div>
+      </div>
+      <ul class="layer-items">
+        <li><span>Pipeline stages</span><span class="layer-val">3 stages</span></li>
+        <li><span>Signal-linked opportunities</span><span class="layer-val">Per account</span></li>
+      </ul>
+    </div>
+    <div class="layer">
+      <div class="layer-header">
+        <div class="layer-icon signal">&#9650;</div>
+        <div><div class="layer-name">NARRATIVE_DRIFT</div><div class="layer-count">7 companies tracked</div></div>
+      </div>
+      <ul class="layer-items">
+        <li><span>Talk vs Walk detection</span><span class="layer-val">Quarter-over-quarter</span></li>
+        <li><span>Guidance vs actuals gap</span><span class="layer-val">Flagged</span></li>
+      </ul>
+    </div>
+    <div class="layer">
+      <div class="layer-header">
+        <div class="layer-icon data">&#9632;</div>
+        <div><div class="layer-name">BENCHMARK_DATA</div><div class="layer-count">Runtime-computed</div></div>
+      </div>
+      <ul class="layer-items">
+        <li><span>Sector &amp; sub-sector medians</span><span class="layer-val">7 metrics</span></li>
+        <li><span>Per-company gap analysis</span><span class="layer-val">vs median &amp; best</span></li>
+      </ul>
+    </div>
+    <div class="layer" style="border-left:3px solid var(--green)">
+      <div class="layer-header">
+        <div class="layer-icon pitch">&#9733;</div>
+        <div><div class="layer-name">Engagement Briefs</div><div class="layer-count">4 companies complete</div></div>
+      </div>
+      <ul class="layer-items">
+        <li><span>EBITDA Position vs Named Peers</span><span class="layer-val">Sourced</span></li>
+        <li><span>Investigation Areas + Evidence</span><span class="layer-val">STRONG/MOD/DIR</span></li>
+        <li><span>Entry Strategy + Opening Pitch</span><span class="layer-val">Actionable</span></li>
+        <li><span>Market Context &amp; News Overlay</span><span class="layer-val">31 items</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Evidence Classification -->
+  <div class="section-label green">Core Philosophy</div>
+  <h2>Evidence Strength Classification</h2>
+  <p class="section-desc">Every finding is graded by evidence quality. No fabricated numbers &mdash; only what the data actually supports.</p>
+
+  <div class="evidence-box">
+    <div class="evidence-grid">
+      <div class="ev-card strong">
+        <h4>STRONG</h4>
+        <p>Specific numbers from audited filings, earnings calls, or regulatory disclosures. Directly verifiable.</p>
+        <div class="example">"CP capacity utilization 43% (10.8Mn installed vs 4.6Mn produced)" &mdash; FY25 Annual Report</div>
+      </div>
+      <div class="ev-card moderate">
+        <h4>MODERATE</h4>
+        <p>Calculated from multiple data points or derived from management commentary with directional support.</p>
+        <div class="example">"Segment margins diverge: EMP 8.8% vs UCP 6.2%" &mdash; Q2 FY26 Transcript analysis</div>
+      </div>
+      <div class="ev-card directional">
+        <h4>DIRECTIONAL</h4>
+        <p>Industry patterns, analogies, or management statements that suggest opportunity but need validation.</p>
+        <div class="example">"Operating leverage from demand recovery" &mdash; Structural thesis, needs volume data</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- News Intelligence Layer -->
+  <div class="section-label purple">New: News Intelligence Layer</div>
+  <h2>External Context Overlay</h2>
+  <p class="section-desc">31 sourced news items enriching company intelligence with regulatory, industry, and macro context</p>
+
+  <div class="news-grid">
+    <div class="news-cat">
+      <div class="news-cat-header">
+        <div class="news-dot" style="background:var(--red)"></div>
+        <div class="news-cat-title">Regulatory</div>
+      </div>
+      <div class="news-cat-count">8</div>
+      <div class="news-cat-items">
+        BEE Star Rating Revision <span class="news-tag tag-headwind">Headwind</span><br>
+        PLI White Goods Round 4 <span class="news-tag tag-tailwind">Tailwind</span><br>
+        ECMS Electronics Components <span class="news-tag tag-tailwind">Tailwind</span><br>
+        GST Rate Cut 28% &rarr; 18% <span class="news-tag tag-tailwind">Tailwind</span><br>
+        PM-KUSUM Sunset Risk <span class="news-tag tag-headwind">Headwind</span><br>
+        BIS Mandatory Certification <span class="news-tag tag-neutral">Neutral</span><br>
+        Anti-Dumping (China) <span class="news-tag tag-tailwind">Tailwind</span><br>
+        India-UK CETA <span class="news-tag tag-neutral">Neutral</span>
+      </div>
+    </div>
+    <div class="news-cat">
+      <div class="news-cat-header">
+        <div class="news-dot" style="background:var(--blue)"></div>
+        <div class="news-cat-title">Industry</div>
+      </div>
+      <div class="news-cat-count">7</div>
+      <div class="news-cat-items">
+        AC Market $6.15B &rarr; $21.59B <span class="news-tag tag-tailwind">Tailwind</span><br>
+        El Ni&ntilde;o 2026 Demand Surge <span class="news-tag tag-tailwind">Tailwind</span><br>
+        BLDC Fan Premiumization <span class="news-tag tag-tailwind">Tailwind</span><br>
+        EMS/ODM Market Boom <span class="news-tag tag-tailwind">Tailwind</span><br>
+        D2C &amp; Channel Digitization <span class="news-tag tag-tailwind">Tailwind</span><br>
+        Tier 2+ City Growth <span class="news-tag tag-tailwind">Tailwind</span><br>
+        Data Centre Cooling <span class="news-tag tag-tailwind">Tailwind</span>
+      </div>
+    </div>
+    <div class="news-cat">
+      <div class="news-cat-header">
+        <div class="news-dot" style="background:var(--amber)"></div>
+        <div class="news-cat-title">Macro</div>
+      </div>
+      <div class="news-cat-count">4</div>
+      <div class="news-cat-items">
+        Copper at Record Highs <span class="news-tag tag-headwind">Headwind</span><br>
+        Aluminum Softening H2 2026 <span class="news-tag tag-tailwind">Tailwind</span><br>
+        RBI 125bps Rate Cuts <span class="news-tag tag-tailwind">Tailwind</span><br>
+        Real Estate Structural Upturn <span class="news-tag tag-tailwind">Tailwind</span>
+      </div>
+    </div>
+    <div class="news-cat">
+      <div class="news-cat-header">
+        <div class="news-dot" style="background:var(--green)"></div>
+        <div class="news-cat-title">Company News</div>
+      </div>
+      <div class="news-cat-count">12</div>
+      <div class="news-cat-items">
+        Whirlpool &mdash; Parent stake sale<br>
+        Bajaj &mdash; Demerger complete<br>
+        Amber &mdash; Expansion + M&A<br>
+        Dixon &mdash; 22nd global EMS<br>
+        IFB &mdash; Active A&M engagement<br>
+        Blue Star &mdash; Rs 400Cr capex<br>
+        Symphony &mdash; Subsidiary stall<br>
+        Voltas &mdash; RAC share slide<br>
+        V-Guard &mdash; Rs 200Cr R&D<br>
+        LG India &mdash; $1.3B IPO<br>
+        Crompton &mdash; Butterfly merger<br>
+        Eureka &mdash; Dixon partnership
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- A&M Case Studies -->
+  <div class="section-label purple">New: A&M Track Record</div>
+  <h2>8 Relevant Precedent Engagements</h2>
+  <p class="section-desc">Published case studies and active engagements demonstrating A&M's capability in this sector. Each maps to specific target companies.</p>
+
+  <div class="layers">
+    <div class="layer" style="border-left:3px solid var(--green)">
+      <div class="layer-header">
+        <div class="layer-icon pitch">&#9733;</div>
+        <div><div class="layer-name">IFB Industries — Material Cost Optimization</div><div class="layer-count">PEPI &middot; India &middot; ACTIVE</div></div>
+      </div>
+      <ul class="layer-items">
+        <li><span style="color:var(--green)">Rs 14 Cr realized in H1 FY26</span><span class="layer-val">Rs 200+ Cr target</span></li>
+        <li><span style="color:var(--green)">160 bps gross margin improvement</span><span class="layer-val">18-month program</span></li>
+        <li><span>Direct sector precedent — in our 16-company universe</span><span class="layer-val">WM market leader</span></li>
+      </ul>
+    </div>
+    <div class="layer" style="border-left:3px solid var(--red)">
+      <div class="layer-header">
+        <div class="layer-icon signal">&#9650;</div>
+        <div><div class="layer-name">European White Goods Manufacturer</div><div class="layer-count">Turnaround &middot; Europe &middot; Completed</div></div>
+      </div>
+      <ul class="layer-items">
+        <li><span style="color:var(--green)">EBITDA improved 30%+ over 2 years</span><span class="layer-val">$1B+ debt restructured</span></li>
+        <li><span style="color:var(--green)">5-8% savings across all functional areas</span><span class="layer-val">Procurement to SG&A</span></li>
+        <li><span style="color:var(--green)">20%+ sales increase for repositioned products</span><span class="layer-val">Brand turnaround</span></li>
+      </ul>
+    </div>
+    <div class="layer" style="border-left:3px solid var(--blue)">
+      <div class="layer-header">
+        <div class="layer-icon data">&#9632;</div>
+        <div><div class="layer-name">HVAC Manufacturer — Portfolio Profitability</div><div class="layer-count">PEPI &middot; Europe &middot; Completed</div></div>
+      </div>
+      <ul class="layer-items">
+        <li><span>Product portfolio EBITDA visibility by SKU</span><span class="layer-val">Technology transition</span></li>
+        <li><span>Direct parallel to BEE star rating shift in India</span><span class="layer-val">Regulation-driven</span></li>
+      </ul>
+    </div>
+    <div class="layer" style="border-left:3px solid var(--amber)">
+      <div class="layer-header">
+        <div class="layer-icon signal">&#9650;</div>
+        <div><div class="layer-name">Manufacturing — Rapid Results Post-Acquisition</div><div class="layer-count">Rapid Results &middot; Global &middot; Completed</div></div>
+      </div>
+      <ul class="layer-items">
+        <li><span style="color:var(--green)">2X run-rate EBITDA increase</span><span class="layer-val">Compressed timeframe</span></li>
+        <li><span>PE-backed manufacturer with post-acquisition EBITDA decline</span><span class="layer-val">Diagnostic-led</span></li>
+      </ul>
+    </div>
+    <div class="layer" style="border-left:3px solid var(--purple)">
+      <div class="layer-header">
+        <div class="layer-icon news">&#9830;</div>
+        <div><div class="layer-name">Crisis at the Mill — Indian Turnaround</div><div class="layer-count">Turnaround &middot; India &middot; INSEAD Case</div></div>
+      </div>
+      <ul class="layer-items">
+        <li><span>PE-backed Indian manufacturer turnaround</span><span class="layer-val">Cash stabilization</span></li>
+        <li><span>Won 2015 EFMD Indian Management Issues award</span><span class="layer-val">Published HBR</span></li>
+      </ul>
+    </div>
+    <div class="layer" style="border-left:3px solid var(--amber)">
+      <div class="layer-header">
+        <div class="layer-icon data">&#9632;</div>
+        <div><div class="layer-name">Pizza Hut India — Brand Turnaround</div><div class="layer-count">Turnaround &middot; India &middot; Completed</div></div>
+      </div>
+      <ul class="layer-items">
+        <li><span>WOW price point strategy drove volume recovery</span><span class="layer-val">Consumer India</span></li>
+        <li><span>Taco Bell India launched across metro cities</span><span class="layer-val">Market entry</span></li>
+      </ul>
+    </div>
+    <div class="layer" style="border-left:3px solid var(--blue)">
+      <div class="layer-header">
+        <div class="layer-icon data">&#9632;</div>
+        <div><div class="layer-name">Steel Manufacturer — Procurement Optimization</div><div class="layer-count">PEPI &middot; Global &middot; Completed</div></div>
+      </div>
+      <ul class="layer-items">
+        <li><span>$2B revenue, 34K employees, 30 countries</span><span class="layer-val">Scrap metal focus</span></li>
+        <li><span>Applicable to copper/aluminum-heavy companies</span><span class="layer-val">Commodity exposure</span></li>
+      </ul>
+    </div>
+    <div class="layer" style="border-left:3px solid var(--green)">
+      <div class="layer-header">
+        <div class="layer-icon pitch">&#9733;</div>
+        <div><div class="layer-name">Consumer Products — COGS Reduction</div><div class="layer-count">PEPI &middot; Global &middot; Completed</div></div>
+      </div>
+      <ul class="layer-items">
+        <li><span>Top 4 COGS categories: contract mfg, chemicals, freight, packaging</span><span class="layer-val">Supply base</span></li>
+        <li><span>Competitive sourcing events reduced cost base</span><span class="layer-val">60-70% material cost</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 12 Dashboard Sections -->
+  <div class="section-label blue">Dashboard Sections</div>
+  <h2>12 Interconnected Views</h2>
+  <p class="section-desc">Each section serves a distinct analytical purpose. All rendered from the same data model &mdash; no duplication.</p>
+
+  <div class="sections-grid">
+    <div class="sec-card"><div class="sec-num">01</div><div class="sec-name">Executive Snapshot</div><div class="sec-desc">Signal pipeline, themes, red flags, narrative drift, macro backdrop</div></div>
+    <div class="sec-card"><div class="sec-num">02</div><div class="sec-name">Market Pulse</div><div class="sec-desc">Demand signals, input costs, margins, regulatory landscape, catalysts</div></div>
+    <div class="sec-card"><div class="sec-num">03</div><div class="sec-name">Financial Performance</div><div class="sec-desc">Sortable 16-company table with sparklines and derived columns</div></div>
+    <div class="sec-card"><div class="sec-num">04</div><div class="sec-name">Deals &amp; Transactions</div><div class="sec-desc">M&A, JVs, stake sales with type filtering</div></div>
+    <div class="sec-card"><div class="sec-num">05</div><div class="sec-name">Operational Intelligence</div><div class="sec-desc">Ops metrics with confidence badges and cross-links</div></div>
+    <div class="sec-card"><div class="sec-num">06</div><div class="sec-name">Competitive Moves</div><div class="sec-desc">Strategic moves with type and company filtering</div></div>
+    <div class="sec-card"><div class="sec-num">07</div><div class="sec-name">Leadership &amp; Governance</div><div class="sec-desc">Leadership changes, governance alerts, risk scoring</div></div>
+    <div class="sec-card"><div class="sec-num">08</div><div class="sec-name">Sub-Sector Deep Dive</div><div class="sec-desc">7 peer groups, product mix, premium mix, benchmarks, heatmap</div></div>
+    <div class="sec-card"><div class="sec-num">09</div><div class="sec-name">Advisory Pipeline</div><div class="sec-desc">12 accounts, 41 opportunities, 3 stages with signal badges</div></div>
+    <div class="sec-card"><div class="sec-num">10</div><div class="sec-name">Action Lens</div><div class="sec-desc">4 persona tabs: PE/Investors, Founders, COOs/CFOs, Supply Chain</div></div>
+    <div class="sec-card"><div class="sec-num">11</div><div class="sec-name">Watchlist</div><div class="sec-desc">4-quadrant watch matrix, forward signals calendar</div></div>
+    <div class="sec-card"><div class="sec-num">12</div><div class="sec-name">Transcript Intel</div><div class="sec-desc">CoSTAR signal table with evidence vault per company</div></div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Company Coverage Matrix -->
+  <div class="section-label green">Coverage Depth</div>
+  <h2>Company Intelligence Matrix</h2>
+  <p class="section-desc">Current coverage across 16 tracked companies. Wave 1 targets (Bajaj, Blue Star, Symphony, Voltas) have the deepest A&M-specific intelligence.</p>
+
+  <div class="matrix">
+    <table>
+      <thead>
+        <tr>
+          <th>Company</th>
+          <th>Sub-Sector</th>
+          <th>Urgency</th>
+          <th>Intel Report</th>
+          <th>Signal Data</th>
+          <th>Lever Map</th>
+          <th>Pitch</th>
+          <th>News</th>
+          <th>Narrative Drift</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="co-name">Bajaj Electricals</td><td>Electrical</td><td><span class="urgency-badge high">High</span></td><td><span class="dot yes">&check;</span></td><td><span class="dot yes">&check;</span></td><td><span class="dot yes">&check;</span></td><td><span class="dot yes">&check;</span></td><td><span class="dot yes">&check;</span></td><td><span class="dot yes">&check;</span></td></tr>
+        <tr><td class="co-name">Blue Star</td><td>Room AC</td><td><span class="urgency-badge medium">Medium</span></td><td><span class="dot yes">&check;</span></td><td><span class="dot yes">&check;</span></td><td><span class="dot yes">&check;</span></td><td><span class="dot yes">&check;</span></td><td><span class="dot yes">&check;</span></td><td><span class="dot no">&ndash;</span></td></tr>
+        <tr><td class="co-name">Symphony</td><td>Air Coolers</td><td><span class="urgency-badge high">High</span></td><td><span class="dot yes">&check;</span></td><td><span class="dot yes">&check;</span></td><td><span class="dot yes">&check;</span></td><td><span class="dot yes">&check;</span></td><td><span class="dot yes">&check;</span></td><td><span class="dot yes">&check;</span></td></tr>
+        <tr><td class="co-name">Voltas</td><td>Room AC</td><td><span class="urgency-badge high">High</span></td><td><span class="dot yes">&check;</span></td><td><span class="dot yes">&check;</span></td><td><span class="dot yes">&check;</span></td><td><span class="dot yes">&check;</span></td><td><span class="dot yes">&check;</span></td><td><span class="dot yes">&check;</span></td></tr>
+        <tr><td class="co-name">Havells India</td><td>Wires/RAC/Fans</td><td><span class="urgency-badge medium">Medium</span></td><td><span class="dot yes">&check;</span></td><td><span class="dot yes">&check;</span></td><td><span class="dot no">&ndash;</span></td><td><span class="dot no">&ndash;</span></td><td><span class="dot yes">&check;</span></td><td><span class="dot yes">&check;</span></td></tr>
+        <tr><td class="co-name">Crompton</td><td>Fans/Lighting</td><td><span class="urgency-badge medium">Medium</span></td><td><span class="dot yes">&check;</span></td><td><span class="dot yes">&check;</span></td><td><span class="dot no">&ndash;</span></td><td><span class="dot no">&ndash;</span></td><td><span class="dot yes">&check;</span></td><td><span class="dot yes">&check;</span></td></tr>
+        <tr><td class="co-name">Amber Enterprises</td><td>EMS/OEM</td><td><span class="urgency-badge medium">Medium</span></td><td><span class="dot yes">&check;</span></td><td><span class="dot yes">&check;</span></td><td><span class="dot no">&ndash;</span></td><td><span class="dot no">&ndash;</span></td><td><span class="dot yes">&check;</span></td><td><span class="dot no">&ndash;</span></td></tr>
+        <tr><td class="co-name">IFB Industries</td><td>Washing Machines</td><td><span class="urgency-badge high">High</span></td><td><span class="dot yes">&check;</span></td><td><span class="dot yes">&check;</span></td><td><span class="dot no">&ndash;</span></td><td><span class="dot no">&ndash;</span></td><td><span class="dot yes">&check;</span></td><td><span class="dot no">&ndash;</span></td></tr>
+        <tr><td class="co-name">TTK Prestige</td><td>Kitchen</td><td><span class="urgency-badge watch">Watch</span></td><td><span class="dot yes">&check;</span></td><td><span class="dot yes">&check;</span></td><td><span class="dot no">&ndash;</span></td><td><span class="dot no">&ndash;</span></td><td><span class="dot partial">~</span></td><td><span class="dot no">&ndash;</span></td></tr>
+        <tr><td class="co-name">Dixon Technologies</td><td>EMS</td><td><span class="urgency-badge watch">Watch</span></td><td><span class="dot yes">&check;</span></td><td><span class="dot yes">&check;</span></td><td><span class="dot no">&ndash;</span></td><td><span class="dot no">&ndash;</span></td><td><span class="dot yes">&check;</span></td><td><span class="dot no">&ndash;</span></td></tr>
+        <tr><td class="co-name">Orient Electric</td><td>Fans/Room AC</td><td><span class="urgency-badge medium">Medium</span></td><td><span class="dot yes">&check;</span></td><td><span class="dot yes">&check;</span></td><td><span class="dot no">&ndash;</span></td><td><span class="dot no">&ndash;</span></td><td><span class="dot partial">~</span></td><td><span class="dot yes">&check;</span></td></tr>
+        <tr><td class="co-name">V-Guard</td><td>Stabilizers/Fans</td><td><span class="urgency-badge medium">Medium</span></td><td><span class="dot yes">&check;</span></td><td><span class="dot yes">&check;</span></td><td><span class="dot no">&ndash;</span></td><td><span class="dot no">&ndash;</span></td><td><span class="dot yes">&check;</span></td><td><span class="dot yes">&check;</span></td></tr>
+        <tr><td class="co-name">Butterfly Gandhimathi</td><td>Kitchen</td><td><span class="urgency-badge watch">Watch</span></td><td><span class="dot yes">&check;</span></td><td><span class="dot yes">&check;</span></td><td><span class="dot no">&ndash;</span></td><td><span class="dot no">&ndash;</span></td><td><span class="dot partial">~</span></td><td><span class="dot no">&ndash;</span></td></tr>
+        <tr><td class="co-name">Whirlpool India</td><td>Washing Machines</td><td><span class="urgency-badge high">High</span></td><td><span class="dot yes">&check;</span></td><td><span class="dot yes">&check;</span></td><td><span class="dot no">&ndash;</span></td><td><span class="dot no">&ndash;</span></td><td><span class="dot yes">&check;</span></td><td><span class="dot no">&ndash;</span></td></tr>
+        <tr><td class="co-name">Eureka Forbes</td><td>Water/Vacuum</td><td><span class="urgency-badge watch">Watch</span></td><td><span class="dot no">&ndash;</span></td><td><span class="dot no">&ndash;</span></td><td><span class="dot no">&ndash;</span></td><td><span class="dot no">&ndash;</span></td><td><span class="dot yes">&check;</span></td><td><span class="dot no">&ndash;</span></td></tr>
+        <tr><td class="co-name">LG Electronics India</td><td>Diversified</td><td><span class="urgency-badge watch">Watch</span></td><td><span class="dot no">&ndash;</span></td><td><span class="dot no">&ndash;</span></td><td><span class="dot no">&ndash;</span></td><td><span class="dot no">&ndash;</span></td><td><span class="dot yes">&check;</span></td><td><span class="dot no">&ndash;</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>Kompete &mdash; Industry Intel Platform v3.0 &middot; A&M Consumer Durables PoC &middot; March 2026</p>
+    <p style="margin-top:4px">Single-file static dashboard &middot; No backend &middot; No dependencies &middot; 9,014 lines</p>
+  </div>
+
+</div>
+</body>
+</html>
