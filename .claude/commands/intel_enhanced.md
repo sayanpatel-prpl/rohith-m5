@@ -171,33 +171,38 @@ Append the following to the intelligence report file:
 - **Urgency**: {high | medium | watch}
 - **Confidence**: {High | Medium | Low}
 
-### A&M Lever Mapping
+### A&M Lever Mapping (Evidence-Graded)
 
-Map each identified pain point to one or more of A&M's **10 Improvement Levers** (based on their Rapid Results and PEPI methodologies). For each applicable lever, estimate the EBITDA impact in basis points using the benchmark gap analysis approach: "closing 50% of the gap to sector median."
+Map each identified pain point to a specific advisory lever. **Do NOT fabricate bps estimates.** Instead, grade each lever by evidence strength and specify what data is needed to quantify the opportunity.
 
-| # | Lever | Applies When |
-|---|-------|-------------|
-| 1 | Procurement/Sourcing | Single-source risk, no commodity hedging, supplier rationalization opportunity |
-| 2 | Manufacturing Footprint | Underutilized capacity, multi-site redundancy, greenfield vs consolidation |
-| 3 | Supply Chain/Logistics | High inventory days, distribution inefficiency, channel overhang |
-| 4 | Pricing/Commercial | Below-market pricing, poor trade terms, promotional spend leakage |
-| 5 | Operations/Efficiency | Low capacity utilization, yield issues, process waste, lean gaps |
-| 6 | R&D Portfolio | R&D spend without ROI evidence, portfolio bloat, SKU proliferation |
-| 7 | SG&A Optimization | Employee cost growing faster than revenue, back-office bloat, duplicate functions |
-| 8 | Working Capital | Elevated WC days, poor DSO/DPO/DIO management, cash conversion gaps |
-| 9 | Warranty/Returns | High service costs, low NPS, returns leakage |
-| 10 | Product Portfolio | Unprofitable SKUs, tail products, category mix suboptimal |
+**Evidence Strength Classification:**
+- **STRONG** — Direct financial data, verbatim management quotes, or disclosed metrics that clearly quantify the gap. No interpretation needed.
+- **MODERATE** — Partial data or calculated from disclosed numbers. The signal is real but the magnitude needs validation.
+- **DIRECTIONAL** — Pattern inferred from multiple sources or industry context. Indicates an area worth investigating but cannot be quantified from available data.
+
+**Common Lever Categories** (use these or create company-specific lever names):
+| Category | Examples |
+|----------|----------|
+| Procurement/Sourcing | Import dependency, single-source risk, VAVE opportunity, commodity hedging |
+| Manufacturing Footprint | Underutilized capacity, multi-site redundancy, make-vs-buy mismatch |
+| Supply Chain/Logistics | High inventory days, distribution inefficiency, channel overhang |
+| Pricing/Commercial | Below-market pricing, poor trade terms, promotional spend leakage |
+| Operations/Efficiency | Low capacity utilization, yield issues, process waste |
+| SG&A & Overheads | Employee cost outpacing revenue, back-office bloat, marketing ROI |
+| Working Capital | Elevated WC days, poor DSO/DPO/DIO management |
+| Product Portfolio | SKU proliferation, unprofitable tail products, category mix issues |
+| Channel & Distribution | Partner attrition, per-partner productivity, channel profitability |
+| Workforce | Headcount rationalization, skill gaps, restructuring costs |
 
 **Output format** (append to the engagement thesis section):
 
 ```markdown
 ### A&M Lever Mapping
 
-| Lever | Impact (bps) | Rationale |
-|-------|-------------|-----------|
-| {Lever Name} | {XX bps} | {1-2 sentence rationale with evidence reference} |
-| ... | ... | ... |
-| **Total EBITDA Improvement** | **{XXX bps}** | **Rs {XX} Cr annual run-rate on current revenue** |
+| Lever | Evidence Strength | Evidence | Data Needed |
+|-------|------------------|----------|-------------|
+| {Lever Name} | STRONG/MODERATE/DIRECTIONAL | {Specific evidence with numbers from the report} | {What operational data is needed to quantify} |
+| ... | ... | ... | ... |
 
 **Engagement Type**: {rapid_results | pepi | pepi_pe | turnaround | cdd | transaction}
 - rapid_results — Compressed-timeframe turnaround: structural distress, negative EBITDA, board urgency
@@ -206,26 +211,21 @@ Map each identified pain point to one or more of A&M's **10 Improvement Levers**
 - turnaround — Active turnaround: operating losses, governance risk, liquidity stress
 - cdd — Commercial due diligence: strong franchise, PE/M&A target, valuation validation
 - transaction — Deal advisory: active M&A, JV restructuring, stake sale, refinancing
-
-**Margin Optimization Framework**:
-- **Growth vector**: {Revenue growth levers — market share, new categories, geographic expansion}
-- **Investment vector**: {Capex efficiency, M&A ROI, transformation spend ROI}
-- **Cost vector**: {Which of the 10 levers apply, ranked by impact}
 ```
 
-### Estimation Rules
-- Use conservative estimates: 50% of gap closure to sector median, not 100%
-- Revenue base = latest quarter annualized (Q revenue × 4)
-- 1 bps = 0.01% of revenue. So 100 bps on Rs 5,000 Cr = Rs 5 Cr
-- If a lever has no data to quantify, estimate as "TBD — requires operational assessment" and assign 0 bps
-- Total impact should be plausible (50-500 bps typical for PEPI; 300-1000 bps for turnaround)
-```
+### Evidence Rules (CRITICAL — No Fabrication)
+- **NEVER fabricate bps estimates** — only report what the data shows
+- **NEVER use "50% gap closure to sector median"** — this creates false precision
+- **NEVER use anonymous "sector median" or "best-in-class"** — always name the peer company and cite the source
+- If evidence is insufficient to grade as STRONG, mark it MODERATE or DIRECTIONAL
+- Include `mgmtQuote` and `mgmtQuoteSource` when management has explicitly acknowledged the issue
+- If a lever has no data, mark it DIRECTIONAL and specify exactly what data is needed
 
 ### Rules
 - Every claim must trace back to the intelligence report — no external knowledge
 - The thesis should be professional and evidence-grounded, not alarmist
 - Use Situation-Complication-Implication structure (standard consulting framework)
-- A&M lever estimates must reference specific evidence from the report (section number, quote)
+- A&M lever evidence must reference specific data from the report (section number, quote)
 - The signal classification and lever mapping will be used to populate the dashboard's `signalTaxonomy` field in `COMPANY_META`
 
 ### Dashboard Integration
@@ -244,19 +244,52 @@ signalTaxonomy: {
     implication: "{implication text}"
   },
   leverMapping: [
-    {lever:"{Lever Name}", impactBps:{XX}, rationale:"{brief rationale}"},
+    {lever:"{Lever Name}", evidence:"{specific evidence with numbers}", evidenceStrength:"STRONG|MODERATE|DIRECTIONAL", dataNeeded:"{what operational data is needed}", mgmtQuote:"{verbatim quote or null}", mgmtQuoteSource:"{speaker, document, date or null}"},
     // ... one entry per applicable lever
   ],
-  totalImpactBps: {XXX},
-  totalImpactCrores: {XX},
   engagementType: "{rapid_results|pepi|pepi_pe|turnaround|cdd|transaction}",
   keyMetricGaps: [
-    {metric:"EBITDA%", current:{X.X}, median:{X.X}, best:{X.X}},
-    {metric:"ROCE%", current:{X.X}, median:{X.X}, best:{X.X}},
-    // ... for each metric where company is below median
+    {metric:"{Metric Name}", company:{X.X}, peer:"{Named Peer}: {X.X}% ({source}), {Named Peer 2}: {X.X}% ({source})", source:"{Company data source}"},
+    // ... for each metric where the company underperforms named peers
   ]
 }
 ```
+
+**IMPORTANT: `keyMetricGaps` format uses named peer comparisons, NOT anonymous median/best-in-class.**
+Each `peer` string names specific companies with their values and sources.
+
+### Pitch Data (Dashboard Integration)
+
+Also update the company's `pitch` field in `COMPANY_META`:
+
+```js
+pitch: {
+  currentEbitda: {X.X},
+  currentEbitdaSource: "{source document and period}",
+  peerComparison: [
+    {name:"{Peer Company Name}", ebitda:{X.X}, source:"{source document}"},
+    // 2-4 named peers with sourced EBITDA %
+  ],
+  whyNow: "{2-4 sentences from the Complication section — specific numbers, catalysts, timing urgency}",
+  investigationAreas: [
+    {name:"{Area Name}", evidence:"{specific evidence with numbers}", evidenceStrength:"STRONG|MODERATE|DIRECTIONAL", dataNeeded:"{what operational data is needed to quantify}", mgmtAcknowledgement:"{verbatim quote where mgmt acknowledged this issue, or null}"},
+    // 4-8 investigation areas, ordered by evidence strength
+  ],
+  entry: {
+    contact: "{Name, Title (context for why this person)}",
+    message: "{One-sentence opening pitch specific to their pain — what would make this person take a meeting}",
+    reference: "{Comparable engagement, A&M capability, or evidence point that builds credibility}"
+  },
+  evidence: [
+    {quote:"{Verbatim quote max 150 chars}", speaker:"{Name/Title}", source:"{Document}", date:"{Date}"},
+    // 2-4 strongest quotes
+  ],
+  risks: ["{Risk 1 — specific, not generic}", "{Risk 2}"],
+  generatedDate: "{YYYY-MM-DD}"
+}
+```
+
+**IMPORTANT: `investigationAreas` in pitch mirrors `leverMapping` in signalTaxonomy but uses `mgmtAcknowledgement` instead of `mgmtQuote/mgmtQuoteSource`. Both use evidence-graded format (STRONG/MODERATE/DIRECTIONAL), NOT fabricated bps.**
 
 ---
 
@@ -293,7 +326,7 @@ Assess each signal through A&M's turnaround consulting lens across these dimensi
 Write to `{{arg1}}/{CompanyName}_Pain_Points_Ranked.csv` with these columns:
 
 ```
-Rank,Indicator,Signal,Status,Time Period,Severity Level,Severity Rationale,A&M Lever,EBITDA Impact (bps est.),Evidence (Verbatim),Source Document,Line Reference
+Rank,Indicator,Signal,Status,Time Period,Severity Level,Severity Rationale,A&M Lever,Evidence Strength,Evidence (Verbatim),Source Document,Line Reference
 ```
 
 Column rules:
@@ -304,8 +337,8 @@ Column rules:
 - **Time Period**: The fiscal period the signal refers to (e.g., "Q3 FY26", "FY25", "FY24-FY27")
 - **Severity Level**: `Critical` / `High` / `Medium` / `Low` / `Informational`
 - **Severity Rationale**: 1-2 lines explaining why this matters from a turnaround consulting perspective
-- **A&M Lever**: Which of the 10 Improvement Levers this maps to: `Procurement/Sourcing`, `Manufacturing Footprint`, `Supply Chain/Logistics`, `Pricing/Commercial`, `Operations/Efficiency`, `R&D Portfolio`, `SG&A Optimization`, `Working Capital`, `Warranty/Returns`, `Product Portfolio`, or `Multiple` (with comma-separated list in parentheses). Use `N/A` for informational signals.
-- **EBITDA Impact (bps est.)**: Estimated EBITDA impact in basis points. Use conservative estimates (50% gap closure to sector median). Write `0` for signals with no quantifiable impact or `TBD` if data is insufficient.
+- **A&M Lever**: Which lever category this maps to (e.g., `Procurement/Sourcing`, `Manufacturing Footprint`, `Supply Chain/Logistics`, `Pricing/Commercial`, `Operations/Efficiency`, `SG&A & Overheads`, `Working Capital`, `Product Portfolio`, `Channel & Distribution`, `Workforce`, or `Multiple`). Use `N/A` for informational signals.
+- **Evidence Strength**: `STRONG` / `MODERATE` / `DIRECTIONAL` / `N/A` — grade based on evidence quality, NOT fabricated bps estimates. STRONG = direct financial data or management quotes. MODERATE = partial data, calculated. DIRECTIONAL = pattern inferred.
 - **Evidence (Verbatim)**: Exact quotes from the intelligence report evidence bullets. Copy verbatim — do NOT summarize, paraphrase, shorten, or modify. If multiple evidence lines exist, join with ` | `. If no evidence was provided, write `Not Provided`
 - **Source Document**: Exact source document name as written in the intelligence report
 - **Line Reference**: Section number from the intelligence report (e.g., "Section 3", "Section 5c", "Strategic Signals — Key Risks #2")
@@ -440,27 +473,43 @@ Update:
 
 ---
 
-## Phase 5.5: Benchmark Gap Analysis
+## Phase 5.5: Named Peer Comparison & Gap Analysis
 
-After populating the dashboard, compute the benchmark gap for this company using the `BENCHMARK_DATA` object in `index_v5.html`. This step calibrates the lever mapping estimates.
+After populating the dashboard, build the peer comparison using **named companies** from `FINANCIAL_DATA` in `index_v5.html`. **Do NOT use anonymous "sector median" or "best-in-class".**
 
 ### Steps
 
-1. **Read `FINANCIAL_DATA`** from `index_v5.html` to get sector-wide metrics
-2. **Compute sector medians** for: EBITDA %, ROCE, D/E, WC Days, Rev Growth, Inv Days, CCC
-3. **Calculate this company's gaps**:
-   - Gap to median = sector median - company value (for "higher is better" metrics; reverse for "lower is better")
-   - Gap to best-in-class = best value - company value
+1. **Read `FINANCIAL_DATA`** from `index_v5.html` to get peer company financials
+2. **Identify 2-4 relevant named peers** for this company:
+   - Same sub-sector (e.g., AC companies compare to other AC companies)
+   - Similar scale (revenue band) or direct competitors
+   - Use the company's `subSector` field in `COMPANY_META` for grouping
+3. **For each key metric** (EBITDA %, ROCE, D/E, WC Days, Rev Growth):
+   - Look up this company's value from the latest FINANCIAL_DATA row
+   - Look up each named peer's value from their latest FINANCIAL_DATA row
+   - Only include metrics where this company underperforms at least one named peer
 4. **Populate `keyMetricGaps`** in the company's `signalTaxonomy`:
-   - Only include metrics where the company is **below median** (i.e., there's improvement opportunity)
-   - Each entry: `{metric:"EBITDA%", current:{X.X}, median:{X.X}, best:{X.X}}`
-5. **Cross-check lever estimates**: For each lever in `leverMapping`, verify the bps estimate is consistent with the gap data. Adjust if the gap data suggests a different magnitude.
-6. **Recalculate `totalImpactBps` and `totalImpactCrores`** after any adjustments.
+   ```js
+   keyMetricGaps: [
+     {metric:"EBITDA %", company:7.2, peer:"Voltas UCP: 8.4% (FY25 segment), Havells: 8.8% (FY25)", source:"Blue Star: 9M FY26; Voltas/Havells: FY25 annual filings"},
+     // ... only metrics where the company underperforms named peers
+   ]
+   ```
+5. **Populate `peerComparison`** in the company's `pitch`:
+   ```js
+   peerComparison: [
+     {name:"Voltas", ebitda:6.4, source:"FINANCIAL_DATA FY25 annual"},
+     {name:"Havells India", ebitda:8.8, source:"FINANCIAL_DATA FY25 annual"}
+   ]
+   ```
+6. **Cross-validate leverMapping**: Ensure the evidence cited in each lever is consistent with the peer gaps identified.
 
 ### Rules
-- Use the latest quarterly data row for each company
-- If the company is already above median on a metric, do NOT include it in `keyMetricGaps`
-- The total impact estimate should not exceed the full gap to sector median (we use 50% gap closure as the target)
+- **ALWAYS name the peer company** — never use "sector median" or "best-in-class"
+- **ALWAYS cite the source** for each peer's data point (document name + period)
+- Use the latest data row for each company (prefer quarterly if available, else annual)
+- If the company outperforms all named peers on a metric, do NOT include it in `keyMetricGaps`
+- Internal segment comparisons are valid peers (e.g., Blue Star EMP 8.8% vs UCP 6.2%)
 
 ---
 
@@ -469,16 +518,18 @@ After populating the dashboard, compute the benchmark gap for this company using
 After all edits, report to the user:
 
 1. **Intelligence Report**: Path to the generated report, document count, section count
-2. **Pain Points CSV**: Path to the ranked CSV, total signal count, critical/high/medium/low breakdown, lever distribution
+2. **Pain Points CSV**: Path to the ranked CSV, total signal count, critical/high/medium/low breakdown, evidence strength distribution (STRONG/MODERATE/DIRECTIONAL counts)
 3. **Dashboard Updates Made**:
    - COMPANIES array: productMix, premiumMix, variance, source
-   - signalTaxonomy: leverMapping, totalImpactBps, engagementType, keyMetricGaps
+   - signalTaxonomy: leverMapping (evidence-graded), engagementType, keyMetricGaps (named peers)
+   - pitch: currentEbitda, peerComparison, investigationAreas, entry, evidence, risks
    - Talk vs Walk card: management says / data shows
    - Scale Matrix row: description
    - Kanban card: type + advisory points
    - Watchlist entry: signal + catalysts + severity
-4. **A&M Lever Summary**: Table of levers applied with total EBITDA impact estimate
-5. **Sections to verify in browser**:
+4. **A&M Lever Summary**: Table of levers with evidence strength grades + data needed for each
+5. **Peer Comparison**: Named peers used, EBITDA positions, key gaps identified
+6. **Sections to verify in browser**:
    - Financial Performance table (click company row)
    - Executive Snapshot > Talk vs Walk
    - Sub-Sector Deep Dive > Sector Benchmarks (heatmap)
